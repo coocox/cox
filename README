@@ -77,7 +77,7 @@ Interface Definition & Roadmap
 |ADC       |ADC Peripheral Interface                     |   Y    |09/2011    |
 |ACMP      |Analog Comparator Peripheral Interface       |   Y    |09/2011    |
 |I2S       |Inter-Integrated Circuit Sound(I2S)          |   +    |12/2011    |
-|          |Peripheral Interface		                 |        |           | 
+|          |Peripheral Interface                         |        |           | 
 |CAN       |CAN Bus Peripheral Interface                 |   +    |12/2011    |
 |USB       |USB Device/Host/OTG Peripheral Interface     |   +    |12/2011    |
 |EBI       |EBI bus Peripheral Interface                 |   +    |12/2011    |
@@ -101,9 +101,9 @@ Supported MCU Platform & Roadmap
 |                 |LPC13xx            |   +    |2012       |
 |                 |LPC17xx            |   +    |2012       |
 |-----------------|-------------------|--------|-----------|
-|ST	              |STM32F10x          |   +    |12/2011    |
+|ST               |STM32F10x          |   +    |12/2011    |
 |-----------------|-------------------|--------|-----------|
-|TI	              |Stellaris          |   +    |12/2011    |
+|TI               |Stellaris          |   +    |12/2011    |
 +-----------------+-------------------+--------+-----------+
 
 Repository Information
