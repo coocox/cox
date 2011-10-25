@@ -1,0 +1,229 @@
+
+This file shows how to contribute to the CoX project. 
+
+The contributer can:
+- Port Cox to a new MCU
+- Improve CoX
+- Develop drivers based on CoX
+
+1. Port Cox to a new MCU
+-------------------------------------------------------------------------------
+
+    1.1. CoX Peripheral Library Directory Organizition
+-------------------------------------------------------------------------------
+
+    The root directory of the CoX peripheral library is 
+/CoX/CoX_Peripheral/CoX_Peripheral_$Platform$, such as CoX_Peripheral_NUC1xx.
+
+
+/libcox/
+    Source code of all the peripherals library, include *.h, *.c.
+    
+    xacmp.h
+    xacmp.c
+    xhw_acmp.h
+    ...
+
+/$Peripheral$/ (/gpio/ for example)
+    Document, examples, testcases of the peripheral(gpio) module.
+    
+    doc/
+        $Peripheral$.xml (xgpio.xml for example)
+            Component infomation, such as name, version, files and so on.
+            
+    example/
+        example projects of the module.
+        
+        blinky/
+            blinky example project.
+            
+            src/
+                example source code.
+                
+            ewarm/
+                IAR EWARM project files.
+                
+                blinky.eww
+                blinky.ewp
+                blinky.ewd
+                
+            rvmdk/
+                Keil MDK project files.
+                
+                blinky.uvproj
+                
+            coide_gen/
+                CooCox CoIDE project generated from ewarm project.
+                
+        ...
+        
+    test/
+        test projects of the module.
+        
+        suite1/
+            test suite1.
+            
+            src/
+            ewarm/
+            rvmdk/
+            coide_gen/
+        suite2/
+        ...
+
+/all/        
+    Project template. Similar with peripheral module.
+    
+doc/
+    CoX doxygen doucument and generate script.
+    
+    images/
+        Images that using in the doxygen document.
+        
+    txt/
+        Doxygen document of the modules main page.
+        
+        adc/
+            xadc_en.txt
+            nuc1xx_adc_en.txt
+            perl/
+                Perl source to generate text tables.
+        ...
+        
+    gen/
+        Doxygen generate script.
+        
+    1.2. The composition of the one mdule of the library
+-------------------------------------------------------------------------------        
+
+Usually, a module has three file:
+- xhw_$Peripheral$.h (xhw_gpio.h for example)
+    This file contains the register info of the peripheral.    
+- x$Peripheral$.h (xgpio.h for example)
+    Driver api & macros exported.
+- x$Peripheral$.c (xgpio.c for example)
+    The implement of the driver.
+    
+    1.3 Steps to port CoX to a new mcu platform
+-------------------------------------------------------------------------------        
+
+- Download the blank template libary.
+- Wirte the register info of the peripheral in the xhw_*.h.
+- Implement all the functions of the peripheral in the moudle.h/.c.
+- Port the APIs with the prifix 'x' base on the periperal functions you have 
+  implemented. The web site: http://www.coocox.org/cox/manual/interface/  shows
+  the details of the API.
+- Test and wite the doxygen documents.
+- Commit to your fork repository, and send pull request on the github.
+
+Usually, The peripheral Development order is like this: First is SysCtl modules,
+and then GPIO, UART, finally, the other modules.
+
+
+2. Develop drivers based on CoX
+-------------------------------------------------------------------------------
+
+    2.1. Driver Library Directory Organizition
+-------------------------------------------------------------------------------
+
+    The root directory of the external device is 
+/CoX/Driver/$Cate_SubCate_Manufacturer$/$Device$, $Cate_SubCate_Manufacturer$ 
+is the category of the device. such as Sensor_Temp_ADI is the devices of ADI 
+temperature sensor. $Device$ is the device name, such as AD7417.
+
+    There may be several drivers for a device.
+    
+/doc/
+    device/
+        Devices infomation.
+        
+        AD7417.xml
+            AD7417 info.
+            
+/$Driver_Name$/ (AD7417_I2C_Driver for example) 
+    A Driver of the device.
+    
+    doc/
+    Doxygen doucument and generate script.
+    
+        images/
+            Images that using in the doxygen document.
+            
+        txt/
+            Doxygen document of the modules main page.
+            
+            xadc_en.txt
+            nuc1xx_adc_en.txt
+            perl/
+                Perl source to generate text tables.
+            
+        gen/
+            Doxygen generate script.
+            
+    lib/
+        Source code of the driver library, include *.h, *.c.
+        
+        hw_ad7417.h
+        ad7417.h
+        ad7417.c
+    
+    example/
+        example projects of the module.
+        
+        ad7417_temp_read/
+            AD7417 temperator read example project.
+            
+            src/
+                example source code.
+                
+            ewarm/
+                IAR EWARM project files.
+                
+                ad7417_temp_read.eww
+                ad7417_temp_read.ewp
+                ad7417_temp_read.ewd
+                
+            rvmdk/
+                Keil MDK project files.
+                
+                ad7417_temp_read.uvproj
+                
+            coide_gen/
+                CooCox CoIDE project generated from ewarm project.
+                
+        ...
+        
+    test/
+        test projects of the module.
+        
+        suite1/
+            test suite1.
+            
+            src/
+            ewarm/
+            rvmdk/
+            coide_gen/
+        suite2/
+        ...
+
+    2.2. The composition of the driver library
+-------------------------------------------------------------------------------        
+
+Usually, a module has three file:
+- hw_$Device$.h (hw_ad7417.h for example)
+    This file contains the register info of the device.    
+- $Device$.h (ad7417.h for example)
+    Driver api & macros exported.
+- $Device$.c (ad7417.c for example)
+    The implement of the driver.
+    
+
+    2.3 Steps to Develop a driver of an external device
+-------------------------------------------------------------------------------        
+
+- Wirte the register info of the device in the hw_*.h.
+- Implement all the functions of the device in the moudle.h/.c. using CoX
+  peripheral interface to make it portable.
+- Test and wite the doxygen documents.
+- Commit to your fork repository, and send pull request on the github.
+
+    
