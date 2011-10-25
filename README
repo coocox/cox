@@ -1,0 +1,195 @@
+CoX - CoX Peripheral Interface, by CooCox(http://www.coocox.org)
+
+http://www.coocox.org/cox.html
+https://github.com/coocox/cox
+
+General Information
+-------------------------------------------------------------------------------
+
+CoX Peripheral Library is the definition of a group of interface functions. 
+It defines the functional access functions of MCU¡¯s common peripherals, such 
+as IIC, SPI, UART, etc. CoX makes full functions, drivers based on CoX can be 
+ported to other MCU easily.
+
+CoX Peripheral Library can be divided into four parts:
+- Common mandatory type interface.
+- Common type of non-mandatory interface.
+- MCU-specific interface.
+- MCU register interface.
+
+Features
+-------------------------------------------------------------------------------
+
+- Free and open source under BSD license
+- Peripherals library with a unified standard interface, can be ported to 
+  other MCUs easily
+- Full functions of the peripheral, CoX still provides a set of APIs for 
+  special MCU features
+- Support interrupt, CoX extracts a set of interrupt events
+- A lot of reused drivers
+- Extensive documentation generated using doxygen standard
+- Standard definition of the API reference for almost all the Cortex-M0/M3 
+  MCU manuals
+- Add a new innovative element, such as the short pin (PA2) in GPIO module
+- Strict coding standard and does not affect code size and speed, through 
+  rigorous testing and verification
+- Configurable
+- Provide blank template to make port more easily
+
+Why do we use CoX
+-------------------------------------------------------------------------------
+
+- CoX Peripheral is not only a common interface for drivers, but also a full 
+  peripheral library
+- CoX function interface unify the definition of the access functions of MCU's
+  common peripherals, which makes you port programs among different MCUs more 
+  conveniently.
+- CoX has a set of specific realization for each MCU, and its code size and 
+  speed are nearly the same as the library that the suppliers provided.
+  
+When should we use CoX
+-------------------------------------------------------------------------------
+
+- If users may change MCU in the future and do not want to do too much 
+  unnecessary port work.
+- If users plan to use the existing drivers based on CoX interface.
+
+Interface Definition & Roadmap
+-------------------------------------------------------------------------------
+
++----------+---------------------------------------------+--------+-----------+
+|Interface |Description                                  |States  |Date       |
+|----------|---------------------------------------------|--------|-----------|
+|Startup   |CoX startup code                             |   Y    |09/2011    |  
+|LowLayer  |CoX lowlayer support, such as type define,   |   Y    |09/2011    |
+|          |register define,  debug assert and so on     |        |           |
+|CORE 	   |Cortex-M0/M3 Core Peripheral Interface       |   Y    |09/2011    |
+|SysCtl    |System Control(CG & PMC) Peripheral Interface|   Y    |09/2011    |
+|DMA       |DMA Peripheral Interface                     |   Y    |09/2011    |
+|GPIO      |GPIO & AFIO Peripheral Interface             |   Y    |09/2011    |
+|UART      |UART Peripheral Interface                    |   Y    |09/2011    |
+|SPI       |SPI(SSI) Peripheral Interface                |   Y    |09/2011    |
+|I2C       |I2C Peripheral Interface                     |   Y    |09/2011    |
+|TIMER     |Timer Peripheral Interface                   |   Y    |09/2011    |
+|PWM       |PWM Peripheral Interface                     |   Y    |09/2011    |
+|RTC       |RTC Peripheral Interface                     |   Y    |09/2011    |
+|WDT       |Watchdog Timer Peripheral Interface          |   Y    |09/2011    |
+|ADC       |ADC Peripheral Interface                     |   Y    |09/2011    |
+|ACMP      |Analog Comparator Peripheral Interface       |   Y    |09/2011    |
+|I2S       |Inter-Integrated Circuit Sound(I2S)          |   +    |12/2011    |
+|          |Peripheral Interface		                 |        |           | 
+|CAN       |CAN Bus Peripheral Interface                 |   +    |12/2011    |
+|USB       |USB Device/Host/OTG Peripheral Interface     |   +    |12/2011    |
+|EBI       |EBI bus Peripheral Interface                 |   +    |12/2011    |
++----------+---------------------------------------------+--------+-----------+
+
+Supported MCU Platform & Roadmap
+-------------------------------------------------------------------------------
+
++-----------------+-------------------+--------+-----------+
+|Manufacturer     |Series             |States  |Date       |
+|-----------------|-------------------|--------|-----------|
+|CooCox	          |CoX Port Template  |   Y    |09/2011    |
+|-----------------|-------------------|--------|-----------|
+|Nuvoton          |NUC1xx             |   Y    |09/2011    |
+|                 |NUC122             |   +    |11/2011    |
+|                 |M051               |   +    |12/2011    |
+|-----------------|-------------------|--------|-----------|
+|NXP              |LPC11c1x           |   +    |2012       |
+|                 |LPC11xx            |   +    |12/2011    |
+|                 |LPC12xx            |   +    |2012       |
+|                 |LPC13xx            |   +    |2012       |
+|                 |LPC17xx            |   +    |2012       |
+|-----------------|-------------------|--------|-----------|
+|ST	              |STM32F10x          |   +    |12/2011    |
+|-----------------|-------------------|--------|-----------|
+|TI	              |Stellaris          |   +    |12/2011    |
++-----------------+-------------------+--------+-----------+
+
+Repository Information
+-------------------------------------------------------------------------------
+
+The contents of the repository can be divided into four parts:
+- CoX interface and library code that ported to various MCU platforms 
+- Drivers based on CoX, such as temperature sensors LCD1602 and so on 
+- Protocol Stack based on CoX, such as USB stack and so on
+- The code ported from all manufacturers library to CooCox CoIDE component 
+  platform
+
+Contribution
+-------------------------------------------------------------------------------
+
+Wish to be a contributor of CoX? You can:
+1. Port Cox to a new MCU
+2. Improve CoX
+3. Develop drivers based on CoX
+
+Please see the guide in the /Document/.
+
+Repository Layout
+-------------------------------------------------------------------------------
+
+/CoX/
+    CoX peripheral librarys for diffrent MCU platform and drivers or  
+    middleware that based on the CoX peripheral interface.
+    
+    CoX_Peripheral/
+        CoX peripheral librarys for diffrent MCU platform.
+        
+        CoX_Peripheral_Manual/
+            Source for generate CoX peripheral manual.
+            
+        CoX_Peripheral_NUC1xx/
+            CoX peripheral library for Nuvoton NUC1xx.
+        
+        CoX_Peripheral_Template/
+            CoX peripheral library port template.
+            
+        ...
+        
+        publish/
+            Publish CoX peripheral library script. 
+                
+    Driver/
+        Drivers that based on the CoX peripheral interface.
+        
+        resource/
+            testframe/
+                Driver test frame.
+                
+        Sensor_Temp_ADI/
+            Drivers for ADI temperature sensor. The directory name like this:
+            Cate_SubCate_Manufacturer.
+
+        Sensor_Temp_Microchip/
+            Drivers for Microchip temperature sensor.
+            
+        ...
+        
+/Document/
+    Some document.
+    
+/LICENSE
+    Licensing and copyright information.
+    
+/Nuvoton/
+    Peripheral library compatible with CMSIS provided by Nuvoton.
+    
+    NUC1xx/
+        NUC1xx peripheral library provided by Nuvoton.
+        
+    ...
+        
+/README
+    This file.
+    
+/Resource/
+    Some useful tools.
+        
+        
+    
+    
+        
+        
+
+
