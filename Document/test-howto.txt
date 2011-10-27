@@ -1,0 +1,126 @@
+
+We provide a set of automation test framework to make test easy.
+
+About the test framwork
+-------------------------------------------------------------------------------
+
+There may be several test suites in a test project, and several test cases in 
+a test suite.
+
+The test framwork will call the testcases in each test suite. After all test 
+cases excute, There may be a report through the uart.
+
+There are 4 files in the framwork.
+- test.h
+- test.c
+- test_port.c
+- main.c
+
+test_port.c is the part need to port. Mainly including serial ports output and 
+interrupt related.
+
+Port the tet framwork
+-------------------------------------------------------------------------------
+
+You should implement function below:
+
++-----------------------------+------------------------------+
+|Function                     |Brief                         |
+|-----------------------------|------------------------------|
+|void TestIOInit(void);       |Init the UART.                |
+|void TestIOPut(char ch);     |Put a char through the UART.  |
+|void TestEnableIRQ(void);    |Enable interrupt.             |
+|void TestDisableIRQ(void);   |Disable interrupt.            |
++-----------------------------+------------------------------+
+
+What is a TestCase
+-------------------------------------------------------------------------------
+
+Here is the testcase type define:
+
+typedef struct 
+{
+    //
+    //! \brief Test case name get function. 
+    //
+    char* (*GetTest)(void);
+
+    //
+    //! \brief Test case preparation function.
+    //
+    void (*Setup)(void);
+
+    //
+    //! \brief Test case clean up function. 
+    //
+    void (*TearDown)(void);
+
+    //
+    //! \brief Test case execution function.
+    //
+    void (*Execute)(void);
+}
+tTestCase;
+
+GetTest show the testcase name.
+Setup is the preparation function.
+TearDown is the clean up function.
+Execute is the main the executeion function.
+
+
+How to write a testcase.execute function
+-------------------------------------------------------------------------------
+
+Assert functions:
+
++-------------------------------+--------------------------------------+
+|ASSERT Function                |Brief                                 |
+|-------------------------------|--------------------------------------|
+|TestAssert(bCondition, pcMsg)  |Test assertion.                       |
+|void TestEmitToken(char token) |Emits a token into the tokens buffer. | 
+|TestAssertQ(pcExpected, pcMsg) |Test sequence assertion.              |
++-------------------------------+--------------------------------------+
+
+Write a testsuite:
+Write your testcase in test1.c, and the adding your testcase in the file:
+testcase.h
+testcase.c.
+
+//
+// A test case
+//
+const tTestCase sTest001 = {
+		Test001GetTest,
+		Test001Setup,
+		Test001TearDown,
+		Test001Execute
+};
+
+//
+// A suite
+//
+const tTestCase * const psPattern001[] =
+{
+    &sTest001,
+    0
+};
+
+Then adding the suite to the execute array:
+
+//*****************************************************************************
+//
+// Array of all the test.
+//
+//*****************************************************************************
+const tTestCase * const* g_psPatterns[] =  {
+  
+    psPattern001,
+
+    //
+    // end
+    //
+    0
+};
+
+
+
