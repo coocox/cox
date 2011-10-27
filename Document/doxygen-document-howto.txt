@@ -1,0 +1,178 @@
+
+About Doxygen
+-------------------------------------------------------------------------------
+
+Doxygen is a documentation system for C++, C, Java, Objective-C, Python, 
+IDL (Corba and Microsoft flavors), Fortran, VHDL, PHP, C#, and to some extent D.
+It can generate an on-line documentation browser (in HTML).
+
+More info about doxygen please refrence:
+                http://www.stack.nl/~dimitri/doxygen/index.html
+                
+                
+CoX Use doxygen generate on-line documentation, like:
+                http://www.coocox.org/cox/manual/nuc1xx/
+                
+
+Setup Doxygen
+-------------------------------------------------------------------------------
+
+1. Download and setup Doxygen: 
+            http://www.stack.nl/~dimitri/doxygen/download.html#latestsrc
+2. Download and setup Graphviz (to generate inheritance diagrams):
+            http://www.graphviz.org/
+            
+            
+            
+Group
+-------------------------------------------------------------------------------
+
+Cox use the group to organize the document. Doxygen creates a new page for 
+each group. These groups are called 'modules' in the documentation.
+
+Modules are a way to group things together on a separate page. You can document 
+a group as a whole, as well as all individual members. Members of a group can  
+be files, namespaces, classes, functions, variables, enums, typedefs, and  
+defines, but also other groups.
+
+//*****************************************************************************
+//
+//! \addtogroup COX_Peripheral_Lib
+//! @{
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup ADC
+//! @{
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup xADC
+//! @{
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup xADC_Data_Resolution xADC Data Resolution
+//! \brief Values that show the ADC Data Resolution (Data Mask, Data Length)
+//!
+//! @{
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+The code above written in the .h file determines the relationship between the 
+groups. 
+
+For some simple group, we'll add some instructions directly on the code,
+such as xADC_Data_Resolution. xADC_Data_Resolution is the group ID, 
+'xADC Data Resolution', '\brief' shows the brief info.
+
+For some more complex group, we will be describe in detail in a TXT document. 
+
+//*****************************************************************************
+//
+//! \defgroup ADC
+//! 
+//! \brief Analog-to-Digital Converter (ADC) Peripheral Driver.
+//!
+//! An analog-to-digital converter (ADC) is a peripheral that converts a 
+//! continuous analog voltage to a discrete digital number.
+//!
+//! The ADC always operates by successive approximation with 10-bit/12-bit 
+//! resolution and has several input channels, plus an internal temperature 
+//! sensor. 
+
+...
+//
+//*****************************************************************************
+
+
+How to write a Peripheral module group index page
+-------------------------------------------------------------------------------
+
+The peripheral module group document is divided into 4 parts:
+- Function description of the common peripheral.
+- CoX API description.
+- MCU API description.
+- MCU Register description.
+
+
+How to write a driver module group index page
+-------------------------------------------------------------------------------
+
+The driver module group document is divided into 3 parts:
+- Function description of the external device.
+- API description.
+- Register & Command description.
+
+
+Doxygen command that used regularly in the CoX
+-------------------------------------------------------------------------------
+
+Refrence:
+        http://www.stack.nl/~dimitri/doxygen/commands.html
+
+- \defgroup, \addtogroup to define a group or add members to the group.
+- <h1></h1>, <h2></h2>, <h3></h3> is the heading styles.
+- \n is a new line.
+- \ref, Creates a reference to a named section, subsection, page or anchor.
+- List. here is an example:
+    //
+    //! <h1>Contents</h1>
+    //! - \ref ADC_Blcok
+    //! - \ref ADC_Function_Desc
+    //!   - \ref ADC_Pin_Desc
+    //!   - \ref ADC_Sequence
+    //!   - \ref ADC_Source
+    //!   - \ref ADC_Comp
+    //!   - \ref ADC_Event
+    //!   .
+    //! .
+    //
+- \verbatim, \endverbatim.  A block of text that will be verbatim included 
+in the documentation.
+
+    //! \verbatim
+    //! +----------------+------------------------------------------------+
+    //! |Pin Name        |Pin Description                                 |
+    //! |----------------|------------------------------------------------|
+    //! |ADC0            |Analog-to-digital converter input 0.            |
+    //! |----------------|------------------------------------------------|
+    //! |ADC1            |Analog-to-digital converter input 1.            |
+    //! |----------------|------------------------------------------------|
+    //! \endverbatim
+
+- \code, \endcode. A block of code.
+- \section, \subsection, \subsubsection.
+- <img src="adc_block.png" />, add a image into the document.
+- \b is bold style.
+
