@@ -1,0 +1,204 @@
+
+CoX Coding Standard
+
+CoX Library have unified coding standard, to make the code is easy to read 
+and maintain. And we use the doxygen grammar, to produce a document.
+
+Below are some of the common attention, more please reference our code.
+
+
+1. Typesetting
+-------------------------------------------------------------------------------
+
+1.1. Program needs to be written with indentation manner, and the number of 
+spaces to indent should be 4.
+
+1.2. Alignment only uses the space key, does not use the TAB key. Note: To 
+avoid the irregular program caused by the different number of spaces set by 
+TAB key when using a different editor reading program.
+
+1.3. Bank line must be added among relatively independent program block and 
+after variable description.
+
+1.4. Long statement (> 80 characters) needs to be split into multiple lines; 
+long expression needs to start a new line at the low-priority instruction 
+character, the instruction character should at the beginning of the new line, 
+and the divided new line should have appropriate indentation to make the 
+layout tidy and statement fluent.
+
+1.5. Statements like if, for, do, while, case, switch, default and others 
+should occupy one line, and needs to add parenthesis {} no matter how long 
+the statement is.
+
+1.6. The program that at the beginning of the function or the definition of 
+structure or circulation needs to be written with indentation manner, the 
+processing statement in case statement also needs to obey indentation rule.
+
+1.7. The delimiter of program (such as "{" and "}") should occupy one line 
+and in the same column, and needs to be left-aligned with the statement 
+refer to them. The program at the beginning of function body, the definition 
+of class, the definition of enumeration and the statements like if, for, do, 
+while, switch, case needs to add the above indentation.
+
+1.8. Spaces are needed to add before or after or both before and after the 
+instruction character when doing the equivalent operation in more than two 
+keywords, variables, constants. Spaces are not needed with the close 
+immediately instruction characters (such as ->) when not doing the 
+equivalent operation.
+
+2. Comments
+-------------------------------------------------------------------------------
+
+2.1. File header
+-------------------------------------------------------------------------------
+The file header shows the brief, author, date, license of the file.
+It is like this:
+
+//*****************************************************************************
+//
+//! \file xadc.h
+//! \brief Defines and Macros for ADC API.
+//! \version V2.0.0
+//! \date 9/30/2011
+//! \author CooCox
+//! \copy
+//!
+//! Copyright (c)  2011, CooCox 
+//! All rights reserved.
+//! 
+//! Redistribution and use in source and binary forms, with or without 
+//! modification, are permitted provided that the following conditions 
+//! are met: 
+//! 
+//!     * Redistributions of source code must retain the above copyright 
+//! notice, this list of conditions and the following disclaimer. 
+//!     * Redistributions in binary form must reproduce the above copyright
+//! notice, this list of conditions and the following disclaimer in the
+//! documentation and/or other materials provided with the distribution. 
+//!     * Neither the name of the <ORGANIZATION> nor the names of its 
+//! contributors may be used to endorse or promote products derived 
+//! from this software without specific prior written permission. 
+//! 
+//! THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+//! AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//! IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+//! ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+//! LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+//! CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+//! SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+//! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+//! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+//! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+//! THE POSSIBILITY OF SUCH DAMAGE.
+//
+//*****************************************************************************
+
+The word with a prefix '\' ard doxygen command, such as \file, \brief, \date.
+
+2.2. Function head
+-------------------------------------------------------------------------------
+
+//*****************************************************************************
+//
+//! \brief Configures an ADC digital comparator.
+//!
+//! \param ulBase is the base address of the ADC module.
+//! \param ulCompID is the ID of the comparator to configure.
+//! \param ulConfig is the configuration of the comparator.
+//!
+//! This function will configure a comparator.  The \e ulConfig parameter is
+//! the result of xADC_COMP_INT_xxx value. Refrence 
+//! \ref xADC_Comparator_Int_Condition.
+//!
+//! \note Here are some matters needing attention.
+//!
+//! \return None.
+//
+//*****************************************************************************
+
+Order is the \brief, \param(optional), details(optional), \note(optional), 
+\return.
+
+2.3. The comments in the function
+-------------------------------------------------------------------------------
+
+{
+    ...
+    
+    //
+    // Get the ADC_CMPRx register address
+    //
+    ulCompRegAddr = ulBase + ADC_CMPR0 + (4 * ulCompID);
+    
+    ...
+}
+    
+2.4. Macro comments
+-------------------------------------------------------------------------------
+ 
+//
+//! Compare condition is greater or equal
+//
+#define ADC_COMP_GREATER_EQUAL  0x00000004
+
+
+2.5. Doxygen group
+-------------------------------------------------------------------------------
+
+//*****************************************************************************
+//
+//! \addtogroup NUC1xx_ADC_Operation_Mode NUC1xx ADC Operation Mode
+//! \brief ADC A/D Converter Operation Mode.
+//! @{
+//
+//*****************************************************************************
+
+...
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+3. Identifier Naming
+-------------------------------------------------------------------------------
+
+3.1 Name for variables, generally is: Type of prefix + Noun with the first 
+letter capitalized, such as ulRegisterValue, pucBuffer.
+
++----------------------+-------+------------------+
+|Type                  |prefix |example           |
+|----------------------|-------|------------------|
+|unsigned long         |ul     |ulRegisterValue   |
+|unsigned long pointer |pul    |pulBuffer         |
+|long                  |l      |lValue            |
+|long pointer          |pl     |plValue           |
+|unsigned short        |us     |usValue           |
+|unsigned short pointer|pus    |pusValue          |
+|short                 |s      |sValue            |
+|short pointer         |ps     |psValue           |
+|unsigned char         |uc     |ucValue           |
+|unsigned char pointer |puc    |pucValue          |
+|char                  |c      |cChar             |
+|char pointer          |pc     |pcString          |
+|struct                |s      |sValue            |
+|struct pointer        |ps     |psValue           |
+|xBoolean              |b      |bResult           |
++----------------------+-------+------------------+
+
+3.2. Name for typedef typies, generally is: t prefix + Noun with the first 
+letter capitalized, such as tBoolean.
+
+3.3 Name for functions, generally is: Module + Noun with the first letter 
+capitalized + Verb with the first letter capitalized, such as SysCtlClockSet, 
+GPIOPinsRead.
+
+3.4 Name for macros, generally is: Module + capitalized Noun, the middle 
+with '_' separated, such as xADC_EVENT_END_CONVERSION.
+
+
+
+
+
+
