@@ -1,0 +1,200 @@
+
+//*****************************************************************************
+//
+//! \page COX_Guide How to
+//!  
+//! 
+//!
+//! <h1>Contents</h1>
+//! - \ref COX_Guide_Howto
+//!   - \ref COX_Guide_Howto_Step
+//!   - \ref COX_Guide_Howto_Shortpin
+//!     - \ref COX_Guide_Howto_Shortpin_What
+//!     - \ref COX_Guide_Howto_Shortpin_When
+//!     - \ref COX_Guide_Howto_Shortpin_How
+//!     .
+//!   - \ref COX_Guide_Howto_Int
+//!   - \ref COX_Guide_Howto_Peripheral
+//!   - \ref COX_Guide_Howto_More_Portable 
+//!   - \ref COX_Guide_Howto_Code_Standard
+//!     - \ref COX_Guide_Howto_Code_Name
+//!     - \ref COX_Guide_Howto_Code_doxygen
+//!     .
+//!   .
+//! - \ref COX_Guide_Port
+//! .
+//! \n
+//!
+//! \section COX_Guide_Howto 1. How to use the COX Peripheral Library?
+//! \subsection COX_Guide_Howto_Step 1.1 Step of using COX Peripheral Library?
+//! -# Select the COX implment according the select mcu, such as \b NUC1xx
+//! COX Peripheral Library. copy to libcox, startup to your workdir.
+//! -# Determine the compiler IDE, such as MDK, add startup_rvmdk.s to your 
+//! project.
+//! -# Define preprocessor symbols to tell the cox with compiler you use:
+//!   - \b gcc - CooCox CoIDE(GCC).
+//!   - \b ewarm - IAR EWARM.
+//!   - \b rvmdk - Keil MDK.
+//!   .
+//! -# Define preprocessor symbols \b xDebug to enable the COX debug feature,
+//! \ref xASSERT to assert some conditions.
+//! -# Include the header file :
+//!   - \ref xhw_types.h 
+//!   - \ref xhw_memmap.h
+//!   - \ref xhw_ints.h
+//!   - \ref xgpio.h or the peripheral that you use.
+//!   .
+//! -# APIs with a prefix \b x, is the COX unified interface. Compatible with a 
+//! variety of mcus.
+//! -# APIs without the prefix \b x, is  for special mcu features. The library 
+//! also implement fully function of the mcu peripheral.
+//! -# Write your applications.
+//! .
+//!
+//! \subsection COX_Guide_Howto_Shortpin 1.2 How to use the GPIO shortpin(PA0) feature? 
+//! \subsubsection COX_Guide_Howto_Shortpin_What 1.2.1 What is a GPIO shortpin?
+//! A GPIO pin always contains info of a GPIO port(GPIO_PORTA_BASE), and a GPIO Pin(GPIO_PIN_0).
+//!
+//! A GPIO shortpin in cox is \b a macro ontained port, pin information in one 
+//! body. PA0, A indicates GPIO_PortA_BASE, 0 indicates GPIO_PIN_0.
+//!
+//! \subsubsection COX_Guide_Howto_Shortpin_When 1.2.2 When to use the shortpin feature?
+//!
+//! - When you just operate a pin in the port.
+//! - When a driver device use a GPIO pin.
+//! - The more simple AFIO operation, such as xSPinTypeCAN(CAN0RX, PA4);
+//! - ...
+//! .
+//!
+//! \subsubsection COX_Guide_Howto_Shortpin_How 1.2.3 How to use the shortpin feature?
+//! Use the shortpin to read/write:
+//! - xGPIOSPinWrite(PA3, 0);
+//! -  ulPinState = xGPIOSPinRead(PA3);
+//! .
+//! 
+//! Use the shortpin AFIO operation:
+//! - xSPinTypeCAN(CAN0RX, PA4);
+//! - xSPinTypeADC() ...
+//! .
+//!
+//! Use the shortpin in a device driver:
+//! \code
+//! #define SPI_FLASH_PIN_CS  PC2
+//!
+//! xGPIOSPinWrite(SPI_FLASH_PIN_CS, 0);
+//! \endcode
+//!
+//! There is also APIs to get the Port, Pin:
+//! - xSPintoPort(PA0); - result is GPIO_PIN_0
+//! - xSPintoPin(PA0); - result is GPIO_PORTA_BASE
+//! - xSPintoPortPin(PA0), in a struct - result like: GPIO_PORTA_BASE, GPIO_PIN_0,
+//! .
+//!
+//! \subsection COX_Guide_Howto_Int  1.3 How to use the COX interrupt feature?
+//! Cox unified defines the interruption of peripherals Compatible with a 
+//! variety of mcus using a callback function with a event ID.
+//!
+//! Users should use the Event ID, not the interrupt flags in the mcu peripherals.
+//!
+//! Users should also use the callback function instead of the interrupt Handler
+//! function defined in the vector table.
+//!
+//! Step of Using the interrupt feature:
+//! -# xSPIIntCallbackInit() Init the callback function.
+//! -# xSPIIntEnable() to enable the interrupt.
+//! -# xIntEnable() to enable the interrupt in the NVIC level.
+//! -# Your code in the callback function will be call when a interrupt event 
+//! coming.
+//! .
+//! \subsection COX_Guide_Howto_Peripheral 1.4 How to Use the Peripheral?
+//! 1. First of all, you should set the system clock use XSysCtlClockSet().
+//! 
+//! 2. If you use a peripheral such as SPI, you should enable the SPI clock and 
+//! some GPIO clock before call any SPI APIs. 
+//! \code
+//! xSysCtlPeripheralEnable(xSYSCTL_PERIPH_SPI0);
+//! xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(FLASH_PIN_SPI_CLK));
+//! xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(FLASH_PIN_SPI_CS));
+//! xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(FLASH_PIN_SPI_MISO));
+//! xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(FLASH_PIN_SPI_MOSI));
+//! \endcode
+//!
+//! 3. Then you should config the SPI IO.
+//! \code
+//! xSPinTypeSPI(SPI2CLK, FLASH_PIN_SPI_CLK);
+//! xSPinTypeSPI(SPI2MISO, FLASH_PIN_SPI_MISO);
+//! xSPinTypeSPI(SPI2MOSI, FLASH_PIN_SPI_MOSI); 
+//! \endcode
+//! 
+//! 4. You can use enable SPI and initialize the SPI.
+//! \code
+//! xSPIEnable(FLASH_PIN_SPI_PORT);
+//! xSPIConfigSet(FLASH_PIN_SPI_PORT, ulSpiClock, xSPI_MOTO_FORMAT_MODE_0 |
+//!                                               xSPI_MODE_MASTER | 
+//!                                               xSPI_MSB_FIRST |
+//!                                               xSPI_DATA_WIDTH8); 
+//! \endcode
+//!
+//! 5. You can use spi To communicate with a device. 
+//!
+//!
+//! \subsection COX_Guide_Howto_More_Portable 1.5 Make your code more portable base on COX
+//! COX is convenient portable code, But you can do more to make the code 
+//! more portable.
+//!
+//! For example:
+//! When we use COX SPI to write a spi flash driver, redefine the spi base and 
+//! short pins.So when porting the code, can just change this defines.
+//! \code
+//! //
+//! // Define SPIx as a port connecting W25Xxx which can be configured
+//! //
+//! #define FLASH_PIN_SPI_CLK       PD1
+//! #define FLASH_PIN_SPI_MISO      PD2
+//! #define FLASH_PIN_SPI_MOSI      PD3
+//! #define FLASH_PIN_SPI_PORT      SPI2_BASE
+//! //
+//! // Configure GPIOC.0 as chip Select
+//! //
+//! #define FLASH_PIN_SPI_CS        PD0
+//!
+//! \endcode
+//!
+//! \subsection COX_Guide_Howto_Code_Standard 1.6. Code Standard in COX
+//! \subsubsection COX_Guide_Howto_Code_Name 1.6.1 Named
+//! - An API function name is always like: Moudle + Nouns + verbs, such as
+//! SPIIntEnable(), xGPIOSPinWrite() ....
+//! - An variable name is always with a prfix:
+//!   - unsigned long with a prifix ul, such as ulConfig;
+//!   - unsigned char with a prifix uc, ucTemp;
+//!   - A porter-type variables with prefix 'p', such as unsigned long *pulReadBuffer;
+//!   - If the variable is global variable should plus an additional prefix "g_". 
+//! such as unsigned long g_ulCalendar;
+//!   .
+//! - source files name:
+//!   - COX source file is always have a prifix 'x', such as xuart.h, xuart.c
+//!   - The header file contains peripheral register info, always called 
+//! xhw_moudle.h, such as xhw_uart.h.
+//!   .
+//! . 
+//! \subsubsection COX_Guide_Howto_Code_doxygen 1.6.2 Doxygen
+//! The commits is using the doxygen standard.
+//!
+//!
+//! \n
+//! \section COX_Guide_Port 2. How to Port COX to other MCU platforms?
+//! 
+//! -# Download the blank template libary.
+//! -# Wirte the register info of the peripheral in the xhw_*.h.
+//! -# Implement all the functions of the peripheral in the moudle.h/.c.
+//! -# Port the APIs withe the prifix 'x' base on the periperal functions
+//! you have implemented.
+//! -# Test and wite the doxygen documents.
+//! .
+//! If you encounter any problems in the port period, please contact us.
+//! 
+//! \n
+//! \n
+//!
+//
+//*****************************************************************************

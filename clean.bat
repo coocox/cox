@@ -45,4 +45,14 @@ if exist %clean_target% rd /s /q %clean_target% >>nul
 echo completed
 echo -----------------------------------
 
+
+echo -----------------------------------
+echo clean CoX.Peripheral.Manual.doxygen(html/rtf)
+set clean_target=CoX\CoX_Peripheral\CoX_Peripheral_Manual\doc\gen\doxy.log
+if exist %clean_target% del /q %clean_target% >>nul 
+set clean_target="CoX\CoX_Peripheral\CoX_Peripheral_Manual\doc\en"
+if exist %clean_target% rd /s /q %clean_target% >>nul
+echo completed
+echo -----------------------------------
+
 pause
