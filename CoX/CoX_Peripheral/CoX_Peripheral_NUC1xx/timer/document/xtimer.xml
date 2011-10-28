@@ -1,0 +1,46 @@
+<?xml version="2.0" ?>
+<Component>
+    <Name>COX.Peripheral.NUC1xx.xTimer</Name>
+    <Description>NUC1xx Timer Control Driver</Description>
+    <Category>Peripheral.COX</Category>
+    <Version>2.0.0</Version>
+    <Tags>COX, xtimer,timer, TC</Tags>
+
+    <Files>
+        <File>..\..\libcox\xtimer.h</File>
+        <File>..\..\libcox\xtimer.c</File>
+    </Files>
+
+    <FilesCoIDE>
+        <File>$PROJECT_ROOT$\COX\COX_Peripheral\src\xtimer.h</File>
+        <File>$PROJECT_ROOT$\COX\COX_Peripheral\inc\xtimer.c</File>
+    </FilesCoIDE>
+
+    <Dependencys>
+        <Dependency>COX.Peripheral.NUC1xx.xStartup</Dependency>
+        <Dependency>COX.Peripheral.NUC1xx.xLowLayer</Dependency>
+		<Dependency>COX.Peripheral.NUC1xx.xSysCtl</Dependency>
+		<Dependency>COX.Peripheral.NUC1xx.xGPIO</Dependency>
+    </Dependencys>
+
+    <SupportDevices>
+        <Series>
+            <Serie exclude="">NUC1xx</Serie>
+        </Series>
+        <Devices>
+            <Device></Device>
+        </Devices>
+    </SupportDevices>
+
+    <Micros>
+        <Comm>
+            <Define></Define>
+        </Comm>
+        <Device name="">
+            <Define></Define>
+        </Device>   
+    </Micros>
+
+    <Help>$DOCUMENT_ROOT$\</Help>
+
+</Component>

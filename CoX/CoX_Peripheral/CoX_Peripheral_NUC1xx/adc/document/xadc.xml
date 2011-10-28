@@ -1,0 +1,46 @@
+<?xml version="2.0" ?>
+<Component>
+    <Name>COX.Peripheral.NUC1xx.xADC</Name>
+    <Description>COX NUC1xx ADC Driver</Description>
+    <Category>Peripheral.COX</Category>
+    <Version>2.0.0</Version>
+    <Tags>COX, ADC, AD, A/D, Comparator</Tags>
+
+    <Files>
+        <File>..\..\libcox\xadc.h</File>
+        <File>..\..\libcox\xadc.c</File>
+    </Files>
+
+    <FilesCoIDE>
+        <File>$PROJECT_ROOT$\COX\COX_Peripheral\src\xadc.h</File>
+        <File>$PROJECT_ROOT$\COX\COX_Peripheral\inc\xadc.c</File>
+    </FilesCoIDE>
+
+    <Dependencys>
+        <Dependency>COX.Peripheral.NUC1xx.xStartup</Dependency>
+        <Dependency>COX.Peripheral.NUC1xx.xLowLayer</Dependency>
+        <Dependency>COX.Peripheral.NUC1xx.xSysCtl</Dependency>
+        <Dependency>COX.Peripheral.NUC1xx.xGPIO</Dependency>
+    </Dependencys>
+
+    <SupportDevices>
+        <Series>
+            <Serie exclude="">NUC1xx</Serie>
+        </Series>
+        <Devices>
+            <Device></Device>
+        </Devices>
+    </SupportDevices>
+
+    <Micros>
+        <Comm>
+            <Define></Define>
+        </Comm>
+        <Device name="">
+            <Define></Define>
+        </Device>   
+    </Micros>
+
+    <Help>$DOCUMENT_ROOT$\ADC</Help>
+
+</Component>

@@ -1,0 +1,106 @@
+//*****************************************************************************
+//
+//! \defgroup NUC1xx_ACMP NUC1xx ACMP
+//! 
+//! \brief Nuvoton NUC1xx Analgo Comparator Peripheral Driver
+//!
+//! The COX Peripheral Library also provide APIs for full functions of Nuvoton
+//! NUC1xx Analog Comparator.
+//! \n
+//!
+//! <h1>Contents</h1>
+//! - \ref NUC1xx_ACMP_Introduction
+//! - \ref NUC1xx_ACMP_Block
+//! - \ref NUC1xx_ACMP_Function_Desc
+//!   - \ref NUC1xx_ACMP_Pin_Desc
+//!   - \ref NUC1xx_ACMP_Func_Comparator
+//!   - \ref NUC1xx_ACMP_Func_Int
+//!   .
+//! - \ref NUC1xx_ACMP_API_Group
+//!   - \ref NUC1xx_ACMP_API_Group_Config
+//!   - \ref NUC1xx_ACMP_API_Group_Int
+//!   .
+//! - \ref NUC1xx_ACMP_Usage
+//! .
+//! \n
+//!
+//! \section NUC1xx_ACMP_Introduction 1. NUC1xx ACMP Introduction
+//! Nuvoton NUC1xx Series contains \b two comparators. The comparators can 
+//! be used in a number of different configurations. The comparator output is 
+//! a logical one when positive input greater than negative input, otherwise 
+//! the output is a zero. Each comparator can be configured to cause an
+//! interrupt when the comparator output value changes.
+//!
+//! \section NUC1xx_ACMP_Block 2. NUC1xx ACMP Physical Block
+//! <img src="nuc1xx_acmp_block.png" />
+//!
+//! \section NUC1xx_ACMP_Function_Desc 3. NUC1xx ACMP Function Description
+//!
+//! \subsection NUC1xx_ACMP_Pin_Desc 3.1 NUC1xx ACMP Peripheral Pin Description
+//! \verbatim
+//! +-------------------+------------------+-----------------------+
+//! |Peripheral Pin Name|GPIO Pin multiplex|Pin Description        |
+//! |-------------------|------------------|-----------------------|
+//! |CMP0N              |PC7               |CMP0 negative input    |
+//! |-------------------|------------------|-----------------------|
+//! |CMP0P              |PC6               |CMP0 positive input    |
+//! |-------------------|------------------|-----------------------|
+//! |CMP0O              |PB12              |CMP0 output            |
+//! |-------------------|------------------|-----------------------|
+//! |CMP1N              |PC15              |CMP1 negative input    |
+//! |-------------------|------------------|-----------------------|
+//! |CMP1P              |PC14              |CMP1 positive input    |
+//! |-------------------|------------------|-----------------------|
+//! |CMP1O              |PB13              |CMP1 output            |
+//! +-------------------+------------------+-----------------------+
+//! \endverbatim
+//!
+//! \subsection NUC1xx_ACMP_Func_Comparator 3.2 NUC1xx ACMP Comparator
+//! The CMP- input can be:
+//! - Cn- (external pin).
+//! - internal Vref(1.2V).
+//! .
+//!
+//! the comparator \b output(Cno):
+//! - <b> Cn+ > Cn- </b> Cno output logic 1 (H).
+//! - <b> Cn+ < Cn- </b> Cno output logic 0 (L).
+//! .
+//! \subsection NUC1xx_ACMP_Func_Int 3.3 NUC1xx ACMP Interrupt and Event
+//! The comparator interrupt:
+//! when the Cno output \b changed, the moudle generate an interrupt.
+//!
+//! \section NUC1xx_ACMP_API_Group 4. NUC1xx ACMP API Group
+//!
+//! \subsection NUC1xx_ACMP_API_Group_Config 4.1 NUC1xx ACMP Config API
+//! The negative input source select: 
+//! - ACMPNegativeSrcSet().
+//! .
+//! The hysteresis funciont are enable/disable by:
+//! - ACMPHysEnable().
+//! - ACMPHysDisable().
+//! .
+//! The comparators are enable/disable by:
+//! - ACMPEnable().
+//! - ACMPDisable().
+//! .
+//!
+//! \subsection NUC1xx_ACMP_API_Group_Int 4.2 NUC1xx ACMP Interrupt API
+//! The interrupt is enable/disable by:
+//! - ACMPIntEnable().
+//! - ACMPIntDisable().
+//! .
+//! The interrupt are managed with:
+//! - ACMPIntStatus().
+//! - ACMPIntClear().
+//! .
+//! \section NUC1xx_ACMP_Usage 5. NUC1xx ACMP Usage & Example
+//! The following show how to use the ACMP APIs to initialize the ACMP.
+//! -# xSysCtlPeripheralEnable() to enable to GPIO, ACMP Peripheral clock.
+//! -# Configure the ACMP pin in the GPIO moudle.
+//! -# ACMPNegativeSrcSet() to configure the analog negative input source.
+//! -# ACMPEnable() to enable the ADC.
+//! -# ACMPIntEnable(), IntEnable() to enable the interrupt.
+//! . 
+//!
+//
+//*****************************************************************************

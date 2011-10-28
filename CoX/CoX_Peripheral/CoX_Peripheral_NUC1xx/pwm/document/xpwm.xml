@@ -1,0 +1,46 @@
+<?xml version="2.0" ?>
+<Component>
+    <Name>COX.Peripheral.NUC1xx.xPWM</Name>
+    <Description>NUC1xx PWM Driver</Description>
+    <Category>Peripheral.COX</Category>
+    <Version>2.0.0</Version>
+    <Tags>COX, xPWM, PWM, Timer</Tags>
+
+    <Files>
+        <File>..\..\libcox\xpwm.h</File>
+        <File>..\..\libcox\xpwm.c</File>
+    </Files>
+
+    <FilesCoIDE>
+        <File>$PROJECT_ROOT$\COX\COX_Peripheral\src\xpwm.h</File>
+        <File>$PROJECT_ROOT$\COX\COX_Peripheral\inc\xpwm.c</File>
+    </FilesCoIDE>
+
+    <Dependencys>
+        <Dependency>COX.Peripheral.NUC1xx.xStartup</Dependency>
+        <Dependency>COX.Peripheral.NUC1xx.xLowLayer</Dependency>
+		<Dependency>COX.Peripheral.NUC1xx.xSysCtl</Dependency>
+		<Dependency>COX.Peripheral.NUC1xx.xGPIO</Dependency>
+    </Dependencys>
+
+    <SupportDevices>
+        <Series>
+            <Serie exclude="">NUC1xx</Serie>
+        </Series>
+        <Devices>
+            <Device></Device>
+        </Devices>
+    </SupportDevices>
+
+    <Micros>
+        <Comm>
+            <Define></Define>
+        </Comm>
+        <Device name="">
+            <Define></Define>
+        </Device>   
+    </Micros>
+
+    <Help>$DOCUMENT_ROOT$\</Help>
+
+</Component>

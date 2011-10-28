@@ -1,0 +1,354 @@
+//*****************************************************************************
+//
+//! \defgroup NUC1xx_UART NUC1xx UART
+//! 
+//! \brief NUC1xx UART Peripheral Driver.
+//!
+//! The COX Peripheral Library also provide APIs for full functions of 
+//! NUC1xx UART. This module supports the whole NUC1xx Series.
+//!
+//! \n
+//! <h1>Contents</h1>
+//! - \ref NUC1xx_UART_Blcok
+//! - \ref NUC1xx_UART_Function_Desc
+//!   - \ref NUC1xx_UART_Data_Transmission
+//!     - \ref NUC1xx_UART_RxTx
+//!     - \ref NUC1xx_UART_Baudrate
+//!     - \ref NUC1xx_UART_FIFO
+//!     - \ref NUC1xx_UART_DMA
+//!     .
+//!   - \ref NUC1xx_UART_SIR
+//!   - \ref NUC1xx_UART_Modem
+//!   - \ref NUC1xx_UART_LIN
+//!   - \ref NUC1xx_UART_RS485
+//!   - \ref NUC1xx_UART_Interrupt
+//!   .
+//! - \ref NUC1xx_UART_API_Group
+//!   - \ref NUC1xx_UART_API_Group_Config
+//!   - \ref NUC1xx_UART_API_Group_FIFO
+//!   - \ref NUC1xx_UART_API_Group_SIR
+//!   - \ref NUC1xx_UART_API_Group_RS485
+//!   - \ref NUC1xx_UART_API_Group_Modem
+//!   - \ref NUC1xx_UART_API_Group_LIN
+//!   - \ref NUC1xx_UART_API_Group_Interrupt
+//!   .
+//! - \ref NUC1xx_UART_Usage
+//! .
+//!
+//! \n
+//! \section NUC1xx_UART_Blcok 1. UART Physical Block
+//! <img src="NUC1xx_UART_block.png" />
+//! 
+//! \n
+//! \section NUC1xx_UART_Function_Desc 2. Functional Description
+//! 
+//!
+//! \n
+//! \subsection NUC1xx_UART_Data_Transmission 2.1 UART Data Transmission
+//!
+//! \subsubsection NUC1xx_UART_RxTx 2.1.1 UART Data Transmit and Receive
+//! 
+//! Full duplex, asynchronous communications. Separate receive/transmit 64/16/16 bytes(UART0,UART1,UART2) entry FIFO
+//! for data payloads. 
+//!
+//! \subsubsection NUC1xx_UART_Baudrate 2.1.2 UART Baudrate Generation
+//! 
+//! The UART includes a programmable baud rate generator that is capable of dividing clock input by divisors to produce
+//! the serial clock that transmitter and receiver need.
+//! <center>
+//! <b>UART Baud Rate Equation</b>
+//! <table>
+//! <tr><td>Mode</td><td>DIV_X_EN</td><td>DIV_X_ONE</td><td>Divider X</td><td>BRD</td><td>Baud rate equation</td></tr>
+//! <tr><td>0</td><td>0</td><td>0</td><td>B</td><td>A</td><td>UART_CLK/[16*(A+2)]</td></tr>
+//! <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>UART_CLK/[(B+1)*(A+2)], B must >= 8</td></tr>
+//! <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>UART_CLK/(A+2), A must >= 3</td></tr>
+//! </table>
+//! </center>
+//!
+//! \subsubsection NUC1xx_UART_FIFO 2.1.3 UART FIFO
+//!
+//! The UART0 is built-in with a 64-byte transmitter FIFO(TX_FIFO) and a 64-byte receiver FIFO(RX_FIFO) that
+//! reduces the number of interrupts presented to the CPU and the UART1~2 are equipped 16-byte transmitter FIFO
+//! (TX_FIFO) and 16-byte receiver FIFO(RX_FIFO). 
+//!
+//! <center>
+//! <b>RX FIFO Interrupt(INT_RDA) Trigger Level</b>
+//! <table>
+//! <tr><td>RFITL</td><td>INTR_RDA Trigger Level(Bytes)</td></tr>
+//! <tr><td>0x00</td><td>01</td></tr>
+//! <tr><td>0x01</td><td>04</td></tr>
+//! <tr><td>0x02</td><td>08</td></tr>
+//! <tr><td>0x03</td><td>14</td></tr>
+//! <tr><td>0x04</td><td>30/14(High Speed/Normal Speed)</td></tr>
+//! <tr><td>0x05</td><td>46/14(High Speed/Normal Speed)</td></tr>
+//! <tr><td>0x06</td><td>62/14(High Speed/Normal Speed)</td></tr>
+//! <tr><td>others</td><td>62/14(High Speed/Normal Speed)</td></tr>
+//! </table>
+//! </center>
+//!
+//! \subsubsection NUC1xx_UART_DMA 2.1.4 UART DMA
+//!
+//! UART0/UART1 can be served by the DMA controller.
+//!
+//! \n
+//! \subsection NUC1xx_UART_SIR 2.2 UART Serial IR
+//!
+//! The IrDA SIR Encoder/Decoder provides functionality which converts between UART data stream and half duplex
+//! serial SIR interface. The following diagram is IrDA encoder/decoder waveform:
+//! <img src="NUC1xx_IrDA_TimingDiagram.png" />
+//!
+//!
+//! \n
+//! \subsection NUC1xx_UART_Modem 2.3 UART Modem Support
+//!
+//! Support hardware auto flow control/flow control funciton(CTS, RTS) and programmable RTS
+//! flow control trigger level(UART0 and UART1 support).
+//!
+//! \n
+//! \subsection NUC1xx_UART_LIN 2.4 UART LIN Support
+//!
+//! Support LIN function mode.
+//! <ul>
+//! <li>Support LIN master/slave mode</li>
+//! <li>Support programmable break generation function for transmitter</li>
+//! <li>Support break detect function for receiver</li>
+//! </ul>
+//! The UART supports LIN function, and LIN mode is selected by setting the LIN_EN bit in UA_FUN_SEL register.
+//! In LIN mode, each byte field is initialed by a start bit with value zero(dominant), followed by 8 data bits
+//! (LSB first) and ended by 1 stop bit with value one(recessive) in accordance with the LIN standard.
+//! <center>
+//! <b>Structure of LIN Frame</b>
+//! <img src="NUC1xx_UART_LIN_Frame.png" />
+//! </center>
+//!
+//!
+//! \n
+//! \subsection NUC1xx_UART_RS485 2.5 UART RS-485 Support
+//! Support RS-485 function mode.
+//! <ul>
+//! <li>Support RS-485 9bit mode</li>
+//! <li>Support hardware or software direct enable control provided by RTS pin</li>
+//! </ul>
+//!
+//! The UART supports RS-485 9 bits mode function. The RS-485 mode is selected by setting the UART_FUN_SEL register
+//! to select RS-485 function. The RS-485 driver control is implemented using the RTS control signal from an asynchronous
+//! serial port to enable the RS-485 driver. In RS-485 mode, many characteristics of the RX and TX are same as UART.
+//!
+//!
+//! \n
+//! \subsection NUC1xx_UART_Interrupt 2.6 UART Interrupt
+//!
+//! The UART can generate interrupts when the following conditions are observed:
+//! Overrun Error
+//! Break Error
+//! Parity Error
+//! Framing Error
+//! Receive Timeout
+//! Transmit
+//! Receive 
+//! 
+//! \n
+//! \section NUC1xx_UART_API_Group 3. API Groups
+//! 
+//! \n
+//! \subsection NUC1xx_UART_API_Group_Config 3.1 UART Config APIs
+//! 
+//! -  UARTParityModeSet()
+//! -  UARTParityModeGet()
+//! -  UARTConfigSetExpClk()
+//! -  UARTConfigGetExpClk()
+//! -  UARTEnable()
+//! -  UARTCharGetNonBlocking()
+//! -  UARTCharGet()
+//! -  UARTCharPutNonBlocking()
+//! -  UARTCharPut()
+//! -  UARTBreakCtl()
+//! -  UARTDMAEnable()
+//! -  UARTDMADisable()
+//! -  UARTRxErrorGet()
+//! -  UARTRxErrorClear()
+//! -  UARTRxTimeOutSet()
+//! .
+//!
+//! \n
+//! \subsection NUC1xx_UART_API_Group_FIFO 3.2 UART FIFO APIs
+//!
+//! -  UARTFIFOTriggerLevelSet()
+//! -  UARTFIFOTriggerLevelGet()
+//! -  UARTFIFOTxIsEmpty()
+//! -  UARTFIFOTxIsFull()
+//! -  UARTFIFOTxLength()
+//! -  UARTFIFORxIsEmpty()
+//! -  UARTFIFORxIsFull()
+//! -  UARTFIFORxLength()
+//! .
+//!
+//! \n
+//! \subsection NUC1xx_UART_API_Group_SIR 3.3 UART IrDA APIs
+//!
+//! -  UARTIrDAConfig()
+//! -  UARTEnableIrDA()
+//! -  UARTDisableIrDA()
+//! .
+//!
+//! \n
+//! \subsection NUC1xx_UART_API_Group_RS485 3.4 UART RS-485 APIs
+//!
+//! -  UART485Config()
+//! .
+//!
+//! \n
+//! \subsection NUC1xx_UART_API_Group_Modem 3.5 UART Modem APIs
+//!
+//! -  UARTModemControlSet()
+//! -  UARTModemControlClear()
+//! -  UARTModemControlGet()
+//! -  UARTModemStatusSet()
+//! -  UARTModemStatusGet()
+//! -  UARTFlowControlSet()
+//! -  UARTFlowControlGet()
+//! .
+//!
+//! \n
+//! \subsection NUC1xx_UART_API_Group_LIN 3.6 UART LIN APIs
+//!
+//! -  UARTLINConfig()
+//! -  UARTEnableLIN()
+//! -  UARTDisableLIN()
+//! .
+//!
+//! \n
+//! \subsection NUC1xx_UART_API_Group_Interrupt 3.7 UART Interrupt APIs
+//!
+//! -  UARTIntEnable()
+//! -  UARTIntDisable()
+//! -  UARTIntStatus()
+//! -  UARTIntEnableGet()
+//! -  UARTIntCallbackInit()
+//! -  UARTIntClear()
+//! .
+//! 
+//! \n
+//! \section NUC1xx_UART_Usage 4. Usage & Program Examples
+//! 
+//! - \ref xUART_App_NormalMode
+//! - \ref xUART_App_IrDA
+//! - \ref xUART_App_Modem
+//! - \ref xUART_App_LIN
+//! .
+//! 
+//! \note 
+//! 
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
+//! \defgroup NUC1xx_UART_INT_Type NUC1xx UART Interrupt type
+//! 
+//! \brief NUC1xx UART Interrupt type
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup NUC1xx_UART_Line_Config NUC1xx UART Line Config
+//! 
+//!
+//! \brief NUC1xx UART Line Config
+//! 
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup NUC1xx_UART_IrDA_Config NUC1xx UART IrDA Mode Config
+//! 
+//! \brief NUC1xx UART IrDA Mode Config
+//! 
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup NUC1xx_UART_Enable_Blocks NUC1xx UART Enable Blocks
+//! 
+//! \brief NUC1xx UART Enable Blocks
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup NUC1xx_UART_FIFO_Level NUC1xx UART FIFO Level
+//! 
+//! \brief NUC1xx UART FIFO Level
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup NUC1xx_UART_DMA_Flag NUC1xx UART DMA Flag
+//! 
+//! \brief NUC1xx UART DMA Flag
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup NUC1xx_UART_Error NUC1xx UART Error
+//!
+//! \brief NUC1xx UART Error
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup NUC1xx_UART_Flow_Control NUC1xx UART Flow Control
+//! 
+//! \brief NUC1xx UART Flow Control
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup NUC1xx_UART_LIN_Config NUC1xx UART LIN Config
+//! 
+//! \brief NUC1xx UART LIN Config
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup NUC1xx_UART_OUTPUT_RTS NUC1xx UART OUTPUT RTS
+//! 
+//! \brief NUC1xx UART OUTPUT RTS
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup NUC1xx_UART_INPUT_CTS NUC1xx UART INPUT CTS
+//! 
+//! \brief NUC1xx UART INPUT CTS
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup NUC1xx_UART_Exported_APIs NUC1xx UART Exported APIs
+//! 
+//! \brief NUC1xx UART Exported APIs
+//!
+//
+//*****************************************************************************

@@ -1,0 +1,325 @@
+//********************************************************************************
+//
+//! \defgroup NUC1xx_SysCtl NUC1xx SysCtl
+//!
+//! \brief NUC140 SysCtl Peripheral Driver
+//! 
+//! The COX Peripheral Library also provide APIs for function full functions of
+//! Nuvoton NUC1xx SysCtl.This module supports the whole NUC1xx Series.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref NUC1xx_SysCtl_Block
+//! - \ref NUC1xx_SysCtl_Function_Desc
+//! - \ref NUC1xx_SysCtl_API_Group
+//!   - \ref NUC1xx_API_Group_Reset_Control
+//!   - \ref NUC1xx_API_Group_Clock_Control
+//!   - \ref NUC1xx_API_Group_System_Control
+//!   - \ref NUC1xx_API_Group_Power_Control
+//!   .
+//! - \ref NUC1xx_SysCtl_Usage
+//! .
+//!
+//! <br />
+//! \section NUC1xx_SysCtl_Block 1. SysCtl Physical Block
+//! <img src="NUC1xx_sysctl_block.png" />
+//!
+//! <br />
+//! \section NUC1xx_SysCtl_Function_Desc 2. Functional Description
+//! The system control block has the following functions:
+//! - The perpheral can be individual reset by software
+//! - The clock controller generates the clocks for the whole chip, including system 
+//!   clocks and all peripheral clocks.The clock generator consists of 5 clock sources
+//!   which are listed below: One external 32.768 kHz low speed crystal;One external
+//!   4~24 MHz high speed crystal;One programmable PLL FOUT One internal 22.1184 MHz
+//!   high speed oscillator;One internal 10 kHz low speed oscillator  
+//! - When chip enters into power down mode, system clocks, some clock sources, and some 
+//!   peripheral clocks will be disabled. Some clock sources and peripherals  clock are 
+//!   still active in power down mode.
+//! .
+//!
+//! <br />
+//! \subsection NUC1xx_SysCtl_API_Group 2. API Groups
+//!
+//! The SysCtl API is broken into three groups of functions:
+//! - those that deal with Clock control,
+//! - those that deal with Reset control,
+//! - those that deal with Power control.
+//! .
+//! <br />
+//! \subsection NUC1xx_API_Group_Clock_Control 2.1 SysCtl clock control APIs
+//!
+//! The SysCtl clock control are dealed with :
+//! - SysCtlPeripheralClockSourceSet(),
+//! - SysCtlHClockSourceSet(),
+//! - SysCtlSysTickSourceSet(),
+//! - SysCtlIPClockDividerSet(),
+//! - SysCtlFreqDividerOutputEnable(),
+//! - SysCtlHClockGet(),
+//! - SysCtlHClockSet(),
+//! .
+//! 
+//! <br />
+//! \subsection NUC1xx_API_Group_Reset_Control 2.2 SysCtl Reset Control APIs
+//! - SysCtlCPUReset(),
+//! - SysCtlChipReset(),
+//! - SysCtlPeripheralDisable(),
+//! - SysCtlPeripheralEnable(),
+//! - SysCtlPeripheralReset(),
+//! - SysCtlResetSrcGet(),
+//! - SysCtlResetSrcClear().
+//! .
+//!
+//! <br />
+//! \subsection NUC1xx_API_Group_Power_Control 2.3 SysCtl power control
+//!
+//! - The SysCtl power control are dealed with : 
+//! - SysCtlPowerDownEnable(),
+//! - SysCtlPWRWUIntEnable(),
+//! - SysCtlPowerDownWaitCPUSet(),
+//! - SysCtlPLLPowerDownSet(),
+//! - SysCtlBODEnable(),
+//! - SysCtlBODVoltSelect(),
+//! - SysCtlBODLowPowerModeEnable(),
+//! - SysCtlLowVoltRstEnable(),
+//! - SysCtlTempatureSensorEnable(),
+//! - SysCtlBODRstEnable().
+//! - .
+//!
+//! <br />
+//! \section SYSCTL_Usage & Program Examples
+//! The following example shows how to use the SysCtl API to configure the
+//! system clock,enable the relative peripheral,put the processor into sleep
+//! mode,and then wake up by Extern Interrupt0
+//! \code
+//! #include "xhw_types.h"
+//! #include "xhw_memmap.h"
+//! #include "xcore.h"
+//! #include "Xhw_sysctl.h"
+//! #include "Xsysctl.h"
+//! #include "xhw_ints.h"
+//! #include "Xgpio.h"
+//! #include "xhw_nvic.h"
+//! #include "Xhw_gpio.h"
+//! #include "test.h"
+//! #include "testcase.h"
+//! #include "systick_use_example.h"
+//! #include "sysctlpwr_use_example.h"
+//!
+//! //*****************************************************************************
+//! //
+//! // Enter Sleep Mode function.
+//!
+//! // This function will force the processor enter sleep mode,after operating 
+//! // the action,some clocks will be closed except "Internal 10 kHz low speed 
+//! // oscillator clock"and "External 32.768 kHz low speed crystal clock ".
+//!  
+//! // return None
+//! //
+//! //*****************************************************************************
+//! void PWRCtl_Standby(void)
+//! {
+//!    //
+//!    // Enable deep-sleep.
+//!    //
+//!    xHWREG(NVIC_SYS_CTRL) |= NVIC_SYS_CTRL_SLEEPDEEP;  
+//!    xHWREG(SYSCLK_PWRCON) |= SYSCLK_PWRCON_XTL12M_EN;
+//!    
+//!    SysCtlPowerDownEnable(xtrue);
+//!    SysCtlPowerDownWaitCPUSet(xtrue);
+//!    xCPUwfi();
+//!    //
+//!    // Disable deep-sleep so that a future sleep will work correctly.
+//!    //
+//!    xHWREG(NVIC_SYS_CTRL) &= ~(NVIC_SYS_CTRL_SLEEPDEEP);
+//!    SysCtlPowerDownEnable(xfalse);
+//!    SysCtlPowerDownWaitCPUSet(xfalse);
+//!    
+//! }
+//! //*****************************************************************************
+//! //
+//! // brief Init uart to print.
+//! //
+//! // param None
+//! //
+//! // details uart config as (115200, 8 data bit, 1 stop bit , no partiy)
+//! //
+//! // return None.
+//! //
+//! //*****************************************************************************
+//! 
+//! void TestIOInit(void)
+//! {
+//!	SysCtlKeyAddrUnlock();
+//!	xHWREG(SYSCLK_PWRCON) |= SYSCLK_PWRCON_XTL12M_EN;
+//!
+//!	XPinTypeUART(GPIO_PB0_U0RX,PB0);
+//!	XPinTypeUART(GPIO_PB1_U0TX,PB1);
+//!
+//!	xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART0);
+//!     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART0);
+//!	SysCtlPeripheralClockSourceSet(SYSCTL_PERIPH_UART_S_EXT12M);
+//!
+//!
+//!	xHWREG(UART_BASE + UART_FCR) |= 0x6;
+//!	xHWREG(UART_BASE + UART_FCR) &= ~(0xF0);
+//!	xHWREG(UART_BASE + UART_FCR) |= 0;
+//!
+//!	xHWREG(UART_BASE + UART_LCR) = 3;
+//!	xHWREG(UART_BASE + UART_BAUD) = 0x3F000066;
+//!
+//!	SysCtlDelay(10000);
+//! }
+//! //*****************************************************************************
+//! //
+//! // brief print a char.
+//! //
+//! // param A char
+//! //
+//! // return None.
+//! //
+//! //*****************************************************************************
+//! void TestIOPut(char ch)
+//! {
+//!    uint8_t c;
+//!    c = ch;
+//!    while((xHWREG(UART_BASE + UART_FSR) & (0x400000))!=0x400000);
+//!	//
+//!	// Write this character to the transmit FIFO.
+//!	//
+//!	xHWREG(UART_BASE + UART_THR) = c;
+//! }
+//! 
+//! //*****************************************************************************
+//! //
+//! // Wake up mcu from sleep mode function.
+//! //
+//! // This function use extern interrupt to wake up mcu from sleep mode 
+//! //
+//! //
+//! // 
+//! // return None
+//! //*****************************************************************************
+//! void PWR_WKUP_Init(void)
+//! {	 
+//!    xIntEnable(INT_EINT1);
+//!    xIntPrioritySet(INT_EINT1, 1);
+//!    xHWREG(GCR_GPBMFP) |= GCR_GPBMFP_MFP15;
+//!    xHWREG(GCR_ALTMFP) = 0;
+//!    GPIODirModeSet(GPIO_PORTB_BASE, GPIO_PIN_15,GPIO_DIR_MODE_IN);
+//!     
+//!    GPIOPinIntEnable(GPIO_PORTB_BASE, GPIO_PIN_15,GPIO_FALLING_EDGE);
+//! }
+//! //*****************************************************************************
+//! //
+//! // The main function of the PWR_WKUP 
+//! //
+//! // 
+//! //
+//! //*****************************************************************************
+//! int main(void)
+//! {
+//!    //
+//!    //UART initialize
+//!    //          
+//!    TestIOInit();
+//!    PWR_WKUP_Init();
+//!
+//!    while(1)
+//!    {
+//!	  PWRCtl_Standby();
+//!       TestIOPut('O');
+//!       TestIOPut('K');	
+//!    }
+//!        
+//! }
+//! \endcode
+//! \note 
+//!
+//********************************************************************************
+
+//********************************************************************************
+//
+//! \defgroup NUC1xx_SysCtl_Peripheral_ID SysCtl_Peripheral_ID
+//!
+//! \brief Values that can be passed to the
+//! xSysCtlPeripheralPresent(), xSysCtlPeripheralEnable(),
+//! xSysCtlPeripheralDisable(), and xSysCtlPeripheralReset() APIs as the
+//! ulPeripheral parameter.  
+//! 
+//
+//********************************************************************************
+
+//********************************************************************************
+//
+//! \defgroup NUC1xx_SysCtl_Peripheral_Src_Clk NUC1xx SysCtl Peripheral clock source
+//! 
+//! \brief The following are values that can be passed to the
+//! SysCtlPeripheralClockSourceSet()  API as the ulPeripheralsrc parameter.   
+//! 
+//
+//********************************************************************************
+
+//********************************************************************************
+//
+//! \defgroup NUC1xx_SysCtl_Hclk_Src  NUC1xx SysCtl Hclk source
+//! \brief The following are values that can be passed to the
+//! SysCtlHClockSourceSet()\ SysCtlHClockSet API as the
+//! ulhclkSrcSel parameter.   
+//! 
+//
+//*******************************************************************************
+
+//*******************************************************************************
+//
+//! \defgroup NUC1xx_SysCtl_Peripheral_Src_Clk NUC1xx SysCtl SysTick clock source
+//! \brief The following are values that can be passed to the
+//! SysCtlSysTickSourceSet()  API as the ulstclkSrcSel parameter.    
+//! 
+//
+//*******************************************************************************
+
+//*******************************************************************************
+//
+//! \defgroup NUC1xx_SysCtl_Reset_Src  NUC1xx SysCtl Reset source
+//! \brief The following are values that can be returned in the bit mask
+//! by the SysCtlResetSrcGet() API.   
+//! 
+//
+//*******************************************************************************
+
+//*******************************************************************************
+//
+//! \defgroup NUC1xx_SysCtl_Bod_level NUC1xx SysCtl Bod level
+//! \brief The following are values that can be passed to the
+//! SysCtlSelectBODVolt()  API as the ulVoltage parameter. 
+//! 
+//
+//*******************************************************************************
+
+//*******************************************************************************
+//
+//! \defgroup NUC1xx_SysCtl_Peripheral_ClkDiv NUC1xx SysCtl Peripheral clock
+//! divder
+//! \brief The following are values that can be passed to the
+//! SysCtlIPClockDividerSet()  API as the ulConfig parameter.  
+//! 
+//
+//*******************************************************************************
+
+//*******************************************************************************
+//
+//! \defgroup NUC1xx_SysCtl_Clock_Config  NUC1xx SysCtl Clock configure
+//! \brief The following are values that can be passed to the SysCtlClockSet() API 
+//! as the ulConfig parameter.
+//! 
+//
+//*******************************************************************************
+
+//*******************************************************************************
+//
+//! \defgroup NUC1xx_SysCtl_Exported_APIs NUC1xx SysCtl Exported APIS
+//!
+//! \brief The whole SysCtl Exported APIS
+//
+//*******************************************************************************

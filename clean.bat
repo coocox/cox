@@ -26,4 +26,12 @@ rd /s /q "CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx\all\project\template\coide" >
 echo completed
 echo -----------------------------------
 
+
+echo -----------------------------------
+echo clean CoX.Peripheral.NUC1xx.doxygen(html/rtf)
+del /q "CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx\doc\gen\doxy.log" >>nul
+rd /s /q "CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx\doc\en" >>nul
+echo completed
+echo -----------------------------------
+
 pause
