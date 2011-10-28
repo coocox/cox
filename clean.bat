@@ -21,16 +21,27 @@ echo clean project/coide_gen/rvmdk/ewarm
 echo -----------------------------------
 
 echo -----------------------------------
-echo clean CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx\all\project\template\coide(genernate) 
-rd /s /q "CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx\all\project\template\coide" >>nul
+set clean_target=CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx\all\project\template\coide
+echo clean %clean_target%(genernate)
+if exist %clean_target% rd /s /q %clean_target% >>nul
 echo completed
 echo -----------------------------------
 
 
 echo -----------------------------------
 echo clean CoX.Peripheral.NUC1xx.doxygen(html/rtf)
-del /q "CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx\doc\gen\doxy.log" >>nul
-rd /s /q "CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx\doc\en" >>nul
+set clean_target=CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx\doc\gen\doxy.log
+if exist %clean_target% del /q %clean_target% >>nul 
+set clean_target="CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx\doc\en"
+if exist %clean_target% rd /s /q %clean_target% >>nul
+echo completed
+echo -----------------------------------
+
+
+echo -----------------------------------
+set clean_target=CoX\CoX_Peripheral\CoX_Peripheral_Template\all\project\template\coide
+echo clean %clean_target%(genernate)
+if exist %clean_target% rd /s /q %clean_target% >>nul
 echo completed
 echo -----------------------------------
 
