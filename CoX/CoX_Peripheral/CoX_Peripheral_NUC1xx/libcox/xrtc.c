@@ -283,7 +283,8 @@ RTCIntHandler(void)
     
     ulEventFlags = (xHWREG(RTC_RIIR) & (RTC_RIIR_TIF | RTC_RIIR_AIF));
 
-    xHWREG(RTC_RIIR) & (RTC_RIIR_TIF | RTC_RIIR_AIF) = ulEventFlags;
+    xHWREG(RTC_RIIR) &= (ulEventFlags | RTC_RIIR_TIF | RTC_RIIR_AIF);
+    
     //
     // Call Callback function
     //
