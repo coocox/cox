@@ -20,6 +20,7 @@ echo clean project/coide_gen/rvmdk/ewarm
 @echo completed
 echo -----------------------------------
 
+
 echo -----------------------------------
 set clean_target=CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx\all\project\template\coide
 echo clean %clean_target%(genernate)
@@ -54,5 +55,14 @@ set clean_target="CoX\CoX_Peripheral\CoX_Peripheral_Manual\doc\en"
 if exist %clean_target% rd /s /q %clean_target% >>nul
 echo completed
 echo -----------------------------------
+
+
+echo -----------------------------------
+echo clean CoX.Peripheral.publish(*.zip)
+set clean_target=CoX\CoX_Peripheral\publish\*.zip
+if exist %clean_target% del /q %clean_target% >>nul 
+echo completed
+echo -----------------------------------
+
 
 pause
