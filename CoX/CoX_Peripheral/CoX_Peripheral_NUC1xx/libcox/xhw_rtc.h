@@ -56,7 +56,7 @@
 //*****************************************************************************
 //
 //! \addtogroup NUC1xx_RTC_Register NUC1xx RTC Register
-//! \brief Here are the details info of RTC registers. 
+//! \brief Here are the detailed info of RTC registers. 
 //!
 //! it contains:
 //! - Register offset.

@@ -4,8 +4,8 @@
 //! 
 //! \brief NUC1xx RTC Peripheral Driver.
 //!
-//! The COX Peripheral Library also provide APIs for full functions of 
-//! NUC1xx RTC. This module supports the whole NUC1xx Series.
+//! The COX Peripheral Library also provides APIs 
+//! for full functions of NUC1xx RTC.
 //!
 //! \n
 //! <h1>Contents</h1>
@@ -26,11 +26,11 @@
 //! \n
 //! \section NUC1xx_RTC_Function_Desc 2. Functional Description
 //!
-//! Real Time Clock (RTC) controller provides user the real time and calendar 
-//! message.The RTC controller provides the time message (second, minute, hour)
-//! in Time Loading Register (TLR) as well as calendar message (day, month, year) 
-//! in Calendar Loading  Register (CLR). It also offers alarm function that 
-//! user can preset the alarm time in Time Alarm Register (TAR) and alarm calendar 
+//! Real Time Clock (RTC) controller provides users with the real time and 
+//! clendar messages.The RTC controller provides the time messages (second, minute, hour)
+//! in Time Loading Register (TLR) as well as calendar messages (day, month, year) 
+//! in Calendar Loading  Register (CLR). It also offers an alarm function so that 
+//! users can preset alarm time in Time Alarm Register (TAR) and alarm calendar
 //! in Calendar Alarm Register (CAR).  
 //!
 //! The RTC controller supports periodic Time Tick and Alarm Match interrupts.
@@ -40,7 +40,7 @@
 //! 
 //! The RTC API is broken into three groups of functions: 
 //! - those that deal with RTC initialization , 
-//! - those that deal with time read and write, 
+//! - those that deal with time reading and writing, 
 //! - those that deal with interrupt.
 //! .
 //!
@@ -56,7 +56,7 @@
 //! .
 //! 
 //! \n
-//! \subsection NUC1xx_RTC_API_Group_Time 3.2 RTC time read and write APIs
+//! \subsection NUC1xx_RTC_API_Group_Time 3.2 RTC time reading and writing APIs
 //! 
 //! The RTC write and read are through APIS below:
 //! - RTCTimeRead()
@@ -75,7 +75,7 @@
 //!
 //! \n
 //! \section NUC1xx_RTC_Usage 4. Usage & Program Examples
-//! The following example shows how to use the RTC API to initialize the 
+//! The following example shows how to use the RTC APIs to initialize the 
 //! RTC, enable interrupts,read data from pins, and write data to pins.
 //! 
 //! \code

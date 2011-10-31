@@ -56,11 +56,11 @@
 //*****************************************************************************
 //
 //! \addtogroup NUC1xx_PWM_Register NUC1xx PWM Register
-//! \brief Here are the details info of PWM registers. 
+//! \brief Here are the detailed info of PWM registers.  
 //!
 //! it contains:
 //! - Register offset.
-//! - Details bit-field of the registers.
+//! - Detailed bit-field of the registers.
 //! - Enum and mask of the registers.
 //! .
 //! Users can read or write the registers thourgh xHWREG().

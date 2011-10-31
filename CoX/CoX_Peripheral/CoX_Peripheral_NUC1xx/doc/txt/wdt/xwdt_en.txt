@@ -4,10 +4,10 @@
 //! 
 //! \brief WDT Timer Peripheral Driver.
 //!
-//! The purpose of WDT Timer is to perform a system reset when system runs 
-//! into an unknown state. This prevents system from hanging for an infinite period
-//! of time. Besides, this WDT Timer supports another function of wake-up chip 
-//! from power down mode.The WDT includes an 18-bit free running counter with 
+//! The purpose of WDT Timer is to perform a system reset when system runs into
+//! an unknown state. This prevents system from hanging for an infinite period of
+//! time. Besides, this WDT Timer supports another function of wake-up chip from
+//! power down mode. The WDT includes an 18-bit free running counter with
 //! programmed time-out intervals.    
 //!
 //! <br />
@@ -43,19 +43,19 @@
 //! 
 //! <br />
 //! \subsection WDT_Restart 2.3 WDT Restart
-//! When WDT counter reaches the selected time-out interval and user don't reset
-//! the ounter in a specified delay time, chip will reset after restart function enables. 
+//! When WDT counter reaches the selected time-out interval and user hasn't resetted
+//! the ounter in a specified delay time, the chip will be resetted after restart function enables. 
 //!
 //! <br />
 //! \subsection WDT_HoldInICE 2.4 WDT Hold In ICE
-//! If this function enables, WDT Timer counter will keep going no matter ICE Debugger
-//! mode ackknowledged or not.  
+//! If this function enables, WDT Timer counter will keep going no matter
+//! whether the ICE Debugger mode is acknowledged or not.  
 //! 
 //! <br />
 //! \section WDT_Applications 3. WDT Applications
 //! The WDT can be used to reset chip, wake up mcu, etc.
-//! \note Here describes the common function of the WDT Peripheral. The COX
-//! Peripheral Interface is base on the functions above.
+//! \note Here describes the common functions of the WDT Peripheral. The COX
+//! Peripheral Interface is based on the functions above. 
 //
 //*****************************************************************************
 
@@ -85,7 +85,7 @@
 //!
 //! <br />
 //!
-//! \section COX_WDT_How_Define 1. How is the XWDT Standard Define?
+//! \section COX_WDT_How_Define 1. How is the XWDT Standard Defined?
 //! COX WDT defines the APIs based on the following common functions:
 //! - Set clock source and time-out interval
 //! - Set WDT function.
@@ -105,7 +105,7 @@
 //! .
 //!
 //! <br />
-//! \subsection XWDT_API_Group_Config 2.1 WDT Configure
+//! \subsection XWDT_API_Group_Config 2.1 WDT Configuration
 //! 
 //! The WDT clock source and time-out intervals are configured with :
 //! - xWDTInit()  

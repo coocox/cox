@@ -90,13 +90,14 @@
 //! \subsection UART_Interrupt 2.6 UART Interrupt
 //!
 //! The UART can generate interrupts when the following conditions are observed:
-//! Overrun Error
-//! Break Error
-//! Parity Error
-//! Framing Error
-//! Receive Timeout
-//! Transmit
-//! Receive
+//! - Overrun Error
+//! - Break Error
+//! - Parity Error
+//! - Framing Error
+//! - Receive Timeout
+//! - Transmit
+//! - Receive
+//! .
 //!
 //! \n
 //! \section UART_Applications 3. UART Applications
@@ -107,8 +108,8 @@
 //! .
 //!
 //! \n
-//! \note Here descripte the common function of the UART Peripheral. The COX
-//! Peripheral Interface is base on the functions above.
+//! \note Here describes the common functions of the UART Peripheral. The COX
+//! Peripheral Interface is based on the functions above. 
 //
 //*****************************************************************************
 

@@ -58,11 +58,11 @@
 //*****************************************************************************
 //
 //! \addtogroup NUC1xx_SPI_Register  NUC1xx SPI Register
-//! \brief Here are the details info of SPI registers. 
+//! \brief Here are the detailed info of SPI registers.  
 //!
 //! it contains:
 //! - Register offset.
-//! - Details bit-field of the registers.
+//! - Detailed bit-field of the registers.
 //! - Enum and mask of the registers.
 //! .
 //! Users can read or write the registers thourgh xHWREG().

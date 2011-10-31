@@ -4,8 +4,8 @@
 //!
 //! \brief NUC140 SPI Peripheral Driver
 //!
-//! The COX Peripheral Library also provide SPIs for function full functions of
-//! Nuvoton NUC1xx SPI.This module supports the whole NUC1xx Series.
+//! The COX Peripheral Library also provides APIs for full functions of Nuvoton
+//! NUC1xx SPI.This module supports the whole NUC1xx Series.
 //!
 //! <br /> 
 //! <h1>Contents</h1>
@@ -26,32 +26,30 @@
 //! <br />
 //! \section NUC1xx_SPI_Function_Desc 2. Functional Description
 //! The system control block has the following functions:
-//! - The SPI controller can be configured master or slave device, in master mode
-//!   this spi controller can drive up to two off-chip slave devices;At the same time
-//!   It also can be set as FIFO mode or DMA mode with different rate¡¢datawidth and 
-//!   slave select mode.
-//! - Each SPI controller can generates an individual interrupt when data transfer is    
-//!   finished and the respective interrupt event flag IF will be set. The interrupt 
+//! - The SPI controller can be configured as a master or a slave device. In master 
+//!   mode the spi controller can drive up to two off-chip slave devices. It can also
+//!   be set to FIFO mode or DMA mode with different rate and data width and slave select mode. 
+//! - Each SPI controller can generate an individual interrupt when data transfer is finished,
+//!   and the respective interrupt event flag IF will be set. The interrupt 
 //!   event flag will generates an interrupt to CPU if the interrupt enable bit IE.
-//! - The SPI controller can be set as different transfer and receive mode,including
-//!   normal transfer and receive mode and burst transfer and receive mode and FIFO
-//!   and DMA node. At the same time, it is a synchronous serial data communication 
+//! - The SPI controller can be set to different transfer and receive mode,including
+//!   normal transfer and receive mode, burst transfer and receive mode, FIFO mode,
+//!   and DMA mode. At the same time, it is a synchronous serial data communication 
 //!   protocol which operates in full duplex mode.Devices communicate in master/slave
 //!   mode with 4-wire bi-direction interface. 
 //! .
 //!
 //! <br />
-//! \subsection NUC1xx_SPI_API_Group 2. API Groups
+//! \subsection NUC1xx_SPI_API_Group 3. API Groups
 //!
 //! The Spi API is broken into three groups of functions:
 //! - those that deal with SPI mode configure,
 //! - those that deal with SPI interrupt control,
-//! - those that deal with SPI transfer and receive control.
+//! - those that deal with SPI transfer and receive controlling.
 //! .
 //! <br />
-//! \subsection NUC1xx_API_Group_Configure_Control 2.1 Spi configure control APIs
+//! \subsection NUC1xx_API_Group_Configure_Control 3.1 SPI configuration control APIs
 //!
-//! The Spi configure control are dealed with:
 //! - SPIConfig()
 //! - SPIAutoSSEnable()
 //! - SPIAutoSSDisable()
@@ -70,7 +68,7 @@
 //! .
 //!
 //! <br />
-//! \subsection NUC1xx_API_Group_Interrupt_Control 2.2 Spi Interrupt Control APIs
+//! \subsection NUC1xx_API_Group_Interrupt_Control 3.2 SPI Interrupt Control APIs
 //! - SPI3WireStartIntFlagClear()
 //! - SPI3WireStartIntFlagGet()
 //! - SPI3WireStartIntDisable()
@@ -82,7 +80,7 @@
 //! .
 //!
 //! <br />
-//! \subsection NUC1xx_API_Group_TransferReceive_Control 2.3 Spi TransferReceive Control
+//! \subsection NUC1xx_API_Group_TransferReceive_Control 3.3 SPI Transfer&Receive Control
 //!
 //! - SPISingleDataReadWrite()
 //! - SPIBitLengthGet()
@@ -102,9 +100,9 @@
 //! - SPIFIFOStatusGet()
 //! .
 //! <br />
-//! \section NUC1xx_SPI_Usage & Program Examples
-//! The following example shows how to use the SPI API to configue SPI and implement the
-//! function transfer and receive.
+//! \section NUC1xx_SPI_Usage 4 Program Examples
+//! The following example shows how to use the SPI APIs to configue SPI and to implement 
+//! the function of transferring and receiving. 
 //! \code
 //! #include "xhw_memmap.h"
 //! #include "Xspi.h"

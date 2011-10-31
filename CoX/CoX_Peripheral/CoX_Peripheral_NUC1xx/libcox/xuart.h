@@ -752,7 +752,7 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xUART_Exported_APIs xUART API
-//! \brief UART API Refrence.
+//! \brief UART API Reference.
 //! \section xUART_Exported_APIs_Port COX Port Details
 //! \verbatim
 //! +------------------------+----------------+--------+
@@ -1693,7 +1693,7 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 //*****************************************************************************
 //
 //! \addtogroup NUC1xx_UART_Exported_APIs NUC1xx UART API
-//! \brief NUC1xx UART API Refrence.
+//! \brief NUC1xx UART API Reference.
 //! @{
 //
 //*****************************************************************************

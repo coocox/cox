@@ -83,7 +83,7 @@ static unsigned long s_ulExtClockMHz = 12;
 //
 //*****************************************************************************
 #define SYSCTL_PERIPH_ENUM_CLK(a)                                             \
-                                (((a) & 0xff) << (((a) & 0x1f00) >> 16))
+                                (((a) & 0xff) << (((a) & 0x1f0000) >> 16))
                                 
 //*****************************************************************************
 //
@@ -299,11 +299,11 @@ SysCtlPeripheralValid(unsigned long ulPeripheral)
 
 //*****************************************************************************
 //
-//! \brief Sets the clocking of the device.
+//! \brief Sets the clock of the device.
 //!
-//! \param ulConfig is the required configuration of the device clocking.
+//! \param ulConfig is the required configuration of the device clock.
 //!
-//! This function configures the clocking of the device.  The input crystal
+//! This function configures the clock of the device.  The input crystal
 //! frequency, oscillator to be used, use of the PLL, and the system clock
 //! divider are all configured with this function.
 //!
@@ -325,7 +325,7 @@ SysCtlPeripheralValid(unsigned long ulPeripheral)
 //! source.  Note that attempts to disable the oscillator used to clock the
 //! device will be prevented by the hardware.
 //! <br />
-//! Details please reference to \ref XSysCtl_Clock_Set_Config_COX.
+//! Details please refer to \ref XSysCtl_Clock_Set_Config_COX.
 //! 
 //!
 //! \return None.
@@ -528,14 +528,14 @@ xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
 //! \brief Enables a peripheral.
 //!
 //! \param ulPeripheralBase a Peripheral base indicate which peripheral to be 
-//! enabled.Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! enabled.Details please refer to \ref xLowLayer_Peripheral_Memmap.
 //!
 //! Peripherals are enabled with this function.  At power-up, all peripherals
 //! are disabled; they must be enabled in order to operate or respond to
 //! register reads/writes.
 //!
 //! The \e ulPeripheral parameter must be only one of the following values:
-//! Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Details please refer to \ref xLowLayer_Peripheral_Memmap.
 //!
 //! \note None.
 //!
@@ -561,14 +561,14 @@ xSysCtlPeripheralEnable2(unsigned long ulPeripheralBase)
 //! \brief Disables a peripheral.
 //!
 //! \param ulPeripheralBase a Peripheral base indicate which peripheral to be 
-//! enabled.Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! enabled.Details please refer to \ref xLowLayer_Peripheral_Memmap.
 //!
 //! Peripherals are disabled with this function.  At power-up, all peripherals
 //! are disabled; they must be enabled in order to operate or respond to
 //! register reads/writes.
 //!
 //! The \e ulPeripheral parameter must be only one of the following values:
-//! Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Details please refer to \ref xLowLayer_Peripheral_Memmap.
 //!
 //! \note None.
 //!
@@ -594,14 +594,14 @@ xSysCtlPeripheralDisable2(unsigned long ulPeripheralBase)
 //! \brief Reset a peripheral.
 //!
 //! \param ulPeripheralBase a Peripheral base indicate which peripheral to be 
-//! Reset.Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Reset.Details please refer to \ref xLowLayer_Peripheral_Memmap.
 //!
 //! Peripherals are Reset with this function.  At power-up, all peripherals
 //! are disabled; they must be enabled in order to operate or respond to
 //! register reads/writes.
 //!
 //! The \e ulPeripheral parameter must be only one of the following values:
-//! Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Details please refer to \ref xLowLayer_Peripheral_Memmap.
 //!
 //! \note None.
 //!
@@ -709,7 +709,8 @@ xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
     if (ulPeripheralSrc & 0x01000000)
     {
         xHWREG(SYSCLK_CLKDIV) &= ~(SYSCTL_PERIPH_MASK_DIV(ulPeripheralSrc));
-        xHWREG(SYSCLK_CLKDIV) |= (ulDivide-1);
+        xHWREG(SYSCLK_CLKDIV) |= ((ulDivide-1) << (((ulPeripheralSrc) & 
+                                  0x1f00) >> 8));
     }
     SysCtlKeyAddrLock();
 }

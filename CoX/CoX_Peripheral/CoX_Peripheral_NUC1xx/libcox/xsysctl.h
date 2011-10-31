@@ -182,18 +182,18 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup xSysCtl_Clock_Set_Config xSysCtl Clock Set Configurtion
-//! \brief Values that show xSysCtl Clock Set Configurtion
+//! \addtogroup xSysCtl_Clock_Set_Config xSysCtl Clock Set Configuration
+//! \brief Values that show xSysCtl Clock Set Configuration
 //!
 //! \section xSysCtl_Clock_Set_SConfig 1. Where to use this group
 //! Values that can be passed to the xSysCtlClockSet() API as the
 //! \b ulConfig parameter.
 //!
 //! \section xSysCtl_Clock_Set_SConfig 2. ulConfig parameter description
-//! The \e ulConfig parameter is the logical OR of several different values,
-//! many of which are grouped into sets where only one can be chosen.
-//! ulConfig contains The external crystal frequency\The oscillator source and 
-//! The internal and main oscillators and PLL disabled optional.
+//! The ulConfig parameter is the logical OR of several different values, 
+//! many of which are grouped into sets where only one can be chosen. 
+//! ulConfig contains the external and internal crystal, main oscillators 
+//! and PLL disabled options.
 //!
 //! \section xSysCtl_Clock_Set_Config_COX 3.COX Port Details
 //! \verbatim
@@ -275,7 +275,7 @@ extern "C"
 #define xSYSCTL_INT_22MHZ       0x00000000  
 
 //
-//! Internal slow clock  is 30KHz.
+//! Internal slow clock  is 10KHz.
 //
 #define xSYSCTL_INTSL_10KHZ     0x00000000  
 
@@ -295,7 +295,7 @@ extern "C"
 #define xSYSCTL_MAIN_OSC_DIS    0x00000001  
 
 //
-//! Disable main oscillator
+//! Disable PLL
 //
 #define xSYSCTL_PLL_PWRDN       0x00010000  
 
@@ -767,7 +767,7 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xSysCtl_Exported_APIs xSysCtl API
-//! \brief xSysCtl API Refrence
+//! \brief xSysCtl API Reference
 //!
 //! \section xSysCtl_Exported_APIs_Port COX Port Details
 //! \verbatim
@@ -917,7 +917,7 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 //! operate or respond to register reads/writes.
 //!
 //! The \e ulPeripheralID parameter must be only one of the following values:
-//! Details please reference to \ref xSysCtl_Peripheral_ID_COX.
+//! Details please refer to \ref xSysCtl_Peripheral_ID_COX.
 //!
 //! \return None.
 //
@@ -936,7 +936,7 @@ extern void xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig);
 //! PWM, which has its own clock divider).
 //!
 //! \note This will not return accurate results if SysCtlClockSet() has not
-//! been called to configure the clocking of the device, or if the device is
+//! been called to configure the clock of the device, or if the device is
 //! directly clocked from a crystal (or a clock source) that is not one of the
 //! supported crystal frequencies.  In the later case, this function should be
 //! modified to directly return the correct system clock rate.
@@ -1755,8 +1755,8 @@ extern void xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig);
 
 //*****************************************************************************
 //
-//! \addtogroup NUC1xx_SysCtl_Clock_Config NUC1xx SysCtl Clock Configurtion
-//! \brief NUC1xx SysCtl Clock Configurtion
+//! \addtogroup NUC1xx_SysCtl_Clock_Config NUC1xx SysCtl Clock Configuration
+//! \brief NUC1xx SysCtl Clock Configuration
 //! The following are values that can be passed to the SysCtlClockSet() API as
 //! the ulConfig parameter.
 //! @{
@@ -2017,7 +2017,7 @@ extern void xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig);
 //*****************************************************************************
 //
 //! \addtogroup NUC1xx_SysCtl_Exported_APIs NUC1xx SysCtl APIs
-//! \brief NUC1xx SysCtl API Refrence
+//! \brief NUC1xx SysCtl API Reference
 //! @{
 //
 //*****************************************************************************

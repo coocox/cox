@@ -247,7 +247,7 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xWDT_Exported_APIs xWDT API
-//! \brief xWDT API Refrence.
+//! \brief xWDT API Reference.
 //!
 //! \section xWDT_Exported_APIs_Port COX Port Details
 //! \verbatim
@@ -285,29 +285,29 @@ extern "C"
 //! xWDT_Time_Reload_Config.
 //! \param ulReload is the Timer's reload value.
 //!
-//! This function is to Configurate The WatchDog Timer(WDT)'s Timer Interval.
-//! There are three factors to determine the Timer Interval,they are :
+//! This function is to configureThe WatchDog Timer(WDT)'s Timer Interval.
+//! There are three factors to determine the Timer Interval, they are:
 //! - clock source
 //! - Prescaler divider
 //! - reload value
 //!
 //! The \e ulConfig parameter contains clock source and Prescaler divider;
-//! When use,this parameter is the logical OR of the two values.
-//! For NUC1xx,there are no Prescaler divider.And the clock source can be:
-//! \b xWDT_S_INTSL,\b xWDT_S_EXTSL,
+//! When being used,this parameter is the logical OR of the two values.
+//! For NUC1xx,there is no Prescaler divider and the clock source can be:
+//! \b xWDT_S_INTSL, \b xWDT_S_EXTSL, 
 //! \b xWDT_S_HCLK_DIV.
-//! Details please reference to \ref xWDT_Clock_Config_COX.
+//! Details please refer to \ref xWDT_Clock_Config_COX.
 //!
-//! The \e ulReload parameter is value which will reload the counter when feed
-//! the watch dog.The value range dDepends on the number of bits of 
+//! The \e ulReload parameter is the value which will reload the counter when 
+//! feeding the watch dog.The value range depends on the number of bits of 
 //! corresponding counter.
-//! For NUC1xx,the reload value can only be one of the following:
-//! \b xWDT_INTERVAL_2_4T,\b xWDT_INTERVAL_2_6T,\b xWDT_INTERVAL_2_8T,
-//! \b xWDT_INTERVAL_2_10T,\b xWDT_INTERVAL_2_12T,\b xWDT_INTERVAL_2_14T,
-//! \b xWDT_INTERVAL_2_16T,\b xWDT_INTERVAL_2_18T.
-//! Details please reference to \ref xWDT_Time_Reload_Config_COX.
+//! For NUC1xx, the reload value can only be one of the following:
+//! \b xWDT_INTERVAL_2_4T, \b xWDT_INTERVAL_2_6T, \b xWDT_INTERVAL_2_8T,
+//! \b xWDT_INTERVAL_2_10T, \b xWDT_INTERVAL_2_12T, \b xWDT_INTERVAL_2_14T,
+//! \b xWDT_INTERVAL_2_16T, \b xWDT_INTERVAL_2_18T.
+//! Details please refer to \ref xWDT_Time_Reload_Config_COX.
 //! 
-//! \note When use watch dog xWDTEnable() should be called after call 
+//! \note When using watch dog xWDTEnable() should be called after call 
 //! xWDTInit(ulBase, ulConfig, ulReload).
 //!
 //! \return None.
@@ -575,7 +575,7 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup NUC1xx_WDT_Exported_APIs NUC1xx WDT API
-//! \brief NUC1xx WDT API Refrence.
+//! \brief NUC1xx WDT API Reference.
 //! @{
 //! @{
 //

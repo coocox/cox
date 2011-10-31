@@ -42,7 +42,7 @@
 //! .
 //!
 //! <br />
-//! \subsection NUC1xx_PWM_API_Group_Config 3.1 PWM Config APIs
+//! \subsection NUC1xx_PWM_API_Group_Config 3.1 PWM Configuration APIs 
 //! 
 //! The PWM are configured with :
 //! - PWMInitConfigure()
@@ -73,7 +73,7 @@
 //! <br />
 //! \subsubsection NUC1xx_PWM_API_Group_Interrupt 3.2.3 PWM Interrupt APIs
 //!
-//! The PWM Capture are set with : 
+//! The PWM Interrupt are set with : 
 //! - PWMIntEnable()
 //! - PWMIntDisable()
 //! - PWMIntFlagClear() 
@@ -81,8 +81,8 @@
 //!
 //! <br />
 //! \section NUC1xx_PWM_Usage 4. Usage & Program Examples
-//! The following example shows how to use the PWM API to initialize the 
-//! PWM, achieve the PWM interrupt function.
+//! The following example shows how to use the PWM APIs to initialize 
+//! the PWM and to achieve the PWM interrupt function.
 //! 
 //! \code
 //!

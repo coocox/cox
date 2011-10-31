@@ -75,7 +75,7 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xTIMER_Mode_Type xTIMER Mode Type 
-//! \brief Values that show xTIMER Mode Type
+//! \brief Values that show xTIMER Mode Type.
 //! \n
 //! \section xTIMER_Mode_Type_Section 1. Where to use this group
 //! Values that can be passed to xTimerInitConfig() as the ulConfig parameter 
@@ -142,7 +142,7 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xTIMER_INT_Type xTIMER Interrupt
-//! \brief Values that show xTIMER Interrupt Type
+//! \brief Values that show xTIMER Interrupt Type.
 //! \n
 //! \section xTIMER_INT_Type_Section 1. Where to use this group
 //! Values that can be passed to xTimerIntEnable(), xTimerIntEnable() ,
@@ -234,7 +234,7 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xTIMER_Counter_Pase_Type xTIMER Counter Pase Type
-//! \brief Values that show xTIMER Counter Pase Type
+//! \brief Values that show xTIMER Counter Pase Type.
 //! \n
 //! \section xTIMER_Counter_Pase_Type_Section 1. Where to use this group
 //! Values that can be passed to xTimerCounterDetectPhaseSelect() as ulPhase. 
@@ -272,7 +272,7 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xTIMER_Capture_Edge_Type xTIMER Capture Edge Type
-//! \brief Values that show xTIMER Capture Edge Type
+//! \brief Values that show xTIMER Capture Edge Type.
 //! \n
 //! \section xTIMER_Capture_Edge_Type_Section 1. Where to use this group
 //! Values that can be passed to xTimerCaptureEdgeSelect() as ulPhase.
@@ -317,7 +317,7 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xTIMER_Capture_Mode_Type xTIMER Capture Mode Type
-//! \brief Values that show xTIMER Capture Mode Type
+//! \brief Values that show xTIMER Capture Mode Type.
 //! \n
 //! \section xTIMER_Capture_Mode_Type_Section 1. Where to use this group
 //! Values that can be passed to xTimerCaptureEdgeSelect() as ulPhase.
@@ -356,7 +356,7 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xTIMER_Count_Direction xTIMER Count Direction
-//! \brief Values that show 
+//! \brief Values that show the count direction
 //! \n
 //! \section xTIMER_Count_Direction_Section 1. Where to use this group
 //! Values that can be passed to xTimerInitConfig() as ulConfig.
@@ -500,7 +500,7 @@ extern "C"
 //! \b xTIMER_MODE_ONESHOT, \b xTIMER_MODE_PERIODIC, \b xTIMER_MODE_TOGGLE and
 //! \b xTIMER_MODE_CONTINUOUS is the Timer's mode
 //! 
-//! \b xTIMER_COUNT_UP , \b xTIMER_COUNT_DOWN is the Timer's direction.
+//! \b xTIMER_COUNT_UP, \b xTIMER_COUNT_DOWN is the Timer's direction.
 //!
 //! The \e ulTickFreq parameter is the the timer tick frequency.It can be any
 //! values but ulTickFreq > 0 and ulTickFreq < timer clock source.
@@ -584,7 +584,7 @@ extern "C"
 //! \param ulBase is the base address of the Timer port.
 //! \param ulChannel is the channel of the Timer port.
 //! Details please reference to \ref xTIMER_Count_Channel
-//! \param ulCapMode is the capture mode of the Timer port.Which can be the 
+//! \param ulCapMode is the capture mode of the Timer port Which can be the 
 //! values: \b TIMER_CAP_MODE_CAP, \b TIMER_CAP_MODE_RST.
 //! Details please reference to \ref xTIMER_Capture_Mode_Type
 //!
@@ -985,7 +985,7 @@ extern "C"
 //
 //! a 0 to 1 transition on TEX will be detected.
 //
-#define TIMER_CAP_RISING        0x00000001
+#define TIMER_CAP_RISING        0x00000002
 
 //
 //! a 1 to 0 transition on TEX will be detected.
@@ -995,7 +995,7 @@ extern "C"
 //
 //! either 1 to 0 or 0 to 1 transition on TEX will be detected.
 //
-#define TIMER_CAP_BOTH          0x00000002
+#define TIMER_CAP_BOTH          0x00000004
 
 //*****************************************************************************
 //
@@ -1011,8 +1011,6 @@ extern "C"
 //
 //*****************************************************************************
 
-extern void TimerInitConfig(unsigned long ulBase, unsigned long ulConfig,
-                            unsigned long ulTickFreq);
 extern void TimerInitConfig(unsigned long ulBase, unsigned long ulConfig,
                             unsigned long ulTickFreq);
 extern void TimerStart(unsigned long ulBase);
