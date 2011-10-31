@@ -2,7 +2,7 @@
 //
 //! \file hw_hd44780.h
 //! \brief Character LCD HD44780 Command definition.
-//! \version 1.0.0.$Rev$
+//! \version 1.0.0
 //! \date 10/18/2011
 //! \author CooCox
 //! \copy

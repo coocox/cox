@@ -2,7 +2,7 @@
 //
 //! \file hd44780.c
 //! \brief Driver for Character LCD HD44780.
-//! \version 1.0.0.$Rev$
+//! \version 1.0.0
 //! \date 10/18/2011
 //! \author CooCox
 //! \copy
@@ -77,6 +77,7 @@ HD44780Write(unsigned char ucRS, unsigned char ucInstruction)
     //
     // Output Data
     //
+#if (HD44780_INTERFACE_DATA_LEN == HD44780_INTERFACE_DATA_LEN_8)    
     xGPIOSPinWrite(HD44780_PIN_D7, (ucInstruction >> 7) & 0x01);
     xGPIOSPinWrite(HD44780_PIN_D6, (ucInstruction >> 6) & 0x01);
     xGPIOSPinWrite(HD44780_PIN_D5, (ucInstruction >> 5) & 0x01);
@@ -85,7 +86,24 @@ HD44780Write(unsigned char ucRS, unsigned char ucInstruction)
     xGPIOSPinWrite(HD44780_PIN_D2, (ucInstruction >> 2) & 0x01);
     xGPIOSPinWrite(HD44780_PIN_D1, (ucInstruction >> 1) & 0x01);
     xGPIOSPinWrite(HD44780_PIN_D0, ucInstruction & 0x01);
-
+#else
+#if (HD44780_INTERFACE_DATA_LEN == HD44780_INTERFACE_DATA_LEN_4)  
+    xGPIOSPinWrite(HD44780_PIN_D7, (ucInstruction >> 7) & 0x01);
+    xGPIOSPinWrite(HD44780_PIN_D6, (ucInstruction >> 6) & 0x01);
+    xGPIOSPinWrite(HD44780_PIN_D5, (ucInstruction >> 5) & 0x01);
+    xGPIOSPinWrite(HD44780_PIN_D4, (ucInstruction >> 4) & 0x01);
+    
+    xGPIOSPinWrite(HD44780_PIN_E, HD44780_E_DISABLE);
+    xSysCtlDelay(10);
+    xGPIOSPinWrite(HD44780_PIN_E, HD44780_E_ENABLE);
+     
+    xGPIOSPinWrite(HD44780_PIN_D7, (ucInstruction >> 3) & 0x01);
+    xGPIOSPinWrite(HD44780_PIN_D6, (ucInstruction >> 2) & 0x01);
+    xGPIOSPinWrite(HD44780_PIN_D5, (ucInstruction >> 1) & 0x01);
+    xGPIOSPinWrite(HD44780_PIN_D4, ucInstruction & 0x01);    
+#endif    
+#endif
+    
     xSysCtlDelay(10);
     
     //
@@ -120,6 +138,7 @@ HD44780Read(unsigned char ucRS)
     //
     // Set D7 - D0 direction to GPIO Input
     //
+#if (HD44780_INTERFACE_DATA_LEN == HD44780_INTERFACE_DATA_LEN_8)        
     xGPIOSPinTypeGPIOInput(HD44780_PIN_D7);
     xGPIOSPinTypeGPIOInput(HD44780_PIN_D6);
     xGPIOSPinTypeGPIOInput(HD44780_PIN_D5);
@@ -128,6 +147,14 @@ HD44780Read(unsigned char ucRS)
     xGPIOSPinTypeGPIOInput(HD44780_PIN_D2);
     xGPIOSPinTypeGPIOInput(HD44780_PIN_D1);
     xGPIOSPinTypeGPIOInput(HD44780_PIN_D0);
+#else
+#if (HD44780_INTERFACE_DATA_LEN == HD44780_INTERFACE_DATA_LEN_4)        
+    xGPIOSPinTypeGPIOInput(HD44780_PIN_D7);
+    xGPIOSPinTypeGPIOInput(HD44780_PIN_D6);
+    xGPIOSPinTypeGPIOInput(HD44780_PIN_D5);
+    xGPIOSPinTypeGPIOInput(HD44780_PIN_D4);    
+#endif    
+#endif    
 
     //
     // RS:Command, RW:Write, E:Enable
@@ -141,6 +168,7 @@ HD44780Read(unsigned char ucRS)
     //
     // Read the Data
     //
+#if (HD44780_INTERFACE_DATA_LEN == HD44780_INTERFACE_DATA_LEN_8)    
     ucData |= xGPIOSPinRead(HD44780_PIN_D7) << 7;
     ucData |= xGPIOSPinRead(HD44780_PIN_D6) << 6;
     ucData |= xGPIOSPinRead(HD44780_PIN_D5) << 5;
@@ -149,7 +177,23 @@ HD44780Read(unsigned char ucRS)
     ucData |= xGPIOSPinRead(HD44780_PIN_D2) << 2;
     ucData |= xGPIOSPinRead(HD44780_PIN_D1) << 1;
     ucData |= xGPIOSPinRead(HD44780_PIN_D0) << 0;
+#else
+#if (HD44780_INTERFACE_DATA_LEN == HD44780_INTERFACE_DATA_LEN_4) 
+    ucData |= xGPIOSPinRead(HD44780_PIN_D7) << 7;
+    ucData |= xGPIOSPinRead(HD44780_PIN_D6) << 6;
+    ucData |= xGPIOSPinRead(HD44780_PIN_D5) << 5;
+    ucData |= xGPIOSPinRead(HD44780_PIN_D4) << 4;
     
+    xGPIOSPinWrite(HD44780_PIN_E, HD44780_E_DISABLE);
+    xSysCtlDelay(10);
+    xGPIOSPinWrite(HD44780_PIN_E, HD44780_E_ENABLE);
+    
+    ucData |= xGPIOSPinRead(HD44780_PIN_D7) << 3;
+    ucData |= xGPIOSPinRead(HD44780_PIN_D6) << 2;
+    ucData |= xGPIOSPinRead(HD44780_PIN_D5) << 1;
+    ucData |= xGPIOSPinRead(HD44780_PIN_D4) << 0;    
+#endif    
+#endif    
     //
     // E:Disable
     //
@@ -158,6 +202,7 @@ HD44780Read(unsigned char ucRS)
     //
     // At the End, set D7 - D0 direction to GPIO OutPut
     //
+#if (HD44780_INTERFACE_DATA_LEN == HD44780_INTERFACE_DATA_LEN_8)        
     xGPIOSPinTypeGPIOOutput(HD44780_PIN_D7);
     xGPIOSPinTypeGPIOOutput(HD44780_PIN_D6);
     xGPIOSPinTypeGPIOOutput(HD44780_PIN_D5);
@@ -166,7 +211,14 @@ HD44780Read(unsigned char ucRS)
     xGPIOSPinTypeGPIOOutput(HD44780_PIN_D2);
     xGPIOSPinTypeGPIOOutput(HD44780_PIN_D1);
     xGPIOSPinTypeGPIOOutput(HD44780_PIN_D0);
-
+#else
+#if (HD44780_INTERFACE_DATA_LEN == HD44780_INTERFACE_DATA_LEN_4)
+    xGPIOSPinTypeGPIOOutput(HD44780_PIN_D7);
+    xGPIOSPinTypeGPIOOutput(HD44780_PIN_D6);
+    xGPIOSPinTypeGPIOOutput(HD44780_PIN_D5);
+    xGPIOSPinTypeGPIOOutput(HD44780_PIN_D4);    
+#endif    
+#endif
     return ucData;
 }
 
@@ -263,6 +315,7 @@ HD44780Init(void)
     //
     // Enable GPIO Port that used
     //
+#if (HD44780_INTERFACE_DATA_LEN == HD44780_INTERFACE_DATA_LEN_8)    
     xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(HD44780_PIN_D7));
     xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(HD44780_PIN_D6));
     xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(HD44780_PIN_D5));
@@ -271,13 +324,23 @@ HD44780Init(void)
     xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(HD44780_PIN_D2));
     xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(HD44780_PIN_D1));
     xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(HD44780_PIN_D0));
+#else
+#if (HD44780_INTERFACE_DATA_LEN == HD44780_INTERFACE_DATA_LEN_4)    
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(HD44780_PIN_D7));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(HD44780_PIN_D6));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(HD44780_PIN_D5));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(HD44780_PIN_D4)); 
+#endif
+#endif    
+    
     xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(HD44780_PIN_E));
     xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(HD44780_PIN_RS));
-    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(HD44780_PIN_RW));
-
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(HD44780_PIN_RW)); 
+     
     //
     // Set Pins Type to GPIO Output
     //
+#if (HD44780_INTERFACE_DATA_LEN == HD44780_INTERFACE_DATA_LEN_8)        
     xGPIOSPinTypeGPIOOutput(HD44780_PIN_D7);
     xGPIOSPinTypeGPIOOutput(HD44780_PIN_D6);
     xGPIOSPinTypeGPIOOutput(HD44780_PIN_D5);
@@ -286,6 +349,15 @@ HD44780Init(void)
     xGPIOSPinTypeGPIOOutput(HD44780_PIN_D2);
     xGPIOSPinTypeGPIOOutput(HD44780_PIN_D1);
     xGPIOSPinTypeGPIOOutput(HD44780_PIN_D0);
+#else
+#if (HD44780_INTERFACE_DATA_LEN == HD44780_INTERFACE_DATA_LEN_4)   
+    xGPIOSPinTypeGPIOOutput(HD44780_PIN_D7);
+    xGPIOSPinTypeGPIOOutput(HD44780_PIN_D6);
+    xGPIOSPinTypeGPIOOutput(HD44780_PIN_D5);
+    xGPIOSPinTypeGPIOOutput(HD44780_PIN_D4);    
+#endif    
+#endif 
+    
     xGPIOSPinTypeGPIOOutput(HD44780_PIN_E);
     xGPIOSPinTypeGPIOOutput(HD44780_PIN_RS);
     xGPIOSPinTypeGPIOOutput(HD44780_PIN_RW);
