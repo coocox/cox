@@ -65,4 +65,13 @@ echo completed
 echo -----------------------------------
 
 
+echo -----------------------------------
+echo clean CoX.Driver.LCD.Character.HD44780.doxygen(html/rtf)
+set clean_target=CoX\Driver\LCD_Character\HD44780\Character_LCD_HD44780_Driver\doc\gen\doxy.log
+if exist %clean_target% del /q %clean_target% >>nul 
+set clean_target="CoX\Driver\LCD_Character\HD44780\Character_LCD_HD44780_Driver\doc\en"
+if exist %clean_target% rd /s /q %clean_target% >>nul
+echo completed
+echo -----------------------------------
+
 pause
