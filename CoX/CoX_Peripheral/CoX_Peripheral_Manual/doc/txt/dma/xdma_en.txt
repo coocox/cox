@@ -4,11 +4,11 @@
 //!
 //! \brief Peripheral direct memory access (PDMA) controller that transfers data to and from 
 //! memory or transfer data to and from APB devices. The PDMA has nine channels of  DMA 
-//! (Peripheral-to-Memory or Memory-to-Peripheral or Memory-to-Memory). For each PDMA
+//! (Peripheral-to-Memory , Memory-to-Peripheral or Memory-to-Memory). For each PDMA
 //! channel (PDMA CH0~CH8), there is one word buffer as transfer buffer between the
 //! Peripherals APB devices and Memory. 
 //!
-//! - Set the control parameters for a DMA channel such as width of data,address mode and
+//! - Set the control parameters for a DMA channel such as width of data, address mode and
 //!   transfer direction .
 //! - Each PDMA channel can generates an individual interrupt when data transfer isfinished
 //!   target abort interrupt generation during PDMA transfer,you can use it if you need. 
@@ -30,7 +30,7 @@
 //! <br /> 
 //! \subsection DMA_Configure_Control 1.1 Device DMA controller configuration
 //!
-//! Set the control parameters for a DMA channel such as width of data,address mode and
+//! Set the control parameters for a DMA channel such as width of data, address mode and
 //! transfer direction .
 //! 
 //! Assign the channel through the Source request or Destination request.
@@ -46,14 +46,14 @@
 //! <br />
 //! \subsection DMA_TrigTransfer_Control trigger DMA transfer which is in your mode
 //!
-//!  After set all the configuration,you may start the DMA by trigger a transfer.
+//!  After set all the configuration, you may start the DMA by trigger a transfer.
 //! 
 //! <br />
 //! \section PDMA_Applications 2. DMA Applications
 //! add in the future
 //!
 //! <br />
-//! \note Here descripte the common function of the DMA. The COX DMA Interface base on 
+//! \note Here describe the common function of the DMA. The CoX DMA Interface base on 
 //! the functions above
 //
 //***************************************************************************************
@@ -62,12 +62,12 @@
 //***************************************************************************************
 //
 //! \defgroup xDMA xDMA
-//! \brief COX DMA Peripheral Interface
+//! \brief CoX DMA Peripheral Interface
 //!
-//! The xDMA is the DMA Peripheral Interface of COX.It defines some common macros and APIs
+//! The xDMA is the DMA Peripheral Interface of CoX.It defines some common macros and APIs
 //!  
 //! <h1>Contents</h1>
-//! - \ref COX_DMA_How_Define
+//! - \ref CoX_DMA_How_Define
 //! - \ref xDMA_API_Group_Peripheral
 //!   - \ref xDMA_API_Group_Configure
 //!   - \ref xDMA_API_Group_Interrupt
@@ -78,8 +78,8 @@
 //!
 //! <br />
 //!
-//! \section COX_DMA_How_Define 1. How is the DMA API Standard Define?
-//! COX PDMA defines the APIs based on the following common functions:
+//! \section CoX_DMA_How_Define 1. How is the DMA API Standard Defined?
+//! CoX PDMA defines the APIs based on the following common functions:
 //! 
 //! - DMA Configure Control
 //!   - Transfer direction
@@ -87,8 +87,8 @@
 //!   - Width of data
 //!   .
 //! - DMA Interrupt Control
-//!   - Enable Interrup
-//!   - ISR and CallBack Function
+//!   - Enable Interrupt
+//!   - ISR and Callback Function
 //!   .
 //! - DMA Trig Control 
 //!   - Transfer trig
@@ -97,7 +97,7 @@
 //! <br />
 //! \section xDMA_API_Group_Peripheral 2. DMA API Group Peripheral
 //!
-//! The COX PDMA API is broken into three groups of functions
+//! The CoX PDMA API is broken into three groups of functions
 //! The PDMA API is broken into three groups of functions:
 //! - those that deal with DMA mode configure,
 //! - those that deal with DMA interrupt control,
@@ -106,7 +106,7 @@
 //! <br />
 //! \subsection xDMA_API_Group_Configure 2.1 DMA configure control APIs
 //!
-//! The PDMA configure control are dealed with:
+//! The PDMA configure control are dealt with:
 //! - xDMAEnable()
 //! - xDMADisable()
 //! - xDMAChannelDynamicAssign()
@@ -134,7 +134,7 @@
 //! .
 //! <br />
 //! \section xDMA_Usage  3. DMA Usage and Program Examples
-//! The following example shows how to use the DMA API to configue DMA and implement the
+//! The following example shows how to use the DMA API to configure DMA and implement the
 //! function transfer and receive.
 //! \code
 //! #include "xhw_types.h"
@@ -339,7 +339,7 @@
 //*****************************************************************************
 //
 //! \defgroup xDMA_Exported_APIs Exported APIs Refrence
-//! \brief COX DMA Peripheral Interface APIs Refrence
+//! \brief CoX DMA Peripheral Interface APIs Refrence
 //
 //*****************************************************************************
 

@@ -158,6 +158,8 @@ UART1IntHandler(void)
 static unsigned long UARTCLkGet(void)
 {
     unsigned long clk =0 , div;
+    unsigned long ulPLLSrc, ulNF, ulNR, ulNO;
+    unsigned long ulMap[4] = {1, 2, 2, 4};
     //
     // Check UART Clock Source Setting.
     //
@@ -174,20 +176,38 @@ static unsigned long UARTCLkGet(void)
     {
         //
         // According PLL Clock and UART_Divider to get clock.
-        //     
-        div = (xHWREG(SYSCLK_CLKDIV) & SYSCLK_CLKDIV_UART_M) >>
-                                       SYSCLK_CLKDIV_UART_S;                
-    
-        clk = SysCtlHClockGet() * ((xHWREG(SYSCLK_CLKDIV) & 
-                                    SYSCLK_CLKDIV_HCLK_M) + 1) / (div+1);
+        //                  
+        if((xHWREG(SYSCLK_PLLCON) & SYSCLK_PLLCON_PLL_SRC))
+        {
+            ulPLLSrc = 22000000;
+        }
+        else
+        {
+            ulPLLSrc = 12*1000000;
+        }
+        if ((xHWREG(SYSCLK_PLLCON) & SYSCLK_PLLCON_PD))
+        {
+            clk = 0;
+        }
+        else
+        {
+            ulNF = (xHWREG(SYSCLK_PLLCON) & SYSCLK_PLLCON_FB_DV_M);
+            ulNR = (xHWREG(SYSCLK_PLLCON) & SYSCLK_PLLCON_IN_DV_M) >>          \
+                                           SYSCLK_PLLCON_IN_DV_S;
+            ulNO = (xHWREG(SYSCLK_PLLCON) & SYSCLK_PLLCON_OUT_DV_M) >>          \
+                                           SYSCLK_PLLCON_OUT_DV_S;
+            clk =  ulPLLSrc*(ulNF+2)/(ulNR+2)/(ulMap[ulNO]);
+        }
     }
     //
     // Clock 22Mhz.
     //    
     else
-        clk = 22000000;                            
+        clk = 22000000;  
 
-    return clk;
+    div = (xHWREG(SYSCLK_CLKDIV) & SYSCLK_CLKDIV_UART_M) >>
+                                       SYSCLK_CLKDIV_UART_S;
+    return clk/ (div+1);
 }
 
 
@@ -197,7 +217,7 @@ static unsigned long UARTCLkGet(void)
 //!
 //! \param ulBase is the base address of the UART port.
 //! \param ulParity specifies the type of parity to use.
-//!
+//! 
 //! Sets the type of parity to use for transmitting and expect when receiving.
 //! The \e ulParity parameter must be one of \b UART_CONFIG_PAR_NONE,
 //! \b UART_CONFIG_PAR_EVEN, \b UART_CONFIG_PAR_ODD, \b UART_CONFIG_PAR_ONE,

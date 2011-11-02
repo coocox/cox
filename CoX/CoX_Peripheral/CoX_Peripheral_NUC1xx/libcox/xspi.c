@@ -253,11 +253,11 @@ SPI3IntHandler(void)
 //!
 //! The \e ulSSMode can be one of the following values:
 //! \b xSPI_SS_HARDWARE, \b xSPI_SS_SOFTWARE.
-//! Details please reference to \ref xSPI_SlaveSelMode_COX.
+//! Details please reference to \ref xSPI_SlaveSelMode_CoX.
 //!
 //! The \e ulSlaveSel can be one of the following values:
 //! \b xSPI_SS_NONE, \b xSPI_SS0,\b xSPI_SS1, or \b xSPI_SS0_SS1.
-//! Details please reference to \ref xSPI_SlaveSel_COX.
+//! Details please reference to \ref xSPI_SlaveSel_CoX.
 //!
 //! \note this is only for master
 //!

@@ -55,7 +55,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -76,7 +76,7 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xCORE_Exported_APIs xCORE API
-//! \brief Cortex-M0/M3 Core peripheral(CPU, NVIC, Systick) API refrence.
+//! \brief Cortex-M0/M3 Core peripheral(CPU, NVIC, Systick) API reference.
 //! @{
 //
 //*****************************************************************************

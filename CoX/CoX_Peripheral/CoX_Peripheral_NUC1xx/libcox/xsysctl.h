@@ -54,7 +54,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -84,10 +84,10 @@ extern "C"
 //! xSysCtlPeripheralDisable(), and xSysCtlPeripheralReset() APIs as the
 //! ulPeripheral parameter.  
 //! 
-//! \section xSysCtl_Peripheral_ID_COX 2.COX Port Details
+//! \section xSysCtl_Peripheral_ID_CoX 2.CoX Port Details
 //! \verbatim
 //! +--------------------------+----------------+--------------------------+
-//! |SysCtl Peripheral ID      |       COX      |          NUC1xx          |
+//! |SysCtl Peripheral ID      |       CoX      |          NUC1xx          |
 //! |--------------------------|----------------|--------------------------|
 //! |xSYSCTL_PERIPH_ACMPn      |  Non-Mandatory |   xSYSCTL_PERIPH_ACMP0   |
 //! |--------------------------|----------------|--------------------------|
@@ -195,10 +195,10 @@ extern "C"
 //! ulConfig contains the external and internal crystal, main oscillators 
 //! and PLL disabled options.
 //!
-//! \section xSysCtl_Clock_Set_Config_COX 3.COX Port Details
+//! \section xSysCtl_Clock_Set_Config_CoX 3.CoX Port Details
 //! \verbatim
 //! +--------------------------+----------------+--------------------------+
-//! |SysCtl Clock Set Configs  |       COX      |          NUC1xx          |
+//! |SysCtl Clock Set Configs  |       CoX      |          NUC1xx          |
 //! |--------------------------|----------------|--------------------------|
 //! |xSYSCTL_OSC_MAIN          |    Mandatory   |             Y            |
 //! |--------------------------|----------------|--------------------------|
@@ -239,8 +239,8 @@ extern "C"
 //
 //*****************************************************************************
 
-#define xSYSCTL_OSC_MAIN        SYSCTL_OSC_MAIN
-#define xSYSCTL_OSC_INT         SYSCTL_OSC_INT
+#define xSYSCTL_OSC_MAIN        (SYSCTL_OSC_MAIN | SYSCTL_PLL_MAIN)
+#define xSYSCTL_OSC_INT         (SYSCTL_OSC_INT | SYSCTL_PLL_INT)
 #define xSYSCTL_OSC_INTSL       SYSCTL_OSC_INTSL
 #define xSYSCTL_OSC_EXTSL       SYSCTL_OSC_EXTSL
 
@@ -318,10 +318,10 @@ extern "C"
 //! <b> ModuleName + n + SourceClock</b>, such as xSYSCTL_WDT_EXTSL, 
 //! xSYSCTL_ADC0_MAIN.
 //!
-//! \section xSysCtl_Peripheral_Src_Clk_COX COX Port Details
+//! \section xSysCtl_Peripheral_Src_Clk_CoX CoX Port Details
 //! \verbatim
 //! +-------------------------- +----------------+--------------------------+
-//! |Peripheral Source Clock Set|       COX      |          NUC1xx          |
+//! |Peripheral Source Clock Set|       CoX      |          NUC1xx          |
 //! |---------------------------|----------------|--------------------------|
 //! |Those are all Non-Mandatory|  Non-Mandatory |             Y            |
 //! | parameter,the Mandatory   |                |                          |
@@ -635,10 +635,10 @@ extern "C"
 //! The macros of General Peripheral Short Name always like:
 //! <b> ModuleName + n </b>, such as CAN0, ADC0.
 //!
-//! \section xSysCtl_Peripheral_Short_COX COX Port Details
+//! \section xSysCtl_Peripheral_Short_CoX CoX Port Details
 //! \verbatim
 //! +-------------------------- +----------------+--------------------------+
-//! |Peripheral Short name      |       COX      |          NUC1xx          |
+//! |Peripheral Short name      |       CoX      |          NUC1xx          |
 //! |---------------------------|----------------|--------------------------|
 //! |ADCn                       |  Non-Mandatory |           ADC0           |
 //! |---------------------------|----------------|--------------------------|
@@ -674,7 +674,7 @@ extern "C"
 //! |-------------------------- |----------------|--------------------------|
 //!
 //! +-------------------------- +----------------+--------------------------+
-//! |Peripheral Clock source    |       COX      |          NUC1xx          |
+//! |Peripheral Clock source    |       CoX      |          NUC1xx          |
 //! |---------------------------|----------------|--------------------------|
 //! |INT                        |    Mandatory   |             Y            |
 //! |---------------------------|----------------|--------------------------|
@@ -769,10 +769,10 @@ extern "C"
 //! \addtogroup xSysCtl_Exported_APIs xSysCtl API
 //! \brief xSysCtl API Reference
 //!
-//! \section xSysCtl_Exported_APIs_Port COX Port Details
+//! \section xSysCtl_Exported_APIs_Port CoX Port Details
 //! \verbatim
 //! +--------------------------------+----------------+--------+
-//! |xSysCtl API                     |       COX      | NUC1xx |
+//! |xSysCtl API                     |       CoX      | NUC1xx |
 //! |--------------------------------|----------------|--------|
 //! |xSysCtlPeripheralReset          |    Mandatory   |    Y   |
 //! |--------------------------------|----------------|--------|
@@ -811,7 +811,7 @@ extern "C"
 //! \brief Performs a software reset of a peripheral.
 //!
 //! \param ulPeripheralID is the peripheral to reset. 
-//! Details please reference to \ref xSysCtl_Peripheral_ID.
+//! Details please refer to \ref xSysCtl_Peripheral_ID.
 //!
 //! This function performs a software reset of the specified peripheral.  An
 //! individual peripheral reset signal is asserted for a brief period and then
@@ -819,7 +819,7 @@ extern "C"
 //! condition.
 //!
 //! The \e ulPeripheralID parameter must be only one of the following values:
-//! Details please reference to \ref xSysCtl_Peripheral_ID_COX.
+//! Details please refer to \ref xSysCtl_Peripheral_ID_CoX.
 //!
 //! \return None.
 //
@@ -832,14 +832,14 @@ extern "C"
 //! \brief Enables a peripheral.
 //!
 //! \param ulPeripheralID is the peripheral to enable.
-//! Details please reference to \ref xSysCtl_Peripheral_ID.
+//! Details please refer to \ref xSysCtl_Peripheral_ID.
 //!
 //! Peripherals are enabled with this function.  At power-up, all peripherals
 //! are disabled; they must be enabled in order to operate or respond to
 //! register reads/writes.
 //!
 //! The \e ulPeripheralID parameter must be only one of the following values:
-//! Details please reference to \ref xSysCtl_Peripheral_ID_COX.
+//! Details please refer to \ref xSysCtl_Peripheral_ID_CoX.
 //!
 //! \note None.
 //!
@@ -868,12 +868,12 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 //! order to operate or respond to register reads/writes.
 //!
 //! The \e ulPeripheralSrc parameter must be only one of the following values:
-//! \ref xSysCtl_Peripheral_Src_Clk_COX.
+//! \ref xSysCtl_Peripheral_Src_Clk_CoX.
 //! \verbatim
 //! +--------------------+------------------------+---------------------------+
 //! |    manufacturer    |ePeripheral             |eSrc                       |
 //! |--------------------|------------------------|---------------------------|
-//! |    COX Common &    |This parameter is a     |This parameter is a        |
+//! |    CoX Common &    |This parameter is a     |This parameter is a        |
 //! |      Mandatory     |mandatory.Mandatory     |mandatory. So it           |
 //! |                    |is the format of        |should be: INT             |
 //! |                    |Variable naming.So it   |HCLK  HCLK_n EXTSL         |
@@ -917,7 +917,7 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 //! operate or respond to register reads/writes.
 //!
 //! The \e ulPeripheralID parameter must be only one of the following values:
-//! Details please refer to \ref xSysCtl_Peripheral_ID_COX.
+//! Details please refer to \ref xSysCtl_Peripheral_ID_CoX.
 //!
 //! \return None.
 //

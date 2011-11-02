@@ -325,7 +325,7 @@ SysCtlPeripheralValid(unsigned long ulPeripheral)
 //! source.  Note that attempts to disable the oscillator used to clock the
 //! device will be prevented by the hardware.
 //! <br />
-//! Details please refer to \ref XSysCtl_Clock_Set_Config_COX.
+//! Details please refer to \ref XSysCtl_Clock_Set_Config_CoX.
 //! 
 //!
 //! \return None.
@@ -432,7 +432,7 @@ xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
     }
     if(ulSysClk == ulOscFreq)
     {
-        SysCtlIPClockDividerSet(SYSCTL_PERIPH_HCLK_D | SYSCTL_SYSDIV_1);
+        SysCtlIPClockDividerSet(SYSCTL_PERIPH_HCLK_D | (SYSCTL_SYSDIV_1 + 1));
     }
     else if (ulSysClk <= ulOscFreq)
     {
@@ -449,7 +449,7 @@ xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
             }
         }
         xASSERT(ulSysDiv < 16);
-        SysCtlIPClockDividerSet(SYSCTL_PERIPH_HCLK_D | ulSysDiv);
+        SysCtlIPClockDividerSet(SYSCTL_PERIPH_HCLK_D | (ulSysDiv + 1));
     }
     else
     {
@@ -467,6 +467,7 @@ xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
             // Check the arguments .
             //
             xASSERT((ulConfig & SYSCLK_PWRCON_XTL12M_EN)==0); 
+            xHWREG(SYSCLK_PLLCON) &= ~SYSCLK_PLLCON_PLL_SRC;
             if(ulNR%4 == 0)
             {
                 ulNF >>= 2;
@@ -494,6 +495,7 @@ xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
             // Check the arguments .
             //
             xASSERT((ulConfig & SYSCLK_PWRCON_OSC22M_EN)==0);   
+            xHWREG(SYSCLK_PLLCON) |= SYSCLK_PLLCON_PLL_SRC;
             ulNF >>= 1;
             ulNR >>= 1;
             if((ulConfig & SYSCLK_PWRCON_XTL12M_EN)!=0)
@@ -514,7 +516,7 @@ xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
         SysCtlDelay(1000);
         SysCtlHClockSourceSet(SYSCTL_HLCK_S_PLL);
         SysCtlDelay(100);
-        SysCtlIPClockDividerSet(SYSCTL_PERIPH_HCLK_D | SYSCTL_SYSDIV_1);
+        SysCtlIPClockDividerSet(SYSCTL_PERIPH_HCLK_D | (SYSCTL_SYSDIV_1 + 1));
         if((ulConfig & SYSCLK_PWRCON_OSC22M_EN)!=0)
 		{
 			xHWREG(SYSCLK_PWRCON) &= ~SYSCLK_PWRCON_OSC22M_EN;
@@ -1863,7 +1865,7 @@ SysCtlHClockSet(unsigned long ulConfig)
         SysCtlHClockSourceSet(SYSCTL_HLCK_S_EXT12M);
         SysCtlDelay(100);  
         SysCtlIPClockDividerSet(SYSCTL_PERIPH_HCLK_D |                        \
-                               ((ulConfig & 0x0F000000) >> 24));
+                               (((ulConfig & 0x0F000000) >> 24)+1));
         if((ulConfig & SYSCLK_PWRCON_OSC22M_EN)!=0)
         {
             xHWREG(SYSCLK_PWRCON) &= ~SYSCLK_PWRCON_OSC22M_EN;
@@ -1884,7 +1886,7 @@ SysCtlHClockSet(unsigned long ulConfig)
         SysCtlHClockSourceSet(SYSCTL_HLCK_S_EXT32K);
         SysCtlDelay(100);
         SysCtlIPClockDividerSet(SYSCTL_PERIPH_HCLK_D |                        \
-                               ((ulConfig & 0x0F000000) >> 24));
+                               (((ulConfig & 0x0F000000) >> 24)+1));
         if((ulConfig & SYSCLK_PWRCON_OSC22M_EN)!=0)
         {
             xHWREG(SYSCLK_PWRCON) &= ~SYSCLK_PWRCON_OSC22M_EN;
@@ -1965,7 +1967,7 @@ SysCtlHClockSet(unsigned long ulConfig)
         SysCtlHClockSourceSet(SYSCTL_HLCK_S_PLL);
         SysCtlDelay(100);
         SysCtlIPClockDividerSet(SYSCTL_PERIPH_HCLK_D |                        \
-                               ((ulConfig & 0x0F000000) >> 24));
+                               (((ulConfig & 0x0F000000) >> 24)+1));
     }
     //
     // HLCK clock source is SYSCLK_CLKSEL0_HCLK10K
@@ -1976,7 +1978,7 @@ SysCtlHClockSet(unsigned long ulConfig)
         SysCtlHClockSourceSet(SYSCTL_HLCK_S_INT10K);
         SysCtlDelay(100);
         SysCtlIPClockDividerSet(SYSCTL_PERIPH_HCLK_D |                        \
-                               ((ulConfig & 0x0F000000) >> 24));
+                               (((ulConfig & 0x0F000000) >> 24)+1));
         if((ulConfig & SYSCLK_PWRCON_OSC22M_EN)!=0)
         {
             xHWREG(SYSCLK_PWRCON) &= ~SYSCLK_PWRCON_OSC22M_EN;
@@ -2004,7 +2006,7 @@ SysCtlHClockSet(unsigned long ulConfig)
         SysCtlHClockSourceSet(SYSCTL_HLCK_S_INT22M);
         SysCtlDelay(100);
         SysCtlIPClockDividerSet(SYSCTL_PERIPH_HCLK_D |                        \
-                               ((ulConfig & 0x0F000000) >> 24));
+                               (((ulConfig & 0x0F000000) >> 24)+1));
         if((ulConfig & SYSCLK_PWRCON_XTL12M_EN)!=0)
         {
             xHWREG(SYSCLK_PWRCON) &= ~SYSCLK_PWRCON_XTL12M_EN;

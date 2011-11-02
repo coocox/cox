@@ -41,7 +41,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -56,14 +56,14 @@
 //*****************************************************************************
 //
 //! \addtogroup NUC1xx_TIMER_Register NUC1xx_TIMER_Register
-//! \brief Here are the details info of TIMER registers. 
+//! \brief Here are the detailed info of TIMER registers. 
 //!
 //! it contains:
 //! - Register offset.
-//! - Details bit-field of the registers.
+//! - detailed bit-field of the registers.
 //! - Enum and mask of the registers.
 //! .
-//! Users can read or write the registers thourgh xHWREG().
+//! Users can read or write the registers through xHWREG().
 //!
 //! @{
 //

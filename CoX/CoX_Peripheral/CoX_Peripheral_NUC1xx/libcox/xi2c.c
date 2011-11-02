@@ -97,7 +97,7 @@ static unsigned long I2CNumGet (unsigned long ulBase)
 //! The \e ulBase can be one of the following values:
 //! \b I2C0_BASE, \b I2C1_BASE.
 //!
-//! \note this is only for master
+//! \note This is only for master
 //!
 //! \return value of I2C status register after generate a start condition.
 //
@@ -133,7 +133,7 @@ static unsigned long I2CStartSend (unsigned long ulBase)
 //! The \e ulBase can be one of the following values:
 //! \b I2C0_BASE, \b I2C1_BASE.
 //!
-//! \note this is only for master
+//! \note This is only for master
 //!
 //! \return None.
 //
@@ -168,7 +168,7 @@ static void I2CStopSend (unsigned long ulBase)
 //! The \e ulBase can be one of the following values:
 //! \b I2C0_BASE, \b I2C1_BASE.
 //!
-//! \note this is only for master
+//! \note This is only for master
 //!
 //! \return value of I2C status register after send a byte.
 //
@@ -223,7 +223,7 @@ static unsigned long I2CByteSend (unsigned long ulBase, unsigned char ucData)
 //! The \e ulBase can be one of the following values:
 //! \b I2C0_BASE, \b I2C1_BASE.
 //!
-//! \note this is only for master
+//! \note This is only for master
 //!
 //! \return value of I2C status register after send a byte.
 //
@@ -324,7 +324,7 @@ I2C1IntHandler(void)
 //! The \e ulBase can be one of the following values:
 //! \b I2C0_BASE, \b I2C1_BASE.
 //!
-//! \note this is only for master
+//! \note This is only for master
 //!
 //! \return None.
 //
@@ -880,7 +880,7 @@ s_int_end:
 //!
 //! The \e ulI2CClk is the I2C clock rate:
 //!
-//! \note this is only for master
+//! \note This is only for master
 //!
 //! \return None.
 //
@@ -933,7 +933,7 @@ I2CMasterInit(unsigned long ulBase, unsigned long ulI2CClk)
 //!
 //! The \e tCfg is the I2C ...:
 //!
-//! \note this is only for master
+//! \note This is only for master
 //! In case of using I2C to receive data only, either transmit length set to 0
 //! or transmit data pointer set to NULL.
 //! In case of using I2C to transmit data only, either receive length set to 0
@@ -1152,7 +1152,7 @@ error:
 //! The \e ulBase can be one of the following values:
 //! \b I2C0_BASE, \b I2C1_BASE.
 //!
-//! \note this is only for master
+//! \note This is only for master
 //!
 //! \return Master transfer status, could be:\b xtrue	master transfer 
 //! completed, \b xfalse master transfer have not completed yet

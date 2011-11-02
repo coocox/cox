@@ -53,7 +53,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -105,12 +105,12 @@ extern "C"
 //!
 //! They can be passed to xADCIntEnable(), 
 //! xADCIntDisable() as the ulIntFlags parameter to enable/disable the 
-//! crosspanding interrupt.
+//! corresponding interrupt.
 //!
-//! \section xADC_Ints_Sec_Port COX Port Details
+//! \section xADC_Ints_Sec_Port CoX Port Details
 //! \verbatim
 //! +------------------------+----------------+--------+
-//! |xADC Interrupt Source   |       COX      | NUC1xx |
+//! |xADC Interrupt Source   |       CoX      | NUC1xx |
 //! |------------------------|----------------|--------|
 //! |xADC_INT_COMP           |    Mandatory   |    Y   |
 //! |------------------------|----------------|--------|
@@ -143,21 +143,21 @@ extern "C"
 //! \addtogroup xADC_Events xADC Interrupt Event
 //! \brief Values that show the interrupt event ID. 
 //!
-//!Users user the event ID in
+//! Users use the event ID in
 //! the interrupt callback function(xtEventCallback) as \b ulEvent parameter to
-//! determin what interrupt event occurs. 
+//! determine what interrupt event occurs. 
 //!
-//! \section xADC_Events_Sec_Comp_Event 1. Comparators Events in COX Standard
-//! In COX ADC standard, the macro like \b xADC_EVENT_$COMPx$ show the comparator
+//! \section xADC_Events_Sec_Comp_Event 1. Comparators Events in CoX Standard
+//! In CoX ADC standard, the macro like \b xADC_EVENT_$COMPx$ show the comparator
 //! x interrupt event, x is 0, 1 and so on.
 //! Users use the \ref xADC_INT_COMP with xADCIntEnable() to enable all the 
 //! comparators interrupt. Then use \b xADC_EVENT_$COMPx$ in the interrupt
 //! callback function to determine what comparator match.
 //!
-//! \section xADC_Events_Sec_Port 2. COX Port Details
+//! \section xADC_Events_Sec_Port 2. CoX Port Details
 //! \verbatim
 //! +-------------------------+----------------+----------------+
-//! |xADC Event               |       COX      |     NUC1xx     |
+//! |xADC Event               |       CoX      |     NUC1xx     |
 //! |-------------------------|----------------|----------------|
 //! |xADC_EVENT_$COMPx$       |  Non-Mandatory |xADC_EVENT_COMP0|
 //! |                         |                |xADC_EVENT_COMP1|
@@ -196,13 +196,13 @@ extern "C"
 //! \addtogroup xADC_Mode xADC Operation Mode
 //! \brief Values that show the ADC Operation Mode.
 //!
-//! they can be passed to 
+//! They can be passed to 
 //! xADCConfigure() as the ulMode parameter to configure the ADC.
 //!
-//! \section xADC_Mode_Sec_Port COX Port Details
+//! \section xADC_Mode_Sec_Port CoX Port Details
 //! \verbatim
 //! +---------------------------+----------------+--------+
-//! |xADC Mode                  |       COX      | NUC1xx |
+//! |xADC Mode                  |       CoX      | NUC1xx |
 //! |---------------------------|----------------|--------|
 //! |xADC_MODE_SCAN_SINGLE_CYCLE|    Mandatory   |    Y   |
 //! |---------------------------|----------------|--------|
@@ -249,15 +249,15 @@ extern "C"
 //! Can be passed to 
 //! xADCConfigure() as the ulTrigger parameter to configure the ADC.
 //!
-//! \section xADC_Trigger_Source_Sec_Ext 1. External Pin Event In COX Standard
-//! COX defines macros like \b xADC_TRIGGER_EXT_$ShortPin$, show a trigger   
-//! source on a external pin. \b $ShortPin$ is the GPIO short pin Name like 
+//! \section xADC_Trigger_Source_Sec_Ext 1. External Pin Event In CoX Standard
+//! CoX defines macros like \b xADC_TRIGGER_EXT_$ShortPin$, show a trigger   
+//! source on an external pin. \b $ShortPin$ is the GPIO short pin Name like 
 //! \b PB8.
 //!
-//! \section xADC_Trigger_Source_Port 2. COX Port Details
+//! \section xADC_Trigger_Source_Port 2. CoX Port Details
 //! \verbatim
 //! +---------------------------+----------------+--------------------+
-//! |xADC Trigger Source        |       COX      |       NUC1xx       |
+//! |xADC Trigger Source        |       CoX      |       NUC1xx       |
 //! |---------------------------|----------------|--------------------|
 //! |xADC_TRIGGER_PROCESSOR     |    Mandatory   |          Y         |
 //! |---------------------------|----------------|--------------------|
@@ -291,19 +291,19 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xADC_EXT_Trigger_Mode xADC External Tigger Source Mode
-//! \brief Values that show the ADC external tigger source mode.
+//! \brief Values that show the ADC external trigger source mode.
 //!
 //! Can be passed 
-//! to the ADCConfigure() as the ulTrigger parameter, when the tigger source set
+//! to the ADCConfigure() as the ulTrigger parameter, when the trigger source set
 //! as xADC_TRIGGER_EXT_$ShortPin$. The ulTrigger parameter is an OR vaule 
 //! with the \ref xADC_Trigger_Source. such as  
 //! \ref xADC_TRIGGER_EXT_PB8 | \ref xADC_TRIGGER_EXT_RISING_EDGE.
 //!
-//! \section xADC_EXT_Trigger_Mode_Sec_Port COX Port Details
+//! \section xADC_EXT_Trigger_Mode_Sec_Port CoX Port Details
 //!
 //! \verbatim
 //! +-----------------------------+----------------+--------+
-//! |xADC Ext Trigger Mode        |       COX      | NUC1xx |
+//! |xADC Ext Trigger Mode        |       CoX      | NUC1xx |
 //! |-----------------------------|----------------|--------|
 //! |xADC_TRIGGER_EXT_LOW_LEVEL   |  Non-Mandatory |    Y   |
 //! |-----------------------------|----------------|--------|
@@ -368,10 +368,10 @@ extern "C"
 //! and 0 shows single-end mode.
 //! - \ref xADC_CTL_END shows this is the end step.
 //! .
-//! \section xADC_Step_Config_Sec_Port COX Port Details
+//! \section xADC_Step_Config_Sec_Port CoX Port Details
 //! \verbatim
 //! +----------------+----------------+-------------+
-//! |xADC Step Config|       COX      |   NUC1xx    |
+//! |xADC Step Config|       CoX      |   NUC1xx    |
 //! |----------------|----------------|-------------|
 //! |xADC_CTL_CH$x$  |  NonMandatory  |xADC_CTL_CH0 |
 //! |                |                |xADC_CTL_CH1 |
@@ -476,10 +476,10 @@ extern "C"
 //! - xADCCompConditionConfig(), xADCCompRegionSet() to configure the comparator.
 //! - xADCCompEnable(), xADCCompDisable() to enable/disable the comparator.
 //! .
-//! \section xADC_Comparator_IDs_Port COX Port Details
+//! \section xADC_Comparator_IDs_Port CoX Port Details
 //! \verbatim
 //! +----------------+----------------+-------------+
-//! |xADC Comp ID    |       COX      |   NUC1xx    |
+//! |xADC Comp ID    |       CoX      |   NUC1xx    |
 //! |----------------|----------------|-------------|
 //! |xADC_COMP_$x$   |  Non-Mandatory | xADC_COMP_0 |
 //! |                |                | xADC_COMP_1 |
@@ -513,10 +513,10 @@ extern "C"
 //! They can be passed to xADCCompConditionConfig() as the ulConfig parameter to
 //! configure the comparator interrupt condition.
 //!
-//! \section xADC_Comparator_Int_Condition_Port COX Port Details
+//! \section xADC_Comparator_Int_Condition_Port CoX Port Details
 //! \verbatim
 //! +-------------------------+----------------+---------+
-//! |xADC Comp Int Condition  |       COX      | NUC1xx  |
+//! |xADC Comp Int Condition  |       CoX      | NUC1xx  |
 //! |-------------------------|----------------|---------|
 //! |xADC_COMP_INT_LOW        |  Non-Mandatory |    Y    |
 //! |-------------------------|----------------|---------| 
@@ -549,12 +549,12 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xADC_Exported_APIs xADC API
-//! \brief xADC API Refrence
+//! \brief xADC API Reference
 //!
-//! \section xADC_Exported_APIs_Port COX Port Details
+//! \section xADC_Exported_APIs_Port CoX Port Details
 //! \verbatim
 //! +------------------------+----------------+--------+
-//! |xADC API                |       COX      | NUC1xx |
+//! |xADC API                |       CoX      | NUC1xx |
 //! |------------------------|----------------|--------|
 //! |xADCConfigure           |    Mandatory   |    Y   |
 //! |------------------------|----------------|--------|
@@ -606,7 +606,7 @@ extern void xADCIntCallbackInit(unsigned long ulBase,
 
 //*****************************************************************************
 //
-//! \brief Enables individual ADC interrupt sources.
+//! \brief Enable individual ADC interrupt sources.
 //!
 //! \param ulBase is the base address of the ADC.
 //! \param ulIntFlags is the bit mask of the interrupt sources to be enabled.
@@ -629,7 +629,7 @@ extern void xADCIntCallbackInit(unsigned long ulBase,
 
 //*****************************************************************************
 //
-//! \brief Disables ADC sample sequence interrupts.
+//! \brief Disable ADC sample sequence interrupts.
 //!
 //! \param ulBase is the base address of the ADC module.
 //! \param ulIntFlags is the interrupt flags.
@@ -660,7 +660,7 @@ extern void xADCIntCallbackInit(unsigned long ulBase,
 
 //*****************************************************************************
 //
-//! \brief Disables ADC DMA operation.
+//! \brief Disable ADC DMA operation.
 //!
 //! \param ulBase is the base address of the ADC module.
 //!
@@ -675,7 +675,7 @@ extern void xADCIntCallbackInit(unsigned long ulBase,
         
 //*****************************************************************************
 //
-//! \brief Enables ADC sample sequence.
+//! \brief Enable ADC sample sequence.
 //!
 //! \param ulBase is the base address of the ADC module.
 //!
@@ -690,7 +690,7 @@ extern void xADCIntCallbackInit(unsigned long ulBase,
 
 //*****************************************************************************
 //
-//! \brief Disables the ADC sample sequence.
+//! \brief Disable the ADC sample sequence.
 //!
 //! \param ulBase is the base address of the ADC module.
 //!
@@ -706,7 +706,7 @@ extern void xADCIntCallbackInit(unsigned long ulBase,
 
 //*****************************************************************************
 //
-//! \brief Causes a processor trigger for a sample sequence.
+//! \brief Cause a processor trigger for a sample sequence.
 //!
 //! \param ulBase is the base address of the ADC module.
 //!
@@ -731,7 +731,7 @@ extern void xADCCompConditionConfig(unsigned long ulBase,
 
 //*****************************************************************************
 //
-//! \brief Defines the ADC digital comparator regions.
+//! \brief Define the ADC digital comparator regions.
 //!
 //! \param ulBase is the base address of the ADC module.
 //! \param ulCompID is the ID of the comparator to configure.
@@ -761,7 +761,7 @@ extern void xADCCompConditionConfig(unsigned long ulBase,
 
 //*****************************************************************************
 //
-//! \brief Enables the ADC digital comparator .
+//! \brief Enable the ADC digital comparator .
 //!
 //! \param ulBase is the base address of the ADC module.
 //! \param ulCompID is the comparator ID.
@@ -776,7 +776,7 @@ extern void xADCCompConditionConfig(unsigned long ulBase,
 
 //*****************************************************************************
 //
-//! \brief Disables the ADC digital comparator .
+//! \brief Disable the ADC digital comparator .
 //!
 //! \param ulBase is the base address of the ADC module.
 //! \param ulCompID is the comparator ID.
@@ -892,7 +892,7 @@ extern void xADCCompConditionConfig(unsigned long ulBase,
 //*****************************************************************************
 //
 //! \addtogroup NUC1xx_ADC_Input_Mode NUC1xx ADC Input Mode
-//! \brief ADC analog input mode, single-end / diffrence.
+//! \brief ADC analog input mode, single-end / difference.
 //! @{
 //
 //*****************************************************************************
@@ -956,7 +956,7 @@ extern void xADCCompConditionConfig(unsigned long ulBase,
 //*****************************************************************************
 //
 //! \addtogroup NUC1xx_ADC_Tigger_Source NUC1xx ADC Tigger Source
-//! \brief ADC tigger Source that can start the convertion.
+//! \brief ADC trigger Source that can start the convertion.
 //! @{
 //
 //*****************************************************************************
@@ -979,7 +979,7 @@ extern void xADCCompConditionConfig(unsigned long ulBase,
 //*****************************************************************************
 //
 //! \addtogroup NUC1xx_ADC_EXT_Trigger_Mode NUC1xx ADC External Tigger Mode
-//! \brief ADC external tigger Mode when the tigger source is external 
+//! \brief ADC external trigger Mode when the trigger source is external 
 //! pin.
 //! @{
 //
@@ -1152,7 +1152,7 @@ extern void xADCCompConditionConfig(unsigned long ulBase,
 //*****************************************************************************
 //
 //! \addtogroup NUC1xx_ADC_Exported_APIs NUC1xx ADC API
-//! \brief NUC1xx ADC API Refrence
+//! \brief NUC1xx ADC API Reference
 //! @{
 //
 //*****************************************************************************

@@ -42,7 +42,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -64,9 +64,9 @@
 //*****************************************************************************
 //
 //! \addtogroup xLowLayer_Interrupt_Assignments xLowLayer Interrupt Assignments
-//! \brief Macros defines for the fault/interrupt assignments.
+//! \brief Macro definitions for the fault/interrupt assignments. 
 //!
-//! They can be used as ulInterrupt parameter with xIntEnable(), xIntDisable()
+//! They can be used as ulInterrupt parameters with xIntEnable(), xIntDisable()
 //! to enable/disable the interrupt at the core/NVIC level. 
 //!
 //! @{

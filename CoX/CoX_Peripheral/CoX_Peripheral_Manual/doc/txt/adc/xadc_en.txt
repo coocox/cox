@@ -136,13 +136,13 @@
 //! defined by the user.
 //!
 //! \subsection ADC_Event 2.5 ADC Interrupt and Event
-//! There as several interrupt in ADC moudule:
+//! There as several interrupt in ADC module:
 //! - End convertion - An sequencer single cycle complete.
 //! - Digital Comparator N match.
 //! .
 //!
 //! \n
-//! \note Here describes the common function of the ADC Peripheral. The COX
+//! \note Here describes the common function of the ADC Peripheral. The CoX
 //! Peripheral Interface is base on the functions above.
 //
 //*****************************************************************************
@@ -152,13 +152,13 @@
 //
 //! \defgroup xADC xADC
 //! 
-//! \brief COX ADC Peripheral Interface
+//! \brief CoX ADC Peripheral Interface
 //!
-//! The xADC is the ADC Peripheral Interface of COX. It defines some common
+//! The xADC is the ADC Peripheral Interface of CoX. It defines some common
 //! macros and APIs.
 //! 
 //! <h1>Contents</h1>
-//! - \ref COX_ADC_How_Define
+//! - \ref CoX_ADC_How_Define
 //! - \ref xADC_API_Group
 //!   - \ref xADC_API_Group_Sequence
 //!   - \ref xADC_API_Group_Trigger
@@ -169,8 +169,8 @@
 //! .
 //! \n
 //! 
-//! \section COX_ADC_How_Define 1. How is the xADC Standard Define?
-//! COX ADC defines the APIs based on the following common functions:
+//! \section CoX_ADC_How_Define 1. How is the xADC Standard Defined?
+//! CoX ADC defines the APIs based on the following common functions:
 //! - Sequence Config:
 //!   - Operation Mode:
 //!     - single cycle
@@ -206,7 +206,7 @@
 //!
 //! \section xADC_API_Group 2. API Groups
 //!
-//! The COX ADC API is broken into three groups of functions: 
+//! The CoX ADC API is broken into four groups of functions: 
 //! - those that deal with the ADC sample sequence, 
 //! - those that deal with the processor trigger,
 //! - those that deal with configuring the digital comparator,
@@ -254,13 +254,13 @@
 //! Event callback function init with:
 //! - xADCIntCallbackInit()
 //! .
-//! Interrupt are enabled and disabled with:
+//! Interrupts are enabled and disabled with:
 //! - xADCIntEnable()
 //! - xADCIntDisable()
 //! .
 //!
 //! \section xADC_Usage 3. Usage & Example
-//! The following show how to use the ADC APIs to initialize the ADC 
+//! The followings show how to use the ADC APIs to initialize the ADC 
 //! sample sequence, and get the AD convertion data to the buffer.
 //! -# xSysCtlPeripheralEnable() to enable to GPIO,ADC Peripheral clock.
 //! -# xSPinTypeADC() to configure the ADC pin.

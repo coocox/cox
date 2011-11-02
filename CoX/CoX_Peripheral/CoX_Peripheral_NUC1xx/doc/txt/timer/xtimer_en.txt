@@ -54,7 +54,7 @@
 //!
 //! <br />
 //! \note Here describes the common functions of the TIMER Peripheral. 
-//! The COX Peripheral Interface is based on the functions above. 
+//! The CoX Peripheral Interface is based on the functions above. 
 //
 //*****************************************************************************
 
@@ -63,13 +63,13 @@
 //
 //! \defgroup xTIMER xTIMER
 //! 
-//! \brief COX TIMER Peripheral Interface
+//! \brief CoX TIMER Peripheral Interface
 //!
-//! The xTIMER is the TIMER Peripheral Interface of COX. It defines some common
+//! The xTIMER is the TIMER Peripheral Interface of CoX. It defines some common
 //! macros and APIs.
 //! 
 //! <h1>Contents</h1>
-//! - \ref COX_TIMER_How_Define
+//! - \ref CoX_TIMER_How_Define
 //! - \ref xTIMER_API_Group
 //!   - \ref xTIMER_API_Mode_Config
 //!   - \ref xTIMER_API_Start_Stop
@@ -83,8 +83,8 @@
 //!
 //! <br />
 //!
-//! \section COX_TIMER_How_Define 1. How is xTIMER Standard Defined?
-//! COX TIMER defines the APIs based on the following common functions:
+//! \section CoX_TIMER_How_Define 1. How is xTIMER Standard Defined?
+//! CoX TIMER defines the APIs based on the following common functions:
 //! - Mode configure
 //!   - One shot mode
 //!   - Periodic mode
@@ -114,7 +114,7 @@
 //! <br />
 //! \section xTIMER_API_Group 2. XTiemr API Groups
 //! 
-//! The COX TIMER API is broken into six groups of functions: 
+//! The CoX TIMER API is broken into six groups of functions: 
 //! - those that deal with configuring the Mode configure, 
 //! - those that deal with Timer Start-Stop, 
 //! - those that deal with Event counting set,

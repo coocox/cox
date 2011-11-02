@@ -42,7 +42,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -63,13 +63,13 @@
 
 //*****************************************************************************
 //
-//! \addtogroup xLowLayer_Peripheral_Memmap xLowLayer Perpheral Memmap
-//! \brief The following are defines for the base address of the memories and
-//! peripherals.
+//! \addtogroup xLowLayer_Peripheral_Memmap xLowLayer Peripheral Memmap
+//! \brief The following are definitions for the base addresses of the memories
+//! and peripherals.
 //!
-//! This is always used as ulBase parameter in the peripheral library.
-//! The macros name of the perpheral base address is always like 
-//! \b $Namen$_BASE, such as UART0_BASE.
+//! They are always used as ulBase parameters in the peripheral library.
+//! The name of a macro for the base address of a peripheral is in  general
+//! format as $Namen$_BASE, e.g. UART0_BASE.
 //!
 //! @{
 //

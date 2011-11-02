@@ -41,7 +41,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -56,14 +56,14 @@
 //*****************************************************************************
 //
 //! \addtogroup NUC1xx_DMA_Register NUC1xx DMA Register
-//! \brief Here are the details info of DMA registers. 
+//! \brief Here are the detailed info of DMA registers. 
 //!
 //! it contains:
 //! - Register offset.
-//! - Details bit-field of the registers.
+//! - detailed bit-field of the registers.
 //! - Enum and mask of the registers.
 //! .
-//! Users can read or write the registers thourgh xHWREG().
+//! Users can read or write the registers through xHWREG().
 //!
 //! @{
 //

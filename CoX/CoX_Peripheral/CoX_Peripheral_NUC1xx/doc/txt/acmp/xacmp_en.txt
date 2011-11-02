@@ -7,7 +7,7 @@
 //! An analog comparator is a peripheral that compares two analog voltages
 //! and provides a logical output that signals the comparison result.
 //! 
-//! COX define the comparator \b output is:
+//! CoX defines the comparator \b output is:
 //! - a logical one(H) when positive input greater than negative input(C+ > C-).
 //! - a logical zer(L). when (C+ < C-) .o
 //!
@@ -66,17 +66,17 @@
 //! .
 //!
 //! \subsection ACMP_Output 2.3 ACMP Output
-//! COX define the comparator \b output(Cno):
+//! CoX defines the comparator \b output(Cno):
 //! - <b> Cn+ > Cn- </b> Cno output logic 1 (H).
 //! - <b> Cn+ < Cn- </b> Cno output logic 0 (L).
 //! .
 //!
 //! \subsection ACMP_Event 2.4 ACMP Interrupt and Event
-//! COX define the comparator interrupt:
-//! only when the Cno output \b changed, the moudle generate an interrupt.
+//! CoX defines the comparator interrupt:
+//! only when the Cno output \b changed, the moudle generates an interrupt.
 //!
 //! \n
-//! \note Here describes the common function of the ACMP Peripheral. The COX
+//! \note Here describes the common function of the ACMP Peripheral. The CoX
 //! Peripheral Interface is base on the functions above.
 //
 //*****************************************************************************
@@ -86,13 +86,13 @@
 //
 //! \defgroup xACMP xACMP
 //! 
-//! \brief COX ACMP Peripheral Interface
+//! \brief CoX ACMP Peripheral Interface
 //!
-//! The xACMP is the ACMP Peripheral Interface of COX. It defines some common
+//! The xACMP is the ACMP Peripheral Interface of CoX. It defines some common
 //! macros and APIs.
 //! 
 //! <h1>Contents</h1>
-//! - \ref COX_ACMP_How_Define
+//! - \ref CoX_ACMP_How_Define
 //! - \ref xACMP_API_Group
 //!   - \ref xACMP_API_Group_Config
 //!   - \ref xACMP_API_Group_Int
@@ -101,13 +101,13 @@
 //! .
 //! \n
 //! 
-//! \section COX_ACMP_How_Define 1. How is the xACMP Standard Define?
-//! COX ACMP defines the APIs based on the common functions,
+//! \section CoX_ACMP_How_Define 1. How is the xACMP Standard Defined?
+//! CoX ACMP defines the APIs based on the common functions,
 //! Refrence \ref ACMP_Function_Desc.
 //!
 //! \section xACMP_API_Group 2. API Groups
 //!
-//! The COX ACMP API is broken into 2 groups of functions: 
+//! The CoX ACMP API is broken into 2 groups of functions: 
 //! - those that deal with the ACMP config, 
 //! - those that deal with interrupts.
 //! .

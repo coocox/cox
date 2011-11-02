@@ -1161,7 +1161,7 @@ GPIOPinConfigure(unsigned long ulPinConfig)
 
 //*****************************************************************************
 //
-//! \brief Initialize the multi-function pin's of the specified function.
+//! \brief Initialize the multi-function pin's specified fucntion.
 //!
 //! \param 
 //! \param ulPort is the base address of the GPIO port.

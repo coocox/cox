@@ -3,11 +3,11 @@
 //! \page copyleft Copyright Statement
 //! <h1>Copyright Notice</h1>
 //! Any and all data, files, source code, html content and documentation 
-//! included in the COX component distribution or available on this site are the 
+//! included in the CoX component distribution or available on this site are the 
 //! exclusive property of CooCox.
 //!
 //! <h1>License Details</h1>
-//! COX component is free and open-source; it is licensed under the Berkeley 
+//! CoX component is free and open-source; it is licensed under the Berkeley 
 //! Software Distribution (BSD) and can be used in commercial applications under
 //! this license.
 //! 

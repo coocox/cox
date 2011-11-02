@@ -3,7 +3,7 @@
 //! \file xsysctl.h
 //! \brief Prototypes for the System Manager Driver.
 //! \brief Prototypes for the Clock Controller Driver.
-//! \version 2.0.0.$Rev: 282 $
+//! \version 2.0.0.$Rev: 339 $
 //! \date 9/30/2011
 //! \author CooCox
 //! \copy
@@ -54,7 +54,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -84,10 +84,10 @@ extern "C"
 //! xSysCtlPeripheralDisable(), and xSysCtlPeripheralReset() APIs as the
 //! ulPeripheral parameter.  
 //! 
-//! \section xSysCtl_Peripheral_ID_COX 2.COX Port Details
+//! \section xSysCtl_Peripheral_ID_CoX 2.CoX Port Details
 //! \verbatim
 //! +--------------------------+----------------+--------------------------+
-//! |SysCtl Peripheral ID      |       COX      |          NUC1xx          |
+//! |SysCtl Peripheral ID      |       CoX      |          NUC1xx          |
 //! |--------------------------|----------------|--------------------------|
 //! |xSYSCTL_PERIPH_ACMPn      |  Non-Mandatory |   xSYSCTL_PERIPH_ACMP0   |
 //! |--------------------------|----------------|--------------------------|
@@ -182,23 +182,23 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup xSysCtl_Clock_Set_Config xSysCtl Clock Set Configurtion
-//! \brief Values that show xSysCtl Clock Set Configurtion
+//! \addtogroup xSysCtl_Clock_Set_Config xSysCtl Clock Set Configuration
+//! \brief Values that show xSysCtl Clock Set Configuration
 //!
 //! \section xSysCtl_Clock_Set_SConfig 1. Where to use this group
 //! Values that can be passed to the xSysCtlClockSet() API as the
 //! \b ulConfig parameter.
 //!
 //! \section xSysCtl_Clock_Set_SConfig 2. ulConfig parameter description
-//! The \e ulConfig parameter is the logical OR of several different values,
-//! many of which are grouped into sets where only one can be chosen.
-//! ulConfig contains The external crystal frequency\The oscillator source and 
-//! The internal and main oscillators and PLL disabled optional.
+//! The ulConfig parameter is the logical OR of several different values, 
+//! many of which are grouped into sets where only one can be chosen. 
+//! ulConfig contains the external and internal crystal, main oscillators 
+//! and PLL disabled options.
 //!
-//! \section xSysCtl_Clock_Set_Config_COX 3.COX Port Details
+//! \section xSysCtl_Clock_Set_Config_CoX 3.CoX Port Details
 //! \verbatim
 //! +--------------------------+----------------+--------------------------+
-//! |SysCtl Clock Set Configs  |       COX      |          NUC1xx          |
+//! |SysCtl Clock Set Configs  |       CoX      |          NUC1xx          |
 //! |--------------------------|----------------|--------------------------|
 //! |xSYSCTL_OSC_MAIN          |    Mandatory   |             Y            |
 //! |--------------------------|----------------|--------------------------|
@@ -275,7 +275,7 @@ extern "C"
 #define xSYSCTL_INT_22MHZ       0  
 
 //
-//! Internal slow clock  is 30KHz.
+//! Internal slow clock  is 10KHz.
 //
 #define xSYSCTL_INTSL_10KHZ     0  
 
@@ -295,7 +295,7 @@ extern "C"
 #define xSYSCTL_MAIN_OSC_DIS    0  
 
 //
-//! Disable main oscillator
+//! Disable PLL
 //
 #define xSYSCTL_PLL_PWRDN       0  
 
@@ -318,10 +318,10 @@ extern "C"
 //! <b> ModuleName + n + SourceClock</b>, such as xSYSCTL_WDT_EXTSL, 
 //! xSYSCTL_ADC0_MAIN.
 //!
-//! \section xSysCtl_Peripheral_Src_Clk_COX COX Port Details
+//! \section xSysCtl_Peripheral_Src_Clk_CoX CoX Port Details
 //! \verbatim
 //! +-------------------------- +----------------+--------------------------+
-//! |Peripheral Source Clock Set|       COX      |          NUC1xx          |
+//! |Peripheral Source Clock Set|       CoX      |          NUC1xx          |
 //! |---------------------------|----------------|--------------------------|
 //! |Those are all Non-Mandatory|  Non-Mandatory |             Y            |
 //! | parameter,the Mandatory   |                |                          |
@@ -635,10 +635,10 @@ extern "C"
 //! The macros of General Peripheral Short Name always like:
 //! <b> ModuleName + n </b>, such as CAN0, ADC0.
 //!
-//! \section xSysCtl_Peripheral_Short_COX COX Port Details
+//! \section xSysCtl_Peripheral_Short_CoX CoX Port Details
 //! \verbatim
 //! +-------------------------- +----------------+--------------------------+
-//! |Peripheral Short name      |       COX      |          NUC1xx          |
+//! |Peripheral Short name      |       CoX      |          NUC1xx          |
 //! |---------------------------|----------------|--------------------------|
 //! |ADCn                       |  Non-Mandatory |           ADC0           |
 //! |---------------------------|----------------|--------------------------|
@@ -674,7 +674,7 @@ extern "C"
 //! |-------------------------- |----------------|--------------------------|
 //!
 //! +-------------------------- +----------------+--------------------------+
-//! |Peripheral Clock source    |       COX      |          NUC1xx          |
+//! |Peripheral Clock source    |       CoX      |          NUC1xx          |
 //! |---------------------------|----------------|--------------------------|
 //! |INT                        |    Mandatory   |             Y            |
 //! |---------------------------|----------------|--------------------------|
@@ -767,12 +767,12 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xSysCtl_Exported_APIs xSysCtl API
-//! \brief xSysCtl API Refrence
+//! \brief xSysCtl API Reference
 //!
-//! \section xSysCtl_Exported_APIs_Port COX Port Details
+//! \section xSysCtl_Exported_APIs_Port CoX Port Details
 //! \verbatim
 //! +--------------------------------+----------------+--------+
-//! |xSysCtl API                     |       COX      | NUC1xx |
+//! |xSysCtl API                     |       CoX      | NUC1xx |
 //! |--------------------------------|----------------|--------|
 //! |xSysCtlPeripheralReset          |    Mandatory   |    Y   |
 //! |--------------------------------|----------------|--------|
@@ -811,7 +811,7 @@ extern "C"
 //! \brief Performs a software reset of a peripheral.
 //!
 //! \param ulPeripheralID is the peripheral to reset. 
-//! Details please reference to \ref xSysCtl_Peripheral_ID.
+//! Details please refer to \ref xSysCtl_Peripheral_ID.
 //!
 //! This function performs a software reset of the specified peripheral.  An
 //! individual peripheral reset signal is asserted for a brief period and then
@@ -819,7 +819,7 @@ extern "C"
 //! condition.
 //!
 //! The \e ulPeripheralID parameter must be only one of the following values:
-//! Details please reference to \ref xSysCtl_Peripheral_ID_COX.
+//! Details please refer to \ref xSysCtl_Peripheral_ID_CoX.
 //!
 //! \return None.
 //
@@ -831,14 +831,14 @@ extern void xSysCtlPeripheralReset(unsigned long ulPeripheralID);
 //! \brief Enables a peripheral.
 //!
 //! \param ulPeripheralID is the peripheral to enable.
-//! Details please reference to \ref xSysCtl_Peripheral_ID.
+//! Details please refer to \ref xSysCtl_Peripheral_ID.
 //!
 //! Peripherals are enabled with this function.  At power-up, all peripherals
 //! are disabled; they must be enabled in order to operate or respond to
 //! register reads/writes.
 //!
 //! The \e ulPeripheralID parameter must be only one of the following values:
-//! Details please reference to \ref xSysCtl_Peripheral_ID_COX.
+//! Details please refer to \ref xSysCtl_Peripheral_ID_CoX.
 //!
 //! \note It takes five clock cycles after the write to enable a peripheral
 //! before the the peripheral is actually enabled.  During this time, attempts
@@ -853,16 +853,16 @@ extern void xSysCtlPeripheralEnable(unsigned long ulPeripheralID);
 
 //*****************************************************************************
 //
-//! \brief Disables a peripheral.
+//! \brief Disable a peripheral.
 //!
 //! \param ulPeripheralID is the peripheral to disable.
-//! Details please reference to \ref xSysCtl_Peripheral_ID.
+//! Details please Refer to \ref xSysCtl_Peripheral_ID.
 //!
 //! Peripherals are disabled with this function.  Once disabled, they will not
 //! operate or respond to register reads/writes.
 //!
 //! The \e ulPeripheralID parameter must be only one of the following values:
-//! Details please reference to \ref xSysCtl_Peripheral_ID_COX.
+//! Details please Refer to \ref xSysCtl_Peripheral_ID_CoX.
 //!
 //! \return None.
 //
@@ -871,17 +871,17 @@ extern void xSysCtlPeripheralDisable(unsigned long ulPeripheralID);
         
 //*****************************************************************************
 //
-//! \brief Enables a peripheral.
+//! \brief Enable a peripheral.
 //!
 //! \param ulPeripheralBase a Peripheral base indicate which peripheral to be 
-//! enabled.Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! enabled.Details please Refer to \ref xLowLayer_Peripheral_Memmap.
 //!
 //! Peripherals are enabled with this function.  At power-up, all peripherals
 //! are disabled; they must be enabled in order to operate or respond to
 //! register reads/writes.
 //!
 //! The \e ulPeripheral parameter must be only one of the following values:
-//! Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Details please Refer to \ref xLowLayer_Peripheral_Memmap.
 //!
 //! \note None.
 //!
@@ -892,17 +892,17 @@ extern void xSysCtlPeripheralEnable2(unsigned long ulPeripheralBase);
         
 //*****************************************************************************
 //
-//! \brief Disables a peripheral.
+//! \brief Disable a peripheral.
 //!
 //! \param ulPeripheralBase a Peripheral base indicate which peripheral to be 
-//! enabled.Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! enabled.Details please Refer to \ref xLowLayer_Peripheral_Memmap.
 //!
 //! Peripherals are disabled with this function.  At power-up, all peripherals
 //! are disabled; they must be enabled in order to operate or respond to
 //! register reads/writes.
 //!
 //! The \e ulPeripheral parameter must be only one of the following values:
-//! Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Details please Refer to \ref xLowLayer_Peripheral_Memmap.
 //!
 //! \note None.
 //!
@@ -916,14 +916,14 @@ extern void xSysCtlPeripheralDisable2(unsigned long ulPeripheralBase);
 //! \brief Reset a peripheral.
 //!
 //! \param ulPeripheralBase a Peripheral base indicate which peripheral to be 
-//! Reset.Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Reset.Details please Refer to \ref xLowLayer_Peripheral_Memmap.
 //!
 //! Peripherals are Reset with this function.  At power-up, all peripherals
 //! are disabled; they must be enabled in order to operate or respond to
 //! register reads/writes.
 //!
 //! The \e ulPeripheral parameter must be only one of the following values:
-//! Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Details please Refer to \ref xLowLayer_Peripheral_Memmap.
 //!
 //! \note None.
 //!
@@ -934,7 +934,7 @@ extern void xSysCtlPeripheralReset2(unsigned long ulPeripheralBase);
 
 //*****************************************************************************
 //
-//! \brief Sets the clocking of the device.
+//! \brief Set the clocking of the device.
 //!
 //! \param ulConfig is the required configuration of the device clocking.
 //!
@@ -960,7 +960,7 @@ extern void xSysCtlPeripheralReset2(unsigned long ulPeripheralBase);
 //! source.  Note that attempts to disable the oscillator used to clock the
 //! device will be prevented by the hardware.
 //! <br />
-//! Details please reference to \ref XSysCtl_Clock_Set_Config_COX.
+//! Details please Refer to \ref XSysCtl_Clock_Set_Config_CoX.
 //! 
 //!
 //! \return None.
@@ -970,7 +970,7 @@ extern void xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig);
 
 //*****************************************************************************
 //
-//! \brief Gets the processor clock rate.
+//! \brief Get the processor clock rate.
 //!
 //! This function determines the clock rate of the processor clock.  This is
 //! also the clock rate of all the peripheral modules (with the exception of
@@ -989,7 +989,7 @@ extern unsigned long xSysCtlClockGet(void);
 
 //*****************************************************************************
 //
-//! \brief Provides a small delay.
+//! \brief Provide a small delay.
 //!
 //! \param ulCount is the number of delay loop iterations to perform.
 //!
@@ -1006,7 +1006,7 @@ extern void xSysCtlDelay(unsigned long ulCount);
 
 //*****************************************************************************
 //
-//! \brief Resets the device.
+//! \brief Reset the device.
 //!
 //! This function will perform a software reset of the entire device.  The
 //! processor and all peripherals will be reset and all device registers will
@@ -1021,7 +1021,7 @@ extern void xSysCtlReset(void);
 
 //*****************************************************************************
 //
-//! \brief Puts the processor into sleep mode.
+//! \brief Put the processor into sleep mode.
 //!
 //! This function places the processor into sleep mode; it will not return
 //! until the processor returns to run mode.  The peripherals that are enabled
@@ -1037,17 +1037,17 @@ extern void xSysCtlSleep(void);
         
 //*****************************************************************************
 //
-//! \brief Enables a peripheral.
+//! \brief Enable a peripheral.
 //!
 //! \param ulPeripheralBase a Peripheral base indicate which peripheral to be 
-//! enabled.Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! enabled.Details please Refer to \ref xLowLayer_Peripheral_Memmap.
 //!
 //! Peripherals are enabled with this function.  At power-up, all peripherals
 //! are disabled; they must be enabled in order to operate or respond to
 //! register reads/writes.
 //!
 //! The \e ulPeripheral parameter must be only one of the following values:
-//! Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Details please Refer to \ref xLowLayer_Peripheral_Memmap.
 //!
 //! \note None.
 //!
@@ -1058,17 +1058,17 @@ extern void xSysCtlPeripheralEnable2(unsigned long ulPeripheralBase);
         
 //*****************************************************************************
 //
-//! \brief Disables a peripheral.
+//! \brief Disable a peripheral.
 //!
 //! \param ulPeripheralBase a Peripheral base indicate which peripheral to be 
-//! enabled.Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! enabled.Details please Refer to \ref xLowLayer_Peripheral_Memmap.
 //!
 //! Peripherals are disabled with this function.  At power-up, all peripherals
 //! are disabled; they must be enabled in order to operate or respond to
 //! register reads/writes.
 //!
 //! The \e ulPeripheral parameter must be only one of the following values:
-//! Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Details please Refer to \ref xLowLayer_Peripheral_Memmap.
 //!
 //! \note None.
 //!
@@ -1082,14 +1082,14 @@ extern void xSysCtlPeripheralDisable2(unsigned long ulPeripheralBase);
 //! \brief Reset a peripheral.
 //!
 //! \param ulPeripheralBase a Peripheral base indicate which peripheral to be 
-//! Reset.Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Reset.Details please Refer to \ref xLowLayer_Peripheral_Memmap.
 //!
 //! Peripherals are Reset with this function.  At power-up, all peripherals
 //! are disabled; they must be enabled in order to operate or respond to
 //! register reads/writes.
 //!
 //! The \e ulPeripheral parameter must be only one of the following values:
-//! Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Details please Refer to \ref xLowLayer_Peripheral_Memmap.
 //!
 //! \note None.
 //!
@@ -1131,12 +1131,12 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 //! order to operate or respond to register reads/writes.
 //!
 //! The \e ulPeripheralSrc parameter must be only one of the following values:
-//! \ref xSysCtl_Peripheral_Src_Clk_COX.
+//! \ref xSysCtl_Peripheral_Src_Clk_CoX.
 //! \verbatim
 //! +--------------------+------------------------+---------------------------+
 //! |    manufacturer    |ePeripheral             |eSrc                       |
 //! |--------------------|------------------------|---------------------------|
-//! |    COX Common &    |This parameter is a     |This parameter is a        |
+//! |    CoX Common &    |This parameter is a     |This parameter is a        |
 //! |      Mandatory     |mandatory.Mandatory     |mandatory. So it           |
 //! |                    |is the format of        |should be: INT             |
 //! |                    |Variable naming.So it   |HCLK  HCLK_n EXTSL         |

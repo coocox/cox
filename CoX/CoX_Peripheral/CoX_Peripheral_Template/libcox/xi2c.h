@@ -53,7 +53,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -72,8 +72,42 @@ extern "C"
 //
 //*****************************************************************************
 
-#define xI2C_MASTER             0
-#define xI2C_SLAVE              0
+//*****************************************************************************
+//
+//! \addtogroup xI2C_Config xI2C interrupt handle config
+//! 
+//! \section xI2C_Config_section 1. Where to use this group
+//! This is use to config xI2C intrerrupt handle.
+//! 
+//! \section xI2C_Config_CoX 2.CoX Port Details 
+//! \verbatim
+//! +------------------------+----------------+------------------------+
+//! |xGPIO General Pin ID    |       CoX      |         NUC1xx         |
+//! |------------------------|----------------|------------------------|
+//! |xI2C_MASTER             |    Mandatory   |   xI2C_MASTER          |
+//! +------------------------+----------------+------------------------+
+//! |xI2C_SLAVE              |    Mandatory   |   xI2C_SLAVE           |
+//! +------------------------+----------------+------------------------+
+//! \endverbatim
+//! @{
+//
+//*****************************************************************************
+
+//
+//! use I2C xI2CMasterHandler 
+//
+#define xI2C_MASTER             1
+
+//
+//! use I2C xI2CSlaveTransfer
+//
+#define xI2C_SLAVE              0 
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
 
 //*****************************************************************************
 //
@@ -84,10 +118,10 @@ extern "C"
 //! Values that can be passed to I2CIntEnable(),I2CIntDisable()
 //! as the ulIntFlags parameter. 
 //! \n
-//! \section xI2C_INT_Type_COX 2.COX Mandatory and COX Non-mandatory 
+//! \section xI2C_INT_Type_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xI2C Interrupts         |       COX      |         NUC1xx         |
+//! |xI2C Interrupts         |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xI2C_INT_FUNCTION       |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -112,13 +146,13 @@ extern "C"
 //! \n
 //! \section xI2C_STATUS_Type_Section 1. Where to use this group
 //! I2C Event/Error Flag, Used by IntHandle's Event Callback Function as 
-//! ulMsgParam parmeter. User Callback function can user this to detect what 
+//! ulMsgParam parameter. User Callback function can user this to detect what 
 //! event happened.
 //! \n
-//! \section xI2C_STATUS_Type_COX 2.COX Mandatory and COX Non-mandatory 
+//! \section xI2C_STATUS_Type_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
 //! +----------------------------------------+----------------+----------+
-//! |xI2C Status Type                        |       COX      |  NUC1xx  |
+//! |xI2C Status Type                        |       CoX      |  NUC1xx  |
 //! |----------------------------------------|----------------|----------|
 //! |xI2C_I2STAT_BUS_ERROR                   |    Mandatory   |     Y    |
 //! |----------------------------------------|----------------|----------|
@@ -367,10 +401,10 @@ extern "C"
 //! Values that can be passed to I2CSlaveTransfer(),I2CMasterTransfer()
 //! as the ulOption parameter. 
 //! \n
-//! \section xI2C_Transfer_Type_COX 2.COX Mandatory and COX Non-mandatory 
+//! \section xI2C_Transfer_Type_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xI2C Transfer Type      |       COX      |         NUC1xx         |
+//! |xI2C Transfer Type      |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xI2C_TRANSFER_POLLING   |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -397,10 +431,10 @@ extern "C"
 //! Values that can be passed to I2CSlaveOwnAddressSet()
 //! as the ulGeneralCall parameter. 
 //! \n
-//! \section xI2C_Transfer_Type_COX 2.COX Mandatory and COX Non-mandatory 
+//! \section xI2C_Transfer_Type_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xI2C General Call       |       COX      |         NUC1xx         |
+//! |xI2C General Call       |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xI2C_GENERAL_CALL_DIS   |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -460,12 +494,12 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xI2C_Exported_APIs xI2C API
-//! \brief xI2C API Refrence.
+//! \brief xI2C API Reference.
 //!
-//! \section xI2C_Exported_APIs_Port COX Port Details
+//! \section xI2C_Exported_APIs_Port CoX Port Details
 //! \verbatim
 //! +--------------------------+----------------+------------------------+
-//! |xI2C API                  |       COX      |         NUC1xx         |
+//! |xI2C API                  |       CoX      |         NUC1xx         |
 //! |--------------------------|----------------|------------------------|
 //! |xI2CIntCallbackInit       |    Mandatory   |            Y           |
 //! |--------------------------|----------------|------------------------|
@@ -554,9 +588,9 @@ extern void xI2CMasterInit(unsigned long ulBase, unsigned long ulI2CClk);
 //! \param ulBase specifies the I2C module base address.
 //! \param tCfg specifies Pointer to a I2C_M_SETUP_Type structure that
 //!  contains specified information about the configuration for master transfer.
-//! Details please reference to \ref xtI2CMasterTransferCfg.
+//! Details please refer to \ref xtI2CMasterTransferCfg.
 //! \param ulOption specifies interrupt or polling mode.
-//! Details please reference to \ref xI2C_Transfer_Type.
+//! Details please refer to \ref xI2C_Transfer_Type.
 //!
 //! This function is to Transmit and Receive data in master mode of 
 //! specified I2C port.
@@ -565,7 +599,7 @@ extern void xI2CMasterInit(unsigned long ulBase, unsigned long ulI2CClk);
 //! \b xI2C0_BASE, \b xI2C1_BASE.
 //!
 //! The \e tCfg is the I2C Transfer data structure.
-//! Details please reference to \ref xtI2CMasterTransferCfg.
+//! Details please refer to \ref xtI2CMasterTransferCfg.
 //!
 //! \note this is only for master
 //! In case of using I2C to receive data only, either transmit length set to 0
@@ -646,8 +680,8 @@ extern unsigned long xI2CMasterStatusGet(unsigned long ulBase);
 //! \brief Enable I2C interrupt  of the specified I2C port. 
 //!
 //! \param ulBase specifies the I2C module base address.
-//! \param ulIntType specifies the I2C interupt type.
-//! Details please reference to \ref xI2C_INT_Type.
+//! \param ulIntType specifies the I2C interrupt type.
+//! Details please refer to \ref xI2C_INT_Type.
 //!
 //! This function is to enable I2C interrupt  of the specified I2C port.
 //!
@@ -667,7 +701,7 @@ extern void xI2CMasterIntEnable(unsigned long ulBase, unsigned long ulIntType);
 //!
 //! \param ulBase specifies the I2C module base address.
 //! \param ulIntType specifies the I2C interupt type.
-//! Details please reference to \ref xI2C_INT_Type.
+//! Details please refer to \ref xI2C_INT_Type.
 //!
 //! This function is to disable I2C interrupt  of the specified I2C port.
 //!
@@ -688,7 +722,7 @@ extern void xI2CMasterIntDisable(unsigned long ulBase,
 //!
 //! \param ulBase specifies the I2C module base address.
 //! \param ulIntType specifies the I2C interupt type.
-//! Details please reference to \ref xI2C_INT_Type.
+//! Details please refer to \ref xI2C_INT_Type.
 //!
 //! This function is to get the I2C interrupt flag of the specified I2C port.
 //!
@@ -697,7 +731,7 @@ extern void xI2CMasterIntDisable(unsigned long ulBase,
 //!
 //! \note None
 //!
-//! \return a xtBoolean value xtrue or xfalse.
+//! \return an xtBoolean value xtrue or xfalse.
 //
 //*****************************************************************************
 extern xtBoolean xI2CMasterIntFlagGet(unsigned long ulBase, 
@@ -709,7 +743,7 @@ extern xtBoolean xI2CMasterIntFlagGet(unsigned long ulBase,
 //!
 //! \param ulBase specifies the I2C module base address.
 //!
-//! This function is to give a eneral Master Interrupt handler for I2C 
+//! This function is to give an eneral Master Interrupt handler for I2C 
 //! peripheral
 //!
 //! The \e ulBase can be one of the following values:
@@ -729,7 +763,7 @@ extern void xI2CMasterHandler(unsigned long ulBase);
 //! \param ulBase specifies the I2C module base address.
 //! \param ucSlaveAddr specifies the slave address.
 //! \param ulGeneralCall specifies enable General Call function or not.
-//! Details please reference to \ref xI2C_General_Call.
+//! Details please refer to \ref xI2C_General_Call.
 //!
 //! This function is to Set 4 7-bit slave addresses and enable General Call 
 //! function of specified I2C port.
@@ -737,13 +771,13 @@ extern void xI2CMasterHandler(unsigned long ulBase);
 //! The \e ulBase can be one of the following values:
 //! \b I2C0_BASE, \b I2C1_BASE.
 //!
-//! The \e ucSlaveAddr is the I2C slave address,There are 4 slave addrss.
+//! The \e ucSlaveAddr is the I2C slave address,There are 4 slave address.
 //! The ucSlaveAddr can be a 7-bit value.
 //!
 //! The \e ulGeneralCall is to enable the General Call function or not.
 //! The ulGeneralCall can be one of the following values:
 //! \b I2C_GENERAL_CALL_EN,\b I2C_GENERAL_CALL_DIS.
-//! Details please reference to \ref xI2C_General_Call_COX.
+//! Details please refer to \ref xI2C_General_Call_CoX.
 //!
 //! \note this is only for slave
 //!
@@ -760,7 +794,7 @@ extern void xI2CSlaveInit(unsigned long ulBase, unsigned long ucSlaveAddr,
 //! \param ulBase specifies the I2C module base address.
 //! \param tCfg specifies Pointer to a I2C_M_SETUP_Type structure that
 //!  contains specified information about the configuration for slave transfer.
-//! Details please reference to \ref xtI2CSlaveTransferCfg.
+//! Details please refer to \ref xtI2CSlaveTransferCfg.
 //! \param ulOption specifies interrupt or polling mode.
 //!
 //! This function is to Transmit and Receive data in slave mode of 
@@ -770,7 +804,7 @@ extern void xI2CSlaveInit(unsigned long ulBase, unsigned long ucSlaveAddr,
 //! \b xI2C0_BASE, \b xI2C1_BASE.
 //!
 //! The \e tCfg is the I2C slave Transfer data structure.
-//! Details please reference to \ref xtI2CSlaveTransferCfg.
+//! Details please refer to \ref xtI2CSlaveTransferCfg.
 //!
 //! \note this is only for slave
 //! In case of using I2C to receive data only, either transmit length set to 0
@@ -796,7 +830,7 @@ extern xtBoolean xI2CSlaveTransfer(unsigned long ulBase,
 //! \param ucSlaveNum specifies the salve address number.
 //! \param ucSlaveAddr specifies the slave address.
 //! \param ulGeneralCall specifies enable General Call function or not.
-//! Details please reference to \ref xI2C_General_Call.
+//! Details please refer to \ref xI2C_General_Call.
 //!
 //! This function is to Set 4 7-bit slave addresses and enable General Call 
 //! function of specified I2C port.
@@ -813,7 +847,7 @@ extern xtBoolean xI2CSlaveTransfer(unsigned long ulBase,
 //! The \e ulGeneralCall is to enable the General Call function or not.
 //! The ulGeneralCall can be one of the following values:
 //! \b I2C_GENERAL_CALL_EN,\b I2C_GENERAL_CALL_DIS.
-//! Details please reference to \ref xI2C_General_Call_COX.
+//! Details please refer to \ref xI2C_General_Call_CoX.
 //!
 //! \note this is only for slave
 //!
@@ -880,7 +914,7 @@ extern unsigned long xI2CSlaveStatusGet(unsigned long ulBase);
 //!
 //! \param ulBase specifies the I2C module base address.
 //! \param ulIntType specifies the I2C interupt type.
-//! Details please reference to \ref xI2C_INT_Type.
+//! Details please refer to \ref xI2C_INT_Type.
 //!
 //! This function is to enable I2C interrupt  of the specified I2C port.
 //!
@@ -900,7 +934,7 @@ extern void xI2CSlaveIntEnable(unsigned long ulBase, unsigned long ulIntType);
 //!
 //! \param ulBase specifies the I2C module base address.
 //! \param ulIntType specifies the I2C interupt type.
-//! Details please reference to \ref xI2C_INT_Type.
+//! Details please refer to \ref xI2C_INT_Type.
 //!
 //! This function is to disable I2C interrupt  of the specified I2C port.
 //!
@@ -920,7 +954,7 @@ extern void xI2CSlaveIntDisable(unsigned long ulBase, unsigned long ulIntType);
 //!
 //! \param ulBase specifies the I2C module base address.
 //! \param ulIntType specifies the I2C interupt type.
-//! Details please reference to \ref xI2C_INT_Type.
+//! Details please refer to \ref xI2C_INT_Type.
 //!
 //! This function is to get the I2C interrupt flag of the specified I2C port.
 //!

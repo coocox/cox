@@ -53,7 +53,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -77,10 +77,10 @@ extern "C"
 //! \addtogroup xACMP_Analog_Src_Positive xACMP Positive(ACMP+) Input Source
 //! \brief Analog comparator negative input select.
 //!
-//! \section xACMP_Analog_Src_Positive_Sec_Port COX Port Details
+//! \section xACMP_Analog_Src_Positive_Sec_Port CoX Port Details
 //! \verbatim
 //! +------------------------+----------------+--------+
-//! |xACMP ACMP+ Source      |       COX      | NUC1xx |
+//! |xACMP ACMP+ Source      |       CoX      | NUC1xx |
 //! |------------------------|----------------|--------|
 //! |xACMP_ASRCP_PIN         |    Mandatory   |    Y   |
 //! |------------------------|----------------|--------|
@@ -106,10 +106,10 @@ extern "C"
 //! \addtogroup xACMP_Analog_Src_Negative xACMP Negative(ACMP-) Input Source
 //! \brief Analog comparator Negative input select.
 //!
-//! \section xACMP_Analog_Src_Negative_Sec_Port COX Port Details
+//! \section xACMP_Analog_Src_Negative_Sec_Port CoX Port Details
 //! \verbatim
 //! +------------------------+----------------+--------+
-//! |xACMP ACMP- Source      |       COX      | NUC1xx |
+//! |xACMP ACMP- Source      |       CoX      | NUC1xx |
 //! |------------------------|----------------|--------|
 //! |xACMP_ASRCN_PIN         |    Mandatory   |    Y   |
 //! |------------------------|----------------|--------|
@@ -141,18 +141,18 @@ extern "C"
 //! \addtogroup xACMP_Int_Ref_Voltage xACMP Internal Refrence Voltage
 //! \brief Analog Comparator Internal Refrence Voltage select.
 //!
-//! There may be servral config of the internal Vref. Here is a list of the Vref.
-//! Values of Vref like xACMP_REF_*V, can be:
+//! There may be servral configurations of the internal Vref. Here is a list
+//!  of the Vref.Values of Vref like xACMP_REF_*V, can be:
 //! - xACMP_REF_?V - Example 2V
 //! - xACMP_REF_?_?V - Example 2.1V
 //! - xACMP_REF_?_??V - Example 2.13V
 //! - xACMP_REF_?_???V - Example 1.375V
 //! - xACMP_REF_?_????V - Example 1.2375V
 //! .
-//! \section xACMP_Int_Ref_Voltage_Sec COX Port Details
+//! \section xACMP_Int_Ref_Voltage_Sec CoX Port Details
 //! \verbatim
 //! +------------------------+----------------+----------------------+
-//! |xACMP Int Vref          |       COX      |        NUC1xx        |
+//! |xACMP Int Vref          |       CoX      |        NUC1xx        |
 //! |------------------------|----------------|----------------------|
 //! |xACMP_REF_*V            |    Mandatory   |    xACMP_REF_1_2V    |
 //! +------------------------+----------------+----------------------+
@@ -178,12 +178,12 @@ extern "C"
 //! \addtogroup xACMP_Comparator_IDs xACMP Analog Comparator ID
 //! \brief Analog Comparator ID (index).
 //!
-//! The ID always is the index, 0, 1, and so on.
+//! The ID index is always like 0-1, and so on.
 //!
-//! \section xACMP_Comparator_IDs_Sec_Port COX Port Details
+//! \section xACMP_Comparator_IDs_Sec_Port CoX Port Details
 //! \verbatim
 //! +-------------------+----------------+---------+
-//! |xACMP ACMP ID      |       COX      | NUC1xx  |
+//! |xACMP ACMP ID      |       CoX      | NUC1xx  |
 //! |---------------- --|----------------|---------|
 //! |xACMP_*            |    Mandatory   | xACMP_0 |
 //! |                   |                | xACMP_1 |
@@ -212,13 +212,13 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xACMP_Exported_APIs xACMP API
-//! \brief Analog Comparator API Refrence.
+//! \brief Analog Comparator API Reference.
 //!
-//! \section xACMP_Exported_APIs_Port COX Port Details
+//! \section xACMP_Exported_APIs_Port CoX Port Details
 //!
 //! \verbatim
 //! +------------------------+----------------+--------+
-//! |xACMP API               |       COX      | NUC1xx |
+//! |xACMP API               |       CoX      | NUC1xx |
 //! |------------------------|----------------|--------|
 //! |xACMPConfigure          |    Mandatory   |    Y   |
 //! |------------------------|----------------|--------|
@@ -250,10 +250,10 @@ extern "C"
 //! result of a logical OR operation between the \b ACMP_ASRCP_xxx, 
 //! and \b ACMP_ASRCN_xxx values.
 //!
-//! The \b ACMP_ASRCP_xxx is determine the ACMP+ source, 
+//! The \b ACMP_ASRCP_xxx is determines the ACMP+ source, 
 //! values refrence \ref xACMP_Analog_Src_Positive.
 //!
-//! The \b ACMP_ASRCP_xxx is determine the ACMP- source:
+//! The \b ACMP_ASRCP_xxx is determines the ACMP- source:
 //! values refrence \ref xACMP_Analog_Src_Negative.
 //! 
 //! \return None.
@@ -265,7 +265,7 @@ extern void xACMPConfigure(unsigned long ulBase, unsigned long ulCompID,
 
 //*****************************************************************************
 //
-//! \brief Enables the comparator.
+//! \brief Enable the comparator.
 //!
 //! \param ulBase is the base address of the comparator module.
 //! \param ulCompID is the ID of the comparator.
@@ -280,7 +280,7 @@ extern void xACMPEnable(unsigned long ulBase, unsigned long ulCompID);
 
 //*****************************************************************************
 //
-//! \brief Disables the comparator.
+//! \brief Disable the comparator.
 //!
 //! \param ulBase is the base address of the comparator module.
 //! \param ulCompID is the ID of the comparator.
@@ -320,7 +320,7 @@ extern void xACMPIntCallbackInit(unsigned long ulBase, unsigned long ulCompID,
 
 //*****************************************************************************
 //
-//! \brief Enables the comparator interrupt.
+//! \brief Enable the comparator interrupt.
 //!
 //! \param ulBase is the base address of the comparator module.
 //! \param ulCompID is the ID(index) of the comparator.
@@ -337,7 +337,7 @@ extern void xACMPIntEnable(unsigned long ulBase, unsigned long ulCompID);
 
 //*****************************************************************************
 //
-//! \brief Disables the comparator interrupt.
+//! \brief Disable the comparator interrupt.
 //!
 //! \param ulBase is the base address of the comparator module.
 //! \param ulCompID is the ID(index) of the comparator.

@@ -42,7 +42,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -57,14 +57,14 @@
 //*****************************************************************************
 //
 //! \addtogroup NUC1xx_ACMP_Register NUC1xx Analog Comparator Register
-//! \brief Here are the details info of ACMP registers. 
+//! \brief Here are the detailed info of ACMP registers. 
 //!
 //! it contains:
 //! - Register offset.
-//! - Details bit-field of the registers.
+//! - detailed bit-field of the registers.
 //! - Enum and mask of the registers.
 //! .
-//! Users can read or write the registers thourgh xHWREG().
+//! Users can read or write the registers through xHWREG().
 //!
 //! @{
 //
@@ -103,7 +103,7 @@
 //*****************************************************************************
 //
 //! \addtogroup NUC1xx_ACMP_Register_CR Comparator Control Register(ACMP_CR0/1)
-//! \brief Defines for the bit fields in the ACMP_O_CR0 or ACMP_O_CR1 register.
+//! \brief Definition for the bit fields in the ACMP_O_CR0 or ACMP_O_CR1 register.
 //! @{
 //
 //*****************************************************************************
@@ -137,7 +137,7 @@
 //*****************************************************************************
 //
 //! \addtogroup NUC1xx_ACMP_Register_SR Comparator Status Register(ACMP_SR)
-//! \brief Defines for the bit fields in the ACMP_O_SR register.
+//! \brief Definition for the bit fields in the ACMP_O_SR register.
 //! @{
 //
 //*****************************************************************************

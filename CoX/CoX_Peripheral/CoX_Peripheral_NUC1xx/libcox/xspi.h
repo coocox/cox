@@ -53,7 +53,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -81,10 +81,10 @@ extern "C"
 //! Values that can be passed to SPIIntEnable, SPIIntDisable, and SPIIntClear
 //! as the ulIntFlags parameter, and returned from SPIIntStatus. 
 //! \n
-//! \section xSPI_Ints_COX 2. COX Port Details 
+//! \section xSPI_Ints_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xSPI Interrupts         |       COX      |         NUC1xx         |
+//! |xSPI Interrupts         |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xSPI_INT_EOT            |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -119,10 +119,10 @@ extern "C"
 //! Values that can be passed to SPIIntEnable, SPIIntDisable, and SPIIntClear
 //! as the ulIntFlags parameter, and returned from SPIIntStatus. 
 //! \n
-//! \section xSPI_Ints_Event_COX 2. COX Port Details 
+//! \section xSPI_Ints_Event_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xSPI Interrupts         |       COX      |         NUC1xx         |
+//! |xSPI Interrupts         |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xSPI_EVENT_EOT          |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -157,10 +157,10 @@ extern "C"
 //! Values that can be passed to xSPIConfig()
 //! as the ulConfig parameter. 
 //! \n
-//! \section xSPI_Config_COX 2. COX Port Details 
+//! \section xSPI_Config_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xSPI Configs            |       COX      |         NUC1xx         |
+//! |xSPI Configs            |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xSPI_MOTO_FORMAT_MODE_0 |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -287,10 +287,10 @@ extern "C"
 //! Values that can be passed to xSPIDMAEnable() and xSPIDMADisable()
 //! as the ulDmaMode parameter. 
 //! \n
-//! \section xSPI_DMA_COX 2. COX Port Details 
+//! \section xSPI_DMA_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xSPI DMA                |       COX      |         NUC1xx         |
+//! |xSPI DMA                |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xSPI_DMA_TX             |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -333,10 +333,10 @@ extern "C"
 //! Values that can be passed to xSPISSSet()
 //! as the ulSSMode parameter. 
 //! \n
-//! \section xSPI_SlaveSelMode_COX 2. COX Port Details 
+//! \section xSPI_SlaveSelMode_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xSPI Slave Select Mode  |       COX      |         NUC1xx         |
+//! |xSPI Slave Select Mode  |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xSPI_SS_HARDWARE        |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -365,10 +365,10 @@ extern "C"
 //! Values that can be passed to xSPISSSet()
 //! as the ulSlaveSel parameter. 
 //! \n
-//! \section xSPI_SlaveSel_COX 2. COX Port Details 
+//! \section xSPI_SlaveSel_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xSPI Slave Select       |       COX      |         NUC1xx         |
+//! |xSPI Slave Select       |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xSPI_SS_NONE            |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -397,12 +397,12 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xSPI_Exported_APIs xSPI API
-//! \brief xSPI API Refrence.
+//! \brief xSPI API Reference.
 //!
-//! \section xSPI_Exported_APIs_Port COX Port Details
+//! \section xSPI_Exported_APIs_Port CoX Port Details
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xSPI API                |       COX      |         NUC1xx         |
+//! |xSPI API                |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xSPIConfigSet           |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -455,7 +455,7 @@ extern "C"
 //! \param ulBase specifies the SPI module base address.
 //! \param ulBitRate specifies the clock rate.
 //! \param ulConfig is the required configuration of the SPI.
-//! Details please reference to \ref xSPI_Config.
+//! Details please refer to \ref xSPI_Config.
 //!
 //! This function configures the synchronous serial interface.  It sets
 //! the SPI protocol, mode of operation, bit rate, and data width and the first
@@ -503,7 +503,7 @@ extern "C"
 //! 
 //! The first bit of the data transfers, can be one of the following values:
 //! \b xSPI_MSB_FIRST, or \b xSPI_LSB_FIRST.
-//! Details please reference to \ref xSPI_Config_COX.
+//! Details please refer to \ref xSPI_Config_CoX.
 //!
 //! \return None.
 //
@@ -610,7 +610,7 @@ extern "C"
 //!
 //! \param ulBase specifies the SPI module base address.
 //! \param ulIntFlags specifies the type of SPI interrupt.
-//! Details please reference to \ref xSPI_Ints.
+//! Details please refer to \ref xSPI_Ints.
 //!
 //! This function is to enable the SPI interrupt of the specified SPI port.
 //!
@@ -761,13 +761,13 @@ extern "C"
 //!
 //! \param ulBase specifies the SPI module base address.
 //! \param ulDmaMode specifies the SPI module base address.
-//! Details please reference to \ref xSPI_DMA.
+//! Details please refer to \ref xSPI_DMA.
 //!
 //! This function enable the DMA of the specified SPI port.
 //!
 //! The \e ulDmaMode parameter can be one of the following values:
 //! \b xSPI_DMA_RX, \b xSPI_DMA_TX ,or \b xSPI_DMA_BOTH.
-//! Details please reference to \ref xSPI_DMA_COX.
+//! Details please refer to \ref xSPI_DMA_CoX.
 //!
 //! \return None.
 //
@@ -781,13 +781,13 @@ extern "C"
 //!
 //! \param ulBase specifies the SPI module base address.
 //! \param ulDmaMode specifies the SPI module base address.
-//! Details please reference to \ref xSPI_DMA.
+//! Details please refer to \ref xSPI_DMA.
 //!
 //! This function disable the DMA of the specified SPI port.
 //!
 //! The \e ulDmaMode parameter can be one of the following values:
 //! \b SPI_DMA_RX, \b SPI_DMA_TX ,or \b SPI_DMA_BOTH.
-//! Details please reference to \ref xSPI_DMA_COX.
+//! Details please refer to \ref xSPI_DMA_CoX.
 //!
 //! \return None.
 //
@@ -1322,7 +1322,7 @@ extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
 //*****************************************************************************
 //
 //! \addtogroup NUC1xx_SPI_Exported_APIs  NUC1xx SPI API
-//! \brief NUC1xx SPI API Refrence
+//! \brief NUC1xx SPI API Reference
 //! @{
 //
 //*****************************************************************************
