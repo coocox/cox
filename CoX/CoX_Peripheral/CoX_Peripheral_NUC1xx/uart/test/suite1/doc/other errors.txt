@@ -1,0 +1,29 @@
+1. 书写错误。
+   Get the know->Get to know
+   line481 引号
+   line1600  RTS->CTS
+
+2. UARTIntStatus，if的内容和else一样
+
+3. 参数不一致。
+   line1592: ulControl->ulCtsTirg
+   UARTCLkGet函数头不应有参数
+   UART485Config函数头，少了ulBaud
+
+4. 表述有误。
+   line1597：不应该是logical OR。
+//
+//! LIN Break Failed Count Register.
+// 
+#define UART_LIN_BCNT           0x0000002C  这个寄存器不只是lin break，这样描述是否不准确。
+
+UARTEnable这个函数是对LIN的操作，是否将函数名改为和LIN相关。否则不明确、有歧义。
+
+xUARTIrDAConfig和UARTConfigSetExpClk是一样的。为什么同样的函数要写两遍。
+
+UARTModemControlSet是设置RTS Trigger Level，UARTModemStatusSet是设置CTS Trigger Level，函数名是否有些与功能不一致。UARTModemControlSet、UARTModemStatusSet、UARTModemControlClear中代码注释一样，应该做些修改。
+
+5. 逻辑错误
+   UARTConfigSetExpClk函数中将时钟源设置为12M，时钟源应该单独设置。
+
+   为什么CTS Pin一直是高电平？
