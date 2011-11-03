@@ -82,28 +82,28 @@ unsigned long Timer0Callback(void *pvCBData,  unsigned long ulEvent,
                                        unsigned long ulMsgParam,
                                        void *pvMsgData)
 {
-     ulTimerIntFlag[0] = 1;   
+     TestEmitToken('a');
      return 0;
 }
 unsigned long Timer1Callback(void *pvCBData,  unsigned long ulEvent,
                                        unsigned long ulMsgParam,
                                        void *pvMsgData)
 {
-     ulTimerIntFlag[1] = 1;    
+     TestEmitToken('a');
      return 0;
 }
 unsigned long Timer2Callback(void *pvCBData,  unsigned long ulEvent,
                                        unsigned long ulMsgParam,
                                        void *pvMsgData)
 {
-     ulTimerIntFlag[2] = 1; 
+     TestEmitToken('a');
      return 0;
 }
 unsigned long Timer3Callback(void *pvCBData,  unsigned long ulEvent,
                                        unsigned long ulMsgParam,
                                        void *pvMsgData)
 {
-     ulTimerIntFlag[3] = 1;   
+     TestEmitToken('a');
      return 0;
 }
 
@@ -136,6 +136,7 @@ static char* xTimer001GetTest(void)
 //*****************************************************************************
 static void xTimer001Setup(void)
 {
+    int i;
     //
     //Set the external 12MHZ clock as system clock 
     //
@@ -153,7 +154,7 @@ static void xTimer001Setup(void)
     //
     // Enable the tiemr0-3 peripheral
     //
-    for(int i = 0; i < 4; i++)
+    for(i = 0; i < 4; i++)
     {   
         
         xSysCtlPeripheralEnable(ulTimerID[i]);  
@@ -171,10 +172,11 @@ static void xTimer001Setup(void)
 //*****************************************************************************
 static void xTimer001TearDown(void)
 {
+    int i;
     //
     // Enable the tiemr0-3 peripheral
     //
-    for(int i = 0; i < 4; i++)
+    for(i = 0; i < 4; i++)
     {
         xSysCtlPeripheralDisable(ulTimerID[i]);  
     }
@@ -209,7 +211,8 @@ static void xTimer001Execute(void)
         // 
         // Config as One shot mode
         //        
-        TimerInitConfig(ulBase, TIMER_MODE_ONESHOT, 1000000);
+        TimerInitConfig(ulBase, TIMER_MODE_ONESHOT, 1000);
+        
         TimerIntEnable(ulBase, TIMER_INT_MATCH);
         xIntEnable(ulTimerIntID[i]);
         xTimerIntCallbackInit(ulBase, TimerCallbackFunc[i]); 
@@ -218,10 +221,7 @@ static void xTimer001Execute(void)
         //
         // wait until the timer data register reach equel to compare register
         //
-        while(ulTimerIntFlag[i] == 0);
-        TestAssert(1 == ulTimerIntFlag[i],
-                   "xTimer, \" Timer0 interrupt not happen! \" error");
-        //TimerIntClear(ulBase, TIMER_INT_MATCH);
+        TestAssertQBreak("a","One shot mode Intterrupt test fail", 0);
         xIntDisable(ulTimerIntID[i]);
     }  
     
@@ -266,7 +266,7 @@ static void xTimer001Execute(void)
     //
     // Toggle mode test
     //
-    for(int i = 0; i < 4; i++)
+    for(i = 0; i < 4; i++)
     {
         ulBase = ulTimerBase[i];
         ulTemp = 0;
@@ -286,7 +286,7 @@ static void xTimer001Execute(void)
         // 
         // wait the toggle repeat 5 times 
         //
-        for (int j = 0; j < 5; j++)
+        for (j = 0; j < 5; j++)
         {
             while(!TimerIntStatus(ulBase, TIMER_INT_MATCH));      
             ulTemp++;
@@ -297,7 +297,7 @@ static void xTimer001Execute(void)
             TimerIntClear(ulBase, TIMER_INT_MATCH);
         }
         TestAssert(ulTemp == 5,
-                   "xtimer mode \" periodic test\" error!");
+                   "xtimer mode \" Toggle mode test\" error!");
         TimerStop(ulBase);       
     }
     
@@ -324,11 +324,6 @@ static void xTimer001Execute(void)
         TimerStart(ulBase);
         
         //
-        // Wait until reach the 200
-        //
-        //while(!TimerIntStatus(ulBase, TIMER_INT_MATCH));
-        
-        //
         // Delay some time to wait the count register reach to 200.
         //
         xSysCtlDelay(100);
@@ -337,13 +332,13 @@ static void xTimer001Execute(void)
             ulTemp++;
         }
         TimerIntClear(ulBase, TIMER_INT_MATCH);
-        TimerMatchSet(ulBase, 200);
+        TimerMatchSet(ulBase, 2000);
         
         //
         // Wait until reach the 1000
         //
         //while(!TimerIntStatus(ulBase, TIMER_INT_MATCH));       
-        xSysCtlDelay(1000);
+        xSysCtlDelay(100000);
         if(TimerIntStatus(ulBase, TIMER_INT_MATCH) == xtrue)
         {
             ulTemp++;
@@ -351,7 +346,7 @@ static void xTimer001Execute(void)
         TimerIntClear(ulBase, TIMER_INT_MATCH);
         
         TestAssert(ulTemp == 2,
-           "xtimer mode \" periodic test\" error!");
+           "xtimer mode \" Continuous mode test\" error!");
         TimerStop(ulBase);     
         xIntDisable(ulTimerIntID[i]);
    

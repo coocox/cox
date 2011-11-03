@@ -2,7 +2,7 @@
 
 <workspace>
   <project>
-    <path>$WS_DIR$\suit1.ewp</path>
+    <path>$WS_DIR$\suite1.ewp</path>
   </project>
   <batchBuild/>
 </workspace>

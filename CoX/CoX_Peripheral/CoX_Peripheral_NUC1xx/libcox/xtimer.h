@@ -1013,6 +1013,8 @@ extern "C"
 
 extern void TimerInitConfig(unsigned long ulBase, unsigned long ulConfig,
                             unsigned long ulTickFreq);
+extern void TimerCounterInitConfig(unsigned long ulBase, unsigned long ulConfig,
+                       unsigned long ulCounterBound);
 extern void TimerStart(unsigned long ulBase);
 extern void TimerStop(unsigned long ulBase);
 extern void TimerCounterEnable(unsigned long ulBase);

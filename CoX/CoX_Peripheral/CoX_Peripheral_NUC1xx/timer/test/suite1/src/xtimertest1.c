@@ -123,6 +123,7 @@ static char* xTimer001GetTest(void)
 //*****************************************************************************
 static void xTimer001Setup(void)
 {
+    int i;
     //
     //Set the external 12MHZ clock as system clock 
     //
@@ -140,7 +141,7 @@ static void xTimer001Setup(void)
     //
     // Enable the tiemr0-3 peripheral
     //
-    for(int i = 0; i < 4; i++)
+    for(i = 0; i < 4; i++)
     {   
         
         xSysCtlPeripheralEnable(ulTimerID[i]);  
@@ -162,7 +163,7 @@ static void xTimer001TearDown(void)
     //
     // Enable the tiemr0-3 peripheral
     //
-    for(int i = 0; i < 4; i++)
+    for(i = 0; i < 4; i++)
     {
         xSysCtlPeripheralDisable(ulTimerID[i]);  
     }

@@ -82,28 +82,28 @@ static unsigned long Timer0Callback(void *pvCBData,  unsigned long ulEvent,
                                        unsigned long ulMsgParam,
                                        void *pvMsgData)
 {
-     ulTimerIntFlag[0] = 1;   
+     TestEmitToken('b'); 
      return 0;
 }
 static unsigned long Timer1Callback(void *pvCBData,  unsigned long ulEvent,
                                        unsigned long ulMsgParam,
                                        void *pvMsgData)
 {
-     ulTimerIntFlag[1] = 1;    
+     TestEmitToken('b'); 
      return 0;
 }
 static unsigned long Timer2Callback(void *pvCBData,  unsigned long ulEvent,
                                        unsigned long ulMsgParam,
                                        void *pvMsgData)
 {
-     ulTimerIntFlag[2] = 1; 
+     TestEmitToken('b');
      return 0;
 }
 static unsigned long Timer3Callback(void *pvCBData,  unsigned long ulEvent,
                                        unsigned long ulMsgParam,
                                        void *pvMsgData)
 {
-     ulTimerIntFlag[3] = 1;   
+     TestEmitToken('b'); 
      return 0;
 }
 
@@ -354,25 +354,10 @@ static void xTimer001Execute(void)
         xTimerStart(ulBase, i);
         
         //
-        // Test if ALT_MFP.24 is set
-        //
-        ulTemp = xHWREG(GCR_ALTMFP) & 0x01000000;
-        TestAssert(0x01000000 == ulTemp,
-                   "xtimer, \"ALT_MFP.24 set\" error");
-
-        /*
-        while(!TimerIntStatus(ulBase, TIMER_INT_CAP))
-        {
-            EdgeGenerate();
-        }
-        */
-        
-        //
         // wait until the timer data register reach equel to compare register
         //
-        while(ulTimerIntFlag[i] == 0);
-        TestAssert(1 == ulTimerIntFlag[i],
-                   "xTimer, \" Timer0 interrupt not happen! \" error");
+        TestAssertQBreak("b","One shot mode Intterrupt test fail", 0);
+        
         xbTimerIntStatus = TimerIntStatus(ulBase, TIMER_INT_CAP);
         TimerIntClear(ulBase, TIMER_INT_CAP);
         TimerCaptureDisable(ulBase);
