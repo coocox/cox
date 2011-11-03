@@ -29,6 +29,8 @@
 #include "xuart.h"
 #include "xhw_i2c.h"
 #include "xi2c.h"
+#include "xhw_timer.h"
+#include "xtimer.h"
 
 //*****************************************************************************
 //
@@ -106,6 +108,8 @@ extern xtBoolean _TestAssert(char* pcFile, unsigned long ulLine,
 extern xtBoolean _TestAssertSequence(char* pcFile, unsigned long ulLine, 
                                           char *pcExpected, 
                                           char* pcMsg);
+
+extern xtBoolean _TestAssertSequenceBreak(char *pcExpected, unsigned long ulDelay);
 
 
 //*****************************************************************************

@@ -320,8 +320,9 @@ _TestAssert(char* pcFile, unsigned long ulLine,
 
 //!
 //! \details Test sequence assertion.
-//! \note If ulDelay is 0,then this will not break until sequence token is 
-//! finished! if delay is not 0,then it will be wait delay time.
+//! \note If ulDelay is -1,then this will not break until sequence token is 
+//! finished! if ulDelay is not -1,then it will be wait delay time.ulDelay
+//! is 0,show that there will be no delay!
 //!
 //! \return None.
 //
@@ -346,11 +347,11 @@ _TestAssertSequenceBreak(char *pcExpected, unsigned long ulDelay)
 		    ClearTokens();
             return xfalse;
         }
-		if (ulDelay == 0)
+		if (ulDelay == -1)
 		{
 		    ulTemp = 1;
 		}
-		else
+		else if(ulDelay != 0)
 		{
 		    ulTemp--;
 		}
