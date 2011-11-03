@@ -315,40 +315,48 @@ _TestAssert(char* pcFile, unsigned long ulLine,
 //
 //! \brief Test sequence assertion.
 //!
-//! \param pcFile is the current file name. usually is \b __FILE__
-//! \param ulLine is the current line number. usually is \b __LINE__
 //! \param pcExpected is the expect token seq.
-//! \param bCondition is the checking expr. \b xtrue, \bxfalse
-//! \param pcMsg failure message
+//! \param ulDelay wait delay time
 
 //!
 //! \details Test sequence assertion.
+//! \note If ulDelay is -1,then this will not break until sequence token is 
+//! finished! if ulDelay is not -1,then it will be wait delay time.ulDelay
+//! is 0,show that there will be no delay!
 //!
 //! \return None.
 //
 //*****************************************************************************
-
-xtBoolean 
-_TestAssertSequence(char* pcFile, unsigned long ulLine, 
-                         char *pcExpected, 
-                         char* pcMsg)
+xtBoolean
+_TestAssertSequenceBreak(char *pcExpected, unsigned long ulDelay)
 {
     char *cp = g_pcTokensBuffer;
-    while (cp < g_pcTok)
+	unsigned long ulTemp = ulDelay;
+    do
     {
-        if (*cp++ != *pcExpected++)
+	    while (cp < g_pcTok)
         {
-            _TestAssert(pcFile, ulLine, 0, pcMsg);
-            return _TestFail();
+            if (*cp++ != *pcExpected++)
+            {
+                return _TestFail();
+            }
         }
-    }
-    if (*pcExpected != '\0')
-    {
-        _TestAssert(pcFile, ulLine, 0, pcMsg);
-        return _TestFail();
-    }
-    ClearTokens();
-    return xfalse;
+        SysCtlDelay(1);
+        if (*pcExpected == '\0')
+        {
+		    ClearTokens();
+            return xfalse;
+        }
+		if (ulDelay == -1)
+		{
+		    ulTemp = 1;
+		}
+		else if(ulDelay != 0)
+		{
+		    ulTemp--;
+		}
+    } while(ulTemp);
+	return _TestFail();
 }
 
 //*****************************************************************************
