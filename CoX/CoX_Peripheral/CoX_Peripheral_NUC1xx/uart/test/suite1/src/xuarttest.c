@@ -5,7 +5,7 @@
 //! File: @ref xuart_testcase.c
 //! 
 //! <h2>Description</h2>
-//! This module implements the test sequence for the Xuart sub component.<br><br>
+//! This module implements the test sequence for the xuart sub component.<br><br>
 //! - \p Board: NUC1xx <br><br>
 //! - \p Last-Time(about): 0.5s <br><br>
 //! - \p Phenomenon: Success or failure information will be printed on the VCOM UART. <br><br>
@@ -17,7 +17,7 @@
 //! <br>(1)None.<br><br>
 //! - \p Option-hardware: 
 //! <br>(1)Connect an USB cable to the development board.<br><br>
-//! - \p Option-OtherModule:
+//! - \p Option-OtherModule:         
 //! <br>None.<br>
 //! .
 //! In case some of the required options are not enabled then some or all tests
@@ -38,8 +38,8 @@
 #include "testcase.h"
 
 
-#define UART_BASE  UART0_BASE
-#define xSYSCTL_PERIPH_UART  xSYSCTL_PERIPH_UART0
+#define UART_BASE   UART1_BASE
+#define xSYSCTL_PERIPH_UART  xSYSCTL_PERIPH_UART1
 
 void xuart001Execute_NormalConfig(void);
 unsigned long uart0CallbackFunc(void *pvCBData, 
@@ -138,14 +138,14 @@ unsigned long ulDMACfg[] = {UART_DMA_RX, UART_DMA_TX, (UART_DMA_RX | UART_DMA_TX
 
 //*****************************************************************************
 //
-//! Get the Test description of Xuart001  test.
+//! Get the Test description of xuart001  test.
 //!
 //! \return the desccription of the xuart001 test.
 //
 //*****************************************************************************
-static char* Xuart001GetTest(void)
+static char* xuart001GetTest(void)
 {
-    return "Xuart [001]: xuart uart Config ,rx,tx and interrupt test";
+    return "xuart [001]: xuart uart Config ,rx,tx and interrupt test";
 }
 
 //*****************************************************************************
@@ -155,7 +155,7 @@ static char* Xuart001GetTest(void)
 //! \return None.
 //
 //*****************************************************************************
-static void Xuart001Setup(void)
+static void xuart001Setup(void)
 {
 }
 
@@ -166,7 +166,7 @@ static void Xuart001Setup(void)
 //! \return None.
 //
 //*****************************************************************************
-static void Xuart001TearDown(void)
+static void xuart001TearDown(void)
 {
 }
 
@@ -187,8 +187,8 @@ void xuart001Execute_NormalConfig(void)
     p1 = countof(parity);
     s1 = countof(stopbit);  
 
-    xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART1);
-    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART1);   
+    xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART);
+    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART);   
 
     //
     // the combined test of word length,parity and stop bit.
@@ -197,16 +197,16 @@ void xuart001Execute_NormalConfig(void)
     {
         for(p=0; p<p1; p++)
         {   
-            UARTParityModeSet(UART1_BASE, parity[p]);
-            ulTemp1 = UARTParityModeGet(UART1_BASE);
+            UARTParityModeSet(UART_BASE, parity[p]);
+            ulTemp1 = UARTParityModeGet(UART_BASE);
             TestAssert(parity[p] == ulTemp1, 
                            "xuart API \"UARTParityModeSet\" or \"UARTParityModeGet\" error!");
 
             for(s=0; s<s1; s++)
             {
                 ulTemp1 = (wordLength[w] | parity[p] | stopbit[s]);
-                UARTConfigSetExpClk(UART1_BASE, 115200, ulTemp1);     
-                UARTConfigGetExpClk(UART1_BASE, &ulBuad, &ulConfig);
+                UARTConfigSetExpClk(UART_BASE, 115200, ulTemp1);     
+                UARTConfigGetExpClk(UART_BASE, &ulBuad, &ulConfig);
                 TestAssert((ulConfig & ulTemp1) == ulTemp1, 
                            "xuart API \"UARTConfigSetExpClk\" or \"UARTConfigGetExpClk\" error!");
             }
@@ -217,12 +217,12 @@ void xuart001Execute_NormalConfig(void)
     //
     // Break Control test
     //
-    UARTBreakCtl(UART1_BASE, xtrue);
-    ulTemp1 = xHWREG(0x4015000C);
+    UARTBreakCtl(UART_BASE, xtrue);
+    ulTemp1 = xHWREG(UART_BASE + UART_LCR);
     TestAssert(((ulTemp1>>6) & 1) == 1, 
                  "xuart API \"UARTBreakCtl\" error!");
-    UARTBreakCtl(UART1_BASE, xfalse);
-    ulTemp1 = xHWREG(0x4015000C);
+    UARTBreakCtl(UART_BASE, xfalse);
+    ulTemp1 = xHWREG(UART_BASE + UART_LCR);
     TestAssert(((ulTemp1>>6) & 1) == 0, 
                  "xuart API \"UARTBreakCtl\" error!");
 
@@ -309,23 +309,23 @@ static void xuart001Execute(void)
 //
 // xuart Config test case struct.
 //
-const tTestCase sTestXuart001UART = {
-    Xuart001GetTest,
-    Xuart001Setup,
-    Xuart001TearDown,
+const tTestCase sTestxuart001UART = {
+    xuart001GetTest,
+    xuart001Setup,
+    xuart001TearDown,
     xuart001Execute
 };
 
 //*****************************************************************************
 //
-//! Get the Test description of Xuart002  test.
+//! Get the Test description of xuart002  test.
 //!
 //! \return the desccription of the xuart002 test.
 //
 //*****************************************************************************
-static char* Xuart002GetTest(void)
+static char* xuart002GetTest(void)
 {
-    return "Xuart [002]: xuart FIFO test";
+    return "xuart [002]: xuart FIFO test";
 }
 
 //*****************************************************************************
@@ -335,7 +335,7 @@ static char* Xuart002GetTest(void)
 //! \return None.
 //
 //*****************************************************************************
-static void Xuart002Setup(void)
+static void xuart002Setup(void)
 {
     SysCtlPeripheralEnable(xSYSCTL_PERIPH_UART);
 }
@@ -347,7 +347,7 @@ static void Xuart002Setup(void)
 //! \return None.
 //
 //*****************************************************************************
-static void Xuart002TearDown(void)
+static void xuart002TearDown(void)
 {
 
 }
@@ -362,8 +362,8 @@ void xuart002Execute_FIFOConfig(void)
     //
     for(i=0; i<fifoLevelNum; i++)
     {
-        UARTFIFOTriggerLevelSet(UART0_BASE, ulRxLevel[i]); 
-        UARTFIFOTriggerLevelGet(UART0_BASE, &ulTemp1);
+        UARTFIFOTriggerLevelSet(UART_BASE, ulRxLevel[i]); 
+        UARTFIFOTriggerLevelGet(UART_BASE, &ulTemp1);
         TestAssert(ulTemp1 == ulRxLevel[i], 
                     "xuart API \"UARTFIFOTriggerLevelSet\" or \"UARTFIFOTriggerLevelGet\" error!");
     }
@@ -371,7 +371,7 @@ void xuart002Execute_FIFOConfig(void)
     //
     // reset rx and tx fifo
     //
-    xHWREG(UART_BASE + 0x08) = 0x60;
+    xHWREG(UART_BASE + UART_FCR) = 0x60;
 
     SysCtlDelay(100000);
 
@@ -414,23 +414,23 @@ static void xuart002Execute(void)
 //
 // xuart FIFO test case struct.
 //
-const tTestCase sTestXuart002FIFO = {
-    Xuart002GetTest,
-    Xuart002Setup,
-    Xuart002TearDown,
+const tTestCase sTestxuart002FIFO = {
+    xuart002GetTest,
+    xuart002Setup,
+    xuart002TearDown,
     xuart002Execute
 };
 
 //*****************************************************************************
 //
-//! Get the Test description of Xuart003  test.
+//! Get the Test description of xuart003  test.
 //!
 //! \return the desccription of the xuart003 test.
 //
 //*****************************************************************************
-static char* Xuart003GetTest(void)
+static char* xuart003GetTest(void)
 {
-    return "Xuart [003]: xuart IrDA test";
+    return "xuart [003]: xuart IrDA test";
 }
 
 //*****************************************************************************
@@ -440,7 +440,7 @@ static char* Xuart003GetTest(void)
 //! \return None.
 //
 //*****************************************************************************
-static void Xuart003Setup(void)
+static void xuart003Setup(void)
 {
 
 }
@@ -452,25 +452,25 @@ void xuart003Execute_IrDAConfig(void)
     xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART1);
     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART1);
 
-    UARTEnableIrDA(UART1_BASE);
-    ulTemp1 = xHWREG(UART1_BASE + UART_FUN_SEL) & 0x02;
+    UARTEnableIrDA(UART_BASE);
+    ulTemp1 = xHWREG(UART_BASE + UART_FUN_SEL) & 0x02;
     TestAssert(ulTemp1 == 0x02,
                    "xuart API \"UARTEnableIrDA\" error!");
     
     ulTemp1 = (UART_CONFIG_IrDA_TX_EN | UART_CONFIG_IrDA_INV_TX | UART_CONFIG_IrDA_INV_RX);
-    UARTIrDAConfig(UART1_BASE, ulTemp1);
-    ulTemp1 = xHWREG(UART1_BASE + UART_IRCR) & 0x62;
+    UARTIrDAConfig(UART_BASE, ulTemp1);
+    ulTemp1 = xHWREG(UART_BASE + UART_IRCR) & 0x62;
     TestAssert(ulTemp1 == 0x62,
                    "xuart API \"UARTIrDAConfig\" error!");
 
     ulTemp1 = ~(UART_CONFIG_IrDA_TX_EN | UART_CONFIG_IrDA_INV_TX | UART_CONFIG_IrDA_INV_RX);
-    UARTIrDAConfig(UART1_BASE, ulTemp1);
-    ulTemp1 = xHWREG(UART1_BASE + UART_IRCR) & 0x62;
+    UARTIrDAConfig(UART_BASE, ulTemp1);
+    ulTemp1 = xHWREG(UART_BASE + UART_IRCR) & 0x62;
     TestAssert(ulTemp1 == 0x0,
                    "xuart API \"UARTIrDAConfig\" error!");
     
-    UARTDisableIrDA(UART1_BASE);
-    ulTemp1 = xHWREG(UART1_BASE + UART_FUN_SEL) & 0x02;
+    UARTDisableIrDA(UART_BASE);
+    ulTemp1 = xHWREG(UART_BASE + UART_FUN_SEL) & 0x02;
     TestAssert(ulTemp1 == 0,
                    "xuart API \"UARTDisableIrDA\" error!");
 }
@@ -482,7 +482,7 @@ void xuart003Execute_IrDAConfig(void)
 //! \return None.
 //
 //*****************************************************************************
-static void Xuart003TearDown(void)
+static void xuart003TearDown(void)
 {
 
 }
@@ -504,23 +504,23 @@ static void xuart003Execute(void)
 //
 // xuart IrDA test case struct.
 //
-const tTestCase sTestXuart003IrDA = {
-    Xuart003GetTest,
-    Xuart003Setup,
-    Xuart003TearDown,
+const tTestCase sTestxuart003IrDA = {
+    xuart003GetTest,
+    xuart003Setup,
+    xuart003TearDown,
     xuart003Execute
 };
 
 //*****************************************************************************
 //
-//! Get the Test description of Xuart004  test.
+//! Get the Test description of xuart004  test.
 //!
 //! \return the desccription of the xuart004 test.
 //
 //*****************************************************************************
-static char* Xuart004GetTest(void)
+static char* xuart004GetTest(void)
 {
-    return "Xuart [004]: xuart LIN test";
+    return "xuart [004]: xuart LIN test";
 }
 
 //*****************************************************************************
@@ -530,7 +530,7 @@ static char* Xuart004GetTest(void)
 //! \return None.
 //
 //*****************************************************************************
-static void Xuart004Setup(void)
+static void xuart004Setup(void)
 {
 
 }
@@ -542,7 +542,7 @@ static void Xuart004Setup(void)
 //! \return None.
 //
 //*****************************************************************************
-static void Xuart004TearDown(void)
+static void xuart004TearDown(void)
 {
 
 }
@@ -554,8 +554,8 @@ void xuart004Execute_LinConfig(void)
     xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART1);
     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART1);
 
-    UARTEnableLIN(UART1_BASE);
-    ulTemp1 = xHWREG(UART1_BASE + UART_FUN_SEL) & 0x01;
+    UARTEnableLIN(UART_BASE);
+    ulTemp1 = xHWREG(UART_BASE + UART_FUN_SEL) & 0x01;
     TestAssert(ulTemp1 == 0x01,
                    "xuart API \"UARTEnableLIN\" error!");
 
@@ -563,28 +563,28 @@ void xuart004Execute_LinConfig(void)
     // Enable LIN, Set the LIN Break Field Length
     //
     ulTemp1 = (UART_CONFIG_LIN_RX_EN | UART_CONFIG_LIN_TX_EN | 0x0A);
-    UARTLINConfig(UART1_BASE, 115200, ulTemp1);
-    ulTemp1 = xHWREG(UART1_BASE + UART_LIN_BCNT) & 0xCA;
+    UARTLINConfig(UART_BASE, 115200, ulTemp1);
+    ulTemp1 = xHWREG(UART_BASE + UART_LIN_BCNT) & 0xCA;
     TestAssert(ulTemp1 == 0xCA,
                    "xuart API \"UARTLINConfig\" error!");
 
     ulTemp1 = (UART_CONFIG_LIN_RX_EN | UART_CONFIG_LIN_TX_EN | 0x0F);
-    UARTLINConfig(UART1_BASE, 115200, ulTemp1);
-    ulTemp1 = xHWREG(UART1_BASE + UART_LIN_BCNT) & 0xCF;
+    UARTLINConfig(UART_BASE, 115200, ulTemp1);
+    ulTemp1 = xHWREG(UART_BASE + UART_LIN_BCNT) & 0xCF;
     TestAssert(ulTemp1 == 0xCF,
                    "xuart API \"UARTLINConfig\" error!");
 
     ulTemp1 = (~(UART_CONFIG_LIN_RX_EN | UART_CONFIG_LIN_TX_EN)) | 0x0A;
-    UARTLINConfig(UART1_BASE, 115200, ulTemp1);
-    ulTemp1 = xHWREG(UART1_BASE + UART_LIN_BCNT) & 0x0A;
+    UARTLINConfig(UART_BASE, 115200, ulTemp1);
+    ulTemp1 = xHWREG(UART_BASE + UART_LIN_BCNT) & 0x0A;
     TestAssert(ulTemp1 == 0x0A,
                    "xuart API \"UARTLINConfig\" error!");
     
     //
     // Disable Lin
     //
-    UARTDisableLIN(UART1_BASE);
-    ulTemp1 = xHWREG(UART1_BASE + UART_FUN_SEL) & 0x01;
+    UARTDisableLIN(UART_BASE);
+    ulTemp1 = xHWREG(UART_BASE + UART_FUN_SEL) & 0x01;
     TestAssert(ulTemp1 == 0,
                    "xuart API \"UARTDisableIrDA\" error!");
 
@@ -608,22 +608,22 @@ static void xuart004Execute(void)
 //
 // xuart Lin test case struct.
 //
-const tTestCase sTestXuart004Lin = {
-    Xuart004GetTest,
-    Xuart004Setup,
-    Xuart004TearDown,
+const tTestCase sTestxuart004Lin = {
+    xuart004GetTest,
+    xuart004Setup,
+    xuart004TearDown,
     xuart004Execute
 };
 //*****************************************************************************
 //
-//! Get the Test description of Xuart005  test.
+//! Get the Test description of xuart005  test.
 //!
 //! \return the desccription of the xuart005 test.
 //
 //*****************************************************************************
-static char* Xuart005GetTest(void)
+static char* xuart005GetTest(void)
 {
-    return "Xuart [005]: xuart flow control test";
+    return "xuart [005]: xuart flow control test";
 }
 
 //*****************************************************************************
@@ -633,7 +633,7 @@ static char* Xuart005GetTest(void)
 //! \return None.
 //
 //*****************************************************************************
-static void Xuart005Setup(void)
+static void xuart005Setup(void)
 {
 
 }
@@ -645,7 +645,7 @@ static void Xuart005Setup(void)
 //! \return None.
 //
 //*****************************************************************************
-static void Xuart005TearDown(void)
+static void xuart005TearDown(void)
 {
 
 }
@@ -670,8 +670,8 @@ void xuart005Execute_flowControlConfig(void)
     //
     for(i=0; i<flowCtlNum; i++)
     {
-        UARTFlowControlSet(UART1_BASE, ulFlowCtlCfg[i]);
-        ulTemp1 = UARTFlowControlGet(UART1_BASE);
+        UARTFlowControlSet(UART_BASE, ulFlowCtlCfg[i]);
+        ulTemp1 = UARTFlowControlGet(UART_BASE);
         TestAssert(ulTemp1 == ulFlowCtlCfg[i],
                    "xuart API \"UARTFlowControlSet\" or \"UARTFlowControlGet\" error!");
     }
@@ -696,23 +696,23 @@ static void xuart005Execute(void)
 //
 // xuart flow control test case struct.
 //
-const tTestCase sTestXuart005flowCtl = {
-    Xuart005GetTest,
-    Xuart005Setup,
-    Xuart005TearDown,
+const tTestCase sTestxuart005flowCtl = {
+    xuart005GetTest,
+    xuart005Setup,
+    xuart005TearDown,
     xuart005Execute
 };
 
 //*****************************************************************************
 //
-//! Get the Test description of Xuart006  test.
+//! Get the Test description of xuart006  test.
 //!
 //! \return the desccription of the xuart006 test.
 //
 //*****************************************************************************
-static char* Xuart006GetTest(void)
+static char* xuart006GetTest(void)
 {
-    return "Xuart [006]: xuart Modem test";
+    return "xuart [006]: xuart Modem test";
 }
 
 //*****************************************************************************
@@ -722,7 +722,7 @@ static char* Xuart006GetTest(void)
 //! \return None.
 //
 //*****************************************************************************
-static void Xuart006Setup(void)
+static void xuart006Setup(void)
 {
 
 }
@@ -734,7 +734,7 @@ static void Xuart006Setup(void)
 //! \return None.
 //
 //*****************************************************************************
-static void Xuart006TearDown(void)
+static void xuart006TearDown(void)
 {
 
 }
@@ -752,14 +752,14 @@ void xuart006Execute_ModemConfig(void)
     //
     for(i=0; i<modemCfgNum; i++)
     {
-        UARTModemControlSet(UART1_BASE, ulModemCfg[i]);
-        ulTemp1 = UARTModemControlGet(UART1_BASE); 
-        ulTemp2 = (((((xHWREG(UART1_BASE + UART_MCR)>>1) & 0x01)^((xHWREG(UART1_BASE + UART_MCR)>>9) & 0x01)))^1)<<13;
+        UARTModemControlSet(UART_BASE, ulModemCfg[i]);
+        ulTemp1 = UARTModemControlGet(UART_BASE); 
+        ulTemp2 = (((((xHWREG(UART_BASE + UART_MCR)>>1) & 0x01)^((xHWREG(UART_BASE + UART_MCR)>>9) & 0x01)))^1)<<13;
         TestAssert(ulTemp1 == ulTemp2,
                    "xuart API \"UARTModemControlSet\" or \"UARTModemControlGet\" error!");   
     }
-    UARTModemControlClear(UART1_BASE, UART_OUTPUT_RTS_SET);
-    ulTemp1 = ((xHWREG(UART1_BASE + UART_MCR)>>1) & 0x01);
+    UARTModemControlClear(UART_BASE, UART_OUTPUT_RTS_SET);
+    ulTemp1 = ((xHWREG(UART_BASE + UART_MCR)>>1) & 0x01);
     TestAssert(ulTemp1 == ulTemp2,
                    "xuart API \"UARTModemControlClear\" error!");
     //
@@ -767,8 +767,8 @@ void xuart006Execute_ModemConfig(void)
     //
     for(i=0; i<modemStNum; i++)
     {
-        UARTModemStatusSet(UART1_BASE, ulModemSt[i]);
-        ulTemp1 = xHWREG(UART1_BASE + UART_MSR) & 0x100;
+        UARTModemStatusSet(UART_BASE, ulModemSt[i]);
+        ulTemp1 = xHWREG(UART_BASE + UART_MSR) & 0x100;
         TestAssert(ulTemp1 == ulModemSt[i],
                    "xuart API \"UARTModemStatusSet\" error!");
     }
@@ -777,15 +777,15 @@ void xuart006Execute_ModemConfig(void)
     //
     // Get CTS Pin Status, 0 when high level trigger
     //
-    UARTModemStatusSet(UART1_BASE, UART_TRIGGER_CTS_H);
-    ulTemp1 = UARTModemStatusGet(UART1_BASE);
+    UARTModemStatusSet(UART_BASE, UART_TRIGGER_CTS_H);
+    ulTemp1 = UARTModemStatusGet(UART_BASE);
     TestAssert(ulTemp1 == 0x0,
                    "xuart API \"UARTModemStatusGet\" error!");
     //
     // Get CTS Pin Status, 1 when low level trigger
     //
-    UARTModemStatusSet(UART1_BASE, UART_TRIGGER_CTS_L);
-    ulTemp1 = UARTModemStatusGet(UART1_BASE);
+    UARTModemStatusSet(UART_BASE, UART_TRIGGER_CTS_L);
+    ulTemp1 = UARTModemStatusGet(UART_BASE);
     TestAssert(ulTemp1 == 0x10,
                    "xuart API \"UARTModemStatusGet\" error!");
     */
@@ -807,23 +807,23 @@ static void xuart006Execute(void)
 //
 // xuart Config test case struct.
 //
-const tTestCase sTestXuart006Modem = {
-    Xuart006GetTest,
-    Xuart006Setup,
-    Xuart006TearDown,
+const tTestCase sTestxuart006Modem = {
+    xuart006GetTest,
+    xuart006Setup,
+    xuart006TearDown,
     xuart006Execute
 };
 
 //*****************************************************************************
 //
-//! Get the Test description of Xuart007  test.
+//! Get the Test description of xuart007  test.
 //!
 //! \return the desccription of the xuart007 test.
 //
 //*****************************************************************************
-static char* Xuart007GetTest(void)
+static char* xuart007GetTest(void)
 {
-    return "Xuart [007]: xuart DMA test";
+    return "xuart [007]: xuart DMA test";
 }
 
 //*****************************************************************************
@@ -833,7 +833,7 @@ static char* Xuart007GetTest(void)
 //! \return None.
 //
 //*****************************************************************************
-static void Xuart007Setup(void)
+static void xuart007Setup(void)
 {
 
 }
@@ -845,7 +845,7 @@ static void Xuart007Setup(void)
 //! \return None.
 //
 //*****************************************************************************
-static void Xuart007TearDown(void)
+static void xuart007TearDown(void)
 {
 
 }
@@ -863,8 +863,8 @@ void xuart007Execute_DMAConfig(void)
     //
     for(i=0; i<DMACfgNum; i++)
     {
-        UARTDMAEnable(UART1_BASE, ulDMACfg[i]);
-        ulTemp1 = xHWREG(UART1_BASE + UART_IER) & ulDMACfg[i];
+        UARTDMAEnable(UART_BASE, ulDMACfg[i]);
+        ulTemp1 = xHWREG(UART_BASE + UART_IER) & ulDMACfg[i];
         TestAssert(ulTemp1 == ulDMACfg[i],
                    "xuart API \"UARTModemStatusGet\" error!");
     }
@@ -874,8 +874,8 @@ void xuart007Execute_DMAConfig(void)
     //
     for(i=0; i<DMACfgNum; i++)
     {
-        UARTDMADisable(UART1_BASE, ulDMACfg[i]);
-        ulTemp1 = xHWREG(UART1_BASE + UART_IER) & ulDMACfg[i];
+        UARTDMADisable(UART_BASE, ulDMACfg[i]);
+        ulTemp1 = xHWREG(UART_BASE + UART_IER) & ulDMACfg[i];
         TestAssert(ulTemp1 == 0,
                    "xuart API \"UARTModemStatusGet\" error!");
     }
@@ -898,10 +898,10 @@ static void xuart007Execute(void)
 //
 // xuart Config test case struct.
 //
-const tTestCase sTestXuart007DMA = {
-    Xuart007GetTest,
-    Xuart007Setup,
-    Xuart007TearDown,
+const tTestCase sTestxuart007DMA = {
+    xuart007GetTest,
+    xuart007Setup,
+    xuart007TearDown,
     xuart007Execute
 };
 
@@ -910,13 +910,13 @@ const tTestCase sTestXuart007DMA = {
 //
 const tTestCase * const psPatternxUART[] =
 {
-    &sTestXuart001UART,
-    &sTestXuart002FIFO,
-    &sTestXuart003IrDA,    
-    &sTestXuart004Lin,
-    &sTestXuart005flowCtl,
-    &sTestXuart006Modem,
-    &sTestXuart007DMA,
+    &sTestxuart001UART,
+    &sTestxuart002FIFO,
+    &sTestxuart003IrDA,    
+    &sTestxuart004Lin,
+    &sTestxuart005flowCtl,
+    &sTestxuart006Modem,
+    &sTestxuart007DMA,
     0
 };
 

@@ -33,7 +33,7 @@ extern "C"
 //
 //! \brief Test component libray name
 //
-#define TEST_COMPONENTS_NAME    "TI LM3S COX Packet"
+#define TEST_COMPONENTS_NAME    "NUC1xx COX Packet"
 
 //
 //! \brief Test component version
@@ -43,7 +43,7 @@ extern "C"
 //
 //! \brief Evkit name
 //
-#define TEST_BOARD_NAME         "LM3S8962 board"
+#define TEST_BOARD_NAME         "NUC1xx board"
 
 
 //
