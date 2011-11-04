@@ -100,8 +100,8 @@ extern xtBoolean TestMain(void);
 extern void TestEmitToken(char token);
 
 extern xtBoolean _TestAssert(char* pcFile, unsigned long ulLine, 
-                               xtBoolean bCondition, 
-                               char * pcMsg);
+                             xtBoolean bCondition, 
+                             char * pcMsg);
 
 extern xtBoolean _TestAssertSequenceBreak(char *pcExpected, 
                                           unsigned long ulDelay);
@@ -175,7 +175,7 @@ extern void TestDisableIRQ(void);
         {                                                                     \
             if (_TestAssertSequenceBreak( pcExpected, ulDelay))               \
             {                                                                 \
-			    _TestAssert(__FILE__, __LINE__, 0, pcMsg);                    \
+                _TestAssert(__FILE__, __LINE__, 0, pcMsg);                    \
                 return;                                                       \
             }                                                                 \
         }while(0)
@@ -185,7 +185,7 @@ extern void TestDisableIRQ(void);
         {                                                                     \
             if (_TestAssertSequenceBreak(pcExpected, ulDelay))                \
             {                                                                 \
-			    _TestAssert(__FILE__, __LINE__, 0, pcMsg);                    \
+                _TestAssert(__FILE__, __LINE__, 0, pcMsg);                    \
                 while(1);                                                     \
             }                                                                 \
         }while(0)

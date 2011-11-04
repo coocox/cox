@@ -29,8 +29,6 @@
 #include "xuart.h"
 #include "xhw_i2c.h"
 #include "xi2c.h"
-#include "xhw_timer.h"
-#include "xtimer.h"
 
 //*****************************************************************************
 //
@@ -102,14 +100,11 @@ extern xtBoolean TestMain(void);
 extern void TestEmitToken(char token);
 
 extern xtBoolean _TestAssert(char* pcFile, unsigned long ulLine, 
-                               xtBoolean bCondition, 
-                               char * pcMsg);
+                             xtBoolean bCondition, 
+                             char * pcMsg);
 
-extern xtBoolean _TestAssertSequence(char* pcFile, unsigned long ulLine, 
-                                          char *pcExpected, 
-                                          char* pcMsg);
-
-extern xtBoolean _TestAssertSequenceBreak(char *pcExpected, unsigned long ulDelay);
+extern xtBoolean _TestAssertSequenceBreak(char *pcExpected, 
+                                          unsigned long ulDelay);
 
 
 //*****************************************************************************
@@ -180,7 +175,7 @@ extern void TestDisableIRQ(void);
         {                                                                     \
             if (_TestAssertSequenceBreak( pcExpected, ulDelay))               \
             {                                                                 \
-			    _TestAssert(__FILE__, __LINE__, 0, pcMsg);                    \
+                _TestAssert(__FILE__, __LINE__, 0, pcMsg);                    \
                 return;                                                       \
             }                                                                 \
         }while(0)
@@ -190,7 +185,7 @@ extern void TestDisableIRQ(void);
         {                                                                     \
             if (_TestAssertSequenceBreak(pcExpected, ulDelay))                \
             {                                                                 \
-			    _TestAssert(__FILE__, __LINE__, 0, pcMsg);                    \
+                _TestAssert(__FILE__, __LINE__, 0, pcMsg);                    \
                 while(1);                                                     \
             }                                                                 \
         }while(0)

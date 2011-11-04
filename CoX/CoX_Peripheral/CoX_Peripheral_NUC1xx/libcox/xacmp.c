@@ -84,7 +84,7 @@ xACMPIntCallbackInit(unsigned long ulBase, unsigned long ulCompID,
 //
 //*****************************************************************************
 void
-ACMPIntHander(void)    
+ACMPIntHandler(void)    
 {
     unsigned long ulBase = ACMP_BASE;   
     unsigned long ulIntFlags;

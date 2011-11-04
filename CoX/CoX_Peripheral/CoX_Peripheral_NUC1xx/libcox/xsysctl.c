@@ -1403,7 +1403,7 @@ SysCtlBODLowPowerModeEnable(xtBoolean bEnable)
     }
     else
     {
-        xHWREG(GCR_BODCR) &= GCR_BODCR_BOD_LPM;
+        xHWREG(GCR_BODCR) &= ~GCR_BODCR_BOD_LPM;
     }
     SysCtlKeyAddrLock();
 }
@@ -1462,7 +1462,7 @@ SysCtlTempatureSensorEnable(xtBoolean bEnable)
     }
     else
     {
-        xHWREG(GCR_TEMPCR) &= GCR_TEMPCR_VTEMP_EN;
+        xHWREG(GCR_TEMPCR) &= ~GCR_TEMPCR_VTEMP_EN;
     }
 }
 
@@ -1515,7 +1515,7 @@ SysCtlBODRstEnable(xtBoolean bEnable)
     }
     else
     {
-        xHWREG(GCR_BODCR) &= GCR_BODCR_BOD_RSTEN;
+        xHWREG(GCR_BODCR) &= ~GCR_BODCR_BOD_RSTEN;
     }
     SysCtlKeyAddrLock();
 }

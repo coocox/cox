@@ -331,10 +331,10 @@ xtBoolean
 _TestAssertSequenceBreak(char *pcExpected, unsigned long ulDelay)
 {
     char *cp = g_pcTokensBuffer;
-	unsigned long ulTemp = ulDelay;
+    unsigned long ulTemp = ulDelay;
     do
     {
-	    while (cp < g_pcTok)
+        while (cp < g_pcTok)
         {
             if (*cp++ != *pcExpected++)
             {
@@ -344,19 +344,19 @@ _TestAssertSequenceBreak(char *pcExpected, unsigned long ulDelay)
         SysCtlDelay(1);
         if (*pcExpected == '\0')
         {
-		    ClearTokens();
+            ClearTokens();
             return xfalse;
         }
-		if (ulDelay == -1)
-		{
-		    ulTemp = 1;
-		}
-		else if(ulDelay != 0)
-		{
-		    ulTemp--;
-		}
+        if (ulDelay == -1)
+        {
+            ulTemp = 1;
+        }
+        else if(ulDelay != 0)
+        {
+            ulTemp--;
+        }
     } while(ulTemp);
-	return _TestFail();
+    return _TestFail();
 }
 
 //*****************************************************************************
