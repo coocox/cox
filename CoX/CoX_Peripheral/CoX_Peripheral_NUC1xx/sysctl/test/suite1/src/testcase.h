@@ -61,6 +61,8 @@ extern const tTestCase * const psPatternXsysctl[];
 extern const tTestCase * const psPatternXsysctl01[];
 extern const tTestCase * const psPatternXsysctl02[];
 extern const tTestCase * const psPatternXsysctl03[];
+extern const tTestCase * const psPatternXsysctl04[];
+extern const tTestCase * const psPatternXsysctl05[];
 
 //*****************************************************************************
 //

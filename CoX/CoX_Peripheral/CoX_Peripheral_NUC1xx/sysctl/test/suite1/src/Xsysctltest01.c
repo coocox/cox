@@ -45,6 +45,45 @@
 //
 //*****************************************************************************
 
+unsigned long ulxWDT0ClkSource[] = {xSYSCTL_WDT0_EXTSL, xSYSCTL_WDT0_HCLK_2048,
+                                                            xSYSCTL_WDT0_INTSL};
+
+
+unsigned long ulxADC0ClkSource[] = {xSYSCTL_ADC0_MAIN, xSYSCTL_ADC0_PLL,
+                                                              xSYSCTL_ADC0_INT};
+
+
+unsigned long ulxI2S0ClkSource[] = {xSYSCTL_I2S0_MAIN, xSYSCTL_I2S0_PLL,
+                                           xSYSCTL_I2S0_HCLK, xSYSCTL_I2S0_INT};
+
+
+
+unsigned long ulxPWMAClkSource[] = {xSYSCTL_PWMA_MAIN, xSYSCTL_PWMA_EXTSL,
+                                           xSYSCTL_PWMA_HCLK, xSYSCTL_PWMA_INT};
+
+
+unsigned long ulxUART0ClkSource[] = {xSYSCTL_UART0_MAIN, xSYSCTL_UART0_PLL,
+                                                             xSYSCTL_UART0_INT};
+
+
+unsigned long ulxFRQDIVClkSource[] = {xSYSCTL_FRQDIV_MAIN, xSYSCTL_FRQDIV_EXTSL ,
+                                       xSYSCTL_FRQDIV_HCLK, xSYSCTL_FRQDIV_INT};
+
+
+unsigned long ulxTIMER0ClkSource[] = {xSYSCTL_TIMER0_MAIN, xSYSCTL_TIMER0_EXTSL ,
+xSYSCTL_TIMER0_HCLK, xSYSCTL_TIMER0_EXTTRG, xSYSCTL_TIMER0_INT};
+
+
+unsigned long ulxTIMER1ClkSource[] = {xSYSCTL_TIMER1_MAIN, xSYSCTL_TIMER1_EXTSL ,
+xSYSCTL_TIMER1_HCLK, xSYSCTL_TIMER1_EXTTRG, xSYSCTL_TIMER1_INT};
+
+
+unsigned long ulxTIMER2ClkSource[] = {xSYSCTL_TIMER2_MAIN, xSYSCTL_TIMER2_EXTSL ,
+xSYSCTL_TIMER2_HCLK, xSYSCTL_TIMER2_EXTTRG, xSYSCTL_TIMER2_INT};
+
+
+unsigned long ulxTIMER3ClkSource[] = {xSYSCTL_TIMER3_MAIN, xSYSCTL_TIMER3_EXTSL ,
+xSYSCTL_TIMER3_HCLK, xSYSCTL_TIMER3_EXTTRG, xSYSCTL_TIMER3_INT};
 
 //*****************************************************************************
 //
@@ -53,10 +92,11 @@
 //! \return the desccription of the xcore001 test.
 //
 //*****************************************************************************
-static char* XSysctl002GetTest(void)
+static char* xSysctl002GetTest(void)
 {
-    return "xsysctl, 002, xsysctl register and api test";
+    return "xsysctl, 002, SysCtl Peripheral Clock Source Set test";
 }
+
 
 //*****************************************************************************
 //
@@ -65,19 +105,20 @@ static char* XSysctl002GetTest(void)
 //! \return None.
 //
 //*****************************************************************************
-static void XSysctl002Setup(void)
+static void xSysctl002Setup(void)
 {
-	SysCtlKeyAddrUnlock();
-	xHWREG(SYSCLK_PWRCON) |= SYSCLK_PWRCON_XTL12M_EN;
-	xHWREG(SYSCLK_PWRCON) |= SYSCLK_PWRCON_XTL32K_EN;
-	xHWREG(SYSCLK_PWRCON) |= SYSCLK_PWRCON_OSC22M_EN;
-	xHWREG(SYSCLK_PWRCON) |= SYSCLK_PWRCON_OSC10K_EN;
+    SysCtlKeyAddrUnlock();
+    xHWREG(SYSCLK_PWRCON) |= SYSCLK_PWRCON_XTL12M_EN;
+    xHWREG(SYSCLK_PWRCON) |= SYSCLK_PWRCON_XTL32K_EN;
+    xHWREG(SYSCLK_PWRCON) |= SYSCLK_PWRCON_OSC22M_EN;
+    xHWREG(SYSCLK_PWRCON) |= SYSCLK_PWRCON_OSC10K_EN;
     //
     //  PLL FOUT enable
     //
-	xHWREG(SYSCLK_PLLCON) &= ~SYSCLK_PLLCON_OE;
-	xHWREG(SYSCLK_PLLCON) &= ~SYSCLK_PLLCON_PD;
+    xHWREG(SYSCLK_PLLCON) &= ~SYSCLK_PLLCON_OE;
+    xHWREG(SYSCLK_PLLCON) &= ~SYSCLK_PLLCON_PD;
 }
+
 
 //*****************************************************************************
 //
@@ -86,429 +127,152 @@ static void XSysctl002Setup(void)
 //! \return None.
 //
 //*****************************************************************************
-static void XSysctl002TearDown(void)
+static void xSysctl002TearDown(void)
 {   
     unsigned long ulTemp;
     ulTemp = SYSCTL_SYSDIV_1|SYSCTL_XTAL_12MHZ|SYSCTL_OSC_MAIN|SYSCTL_PLL_PWRDN
                                                            | SYSCTL_INT_OSC_DIS;
-	SysCtlHClockSet(ulTemp);
+    SysCtlHClockSet(ulTemp);
 
-	SysCtlPeripheralClockSourceSet(SYSCTL_PERIPH_UART_S_EXT12M);
-	SysCtlIPClockDividerSet(SYSCTL_PERIPH_UART_D|1);
+    SysCtlPeripheralClockSourceSet(SYSCTL_PERIPH_UART_S_EXT12M);
+    SysCtlIPClockDividerSet(SYSCTL_PERIPH_UART_D|1);
 }
+
+
 //*****************************************************************************
 //
-//! \brief xsysctl 002 test of Peripheral reset test .
+//! \brief xsysctl 004 test of Set a peripheral clock source and peripheral 
+//£¡ divide test .
 //!
 //! \return None.
 //
 //*****************************************************************************
-static void xsysctl_SysCtlPeripheralReset_test(void)
+static void xsysctl_xSysCtlPeripheralClockSourceSet_test(void)
 {
-    unsigned long ultemp;
-    //
-    // NUC1xx_SysCtl_Peripheral_ID Array
-    //
-    unsigned long ulSYSCTL_PERIPH[] = { 
-     SYSCTL_PERIPH_PDMA,SYSCTL_PERIPH_GPIO,
-     SYSCTL_PERIPH_TMR0,SYSCTL_PERIPH_TMR1,
-     SYSCTL_PERIPH_TMR3,SYSCTL_PERIPH_TMR2,
-     SYSCTL_PERIPH_I2C0,SYSCTL_PERIPH_I2C1,
-     SYSCTL_PERIPH_SPI0,SYSCTL_PERIPH_SPI1,
-     SYSCTL_PERIPH_SPI2,SYSCTL_PERIPH_SPI3,
-     SYSCTL_PERIPH_UART2,SYSCTL_PERIPH_PWM01,
-     SYSCTL_PERIPH_PWM23,SYSCTL_PERIPH_PWM45,
-     SYSCTL_PERIPH_PWM67,SYSCTL_PERIPH_CAN0,
-     SYSCTL_PERIPH_USBD,SYSCTL_PERIPH_ADC,
-     SYSCTL_PERIPH_I2S,SYSCTL_PERIPH_ACMP,
-     SYSCTL_PERIPH_UART1,SYSCTL_PERIPH_PS2};
-    for (ultemp = 0;ultemp <=24; ultemp++)
+    unsigned long ulTemp,i,ulTempValue,j;
+
+    for(i = 0; i < 3; i++)
     {
-		SysCtlPeripheralReset(ulSYSCTL_PERIPH[ultemp]);
-		TestAssert( (0 == xHWREG(0x50000008))&&(0 == xHWREG(0x5000000C)), \
-	   "xsysctl API \"SysCtlPeripheralReset(ulSYSCTL_PERIPH[ultemp])\" error!");
+        xSysCtlPeripheralClockSourceSet(ulxWDT0ClkSource[i], 1);
+        ulTemp = xHWREG(SYSCLK_CLKSEL1);
+        TestAssert(((i+1) == (ulTemp & SYSCLK_CLKSEL1_WDG_M)), "xsysctl API error!");
     }
-}
-
-//*****************************************************************************
-//
-//! \brief xsysctl 002 test of Peripheral Enable test .
-//!
-//! \return None.
-//
-//*****************************************************************************
-static void xsysctl_SysCtlPeripheralEnable_test(void)
-{
-    unsigned long ultemp,ulRegVal;
-    //
-    // Enable Peripheral DMA Test
-    //
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_PDMA);
-    ulRegVal = xHWREG(0x50000204);
-	TestAssert((SYSCLK_AHBCLK_PDMA_EN == (ulRegVal & SYSCLK_AHBCLK_PDMA_EN)), 
-		   "xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_PDMA)\" error!");
     
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_ISP);
-    ulRegVal = xHWREG(0x50000204);
-	TestAssert((SYSCLK_AHBCLK_ISP_EN == (ulRegVal & SYSCLK_AHBCLK_ISP_EN)),
-		    "xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_ISP)\" error!");
+    for(i = 0; i < 4; i++)
+    {
+        xSysCtlPeripheralClockSourceSet(ulxI2S0ClkSource[i], 1);
+        ulTemp = xHWREG(SYSCLK_CLKSEL2);
+        TestAssert((i == (ulTemp & SYSCLK_CLKSEL2_I2S_M)>>SYSCLK_CLKSEL2_I2S_S),
+                                                          "xsysctl API error!");
+    }
+
+    for(i = 0; i < 4; i++)
+    {
+        xSysCtlPeripheralClockSourceSet(ulxFRQDIVClkSource[i], 1);
+        ulTemp = xHWREG(SYSCLK_CLKSEL2);
+        TestAssert((i == (ulTemp & SYSCLK_CLKSEL2_FRQDIV_M)>>SYSCLK_CLKSEL2_FRQDIV_S),
+                                                          "xsysctl API error!");
+    }
     
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_WDT);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_WDCLK_EN == (ulRegVal & SYSCLK_APBCLK_WDCLK_EN)), 
-			"xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_WDT)\" error!");
-	
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIO);
-    ultemp = xHWREG(0x50000208);
-	TestAssert((ultemp == (xHWREG(0x50000208))), 
-		   "xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIO)\" error!");
-	
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_RTC);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_RTC_EN == (ulRegVal & SYSCLK_APBCLK_RTC_EN)), 
-			"xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_RTC)\" error!");
-	//
-    // Enable Peripheral TIME0 Test
-    //
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_TMR0);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_TMR0_EN == (ulRegVal & SYSCLK_APBCLK_TMR0_EN)), 
-		   "xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_TMR0)\" error!");
-	
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_TMR1);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_TMR1_EN == (ulRegVal & SYSCLK_APBCLK_TMR1_EN)), 
-		   "xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_TMR1)\" error!");
-	
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_TMR2);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_TMR2_EN == (ulRegVal & SYSCLK_APBCLK_TMR2_EN)), 
-		   "xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_TMR2)\" error!");
-	
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_TMR3);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_TMR3_EN == (ulRegVal & SYSCLK_APBCLK_TMR3_EN)), 
-		   "xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_TMR3)\" error!");
-	
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_FDIV);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_FDIV_EN == (ulRegVal & SYSCLK_APBCLK_FDIV_EN)), 
-		   "xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_FDIV)\" error!");
-	//
-    // Enable Peripheral I2C Test
-    //
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_I2C0);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_I2C0_EN == (ulRegVal & SYSCLK_APBCLK_I2C0_EN)), 
-		   "xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_I2C0)\" error!");
-	
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_I2C1);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_I2C1_EN == (ulRegVal & SYSCLK_APBCLK_I2C1_EN)), 
-		   "xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_I2C1)\" error!");
+    for(i = 0; i < 4; i++)
+    {
+        xSysCtlPeripheralClockSourceSet(ulxPWMAClkSource[i], 1);
+        ulTemp = xHWREG(SYSCLK_CLKSEL1);
+        TestAssert((i == (ulTemp & SYSCLK_CLKSEL1_PWM01_M)>>SYSCLK_CLKSEL1_PWM01_S),
+                                                          "xsysctl API error!");
+    }
     
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_SPI0);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_SPI0_EN == (ulRegVal & SYSCLK_APBCLK_SPI0_EN)), 
-		   "xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_SPI0)\" error!");
-	
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_SPI1);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_SPI1_EN == (ulRegVal & SYSCLK_APBCLK_SPI1_EN)), 
-		   "xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_SPI1)\" error!");
-	
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_SPI2);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_SPI2_EN == (ulRegVal & SYSCLK_APBCLK_SPI2_EN)), 
-		   "xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_SPI2)\" error!");
-	//
-    // Enable Peripheral SPI3 Test
-    //
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_SPI3);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_SPI3_EN == (ulRegVal & SYSCLK_APBCLK_SPI3_EN)), 
-		   "xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_SPI3)\" error!");
-	
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_UART1);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_UART1_EN == (ulRegVal & SYSCLK_APBCLK_UART1_EN)), 
-		  "xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_UART1)\" error!");
-	
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_UART2);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_UART2_EN == (ulRegVal & SYSCLK_APBCLK_UART2_EN)), 
-		  "xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_UART2)\" error!");
-	
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM01);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_PWM01_EN == (ulRegVal & SYSCLK_APBCLK_PWM01_EN)),
-		  "xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM01)\" error!");
-	
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM23);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_PWM23_EN == (ulRegVal & SYSCLK_APBCLK_PWM23_EN)),
-		  "xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM23)\" error!");
-	
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM45);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_PWM45_EN == (ulRegVal & SYSCLK_APBCLK_PWM45_EN)),
-		  "xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM45)\" error!");
-	
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM67);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_PWM67_EN == (ulRegVal & SYSCLK_APBCLK_PWM67_EN)),
-		  "xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM67)\" error!");
-	//
-    // Enable Peripheral CAN0 Test
-    //
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_CAN0);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_CAN0_EN == (ulRegVal & SYSCLK_APBCLK_CAN0_EN)),
-		   "xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_CAN0)\" error!");
-	
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_USBD);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_USBD_EN == (ulRegVal & SYSCLK_APBCLK_USBD_EN)),
-		   "xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_USBD)\" error!");
-	
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_ADC);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_ADC_EN == (ulRegVal & SYSCLK_APBCLK_ADC_EN)),
-			"xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_ADC)\" error!");
-	
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_I2S);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_I2S_EN == (ulRegVal & SYSCLK_APBCLK_I2S_EN)),
-			"xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_I2S)\" error!");
-	
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_ACMP);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_ACMP_EN == (ulRegVal & SYSCLK_APBCLK_ACMP_EN)),
-		   "xsysctl API \"SysCtlPeripheralEnable(SYSCTL_PERIPH_ACMP)\" error!");
-	
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_PS2);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((SYSCLK_APBCLK_PS2_EN == (ulRegVal & SYSCLK_APBCLK_PS2_EN)),
-			 "xsysctl API \"SysCtlPeripheralReset(SYSCTL_PERIPH_PS2)\" error!");
-}
-
-//*****************************************************************************
-//
-//! \brief xsysctl 001 test of Peripheral Disable test .
-//!
-//! \return None.
-//
-//*****************************************************************************
-static void xsysctl_SysCtlPeripheralDisable_test(void)
-{
-    unsigned long ultemp,ulRegVal;
-
-	ultemp = xHWREG(0x50000204);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_PDMA);
-    ulRegVal = xHWREG(0x50000204);
-	TestAssert((0 == (ulRegVal & SYSCLK_AHBCLK_PDMA_EN) && 
-			((ultemp & (~SYSCLK_AHBCLK_PDMA_EN)) == ulRegVal)),
-		  "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_PDMA)\" error!");
-
-	ultemp = xHWREG(0x50000204);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_ISP);
-    ulRegVal = xHWREG(0x50000204);
-	TestAssert((0 == (ulRegVal & SYSCLK_AHBCLK_ISP_EN) && 
-			((ultemp & (~SYSCLK_AHBCLK_ISP_EN)) == ulRegVal)), 
-		   "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_ISP)\" error!");
-
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_WDT);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & SYSCLK_APBCLK_WDCLK_EN) && 
-			((ultemp & (~SYSCLK_APBCLK_WDCLK_EN)) == ulRegVal)), 
-		   "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_WDT)\" error!");
-
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_GPIO);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & 0) && ((ultemp & (~0)) == ulRegVal)), 
-		  "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_GPIO)\" error!");
+    for(i = 0; i < 5; i++)
+    {
+        xSysCtlPeripheralClockSourceSet(ulxTIMER0ClkSource[i], 1);
+        ulTemp = xHWREG(SYSCLK_CLKSEL1);
+        TestAssert((i == (ulTemp & SYSCLK_CLKSEL1_TMR0_M)>>SYSCLK_CLKSEL1_TMR0_S),
+                                                          "xsysctl API error!");
+    }
     
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_RTC);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & SYSCLK_APBCLK_RTC_EN) && 
-			((ultemp & (~SYSCLK_APBCLK_RTC_EN)) == ulRegVal)),
-		   "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_RTC)\" error!");
+    for(i = 0; i < 5; i++)
+    {
+        xSysCtlPeripheralClockSourceSet(ulxTIMER1ClkSource[i], 1);
+        ulTemp = xHWREG(SYSCLK_CLKSEL1);
+        TestAssert((i == (ulTemp & SYSCLK_CLKSEL1_TMR1_M)>>SYSCLK_CLKSEL1_TMR1_S),
+                                                          "xsysctl API error!");
+    }
+
+    for(i = 0; i < 5; i++)
+    {
+        xSysCtlPeripheralClockSourceSet(ulxTIMER2ClkSource[i], 1);
+        ulTemp = xHWREG(SYSCLK_CLKSEL1);
+        TestAssert((i == (ulTemp & SYSCLK_CLKSEL1_TMR2_M)>>SYSCLK_CLKSEL1_TMR2_S),
+                                                          "xsysctl API error!");
+    }
     
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_TMR0);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & SYSCLK_APBCLK_TMR0_EN) && 
-			((ultemp & (~SYSCLK_APBCLK_TMR0_EN)) == ulRegVal)), 
-		  "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_TMR0)\" error!");
-
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_TMR1);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & SYSCLK_APBCLK_TMR1_EN) && 
-			((ultemp & (~SYSCLK_APBCLK_TMR1_EN)) == ulRegVal)), 
-		  "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_TMR1)\" error!");
-
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_TMR2);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & SYSCLK_APBCLK_TMR2_EN) && 
-			((ultemp & (~SYSCLK_APBCLK_TMR2_EN)) == ulRegVal)),
-		  "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_TMR2)\" error!");
+    for(i = 0; i < 5; i++)
+    {
+        xSysCtlPeripheralClockSourceSet(ulxTIMER3ClkSource[i], 1);
+        ulTemp = xHWREG(SYSCLK_CLKSEL1);
+        TestAssert((i == (ulTemp & SYSCLK_CLKSEL1_TMR3_M)>>SYSCLK_CLKSEL1_TMR3_S),
+                                                          "xsysctl API error!");
+    }
     //
-    // Disable Peripheral Timer3 Test
+    // ADC0 Clock Source and Divide Test
     //
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_TMR3);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & SYSCLK_APBCLK_TMR3_EN) && 
-			((ultemp & (~SYSCLK_APBCLK_TMR3_EN)) == ulRegVal)), 
-		  "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_TMR3)\" error!");
+    for(j = 1; j <=256; j++)
+    {
+        for(i = 0; i < 3; i++)
+        {
+            xSysCtlPeripheralClockSourceSet(ulxADC0ClkSource[i], j);
+            ulTemp = xHWREG(SYSCLK_CLKSEL1);
+            TestAssert((i == (ulTemp & SYSCLK_CLKSEL1_ADC_M)>>SYSCLK_CLKSEL1_ADC_S),
+                                                          "xsysctl API error!");
+            ulTempValue = xHWREG(SYSCLK_CLKDIV);
+            TestAssert(((j-1) == (ulTempValue & SYSCLK_CLKDIV_ADC_M)>>SYSCLK_CLKDIV_ADC_S),
+                                                          "xsysctl API error!");
+        }
+    }
 
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_FDIV);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & SYSCLK_APBCLK_FDIV_EN) &&
-			((ultemp & (~SYSCLK_APBCLK_FDIV_EN)) == ulRegVal)),
-		  "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_FDIV)\" error!");
 
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_I2C0);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & SYSCLK_APBCLK_I2C0_EN) && 
-			((ultemp & (~SYSCLK_APBCLK_I2C0_EN)) == ulRegVal)),
-		  "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_I2C0)\" error!");
-
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_I2C1);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & SYSCLK_APBCLK_I2C1_EN) && 
-			((ultemp & (~SYSCLK_APBCLK_I2C1_EN)) == ulRegVal)), 
-		  "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_I2C1)\" error!");
-
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_SPI0);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & SYSCLK_APBCLK_SPI0_EN) && 
-			((ultemp & (~SYSCLK_APBCLK_SPI0_EN)) == ulRegVal)), 
-		  "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_SPI0)\" error!");
-
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_SPI1);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & SYSCLK_APBCLK_SPI1_EN) && 
-			((ultemp & (~SYSCLK_APBCLK_SPI1_EN)) == ulRegVal)),
-		  "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_SPI1)\" error!");
-
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_SPI2);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & SYSCLK_APBCLK_SPI2_EN) && 
-			((ultemp & (~SYSCLK_APBCLK_SPI2_EN)) == ulRegVal)),
-		  "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_SPI2)\" error!");
-
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_SPI3);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & SYSCLK_APBCLK_SPI3_EN) &&
-			((ultemp & (~SYSCLK_APBCLK_SPI3_EN)) == ulRegVal)),
-		  "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_SPI3)\" error!");
-
-	/*ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_UART0);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & SYSCLK_APBCLK_UART0_EN) &&
-			((ultemp & (~SYSCLK_APBCLK_UART0_EN)) == ulRegVal)),
-		 "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_UART0)\" error!");
-    */
     //
-    // Disable Peripheral UART1 TEST
+    // UART0 Clock Source and Divide Test
     //
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_UART1);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & SYSCLK_APBCLK_UART1_EN) && 
-			((ultemp & (~SYSCLK_APBCLK_UART1_EN)) == ulRegVal)),
-		 "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_UART1)\" error!");
-
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_UART2);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & SYSCLK_APBCLK_UART2_EN) && 
-			((ultemp & (~SYSCLK_APBCLK_UART2_EN)) == ulRegVal)),
-		 "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_UART2)\" error!");
-
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_PWM01);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & SYSCLK_APBCLK_PWM01_EN) &&
-			((ultemp & (~SYSCLK_APBCLK_PWM01_EN)) == ulRegVal)),
-		 "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_PWM01)\" error!");
-
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_PWM23);
-	TestAssert((0 == (xHWREG(0x50000208) & SYSCLK_APBCLK_PWM23_EN) &&
-			((ultemp & (~SYSCLK_APBCLK_PWM23_EN)) == xHWREG(0x50000208))),
-		 "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_PWM23)\" error!");
-
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_PWM45);
-	TestAssert((0 == (xHWREG(0x50000208) & SYSCLK_APBCLK_PWM45_EN) &&
-			((ultemp & (~SYSCLK_APBCLK_PWM45_EN)) == xHWREG(0x50000208))),
-		 "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_PWM45)\" error!");
-
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_PWM67);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & SYSCLK_APBCLK_PWM67_EN) &&
-			((ultemp & (~SYSCLK_APBCLK_PWM67_EN)) == ulRegVal)),
-		 "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_PWM67)\" error!");
-
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_CAN0);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & SYSCLK_APBCLK_CAN0_EN) &&
-			((ultemp & (~SYSCLK_APBCLK_CAN0_EN)) == ulRegVal)),
-		  "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_CAN0)\" error!");
-
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_USBD);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & SYSCLK_APBCLK_USBD_EN) &&
-			((ultemp & (~SYSCLK_APBCLK_USBD_EN)) == ulRegVal)), 
-		  "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_USBD)\" error!");
-
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_ADC);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & SYSCLK_APBCLK_ADC_EN) && 
-			((ultemp & (~SYSCLK_APBCLK_ADC_EN)) == ulRegVal)), 
-		   "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_ADC)\" error!");
-
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_I2S);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & SYSCLK_APBCLK_I2S_EN) && 
-			((ultemp & (~SYSCLK_APBCLK_I2S_EN)) == ulRegVal)), 
-		   "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_I2S)\" error!");
-
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_ACMP);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & SYSCLK_APBCLK_ACMP_EN) && 
-			((ultemp & (~SYSCLK_APBCLK_ACMP_EN)) == ulRegVal)), 
-		  "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_ACMP)\" error!");
-
-	ultemp = xHWREG(0x50000208);
-	SysCtlPeripheralDisable(SYSCTL_PERIPH_PS2);
-    ulRegVal = xHWREG(0x50000208);
-	TestAssert((0 == (ulRegVal & SYSCLK_APBCLK_PS2_EN) && 
-			((ultemp & (~SYSCLK_APBCLK_PS2_EN)) == ulRegVal)),
-		   "xsysctl API \"SysCtlPeripheralDisable(SYSCTL_PERIPH_PS2)\" error!");
+    for(j = 1; j <= 16; j++)
+    {
+        for(i = 0; i < 3; i++)
+        {
+            xSysCtlPeripheralClockSourceSet(ulxUART0ClkSource[i], j);
+            ulTemp = xHWREG(SYSCLK_CLKSEL1);
+            TestAssert((i == (ulTemp & SYSCLK_CLKSEL1_UART_M)>>SYSCLK_CLKSEL1_UART_S),
+                                                          "xsysctl API error!");
+            ulTempValue = xHWREG(SYSCLK_CLKDIV);
+            TestAssert(((j-1) == (ulTempValue & SYSCLK_CLKDIV_UART_M)>>SYSCLK_CLKDIV_UART_S),
+                                                          "xsysctl API error!");
+        }
+    }
   
+    xSysCtlPeripheralClockSourceSet2(ADC0, INT, 3);
+    ulTemp = xHWREG(SYSCLK_CLKSEL1);
+    TestAssert((2 == (ulTemp &0x00000008)>>SYSCLK_CLKSEL1_ADC_S),
+                                                          "xsysctl API error!");
+    ulTemp = xHWREG(SYSCLK_CLKDIV);
+    TestAssert((2 == (ulTemp & SYSCLK_CLKDIV_ADC_M)>>SYSCLK_CLKDIV_ADC_S),
+                                                          "xsysctl API error!");      
+
+    xSysCtlPeripheralClockSourceSet2(ADC0, INT, 159);
+    ulTemp = xHWREG(SYSCLK_CLKSEL1);
+    TestAssert((2 == (ulTemp &0x00000008)>>SYSCLK_CLKSEL1_ADC_S),
+                                                         "xsysctl API  error!");
+    ulTemp = xHWREG(SYSCLK_CLKDIV);
+    TestAssert((158 == (ulTemp & SYSCLK_CLKDIV_ADC_M)>>SYSCLK_CLKDIV_ADC_S),
+                                                          "xsysctl API error!"); 
+    
+    xSysCtlPeripheralClockSourceSet2(ADC0, INT, 256);
+    ulTemp = xHWREG(SYSCLK_CLKSEL1);
+    TestAssert((2 == (ulTemp &0x00000008)>>SYSCLK_CLKSEL1_ADC_S),
+                                                          "xsysctl API error!");
+    ulTemp = xHWREG(SYSCLK_CLKDIV);
+    TestAssert((255 == (ulTemp & SYSCLK_CLKDIV_ADC_M)>>SYSCLK_CLKDIV_ADC_S),
+                                                          "xsysctl API error!");
 }
+
 
 //*****************************************************************************
 //
@@ -517,21 +281,19 @@ static void xsysctl_SysCtlPeripheralDisable_test(void)
 //! \return None.
 //
 //*****************************************************************************
-static void XSysctl002Execute(void)
+static void xSysctl002Execute(void)
 {
-	xsysctl_SysCtlPeripheralReset_test();
-	xsysctl_SysCtlPeripheralEnable_test();
-	xsysctl_SysCtlPeripheralDisable_test();
+    xsysctl_xSysCtlPeripheralClockSourceSet_test();
 }
 
 //
 // xsysctl register test case struct.
 //
 const tTestCase sTestXSysctl002Register = {
-		XSysctl002GetTest,
-		XSysctl002Setup,
-		XSysctl002TearDown,
-		XSysctl002Execute
+		xSysctl002GetTest,
+		xSysctl002Setup,
+		xSysctl002TearDown,
+		xSysctl002Execute
 };
 
 //

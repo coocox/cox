@@ -44,7 +44,67 @@
 //!
 //
 //*****************************************************************************
+unsigned long ulSysTickClkSource[] = {SYSCTL_STCLK_S_EXT12M, SYSCTL_STCLK_S_EXT32K,
+SYSCTL_STCLK_S_EXT12M_2, SYSCTL_STCLK_S_HCLK_2};
 
+
+unsigned long ulWDT0ClkSource[] = {SYSCTL_PERIPH_WDG_S_EXT32K, 
+SYSCTL_PERIPH_WDG_S_HCLK_2048, SYSCTL_PERIPH_WDG_S_INT10K};
+
+
+unsigned long ulADC0ClkSource[] = {SYSCTL_PERIPH_ADC_S_EXT12M, 
+SYSCTL_PERIPH_ADC_S_PLL};
+
+
+unsigned long ulUARTClkSource[] = {SYSCTL_PERIPH_UART_S_EXT12M, 
+SYSCTL_PERIPH_UART_S_PLL};
+
+unsigned long ulFRQDIVClkSource[] = {
+SYSCTL_PERIPH_FRQDIV_S_EXT12M, SYSCTL_PERIPH_FRQDIV_S_EXT32K,
+SYSCTL_PERIPH_FRQDIV_S_HCLK, SYSCTL_PERIPH_FRQDIV_S_INT22M};
+
+
+unsigned long ulI2SClkSource[] = {SYSCTL_PERIPH_I2S_S_EXT12M, 
+SYSCTL_PERIPH_I2S_S_PLL, SYSCTL_PERIPH_I2S_S_HCLK, SYSCTL_PERIPH_I2S_S_INT22M};
+
+
+unsigned long ulTIMER0ClkSource[] = {SYSCTL_PERIPH_TMR0_S_EXT12M,
+SYSCTL_PERIPH_TMR0_S_EXT32K , SYSCTL_PERIPH_TMR0_S_HCLK, SYSCTL_PERIPH_TMR0_S_EXTTRG,
+SYSCTL_PERIPH_TMR0_S_INT22M};
+
+
+unsigned long ulTIMER1ClkSource[] = {SYSCTL_PERIPH_TMR0_S_EXT12M,
+SYSCTL_PERIPH_TMR0_S_EXT32K , SYSCTL_PERIPH_TMR0_S_HCLK, SYSCTL_PERIPH_TMR0_S_EXTTRG,
+SYSCTL_PERIPH_TMR0_S_INT22M};
+
+
+unsigned long ulTIMER2ClkSource[] = {SYSCTL_PERIPH_TMR0_S_EXT12M,
+SYSCTL_PERIPH_TMR0_S_EXT32K ,SYSCTL_PERIPH_TMR0_S_HCLK, SYSCTL_PERIPH_TMR0_S_EXTTRG,
+SYSCTL_PERIPH_TMR0_S_INT22M};
+
+
+unsigned long ulTIMER3ClkSource[] = {SYSCTL_PERIPH_TMR0_S_EXT12M,
+SYSCTL_PERIPH_TMR0_S_EXT32K , SYSCTL_PERIPH_TMR0_S_HCLK, SYSCTL_PERIPH_TMR0_S_EXTTRG,
+SYSCTL_PERIPH_TMR0_S_INT22M};
+
+unsigned long ulPWM01ClkSource[] = {SYSCTL_PERIPH_PWM01_S_EXT12M,
+SYSCTL_PERIPH_PWM01_S_EXT32K , SYSCTL_PERIPH_PWM01_S_HCLK, SYSCTL_PERIPH_PWM01_S_INT22M};
+
+
+unsigned long ulPWM23ClkSource[] = {SYSCTL_PERIPH_PWM23_S_EXT12M,
+SYSCTL_PERIPH_PWM23_S_EXT32K , SYSCTL_PERIPH_PWM23_S_HCLK, SYSCTL_PERIPH_PWM23_S_INT22M};
+
+
+unsigned long ulPWM45ClkSource[] = {SYSCTL_PERIPH_PWM45_S_EXT12M,
+SYSCTL_PERIPH_PWM45_S_EXT32K , SYSCTL_PERIPH_PWM45_S_HCLK, SYSCTL_PERIPH_PWM45_S_INT22M};
+
+
+unsigned long ulPWM67ClkSource[] = {SYSCTL_PERIPH_PWM67_S_EXT12M,
+SYSCTL_PERIPH_PWM67_S_EXT32K , SYSCTL_PERIPH_PWM67_S_HCLK, SYSCTL_PERIPH_PWM67_S_INT22M};
+
+
+unsigned long ulHCLKSource[] = {SYSCTL_HLCK_S_EXT12M, SYSCTL_HLCK_S_EXT32K,
+SYSCTL_HLCK_S_PLL, SYSCTL_HLCK_S_INT10K};
 
 //*****************************************************************************
 //
@@ -53,10 +113,11 @@
 //! \return the desccription of the xcore001 test.
 //
 //*****************************************************************************
-static char* XSysctl004GetTest(void)
+static char* xSysctl004GetTest(void)
 {
     return "xsysctl, 004, xsysctl register and api test";
 }
+
 
 //*****************************************************************************
 //
@@ -65,16 +126,17 @@ static char* XSysctl004GetTest(void)
 //! \return None.
 //
 //*****************************************************************************
-static void XSysctl004Setup(void)
+static void xSysctl004Setup(void)
 {
-	SysCtlKeyAddrUnlock();
-	xHWREG(SYSCLK_PWRCON) |= SYSCLK_PWRCON_XTL12M_EN;
-	xHWREG(SYSCLK_PWRCON) |= SYSCLK_PWRCON_XTL32K_EN;
-	xHWREG(SYSCLK_PWRCON) |= SYSCLK_PWRCON_OSC22M_EN;
-	xHWREG(SYSCLK_PWRCON) |= SYSCLK_PWRCON_OSC10K_EN;
-	xHWREG(SYSCLK_PLLCON) &= ~SYSCLK_PLLCON_OE;
-	xHWREG(SYSCLK_PLLCON) &= ~SYSCLK_PLLCON_PD;
+    SysCtlKeyAddrUnlock();
+    xHWREG(SYSCLK_PWRCON) |= SYSCLK_PWRCON_XTL12M_EN;
+    xHWREG(SYSCLK_PWRCON) |= SYSCLK_PWRCON_XTL32K_EN;
+    xHWREG(SYSCLK_PWRCON) |= SYSCLK_PWRCON_OSC22M_EN;
+    xHWREG(SYSCLK_PWRCON) |= SYSCLK_PWRCON_OSC10K_EN;
+    xHWREG(SYSCLK_PLLCON) &= ~SYSCLK_PLLCON_OE;
+    xHWREG(SYSCLK_PLLCON) &= ~SYSCLK_PLLCON_PD;
 }
+
 
 //*****************************************************************************
 //
@@ -83,411 +145,191 @@ static void XSysctl004Setup(void)
 //! \return None.
 //
 //*****************************************************************************
-static void XSysctl004TearDown(void)
+static void xSysctl004TearDown(void)
 {   
     unsigned long ulTemp;
     ulTemp = SYSCTL_SYSDIV_1|SYSCTL_XTAL_12MHZ|SYSCTL_OSC_MAIN|SYSCTL_PLL_PWRDN
                                                            | SYSCTL_INT_OSC_DIS;
-	SysCtlHClockSet(ulTemp);
+    SysCtlHClockSet(ulTemp);
 
-	SysCtlPeripheralClockSourceSet(SYSCTL_PERIPH_UART_S_EXT12M);
-	SysCtlIPClockDividerSet(SYSCTL_PERIPH_UART_D|1);
+    SysCtlPeripheralClockSourceSet(SYSCTL_PERIPH_UART_S_EXT12M);
+    SysCtlIPClockDividerSet(SYSCTL_PERIPH_UART_D|1);
 }
+
 
 //*****************************************************************************
 //
-//! \brief xsysctl 004 test of Set a peripheral clock source and peripheral 
-//£¡ divide test .
+//! \brief xsysctl 001 test of SysTick Source Set test .
 //!
 //! \return None.
 //
 //*****************************************************************************
-static void xsysctl_xSysCtlPeripheralClockSourceSet_test(void)
+static void xsysctl_SysCtlSysTickSourceSet_test(void)
 {
-    unsigned long ulTemp,i,ulTempValue;
-
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_WDT0_EXTSL, 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((1 == (ulTemp & SYSCLK_CLKSEL1_WDG_M)),
-			                     "xsysctl API \"xSysCtlPeripheralClockSourceSet"
-			                           "(SYSCTL_PERIPH_WDG_S_EXT32K)\" error!");
-
-    //
-    // Set Watch Dog Clock HCLK/2048 Test
-    //
-
-     xSysCtlPeripheralClockSourceSet(xSYSCTL_WDT0_HCLK_2048, 1);
-     ulTemp = xHWREG(0x50000214);
-	 TestAssert((2 == (ulTemp & SYSCLK_CLKSEL1_WDG_M)),
-			                     "xsysctl API \"xSysCtlPeripheralClockSourceSet"
-			                        "(SYSCTL_PERIPH_WDG_S_HCLK_2048)\" error!");
+    unsigned long ulTemp,i;
     
-     xSysCtlPeripheralClockSourceSet(xSYSCTL_WDT0_INTSL, 1);
-     ulTemp = xHWREG(0x50000214);
-	 TestAssert((3 == (ulTemp & SYSCLK_CLKSEL1_WDG_M)),
-			                     "xsysctl API \"xSysCtlPeripheralClockSourceSet"
-			                           "(SYSCTL_PERIPH_WDG_S_INT10K)\" error!");
-
-    for(i=1; i <= 256;i++)
+    for(i = 0; i < 4; i++)
     {
-        xSysCtlPeripheralClockSourceSet(xSYSCTL_ADC0_MAIN, i);
-        ulTemp = xHWREG(0x50000214);
-	    TestAssert((0 == (ulTemp & SYSCLK_CLKSEL1_ADC_M)>>SYSCLK_CLKSEL1_ADC_S),
-			                     "xsysctl API \"xSysCtlPeripheralClockSourceSet"
-			                           "(SYSCTL_PERIPH_ADC_S_EXT12M)\" error!");
-
-        ulTempValue = xHWREG(0x50000218);
-	    TestAssert(((i-1) == (ulTempValue & SYSCLK_CLKDIV_ADC_M)>>SYSCLK_CLKDIV_ADC_S),
-		"xsysctl API \"xSysCtlPeripheralClockSourceSet(xSYSCTL_ADC0_MAIN, i)\" error!");
+        SysCtlSysTickSourceSet(ulSysTickClkSource[i]);
+        ulTemp = xHWREG(SYSCLK_CLKSEL0);
+        TestAssert((i == (ulTemp & SYSCLK_CLKSEL0_STCLK_M)>>SYSCLK_CLKSEL0_STCLK_S),
+                             "xsysctl API \"SysCtlSysTickSourceSet()\" error!");
     }
-    //
-    // Set ADC Clock select Test
-    //
-    for(i = 1; i <= 256; i++)
-    {
-        xSysCtlPeripheralClockSourceSet(xSYSCTL_ADC0_PLL, i);
-        ulTemp = xHWREG(0x50000214);
-	    TestAssert((1 == (ulTemp &SYSCLK_CLKSEL1_ADC_M)>>SYSCLK_CLKSEL1_ADC_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                              "(SYSCTL_PERIPH_ADC_S_PLL)\" error!");
-        ulTempValue = xHWREG(0x50000218);
-	    TestAssert(((i-1) == (ulTempValue & SYSCLK_CLKDIV_ADC_M)>>SYSCLK_CLKDIV_ADC_S),
-		"xsysctl API \"xSysCtlPeripheralClockSourceSet(xSYSCTL_ADC0_MAIN, i)\" error!");
-    }
-    for(i = 1; i <= 256; i++)
-    {
-        xSysCtlPeripheralClockSourceSet(xSYSCTL_ADC0_INT, i);
-        ulTemp = xHWREG(0x50000214);
-	    TestAssert((2 == (ulTemp &0x00000008)>>SYSCLK_CLKSEL1_ADC_S),
-			                     "xsysctl API \"xSysCtlPeripheralClockSourceSet"
-			                                     "(xSYSCTL_ADC0_INT)\" error!");
-        
-        ulTempValue = xHWREG(0x50000218);
-	    TestAssert(((i-1) == (ulTempValue & SYSCLK_CLKDIV_ADC_M)>>SYSCLK_CLKDIV_ADC_S),
-		"xsysctl API \"xSysCtlPeripheralClockSourceSet(xSYSCTL_ADC0_MAIN, i)\" error!");
-    }
-
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_TIMER0_MAIN , 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((0 == (ulTemp & SYSCLK_CLKSEL1_TMR0_M)>>SYSCLK_CLKSEL1_TMR0_S),
-			                     "xsysctl API \"xSysCtlPeripheralClockSourceSet"
-			                              "(SYSCTL_PERIPH_ADC_S_PLL)\" error!");
-
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_TIMER0_EXTSL , 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((1 == (ulTemp & SYSCLK_CLKSEL1_TMR0_M)>>SYSCLK_CLKSEL1_TMR0_S),
-			                     "xsysctl API \"xSysCtlPeripheralClockSourceSet"
-			                              "(SYSCTL_PERIPH_ADC_S_PLL)\" error!");
-
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_TIMER0_HCLK , 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((2 == (ulTemp & SYSCLK_CLKSEL1_TMR0_M)>>SYSCLK_CLKSEL1_TMR0_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                              "(SYSCTL_PERIPH_ADC_S_PLL)\" error!");
     
-
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_TIMER0_EXTTRG , 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((3 == (ulTemp & SYSCLK_CLKSEL1_TMR0_M)>>SYSCLK_CLKSEL1_TMR0_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                              "(SYSCTL_PERIPH_ADC_S_PLL)\" error!");
-
-
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_TIMER0_INT , 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((4 == (ulTemp & SYSCLK_CLKSEL1_TMR0_M)>>SYSCLK_CLKSEL1_TMR0_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                              "(SYSCTL_PERIPH_ADC_S_PLL)\" error!");
-
-
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_TIMER1_MAIN , 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((0 == (ulTemp & SYSCLK_CLKSEL1_TMR1_M)>>SYSCLK_CLKSEL1_TMR1_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                              "(SYSCTL_PERIPH_ADC_S_PLL)\" error!");
-
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_TIMER1_EXTSL , 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((1 ==(ulTemp & SYSCLK_CLKSEL1_TMR1_M)>>SYSCLK_CLKSEL1_TMR1_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                              "(SYSCTL_PERIPH_ADC_S_PLL)\" error!");
-    
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_TIMER1_HCLK , 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((2 ==(ulTemp & SYSCLK_CLKSEL1_TMR1_M)>>SYSCLK_CLKSEL1_TMR1_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                              "(SYSCTL_PERIPH_ADC_S_PLL)\" error!");
-
-
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_TIMER1_EXTTRG , 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((3 ==(ulTemp & SYSCLK_CLKSEL1_TMR1_M)>>SYSCLK_CLKSEL1_TMR1_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                              "(SYSCTL_PERIPH_ADC_S_PLL)\" error!");
-
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_TIMER1_INT , 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((4 == (ulTemp & 0x00000400)>>SYSCLK_CLKSEL1_TMR0_S),
-			                     "xsysctl API \"xSysCtlPeripheralClockSourceSet"
-			                                   "(xSYSCTL_TIMER1_INT)\" error!");
-
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_TIMER2_MAIN , 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((0 ==(ulTemp & SYSCLK_CLKSEL1_TMR2_M)>>SYSCLK_CLKSEL1_TMR2_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                              "(SYSCTL_PERIPH_ADC_S_PLL)\" error!");
-     
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_TIMER2_EXTSL , 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((1 ==(ulTemp & SYSCLK_CLKSEL1_TMR2_M)>>SYSCLK_CLKSEL1_TMR2_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                              "(SYSCTL_PERIPH_ADC_S_PLL)\" error!");
-   
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_TIMER2_HCLK , 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((2 ==(ulTemp & SYSCLK_CLKSEL1_TMR2_M)>>SYSCLK_CLKSEL1_TMR2_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                              "(SYSCTL_PERIPH_ADC_S_PLL)\" error!");
-    
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_TIMER2_EXTTRG , 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((3 ==(ulTemp & SYSCLK_CLKSEL1_TMR2_M)>>SYSCLK_CLKSEL1_TMR2_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                              "(SYSCTL_PERIPH_ADC_S_PLL)\" error!");
-
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_TIMER2_INT , 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((4 == (ulTemp & 0x00000400)>>SYSCLK_CLKSEL1_TMR0_S),
-			                     "xsysctl API \"xSysCtlPeripheralClockSourceSet"
-			                                   "(xSYSCTL_TIMER2_INT)\" error!");
-
-/*    for(i = 1; i <= 16; i++)
-    {
-        xSysCtlPeripheralClockSourceSet(xSYSCTL_UART0_MAIN, i);
-        ulTemp = xHWREG(0x50000214);
-	    TestAssert((0 == (ulTemp & SYSCLK_CLKSEL1_UART_M)>>SYSCLK_CLKSEL1_UART_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                              "(SYSCTL_PERIPH_ADC_S_PLL)\" error!");
-        
-        ulTempValue = xHWREG(0x50000218);
-	    TestAssert(((i-1) == (ulTempValue & SYSCLK_CLKDIV_UART_M)>>SYSCLK_CLKDIV_UART_S),
-		"xsysctl API \"xSysCtlPeripheralClockSourceSet(xSYSCTL_UART0_MAIN, i)\" error!");
-    }
-
-    for(i = 1; i <= 16; i++)
-    {
-        xSysCtlPeripheralClockSourceSet(xSYSCTL_UART0_PLL, i);
-        ulTemp = xHWREG(0x50000214);
-	    TestAssert((1 == (ulTemp & SYSCLK_CLKSEL1_UART_M)>>SYSCLK_CLKSEL1_UART_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                              "(SYSCTL_PERIPH_ADC_S_PLL)\" error!");
-        
-        ulTempValue = xHWREG(0x50000218);
-	    TestAssert(((i-1) == (ulTempValue & SYSCLK_CLKDIV_UART_M)>>SYSCLK_CLKDIV_UART_S),
-		"xsysctl API \"xSysCtlPeripheralClockSourceSet(xSYSCTL_UART0_PLL, i)\" error!");
-    }
-    for(i = 1; i <= 16; i++)
-    {
-        xSysCtlPeripheralClockSourceSet(xSYSCTL_UART0_INT, i);
-        ulTemp = xHWREG(0x50000214);
-	    TestAssert((2 == (ulTemp & 0x02000000)>>SYSCLK_CLKSEL1_UART_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                              "(SYSCTL_PERIPH_ADC_S_PLL)\" error!");
-        
-        ulTempValue = xHWREG(0x50000218);
-	    TestAssert(((i-1) == (ulTempValue & SYSCLK_CLKDIV_UART_M)>>SYSCLK_CLKDIV_UART_S),
-		"xsysctl API \"xSysCtlPeripheralClockSourceSet(xSYSCTL_UART0_INT, i)\" error!");
-    }
-*/    
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_TIMER3_MAIN, 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((0 == (ulTemp & SYSCLK_CLKSEL1_TMR3_M)>>SYSCLK_CLKSEL1_TMR3_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                          "(SYSCTL_PERIPH_TMR3_S_EXT12M)\" error!");
-    
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_TIMER3_EXTSL, 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((1 == (ulTemp & SYSCLK_CLKSEL1_TMR3_M)>>SYSCLK_CLKSEL1_TMR3_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                          "(SYSCTL_PERIPH_TMR3_S_EXT32K)\" error!");
-    
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_TIMER3_HCLK, 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((2 == (ulTemp & SYSCLK_CLKSEL1_TMR3_M)>>SYSCLK_CLKSEL1_TMR3_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                            "(SYSCTL_PERIPH_TMR3_S_HCLK)\" error!");
-    
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_TIMER3_EXTTRG, 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((3 == (ulTemp & SYSCLK_CLKSEL1_TMR3_M)>>SYSCLK_CLKSEL1_TMR3_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                          "(SYSCTL_PERIPH_TMR3_S_EXTTRG)\" error!");
-    
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_TIMER3_INT , 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((4 == (ulTemp & 0x00000400)>>SYSCLK_CLKSEL1_TMR0_S),
-			                     "xsysctl API \"xSysCtlPeripheralClockSourceSet"
-			                                   "(xSYSCTL_TIMER3_INT)\" error!");
-
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_I2S0_MAIN, xSYSCTL_I2S0_MAIN);
-    ulTemp = xHWREG(0x5000021C);
-	TestAssert((0 == (ulTemp & SYSCLK_CLKSEL2_I2S_M)>>SYSCLK_CLKSEL2_I2S_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                           "(SYSCTL_PERIPH_I2S_S_EXT12M)\" error!");
-    
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_I2S0_PLL, 1);
-    ulTemp = xHWREG(0x5000021C);
-	TestAssert((1 == (ulTemp & SYSCLK_CLKSEL2_I2S_M)>>SYSCLK_CLKSEL2_I2S_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                              "(SYSCTL_PERIPH_I2S_S_PLL)\" error!");
-    
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_I2S0_HCLK, 1);
-    ulTemp = xHWREG(0x5000021C);
-	TestAssert((2 == (ulTemp & SYSCLK_CLKSEL2_I2S_M)>>SYSCLK_CLKSEL2_I2S_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                             "(SYSCTL_PERIPH_I2S_S_HCLK)\" error!");
-    
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_I2S0_INT, 1);
-    ulTemp = xHWREG(0x5000021C);
-	TestAssert((3 == (ulTemp & SYSCLK_CLKSEL2_I2S_M)>>SYSCLK_CLKSEL2_I2S_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                           "(SYSCTL_PERIPH_I2S_S_INT22M)\" error!");
-
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_FRQDIV_MAIN, 1);
-    ulTemp = xHWREG(0x5000021C);
-	TestAssert((0 == (ulTemp & SYSCLK_CLKSEL2_FRQDIV_M)>>SYSCLK_CLKSEL2_FRQDIV_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                        "(SYSCTL_PERIPH_FRQDIV_S_EXT12M)\" error!");
-    
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_FRQDIV_EXTSL, 1);
-    ulTemp = xHWREG(0x5000021C);
-	TestAssert((1 == (ulTemp & SYSCLK_CLKSEL2_FRQDIV_M)>>SYSCLK_CLKSEL2_FRQDIV_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                        "(SYSCTL_PERIPH_FRQDIV_S_EXT32K)\" error!");
-    
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_FRQDIV_HCLK, 1);
-    ulTemp = xHWREG(0x5000021C);
-	TestAssert((2 == (ulTemp & SYSCLK_CLKSEL2_FRQDIV_M)>>SYSCLK_CLKSEL2_FRQDIV_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                          "(SYSCTL_PERIPH_FRQDIV_S_HCLK)\" error!");
-    
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_FRQDIV_INT, 1);
-    ulTemp = xHWREG(0x5000021C);
-	TestAssert((3 == (ulTemp & SYSCLK_CLKSEL2_FRQDIV_M)>>SYSCLK_CLKSEL2_FRQDIV_S),
-			                      "xsysctl API \"SysCtlPeripheralClockSourceSet"
-			                        "(SYSCTL_PERIPH_FRQDIV_S_INT22M)\" error!");
-    
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_PWMA_MAIN, 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((0 == (ulTemp & SYSCLK_CLKSEL1_PWM01_M)>>SYSCLK_CLKSEL1_PWM01_S),
-	"xsysctl API \"xSysCtlPeripheralClockSourceSet""(xSYSCTL_PWMA_MAIN, 1)\" error!");
-    
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_PWMA_EXTSL, 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((1 == (ulTemp & SYSCLK_CLKSEL1_PWM01_M)>>SYSCLK_CLKSEL1_PWM01_S),
-	"xsysctl API \"xSysCtlPeripheralClockSourceSet(xSYSCTL_PWMA_EXTSL, 1)\" error!");
-
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_PWMA_HCLK, 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((2 == (ulTemp & SYSCLK_CLKSEL1_PWM01_M)>>SYSCLK_CLKSEL1_PWM01_S),
-	"xsysctl API \"xSysCtlPeripheralClockSourceSet(xSYSCTL_PWMA_HCLK, 1)\" error!");
-
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_PWMA_INT, 1);
-    ulTemp = xHWREG(0x50000214);
-	TestAssert((3 == (ulTemp & SYSCLK_CLKSEL1_PWM01_M)>>SYSCLK_CLKSEL1_PWM01_S),
-	"xsysctl API \"xSysCtlPeripheralClockSourceSet(xSYSCTL_PWMA_INT, 1)\" error!");
+    SysCtlSysTickSourceSet(SYSCTL_STCLK_S_INT22M_2);
+    ulTemp = xHWREG(SYSCLK_CLKSEL0);
+    TestAssert((0 == (ulTemp & 0x4)>>SYSCLK_CLKSEL0_STCLK_S),
+                             "xsysctl API \"SysCtlSysTickSourceSet()\" error!");
 }
+
 
 //*****************************************************************************
 //
-//! \brief xsysctl 001 test of Brown-Out Detector Control Register test .
+//! \brief xsysctl 004 test of Peripheral Clock Source Set test .
 //!
 //! \return None.
 //
 //*****************************************************************************
-static void xsysctl_Bod_test(void)
+static void xsysctl_SysCtlPeripheralClockSourceSet_test(void)
 {
-	xtBoolean xtTemp;
-    unsigned long ulTemp; 
-    SysCtlBODEnable(xtrue);
-    ulTemp = xHWREG(0x50000018);
-	TestAssert((GCR_BODCR_BOD_EN == (ulTemp & GCR_BODCR_BOD_EN)),
-			                   "xsysctl API \"SysCtlBODEnable(xtrue)\" error!");
+    unsigned long i,ulTemp;
     
-    SysCtlBODEnable(xfalse);
-    ulTemp = xHWREG(0x50000018);
-	TestAssert((GCR_BODCR_BOD_EN == (ulTemp & GCR_BODCR_BOD_EN)),
-			                  "xsysctl API \"SysCtlBODEnable(xfalse)\" error!");
-    //
-    // Set Threshold Voltage as 2.2V test
-    //
-    SysCtlBODVoltSelect(SYSCTL_BOD_2_2);
-    ulTemp = xHWREG(0x50000018);
-	TestAssert((0 == (ulTemp & GCR_BODCR_BOD_VL_M)>>GCR_BODCR_BOD_VL_S),
-			      "xsysctl API \"SysCtlBODVoltSelect(SYSCTL_BOD_2_2)\" error!");
+    for(i = 0; i < 3; i++)
+    {
+        SysCtlPeripheralClockSourceSet(ulWDT0ClkSource[i]);
+        ulTemp = xHWREG(SYSCLK_CLKSEL1);
+        TestAssert(((i+1) == (ulTemp & SYSCLK_CLKSEL1_WDG_M)),"xsysctl API error!");
+    }
+
+    for(i = 0; i < 2; i++)
+    {
+        SysCtlPeripheralClockSourceSet(ulADC0ClkSource[i]);
+        ulTemp = xHWREG(SYSCLK_CLKSEL1);
+        TestAssert((i == (ulTemp & SYSCLK_CLKSEL1_ADC_M)>>SYSCLK_CLKSEL1_ADC_S),
+                                                          "xsysctl API error!");
+    }
     
-    SysCtlBODVoltSelect(SYSCTL_BOD_2_6);
-    ulTemp = xHWREG(0x50000018);
-	TestAssert((1 == (ulTemp & GCR_BODCR_BOD_VL_M)>>GCR_BODCR_BOD_VL_S),
-			      "xsysctl API \"SysCtlBODVoltSelect(SYSCTL_BOD_2_6)\" error!");
+    SysCtlPeripheralClockSourceSet(SYSCTL_PERIPH_ADC_S_INT22M);
+    ulTemp = xHWREG(SYSCLK_CLKSEL1);
+    TestAssert((2 == (ulTemp &0x00000008)>>SYSCLK_CLKSEL1_ADC_S),
+                                                          "xsysctl API error!");
+
+    for(i = 0; i < 5; i++)
+    {
+        SysCtlPeripheralClockSourceSet(ulTIMER0ClkSource[i]);
+        ulTemp = xHWREG(SYSCLK_CLKSEL1);
+        TestAssert((i == (ulTemp & SYSCLK_CLKSEL1_TMR0_M)>>SYSCLK_CLKSEL1_TMR0_S),
+                                                          "xsysctl API error!");
+    }
     
-    SysCtlBODVoltSelect(SYSCTL_BOD_3_8);
-    ulTemp = xHWREG(0x50000018);
-	TestAssert((2 == (ulTemp & GCR_BODCR_BOD_VL_M)>>GCR_BODCR_BOD_VL_S),
-			      "xsysctl API \"SysCtlBODVoltSelect(SYSCTL_BOD_3_8)\" error!");
-    //
-    // Set Threshold Voltage as 4.5V test
-    //
-    SysCtlBODVoltSelect(SYSCTL_BOD_4_5);
-    ulTemp = xHWREG(0x50000018);
-	TestAssert((3 == (ulTemp & GCR_BODCR_BOD_VL_M)>>GCR_BODCR_BOD_VL_S),
-			      "xsysctl API \"SysCtlBODVoltSelect(SYSCTL_BOD_4_5)\" error!");
+    for(i = 0; i < 5; i++)
+    {
+        SysCtlPeripheralClockSourceSet(ulTIMER1ClkSource[i]);
+        ulTemp = xHWREG(SYSCLK_CLKSEL1);
+        TestAssert((i == (ulTemp & SYSCLK_CLKSEL1_TMR1_M)>>SYSCLK_CLKSEL1_TMR1_S),
+                                                          "xsysctl API error!");
+    }
+
+    for(i = 0; i < 5; i++)
+    {
+        SysCtlPeripheralClockSourceSet(ulTIMER2ClkSource[i]);
+        ulTemp = xHWREG(SYSCLK_CLKSEL1);
+        TestAssert((i == (ulTemp & SYSCLK_CLKSEL1_TMR2_M)>>SYSCLK_CLKSEL1_TMR2_S),
+                                                          "xsysctl API error!");
+    }
     
-    SysCtlBODLowPowerModeEnable(xtrue);
-    ulTemp = xHWREG(0x50000018);
-	TestAssert((GCR_BODCR_BOD_LPM == (ulTemp & GCR_BODCR_BOD_LPM)),
-			       "xsysctl API \"SysCtlBODLowPowerModeEnable(xtrue)\" error!");
+    for(i = 0; i < 5; i++)
+    {
+        SysCtlPeripheralClockSourceSet(ulTIMER3ClkSource[i]);
+        ulTemp = xHWREG(SYSCLK_CLKSEL1);
+        TestAssert((i == (ulTemp & SYSCLK_CLKSEL1_TMR3_M)>>SYSCLK_CLKSEL1_TMR3_S),
+                                                          "xsysctl API error!");
+    }
+
+    for(i = 0; i < 2; i++)
+    {
+        SysCtlPeripheralClockSourceSet(ulUARTClkSource[i]);
+        ulTemp = xHWREG(SYSCLK_CLKSEL1);
+        TestAssert((i == (ulTemp & SYSCLK_CLKSEL1_UART_M)>>SYSCLK_CLKSEL1_UART_S),
+                                                          "xsysctl API error!");
+    }
     
-    SysCtlBODLowPowerModeEnable(xfalse);
-    ulTemp = xHWREG(0x50000018);
-	TestAssert((GCR_BODCR_BOD_LPM == (ulTemp & GCR_BODCR_BOD_LPM)),
-			       "xsysctl API \"SysCtlBODLowPowerModeEnable(xtrue)\" error!");
+    SysCtlPeripheralClockSourceSet(SYSCTL_PERIPH_UART_S_INT22M);
+    ulTemp = xHWREG(SYSCLK_CLKSEL1);
+    TestAssert((2 == (ulTemp & 0x02000000)>>SYSCLK_CLKSEL1_UART_S),
+                                                          "xsysctl API error!");
+
+    for(i = 0; i < 4; i++)
+    {
+        SysCtlPeripheralClockSourceSet(ulI2SClkSource[i]);
+        ulTemp = xHWREG(SYSCLK_CLKSEL2);
+        TestAssert((i == (ulTemp & SYSCLK_CLKSEL2_I2S_M)>>SYSCLK_CLKSEL2_I2S_S),
+                                                          "xsysctl API error!");
+    }
     
-    SysCtlLowVoltRstEnable(xtrue);
-    ulTemp = xHWREG(0x50000018);
-	TestAssert((GCR_BODCR_LVR_EN == (ulTemp & GCR_BODCR_LVR_EN)),
-			           "xsysctl API \"SysCtlLowVoltRstEnable(xtrue))\" error!");
+    for(i = 0; i < 4; i++)
+    {
+        SysCtlPeripheralClockSourceSet(ulFRQDIVClkSource[i]);
+        ulTemp = xHWREG(SYSCLK_CLKSEL2);
+        TestAssert((i == (ulTemp & SYSCLK_CLKSEL2_FRQDIV_M)>>SYSCLK_CLKSEL2_FRQDIV_S),
+                                                          "xsysctl API error!");
+    }
+
+    for(i = 0; i < 4; i++)
+    {
+        SysCtlPeripheralClockSourceSet(ulPWM01ClkSource[i]);
+        ulTemp = xHWREG(SYSCLK_CLKSEL1);
+        TestAssert((i == (ulTemp & SYSCLK_CLKSEL1_PWM01_M)>>SYSCLK_CLKSEL1_PWM01_S),
+                                                          "xsysctl API error!");
+    }
     
-    SysCtlLowVoltRstEnable(xfalse);
-    ulTemp = xHWREG(0x50000018);
-	TestAssert((GCR_BODCR_LVR_EN == (ulTemp & GCR_BODCR_LVR_EN)),
-			           "xsysctl API \"SysCtlLowVoltRstEnable(xtrue))\" error!");
+    for(i = 0; i < 4; i++)
+    {
+        SysCtlPeripheralClockSourceSet(ulPWM23ClkSource[i]);
+        ulTemp = xHWREG(SYSCLK_CLKSEL1);
+        TestAssert((i == (ulTemp & SYSCLK_CLKSEL1_PWM23_M)>>SYSCLK_CLKSEL1_PWM23_S),
+                                                          "xsysctl API error!");
+    }
     
-    SysCtlTempatureSensorEnable(xfalse);
-    ulTemp = xHWREG(0x50000018);
-	TestAssert((0 == (ulTemp & GCR_TEMPCR_VTEMP_EN)),
-			       "xsysctl API \"SysCtlTempatureSensorEnable(xtrue)\" error!");
-    
-	xtTemp = SysCtlBODStateGet();
-	TestAssert((xtTemp==0 ),"xsysctl API \"SysCtlBODStateGet()\" error!");
-    
-    SysCtlBODRstEnable(xtrue);
-    ulTemp = xHWREG(0x50000018);
-	TestAssert((GCR_BODCR_BOD_RSTEN == (ulTemp & GCR_BODCR_BOD_RSTEN)),
-			                "xsysctl API \"SysCtlBODRstEnable(xtrue)\" error!");
-    
-    SysCtlBODRstEnable(xfalse);
-    ulTemp = xHWREG(0x50000018);
-	TestAssert((GCR_BODCR_BOD_RSTEN == (ulTemp & GCR_BODCR_BOD_RSTEN)),
-			                "xsysctl API \"SysCtlBODRstEnable(xtrue)\" error!");
-    //
-    //Set RC adjustment value 
-    //
-    SysCtlRCAdjValueSet(0x34);
-	TestAssert((0x34 == (xHWREG(0x50000110) & GCR_RCADJ_RCADJ_M)),
-			                "xsysctl API \"SysCtlRCAdjValueSet(0x34)\" error!");
+    for(i = 0; i < 4; i++)
+    {
+        SysCtlPeripheralClockSourceSet(ulPWM45ClkSource[i]);
+        ulTemp = xHWREG(SYSCLK_CLKSEL2);
+        TestAssert((i == (ulTemp & SYSCLK_CLKSEL2_PWM45_M)>>SYSCLK_CLKSEL2_PWM45_S),
+                                                          "xsysctl API error!");
+    } 
+
+    for(i = 0; i < 4; i++)
+    {
+        SysCtlPeripheralClockSourceSet(ulPWM67ClkSource[i]);
+        ulTemp = xHWREG(SYSCLK_CLKSEL2);
+        TestAssert((i == (ulTemp & SYSCLK_CLKSEL2_PWM67_M)>>SYSCLK_CLKSEL2_PWM67_S),
+                                                          "xsysctl API error!");
+    }
 }
 
+//*****************************************************************************
+//
+//! \brief xsysctl 001 test of HCLK Source Set test .
+//!
+//! \return None.
+//
+//*****************************************************************************
+static void xsysctl_SysCtlHClockSourceSet_test(void)
+{
+    unsigned long ulTemp,i;
+    
+    for(i = 0; i < 4; i++)
+    {
+        SysCtlHClockSourceSet(ulHCLKSource[i]);
+        ulTemp = xHWREG(SYSCLK_CLKSEL0);
+        TestAssert((i == (ulTemp & SYSCLK_CLKSEL0_HCLK_M)),"xsysctl API error!");
+    }
+    
+    SysCtlHClockSourceSet(SYSCTL_HLCK_S_INT22M);
+    ulTemp = xHWREG(SYSCLK_CLKSEL0);
+    TestAssert((4 == (ulTemp & 4)), "xsysctl API error!");
+}
 //*****************************************************************************
 //
 //! \brief xsysctl 004 test execute main body.
@@ -495,20 +337,21 @@ static void xsysctl_Bod_test(void)
 //! \return None.
 //
 //*****************************************************************************
-static void XSysctl004Execute(void)
+static void xSysctl004Execute(void)
 {
-    xsysctl_Bod_test();
-    xsysctl_xSysCtlPeripheralClockSourceSet_test();
+    xsysctl_SysCtlSysTickSourceSet_test();
+    xsysctl_SysCtlPeripheralClockSourceSet_test();
+    xsysctl_SysCtlHClockSourceSet_test();
 }
 
 //
 // xsysctl register test case struct.
 //
 const tTestCase sTestXSysctl004Register = {
-		XSysctl004GetTest,
-		XSysctl004Setup,
-		XSysctl004TearDown,
-		XSysctl004Execute
+		xSysctl004GetTest,
+		xSysctl004Setup,
+		xSysctl004TearDown,
+		xSysctl004Execute
 };
 
 //

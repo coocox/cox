@@ -1719,6 +1719,12 @@
       <file>
         <name>$PROJ_DIR$\..\src\Xsysctltest03.c</name>
       </file>
+      <file>
+        <name>$PROJ_DIR$\..\src\Xsysctltest04.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\src\Xsysctltest05.c</name>
+      </file>
     </group>
   </group>
   <group>
