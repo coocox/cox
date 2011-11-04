@@ -81,9 +81,13 @@ volatile unsigned int sendNum=0,recNum=0;
 //
 // line config test
 //
-unsigned long wordLength[] = {UART_CONFIG_WLEN_8,UART_CONFIG_WLEN_7, UART_CONFIG_WLEN_6,UART_CONFIG_WLEN_5};
-unsigned long parity[] = {UART_CONFIG_PAR_NONE,UART_CONFIG_PAR_EVEN,UART_CONFIG_PAR_ODD,
-                                        UART_CONFIG_PAR_ONE,UART_CONFIG_PAR_ZERO};
+unsigned long wordLength[] = {UART_CONFIG_WLEN_8,UART_CONFIG_WLEN_7, 
+                              UART_CONFIG_WLEN_6,UART_CONFIG_WLEN_5};
+
+unsigned long parity[] = {UART_CONFIG_PAR_NONE,UART_CONFIG_PAR_EVEN,
+                          UART_CONFIG_PAR_ODD, UART_CONFIG_PAR_ONE,
+                          UART_CONFIG_PAR_ZERO};
+
 unsigned long stopbit[] = {UART_CONFIG_STOP_ONE,UART_CONFIG_STOP_TWO};
 
 unsigned long ulBlock[] = {UART_BLOCK_TX, UART_BLOCK_RX};
@@ -91,15 +95,20 @@ unsigned long ulBlock[] = {UART_BLOCK_TX, UART_BLOCK_RX};
 //
 // FIFO test
 //
-unsigned long ulRxLevel[] = {UART_FIFO_1BYTES, UART_FIFO_4BYTES, UART_FIFO_8BYTES, UART_FIFO_14BYTES,
-                                        UART_FIFO_30BYTES, UART_FIFO_46BYTES, UART_FIFO_62BYTES};
+unsigned long ulRxLevel[] = {UART_FIFO_1BYTES, UART_FIFO_4BYTES, 
+                             UART_FIFO_8BYTES, UART_FIFO_14BYTES, 
+                             UART_FIFO_30BYTES, UART_FIFO_46BYTES, 
+                             UART_FIFO_62BYTES};
+
 #define  fifoLevelNum   countof(ulRxLevel)
 
 //
 // flow control test
 //
-unsigned long ulFlowCtlCfg[] = {UART_FLOWCONTROL_TX, UART_FLOWCONTROL_RX, (UART_FLOWCONTROL_TX | UART_FLOWCONTROL_RX), 
-                                            UART_FLOWCONTROL_NONE};
+unsigned long ulFlowCtlCfg[] = {UART_FLOWCONTROL_TX, UART_FLOWCONTROL_RX, 
+                                (UART_FLOWCONTROL_TX | UART_FLOWCONTROL_RX), 
+                                UART_FLOWCONTROL_NONE};
+
 #define  flowCtlNum     countof(ulFlowCtlCfg)
 
 //
@@ -111,17 +120,22 @@ unsigned long ulDiv[] = {1,4,6,8,10};
 //
 //Modem test
 //
-unsigned long ulModemCfg[] = {UART_TRIGGER_RTS_H, UART_TRIGGER_RTS_L, (UART_TRIGGER_RTS_H | UART_OUTPUT_RTS_SET), 
-                        (UART_TRIGGER_RTS_L | UART_OUTPUT_RTS_SET)};
+unsigned long ulModemCfg[] = {UART_TRIGGER_RTS_H, UART_TRIGGER_RTS_L, 
+                              (UART_TRIGGER_RTS_H | UART_OUTPUT_RTS_SET), 
+                              (UART_TRIGGER_RTS_L | UART_OUTPUT_RTS_SET)};
+
 #define  modemCfgNum      countof(ulModemCfg)
 
 unsigned long ulModemSt[] = {UART_TRIGGER_CTS_H, UART_TRIGGER_CTS_L};
+
 #define  modemStNum      countof(ulModemSt)
 
 //
 //DMA test
 //
-unsigned long ulDMACfg[] = {UART_DMA_RX, UART_DMA_TX, (UART_DMA_RX | UART_DMA_TX)};
+unsigned long ulDMACfg[] = {UART_DMA_RX, UART_DMA_TX, 
+                            (UART_DMA_RX | UART_DMA_TX)};
+
 #define  DMACfgNum       countof(ulDMACfg)
 
 
@@ -200,7 +214,8 @@ void xuart001Execute_NormalConfig(void)
             UARTParityModeSet(UART_BASE, parity[p]);
             ulTemp1 = UARTParityModeGet(UART_BASE);
             TestAssert(parity[p] == ulTemp1, 
-                           "xuart API \"UARTParityModeSet\" or \"UARTParityModeGet\" error!");
+                  "xuart API \"UARTParityModeSet\" or " 
+                  "\"UARTParityModeGet\" error!");
 
             for(s=0; s<s1; s++)
             {
@@ -208,7 +223,8 @@ void xuart001Execute_NormalConfig(void)
                 UARTConfigSetExpClk(UART_BASE, 115200, ulTemp1);     
                 UARTConfigGetExpClk(UART_BASE, &ulBuad, &ulConfig);
                 TestAssert((ulConfig & ulTemp1) == ulTemp1, 
-                           "xuart API \"UARTConfigSetExpClk\" or \"UARTConfigGetExpClk\" error!");
+                   "xuart API \"UARTConfigSetExpClk\" or "
+                   "\"UARTConfigGetExpClk\" error!");
             }
         } 
     }
@@ -365,7 +381,8 @@ void xuart002Execute_FIFOConfig(void)
         UARTFIFOTriggerLevelSet(UART_BASE, ulRxLevel[i]); 
         UARTFIFOTriggerLevelGet(UART_BASE, &ulTemp1);
         TestAssert(ulTemp1 == ulRxLevel[i], 
-                    "xuart API \"UARTFIFOTriggerLevelSet\" or \"UARTFIFOTriggerLevelGet\" error!");
+           "xuart API \"UARTFIFOTriggerLevelSet\" or "
+           "\"UARTFIFOTriggerLevelGet\" error!");
     }
 
     //
@@ -457,13 +474,15 @@ void xuart003Execute_IrDAConfig(void)
     TestAssert(ulTemp1 == 0x02,
                    "xuart API \"UARTEnableIrDA\" error!");
     
-    ulTemp1 = (UART_CONFIG_IrDA_TX_EN | UART_CONFIG_IrDA_INV_TX | UART_CONFIG_IrDA_INV_RX);
+    ulTemp1 = (UART_CONFIG_IrDA_TX_EN | UART_CONFIG_IrDA_INV_TX | 
+               UART_CONFIG_IrDA_INV_RX);
     UARTIrDAConfig(UART_BASE, ulTemp1);
     ulTemp1 = xHWREG(UART_BASE + UART_IRCR) & 0x62;
     TestAssert(ulTemp1 == 0x62,
                    "xuart API \"UARTIrDAConfig\" error!");
 
-    ulTemp1 = ~(UART_CONFIG_IrDA_TX_EN | UART_CONFIG_IrDA_INV_TX | UART_CONFIG_IrDA_INV_RX);
+    ulTemp1 = ~(UART_CONFIG_IrDA_TX_EN | UART_CONFIG_IrDA_INV_TX | 
+                UART_CONFIG_IrDA_INV_RX);
     UARTIrDAConfig(UART_BASE, ulTemp1);
     ulTemp1 = xHWREG(UART_BASE + UART_IRCR) & 0x62;
     TestAssert(ulTemp1 == 0x0,
@@ -673,7 +692,8 @@ void xuart005Execute_flowControlConfig(void)
         UARTFlowControlSet(UART_BASE, ulFlowCtlCfg[i]);
         ulTemp1 = UARTFlowControlGet(UART_BASE);
         TestAssert(ulTemp1 == ulFlowCtlCfg[i],
-                   "xuart API \"UARTFlowControlSet\" or \"UARTFlowControlGet\" error!");
+                   "xuart API \"UARTFlowControlSet\" or "
+                   "\"UARTFlowControlGet\" error!");
     }
     
     
@@ -754,9 +774,11 @@ void xuart006Execute_ModemConfig(void)
     {
         UARTModemControlSet(UART_BASE, ulModemCfg[i]);
         ulTemp1 = UARTModemControlGet(UART_BASE); 
-        ulTemp2 = (((((xHWREG(UART_BASE + UART_MCR)>>1) & 0x01)^((xHWREG(UART_BASE + UART_MCR)>>9) & 0x01)))^1)<<13;
+        ulTemp2 = (((((xHWREG(UART_BASE + UART_MCR)>>1) & 0x01)^
+        ((xHWREG(UART_BASE + UART_MCR)>>9) & 0x01)))^1)<<13;
         TestAssert(ulTemp1 == ulTemp2,
-                   "xuart API \"UARTModemControlSet\" or \"UARTModemControlGet\" error!");   
+                   "xuart API \"UARTModemControlSet\" or "
+                   "\"UARTModemControlGet\" error!");   
     }
     UARTModemControlClear(UART_BASE, UART_OUTPUT_RTS_SET);
     ulTemp1 = ((xHWREG(UART_BASE + UART_MCR)>>1) & 0x01);
