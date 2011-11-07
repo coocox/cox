@@ -1736,7 +1736,7 @@ I2CIntCallbackInit(unsigned long ulBase, xtEventCallback xtI2CCallback)
     }
     else
     {
-        g_tI2CSetup[0].g_pfnI2CHandlerCallbacks = xtI2CCallback;
+        g_tI2CSetup[1].g_pfnI2CHandlerCallbacks = xtI2CCallback;
     }
 
 }

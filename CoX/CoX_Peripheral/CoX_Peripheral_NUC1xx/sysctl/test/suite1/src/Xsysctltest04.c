@@ -168,7 +168,7 @@ static void xsysctl_Bod_test(void)
     SysCtlBODLowPowerModeEnable(xtrue);
     ulTemp = xHWREG(GCR_BODCR);
     TestAssert((GCR_BODCR_BOD_LPM == (ulTemp & GCR_BODCR_BOD_LPM)),
-			                                              "xsysctl API error!");
+                                                          "xsysctl API error!");
     
     SysCtlBODLowPowerModeEnable(xfalse);
     ulTemp = xHWREG(GCR_BODCR);
@@ -177,7 +177,7 @@ static void xsysctl_Bod_test(void)
     SysCtlLowVoltRstEnable(xtrue);
     ulTemp = xHWREG(GCR_BODCR);
     TestAssert((GCR_BODCR_LVR_EN == (ulTemp & GCR_BODCR_LVR_EN)),
-			                                              "xsysctl API error!");
+                                                          "xsysctl API error!");
     
     SysCtlLowVoltRstEnable(xfalse);
     ulTemp = xHWREG(GCR_BODCR);
@@ -189,7 +189,7 @@ static void xsysctl_Bod_test(void)
     SysCtlBODRstEnable(xtrue);
     ulTemp = xHWREG(GCR_BODCR);
     TestAssert((GCR_BODCR_BOD_RSTEN == (ulTemp & GCR_BODCR_BOD_RSTEN)),
-			                                              "xsysctl API error!");
+                                                          "xsysctl API error!");
     
     SysCtlBODRstEnable(xfalse);
     ulTemp = xHWREG(GCR_BODCR);
@@ -199,7 +199,7 @@ static void xsysctl_Bod_test(void)
     //
     SysCtlRCAdjValueSet(0x34);
     TestAssert((0x34 == (xHWREG(GCR_RCADJ) & GCR_RCADJ_RCADJ_M)),
-			                                              "xsysctl API error!");
+                                                          "xsysctl API error!");
 }
 
 
@@ -221,10 +221,10 @@ static void xSysctl005Execute(void)
 // xsysctl register test case struct.
 //
 const tTestCase sTestXSysctl005Register = {
-		xSysctl005GetTest,
-		xSysctl005Setup,
-		xSysctl005TearDown,
-		xSysctl005Execute
+    xSysctl005GetTest,
+    xSysctl005Setup,
+    xSysctl005TearDown,
+    xSysctl005Execute
 };
 
 //

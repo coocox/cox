@@ -243,10 +243,10 @@ static void xSysctl006Execute(void)
 // xsysctl register test case struct.
 //
 const tTestCase sTestXSysctl006Register = {
-		xSysctl006GetTest,
-		xSysctl006Setup,
-		xSysctl006TearDown,
-		xSysctl006Execute
+    xSysctl006GetTest,
+    xSysctl006Setup,
+    xSysctl006TearDown,
+    xSysctl006Execute
 };
 
 //

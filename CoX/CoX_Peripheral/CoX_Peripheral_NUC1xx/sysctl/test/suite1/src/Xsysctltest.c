@@ -192,7 +192,7 @@ static void xsysctl_SetHCLK_test(void)
     for (i=0;i<16;i++)
     {
         SysCtlHClockSet((i<<24)|SYSCTL_XTAL_12MHZ|
-				                               SYSCTL_OSC_INT|SYSCTL_PLL_PWRDN);
+                                               SYSCTL_OSC_INT|SYSCTL_PLL_PWRDN);
         ulTemp = SysCtlHClockGet();
         TestAssert(ulTemp == 22000000/(i+1), "xsysctl API error!");
     }

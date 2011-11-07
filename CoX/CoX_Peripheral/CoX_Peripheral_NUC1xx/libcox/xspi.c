@@ -1515,7 +1515,7 @@ SPIDivOneFunction(unsigned long ulBase, xtBoolean xtEnable)
     if (xtEnable)
     {
         xHWREG(ulBase + SPI_CNTRL2) |= SPI_CNTRL2_DIV_ONE;
-        xHWREG(ulBase + SPI_CNTRL) |= SPI_CNTRL_VARCLK_EN; 
+        xHWREG(ulBase + SPI_CNTRL) &= ~SPI_CNTRL_VARCLK_EN; 
         xHWREG(ulBase + SPI_CNTRL) &= (~SPI_CNTRL_REORDER_M);
     }
     else

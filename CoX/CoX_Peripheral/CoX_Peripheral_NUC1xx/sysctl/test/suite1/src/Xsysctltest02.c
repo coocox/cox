@@ -156,7 +156,7 @@ static void xsysctl_SysCtlPeripheralDisable_test(void)
     SysCtlPeripheralDisable(SYSCTL_PERIPH_GPIO);
     ulRegVal = xHWREG(0x50000208);
     TestAssert((0 == (ulRegVal & 0) && ((ulTemp & (~0)) == ulRegVal)), 
-		                                                 "xsysctl API  error!");
+                                                         "xsysctl API  error!");
 }
 
 //*****************************************************************************
