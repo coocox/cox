@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>AT25F010</Name>
+    <Description>High Speed Small Sectored SPI Flash Memory</Description>
+    <Manufacturer>Atmel</Manufacturer>
+    
+    <Category>Memory</Category>
+    <SubCategory>SPI Flash</SubCategory>
+    
+    <KeyWord>AT25F010, AT25F0x, SPI Flash, Memory</KeyWord>
+    
+    <Communication>
+        <Interface>SPI</Interface>
+    </Communication>
+    
+    <WebPage>http://www.atmel.com/dyn/products/product_card.asp?part_id=3979</WebPage>
+    <Datasheet>http://www.atmel.com/dyn/resources/prod_documents/doc5167.pdf</Datasheet>
+</Device>

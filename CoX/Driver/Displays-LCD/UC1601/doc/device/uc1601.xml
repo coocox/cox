@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>uc1601</Name>
+    <Description>Single-Chip,Ultra-Low Power 65COM by 132SEG Passive Matrix LCD Controller-Driver</Description>
+    <Manufacturer>UltraChip</Manufacturer>
+    
+    <Category>Display</Category>
+    <SubCategory>HT1621</SubCategory>
+    
+    <KeyWord>uc1601, HT1621, SPI, Display,LCD</KeyWord>
+    
+    <Communication>
+        <Interface>SPI</Interface>
+		<Interface>GPIO</Interface>
+		<Interface>I2C</Interface>
+    </Communication>
+    
+    <WebPage>http://www.ultrachip.com/english/02_products/01_date_sheet.asp?fid=8</WebPage>
+    <Datasheet>http://www.artronic.pl/pdf/pl/UC1601.pdf</Datasheet>
+</Device>
