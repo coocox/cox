@@ -1664,13 +1664,19 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_nvic.h</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\Xhw_sysctl.h</name>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_spi.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_sysctl.h</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_types.h</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_uart.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xspi.h</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xsysctl.h</name>
@@ -1689,6 +1695,9 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xgpio.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xspi.c</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xsysctl.c</name>
@@ -1727,6 +1736,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\src\dmatest03.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\dmatest04.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\src\testcase.c</name>

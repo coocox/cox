@@ -74,6 +74,7 @@ extern const tTestCase * const psPatternXdma01[];
 extern const tTestCase * const psPatternXdma02[];
 
 extern const tTestCase * const psPatternXdma03[];
+extern const tTestCase * const psPatternXdma04[];
 
 //*****************************************************************************
 //

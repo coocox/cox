@@ -147,9 +147,9 @@ xtEventCallback DmaCallbackFunc[9] = {DmaChannel0Callback,
                                       DmaChannel8Callback};
 //*****************************************************************************
 //
-//! \brief Get the Test description of xdma003 register test.
+//! \brief Get the Test description of xdma004 register test.
 //!
-//! \return the desccription of the xdma003 test.
+//! \return the desccription of the xdma004 test.
 //
 //*****************************************************************************
 static char* xDma003GetTest(void)
@@ -278,7 +278,7 @@ static void xdmaTransferTest(void)
 
 //*****************************************************************************
 //
-//! \brief xdma 003 test execute main body.
+//! \brief xdma 004 test execute main body.
 //!
 //! \return None.
 //

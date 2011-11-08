@@ -85,9 +85,9 @@ unsigned long ulPDMABaseAddr[9] =
 
 //*****************************************************************************
 //
-//! \brief Get the Test description of xdma001 register test.
+//! \brief Get the Test description of xdma003 register test.
 //!
-//! \return the desccription of the xdma001 test.
+//! \return the desccription of the xdma003 test.
 //
 //*****************************************************************************
 static char* xDma002GetTest(void)
@@ -98,7 +98,7 @@ static char* xDma002GetTest(void)
 
 //*****************************************************************************
 //
-//! \brief something should do before the test execute of xdma001 test.
+//! \brief something should do before the test execute of xdma003 test.
 //!
 //! \return None.
 //
@@ -253,7 +253,7 @@ static void xdmaChannelControlSetTest(void)
 }
 //*****************************************************************************
 //
-//! \brief xdma 001 test execute main body.
+//! \brief xdma 003 test execute main body.
 //!
 //! \return None.
 //
