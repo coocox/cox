@@ -124,8 +124,8 @@ static void xrtc001Execute_Init()
 //
 //*****************************************************************************
 const tTestCase sTestxrtc001Init = {
-		xrtc001GetTest,
-		xrtc001Setup,
+        xrtc001GetTest,
+        xrtc001Setup,
         xrtc001TearDown,
         xrtc001Execute_Init 
 };
@@ -205,8 +205,8 @@ static void xrtc002Execute_FCset()
 //
 //*****************************************************************************
 const tTestCase sTestxrtc002FCset = {
-		xrtc002GetTest,
-		xrtc002Setup,
+        xrtc002GetTest,
+        xrtc002Setup,
         xrtc002TearDown,
         xrtc002Execute_FCset
 };
@@ -282,8 +282,8 @@ static void xrtc003Execute_ModeTest()
 //
 //*****************************************************************************
 const tTestCase sTestxrtc003Mode = {
-		xrtc003GetTest,
-		xrtc003Setup,
+        xrtc003GetTest,
+        xrtc003Setup,
         xrtc003TearDown,
         xrtc003Execute_ModeTest
 };
@@ -430,8 +430,8 @@ static void xrtc004Execute_Int()
 //
 //*****************************************************************************
 const tTestCase sTestxrtc004Int = {
-		xrtc004GetTest,
-		xrtc004Setup,
+        xrtc004GetTest,
+        xrtc004Setup,
         xrtc004TearDown,
         xrtc004Execute_Int
 };
@@ -513,8 +513,8 @@ static void xrtc005Execute_WakeUp()
 //
 //*****************************************************************************
 const tTestCase sTestxrtc005WakeUp = {
-		xrtc005GetTest,
-		xrtc005Setup,
+        xrtc005GetTest,
+        xrtc005Setup,
         xrtc005TearDown,
         xrtc005Execute_WakeUp
 };
@@ -607,8 +607,8 @@ static void xrtc006Execute_IsLeapYear()
 //
 //*****************************************************************************
 const tTestCase sTestxrtc006IsLeapYear = {
-		xrtc006GetTest,
-		xrtc006Setup,
+        xrtc006GetTest,
+        xrtc006Setup,
         xrtc006TearDown,
         xrtc006Execute_IsLeapYear 
 };
@@ -699,8 +699,8 @@ static void xrtc007Execute_TimeFormat()
 //
 //*****************************************************************************
 const tTestCase sTestxrtc007TimeFormat = {
-		xrtc007GetTest,
-		xrtc007Setup,
+        xrtc007GetTest,
+        xrtc007Setup,
         xrtc007TearDown,
         xrtc007Execute_TimeFormat 
 };
