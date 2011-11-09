@@ -30,6 +30,7 @@
 #include "xhw_i2c.h"
 #include "xi2c.h"
 
+
 //*****************************************************************************
 //
 //! \addtogroup test
@@ -105,7 +106,6 @@ extern xtBoolean _TestAssert(char* pcFile, unsigned long ulLine,
 
 extern xtBoolean _TestAssertSequenceBreak(char *pcExpected, 
                                           unsigned long ulDelay);
-
 
 //*****************************************************************************
 //
@@ -184,7 +184,7 @@ extern void TestDisableIRQ(void);
         do                                                                    \
         {                                                                     \
             if (_TestAssertSequenceBreak(pcExpected, ulDelay))                \
-            {                                                                 \
+            {                                                                 \ 
                 _TestAssert(__FILE__, __LINE__, 0, pcMsg);                    \
                 while(1);                                                     \
             }                                                                 \
@@ -207,4 +207,3 @@ extern void TestDisableIRQ(void);
 //*****************************************************************************
 
 #endif /* __TEST_H__ */
-
