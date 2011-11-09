@@ -102,7 +102,7 @@
                                 0x4E
 
 #define DS18B20_READ_SCRATCHPAD 0xBE
-#define DS18B20_COPY SCRATCHPAD 0x48
+#define DS18B20_COPY_SCRATCHPAD 0x48
 
 #define DS18B20_RECALL          0xB8
 #define DS18B20_READ_POWER_SUPPLY                                             \

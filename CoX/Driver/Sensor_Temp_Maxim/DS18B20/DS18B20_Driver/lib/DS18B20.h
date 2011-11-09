@@ -71,14 +71,55 @@
 
 //*****************************************************************************
 //
-//! \addtogroup DS18B20_Config DS18B20 Driver Configurtion
+//! \addtogroup DS18B20_Config DS18B20 Driver Config
+//! \brief Configurtions something before using this driver.
+//! 
+//! @{
+//
+//*****************************************************************************
+
+#define DS18B20_SEARCH_ROM_EN   1
+
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+//*****************************************************************************
+//
+//! \addtogroup DS18B20_Device DS18B20 Driver Device
 //! \brief Configurtions such as the GPIO Pin used should be set before using
 //! this driver.
 //! @{
 //
 //*****************************************************************************
 
-#define DS18B20_PIN_DIO         PA0
+//#define DS18B20_PIN_DIO         PA0
+typedef struct 
+{
+    //
+    //! DS18B20 DIO port
+    // 
+    unsigned long ulPort;     
+    //
+    //! DS18B20 DIO pin
+    // 
+    unsigned long ulPin;
+    
+    //
+    //! DS18B20 ROM
+    // 
+    unsigned char ucROM[8];
+    
+    //
+    //! Init the DS18B20 pin function
+    //! Enable the pin corresponding peripheral
+    //
+    void (*PinSet)(void);
+    
+} 
+tDS18B20Dev;
 
 
 //*****************************************************************************
@@ -110,7 +151,25 @@
 //! @{
 //
 //*****************************************************************************
-extern void DS18B20Init(void);
+extern void DS18B20Init(tDS18B20Dev *psDev);
+extern xtBoolean DS18B20Reset(tDS18B20Dev *psDev);
+extern void DS18B20ROMRead(tDS18B20Dev *psDev);
+extern void DS18B20ROMMatch(tDS18B20Dev *psDev);
+extern void DS18B20ROMSkip(tDS18B20Dev *psDev);
+extern void DS18B20AlarmSearch(tDS18B20Dev *psDev);
+#if (DS18B20_SEARCH_ROM_EN > 0)
+extern xtBoolean DS18B20ROMSearch(tDS18B20Dev *psDev);
+extern xtBoolean DS18B20Verify(tDS18B20Dev *psDev);
+extern void DS18B20TargetSetup(tDS18B20Dev *psDev, unsigned char ucFamily);
+extern void DS18B20FamilySkipSetup(tDS18B20Dev *psDev, unsigned char ucFamily);
+#endif
+extern void DS18B20TempConvert(tDS18B20Dev *psDev);
+extern void DS18B20ScratchpadCopy(tDS18B20Dev *psDev);
+extern void DS18B20ScratchpadSet(tDS18B20Dev *psDev, char cHigh, char cLow,
+                                 unsigned char ucBitConfig);
+extern void DS18B20TempRead(tDS18B20Dev *psDev, float *pfTemp);
+extern void DS18B20EEROMRecall(tDS18B20Dev *psDev);
+extern void DS18B20PowerSupplyRead(tDS18B20Dev *psDev, unsigned char *pucPower);
 
 
 //*****************************************************************************
