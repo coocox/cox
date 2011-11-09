@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+  <project>
+    <path>$WS_DIR$\suit1.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\..\..\..\example\slave_receive_poll\ewarm\template.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\..\..\..\example\multiple_slave_address\ewarm\template.ewp</path>
+  </project>
+  <batchBuild/>
+</workspace>
+
+
