@@ -1631,9 +1631,9 @@
     </settings>
   </configuration>
   <group>
-    <name>COX</name>
+    <name>CoX</name>
     <group>
-      <name>COX_Peripheral</name>
+      <name>CoX_Peripheral</name>
       <group>
         <name>inc</name>
         <file>
@@ -1700,18 +1700,6 @@
     </file>
   </group>
   <group>
-    <name>testcase</name>
-    <file>
-      <name>$PROJ_DIR$\..\src\testcase.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\testcase.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\xrtctest.c</name>
-    </file>
-  </group>
-  <group>
     <name>test</name>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\testframe\main.c</name>
@@ -1724,6 +1712,18 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\testframe\testport.c</name>
+    </file>
+  </group>
+  <group>
+    <name>testcase</name>
+    <file>
+      <name>$PROJ_DIR$\..\src\testcase.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\testcase.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\xrtctest.c</name>
     </file>
   </group>
 </project>

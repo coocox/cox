@@ -50,8 +50,7 @@ unsigned long xRTCCallback(void *pvCBData,
         RTCTimeRead(&tTime1, ulTimeAlarm[0]);
     
     }
-    ulj++;
-    
+    TestEmitToken('a');
     return 0;
 }
 
@@ -333,9 +332,7 @@ static void xrtc004TearDown(void)
 //
 //*****************************************************************************
 static void xrtc004Execute_Int()
-{
-    ulj = 0;
-    
+{    
     tTime2.ulSecond = 40;     
     
     tTime2.ulMinute = 20; 
@@ -356,9 +353,7 @@ static void xrtc004Execute_Int()
     // Writes current time to corresponding register.
     //
     RTCTimeWrite(&tTime2, ulTimeAlarm[0]);
-    
-    while(!RTCWriteEnable());
-   
+      
     //
     // Alarm interrupt after 10 seconds.
     //
@@ -369,15 +364,17 @@ static void xrtc004Execute_Int()
     //
     RTCTimeWrite(&tTime2, ulTimeAlarm[1]);
     
+    for(ulj = 0; ulj < 0xffff; ulj ++);
+    
     while(!RTCWriteEnable());
     
     RTCTimeRead(&tTime1, ulTimeAlarm[1]);
     
     TestAssert(2011 == tTime1.ulYear && 8 == tTime1.ulMonth
            && 11 ==  tTime1.ulMDay && RTC_TIME_24H == tTime1.ulFormat 
-           && 17 == tTime1.ulHour  && 20 == tTime1.ulMinute 
-           && 50 == tTime1.ulSecond
-                 ,"xrtc API \" RTCTimeWrite()\" or \"RTCTimeRead()\" error!");
+          && 17 == tTime1.ulHour  && 20 == tTime1.ulMinute 
+          && 50 == tTime1.ulSecond
+                ,"xrtc API \" RTCTimeWrite()\" or \"RTCTimeRead()\" error!");
     
     
     RTCIntCallbackInit(xRTCCallback);
@@ -390,11 +387,10 @@ static void xrtc004Execute_Int()
     //
     RTCIntEnable(RTC_INT_ALARM);
     
-    TestAssert(RTC_INT_ALARM == ( xHWREG(RTC_RIER) & 0x00000003),
-		  "xrtc API \"RTCIntEnable\" error!");
-   
-    while(ulj !=1);
+    TestAssertQBreak("a","Alarm interrupt failed!", 0xffffffff);
     
+    for(ulj = 0; ulj < 0xffff; ulj ++);
+       
     TestAssert(2011 == tTime1.ulYear && 8 == tTime1.ulMonth
            && 11 ==  tTime1.ulMDay && RTC_TIME_24H == tTime1.ulFormat 
            && 17 == tTime1.ulHour  && 20 == tTime1.ulMinute 
@@ -419,11 +415,11 @@ static void xrtc004Execute_Int()
     
     TestAssert(RTC_INT_TIME_TICK == ( xHWREG(RTC_RIER) & 0x00000003),
 		  "xrtc API \"RTCIntEnable\" error!");
- 
-    while(ulj !=2);
     
-    TestAssert(1 == 1,
-		  "xrtc API \"RTCIntCallbackInit\" error!");
+    TestAssertQBreak("a","Tick interrupt failed!",0xffffffff);
+    
+    RTCIntDisable(RTC_INT_TIME_TICK);
+    
 }
 
 //*****************************************************************************
@@ -444,7 +440,7 @@ const tTestCase sTestxrtc004Int = {
 //
 //! \brief Get the Test description of xrtc005test.
 //!
-//! \return the desccription of the xrtc006 test.
+//! \return the desccription of the xrtc005 test.
 //
 //*****************************************************************************
 static char* xrtc005GetTest(void)
@@ -523,6 +519,192 @@ const tTestCase sTestxrtc005WakeUp = {
         xrtc005Execute_WakeUp
 };
 
+//*****************************************************************************
+//
+//! \brief Get the Test description of xrtc006test.
+//!
+//! \return the desccription of the xrtc006 test.
+//
+//*****************************************************************************
+static char* xrtc006GetTest(void)
+{
+    return "xrtc[006]: xrtc RTCIsLeapYear API test";
+}
+
+//*****************************************************************************
+//
+//! \brief Something should do before the test execute of xrtc006test.
+//!
+//! \return None.
+//
+//*****************************************************************************
+static void xrtc006Setup(void)
+{
+
+}
+
+//*****************************************************************************
+//
+//! \brief Something should do after the test execute of xrtc006 test.
+//!
+//! \return None.
+//
+//*****************************************************************************
+static void xrtc006TearDown(void)
+{
+
+}
+
+//*****************************************************************************
+//
+//! \brief xrtc006 test for rtc  RTCIsLeapYear API.
+//!
+//! \return None.
+//
+//*****************************************************************************
+static void xrtc006Execute_IsLeapYear()
+{
+    unsigned long ulTestYear[4] = {2000, 2004, 2100, 2036};
+    xtBoolean xFlag[4] = {1, 1, 0, 1};
+  
+    tTime time[4];
+  
+    for(uli = 0; uli < 4; uli ++)
+    {
+        //
+        // Sets the value of time structure that will be test.
+        //
+        time[uli].ulYear = ulTestYear[uli];
+        
+        time[uli].ulSecond = 40;     
+    
+        time[uli].ulMinute = 10; 
+    
+        time[uli].ulHour = 17; 
+    
+        time[uli].ulMDay = 11;  
+    
+        time[uli].ulMonth = 8;      
+    
+        time[uli].ulWDay = 3;   
+
+        time[uli].ulFormat = RTC_TIME_24H;
+        
+        RTCTimeWrite(&time[uli], ulTimeAlarm[0]);
+        
+        while(!RTCWriteEnable());
+        
+        TestAssert(xFlag[uli] ==  RTCIsLeapYear(),
+		       "xrtc API \"RTCIsLeapYear\" error!");
+        
+    }
+}
+//*****************************************************************************
+//
+//! \brief xrtc006 test case struct.
+//!
+//! \return None.
+//
+//*****************************************************************************
+const tTestCase sTestxrtc006IsLeapYear = {
+		xrtc006GetTest,
+		xrtc006Setup,
+        xrtc006TearDown,
+        xrtc006Execute_IsLeapYear 
+};
+
+//*****************************************************************************
+//
+//! \brief Get the Test description of xrtc007test.
+//!
+//! \return the desccription of the xrtc007 test.
+//
+//*****************************************************************************
+static char* xrtc007GetTest(void)
+{
+    return "xrtc[007]: xrtc time format test";
+}
+
+//*****************************************************************************
+//
+//! \brief Something should do before the test execute of xrtc007test.
+//!
+//! \return None.
+//
+//*****************************************************************************
+static void xrtc007Setup(void)
+{
+
+}
+
+//*****************************************************************************
+//
+//! \brief Something should do after the test execute of xrtc007 test.
+//!
+//! \return None.
+//
+//*****************************************************************************
+static void xrtc007TearDown(void)
+{
+
+}
+
+//*****************************************************************************
+//
+//! \brief xrtc007 test for rtc time format.
+//!
+//! \return None.
+//
+//*****************************************************************************
+static void xrtc007Execute_TimeFormat()
+{
+    unsigned long ulTimeFormat[3] = {RTC_TIME_24H, RTC_TIME_12H_AM , 
+                                                      RTC_TIME_12H_PM};
+    
+    for(uli = 0; uli < 3; uli ++)
+    {
+        //
+        // Sets the value of time structure that will be test.
+        //
+        tTime1.ulYear = 2011;
+        
+        tTime1.ulSecond = 40;     
+    
+        tTime1.ulMinute = 10; 
+    
+        tTime1.ulHour = 11; 
+    
+        tTime1.ulMDay = 11;  
+    
+        tTime1.ulMonth = 8;      
+    
+        tTime1.ulWDay = 3;   
+
+        tTime1.ulFormat = ulTimeFormat[uli];
+        
+        RTCTimeWrite(&tTime1, ulTimeAlarm[0]);
+        
+        while(!RTCWriteEnable());
+        
+        TestAssert(tTime1.ulFormat == ulTimeFormat[uli],
+		       "xrtc API \"RTCTimeRead\" error!");
+        
+    }
+}
+//*****************************************************************************
+//
+//! \brief xrtc007 test case struct.
+//!
+//! \return None.
+//
+//*****************************************************************************
+const tTestCase sTestxrtc007TimeFormat = {
+		xrtc007GetTest,
+		xrtc007Setup,
+        xrtc007TearDown,
+        xrtc007Execute_TimeFormat 
+};
+
 //
 // xrtc test suits.
 //
@@ -533,6 +715,8 @@ const tTestCase * const psPatternxrtc[] =
     &sTestxrtc003Mode,
     &sTestxrtc004Int,
     &sTestxrtc005WakeUp,
+    &sTestxrtc006IsLeapYear,
+    &sTestxrtc007TimeFormat,
     0
 };
 
