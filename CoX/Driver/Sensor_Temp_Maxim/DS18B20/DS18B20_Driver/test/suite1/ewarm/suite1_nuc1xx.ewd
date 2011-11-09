@@ -89,7 +89,7 @@
         </option>
         <option>
           <name>OCLastSavedByProductVersion</name>
-          <state>5.50.6.52043</state>
+          <state>5.50.0.51907</state>
         </option>
         <option>
           <name>OCDownloadAttachToProgram</name>
@@ -685,7 +685,7 @@
         <debug>1</debug>
         <option>
           <name>CThirdPartyDriverDll</name>
-          <state>C:\Program Files\Nuvoton Tools\Nu-Link_IAR\Nu-Link_IAR.dll</state>
+          <state>d:\Program Files\Nuvoton Tools\Nu-Link_IAR\Nu-Link_IAR.dll</state>
         </option>
         <option>
           <name>CThirdPartyLogFileCheck</name>
@@ -712,10 +712,6 @@
       </plugin>
       <plugin>
         <file>$TOOLKIT_DIR$\plugins\rtos\embOS\embOSPlugin.ewplugin</file>
-        <loadFlag>0</loadFlag>
-      </plugin>
-      <plugin>
-        <file>$TOOLKIT_DIR$\plugins\rtos\MQX\MQXRtosPlugin.ewplugin</file>
         <loadFlag>0</loadFlag>
       </plugin>
       <plugin>
@@ -1474,10 +1470,6 @@
       </plugin>
       <plugin>
         <file>$TOOLKIT_DIR$\plugins\rtos\embOS\embOSPlugin.ewplugin</file>
-        <loadFlag>0</loadFlag>
-      </plugin>
-      <plugin>
-        <file>$TOOLKIT_DIR$\plugins\rtos\MQX\MQXRtosPlugin.ewplugin</file>
         <loadFlag>0</loadFlag>
       </plugin>
       <plugin>

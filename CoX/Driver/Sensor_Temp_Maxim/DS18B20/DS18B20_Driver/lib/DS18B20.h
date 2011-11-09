@@ -169,7 +169,7 @@ extern void DS18B20ScratchpadSet(tDS18B20Dev *psDev, char cHigh, char cLow,
                                  unsigned char ucBitConfig);
 extern void DS18B20TempRead(tDS18B20Dev *psDev, float *pfTemp);
 extern void DS18B20EEROMRecall(tDS18B20Dev *psDev);
-extern void DS18B20PowerSupplyRead(tDS18B20Dev *psDev, unsigned char *pucPower);
+extern xtBoolean DS18B20PowerSupplyRead(tDS18B20Dev *psDev);
 
 
 //*****************************************************************************

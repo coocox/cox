@@ -372,6 +372,7 @@ void DS18B20ByteWrite(tDS18B20Dev *psDev, unsigned char ucByte)
         DS18B20BitWrite(psDev,((ucByte>>i) & 0x1));
     }
 }
+
 #if (DS18B20_SEARCH_ROM_EN > 0)
 //*****************************************************************************
 //
@@ -642,6 +643,29 @@ void DS18B20FamilySkipSetup(tDS18B20Dev *psDev, unsigned char ucFamily)
 
 //*****************************************************************************
 //
+//! \brief Get the DS18B20's alarm flag is set or not.
+//!
+//! \param psDev.
+//!
+//! \return None
+//! \note This command can only be used when there is one slave on the bus.
+//
+//*****************************************************************************
+void DS18B20AlarmSearch(tDS18B20Dev *psDev)
+{
+    //DS18B20ByteWrite(psDev, DS18B20_ALARM_SEARCH);
+
+    //if (DS18B20BitRead(psDev))
+    //{
+    //    return xtrue;
+    //}
+    //else
+    //{
+    //    return xfalse;
+    //}
+}
+//*****************************************************************************
+//
 //! \brief Read the slave¡¯s 64-bit ROM code without using the Search ROM 
 //! procedure.
 //!
@@ -766,11 +790,7 @@ void DS18B20ScratchpadSet(tDS18B20Dev *psDev, char cHigh, char cLow,
 //! \brief Get the Temperature of DS18B20.
 //!
 //! \param psDev.
-//! \param cHigh The data is written into the TH register (byte 2 of the 
-//! scratchpad).
-//! \param cLow The data is written into the TL register (byte 3).
-//! \param ucBitConfig The data is written into the configuration register 
-//! (byte 4).
+//! \param pfTemp The flaot Temperature vaule.
 //!
 //! \return None
 //
@@ -789,5 +809,52 @@ void DS18B20TempRead(tDS18B20Dev *psDev, float *pfTemp)
     else
     {
         *pfTemp = ((ulTemp & 0xFF0) >> 8)*1.0 + (ulTemp & 0xf)*0.0625;
+    }
+}
+
+//*****************************************************************************
+//
+//! \brief Recalls TH, TL, and configuration register data from EEPROM to the
+//! scratchpad..
+//!
+//! \param psDev.
+//!
+//! \return None
+//
+//*****************************************************************************
+void DS18B20EEROMRecall(tDS18B20Dev *psDev)
+{
+    DS18B20ByteWrite(psDev, DS18B20_RECALL);
+    //
+    // DS18B20 dq_pin be set to high
+    //
+    xGPIOPinWrite(psDev->ulPort, psDev->ulPin, 1);
+    DS18B20DelayNus(5);
+    //
+    // Wait utill the recall is done.
+    //
+    while (DS18B20BitRead(psDev));
+}
+
+//*****************************************************************************
+//
+//! \brief Get DS18B20s's power supply.
+//!
+//! \param psDev.
+//!
+//! \return xTRUE  : externally powered
+//!         xFALSE : parasite powered
+//
+//*****************************************************************************
+xtBoolean DS18B20PowerSupplyRead(tDS18B20Dev *psDev)
+{
+    DS18B20ByteWrite(psDev, DS18B20_READ_POWER_SUPPLY);
+    if (DS18B20BitRead(psDev))
+    {
+        return xtrue;
+    }
+    else
+    {
+        return xfalse;
     }
 }
