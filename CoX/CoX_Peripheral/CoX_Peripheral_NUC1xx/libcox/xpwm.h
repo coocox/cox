@@ -919,7 +919,7 @@ extern "C"
 #define PWM_OUTPUT_INVERTER_EN  0x00000004
 
 //
-//! Inverter enable
+//! Inverter disable
 //
 #define PWM_OUTPUT_INVERTER_DIS 0x00000000
 
