@@ -387,7 +387,7 @@ void DS18B20ByteWrite(tDS18B20Dev *psDev, unsigned char ucByte)
 //*****************************************************************************
 xtBoolean DS18B20ROMSearch(tDS18B20Dev *psDev)
 {
-    int IdBitNumber;
+    int IdBitNumber,i;
     int LastZero, ROMByteNumber, SearchResult;
     int IDBit, ComplementIDBitR;
     unsigned char ROMByteMask, SearchDirection;
@@ -534,6 +534,10 @@ xtBoolean DS18B20ROMSearch(tDS18B20Dev *psDev)
             if (LastDiscrepancy == 0)
                 LastDeviceFlag = 1;
             SearchResult = xtrue; 
+            for(i=0; i<8; i++)
+            {
+                psDev->ucROM[i] = ucROM[i];
+            }
         }        
     }
     //
@@ -563,18 +567,24 @@ xtBoolean DS18B20Verify(tDS18B20Dev *psDev)
 {
     unsigned char ucROMBackup[8];
     int i,result,LDBackup,LDFBackup,LFDBackup;
+    //
     // keep a backup copy of the current state
+    //
     for (i = 0; i < 8; i++)
         ucROMBackup[i] = ucROM[i];
     LDBackup = LastDiscrepancy;
     LDFBackup = LastDeviceFlag;
     LFDBackup = LastFamilyDiscrepancy;
+    //
     // set search to find the same device
+    //
     LastDiscrepancy = 64;
     LastDeviceFlag = 0;
     if (DS18B20ROMSearch(psDev))
     {
+        //
         // check if same device found
+        //
         result = 1;
         for (i = 0; i < 8; i++)
         {
@@ -587,13 +597,17 @@ xtBoolean DS18B20Verify(tDS18B20Dev *psDev)
     }
     else
         result = 0;
+    //
     // restore the search state 
+    //
     for (i = 0; i < 8; i++)
         ucROM[i] = ucROMBackup[i];
     LastDiscrepancy = LDBackup;
     LastDeviceFlag = LDFBackup;
     LastFamilyDiscrepancy = LFDBackup;
+    //
     // return the result of the verify
+    //
     return result;
 }
 
@@ -610,8 +624,9 @@ xtBoolean DS18B20Verify(tDS18B20Dev *psDev)
 void DS18B20TargetSetup(tDS18B20Dev *psDev, unsigned char ucFamily)
 {
     int i;
-  
+    //
     // set the search state to find SearchFamily type devices
+    //
     ucROM[0] = ucFamily;
     for (i = 1; i < 8; i++)
         ucROM[i] = 0;
@@ -633,9 +648,13 @@ void DS18B20TargetSetup(tDS18B20Dev *psDev, unsigned char ucFamily)
 //*****************************************************************************
 void DS18B20FamilySkipSetup(tDS18B20Dev *psDev, unsigned char ucFamily)
 {
+    //
     // set the Last discrepancy to last family discrepancy
+    //
     LastDiscrepancy = LastFamilyDiscrepancy;
+    //
     // check for end of list
+    //
     if (LastDiscrepancy == 0)
         LastDeviceFlag = 1;
 }
@@ -804,11 +823,11 @@ void DS18B20TempRead(tDS18B20Dev *psDev, float *pfTemp)
     if (ulTemp > 2097)
     {
         ulTemp = 65536 - ulTemp;
-        *pfTemp = -(((ulTemp & 0xFF0) >> 8)*1.0 + (ulTemp & 0xf)*0.0625);
+        *pfTemp = -(((ulTemp & 0x7F0) >> 4)*1.0 + (ulTemp & 0xf)*0.0625);
     }
     else
     {
-        *pfTemp = ((ulTemp & 0xFF0) >> 8)*1.0 + (ulTemp & 0xf)*0.0625;
+        *pfTemp = ((ulTemp & 0x7F0) >> 4)*1.0 + (ulTemp & 0xf)*0.0625;
     }
 }
 
