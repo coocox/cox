@@ -108,16 +108,15 @@ typedef struct
     unsigned long ulPin;
     
     //
-    //! DS18B20 ROM
-    // 
-    unsigned char ucROM[8];
-    
-    //
     //! Init the DS18B20 pin function
     //! Enable the pin corresponding peripheral
     //
     void (*PinSet)(void);
     
+    //
+    //! DS18B20 ROM
+    // 
+    unsigned char ucROM[8]; 
 } 
 tDS18B20Dev;
 
@@ -130,12 +129,26 @@ tDS18B20Dev;
 
 //*****************************************************************************
 //
-//! \addtogroup DS18B20_FUNCTION_COMMANDS DS18B20 FUNCTION COMMANDS
+//! \addtogroup DS18B20_Bit_Config DS18B20 Thermometer Resolution Configuration
 //! @{
 //
 //*****************************************************************************
-
-#define DS18B20_CONVERT         0x44
+//
+//! DS18B20 9 Bits MAX CONVERSION TIME is 93.75ms (tCONV/8)
+// 
+#define DS18B20_9BIT            0x1F
+//
+//! DS18B20 10 Bits MAX CONVERSION TIME is 187.5ms (tCONV/4)
+// 
+#define DS18B20_10BIT           0x3F
+//
+//! DS18B20 11 Bits MAX CONVERSION TIME is 375ms (tCONV/2)
+// 
+#define DS18B20_11BIT           0x5F
+//
+//! DS18B20 12 Bits MAX CONVERSION TIME is 750ms (tCONV)
+// 
+#define DS18B20_12BIT           0x7F
 
 
 //*****************************************************************************
@@ -168,6 +181,7 @@ extern void DS18B20ScratchpadCopy(tDS18B20Dev *psDev);
 extern void DS18B20ScratchpadSet(tDS18B20Dev *psDev, char cHigh, char cLow,
                                  unsigned char ucBitConfig);
 extern void DS18B20TempRead(tDS18B20Dev *psDev, float *pfTemp);
+extern void DS18B20ScratchpadRead(tDS18B20Dev *psDev, unsigned char *pucTemp);
 extern void DS18B20EEROMRecall(tDS18B20Dev *psDev);
 extern xtBoolean DS18B20PowerSupplyRead(tDS18B20Dev *psDev);
 

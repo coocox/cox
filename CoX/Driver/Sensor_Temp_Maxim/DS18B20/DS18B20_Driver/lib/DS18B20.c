@@ -46,6 +46,7 @@
 #include "hw_DS18B20.h"
 #include "DS18B20.h"
 
+static unsigned long ulHclk;
 #if (DS18B20_SEARCH_ROM_EN > 0)
 //
 // global search state
@@ -71,13 +72,7 @@ static unsigned char ucCrc8;
 //*****************************************************************************
 static void DS18B20DelayNus(unsigned long ulNus)
 {
-    int i;
-    unsigned long ulHclk;
-    ulHclk = xSysCtlClockGet()/3000000;
-    for(i=ulNus; i>0; i--)
-    {
-        xSysCtlDelay(ulHclk);
-    }
+    xSysCtlDelay(ulHclk*ulNus/4);
 }
 
 //*****************************************************************************
@@ -92,6 +87,7 @@ static void DS18B20DelayNus(unsigned long ulNus)
 void DS18B20Init(tDS18B20Dev *psDev)
 {
     unsigned char i = 1;
+    ulHclk = xSysCtlClockGet()/1000000;
     //
     // Enable the GPIOx port which is connected with DS18B20 
     //
@@ -243,7 +239,7 @@ unsigned char DS18B20BitRead(tDS18B20Dev *psDev)
     //
     xGPIOPinWrite(psDev->ulPort, psDev->ulPin, 0);
 
-    DS18B20DelayNus(2);
+    DS18B20DelayNus(6);
 
     //
     // DS18B20 dq_pin be set to high
@@ -876,4 +872,25 @@ xtBoolean DS18B20PowerSupplyRead(tDS18B20Dev *psDev)
     {
         return xfalse;
     }
+}
+
+//*****************************************************************************
+//
+//! \brief Get the Scratchpad of DS18B20.
+//!
+//! \param psDev.
+//! \param pucTemp The point of Scratchpad.
+//!
+//! \return None
+//
+//*****************************************************************************
+void DS18B20ScratchpadRead(tDS18B20Dev *psDev, unsigned char *pucTemp)
+{
+    int i;
+    DS18B20ByteWrite(psDev, DS18B20_READ_SCRATCHPAD);
+    for(i=0; i<8; i++)
+    {  
+        *pucTemp++ = DS18B20ByteRead(psDev);
+    }
+    
 }
