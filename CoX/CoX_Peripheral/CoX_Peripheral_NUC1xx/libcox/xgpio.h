@@ -2503,7 +2503,8 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! GPIO pin A15
 //
 #define GPIO_PA15_PWM3          0x00000F00
-#define GPIO_PA15_I2SMCLK       0x09010F00
+#define GPIO_PA15_I2S0RXMCLK    0x09010F00
+#define GPIO_PA15_I2S0TXMCLK    0x09010F00
 
 //
 //! GPIO pin B0
@@ -2590,7 +2591,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! GPIO pin B14
 //
 #define GPIO_PB14_INT0          0x03001E00
-#define GPIO_PB14_SS31          0x03011E00
+#define GPIO_PB14_SPI3CS        0x03011E00
 
 //
 //! GPIO pin B15
@@ -2603,24 +2604,26 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 #define GPIO_PC0_SPI0CS         0x05002000
 #define GPIO_PC0_I2S0RXWS       0x05012000
+#define GPIO_PC0_I2S0TXWS       0x05012000
 
 //
 //! GPIO pin C1
 //
 #define GPIO_PC1_SPI0CLK        0x06002100
-#define GPIO_PC1_I2S0RXCLK      0x06012100
+#define GPIO_PC1_I2S0RXSCK      0x06012100
+#define GPIO_PC1_I2S0TXSCK      0x06012100
 
 //
 //! GPIO pin C2
 //
 #define GPIO_PC2_SPI0MISO       0x07002200
-#define GPIO_PC2_I2S0RX         0x07012200
+#define GPIO_PC2_I2S0RXSD       0x07012200
 
 //
 //! GPIO pin C3
 //
 #define GPIO_PC3_SPI0MOSI       0x08002300
-#define GPIO_PC3_I2S0TX         0x08012300
+#define GPIO_PC3_I2S0TXSD       0x08012300
 
 //
 //! GPIO pin C4

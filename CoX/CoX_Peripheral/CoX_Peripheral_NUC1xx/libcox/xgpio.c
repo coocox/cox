@@ -952,8 +952,7 @@ GPIOPinMaskSet(unsigned long ulPort, unsigned long ulPins)
 //
 //*****************************************************************************
 void
-GPIODebounceTimeSet(unsigned long ulClockSource, 
-                              unsigned long ulDebounceClk)
+GPIODebounceTimeSet(unsigned long ulClockSource, unsigned long ulDebounceClk)
 {
     //
     // Check the arguments.
@@ -968,7 +967,8 @@ GPIODebounceTimeSet(unsigned long ulClockSource,
     xHWREG(GPIO_DBNCECON) =  ((ulClockSource & 1) ?
                               (xHWREG(GPIO_DBNCECON) | GPIO_DBNCECON_DBCLKSRC) :
                               (xHWREG(GPIO_DBNCECON) & ~(GPIO_DBNCECON_DBCLKSRC)));
-    xHWREG(GPIO_DBNCECON) |=  ulDebounceClk;                 
+    xHWREG(GPIO_DBNCECON) &= ~GPIO_DBNCECON_DBCLKSEL_M;
+    xHWREG(GPIO_DBNCECON) |= ulDebounceClk;                 
 }
 
 //*****************************************************************************
