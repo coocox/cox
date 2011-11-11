@@ -122,24 +122,9 @@ xADCConfigure(unsigned long ulBase, unsigned long ulMode,
 //! values).  The configuration is used by the
 //! ADC at the appropriate time when the trigger for this sequence occurs.
 //!
-//! \note If the Digitial Comparator is present and enabled, the ADC sample 
-//! will NOT be written into the ADC sequence data register.
-//!
-//! The \e ulStep parameter determines the order in which the samples are
-//! captured by the ADC when the trigger occurs.  It can range from zero to
-//! seven for the first sample sequence, from zero to three for the second and
-//! third sample sequence, and can only be zero for the fourth sample sequence.
-//!
-//! Differential mode only works with adjacent channel pairs (for example, 0
-//! and 1).  The channel select must be the number of the channel pair to
-//! sample (for example, \b ADC_CTL_CH0 for 0 and 1, or \b ADC_CTL_CH1 for 2
-//! and 3) or undefined results will be returned by the ADC.  Additionally, if
-//! differential mode is selected when the temperature sensor is being sampled,
-//! undefined results will be returned by the ADC.
-//!
-//! It is the responsibility of the caller to ensure that a valid configuration
-//! is specified; this function does not check the validity of the specified
-//! configuration.
+//! \note It is the responsibility of the caller to ensure that a valid 
+//! configuration is specified; this function does not check the validity of 
+//! the specified configuration.
 //!
 //! \return None.
 //
@@ -492,7 +477,7 @@ xADCOverflowClear(unsigned long ulBase)
 {
     unsigned long i;
     unsigned long ulOverRunChannels;
-    unsigned long ulDump = ulDump;
+    volatile unsigned long ulDump;
 
     //
     // Check the arguments
