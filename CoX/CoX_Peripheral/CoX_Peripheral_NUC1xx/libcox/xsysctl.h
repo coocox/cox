@@ -3,8 +3,8 @@
 //! \file xsysctl.h
 //! \brief Prototypes for the System Manager Driver.
 //! Prototypes for the Clock Controller Driver.
-//! \version V2.0.0
-//! \date 9/30/2011
+//! \version V2.0.1
+//! \date 11/11/2011
 //! \author CooCox
 //! \copy
 //!
@@ -1886,7 +1886,7 @@ extern void xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig);
 //
 //! Oscillator Source
 //
-#define SYSCTL_OSCSRC_M         0x00000070 
+#define SYSCTL_OSCSRC_M         0x00080070 
 
 //
 //! PLL source is int. 12 MHz
