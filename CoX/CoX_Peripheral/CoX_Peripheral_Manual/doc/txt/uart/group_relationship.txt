@@ -1,0 +1,43 @@
+//******************************************************
+//
+//!
+//! \addtogroup UART
+//! @{
+//! \addtogroup NUC1xx_UART_Register 
+//! @{
+//! @}
+//! \addtogroup xUART
+//! @{
+//! @}
+//! \addtogroup NUC1xx_UART
+//! @{
+//! @}
+//! \addtogroup xUART_Apps
+//! @{
+//! @}
+//! @}
+//
+//******************************************************
+
+//******************************************************
+//
+//! \addtogroup UART
+//! @{
+//! \addtogroup xUART_Apps
+//! @{
+//! \addtogroup xUART_App_NormalMode
+//! @{
+//! @}
+//! \addtogroup xUART_App_IrDA
+//! @{
+//! @}
+//! \addtogroup xUART_App_Modem
+//! @{
+//! @}
+//! \addtogroup xUART_App_LIN
+//! @{
+//! @}
+//! @}
+//! @}
+//
+//******************************************************

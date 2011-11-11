@@ -2,8 +2,8 @@
 //
 //! \file xhw_ints.h
 //! \brief Macros that define the interrupt assignment on NUC1xx.
-//! \version V2.0.0
-//! \date 9/30/2011
+//! \version V2.0.1
+//! \date 11/11/2011
 //! \author CooCox
 //! \copy
 //!
@@ -42,7 +42,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -64,9 +64,9 @@
 //*****************************************************************************
 //
 //! \addtogroup xLowLayer_Interrupt_Assignments xLowLayer Interrupt Assignments
-//! \brief Macros defines for the fault/interrupt assignments.
+//! \brief Macro definitions for the fault/interrupt assignments. 
 //!
-//! They can be used as ulInterrupt parameter with xIntEnable(), xIntDisable()
+//! They can be used as ulInterrupt parameters with xIntEnable(), xIntDisable()
 //! to enable/disable the interrupt at the core/NVIC level. 
 //!
 //! @{

@@ -3,21 +3,21 @@
 //! \defgroup Startup Start-up Code
 //! \brief Default Start-up Code.
 //!
-//! \section Startup_Why Why COX include a startup code?
-//! The new version COX standard add the interrupt support, and unified defines 
-//! the interruption. User use the callback function with the Event ID define 
-//! in COX instead of an interrupt service function.
+//! \section Startup_Why Why does CoX include a startup code?
+//! The new version CoX standard adds the interrupt support, and unified defines 
+//! the interruption. User use the callback function with the Event ID to define 
+//! in CoX instead of an interrupt service function.
 //! 
-//! In the COX implement, COX implement the interrupt service function, such as 
+//! In the CoX implement, CoX implement the interrupt service function, such as 
 //! UART0IntHander(). Users must confirm that the vector of UART0 in the 
-//! vector table is UART0IntHander().
+//! vector table is UART0IntHander.
 //! 
 //! So, we provide the default start-up code to ensure that.
 //!
-//! If user do not want to user the COX interrupt feature, He can just modify the
+//! If user do not want to use the CoX interrupt feature, He can just modify the
 //! vector in the vector table.
 //!
-//! We provide different compiler start-up code, startup_*.
+//! We provide start-up code for different compilers, startup_*.
 //! \verbatim
 //! +----------------+------------------+
 //! | CoIDE          | startup_coide.c  | 
@@ -33,7 +33,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************

@@ -2,8 +2,8 @@
 //
 //! \file xtimer.h
 //! \brief Prototypes for the TIMER Driver.
-//! \version 2.0.0.$Rev: 243 $
-//! \date 9/30/2011
+//! \version V2.0.1
+//! \date 11/11/2011
 //! \author CooCox
 //! \copy
 //!
@@ -53,7 +53,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -75,15 +75,15 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xTIMER_Mode_Type xTIMER Mode Type 
-//! \brief Values that show xTIMER Mode Type
+//! \brief Values that show xTIMER Mode Type.
 //! \n
 //! \section xTIMER_Mode_Type_Section 1. Where to use this group
 //! Values that can be passed to xTimerInitConfig() as the ulConfig parameter 
 //! \n
-//! \section xTIMER_Mode_Type_COX 2. COX Port Details 
+//! \section xTIMER_Mode_Type_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xTIMER Mode             |       COX      |         NUC1xx         |
+//! |xTIMER Mode             |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_MODE_ONESHOT     |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -141,17 +141,17 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup xTIMER_INT_Type xTIMER Interrupt Type
-//! \brief Values that show xTIMER Interrupt Type
+//! \addtogroup xTIMER_INT_Type xTIMER Interrupt
+//! \brief Values that show xTIMER Interrupt Type.
 //! \n
 //! \section xTIMER_INT_Type_Section 1. Where to use this group
 //! Values that can be passed to xTimerIntEnable(), xTimerIntEnable() ,
 //! xTimerIntStatus(),xTimerIntClear() as ulIntFlags . 
 //! \n
-//! \section xTIMER_INT_Type_COX 2. COX Port Details 
+//! \section xTIMER_INT_Type_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xTIMER Interrupt        |       COX      |         NUC1xx         |
+//! |xTIMER Interrupt        |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_INT_MATCH        |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -188,16 +188,16 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xTIMER_INT_Event xTIMER Interrupt Event
-//! \brief Values that show xTIMER Interrupt Type
+//! \brief Values that show xTIMER Interrupt Events.
 //! \n
 //! \section xTIMER_INT_Event_Section 1. Where to use this group
 //! Values that can be passed to xTimerIntEnable(), xTimerIntEnable() ,
 //! xTimerIntStatus(),xTimerIntClear() as ulIntFlags . 
 //! \n
-//! \section xTIMER_INT_Event_COX 2. COX Port Details 
+//! \section xTIMER_INT_Event_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xTIMER Interrupt        |       COX      |         NUC1xx         |
+//! |xTIMER Interrupt        |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_EVENT_MATCH      |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -234,15 +234,15 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xTIMER_Counter_Pase_Type xTIMER Counter Pase Type
-//! \brief Values that show xTIMER Counter Pase Type
+//! \brief Values that show xTIMER Counter Pase Type.
 //! \n
 //! \section xTIMER_Counter_Pase_Type_Section 1. Where to use this group
 //! Values that can be passed to xTimerCounterDetectPhaseSelect() as ulPhase. 
 //! \n
-//! \section xTIMER_Counter_Pase_Type_COX 2. COX Port Details 
+//! \section xTIMER_Counter_Pase_Type_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xTIMER Counter Pase Type|       COX      |         NUC1xx         |
+//! |xTIMER Counter Pase Type|       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_COUNTER_RISING   |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -272,15 +272,15 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xTIMER_Capture_Edge_Type xTIMER Capture Edge Type
-//! \brief Values that show xTIMER Capture Edge Type
+//! \brief Values that show xTIMER Capture Edge Type.
 //! \n
 //! \section xTIMER_Capture_Edge_Type_Section 1. Where to use this group
 //! Values that can be passed to xTimerCaptureEdgeSelect() as ulPhase.
 //! \n
-//! \section xTIMER_Capture_Edge_Type_COX 2. COX Port Details 
+//! \section xTIMER_Capture_Edge_Type_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xTIMER Capture Edge     |       COX      |         NUC1xx         |
+//! |xTIMER Capture Edge     |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_CAP_RISING       |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -317,15 +317,15 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xTIMER_Capture_Mode_Type xTIMER Capture Mode Type
-//! \brief Values that show xTIMER Capture Mode Type
+//! \brief Values that show xTIMER Capture Mode Type.
 //! \n
 //! \section xTIMER_Capture_Mode_Type_Section 1. Where to use this group
 //! Values that can be passed to xTimerCaptureEdgeSelect() as ulPhase.
 //! \n
-//! \section xTIMER_Capture_Mode_Type_COX 2. COX Port Details 
+//! \section xTIMER_Capture_Mode_Type_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xTIMER Capture Mode     |       COX      |         NUC1xx         |
+//! |xTIMER Capture Mode     |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_CAP_MODE_CAP     |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -356,15 +356,15 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xTIMER_Count_Direction xTIMER Count Direction
-//! \brief Values that show 
+//! \brief Values that show the count direction
 //! \n
 //! \section xTIMER_Count_Direction_Section 1. Where to use this group
 //! Values that can be passed to xTimerInitConfig() as ulConfig.
 //! \n
-//! \section xTIMER_Count_Direction_COX 2. COX Port Details 
+//! \section xTIMER_Count_Direction_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xTIMER Count Direction  |       COX      |         NUC1xx         |
+//! |xTIMER Count Direction  |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_COUNT_UP         |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -400,10 +400,10 @@ extern "C"
 //! \section xTIMER_Count_Channel_Section 1. Where to use this group
 //! Values that can be passed to all XAPI as ulChannel.
 //! \n
-//! \section xTIMER_Count_Channel_COX 2. COX Port Details 
+//! \section xTIMER_Count_Channel_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xTIMER Count Channel    |       COX      |         NUC1xx         |
+//! |xTIMER Count Channel    |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_CHANNELn         |    Mandatory   |     xTIMER_CHANNEL0    |
 //! +------------------------+----------------+------------------------+
@@ -426,12 +426,12 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xTIMER_Exported_APIs xTIMER API
-//! \brief xTIMER API Refrence.
+//! \brief xTIMER API Reference.
 //!
-//! \section xTIMER_Exported_APIs_Port COX Port Details
+//! \section xTIMER_Exported_APIs_Port CoX Port Details
 //! \verbatim
 //! +------------------------------+----------------+------------------+
-//! |xTIMER API                    |       COX      |      NUC1xx      |
+//! |xTIMER API                    |       CoX      |      NUC1xx      |
 //! |------------------------------|----------------|------------------|
 //! |xTimerInitConfig              |    Mandatory   |         Y        |
 //! |------------------------------|----------------|------------------|
@@ -483,9 +483,9 @@ extern "C"
 //!
 //! \param ulBase is the base address of the Timer port.
 //! \param ulChannel is the channel of the Timer port.
-//! Details please reference to \ref xTIMER_Count_Channel
+//! Details please refer to \ref xTIMER_Count_Channel
 //! \param ulConfig is the mode Configuratation of the Timer port.
-//! Details please reference to \ref xTIMER_Count_Direction and 
+//! Details please refer to \ref xTIMER_Count_Direction and 
 //! \ref xTIMER_Mode_Type
 //! \param ulTickFreq is the tick frequency of the Timer port.
 //!
@@ -493,14 +493,14 @@ extern "C"
 //!
 //! The \e ulConfig parameter is the OR value of two values:
 //! - Timer's mode
-//! Details please reference to \ref xTIMER_Count_Direction_COX
+//! Details please refer to \ref xTIMER_Count_Direction_CoX
 //! - Timer's direction
-//! Details please reference to \ref xTIMER_Mode_Type_COX
+//! Details please refer to \ref xTIMER_Mode_Type_CoX
 //!
 //! \b xTIMER_MODE_ONESHOT, \b xTIMER_MODE_PERIODIC, \b xTIMER_MODE_TOGGLE and
 //! \b xTIMER_MODE_CONTINUOUS is the Timer's mode
 //! 
-//! \b xTIMER_COUNT_UP , \b xTIMER_COUNT_DOWN is the Timer's direction.
+//! \b xTIMER_COUNT_UP, \b xTIMER_COUNT_DOWN is the Timer's direction.
 //!
 //! The \e ulTickFreq parameter is the the timer tick frequency.It can be any
 //! values but ulTickFreq > 0 and ulTickFreq < timer clock source.
@@ -519,7 +519,7 @@ extern void xTimerInitConfig(unsigned long ulBase, unsigned long ulChannel,
 //!
 //! \param ulBase is the base address of the Timer port.
 //! \param ulChannel is the channel of the Timer port.
-//! Details please reference to \ref xTIMER_Count_Channel
+//! Details please refer to \ref xTIMER_Count_Channel
 //!
 //! This function is to start The Timer counter.
 //!
@@ -534,7 +534,7 @@ extern void xTimerStart(unsigned long ulBase, unsigned long ulChannel);
 //!
 //! \param ulBase is the base address of the Timer port.
 //! \param ulChannel is the channel of the Timer port.
-//! Details please reference to \ref xTIMER_Count_Channel
+//! Details please refer to \ref xTIMER_Count_Channel
 //!
 //! This function is to stop The Timer counter.
 //!
@@ -549,7 +549,7 @@ extern void xTimerStop(unsigned long ulBase, unsigned long ulChannel);
 //!
 //! \param ulBase is the base address of the Timer port.
 //! \param ulChannel is the channel of the Timer port.
-//! Details please reference to \ref xTIMER_Count_Channel
+//! Details please refer to \ref xTIMER_Count_Channel
 //!
 //! This function is to enable The Timer counter as a counter.
 //!
@@ -564,7 +564,7 @@ extern void xTimerCounterEnable(unsigned long ulBase, unsigned long ulChannel);
 //!
 //! \param ulBase is the base address of the Timer port.
 //! \param ulChannel is the channel of the Timer port.
-//! Details please reference to \ref xTIMER_Count_Channel
+//! Details please refer to \ref xTIMER_Count_Channel
 //!
 //! This function is to disable The Timer counter as a counter.
 //!
@@ -579,10 +579,10 @@ extern void xTimerCounterDisable(unsigned long ulBase, unsigned long ulChannel);
 //!
 //! \param ulBase is the base address of the Timer port.
 //! \param ulChannel is the channel of the Timer port.
-//! Details please reference to \ref xTIMER_Count_Channel
+//! Details please refer to \ref xTIMER_Count_Channel
 //! \param ulCapMode is the capture mode of the Timer port.Which can be the 
 //! values: \b TIMER_CAP_MODE_CAP, \b TIMER_CAP_MODE_RST.
-//! Details please reference to \ref xTIMER_Capture_Mode_Type
+//! Details please refer to \ref xTIMER_Capture_Mode_Type
 //!
 //! This function is to enable The Timer counter as a capture.
 //!
@@ -598,7 +598,7 @@ extern void xTimerCaptureModeSet(unsigned long ulBase, unsigned long ulChannel,
 //!
 //! \param ulBase is the base address of the Timer port.
 //! \param ulChannel is the channel of the Timer port.
-//! Details please reference to \ref xTIMER_Count_Channel
+//! Details please refer to \ref xTIMER_Count_Channel
 //! \param ulValue is the Prescale Value will be set.
 //!
 //! This function is to Set The Timer counter Prescale Value.
@@ -615,7 +615,7 @@ extern void xTimerPrescaleSet(unsigned long ulBase, unsigned long ulChannel,
 //!
 //! \param ulBase is the base address of the Timer port.
 //! \param ulChannel is the channel of the Timer port.
-//! Details please reference to \ref xTIMER_Count_Channel
+//! Details please refer to \ref xTIMER_Count_Channel
 //!
 //! This function is to get The Timer counter Prescale Value.
 //!
@@ -631,7 +631,7 @@ extern unsigned long xTimerPrescaleGet(unsigned long ulBase,
 //!
 //! \param ulBase is the base address of the Timer port.
 //! \param ulChannel is the channel of the Timer port.
-//! Details please reference to \ref xTIMER_Count_Channel
+//! Details please refer to \ref xTIMER_Count_Channel
 //! \param ulValue is the Prescale Value will be set.
 //!
 //! This function is to Set The Timer counter Value.
@@ -648,7 +648,7 @@ extern void xTimerLoadSet(unsigned long ulBase, unsigned long ulChannel,
 //!
 //! \param ulBase is the base address of the Timer port.
 //! \param ulChannel is the channel of the Timer port.
-//! Details please reference to \ref xTIMER_Count_Channel
+//! Details please refer to \ref xTIMER_Count_Channel
 //!
 //! This function is to get The Timer counter Prescale Value.
 //!
@@ -664,7 +664,7 @@ extern unsigned long xTimerLoadGet(unsigned long ulBase,
 //!
 //! \param ulBase is the base address of the Timer port.
 //! \param ulChannel is the channel of the Timer port.
-//! Details please reference to \ref xTIMER_Count_Channel
+//! Details please refer to \ref xTIMER_Count_Channel
 //!
 //! This function is to get The Timer counter current up timer or up event
 //! counter value.
@@ -681,7 +681,7 @@ extern unsigned long xTimerValueGet(unsigned long ulBase,
 //!
 //! \param ulBase is the base address of the Timer port.
 //! \param ulChannel is the channel of the Timer port.
-//! Details please reference to \ref xTIMER_Count_Channel
+//! Details please refer to \ref xTIMER_Count_Channel
 //! \param ulValue is Timer counter Compare Match Value.
 //!
 //! This function is to Set The Timer counter Compare Match Value.
@@ -698,7 +698,7 @@ extern void xTimerMatchSet(unsigned long ulBase, unsigned long ulChannel,
 //!
 //! \param ulBase is the base address of the Timer port.
 //! \param ulChannel is the channel of the Timer port.
-//! Details please reference to \ref xTIMER_Count_Channel
+//! Details please refer to \ref xTIMER_Count_Channel
 //!
 //! This function is to get The Timer counter Compare Match Value.
 //!
@@ -729,15 +729,15 @@ extern void xTimerIntCallbackInit(unsigned long ulBase,
 //!
 //! \param ulBase is the base address of the Timer port.
 //! \param ulChannel is the channel of the Timer port.
-//! Details please reference to \ref xTIMER_Count_Channel
+//! Details please refer to \ref xTIMER_Count_Channel
 //! \param ulIntFlags is the interrupt type of the Timer port.
-//! Details please reference to \ref xTIMER_INT_Type
+//! Details please refer to \ref xTIMER_INT_Type
 //!
 //! This function is to enable The Timer counter interrupt.
 //! 
 //! The \e ulIntFlags parameter is the OR value of any of the following:
 //! \b xTIMER_INT_MATCH, \b xTIMER_INT_CAP_EVENT.
-//! Details please reference to \ref xTIMER_INT_Type_COX
+//! Details please refer to \ref xTIMER_INT_Type_CoX
 //!
 //! \return None.
 //
@@ -751,15 +751,15 @@ extern void xTimerIntEnable(unsigned long ulBase, unsigned long ulChannel,
 //!
 //! \param ulBase is the base address of the Timer port.
 //! \param ulChannel is the channel of the Timer port.
-//! Details please reference to \ref xTIMER_Count_Channel
+//! Details please refer to \ref xTIMER_Count_Channel
 //! \param ulIntFlags is the interrupt type of the Timer port.
-//! Details please reference to \ref xTIMER_INT_Type.
+//! Details please refer to \ref xTIMER_INT_Type.
 //!
 //! This function is to disable The Timer counter interrupt.
 //! 
 //! The \e ulIntFlags parameter is the OR value of any of the following:
 //! \b xTIMER_INT_MATCH, \b xTIMER_INT_CAP_EVENT.
-//! Details please reference to \ref xTIMER_INT_Type_COX.
+//! Details please refer to \ref xTIMER_INT_Type_CoX.
 //!
 //! \note None
 //!
@@ -775,15 +775,15 @@ extern void xTimerIntDisable(unsigned long ulBase, unsigned long ulChannel,
 //!
 //! \param ulBase is the base address of the Timer port.
 //! \param ulChannel is the channel of the Timer port.
-//! Details please reference to \ref xTIMER_Count_Channel
+//! Details please refer to \ref xTIMER_Count_Channel
 //! \param ulIntFlags is the interrupt type of the Timer port.
-//! Details please reference to \ref xTIMER_INT_Type.
+//! Details please refer to \ref xTIMER_INT_Type.
 //!
 //! This function is to disable The Timer counter interrupt.
 //! 
 //! The \e ulIntFlags parameter can be one of the values:
 //! \b xTIMER_INT_MATCH, \b xTIMER_INT_CAP_EVENT.
-//! Details please reference to \ref xTIMER_INT_Type_COX.
+//! Details please refer to \ref xTIMER_INT_Type_CoX.
 //!
 //! \note When use this API ,the ulIntFlags parameter one of the interrupt event
 //!
@@ -799,13 +799,13 @@ extern void xTimerStatusGet(unsigned long ulBase, unsigned long ulChannel,
 //!
 //! \param ulBase is the base address of the Timer port.
 //! \param ulPhase is the counter detect phase of the Timer port.
-//! Details please reference to \ref xTIMER_Counter_Pase_Type.
+//! Details please refer to \ref xTIMER_Counter_Pase_Type.
 //! 
 //! This function is to select The Timer counter detect phase.
 //! 
 //! The \e ulPhase parameter can be one of the values:
 //! \b xTIMER_COUNTER_RISING, \b xTIMER_COUNTER_FALLING.
-//! Details please reference to \ref xTIMER_Counter_Pase_Type_COX.
+//! Details please refer to \ref xTIMER_Counter_Pase_Type_CoX.
 //!
 //! \note None
 //!
@@ -822,13 +822,13 @@ extern void xTimerCounterDetectPhaseSelect(unsigned long ulBase,
 //!
 //! \param ulBase is the base address of the Timer port.
 //! \param ulEdge is the capture detect edge of the Timer port.
-//! Details please reference to \ref xTIMER_Capture_Edge_Type.
+//! Details please refer to \ref xTIMER_Capture_Edge_Type.
 //!
 //! This function is to select The Timer counter capture detect edge.
 //! 
 //! The \e ulPhase parameter can be one of the values:
 //! \b xTIMER_CAP_RISING, \b xTIMER_CAP_FALLING, \b xTIMER_CAP_BOTH.
-//! Details please reference to \ref xTIMER_Capture_Edge_Type_COX.
+//! Details please refer to \ref xTIMER_Capture_Edge_Type_CoX.
 //!
 //! \note None
 //!

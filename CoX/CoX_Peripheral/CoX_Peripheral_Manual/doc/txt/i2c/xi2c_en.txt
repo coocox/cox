@@ -8,13 +8,13 @@
 //! which provide the clock pulse for each data bit transfer on the other SDA bus.
 //!
 //! I2c can be configure as master mode or slave mode. Master mode provide the 
-//! clock and start/stop signal. Arbiration exist between simultaneously transmitting
+//! clock and start/stop signal. Arbitration exist between simultaneously transmitting
 //! masters.
 //!
 //! Programmable clocks allow versatile rate control, i2c supports multiple 
 //! address with mask option.
 //!
-//! When any of the status chage will cause an interrupt if the interrupt enable 
+//! Any of the status chage will cause an interrupt if the interrupt enable 
 //! bit set.
 //!
 //! <br />
@@ -57,7 +57,7 @@
 //! \section Mode_Operation 2. Mode Operation
 //! 
 //! <br />
-//! \subsection Slave_Mode 2.1 Slava Mode
+//! \subsection Slave_Mode 2.1 Slave Mode
 //! - Master Transmitter Mode
 //! - Master Receiver Mode
 //! .
@@ -70,11 +70,11 @@
 //! 
 //! <br />
 //! \section I2C_Applications 3. I2C Applications
-//! Add in the fulture...
+//! Add in the future...
 //!
 //! <br />
-//! \note Here descripte the common function of the I2C Peripheral. The COX
-//! Peripheral Interface is base on the functions above.
+//! \note Here describe the common function of the I2C Peripheral. The CoX
+//! Peripheral Interface is based on the functions above.
 //
 //*****************************************************************************
 
@@ -83,13 +83,13 @@
 //
 //! \defgroup xI2C xI2C
 //! 
-//! \brief COX I2C Peripheral Interface
+//! \brief CoX I2C Peripheral Interface
 //!
-//! The xI2C is the I2C Peripheral Interface of COX. It defines some common
+//! The xI2C is the I2C Peripheral Interface of CoX. It defines some common
 //! macros and APIs.
 //! 
 //! <h1>Contents</h1>
-//! - \ref COX_I2C_How_Define
+//! - \ref CoX_I2C_How_Define
 //! - \ref xI2C_API_Group
 //!   - \ref xI2C_API_Init
 //!   - \ref xI2C_API_Transfer
@@ -100,15 +100,15 @@
 //!
 //! <br />
 //!
-//! \section COX_I2C_How_Define 1. How is the xI2C Standard Define?
-//! COX I2C defines the APIs based on the following common functions:
+//! \section CoX_I2C_How_Define 1. How is the xI2C Standard Define?
+//! CoX I2C defines the APIs based on the following common functions:
 //! - Init the I2C before transfer.
 //!   - Master initialize function
 //!   - Slave initialize function
 //!   .
 //! - Transfer functions.
-//!   - Master tarnsfer functions
-//!   - Slave transfer funcions
+//!   - Master transfer functions
+//!   - Slave transfer functions
 //!   .
 //! - Interrupt funcions:
 //!   - Master interrupt functions
@@ -119,10 +119,10 @@
 //! <br />
 //! \section xI2C_API_Group 2. API Groups
 //! 
-//! The COX I2C API is broken into three groups of functions: 
+//! The CoX I2C API is broken into three groups of functions: 
 //! - those that deal with init the i2c, 
 //! - those that deal with data transfer, 
-//! - those that deal with the interrut handler.
+//! - those that deal with the interrupt handler.
 //! .
 //!
 //! <br />
@@ -184,7 +184,7 @@
 //! //*****************************************************************************
 //! //
 //! // 
-//! // i2c transfer and recevice data config
+//! // i2c transfer and receive data config
 //! //
 //! //
 //! //*****************************************************************************
@@ -204,7 +204,7 @@
 //! void xI2C002Setup(void)
 //! {
 //!     //
-//!     // Congigure the i2c pin
+//!     // Configure the i2c pin
 //!     //
 //!     XPinTypeI2C(I2C0SCL, PA9);
 //!     XPinTypeI2C(I2C0DATA, PA8);

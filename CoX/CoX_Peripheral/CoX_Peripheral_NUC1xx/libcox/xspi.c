@@ -2,8 +2,8 @@
 //
 //! \file xspi.c
 //! \brief Driver for the SPI
-//! \version V2.0.0
-//! \date 9/30/2011
+//! \version V2.0.1
+//! \date 11/11/2011
 //! \author CooCox
 //! \copy
 //!
@@ -253,11 +253,11 @@ SPI3IntHandler(void)
 //!
 //! The \e ulSSMode can be one of the following values:
 //! \b xSPI_SS_HARDWARE, \b xSPI_SS_SOFTWARE.
-//! Details please reference to \ref xSPI_SlaveSelMode_COX.
+//! Details please reference to \ref xSPI_SlaveSelMode_CoX.
 //!
 //! The \e ulSlaveSel can be one of the following values:
 //! \b xSPI_SS_NONE, \b xSPI_SS0,\b xSPI_SS1, or \b xSPI_SS0_SS1.
-//! Details please reference to \ref xSPI_SlaveSel_COX.
+//! Details please reference to \ref xSPI_SlaveSel_CoX.
 //!
 //! \note this is only for master
 //!
@@ -1515,7 +1515,7 @@ SPIDivOneFunction(unsigned long ulBase, xtBoolean xtEnable)
     if (xtEnable)
     {
         xHWREG(ulBase + SPI_CNTRL2) |= SPI_CNTRL2_DIV_ONE;
-        xHWREG(ulBase + SPI_CNTRL) |= SPI_CNTRL_VARCLK_EN; 
+        xHWREG(ulBase + SPI_CNTRL) &= ~SPI_CNTRL_VARCLK_EN; 
         xHWREG(ulBase + SPI_CNTRL) &= (~SPI_CNTRL_REORDER_M);
     }
     else

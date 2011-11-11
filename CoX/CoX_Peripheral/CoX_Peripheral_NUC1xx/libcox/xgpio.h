@@ -3,8 +3,8 @@
 //! \file xgpio.h
 //! \brief Prototypes for the GPIO Driver.
 //! \brief Prototypes for the AFIO Driver.
-//! \version V2.0.0
-//! \date 9/30/2011
+//! \version V2.0.1
+//! \date 11/11/2011
 //! \author CooCox
 //! \copy
 //!
@@ -54,7 +54,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -80,10 +80,10 @@ extern "C"
 //! \section xGPIO_Config_section 1. Where to use this group
 //! This is use to config xGPIO intrerrupt number.
 //! 
-//! \section xGPIO_Config_COX 2.COX Port Details 
+//! \section xGPIO_Config_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xGPIO General Pin ID    |       COX      |         NUC1xx         |
+//! |xGPIO General Pin ID    |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xGPIO_INT_NUMBER        |    Mandatory   |   xGPIO_INT_NUMBER     |
 //! +------------------------+----------------+------------------------+
@@ -111,10 +111,10 @@ extern "C"
 //! The following values define the bit field for the ulPins argument to several
 //! of the APIs. So all the API which have a ulPins argument must use this group.
 //! 
-//! \section xGPIO_General_Pin_IDs_COX 2.COX Port Details 
+//! \section xGPIO_General_Pin_IDs_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xGPIO General Pin ID    |       COX      |         NUC1xx         |
+//! |xGPIO General Pin ID    |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xGPIO_PIN_n             |    Mandatory   |       xGPIO_PIN_0      |
 //! |                        |                |------------------------|
@@ -231,10 +231,10 @@ extern "C"
 //! Values that can be passed to xGPIODirModeSet as the ulPinIO parameter, and
 //! returned from xGPIODirModeGet.
 //! 
-//! \section xGPIO_Dir_Mode_COX 2.COX Port Details 
+//! \section xGPIO_Dir_Mode_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xGPIO Dir Mode          |       COX      |         NUC1xx         |
+//! |xGPIO Dir Mode          |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xGPIO_DIR_MODE_IN       |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -290,10 +290,10 @@ extern "C"
 //! Values that can be passed to xGPIOIntTypeSet as the ulIntType parameter, and
 //! returned from xGPIOIntTypeGet.
 //! 
-//! \section xGPIO_Int_Type_COX 2.COX Port Details 
+//! \section xGPIO_Int_Type_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xGPIO Int Type          |       COX      |         NUC1xx         |
+//! |xGPIO Int Type          |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xGPIO_FALLING_EDGE      |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -356,10 +356,10 @@ extern "C"
 //! Values that can be passed to xGPIOPadConfigSet as the ulStrength parameter,
 //! and returned by xGPIOPadConfigGet in the *pulStrength parameter.
 //! 
-//! \section xGPIO_Pad_Config_Strength_COX 2.COX Port Details 
+//! \section xGPIO_Pad_Config_Strength_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xGPIO Pad Strength      |       COX      |         NUC1xx         |
+//! |xGPIO Pad Strength      |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xGPIO_STRENGTH_nMA      | Non-Mandatory  |   xGPIO_STRENGTH_2MA   |
 //! |                        |                |------------------------|
@@ -386,10 +386,10 @@ extern "C"
 //! Values that can be passed to xGPIOPadConfigSet as the ulPadType parameter,
 //! and returned by xGPIOPadConfigGet in the *pulPadType parameter.
 //! <br />
-//! \section xGPIO_Pad_Config_Type_COX 2.COX Port Details 
+//! \section xGPIO_Pad_Config_Type_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xGPIO Pad Type          |       COX      |         NUC1xx         |
+//! |xGPIO Pad Type          |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xGPIO_PIN_TYPE_STD      |  Non-Mandatory |            N           |
 //! |------------------------|----------------|------------------------|
@@ -522,10 +522,10 @@ extern "C"
 //! of the \b XPinTypexxx APIs and all the API which have a eShortPin argument.
 //! Such as \ref xGPIOSPinRead(),\ref xGPIOSPinWrite().
 //! 
-//! \section xGPIO_Short_Pin_COX 2.COX Port Details 
+//! \section xGPIO_Short_Pin_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xGPIO Short Pin ID      |       COX      |         NUC1xx         |
+//! |xGPIO Short Pin ID      |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |PXn                     |    Mandatory   |    PA0 PA1 ... PA15    |
 //! |                        |                |------------------------|
@@ -642,10 +642,10 @@ extern "C"
 //! The macros of General Peripheral Pin Name always like:
 //! <b> ModuleName + n + PinName </b>, such as CAN0RX, SPI1CLK.
 //!
-//! \section xGPIO_Peripheral_Pin_Port COX Port Details
+//! \section xGPIO_Peripheral_Pin_Port CoX Port Details
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |General Peripheral Pin  |       COX      |         NUC1xx         |
+//! |General Peripheral Pin  |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |ADCn                    |    Mandatory   |   ADC0 ADC1 ... ADC15  |
 //! |------------------------|----------------|------------------------|
@@ -857,13 +857,13 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xGPIO_Exported_APIs xGPIO API
-//! \brief xGPIO API Refrence.
+//! \brief xGPIO API Reference.
 //!
-//! \section xGPIO_Exported_APIs_Port COX Port Details
+//! \section xGPIO_Exported_APIs_Port CoX Port Details
 //!
 //! \verbatim
 //! +--------------------------+----------------+------------------------+
-//! |xGPIO API                 |       COX      |         NUC1xx         |
+//! |xGPIO API                 |       CoX      |         NUC1xx         |
 //! |--------------------------|----------------|------------------------|
 //! |xGPIODirModeSet           |    Mandatory   |            Y           |
 //! |--------------------------|----------------|------------------------|
@@ -942,14 +942,14 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \brief Sets the direction and mode of the specified pin(s).
+//! \brief Set the direction and mode of the specified pin(s).
 //!
 //! \param ulPort is the base address of the GPIO port
-//! Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Details please refer to \ref xLowLayer_Peripheral_Memmap.
 //! \param ulPins is the bit-packed representation of the pin(s).
-//! Details please reference to \ref xGPIO_General_Pin_IDs.
+//! Details please refer to \ref xGPIO_General_Pin_IDs.
 //! \param ulPinIO is the pin direction and/or mode.
-//! Details please reference to \ref xGPIO_Dir_Mode.
+//! Details please refer to \ref xGPIO_Dir_Mode.
 //!
 //! This function will set the specified pin(s) on the selected GPIO port
 //! as either an input or output under software control, or it will set the
@@ -958,9 +958,9 @@ extern "C"
 //! The parameter \e ulPinIO is an enumerated data type that can be one of
 //! the following values:
 //! 
-//! Details please reference to \ref xGPIO_Dir_Mode_COX.
+//! Details please refer to \ref xGPIO_Dir_Mode_CoX.
 //!
-//! where \b xGPIO_DIR_MODE_IN specifies that the pin will be programmed as
+//! Where \b xGPIO_DIR_MODE_IN specifies that the pin will be programmed as
 //! a software controlled input, \b xGPIO_DIR_MODE_OUT specifies that the pin
 //! will be programmed as a software controlled output, and
 //! \b xGPIO_DIR_MODE_HW specifies that the pin will be placed under
@@ -970,7 +970,7 @@ extern "C"
 //! set identifies the pin to be accessed, and where bit 0 of the byte
 //! represents GPIO port pin 0, bit 1 represents GPIO port pin 1, and so on.
 //! 
-//! Details please reference to \ref xGPIO_General_Pin_IDs_COX.
+//! Details please refer to \ref xGPIO_General_Pin_IDs_CoX.
 //!
 //! \note xGPIOPadConfigSet() must also be used to configure the corresponding
 //! pad(s) in order for them to propagate the signal to/from the GPIO.
@@ -989,7 +989,7 @@ extern void xGPIODirModeSet(unsigned long ulPort, unsigned long ulPins,
 //! 
 //! \return GPIO port code which is used by \ref xSysCtlPeripheralEnable,
 //! \ref xSysCtlPeripheralDisable, \ref xSysCtlPeripheralReset.
-//! Details please reference to \ref xSysCtl_Peripheral_ID.
+//! Details please refer to \ref xSysCtl_Peripheral_ID.
 //
 //*****************************************************************************
 #define xGPIOSPinToPeripheralId(eShortPin)                                    \
@@ -1040,12 +1040,12 @@ extern void xGPIODirModeSet(unsigned long ulPort, unsigned long ulPins,
 
 //*****************************************************************************
 //
-//! \brief Sets the direction and mode of the specified pin(s).
+//! \brief Set the direction and mode of the specified pin(s).
 //!
 //! \param eShortPin Specified port and pin.
-//! Details please reference to \ref xGPIO_Short_Pin.
+//! Details please refer to \ref xGPIO_Short_Pin.
 //! \param ulPinIO is the pin direction and/or mode.
-//! Details please reference to \ref xGPIO_Dir_Mode.
+//! Details please refer to \ref xGPIO_Dir_Mode.
 //!
 //! This function will set the specified pin(s) on the selected GPIO port
 //! as either an input or output under software control, or it will set the
@@ -1054,7 +1054,7 @@ extern void xGPIODirModeSet(unsigned long ulPort, unsigned long ulPins,
 //! The parameter \e ulPinIO is an enumerated data type that can be one of
 //! the following values:
 //!
-//! Details please reference to \ref xGPIO_Dir_Mode_COX.
+//! Details please refer to \ref xGPIO_Dir_Mode_CoX.
 //!
 //! where \b xGPIO_DIR_MODE_IN specifies that the pin will be programmed as
 //! a software controlled input, \b xGPIO_DIR_MODE_OUT specifies that the pin
@@ -1063,7 +1063,7 @@ extern void xGPIODirModeSet(unsigned long ulPort, unsigned long ulPins,
 //! hardware control.
 //!
 //! The pin is specified by eShortPin, which can only be one pin.
-//! Details please reference to \ref xGPIO_Short_Pin_COX.
+//! Details please refer to \ref xGPIO_Short_Pin_CoX.
 //!
 //! \note xGPIOPadConfigSet() must also be used to configure the corresponding
 //! pad(s) in order for them to propagate the signal to/from the GPIO.
@@ -1076,12 +1076,12 @@ extern void xGPIODirModeSet(unsigned long ulPort, unsigned long ulPins,
 
 //*****************************************************************************
 //
-//! \brief Gets the direction and mode of a pin.
+//! \brief Get the direction and mode of a pin.
 //!
 //! \param ulPort is the base address of the GPIO port
-//! Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Details please refer to \ref xLowLayer_Peripheral_Memmap.
 //! \param ulPin is the bit-packed representation of the pin.
-//! Details please reference to \ref xGPIO_General_Pin_IDs.
+//! Details please refer to \ref xGPIO_General_Pin_IDs.
 //!
 //! This function gets the direction and control mode for a specified pin on
 //! the selected GPIO port.  The pin can be configured as either an input or
@@ -1092,10 +1092,10 @@ extern void xGPIODirModeSet(unsigned long ulPort, unsigned long ulPins,
 //! set identifies the pin to be accessed, and where bit 0 of the byte
 //! represents GPIO port pin 0, bit 1 represents GPIO port pin 1, and so on.
 //! 
-//! Details please reference to \ref xGPIO_General_Pin_IDs_COX.
+//! Details please refer to \ref xGPIO_General_Pin_IDs_CoX.
 //!
 //! \return Returns one of the enumerated data types described for
-//! \ref xGPIODirModeSet().Details please reference to \ref xGPIO_Dir_Mode_COX.
+//! \ref xGPIODirModeSet().Details please refer to \ref xGPIO_Dir_Mode_CoX.
 //
 //*****************************************************************************        
 extern unsigned long xGPIODirModeGet(unsigned long ulPort, 
@@ -1106,18 +1106,18 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! \brief Init the GPIO Port X Interrupt Callback function.
 //!
 //! \param ulPort is the base address of the GPIO port.
-//! Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Details please refer to \ref xLowLayer_Peripheral_Memmap.
 //! \param pfnCallback is the callback function.
-//! Details please reference to \ref xLowLayer_Exported_Types.
+//! Details please refer to \ref xLowLayer_Exported_Types.
 //!
-//! When there is any pins intrrupt occrus, Interrupt Handler will 
+//! When there is any pins interrupt occrus, Interrupt Handler will 
 //! call the callback function. 
 //! 
 //! param of pfnCallback
 //! - pvCBData not used, always 0.
 //! - ulEvent not used, always 0.
 //! - ulMsgParam is pins which have an event.
-//! Details please reference to \ref xGPIO_General_Pin_IDs_COX.
+//! Details please refer to \ref xGPIO_General_Pin_IDs_CoX.
 //! - pvMsgData not used, always 0.
 //!
 //! \return None.
@@ -1128,14 +1128,14 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
         
 //*****************************************************************************
 //
-//! \brief Sets the interrupt type and Enable interrupt for the specified pin(s).
+//! \brief Set the interrupt type and Enable interrupt for the specified pin(s).
 //!
 //! \param ulPort is the base address of the GPIO port
-//! Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Details please refer to \ref xLowLayer_Peripheral_Memmap.
 //! \param ulPins is the bit-packed representation of the pin(s).
-//! Details please reference to \ref xGPIO_General_Pin_IDs.
+//! Details please refer to \ref xGPIO_General_Pin_IDs.
 //! \param ulIntType specifies the type of interrupt trigger mechanism.
-//! Details please reference to \ref xGPIO_Int_Type.
+//! Details please refer to \ref xGPIO_Int_Type.
 //!
 //! This function sets up the various interrupt trigger mechanisms for the
 //! specified pin(s) on the selected GPIO port.
@@ -1143,9 +1143,9 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! The parameter \e ulIntType is an enumerated data type that can be one of
 //! the following values:
 //!
-//! Details please reference to \ref xGPIO_Int_Type_COX.
+//! Details please refer to \ref xGPIO_Int_Type_CoX.
 //!
-//! where the different values describe the interrupt detection mechanism
+//! Where the different values describe the interrupt detection mechanism
 //! (edge or level) and the particular triggering event (falling, rising,
 //! or both edges for edge detect, low or high for level detect).
 //!
@@ -1153,7 +1153,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! set identifies the pin to be accessed, and where bit 0 of the byte
 //! represents GPIO port pin 0, bit 1 represents GPIO port pin 1, and so on.
 //! 
-//! Details please reference to \ref xGPIO_General_Pin_IDs_COX.
+//! Details please refer to \ref xGPIO_General_Pin_IDs_CoX.
 //!
 //! \note In order to avoid any spurious interrupts, the user must
 //! ensure that the GPIO inputs remain stable for the duration of
@@ -1167,12 +1167,12 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
          
 //*****************************************************************************
 //
-//! \brief Sets the interrupt type and Enable interrupt for the specified pin(s).
+//! \brief Set the interrupt type and Enable interrupt for the specified pin(s).
 //!
 //! \param eShortPin Specified port and pin.
-//! Details please reference to \ref xGPIO_Short_Pin.
+//! Details please refer to \ref xGPIO_Short_Pin.
 //! \param ulIntType specifies the type of interrupt trigger mechanism.
-//! Details please reference to \ref xGPIO_Int_Type.
+//! Details please refer to \ref xGPIO_Int_Type.
 //!
 //! This function sets up the various interrupt trigger mechanisms for the
 //! specified pin(s) on the selected GPIO port.
@@ -1180,14 +1180,14 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! The parameter \e ulIntType is an enumerated data type that can be one of
 //! the following values:
 //!
-//! Details please reference to \ref xGPIO_Int_Type_COX.
+//! Details please refer to \ref xGPIO_Int_Type_CoX.
 //!
-//! where the different values describe the interrupt detection mechanism
+//! Where the different values describe the interrupt detection mechanism
 //! (edge or level) and the particular triggering event (falling, rising,
 //! or both edges for edge detect, low or high for level detect).
 //!
 //! The pin is specified by eShortPin, which can only be one pin.
-//! Details please reference to \ref xGPIO_Short_Pin_COX.
+//! Details please refer to \ref xGPIO_Short_Pin_CoX.
 //!
 //! \note In order to avoid any spurious interrupts, the user must
 //! ensure that the GPIO inputs remain stable for the duration of
@@ -1204,17 +1204,17 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! \brief Disables interrupts for the specified pin(s).
 //!
 //! \param ulPort is the base address of the GPIO port
-//! Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Details please refer to \ref xLowLayer_Peripheral_Memmap.
 //! \param ulPins is the bit-packed representation of the pin(s).
-//! Details please reference to \ref xGPIO_General_Pin_IDs.
+//! Details please refer to \ref xGPIO_General_Pin_IDs.
 //!
-//! Masks the interrupt for the specified pin(s).
+//! Mask the interrupt for the specified pin(s).
 //!
 //! The pin(s) are specified using a bit-packed byte, where each bit that is
 //! set identifies the pin to be accessed, and where bit 0 of the byte
 //! represents GPIO port pin 0, bit 1 represents GPIO port pin 1, and so on.
 //!
-//! Details please reference to \ref xGPIO_General_Pin_IDs_COX.
+//! Details please refer to \ref xGPIO_General_Pin_IDs_CoX.
 //!
 //! \return None.
 //
@@ -1227,12 +1227,12 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! \brief Disables interrupts for the specified pin.
 //!
 //! \param eShortPin Specified port and pin.
-//! Details please reference to \ref xGPIO_Short_Pin.
+//! Details please refer to \ref xGPIO_Short_Pin.
 //!
-//! Masks the interrupt for the specified pin(s).
+//! Mask the interrupt for the specified pin(s).
 //!
 //! The pin is specified by eShortPin, which can only be one pin.
-//! Details please reference to \ref xGPIO_Short_Pin_COX.
+//! Details please refer to \ref xGPIO_Short_Pin_CoX.
 //!
 //! \return None.
 //
@@ -1242,10 +1242,10 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \brief Gets interrupt status for the specified GPIO port.
+//! \brief Get interrupt status for the specified GPIO port.
 //!
 //! \param ulPort is the base address of the GPIO port.
-//! Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Details please refer to \ref xLowLayer_Peripheral_Memmap.
 //! 
 //! \return Returns a bit-packed byte, where each bit that is set identifies
 //! an active masked or raw interrupt, and where bit 0 of the byte
@@ -1258,20 +1258,20 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \brief Clears the interrupt for the specified pin(s).
+//! \brief Clear the interrupt for the specified pin(s).
 //!
 //! \param ulPort is the base address of the GPIO port
-//! Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Details please refer to \ref xLowLayer_Peripheral_Memmap.
 //! \param ulPins is the bit-packed representation of the pin(s).
-//! Details please reference to \ref xGPIO_General_Pin_IDs.
+//! Details please refer to \ref xGPIO_General_Pin_IDs.
 //!
-//! Clears the interrupt for the specified pin(s).
+//! Clear the interrupt for the specified pin(s).
 //!
 //! The pin(s) are specified using a bit-packed byte, where each bit that is
 //! set identifies the pin to be accessed, and where bit 0 of the byte
 //! represents GPIO port pin 0, bit 1 represents GPIO port pin 1, and so on.
 //!
-//! Details please reference to \ref xGPIO_General_Pin_IDs_COX.
+//! Details please refer to \ref xGPIO_General_Pin_IDs_CoX.
 //!
 //! \note Because there is a write buffer in the Cortex-M0 processor, it may
 //! take several clock cycles before the interrupt source is actually cleared.
@@ -1290,15 +1290,15 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \brief Clears the interrupt for the specified pin.
+//! \brief Clear the interrupt for the specified pin.
 //!
 //! \param eShortPin Specified port and pin.
-//! Details please reference to \ref xGPIO_Short_Pin.
+//! Details please refer to \ref xGPIO_Short_Pin.
 //!
-//! Clears the interrupt for the specified pin.
+//! Clear the interrupt for the specified pin.
 //!
 //! The pin is specified by eShortPin, which can only be one pin.
-//! Details please reference to \ref xGPIO_Short_Pin_COX.
+//! Details please refer to \ref xGPIO_Short_Pin_CoX.
 //!
 //! \note Because there is a write buffer in the Cortex-M0 processor, it may
 //! take several clock cycles before the interrupt source is actually cleared.
@@ -1320,9 +1320,9 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! \brief Reads the values present of the specified pin(s).
 //!
 //! \param ulPort is the base address of the GPIO port
-//! Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Details please refer to \ref xLowLayer_Peripheral_Memmap.
 //! \param ulPins is the bit-packed representation of the pin(s).
-//! Details please reference to \ref xGPIO_General_Pin_IDs.
+//! Details please refer to \ref xGPIO_General_Pin_IDs.
 //!
 //! The values at the specified pin(s) are read, as specified by \e ucPins.
 //! Values are returned for both input and output pin(s), and the value
@@ -1332,7 +1332,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! set identifies the pin to be accessed, and where bit 0 of the byte
 //! represents GPIO port pin 0, bit 1 represents GPIO port pin 1, and so on.
 //!
-//! Details please reference to \ref xGPIO_General_Pin_IDs_COX.
+//! Details please refer to \ref xGPIO_General_Pin_IDs_CoX.
 //!
 //! \return Returns a bit-packed byte providing the state of the specified
 //! pin, where bit 0 of the byte represents GPIO port pin 0, bit 1 represents
@@ -1349,14 +1349,14 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! \brief Reads the values present of the specified pin.
 //!
 //! \param eShortPin Specified port and pin.
-//! Details please reference to \ref xGPIO_Short_Pin.
+//! Details please refer to \ref xGPIO_Short_Pin.
 //!
 //! The values at the specified pin are read, as specified by \e eShortPin.
 //! Values are returned for both input and output pin(s), and the value
 //! for pin(s) that are not specified by \e eShortPin are set to 0.
 //!
 //! The pin is specified by eShortPin, which can only be one pin.
-//! Details please reference to \ref xGPIO_Short_Pin_COX.
+//! Details please refer to \ref xGPIO_Short_Pin_CoX.
 //!
 //! \return Returns the value of specified port and pin.
 //
@@ -1366,22 +1366,22 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \brief Writes a value to the specified pin(s).
+//! \brief Write a value to the specified pin(s).
 //!
 //! \param ulPort is the base address of the GPIO port
-//! Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Details please refer to \ref xLowLayer_Peripheral_Memmap.
 //! \param ulPins is the bit-packed representation of the pin(s).
-//! Details please reference to \ref xGPIO_General_Pin_IDs.
+//! Details please refer to \ref xGPIO_General_Pin_IDs.
 //! \param ucVal is the value to write to the pin(s), 0 or 1.
 //!
-//! Writes the corresponding bit values to the output pin(s) specified by
+//! Write the corresponding bit values to the output pin(s) specified by
 //! \e ucPins.  Writing to a pin configured as an input pin has no effect.
 //!
 //! The pin(s) are specified using a bit-packed byte, where each bit that is
 //! set identifies the pin to be accessed, and where bit 0 of the byte
 //! represents GPIO port pin 0, bit 1 represents GPIO port pin 1, and so on.
 //!
-//! Details please reference to \ref xGPIO_General_Pin_IDs_COX.
+//! Details please refer to \ref xGPIO_General_Pin_IDs_CoX.
 //!
 //! \return None.
 //
@@ -1391,17 +1391,17 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \brief Writes a value to the specified pin.
+//! \brief Write a value to the specified pin.
 //!
 //! \param eShortPin Specified port and pin.
-//! Details please reference to \ref xGPIO_Short_Pin.
+//! Details please refer to \ref xGPIO_Short_Pin.
 //! \param ucVal is the value to write to the pin(s), 0 or 1.
 //!
-//! Writes the corresponding bit values to the output pin specified by
+//! Write the corresponding bit values to the output pin specified by
 //! \e eShortPin.  Writing to a pin configured as an input pin has no effect.
 //!
 //! The pin is specified by eShortPin, which can only be one pin.
-//! Details please reference to \ref xGPIO_Short_Pin_COX.
+//! Details please refer to \ref xGPIO_Short_Pin_CoX.
 //!
 //! \return None.
 //
@@ -1411,7 +1411,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \brief Configures the alternate function of a GPIO pin.
+//! \brief Configure the alternate function of a GPIO pin.
 //!
 //! \param ulPinConfig is the pin configuration value, specified as only one of
 //! the \b GPIO_P??_??? values.
@@ -1432,12 +1432,12 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \brief Turn a pin to an GPIO Input pin.
+//! \brief Turn a pin to a GPIO Input pin.
 //!
 //! \param eShortPin is the GPIO short pin name such as PA0. 
-//! Details please reference to \ref xGPIO_Short_Pin.
+//! Details please refer to \ref xGPIO_Short_Pin.
 //!
-//! This function configures a pin for use as an GPIO Input pin device and turn 
+//! This function configures a pin for use as an GPIO Input pin device and turns 
 //! the pin into a GPIO input pin.
 //!
 //! \return None.
@@ -1453,13 +1453,13 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \brief Turn a pin to an GPIO Output(push-pull) pin.
+//! \brief Turn a pin to a GPIO Output(push-pull) pin.
 //!
 //! \param eShortPin is the GPIO short pin name such as PA0. 
-//! Details please reference to \ref xGPIO_Short_Pin.
+//! Details please refer to \ref xGPIO_Short_Pin.
 //!
 //! This function configures a pin for use as an GPIO Output pin device and  
-//! turn the pin into a GPIO Output pin.
+//! turns the pin into a GPIO Output pin.
 //!
 //! \return None.
 //
@@ -1474,13 +1474,13 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
             
 //*****************************************************************************
 //
-//! \brief Turn a pin to an GPIO Output(open drain) pin.
+//! \brief Turn a pin to a GPIO Output(open drain) pin.
 //!
 //! \param eShortPin is the GPIO short pin name such as PA0. 
-//! Details please reference to \ref xGPIO_Short_Pin.
+//! Details please refer to \ref xGPIO_Short_Pin.
 //!
-//! This function configures a pin for use as an GPIO Output pin device and turn 
-//!  the pin into a GPIO Output(open drain) pin.
+//! This function configures a pin for use as an GPIO Output pin device and turns 
+//! the pin into a GPIO Output(open drain) pin.
 //!
 //! \return None.
 //
@@ -1495,12 +1495,12 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \brief Turn a pin to an GPIO Output(oQuasi-bidirectional) pin.
+//! \brief Turn a pin to a GPIO Output(oQuasi-bidirectional) pin.
 //!
 //! \param eShortPin is the GPIO short pin name such as PA0. 
-//! Details please reference to \ref xGPIO_Short_Pin.
+//! Details please refer to \ref xGPIO_Short_Pin.
 //!
-//! This function configures a pin for use as an GPIO Output pin device and turn 
+//! This function configures a pin for use as an GPIO Output pin device and turns 
 //!  the pin into a GPIO Output(Quasi-bidirectional) pin.
 //!
 //! \return None.
@@ -1516,25 +1516,25 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \brief Turn a pin to an GPIO ADC input pin.
+//! \brief Turn a pin to a GPIO ADC input pin.
 //!
 //! \param ePeripheralPin is the GPIO Peripheral name such as ADC0. 
-//! Details please reference to \ref xGPIO_Pin_Config.
+//! Details please refer to \ref xGPIO_Pin_Config.
 //! \param eShortPin is the GPIO short pin name such as PA0. 
-//! Details please reference to \ref xGPIO_Short_Pin.
+//! Details please refer to \ref xGPIO_Short_Pin.
 //!
-//! This function configures a pin for use as an ADC function device and turn 
+//! This function configures a pin for use as an ADC function device and turns 
 //! the pin into a GPIO ADC input pin.
 //!
-//! Table shows what the ePeripheralPin and eShortPin should be,only the 
-//! argument which are in the same line can be combined.For eaxmple(TI):<br/>
+//! Table shows what the ePeripheralPin and eShortPin should be, only the 
+//! argument which are in the same line can be combined. For eaxmple(TI):<br/>
 //! xSPinTypeADC(ADC0, PE7) or xSPinTypeADC(ADC1, PE6) is correct;<br/>
 //! But xSPinTypeADC(ADC0, PE6) or xSPinTypeADC(ADC0, PE5) is error.
 //! \verbatim
 //! +--------------------+------------------------+------------------------+
 //! |    manufacturer    |ePeripheralPin          |eShortPin               |
 //! |--------------------|------------------------|------------------------|
-//! |    COX             |This parameter is a     |This parameter is a     |
+//! |    CoX             |This parameter is a     |This parameter is a     |
 //! |                    |mandatory.The mandatory |mandatory. the mandatory|
 //! |                    |is the format of        |is the format of        |
 //! |                    |Variable naming.So it   |Variable naming.So it   |
@@ -1570,14 +1570,14 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \brief Turn a pin to an GPIO CAN input or output pin.
+//! \brief Turn a pin to a GPIO CAN input or output pin.
 //!
 //! \param ePeripheralPin is the GPIO Peripheral name such as CAN0RX. 
-//! Details please reference to \ref xGPIO_Pin_Config.
+//! Details please refer to \ref xGPIO_Pin_Config.
 //! \param eShortPin is the GPIO short pin name such as PA0. 
-//! Details please reference to \ref xGPIO_Short_Pin. 
+//! Details please refer to \ref xGPIO_Short_Pin. 
 //!
-//! This function configures a pin for use as a CAN function and turn 
+//! This function configures a pin for use as a CAN function and turns 
 //! the pin into a GPIO CAN input or output pin.
 //!
 //! Table shows what the ePeripheralPin and eShortPin should be,only the 
@@ -1588,7 +1588,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! +--------------------+------------------------+------------------------+
 //! |    manufacturer    |ePeripheralPin          |eShortPin               |
 //! |--------------------|------------------------|------------------------|
-//! |    COX             |This parameter is a     |This parameter is a     |
+//! |    CoX             |This parameter is a     |This parameter is a     |
 //! |                    |mandatory.The mandatory |mandatory. the mandatory|
 //! |                    |is the format of        |is the format of        |
 //! |                    |Variable naming.So it   |Variable naming.So it   |
@@ -1617,14 +1617,14 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \brief Turn a pin to an GPIO I2C input or output pin.
+//! \brief Turn a pin to a GPIO I2C input or output pin.
 //!
 //! \param ePeripheralPin is the GPIO Peripheral name such as I2C0SDA. 
-//! Details please reference to \ref xGPIO_Pin_Config.
+//! Details please refer to \ref xGPIO_Pin_Config.
 //! \param eShortPin is the GPIO short pin name such as PA0. 
-//! Details please reference to \ref xGPIO_Short_Pin.  
+//! Details please refer to \ref xGPIO_Short_Pin.  
 //!
-//! This function configures a pin for use as an I2C function device and turn 
+//! This function configures a pin for use as an I2C function device and turns 
 //! the pin into a GPIO I2C input or output pin.
 //!
 //! Table shows what the ePeripheralPin and eShortPin should be,only the 
@@ -1635,7 +1635,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! +--------------------+------------------------+------------------------+
 //! |    manufacturer    |ePeripheralPin          |eShortPin               |
 //! |--------------------|------------------------|------------------------|
-//! |    COX             |This parameter is a     |This parameter is a     |
+//! |    CoX             |This parameter is a     |This parameter is a     |
 //! |                    |mandatory.The mandatory |mandatory. the mandatory|
 //! |                    |is the format of        |is the format of        |
 //! |                    |Variable naming.So it   |Variable naming.So it   |
@@ -1666,14 +1666,14 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \brief Turn a pin to an GPIO I2S input or output pin.
+//! \brief Turn a pin to a GPIO I2S input or output pin.
 //!
 //! \param ePeripheralPin is the GPIO Peripheral name such as I2C0SDA. 
-//! Details please reference to \ref xGPIO_Pin_Config.
+//! Details please refer to \ref xGPIO_Pin_Config.
 //! \param eShortPin is the GPIO short pin name such as PA0. 
-//! Details please reference to \ref xGPIO_Short_Pin. 
+//! Details please refer to \ref xGPIO_Short_Pin. 
 //!
-//! This function configures a pin for use as an I2S function device and turn 
+//! This function configures a pin for use as an I2S function device and turns 
 //!  the pin into a GPIO I2S input or output pin.
 //!
 //! Table shows what the ePeripheralPin and eShortPin should be,only the 
@@ -1684,7 +1684,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! +--------------------+------------------------+------------------------+
 //! |    manufacturer    |ePeripheralPin          |eShortPin               |
 //! |--------------------|------------------------|------------------------|
-//! |    COX             |This parameter is a     |This parameter is a     |
+//! |    CoX             |This parameter is a     |This parameter is a     |
 //! |                    |mandatory.The mandatory |mandatory. the mandatory|
 //! |                    |is the format of        |is the format of        |
 //! |                    |Variable naming.So it   |Variable naming.So it   |
@@ -1721,14 +1721,14 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \brief Turn a pin to an GPIO PWM input or output pin.
+//! \brief Turn a pin to a GPIO PWM input or output pin.
 //!
 //! \param ePeripheralPin is the GPIO Peripheral name such as I2C0SDA. 
-//! Details please reference to \ref xGPIO_Pin_Config.
+//! Details please refer to \ref xGPIO_Pin_Config.
 //! \param eShortPin is the GPIO short pin name such as PA0. 
-//! Details please reference to \ref xGPIO_Short_Pin. 
+//! Details please refer to \ref xGPIO_Short_Pin. 
 //!
-//! This function configures a pin for use as a PWM function and turn 
+//! This function configures a pin for use as a PWM function and turns 
 //!  the pin into a GPIO PWM input or output pin.
 //!
 //! Table shows what the ePeripheralPin and eShortPin should be,only the 
@@ -1739,7 +1739,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! +--------------------+------------------------+------------------------+
 //! |    manufacturer    |ePeripheralPin          |eShortPin               |
 //! |--------------------|------------------------|------------------------|
-//! |    COX             |This parameter is a     |This parameter is a     |
+//! |    CoX             |This parameter is a     |This parameter is a     |
 //! |                    |mandatory.The mandatory |mandatory. the mandatory|
 //! |                    |is the format of        |is the format of        |
 //! |                    |Variable naming.So it   |Variable naming.So it   |
@@ -1775,14 +1775,14 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \brief Turn a pin to an GPIO SPI input or output pin.
+//! \brief Turn a pin to a GPIO SPI input or output pin.
 //!
 //! \param ePeripheralPin is the GPIO Peripheral name such as I2C0SDA. 
-//! Details please reference to \ref xGPIO_Pin_Config.
+//! Details please refer to \ref xGPIO_Pin_Config.
 //! \param eShortPin is the GPIO short pin name such as PA0. 
-//! Details please reference to \ref xGPIO_Short_Pin.
+//! Details please refer to \ref xGPIO_Short_Pin.
 //!
-//! This function configures a pin for use as a SPI function and turn 
+//! This function configures a pin for use as a SPI function and turns 
 //!  the pin into a GPIO SPI input or output pin.
 //!
 //! Table shows what the ePeripheralPin and eShortPin should be,only the 
@@ -1793,7 +1793,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! +--------------------+------------------------+------------------------+
 //! |    manufacturer    |ePeripheralPin          |eShortPin               |
 //! |--------------------|------------------------|------------------------|
-//! |    COX             |This parameter is a     |This parameter is a     |
+//! |    CoX             |This parameter is a     |This parameter is a     |
 //! |                    |mandatory.The mandatory |mandatory. the mandatory|
 //! |                    |is the format of        |is the format of        |
 //! |                    |Variable naming.So it   |Variable naming.So it   |
@@ -1837,14 +1837,14 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \brief Turn a pin to an GPIO Timer input or output pin.
+//! \brief Turn a pin to a GPIO Timer input or output pin.
 //!
 //! \param ePeripheralPin is the GPIO Peripheral name such as I2C0SDA. 
-//! Details please reference to \ref xGPIO_Pin_Config.
+//! Details please refer to \ref xGPIO_Pin_Config.
 //! \param eShortPin is the GPIO short pin name such as PA0. 
-//! Details please reference to \ref xGPIO_Short_Pin. 
+//! Details please refer to \ref xGPIO_Short_Pin. 
 //!
-//! This function configures a pin for use as a Timer function and turn 
+//! This function configures a pin for use as a Timer function and turns 
 //!  the pin into a GPIO Timer input or output pin.
 //!
 //! Table shows what the ePeripheralPin and eShortPin should be,only the 
@@ -1855,7 +1855,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! +--------------------+------------------------+------------------------+
 //! |    manufacturer    |ePeripheralPin          |eShortPin               |
 //! |--------------------|------------------------|------------------------|
-//! |    COX             |This parameter is a     |This parameter is a     |
+//! |    CoX             |This parameter is a     |This parameter is a     |
 //! |                    |mandatory.The mandatory |mandatory. the mandatory|
 //! |                    |is the format of        |is the format of        |
 //! |                    |Variable naming.So it   |Variable naming.So it   |
@@ -1887,14 +1887,14 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \brief Turn a pin to an GPIO UART input or output pin.
+//! \brief Turn a pin to a GPIO UART input or output pin.
 //!
 //! \param ePeripheralPin is the GPIO Peripheral name such as I2C0SDA. 
-//! Details please reference to \ref xGPIO_Pin_Config.
+//! Details please refer to \ref xGPIO_Pin_Config.
 //! \param eShortPin is the GPIO short pin name such as PA0. 
-//! Details please reference to \ref xGPIO_Short_Pin. 
+//! Details please refer to \ref xGPIO_Short_Pin. 
 //!
-//! This function configures a pin for use as a UART function and turn 
+//! This function configures a pin for use as a UART function and turns 
 //!  the pin into a GPIO UART input or output pin.
 //!
 //! Table shows what the ePeripheralPin and eShortPin should be,only the 
@@ -1905,7 +1905,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! +--------------------+------------------------+------------------------+
 //! |    manufacturer    |ePeripheralPin          |eShortPin               |
 //! |--------------------|------------------------|------------------------|
-//! |    COX             |This parameter is a     |This parameter is a     |
+//! |    CoX             |This parameter is a     |This parameter is a     |
 //! |                    |mandatory.The mandatory |mandatory. the mandatory|
 //! |                    |is the format of        |is the format of        |
 //! |                    |Variable naming.So it   |Variable naming.So it   |
@@ -1942,21 +1942,21 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \brief Turn a pin to an GPIO ACMP input or output pin.
+//! \brief Turn a pin to a GPIO ACMP input or output pin.
 //!
 //! \param ePeripheralPin is the GPIO Peripheral name such as I2C0SDA. 
-//! Details please reference to \ref xGPIO_Pin_Config.
+//! Details please refer to \ref xGPIO_Pin_Config.
 //! \param eShortPin is the GPIO short pin name such as PA0. 
-//! Details please reference to \ref xGPIO_Short_Pin. 
+//! Details please refer to \ref xGPIO_Short_Pin. 
 //!
-//! This function configures a pin for use as an ACMP function and turn 
+//! This function configures a pin for use as an ACMP function and turns 
 //!  the pin into a GPIO ACMP input or output pin.
 //!
 //! \verbatim
 //! +--------------------+------------------------+------------------------+
 //! |    manufacturer    |ePeripheralPin          |eShortPin               |
 //! |--------------------|------------------------|------------------------|
-//! |    COX             |This parameter is a     |This parameter is a     |
+//! |    CoX             |This parameter is a     |This parameter is a     |
 //! |                    |mandatory.The mandatory |mandatory. the mandatory|
 //! |                    |is the format of        |is the format of        |
 //! |                    |Variable naming.So it   |Variable naming.So it   |
@@ -1989,14 +1989,14 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \brief Turn a pin to an GPIO CLKO output pin.
+//! \brief Turn a pin to a GPIO CLKO output pin.
 //!
 //! \param ePeripheralPin is the GPIO Peripheral name such as I2C0SDA. 
-//! Details please reference to \ref xGPIO_Pin_Config.
+//! Details please refer to \ref xGPIO_Pin_Config.
 //! \param eShortPin is the GPIO short pin name such as PA0. 
-//! Details please reference to \ref xGPIO_Short_Pin. 
+//! Details please refer to \ref xGPIO_Short_Pin. 
 //!
-//! This function configures a pin for use as a CLKO function and turn 
+//! This function configures a pin for use as a CLKO function and turns 
 //!  the pin into a GPIO CLKO output pin.
 //!
 //! \return None.
@@ -2011,15 +2011,15 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
             
 //*****************************************************************************
 //
-//! \brief Turn a pin to an GPIO external interrupt pin.
+//! \brief Turn a pin to a GPIO external interrupt pin.
 //!
 //! \param ePeripheralPin is the GPIO Peripheral name such as I2C0SDA. 
-//! Details please reference to \ref xGPIO_Pin_Config.
+//! Details please refer to \ref xGPIO_Pin_Config.
 //! \param eShortPin is the GPIO short pin name such as PA0. 
-//! Details please reference to \ref xGPIO_Short_Pin. 
+//! Details please refer to \ref xGPIO_Short_Pin. 
 //!
 //! This function configures a pin for use as an GPIO interrupt function and  
-//! turn the pin into a GPIO external interrupt pin.
+//! turns the pin into a GPIO external interrupt pin.
 //!
 //! \return None.
 //
@@ -2033,15 +2033,15 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
             
 //*****************************************************************************
 //
-//! \brief Turn a pin to an GPIO EBI pin.
+//! \brief Turn a pin to a GPIO EBI pin.
 //!
 //! \param ePeripheralPin is the GPIO Peripheral name such as I2C0SDA. 
-//! Details please reference to \ref xGPIO_Pin_Config.
+//! Details please refer to \ref xGPIO_Pin_Config.
 //! \param eShortPin is the GPIO short pin name such as PA0. 
-//! Details please reference to \ref xGPIO_Short_Pin. 
+//! Details please refer to \ref xGPIO_Short_Pin. 
 //!
 //! This function configures a pin for use as an GPIO EBI function and  
-//! turn the pin into a GPIO EBI pin.
+//! turns the pin into a GPIO EBI pin.
 //!
 //! \return None.
 //
@@ -2503,7 +2503,8 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! GPIO pin A15
 //
 #define GPIO_PA15_PWM3          0x00000F00
-#define GPIO_PA15_I2SMCLK       0x09010F00
+#define GPIO_PA15_I2S0RXMCLK    0x09010F00
+#define GPIO_PA15_I2S0TXMCLK    0x09010F00
 
 //
 //! GPIO pin B0
@@ -2590,7 +2591,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! GPIO pin B14
 //
 #define GPIO_PB14_INT0          0x03001E00
-#define GPIO_PB14_SS31          0x03011E00
+#define GPIO_PB14_SPI3CS        0x03011E00
 
 //
 //! GPIO pin B15
@@ -2603,24 +2604,26 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 #define GPIO_PC0_SPI0CS         0x05002000
 #define GPIO_PC0_I2S0RXWS       0x05012000
+#define GPIO_PC0_I2S0TXWS       0x05012000
 
 //
 //! GPIO pin C1
 //
 #define GPIO_PC1_SPI0CLK        0x06002100
-#define GPIO_PC1_I2S0RXCLK      0x06012100
+#define GPIO_PC1_I2S0RXSCK      0x06012100
+#define GPIO_PC1_I2S0TXSCK      0x06012100
 
 //
 //! GPIO pin C2
 //
 #define GPIO_PC2_SPI0MISO       0x07002200
-#define GPIO_PC2_I2S0RX         0x07012200
+#define GPIO_PC2_I2S0RXSD       0x07012200
 
 //
 //! GPIO pin C3
 //
 #define GPIO_PC3_SPI0MOSI       0x08002300
-#define GPIO_PC3_I2S0TX         0x08012300
+#define GPIO_PC3_I2S0TXSD       0x08012300
 
 //
 //! GPIO pin C4
@@ -2793,7 +2796,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //*****************************************************************************
 //
 //! \addtogroup NUC1xx_GPIO_Exported_APIs NUC1xx GPIO API
-//! \brief GPIO API Refrence.
+//! \brief GPIO API Reference.
 //! @{
 //
 //*****************************************************************************

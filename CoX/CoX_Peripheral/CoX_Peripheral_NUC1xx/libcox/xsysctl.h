@@ -3,8 +3,8 @@
 //! \file xsysctl.h
 //! \brief Prototypes for the System Manager Driver.
 //! Prototypes for the Clock Controller Driver.
-//! \version V2.0.0
-//! \date 9/30/2011
+//! \version V2.0.1
+//! \date 11/11/2011
 //! \author CooCox
 //! \copy
 //!
@@ -54,7 +54,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -84,10 +84,10 @@ extern "C"
 //! xSysCtlPeripheralDisable(), and xSysCtlPeripheralReset() APIs as the
 //! ulPeripheral parameter.  
 //! 
-//! \section xSysCtl_Peripheral_ID_COX 2.COX Port Details
+//! \section xSysCtl_Peripheral_ID_CoX 2.CoX Port Details
 //! \verbatim
 //! +--------------------------+----------------+--------------------------+
-//! |SysCtl Peripheral ID      |       COX      |          NUC1xx          |
+//! |SysCtl Peripheral ID      |       CoX      |          NUC1xx          |
 //! |--------------------------|----------------|--------------------------|
 //! |xSYSCTL_PERIPH_ACMPn      |  Non-Mandatory |   xSYSCTL_PERIPH_ACMP0   |
 //! |--------------------------|----------------|--------------------------|
@@ -182,23 +182,23 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup xSysCtl_Clock_Set_Config xSysCtl Clock Set Configurtion
-//! \brief Values that show xSysCtl Clock Set Configurtion
+//! \addtogroup xSysCtl_Clock_Set_Config xSysCtl Clock Set Configuration
+//! \brief Values that show xSysCtl Clock Set Configuration
 //!
 //! \section xSysCtl_Clock_Set_SConfig 1. Where to use this group
 //! Values that can be passed to the xSysCtlClockSet() API as the
 //! \b ulConfig parameter.
 //!
 //! \section xSysCtl_Clock_Set_SConfig 2. ulConfig parameter description
-//! The \e ulConfig parameter is the logical OR of several different values,
-//! many of which are grouped into sets where only one can be chosen.
-//! ulConfig contains The external crystal frequency\The oscillator source and 
-//! The internal and main oscillators and PLL disabled optional.
+//! The ulConfig parameter is the logical OR of several different values, 
+//! many of which are grouped into sets where only one can be chosen. 
+//! ulConfig contains the external and internal crystal, main oscillators 
+//! and PLL disabled options.
 //!
-//! \section xSysCtl_Clock_Set_Config_COX 3.COX Port Details
+//! \section xSysCtl_Clock_Set_Config_CoX 3.CoX Port Details
 //! \verbatim
 //! +--------------------------+----------------+--------------------------+
-//! |SysCtl Clock Set Configs  |       COX      |          NUC1xx          |
+//! |SysCtl Clock Set Configs  |       CoX      |          NUC1xx          |
 //! |--------------------------|----------------|--------------------------|
 //! |xSYSCTL_OSC_MAIN          |    Mandatory   |             Y            |
 //! |--------------------------|----------------|--------------------------|
@@ -239,8 +239,8 @@ extern "C"
 //
 //*****************************************************************************
 
-#define xSYSCTL_OSC_MAIN        SYSCTL_OSC_MAIN
-#define xSYSCTL_OSC_INT         SYSCTL_OSC_INT
+#define xSYSCTL_OSC_MAIN        (SYSCTL_OSC_MAIN | SYSCTL_PLL_MAIN)
+#define xSYSCTL_OSC_INT         (SYSCTL_OSC_INT | SYSCTL_PLL_INT)
 #define xSYSCTL_OSC_INTSL       SYSCTL_OSC_INTSL
 #define xSYSCTL_OSC_EXTSL       SYSCTL_OSC_EXTSL
 
@@ -275,7 +275,7 @@ extern "C"
 #define xSYSCTL_INT_22MHZ       0x00000000  
 
 //
-//! Internal slow clock  is 30KHz.
+//! Internal slow clock  is 10KHz.
 //
 #define xSYSCTL_INTSL_10KHZ     0x00000000  
 
@@ -295,7 +295,7 @@ extern "C"
 #define xSYSCTL_MAIN_OSC_DIS    0x00000001  
 
 //
-//! Disable main oscillator
+//! Disable PLL
 //
 #define xSYSCTL_PLL_PWRDN       0x00010000  
 
@@ -318,10 +318,10 @@ extern "C"
 //! <b> ModuleName + n + SourceClock</b>, such as xSYSCTL_WDT_EXTSL, 
 //! xSYSCTL_ADC0_MAIN.
 //!
-//! \section xSysCtl_Peripheral_Src_Clk_COX COX Port Details
+//! \section xSysCtl_Peripheral_Src_Clk_CoX CoX Port Details
 //! \verbatim
 //! +-------------------------- +----------------+--------------------------+
-//! |Peripheral Source Clock Set|       COX      |          NUC1xx          |
+//! |Peripheral Source Clock Set|       CoX      |          NUC1xx          |
 //! |---------------------------|----------------|--------------------------|
 //! |Those are all Non-Mandatory|  Non-Mandatory |             Y            |
 //! | parameter,the Mandatory   |                |                          |
@@ -635,10 +635,10 @@ extern "C"
 //! The macros of General Peripheral Short Name always like:
 //! <b> ModuleName + n </b>, such as CAN0, ADC0.
 //!
-//! \section xSysCtl_Peripheral_Short_COX COX Port Details
+//! \section xSysCtl_Peripheral_Short_CoX CoX Port Details
 //! \verbatim
 //! +-------------------------- +----------------+--------------------------+
-//! |Peripheral Short name      |       COX      |          NUC1xx          |
+//! |Peripheral Short name      |       CoX      |          NUC1xx          |
 //! |---------------------------|----------------|--------------------------|
 //! |ADCn                       |  Non-Mandatory |           ADC0           |
 //! |---------------------------|----------------|--------------------------|
@@ -674,7 +674,7 @@ extern "C"
 //! |-------------------------- |----------------|--------------------------|
 //!
 //! +-------------------------- +----------------+--------------------------+
-//! |Peripheral Clock source    |       COX      |          NUC1xx          |
+//! |Peripheral Clock source    |       CoX      |          NUC1xx          |
 //! |---------------------------|----------------|--------------------------|
 //! |INT                        |    Mandatory   |             Y            |
 //! |---------------------------|----------------|--------------------------|
@@ -767,12 +767,12 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xSysCtl_Exported_APIs xSysCtl API
-//! \brief xSysCtl API Refrence
+//! \brief xSysCtl API Reference
 //!
-//! \section xSysCtl_Exported_APIs_Port COX Port Details
+//! \section xSysCtl_Exported_APIs_Port CoX Port Details
 //! \verbatim
 //! +--------------------------------+----------------+--------+
-//! |xSysCtl API                     |       COX      | NUC1xx |
+//! |xSysCtl API                     |       CoX      | NUC1xx |
 //! |--------------------------------|----------------|--------|
 //! |xSysCtlPeripheralReset          |    Mandatory   |    Y   |
 //! |--------------------------------|----------------|--------|
@@ -811,7 +811,7 @@ extern "C"
 //! \brief Performs a software reset of a peripheral.
 //!
 //! \param ulPeripheralID is the peripheral to reset. 
-//! Details please reference to \ref xSysCtl_Peripheral_ID.
+//! Details please refer to \ref xSysCtl_Peripheral_ID.
 //!
 //! This function performs a software reset of the specified peripheral.  An
 //! individual peripheral reset signal is asserted for a brief period and then
@@ -819,7 +819,7 @@ extern "C"
 //! condition.
 //!
 //! The \e ulPeripheralID parameter must be only one of the following values:
-//! Details please reference to \ref xSysCtl_Peripheral_ID_COX.
+//! Details please refer to \ref xSysCtl_Peripheral_ID_CoX.
 //!
 //! \return None.
 //
@@ -832,14 +832,14 @@ extern "C"
 //! \brief Enables a peripheral.
 //!
 //! \param ulPeripheralID is the peripheral to enable.
-//! Details please reference to \ref xSysCtl_Peripheral_ID.
+//! Details please refer to \ref xSysCtl_Peripheral_ID.
 //!
 //! Peripherals are enabled with this function.  At power-up, all peripherals
 //! are disabled; they must be enabled in order to operate or respond to
 //! register reads/writes.
 //!
 //! The \e ulPeripheralID parameter must be only one of the following values:
-//! Details please reference to \ref xSysCtl_Peripheral_ID_COX.
+//! Details please refer to \ref xSysCtl_Peripheral_ID_CoX.
 //!
 //! \note None.
 //!
@@ -868,12 +868,12 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 //! order to operate or respond to register reads/writes.
 //!
 //! The \e ulPeripheralSrc parameter must be only one of the following values:
-//! \ref xSysCtl_Peripheral_Src_Clk_COX.
+//! \ref xSysCtl_Peripheral_Src_Clk_CoX.
 //! \verbatim
 //! +--------------------+------------------------+---------------------------+
 //! |    manufacturer    |ePeripheral             |eSrc                       |
 //! |--------------------|------------------------|---------------------------|
-//! |    COX Common &    |This parameter is a     |This parameter is a        |
+//! |    CoX Common &    |This parameter is a     |This parameter is a        |
 //! |      Mandatory     |mandatory.Mandatory     |mandatory. So it           |
 //! |                    |is the format of        |should be: INT             |
 //! |                    |Variable naming.So it   |HCLK  HCLK_n EXTSL         |
@@ -917,7 +917,7 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 //! operate or respond to register reads/writes.
 //!
 //! The \e ulPeripheralID parameter must be only one of the following values:
-//! Details please reference to \ref xSysCtl_Peripheral_ID_COX.
+//! Details please refer to \ref xSysCtl_Peripheral_ID_CoX.
 //!
 //! \return None.
 //
@@ -936,7 +936,7 @@ extern void xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig);
 //! PWM, which has its own clock divider).
 //!
 //! \note This will not return accurate results if SysCtlClockSet() has not
-//! been called to configure the clocking of the device, or if the device is
+//! been called to configure the clock of the device, or if the device is
 //! directly clocked from a crystal (or a clock source) that is not one of the
 //! supported crystal frequencies.  In the later case, this function should be
 //! modified to directly return the correct system clock rate.
@@ -1755,8 +1755,8 @@ extern void xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig);
 
 //*****************************************************************************
 //
-//! \addtogroup NUC1xx_SysCtl_Clock_Config NUC1xx SysCtl Clock Configurtion
-//! \brief NUC1xx SysCtl Clock Configurtion
+//! \addtogroup NUC1xx_SysCtl_Clock_Config NUC1xx SysCtl Clock Configuration
+//! \brief NUC1xx SysCtl Clock Configuration
 //! The following are values that can be passed to the SysCtlClockSet() API as
 //! the ulConfig parameter.
 //! @{
@@ -1886,7 +1886,7 @@ extern void xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig);
 //
 //! Oscillator Source
 //
-#define SYSCTL_OSCSRC_M         0x00000070 
+#define SYSCTL_OSCSRC_M         0x00080070 
 
 //
 //! PLL source is int. 12 MHz
@@ -2017,7 +2017,7 @@ extern void xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig);
 //*****************************************************************************
 //
 //! \addtogroup NUC1xx_SysCtl_Exported_APIs NUC1xx SysCtl APIs
-//! \brief NUC1xx SysCtl API Refrence
+//! \brief NUC1xx SysCtl API Reference
 //! @{
 //
 //*****************************************************************************

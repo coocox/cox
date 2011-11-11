@@ -15,10 +15,10 @@
 #define __TEST_H__
 
 #include <stdint.h>
+#include "xhw_types.h"
 #include "xhw_ints.h"
 #include "xhw_nvic.h"
 #include "xhw_memmap.h"
-#include "xhw_types.h"
 #include "xdebug.h"
 #include "xcore.h"
 #include "xsysctl.h"
@@ -27,8 +27,8 @@
 #include "xgpio.h"
 #include "xhw_uart.h"
 #include "xuart.h"
-
-
+#include "xhw_i2c.h"
+#include "xi2c.h"
 
 //*****************************************************************************
 //
@@ -100,12 +100,11 @@ extern xtBoolean TestMain(void);
 extern void TestEmitToken(char token);
 
 extern xtBoolean _TestAssert(char* pcFile, unsigned long ulLine, 
-                               xtBoolean bCondition, 
-                               char * pcMsg);
+                             xtBoolean bCondition, 
+                             char * pcMsg);
 
-extern xtBoolean _TestAssertSequence(char* pcFile, unsigned long ulLine, 
-                                          char *pcExpected, 
-                                          char* pcMsg);
+extern xtBoolean _TestAssertSequenceBreak(char *pcExpected, 
+                                          unsigned long ulDelay);
 
 
 //*****************************************************************************
@@ -153,6 +152,7 @@ extern void TestDisableIRQ(void);
         }while(0)
 
 #endif
+
 //*****************************************************************************
 //
 //! \brief Test sequence assertion.
@@ -162,7 +162,7 @@ extern void TestDisableIRQ(void);
 //! \param pcExpected is the expect token seq.
 //! \param bCondition is the checking expr. \b xtrue, \bxfalse
 //! \param pcMsg failure message
-
+//! \param ulDelay wait delay time
 //!
 //! \details Test sequence assertion.
 //!
@@ -170,24 +170,26 @@ extern void TestDisableIRQ(void);
 //
 //*****************************************************************************
 #ifdef TEST_IO_PORT
-#define TestAssertQ(pcExpected, pcMsg)                                        \
+#define TestAssertQBreak(pcExpected, pcMsg, ulDelay)                          \
         do                                                                    \
         {                                                                     \
-            if (_TestAssertSequence(__FILE__, __LINE__, pcExpected, pcMsg))   \
+            if (_TestAssertSequenceBreak( pcExpected, ulDelay))               \
             {                                                                 \
+                _TestAssert(__FILE__, __LINE__, 0, pcMsg);                    \
                 return;                                                       \
             }                                                                 \
         }while(0)
 #else
-#define TestAssertQ(pcExpected, pcMsg)                                        \
+#define TestAssertQBreak(pcExpected, pcMsg, ulDelay)                          \
         do                                                                    \
         {                                                                     \
-            if (_TestAssertSequence(__FILE__, __LINE__, pcExpected, pcMsg))   \
+            if (_TestAssertSequenceBreak(pcExpected, ulDelay))                \
             {                                                                 \
+                _TestAssert(__FILE__, __LINE__, 0, pcMsg);                    \
                 while(1);                                                     \
             }                                                                 \
         }while(0)
-#endif        
+#endif       
 
 //*****************************************************************************
 //

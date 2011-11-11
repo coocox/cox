@@ -2,8 +2,8 @@
 //
 //! \file xpwm.h
 //! \brief Prototypes for the PWM Driver.
-//! \version V2.0.0
-//! \date 9/30/2011
+//! \version V2.0.1
+//! \date 11/11/2011
 //! \author CooCox
 //! \copy
 //!
@@ -53,7 +53,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -81,10 +81,10 @@ extern "C"
 //! Values that can be passed to xPWMIntEnable(),xPWMIntDisable()
 //! as the ulIntType parameter. 
 //! \n
-//! \section xPWM_Int_Type_COX 2.COX Mandatory and COX Non-mandatory 
+//! \section xPWM_Int_Type_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
 //! +------------------------+----------------+--------+
-//! |xPWM Interrupt Source   |       COX      | NUC1xx |
+//! |xPWM Interrupt Source   |       CoX      | NUC1xx |
 //! |------------------------|----------------|--------|
 //! |xPWM_INT_PWM            |    Mandatory   |    Y   |
 //! |------------------------|----------------|--------|
@@ -114,10 +114,10 @@ extern "C"
 //! ulEvent parmeter. User Callback function can user this to detect what 
 //! event happened. 
 //! \n
-//! \section xPWM_Event_Type_COX 2.COX Mandatory and COX Non-mandatory 
+//! \section xPWM_Event_Type_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
 //! +------------------------+----------------+--------+
-//! |xPWM Event Source       |       COX      | NUC1xx |
+//! |xPWM Event Source       |       CoX      | NUC1xx |
 //! |------------------------|----------------|--------|
 //! |xPWM_EVENT_PWM          |    Mandatory   |    Y   |
 //! |------------------------|----------------|--------|
@@ -153,10 +153,10 @@ extern "C"
 //! \section xPWM_Event_Type_Section 1. Where to use this group
 //! Values that can be passed to xPWMFrequencyConfig() as ulConfig parameter. 
 //! \n
-//! \section xPWM_Event_Type_COX 2.COX Mandatory and COX Non-mandatory 
+//! \section xPWM_Event_Type_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
 //! +------------------------+----------------+--------+
-//! |xPWM Freq Config        |       COX      | NUC1xx |
+//! |xPWM Freq Config        |       CoX      | NUC1xx |
 //! |------------------------|----------------|--------|
 //! |xPWM_FREQ_CONFIG(a,b,c) |    Mandatory   |    Y   |
 //! |a is The Divider value  |                |        |
@@ -189,10 +189,10 @@ extern "C"
 //! ulMsgParam parmeter. User Callback function can user this to detect what 
 //! Channel event happened. 
 //! \n
-//! \section xPWM_Channel_COX 2.COX Mandatory and COX Non-mandatory 
+//! \section xPWM_Channel_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
 //! +------------------------+----------------+-------------+
-//! |xPWM Channel Number     |       COX      |   NUC1xx    |
+//! |xPWM Channel Number     |       CoX      |   NUC1xx    |
 //! |------------------------|----------------|-------------|
 //! |xPWM_CHANNEL$x$         |  Non-Mandatory |xPWM_CHANNEL0|
 //! |                        |                |-------------|
@@ -271,10 +271,10 @@ extern "C"
 //! Values that can be passed to xPWMInitConfigure()
 //! as the ulConfig parameter. 
 //! \n
-//! \section xPWM_Config_COX 2.COX Mandatory and COX Non-mandatory 
+//! \section xPWM_Config_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
 //! +------------------------+----------------+--------+
-//! |xPWM Config             |       COX      | NUC1xx |
+//! |xPWM Config             |       CoX      | NUC1xx |
 //! |------------------------|----------------|--------|
 //! |xPWM_ONE_SHOT_MODE      |    Mandatory   |    Y   |
 //! |------------------------|----------------|--------|
@@ -332,10 +332,10 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xPWM_Exported_APIs xPWM APIs
-//! \brief xPWM API Refrence.
+//! \brief xPWM API Reference.
 //! \verbatim
 //! +------------------------+----------------+--------+
-//! |xPWM API                |       COX      | NUC1xx |
+//! |xPWM API                |       CoX      | NUC1xx |
 //! |------------------------|----------------|--------|
 //! |xPWMInitConfigure       |    Mandatory   |    Y   |
 //! |------------------------|----------------|--------|
@@ -378,7 +378,7 @@ extern "C"
 //! \param ulBase is the base address of the PWM port.
 //! \param ulChannel is the PWM channel.
 //! \param ulConfig is the configuration of PWM channel.
-//! Details please reference to \ref xPWM_Config.
+//! Details please refer to \ref xPWM_Config.
 //!
 //! This function is to initialize and configure channel of the PWM module.
 //!
@@ -395,7 +395,7 @@ extern "C"
 //! \b xPWM_DEAD_ZONE_EN
 //! \b xPWM_DEAD_ZONE_DIS is to enable dead zone Generator or not.
 //! The dead zone length will be set at the 16~23 bits of the ulConfig.
-//! Details please reference to \ref xPWM_Config_COX.
+//! Details please refer to \ref xPWM_Config_CoX.
 //!
 //! \note When Dead-Zone Generator is enabled, the pair of PWM0 and PWM1 
 //! becomes a complementary pair for PWM group A and the pair of PWM4 and 
@@ -440,7 +440,7 @@ extern "C"
 //! \param ulBase is the base address of the PWM port.
 //! \param ulChannel is the PWM channel.
 //! \param ulConfig is the configuration of PWM channel' frequency.
-//! Details please reference to \ref xPWM_Freq_Config.
+//! Details please refer to \ref xPWM_Freq_Config.
 //!
 //! This function is to set the PWM frequency of the PWM module.
 //!
@@ -451,7 +451,7 @@ extern "C"
 //!
 //! The \e ulConfig parameter is the logical OR of three values: The PreScale
 //! value, The Divider value and the PWM Counter Register value.
-//! Details please reference to \ref xPWM_Freq_Config_COX.
+//! Details please refer to \ref xPWM_Freq_Config_CoX.
 //!
 //! \note Config will not the same since diff manu,but for NUC1xx is the above
 //!
@@ -625,7 +625,7 @@ extern "C"
 //! \param ulBase is the base address of the PWM port.
 //! \param ulChannel is the PWM channel.
 //! \param ulIntType is the PWM channel interrupt type.
-//! Details please reference to \ref xPWM_Int_Type.
+//! Details please refer to \ref xPWM_Int_Type.
 //!
 //! This function is to enable the PWM interrupt of the PWM module.
 //!
@@ -636,7 +636,7 @@ extern "C"
 //!
 //! The \e ulIntType parameter can be values:
 //! \b xPWM_INT_PWM.
-//! Details please reference to \ref xPWM_Int_Type_COX.
+//! Details please refer to \ref xPWM_Int_Type_CoX.
 //!
 //! \note None
 //!
@@ -653,7 +653,7 @@ extern "C"
 //! \param ulBase is the base address of the PWM port.
 //! \param ulChannel is the PWM channel.
 //! \param ulIntType is the PWM channel interrupt type.
-//! Details please reference to \ref xPWM_Int_Type.
+//! Details please refer to \ref xPWM_Int_Type.
 //!
 //! This function is to disable the PWM interrupt of the PWM module.
 //!
@@ -664,7 +664,7 @@ extern "C"
 //!
 //! The \e ulIntType parameter can be values:
 //! \b xPWM_INT_PWM.
-//! Details please reference to \ref xPWM_Int_Type_COX.
+//! Details please refer to \ref xPWM_Int_Type_CoX.
 //!
 //! \note None
 //!
@@ -681,7 +681,7 @@ extern "C"
 //! \param ulBase is the base address of the PWM port.
 //! \param ulChannel is the PWM channel.
 //! \param ulIntType is the PWM channel interrupt type.
-//! Details please reference to \ref xPWM_Int_Type.
+//! Details please refer to \ref xPWM_Int_Type.
 //!
 //! This function is to get the PWM interrupt flag of the PWM module.
 //!
@@ -692,7 +692,7 @@ extern "C"
 //!
 //! The \e ulIntType parameter can be values:
 //! \b xPWM_INT_PWM.
-//! Details please reference to \ref xPWM_Int_Type_COX
+//! Details please refer to \ref xPWM_Int_Type_CoX
 //!
 //! \note None
 //!
@@ -919,7 +919,7 @@ extern "C"
 #define PWM_OUTPUT_INVERTER_EN  0x00000004
 
 //
-//! Inverter enable
+//! Inverter disable
 //
 #define PWM_OUTPUT_INVERTER_DIS 0x00000000
 
@@ -959,7 +959,7 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup NUC1xx_PWM_Exported_APIs NUC1xx PWM API
-//! \brief NUC1xx PWM API Refrence.
+//! \brief NUC1xx PWM API Reference.
 //! @{
 //
 //*****************************************************************************

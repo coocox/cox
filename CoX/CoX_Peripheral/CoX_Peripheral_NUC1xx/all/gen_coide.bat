@@ -38,7 +38,7 @@ echo completed
 
 echo gen coide project: CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx\all\project
 %v_iar2coide% -w "%v_gen_root%" -t %v_cox_peripheral%\resource\cox_coide_empty_project  >>nul
-del /s /q %v_cox_peripheral%\resource\cox_coide_empty_project\startup_coide.c >>nul
+::del /s /q %v_cox_peripheral%\resource\cox_coide_empty_project\startup_coide.c >>nul
 echo completed
 
 echo rename coide_gen to template

@@ -4,8 +4,8 @@
 //! \brief Prototypes for the CPU instruction wrapper functions.
 //! \brief Prototypes for the NVIC Interrupt Controller Driver.
 //! \brief Prototypes for the SysTick driver.
-//! \version 2.0.0.$Rev: 244 $
-//! \date 9/30/2011
+//! \version V2.0.1
+//! \date 11/11/2011
 //! \author CooCox
 //! \copy
 //!
@@ -55,7 +55,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -76,7 +76,7 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xCORE_Exported_APIs xCORE API
-//! \brief Cortex-M0/M3 Core peripheral(CPU, NVIC, Systick) API refrence.
+//! \brief Cortex-M0/M3 Core peripheral(CPU, NVIC, Systick) API reference.
 //! @{
 //
 //*****************************************************************************

@@ -1,7 +1,7 @@
 //*****************************************************************************
 //
 //! \defgroup xCORE xCORE  
-//! \brief ARM Cortex-M0/M3 Core peripheral(CPU, NVIC, Systick).
+//! \brief ARM Cortex-M0/M3 Core peripheral (CPU, NVIC, Systick).
 //!
 //! <h1>Contents</h1>
 //! - \ref CORE_Blcok
@@ -118,7 +118,7 @@
 //! 
 //!
 //! \section xCORE_API_Group 4. API Groups
-//! The COX Core API is broken into 3 groups of functions: 
+//! The CoX Core API is broken into 3 groups of functions: 
 //! - those that wrapping CPU instruction. 
 //! - those that deal with interrupts.
 //! - those that deal with systick.

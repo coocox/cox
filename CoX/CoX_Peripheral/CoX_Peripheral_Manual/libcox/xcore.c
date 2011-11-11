@@ -4,8 +4,8 @@
 //! \brief Instruction wrappers for special CPU instructions.
 //! \brief Driver for the NVIC Interrupt Controller.
 //! \brief Driver for the SysTick driver.
-//! \version 2.0.0.$Rev: 244 $
-//! \date 9/30/2011
+//! \version V2.0.1
+//! \date 11/11/2011
 //! \author CooCox
 //! \copy
 //!
@@ -725,28 +725,28 @@ xIntEnable(unsigned long ulInterrupt)
     //
     // Determine the interrupt to enable.
     //
-    if(ulInterrupt == FAULT_MPU)
+    if(ulInterrupt == xFAULT_MPU)
     {
         //
         // Enable the MemManage interrupt.
         //
         xHWREG(NVIC_SYS_HND_CTRL) |= NVIC_SYS_HND_CTRL_MEM;
     }
-    else if(ulInterrupt == FAULT_BUS)
+    else if(ulInterrupt == xFAULT_BUS)
     {
         //
         // Enable the bus fault interrupt.
         //
         xHWREG(NVIC_SYS_HND_CTRL) |= NVIC_SYS_HND_CTRL_BUS;
     }
-    else if(ulInterrupt == FAULT_USAGE)
+    else if(ulInterrupt == xFAULT_USAGE)
     {
         //
         // Enable the usage fault interrupt.
         //
         xHWREG(NVIC_SYS_HND_CTRL) |= NVIC_SYS_HND_CTRL_USAGE;
     }
-    else if(ulInterrupt == FAULT_SYSTICK)
+    else if(ulInterrupt == xFAULT_SYSTICK)
     {
         //
         // Enable the System Tick interrupt.
@@ -786,28 +786,28 @@ xIntDisable(unsigned long ulInterrupt)
     //
     // Determine the interrupt to disable.
     //
-    if(ulInterrupt == FAULT_MPU)
+    if(ulInterrupt == xFAULT_MPU)
     {
         //
         // Disable the MemManage interrupt.
         //
         xHWREG(NVIC_SYS_HND_CTRL) &= ~(NVIC_SYS_HND_CTRL_MEM);
     }
-    else if(ulInterrupt == FAULT_BUS)
+    else if(ulInterrupt == xFAULT_BUS)
     {
         //
         // Disable the bus fault interrupt.
         //
         xHWREG(NVIC_SYS_HND_CTRL) &= ~(NVIC_SYS_HND_CTRL_BUS);
     }
-    else if(ulInterrupt == FAULT_USAGE)
+    else if(ulInterrupt == xFAULT_USAGE)
     {
         //
         // Disable the usage fault interrupt.
         //
         xHWREG(NVIC_SYS_HND_CTRL) &= ~(NVIC_SYS_HND_CTRL_USAGE);
     }
-    else if(ulInterrupt == FAULT_SYSTICK)
+    else if(ulInterrupt == xFAULT_SYSTICK)
     {
         //
         // Disable the System Tick interrupt.
@@ -851,21 +851,21 @@ xIntPendSet(unsigned long ulInterrupt)
     //
     // Determine the interrupt to pend.
     //
-    if(ulInterrupt == FAULT_NMI)
+    if(ulInterrupt == xFAULT_NMI)
     {
         //
         // Pend the NMI interrupt.
         //
         xHWREG(NVIC_INT_CTRL) |= NVIC_INT_CTRL_NMI_SET;
     }
-    else if(ulInterrupt == FAULT_PENDSV)
+    else if(ulInterrupt == xFAULT_PENDSV)
     {
         //
         // Pend the PendSV interrupt.
         //
         xHWREG(NVIC_INT_CTRL) |= NVIC_INT_CTRL_PEND_SV;
     }
-    else if(ulInterrupt == FAULT_SYSTICK)
+    else if(ulInterrupt == xFAULT_SYSTICK)
     {
         //
         // Pend the SysTick interrupt.
@@ -906,14 +906,14 @@ xIntPendClear(unsigned long ulInterrupt)
     //
     // Determine the interrupt to unpend.
     //
-    if(ulInterrupt == FAULT_PENDSV)
+    if(ulInterrupt == xFAULT_PENDSV)
     {
         //
         // Unpend the PendSV interrupt.
         //
         xHWREG(NVIC_INT_CTRL) |= NVIC_INT_CTRL_UNPEND_SV;
     }
-    else if(ulInterrupt == FAULT_SYSTICK)
+    else if(ulInterrupt == xFAULT_SYSTICK)
     {
         //
         // Unpend the SysTick interrupt.
