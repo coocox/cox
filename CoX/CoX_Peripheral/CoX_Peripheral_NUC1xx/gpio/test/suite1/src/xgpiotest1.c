@@ -172,7 +172,7 @@ static void xgpio001Execute(void)
     xIntDisable(xINT_GPIOD);
     xIntDisable(xINT_GPIOE);    
     
- /*   
+    
     //
     // Interrupt enable.
     //
@@ -191,7 +191,7 @@ static void xgpio001Execute(void)
                 }
                 else
                 {
-                    ulTemp = xHWREG(ulPort + GPIO_IMD) & ulPackedPin[ulPin];
+                    ulTemp = xHWREG(ulGPIO[ulPort] + GPIO_IMD) & ulPackedPin[ulPin];
                     TestAssert(ulTemp == 0,
                                "xgpio, \"Edge INT type enable \" error");
                 }
@@ -210,7 +210,7 @@ static void xgpio001Execute(void)
             }
         }
     }
-*/
+
     
     //
     // Interrupt disable test
