@@ -34,6 +34,11 @@
 //*****************************************************************************
 
 #include "test.h"
+#include "xhw_types.h"
+#include "xhw_ints.h"
+#include "xhw_memmap.h"
+#include "xhw_timer.h"
+#include "xtimer.h"
 
 //*****************************************************************************
 //

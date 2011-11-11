@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project default="postbuild" name="test">
-  <property name="project.name" value="test_x"/>
+  <property name="project.name" value="coide_gen"/>
   <property name="project.debug" value="Debug"/>
   <property name="project.obj" value="Debug/obj"/>
   <property name="project.bin" value="Debug/bin"/>
@@ -35,11 +35,14 @@
       
       <!-- defines -->
       <defineset>
+        <define name="xDEBUG"/>
         <define name="gcc"/>
       </defineset>
       
       <!-- include compile path -->
       <includepath path="."/>
+      <includepath path="test/testcase"/>
+      <includepath path="test/testframe"/>
       <includepath path="CoX/CoX_Peripheral/inc"/>
       
       <!-- arm-none-eabi-gcc compiler arguments -->

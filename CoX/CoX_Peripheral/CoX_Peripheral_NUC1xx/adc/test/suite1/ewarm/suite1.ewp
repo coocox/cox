@@ -1708,31 +1708,34 @@
     </file>
   </group>
   <group>
-    <name>Source</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\testframe\main.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\testframe\test.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\testframe\test.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\testframe\testport.c</name>
-    </file>
-  </group>
-  <group>
-    <name>testcase</name>
-    <file>
-      <name>$PROJ_DIR$\..\src\testcase.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\testcase.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\Xadctest.c</name>
-    </file>
+    <name>test</name>
+    <group>
+      <name>testcase</name>
+      <file>
+        <name>$PROJ_DIR$\..\src\testcase.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\src\testcase.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\src\Xadctest.c</name>
+      </file>
+    </group>
+    <group>
+      <name>testframe</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\testframe\main.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\testframe\test.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\testframe\test.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\testframe\testport.c</name>
+      </file>
+    </group>
   </group>
 </project>
 

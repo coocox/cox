@@ -1634,7 +1634,7 @@
   <group>
     <name>CoX</name>
     <group>
-      <name>CoX_Periphral</name>
+      <name>CoX_Peripheral</name>
       <group>
         <name>inc</name>
         <file>
@@ -1726,21 +1726,21 @@
         <name>$PROJ_DIR$\..\src\Xsysctltest05.c</name>
       </file>
     </group>
-  </group>
-  <group>
-    <name>testframe</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\testframe\main.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\testframe\test.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\testframe\test.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\testframe\testport.c</name>
-    </file>
+    <group>
+      <name>testframe</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\testframe\main.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\testframe\test.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\testframe\test.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\testframe\testport.c</name>
+      </file>
+    </group>
   </group>
 </project>
 

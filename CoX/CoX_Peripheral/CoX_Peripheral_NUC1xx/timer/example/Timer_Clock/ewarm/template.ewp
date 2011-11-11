@@ -1629,9 +1629,9 @@
     </settings>
   </configuration>
   <group>
-    <name>COX</name>
+    <name>CoX</name>
     <group>
-      <name>COX_Peripheral</name>
+      <name>CoX_Peripheral</name>
       <group>
         <name>inc</name>
         <file>

@@ -1634,9 +1634,9 @@
     </settings>
   </configuration>
   <group>
-    <name>COX</name>
+    <name>CoX</name>
     <group>
-      <name>COX_Peripheral</name>
+      <name>CoX_Peripheral</name>
       <group>
         <name>inc</name>
         <file>
@@ -1710,36 +1710,39 @@
   </group>
   <group>
     <name>test</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\testframe\main.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\testframe\test.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\testframe\test.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\testframe\testport.c</name>
-    </file>
-  </group>
-  <group>
-    <name>testcase</name>
-    <file>
-      <name>$PROJ_DIR$\..\src\testcase.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\testcase.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\wdttest00.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\wdttest01.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\wdttest02.c</name>
-    </file>
+    <group>
+      <name>testcase</name>
+      <file>
+        <name>$PROJ_DIR$\..\src\testcase.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\src\testcase.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\src\wdttest00.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\src\wdttest01.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\src\wdttest02.c</name>
+      </file>
+    </group>
+    <group>
+      <name>testframe</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\testframe\main.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\testframe\test.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\testframe\test.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\testframe\testport.c</name>
+      </file>
+    </group>
   </group>
 </project>
 
