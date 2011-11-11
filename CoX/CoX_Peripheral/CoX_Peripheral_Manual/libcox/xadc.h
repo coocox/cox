@@ -2,8 +2,8 @@
 //
 //! \file xadc.h
 //! \brief Defines and Macros for ADC API.
-//! \version 2.0.0.$Rev: 244 $
-//! \date 9/30/2011
+//! \version V2.0.1
+//! \date 11/11/2011
 //! \author CooCox
 //! \copy
 //!

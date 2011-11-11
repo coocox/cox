@@ -222,14 +222,14 @@
 //!         <td><a href="http://www.coocox.org/cox/manual/interface/">CoX Port Template</a></td>
 //!         <td><img src="accepts.png" /></td>
 //!         <td>09/2011</td>
-//!         <td><a href="http://www.coocox.org/cox/download/CoX_Template_V2.0.0.zip">Download</a></td>
+//!         <td><a href="http://www.coocox.org/cox/download/CoX_Template_V2.0.1.zip">Download</a></td>
 //!     </tr>
 //!     <tr>
 //!         <td rowspan="3">Nuvoton</td>
 //!         <td><a href="http://www.coocox.org/cox/manual/nuc1xx/">NUC1xx</a></td>
 //!         <td><img src="accepts.png" /></td>
 //!         <td>09/2011</td>
-//!         <td><a href="http://www.coocox.org/cox/download/CoX_NUC1xx_V2.0.0.zip">Download</a></td>
+//!         <td><a href="http://www.coocox.org/cox/download/CoX_NUC1xx_V2.0.1.zip">Download</a></td>
 //!     </tr>
 //!     <tr>
 //!         <td>NUC122</td>
