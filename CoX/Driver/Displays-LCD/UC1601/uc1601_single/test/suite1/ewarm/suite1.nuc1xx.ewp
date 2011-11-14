@@ -1736,33 +1736,36 @@
   </group>
   <group>
     <name>Source</name>
-    <file>
-      <name>$PROJ_DIR$\..\main.c</name>
-    </file>
   </group>
   <group>
     <name>test</name>
-    <file>
-      <name>$PROJ_DIR$\..\src\testcase.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\testcase.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\uc1601Test.c</name>
-    </file>
-  </group>
-  <group>
-    <name>testframe</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\test.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\test.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\testport.c</name>
-    </file>
+    <group>
+      <name>testcase</name>
+      <file>
+        <name>$PROJ_DIR$\..\src\testcase.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\src\testcase.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\src\uc1601Test.c</name>
+      </file>
+    </group>
+    <group>
+      <name>testframe</name>
+      <file>
+        <name>$PROJ_DIR$\..\main.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\test.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\test.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\testport.c</name>
+      </file>
+    </group>
   </group>
 </project>
 

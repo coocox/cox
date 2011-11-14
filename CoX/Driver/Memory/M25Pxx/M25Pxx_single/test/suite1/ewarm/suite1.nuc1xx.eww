@@ -2,7 +2,7 @@
 
 <workspace>
   <project>
-    <path>$WS_DIR$\AT25FS0xTest.ewp</path>
+    <path>$WS_DIR$\suite1.nuc1xx.ewp</path>
   </project>
   <batchBuild/>
 </workspace>

@@ -282,7 +282,7 @@
           <state>$PROJ_DIR$/../../../../../../../CoX_Peripheral\CoX_Peripheral_NUC1xx\libcox</state>
           <state>$PROJ_DIR$/../../../lib</state>
           <state>$PROJ_DIR$/../src</state>
-          <state>$PROJ_DIR$/../../../../../../resource\testframe</state>
+          <state>$PROJ_DIR$/../../../../../../../resource\testframe</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1634,15 +1634,15 @@
     <group>
       <name>CoX_Driver</name>
       <group>
-        <name>AT25FS0x</name>
+        <name>M25Pxx</name>
         <file>
-          <name>$PROJ_DIR$\..\..\..\lib\AT25FS0x.c</name>
+          <name>$PROJ_DIR$\..\..\..\lib\hw_M25Pxx.h</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\lib\AT25FS0x.h</name>
+          <name>$PROJ_DIR$\..\..\..\lib\M25Pxx.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\lib\hw_AT25FS0x.h</name>
+          <name>$PROJ_DIR$\..\..\..\lib\M25Pxx.h</name>
         </file>
       </group>
     </group>
@@ -1733,27 +1733,30 @@
   </group>
   <group>
     <name>test</name>
-    <file>
-      <name>$PROJ_DIR$\..\src\AT25FS0xTest.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\testcase.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\testcase.h</name>
-    </file>
-  </group>
-  <group>
-    <name>testframe</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\resource\testframe\test.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\resource\testframe\test.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\resource\testframe\testport.c</name>
-    </file>
+    <group>
+      <name>testcase</name>
+      <file>
+        <name>$PROJ_DIR$\..\src\M25PxxTest.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\src\testcase.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\src\testcase.h</name>
+      </file>
+    </group>
+    <group>
+      <name>testframe</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\test.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\test.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\testport.c</name>
+      </file>
+    </group>
   </group>
 </project>
 
