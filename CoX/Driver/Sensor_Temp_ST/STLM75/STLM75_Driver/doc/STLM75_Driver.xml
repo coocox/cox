@@ -1,31 +1,34 @@
 <?xml version="1.0" ?> 
   <Component>
-    <Name>DS18B20_Driver</Name> 
-    <Description>DS18B20 Temperature Driver using 1-wire interface</Description> 
+    <Name>STLM75_Driver</Name> 
+    <Description>STLM75 Temperature Driver using I2C interface</Description> 
     <Category>Driver</Category> 
     <Version>1.0.0</Version> 
-    <KeyWord>DS18B20, Temperature, Sensor, 1-wire, Driver, COX, Maxim</KeyWord> 
+    <KeyWord>STLM75, Temperature, Sensor, 2-wire, Driver, COX, ST, I2C,STxx75</KeyWord> 
     <Filter>
-      <Interface>1-wire</Interface> 
+      <Interface>2-wire</Interface> 
+	  <Interface>I2C</Interface> 
       <COXBased>true</COXBased> 
       <Layer>Driver</Layer> 
     </Filter>
     <SupportDevices>
-      <Device>DS18B20</Device> 
-	  <Device>DS18B20U</Device>
-	  <Device>DS18B20Z</Device>
+      <Device>STLM75</Device> 
+	  <Device>STCN75</Device>
+	  <Device>STDS75</Device>
+	  <Device>STTS75</Device>
     </SupportDevices>
     <Files>
       <File>$Driver_ROOT$\lib\*</File> 
     </Files>
     <CoIDEFiles>
-      <File>PROJECT_ROOT$\CoX\DS18B20\xhw_DS18B20.h</File> 
-      <File>PROJECT_ROOT$\CoX\DS18B20\DS18B20.h</File> 
-      <File>PROJECT_ROOT$\CoX\DS18B20\DS18B20.c</File> 
+      <File>PROJECT_ROOT$\CoX\STLM75\xhw_STLM75.h</File> 
+      <File>PROJECT_ROOT$\CoX\STLM75\STLM75.h</File> 
+      <File>PROJECT_ROOT$\CoX\STLM75\STLM75.c</File> 
     </CoIDEFiles>
     <DependentComponentInterfaceTag>
       <Tag>CoX.GPIO</Tag> 
       <Tag>CoX.SysCtl</Tag> 
+	  <Tag>CoX.I2C</Tag> 
     </DependentComponentInterfaceTag>
     <SupportMCUs>
       <MCU /> 

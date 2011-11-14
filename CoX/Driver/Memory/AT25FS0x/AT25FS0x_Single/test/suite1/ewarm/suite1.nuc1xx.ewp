@@ -1634,7 +1634,7 @@
     <group>
       <name>CoX_Driver</name>
       <group>
-        <name>AT25FS0x</name>
+        <name>AT25FS0x_Single</name>
         <file>
           <name>$PROJ_DIR$\..\..\..\lib\AT25FS0x.c</name>
         </file>
