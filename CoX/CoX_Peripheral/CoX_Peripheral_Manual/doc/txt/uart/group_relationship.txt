@@ -3,13 +3,7 @@
 //!
 //! \addtogroup UART
 //! @{
-//! \addtogroup NUC1xx_UART_Register 
-//! @{
-//! @}
 //! \addtogroup xUART
-//! @{
-//! @}
-//! \addtogroup NUC1xx_UART
 //! @{
 //! @}
 //! \addtogroup xUART_Apps

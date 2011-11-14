@@ -21,15 +21,3 @@
 //
 //*****************************************************************************
 
-//*****************************************************************************
-//
-//! \defgroup NUC1xx_LowLayer NUC1xx LowLayer
-//! 
-//! \brief NUC1xx LowLayer Memory And Interrupt
-//!
-//! NUC1xx_LowLayer LowLayer defines the base addresses of the 
-//! memories/peripherals and the fault/interrupt assignments of NUC1xx.
-//!
-//! \note It defines all the peripheral address and interrupt.
-//
-//*****************************************************************************

@@ -7,7 +7,7 @@ General Information
 -------------------------------------------------------------------------------
 
 CoX Peripheral Library is the definition of a group of interface functions. 
-It defines the functional access functions of MCU¡¯s common peripherals, such 
+It defines the functional access functions of MCU's common peripherals, such 
 as IIC, SPI, UART, etc. CoX makes full functions, drivers based on CoX can be 
 ported to other MCU easily.
 

@@ -2,10 +2,21 @@
 //
 //! \page Changelog Revisions
 //!
-//! Revision 2.0.0 09/2011
+//! <h3>Revision 2.1 11/14/2011</h3>
+//! - Check wrong words and grammar for code notes and doxygen document.
+//! - Add the APIs of peripheral clock source selecting and frequency division 
+//! In the SysCtl module.
+//! - Add APIs of peripheral enable, disable and reset (Which is convenient 
+//! for drivers coding,  for it can directly pass peripherals base address for 
+//! passing parameters.)
+//! - Modify GPIO interrupt callback initialization function API - 
+//! \ref xGPIOPinIntCallbackInit.
+//! .
+//!
+//! <h3>Revision 2.0 09/30/2011</h3>
 //! We re-write the cox, for the initial version's drawbacks.
 //!
-//! Revision 1.0.0  09/2010
+//! <h3>Revision 1.0 09/2010</h3>
 //! CoX Peripheral Interface initial version.
 //
 //*****************************************************************************
