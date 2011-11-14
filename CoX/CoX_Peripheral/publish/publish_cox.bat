@@ -19,7 +19,7 @@ echo Error: You select an error mcu platform, Try again.
 goto publish_config_mcu
 
 :publish_config_version
-set /p _version=Please input the version(such as V2.0.0):
+set /p _version=Please input the version(such as V2.0.1.0):
 
 if "%_version%"=="" goto publish_config_version_error
 

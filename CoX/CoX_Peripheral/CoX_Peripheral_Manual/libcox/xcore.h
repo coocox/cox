@@ -4,8 +4,8 @@
 //! \brief Prototypes for the CPU instruction wrapper functions.
 //! \brief Prototypes for the NVIC Interrupt Controller Driver.
 //! \brief Prototypes for the SysTick driver.
-//! \version V2.0.1
-//! \date 11/11/2011
+//! \version V2.1
+//! \date 11/14/2011
 //! \author CooCox
 //! \copy
 //!
