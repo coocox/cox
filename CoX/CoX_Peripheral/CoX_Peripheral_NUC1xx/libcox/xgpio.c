@@ -658,6 +658,7 @@ GPIOPinIntDisable(unsigned long ulPort, unsigned long ulPins)
 //! \brief Init interrupts callback for the specified Port.
 //!
 //! \param ulPort is the base address of the GPIO port.
+//! \param ulPin is the bit-packed representation of the pin.
 //! \param xtPortCallback is callback for the specified Port.
 //!
 //! Init interrupts callback for the specified Port.

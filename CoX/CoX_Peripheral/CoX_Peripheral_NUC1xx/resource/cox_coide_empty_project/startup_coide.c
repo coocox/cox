@@ -9,8 +9,8 @@
 //!           - Setup the microcontroller system. 			
 //!           - Call the application's entry point.
 //!           .
-//! \version 2.0.0
-//! \date 9/30/2011
+//! \version V2.1.1.1
+//! \date 11/14/2011
 //! \author CooCox
 //! \copy
 //!

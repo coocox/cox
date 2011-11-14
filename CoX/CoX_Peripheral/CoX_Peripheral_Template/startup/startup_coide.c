@@ -8,8 +8,8 @@
 //!           - Initialize data and bss			
 //!           - Call the application's entry point.
 //!           .
-//! \version 1.0
-//! \date 8/13/2011
+//! \version V2.1.1.0
+//! \date 11/14/2011
 //! \author CooCox
 //! \copy
 //!

@@ -1102,6 +1102,8 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //!
 //! \param ulPort is the base address of the GPIO port.
 //! Details please refer to \ref xLowLayer_Peripheral_Memmap.
+//! \param ulPin is the bit-packed representation of the pin.
+//! Details please refer to \ref xGPIO_General_Pin_IDs.
 //! \param pfnCallback is the callback function.
 //! Details please refer to \ref xLowLayer_Exported_Types.
 //!
@@ -1119,6 +1121,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //*****************************************************************************
 extern void xGPIOPinIntCallbackInit(unsigned long ulPort, 
+                                    unsigned long ulPin, 
                                     xtEventCallback pfnCallback);
         
 //*****************************************************************************
