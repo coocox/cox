@@ -2,8 +2,8 @@
 //
 //! \file xrtc.h
 //! \brief Prototypes for the RTC Driver.
-//! \version 2.0.0.$Rev: 243 $
-//! \date 9/30/2011
+//! \version V2.0.1
+//! \date 11/11/2011
 //! \author CooCox
 //! \copy
 //!
@@ -53,7 +53,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -81,10 +81,10 @@ extern "C"
 //! Values that can be passed to xRTCIntEnable(),xRTCIntDisable() and 
 //! xRTCIntClear() as the ulIntFlags parameter. 
 //! \n
-//! \section xRTC_INT_Type_COX 2.COX Port Details 
+//! \section xRTC_INT_Type_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xRTC Interrupts         |       COX      |         NUC1xx         |
+//! |xRTC Interrupts         |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xRTC_INT_SECOND         |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -115,10 +115,10 @@ extern "C"
 //! ulMsgParam parmeter. User Callback function can user this to detect what 
 //! event happened.  
 //! \n
-//! \section xRTC_INT_Event_COX 2.COX Port Details 
+//! \section xRTC_INT_Event_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xRTC Interrupts         |       COX      |         NUC1xx         |
+//! |xRTC Interrupts         |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xRTC_EVENT_SECOND       |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -148,10 +148,10 @@ extern "C"
 //! Values that can be passed to xRTCTimeRead(),xRTCTimeWrite() 
 //! as the tTime.ulWDay parameter. 
 //! \n
-//! \section xRTC_Day_Week_COX 2.COX Port Details 
+//! \section xRTC_Day_Week_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |tTime.ulWDay            |       COX      |         NUC1xx         |
+//! |tTime.ulWDay            |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xRTC_WEEK_SUNDAY        |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -222,7 +222,7 @@ extern "C"
 //! \section xRTC_Year_Offset_Section 1. Where to use this group
 //! Values that is the offset of the year. 
 //! \n
-//! \section xRTC_Year_Offset_COX 2.COX Port Details 
+//! \section xRTC_Year_Offset_CoX 2.CoX Port Details 
 //! \verbatim
 
 //! \endverbatim
@@ -250,10 +250,10 @@ extern "C"
 //! Values that can be passed to RTCTimeRead() and RTCTimeWrite()
 //! as the ulTimeAlarm parameter. 
 //! \n
-//! \section xRTC_Year_Offset_COX 2.COX Port Details 
+//! \section xRTC_Year_Offset_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |ulTimeAlarm             |       COX      |         NUC1xx         |
+//! |ulTimeAlarm             |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xRTC_TIME_CURRENT       |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -339,12 +339,12 @@ typedef struct
 //*****************************************************************************
 //
 //! \addtogroup xRTC_Exported_APIs xRTC API
-//! \brief xRTC API Refrence.
+//! \brief xRTC API Reference.
 //!
-//! \section xRTC_Exported_APIs_Port COX Port Details
+//! \section xRTC_Exported_APIs_Port CoX Port Details
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xRTC API                |       COX      |         NUC1xx         |
+//! |xRTC API                |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xRTCTimeInit            |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -387,14 +387,14 @@ extern void xRTCTimeInit();
 //!
 //! \param xtTime specifies the point of time and data.
 //! \param ulTimeAlarm specifies which will be read current time or alarm time.
-//! Details please reference to \ref xRTC_Time_Type.
+//! Details please refer to \ref xRTC_Time_Type.
 //!
 //! This function is to Read current date/time or alarm date/time from RTC
 //! setting.
 //!
 //! The \e ulTimeAlarm parameter is the one of any of the following:
 //! \b xRTC_TIME_CURRENT,and \b xRTC_TIME_ALARM.
-//! Details please reference to \ref xRTC_Time_Type_COX.
+//! Details please refer to \ref xRTC_Time_Type_CoX.
 //!
 //! \return None.
 //
@@ -407,14 +407,14 @@ extern void xRTCTimeRead(xtTime *xtTime, unsigned long ulTimeAlarm);
 //!
 //! \param tTime specifies the point of time and data.
 //! \param ulTimeAlarm specifies which will be write current time or alarm timr.
-//! Details please reference to \ref xRTC_Time_Type.
+//! Details please refer to \ref xRTC_Time_Type.
 //!
 //! This function is to write current date/time or alarm date/time to RTC
 //! setting.
 //!
 //! The \e ulTimeAlarm parameter is the one of any of the following:
 //! \b xRTC_TIME_CURRENT,and \b xRTC_TIME_ALARM.
-//! Details please reference to \ref xRTC_Time_Type_COX.
+//! Details please refer to \ref xRTC_Time_Type_CoX.
 //!
 //! \return None.
 //
@@ -426,13 +426,13 @@ extern void xRTCTimeWrite(xtTime *xtTime, unsigned long ulTimeAlarm);
 //! \brief Enable the time tick or alarm interrupt of RTC. 
 //!
 //! \param ulIntType is the bit mask of the interrupt sources to be enabled.
-//! Details please reference to \ref xRTC_INT_Type.
+//! Details please refer to \ref xRTC_INT_Type.
 //!
 //! This function is to enable the time tick or alarm interrupt of RTC.
 //!
 //! The \e ulIntType parameter is the logical OR of any of the following:
 //! \b xRTC_INT_TIME_TICK,and \b xRTC_INT_ALARM.
-//! Details please reference to \ref xRTC_INT_Type_COX.
+//! Details please refer to \ref xRTC_INT_Type_CoX.
 //!
 //! \return None.
 //
@@ -457,13 +457,13 @@ extern void xRTCIntCallbackInit(xtEventCallback xtRTCCallback);
 //! \brief Disable the time tick or alarm interrupt of RTC. 
 //!
 //! \param ulIntType is the bit mask of the interrupt sources to be disable.
-//! Details please reference to \ref xRTC_INT_Type.
+//! Details please refer to \ref xRTC_INT_Type.
 //!
 //! This function is to disable the time tick or alarm interrupt of RTC.
 //!
 //! The \e ulIntType parameter is the logical OR of any of the following:
 //! \b xRTC_INT_SECOND,and \b xRTC_INT_ALARM.
-//! Details please reference to \ref xRTC_INT_Type_COX.
+//! Details please refer to \ref xRTC_INT_Type_CoX.
 //!
 //! \return None.
 //

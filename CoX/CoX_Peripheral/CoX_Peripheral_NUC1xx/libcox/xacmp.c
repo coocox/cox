@@ -2,8 +2,8 @@
 //
 //! \file xacmp.c
 //! \brief Driver for the analog comparator.
-//! \version V2.0.0
-//! \date 9/30/2011
+//! \version V2.0.1
+//! \date 11/11/2011
 //! \author CooCox
 //! \copy
 //!
@@ -84,7 +84,7 @@ xACMPIntCallbackInit(unsigned long ulBase, unsigned long ulCompID,
 //
 //*****************************************************************************
 void
-ACMPIntHander(void)    
+ACMPIntHandler(void)    
 {
     unsigned long ulBase = ACMP_BASE;   
     unsigned long ulIntFlags;
@@ -151,7 +151,7 @@ ACMPNegativeSrcSet(unsigned long ulBase, unsigned long ulComp,
 
 //*****************************************************************************
 //
-//! \brief Enables the comparator hysteresis function.
+//! \brief Enable the comparator hysteresis function.
 //!
 //! \param ulBase is the base address of the comparator module.
 //! \param ulComp is the index(0 - 1) of the comparator.
@@ -182,7 +182,7 @@ ACMPHysEnable(unsigned long ulBase, unsigned long ulComp)
 
 //*****************************************************************************
 //
-//! \brief Disables the comparator hysteresis function.
+//! \brief Disable the comparator hysteresis function.
 //!
 //! \param ulBase is the base address of the comparator module.
 //! \param ulComp is the index(0 - 1) of the comparator.
@@ -214,7 +214,7 @@ ACMPHysDisable(unsigned long ulBase, unsigned long ulComp)
 
 //*****************************************************************************
 //
-//! \brief Enables the comparator.
+//! \brief Enable the comparator.
 //!
 //! \param ulBase is the base address of the comparator module.
 //! \param ulComp is the index(0 - 1) of the comparator.
@@ -245,7 +245,7 @@ ACMPEnable(unsigned long ulBase, unsigned long ulComp)
 
 //*****************************************************************************
 //
-//! \brief Disables the comparator.
+//! \brief Disable the comparator.
 //!
 //! \param ulBase is the base address of the comparator module.
 //! \param ulComp is the index(0 - 1) of the comparator.
@@ -276,7 +276,7 @@ ACMPDisable(unsigned long ulBase, unsigned long ulComp)
 
 //*****************************************************************************
 //
-//! \brief Enables the comparator interrupt.
+//! \brief Enable the comparator interrupt.
 //!
 //! \param ulBase is the base address of the comparator module.
 //! \param ulComp is the index(0 - 1) of the comparator.
@@ -310,7 +310,7 @@ ACMPIntEnable(unsigned long ulBase, unsigned long ulComp)
 
 //*****************************************************************************
 //
-//! \brief Disables the comparator interrupt.
+//! \brief Disable the comparator interrupt.
 //!
 //! \param ulBase is the base address of the comparator module.
 //! \param ulComp is the index(0 - 1) of the comparator.
@@ -343,7 +343,7 @@ ACMPIntDisable(unsigned long ulBase, unsigned long ulComp)
 
 //*****************************************************************************
 //
-//! \brief Gets the current interrupt status.
+//! \brief Get the current interrupt status.
 //!
 //! \param ulBase is the base address of the comparator module.
 //! \param ulComp is the index(0 - 1) of the comparator.
@@ -372,7 +372,7 @@ ACMPIntStatus(unsigned long ulBase, unsigned long ulComp)
 
 //*****************************************************************************
 //
-//! \brief Clears a comparator interrupt.
+//! \brief Clear a comparator interrupt.
 //!
 //! \param ulBase is the base address of the comparator module.
 //! \param ulComp is the index(0 - 1) of the comparator.

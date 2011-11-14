@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>uartprintf</Name>
+  <Description>Use UART0 to print some characters.</Description>
+  <Version>1.0.0</Version>
+  <Tags>UART</Tags>
+  <EVKit>NUC1xx</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\trunk\CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx\uart\example\uartprintf\src\uartprintf.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CMSIS Boot</Dependency>
+	<Dependency>System Definitions</Dependency>
+	<Dependency>SYS</Dependency>
+    <Dependency>GPIO</Dependency>
+    <Dependency>UART</Dependency>
+  </Dependencys>
+  
+   
+</Example>

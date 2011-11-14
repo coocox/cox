@@ -2,8 +2,8 @@
 //
 //! \file xhw_pwm.h
 //! \brief Macros and defines used when accessing the PWM hardware.
-//! \version V2.0.0
-//! \date 9/30/2011
+//! \version V2.0.1
+//! \date 11/11/2011
 //! \author CooCox
 //! \copy
 //!
@@ -41,7 +41,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -56,14 +56,14 @@
 //*****************************************************************************
 //
 //! \addtogroup NUC1xx_PWM_Register NUC1xx PWM Register
-//! \brief Here are the details info of PWM registers. 
+//! \brief Here are the detailed info of PWM registers.  
 //!
 //! it contains:
 //! - Register offset.
-//! - Details bit-field of the registers.
+//! - Detailed bit-field of the registers.
 //! - Enum and mask of the registers.
 //! .
-//! Users can read or write the registers thourgh xHWREG().
+//! Users can read or write the registers through xHWREG().
 //!
 //! @{
 //

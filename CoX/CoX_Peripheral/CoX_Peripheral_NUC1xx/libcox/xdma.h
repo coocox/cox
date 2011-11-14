@@ -2,8 +2,8 @@
 //
 //! \file xdma.h
 //! \brief Defines and Macros for DMA API.
-//! \version V2.0.0
-//! \date 9/30/2011
+//! \version V2.0.1
+//! \date 11/11/2011
 //! \author CooCox
 //! \copy
 //!
@@ -53,7 +53,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -94,10 +94,10 @@ extern "C"
 //! Values that can be passed to all the API in xdma.c 
 //! as the ulChannel parameter. 
 //! \n
-//! \section xDMA_Channel_IDs_COX 2.COX Mandatory and COX Non-mandatory 
+//! \section xDMA_Channel_IDs_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
 //! +-------------------------+----------------+----------------+
-//! |xDMA Channel IDs         |       COX      |     NUC1xx     |
+//! |xDMA Channel IDs         |       CoX      |     NUC1xx     |
 //! |-------------------------|----------------|----------------|
 //! |xDMA_CHANNEL_$x$         |  Non-Mandatory | xDMA_CHANNEL_0 |
 //! |                         |                |     ......     |
@@ -157,16 +157,16 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xDMA_Request_Connections  xDMA Request Connections
-//! \brief Values shou request connecttions
+//! \brief Values show request connecttions
 //! \n
 //! \section xDMA_Request_Connections_Section 1. Where to use this group
 //! Values that can be passed to XPDMAChannelDynamicAssign() 
 //! as the ulDMASrcRequest and ulDMADestRequest parameter. 
 //! \n
-//! \section xDMA_Request_Connections_COX 2.COX Mandatory and COX Non-mandatory 
+//! \section xDMA_Request_Connections_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
 //! +-------------------------+----------------+----------------------+
-//! |xDMA Request Connections |       COX      |        NUC1xx        |
+//! |xDMA Request Connections |       CoX      |        NUC1xx        |
 //! |-------------------------|----------------|----------------------|
 //! |xDMA_REQUEST_NOT_EXIST   |    Mandatory   |           Y          |
 //! |-------------------------|----------------|----------------------|
@@ -239,13 +239,13 @@ extern "C"
 //! \n
 //! \section xDMA_Ints_Section 1. Where to use this group
 //! Values that can be passed to XPDMAChannelIntEnable(),
-//! XPDMAChannelIntDisable(),XPDMAChannelIntFlagGet(),XPDMAChannelIntFlagClear()
+//! XPDMAChannelIntDisable(), XPDMAChannelIntFlagGet(), XPDMAChannelIntFlagClear()
 //! as the ulIntFlags  parameter. 
 //! \n
-//! \section xDMA_Ints_COX 2.COX Mandatory and COX Non-mandatory 
+//! \section xDMA_Ints_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
 //! +-------------------------+----------------+----------------+
-//! |xDMA interrupt source    |       COX      |     NUC1xx     |
+//! |xDMA interrupt source    |       CoX      |     NUC1xx     |
 //! |-------------------------|----------------|----------------|
 //! |xDMA_INT_TC              |    Mandatory   |        Y       |
 //! |-------------------------|----------------|----------------|
@@ -279,13 +279,13 @@ extern "C"
 //! \n
 //! \section xDMA_Event_Flags_Section 1. Where to use this group
 //! Uart Event/Error Flag, Used by IntHandle's Event Callback Function as 
-//! ulMsgParam parmeter. User Callback function can user this to detect what 
+//! ulMsgParam parameter. User Callback function can use this to detect what 
 //! event happened.
 //! \n
-//! \section xDMA_Event_Flags_COX 2.COX Mandatory and COX Non-mandatory 
+//! \section xDMA_Event_Flags_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
 //! +-------------------------+----------------+----------------+
-//! |xDMA event flag          |       COX      |     NUC1xx     |
+//! |xDMA event flag          |       CoX      |     NUC1xx     |
 //! |-------------------------|----------------|----------------|
 //! |xDMA_EVENT_TC            |    Mandatory   |        Y       |
 //! |-------------------------|----------------|----------------|
@@ -321,10 +321,10 @@ extern "C"
 //! \section xDMA_Event_Flags_Section 1. Where to use this group
 //! None
 //! \n
-//! \section xDMA_Event_Flags_COX 2.COX Mandatory and COX Non-mandatory 
+//! \section xDMA_Event_Flags_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
 //! +-------------------------+----------------+----------------+
-//! |xDMA channel Attr        |       COX      |     NUC1xx     |
+//! |xDMA channel Attr        |       CoX      |     NUC1xx     |
 //! |-------------------------|----------------|----------------|
 //! |xDMA_ATTR_PRIORITY_NORMAL|  Non-Mandatory |        N       |
 //! |-------------------------|----------------|----------------|
@@ -350,16 +350,16 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xDMA_Channel_Control_Config xDMA Channel Control Configure
-//! \brief Values show xDMA Channel Control Configure
+//! \brief Values show xDMA Channel Control Configuration
 //! \n
 //! \section xDMA_Channel_Control_Config_Section 1. Where to use this group
 //! Values that can be passed to PDMAChannelControlSet()
 //! as the ulControl parameter. 
 //! \n
-//! \section xDMA_Channel_Control_Config_COX 2.COX Mandatory and COX Non-mandatory 
+//! \section xDMA_Channel_Control_Config_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
 //! +-------------------------+----------------+-----------------+
-//! |xDMA Control Config      |       COX      |     NUC1xx      |
+//! |xDMA Control Config      |       CoX      |     NUC1xx      |
 //! |-------------------------|----------------|-----------------|
 //! |xDMA_DST_INC_$x$         |  Non-Mandatory | xDMA_DST_INC_8  |
 //! |                         |                | xDMA_DST_INC_16 |
@@ -436,12 +436,12 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xDMA_Exported_APIs DMA API 
-//! \brief xDMA API Refrence
+//! \brief xDMA API Reference
 //!
-//! \section xDMA_Exported_APIs_Port COX Port Details
+//! \section xDMA_Exported_APIs_Port CoX Port Details
 //! \verbatim
 //! +---------------------------+----------------+--------+
-//! |xDMA API                   |       COX      | NUC1xx |
+//! |xDMA API                   |       CoX      | NUC1xx |
 //! |---------------------------|----------------|--------|
 //! |xDMAEnable                 |    Mandatory   |    Y   |
 //! |---------------------------|----------------|--------|
@@ -976,7 +976,7 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup NUC1xx_PDMA_Exported_APIs NUC1xx PDMA APIs
-//! \brief NUC1xx PDMA API Refrence.
+//! \brief NUC1xx PDMA API Reference.
 //! @{
 //
 //*****************************************************************************

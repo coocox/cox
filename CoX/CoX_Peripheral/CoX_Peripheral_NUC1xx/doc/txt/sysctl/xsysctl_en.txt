@@ -3,13 +3,13 @@
 //! \defgroup SysCtl
 //! 
 //! \brief System control determines the overall operation of the device. It provides information about the
-//! device, controls the clocking to the core and individual peripherals, and handles reset detection and
-//! reporting.
+//! device, controls the clocki for the core and individual peripherals, and handles reset detection and
+//! report.
 //!
-//! - Configure the system clock, multiple clock sources can be selected(including Main Oscillator (MOSC), 
+//! - Configure system clock, multiple clock sources can be selected(including Main Oscillator (MOSC), 
 //!   Internal Oscillator (IOSC), Internal 30-kHz Oscillat or,External Real-Time Oscillator).
 //! - Reset or enable/disable the peripheral individually thourgh software.
-//! - Configure the system operation level ,including (Run Mode, Sleep Mode)
+//! - Configure system operation level,including Run Mode and Sleep Mode.
 //!
 //! \n
 //! <h1>Contents</h1>
@@ -89,8 +89,8 @@
 //! \section SysCtl_Applications 2. SysCtl Applications
 //! add in the future
 //!
-//! \note Here descripte the common function of the SysCtl Peripheral. The COX
-//! Peripheral Interface is base on the functions above.
+//! \note Here describes the common functions of the SysCtl Peripheral. The CoX
+//! Peripheral Interface is based on the functions above.
 //
 //*****************************************************************************
 
@@ -99,13 +99,13 @@
 //
 //! \defgroup xSysCtl xSysCtl
 //! 
-//! \brief COX SysCtl Peripheral Interface
+//! \brief CoX SysCtl Peripheral Interface
 //!
-//! The xSysCtl is the SYSCLT Peripheral Interface of COX. It defines some common
+//! xSysCtl is the SYSCLT Peripheral Interface of CoX. It Definition some common
 //! macros and APIs.
 //! 
 //! <h1>Contents</h1>
-//! - \ref COX_SysCtl_How_Define
+//! - \ref CoX_SysCtl_How_Define
 //! - \ref xSysCtl_API_Group
 //!   - \ref xSysCtl_API_Group_Peripheral
 //!   - \ref xSysCtl_API_Group_Clock
@@ -118,17 +118,17 @@
 //!
 //! \n
 //!
-//! \section COX_SysCtl_How_Define 1 How is the xSysCtl API Standard Define?
-//! COX SysCtl defines the APIs based on the following common functions:
+//! \section CoX_SysCtl_How_Define 1 How is the xSysCtl API Standard Defined?
+//! CoX SysCtl Definition the APIs based on the following common functions:
 //! - Peripheral Controls
 //!   - Reset the peripheral
 //!   - Enable the peripheral
 //!   - Disable the peripheral      
 //!   .
 //! - Clock control 
-//!   - SysCtl control clock set
-//!   - SysCtl control clock get
-//!   - SysCtl control clock source set and peripheral divide set
+//!   - System Control clock set
+//!   - System Control clock get
+//!   - System Control clock source set and peripheral divide set
 //!   .
 //! - Provides a small delay
 //! - Resets the device 
@@ -138,53 +138,53 @@
 //! \n
 //! \section xSysCtl_API_Group 2 API Groups
 //! 
-//! The COX SysCtl API is broken into five groups of functions: 
-//! - those that deal with control the peripheral, 
-//! - those that deal with set the system clock, 
-//! - those that deal with configure a small delay.
-//! - those that deal with reset the device.
+//! CoX SysCtl API is broken into five groups of functions: 
+//! - those that deal with controlling the peripheral, 
+//! - those that deal with setting the system clock, 
+//! - those that deal with configuring a small delay.
+//! - those that deal with resetting the device.
 //! - those that deal with system control.
 //! .
 //!
 //! \n
-//! \subsection xSysCtl_API_Group_Peripheral 2.1 Peripheral Controls APIs
+//! \subsection xSysCtl_API_Group_Peripheral 2.1 APIs for Peripheral Control 
 //! 
-//! The peripherals are reseted with :
-//! - xSysCtlPeripheralReset().
-//! - xSysCtlPeripheralReset2().  
+//! The peripherals are resetted with :
+//! - xSysCtlPeripheralReset()
+//! - xSysCtlPeripheralReset2()  
 //! .
 //! The peripherals are enabled or disabled with 
 //! - xSysCtlPeripheralEnable()
-//! - xSysCtlPeripheralDisable(). 
+//! - xSysCtlPeripheralDisable()
 //! - xSysCtlPeripheralEnable2()
-//! - xSysCtlPeripheralDisable2(). 
+//! - xSysCtlPeripheralDisable2()
 //!.
 //! 
 //! \n
 //! \subsection xSysCtl_API_Group_Clock 2.2 Clock control 
 //! 
-//! The system clocl is controled with :
+//! The system clocl is controlled with :
 //! - xSysCtlClockSet()
 //!
 //! The SysCtl clock can be read back with :
-//! - xSysCtlClockGet().
+//! - xSysCtlClockGet()
 //!
 //! The SysCtl clock source set and peripheral divide set with :
-//! - xSysCtlPeripheralClockSourceSet().
-//! - xSysCtlPeripheralClockSourceSet2().
+//! - xSysCtlPeripheralClockSourceSet()
+//! - xSysCtlPeripheralClockSourceSet2()
 //! .
 //!
 //! \n
 //! \subsection xSysCtl_API_Group_Delay 2.3 Provides a small delay
 //! 
-//! The the small delay can be configured with :
+//! The small delay can be configured with :
 //! - xSysCtlDelay()
 //! .
 //!
 //! \n
-//! \subsection xSysCtl_API_Group_Reset 2.4 Reset the devide
+//! \subsection xSysCtl_API_Group_Reset 2.4 Reset the device
 //! 
-//! The device can be reseted with :
+//! The device can be resetted with :
 //! - xSysCtlReset()
 //! .
 //!
@@ -198,7 +198,7 @@
 //! \n
 //! \section  XSYSCLT_Usage 3. Usage & Program Examples
 //! The following example shows how to use the SysCtl API to configure the 
-//! system clock, enable the relative peripheral, and put the processor into 
+//! system clock, enable the related peripherals, and put the processor into 
 //! sleep mode, and then wake up by RTC interrupt. 
 //! 
 //! \code

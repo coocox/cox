@@ -1,8 +1,8 @@
 //*****************************************************************************
 //
-//! \defgroup COX_Peripheral_Lib COX Peripheral Library
+//! \defgroup CoX_Peripheral_Lib CoX Peripheral Library
 //! 
-//! \brief CooCox COX Peripheral Interface Library.
+//! \brief CooCox CoX Peripheral Interface Library.
 //!
 //
 //*****************************************************************************

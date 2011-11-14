@@ -2,8 +2,8 @@
 //
 //! \file xsysctl.c
 //! \brief Driver for the system controller
-//! \version V2.0.0
-//! \date 9/30/2011
+//! \version V2.0.1
+//! \date 11/11/2011
 //! \author CooCox
 //! \copy
 //!
@@ -83,7 +83,7 @@ static unsigned long s_ulExtClockMHz = 12;
 //
 //*****************************************************************************
 #define SYSCTL_PERIPH_ENUM_CLK(a)                                             \
-                                (((a) & 0xff) << (((a) & 0x1f00) >> 16))
+                                (((a) & 0xff) << (((a) & 0x1f0000) >> 16))
                                 
 //*****************************************************************************
 //
@@ -299,11 +299,11 @@ SysCtlPeripheralValid(unsigned long ulPeripheral)
 
 //*****************************************************************************
 //
-//! \brief Sets the clocking of the device.
+//! \brief Sets the clock of the device.
 //!
-//! \param ulConfig is the required configuration of the device clocking.
+//! \param ulConfig is the required configuration of the device clock.
 //!
-//! This function configures the clocking of the device.  The input crystal
+//! This function configures the clock of the device.  The input crystal
 //! frequency, oscillator to be used, use of the PLL, and the system clock
 //! divider are all configured with this function.
 //!
@@ -325,7 +325,7 @@ SysCtlPeripheralValid(unsigned long ulPeripheral)
 //! source.  Note that attempts to disable the oscillator used to clock the
 //! device will be prevented by the hardware.
 //! <br />
-//! Details please reference to \ref XSysCtl_Clock_Set_Config_COX.
+//! Details please refer to \ref XSysCtl_Clock_Set_Config_CoX.
 //! 
 //!
 //! \return None.
@@ -432,7 +432,7 @@ xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
     }
     if(ulSysClk == ulOscFreq)
     {
-        SysCtlIPClockDividerSet(SYSCTL_PERIPH_HCLK_D | SYSCTL_SYSDIV_1);
+        SysCtlIPClockDividerSet(SYSCTL_PERIPH_HCLK_D | (SYSCTL_SYSDIV_1 + 1));
     }
     else if (ulSysClk <= ulOscFreq)
     {
@@ -449,7 +449,7 @@ xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
             }
         }
         xASSERT(ulSysDiv < 16);
-        SysCtlIPClockDividerSet(SYSCTL_PERIPH_HCLK_D | ulSysDiv);
+        SysCtlIPClockDividerSet(SYSCTL_PERIPH_HCLK_D | (ulSysDiv + 1));
     }
     else
     {
@@ -467,6 +467,7 @@ xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
             // Check the arguments .
             //
             xASSERT((ulConfig & SYSCLK_PWRCON_XTL12M_EN)==0); 
+            xHWREG(SYSCLK_PLLCON) &= ~SYSCLK_PLLCON_PLL_SRC;
             if(ulNR%4 == 0)
             {
                 ulNF >>= 2;
@@ -494,6 +495,7 @@ xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
             // Check the arguments .
             //
             xASSERT((ulConfig & SYSCLK_PWRCON_OSC22M_EN)==0);   
+            xHWREG(SYSCLK_PLLCON) |= SYSCLK_PLLCON_PLL_SRC;
             ulNF >>= 1;
             ulNR >>= 1;
             if((ulConfig & SYSCLK_PWRCON_XTL12M_EN)!=0)
@@ -514,7 +516,7 @@ xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
         SysCtlDelay(1000);
         SysCtlHClockSourceSet(SYSCTL_HLCK_S_PLL);
         SysCtlDelay(100);
-        SysCtlIPClockDividerSet(SYSCTL_PERIPH_HCLK_D | SYSCTL_SYSDIV_1);
+        SysCtlIPClockDividerSet(SYSCTL_PERIPH_HCLK_D | (SYSCTL_SYSDIV_1 + 1));
         if((ulConfig & SYSCLK_PWRCON_OSC22M_EN)!=0)
 		{
 			xHWREG(SYSCLK_PWRCON) &= ~SYSCLK_PWRCON_OSC22M_EN;
@@ -528,14 +530,14 @@ xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
 //! \brief Enables a peripheral.
 //!
 //! \param ulPeripheralBase a Peripheral base indicate which peripheral to be 
-//! enabled.Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! enabled.Details please refer to \ref xLowLayer_Peripheral_Memmap.
 //!
 //! Peripherals are enabled with this function.  At power-up, all peripherals
 //! are disabled; they must be enabled in order to operate or respond to
 //! register reads/writes.
 //!
 //! The \e ulPeripheral parameter must be only one of the following values:
-//! Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Details please refer to \ref xLowLayer_Peripheral_Memmap.
 //!
 //! \note None.
 //!
@@ -561,14 +563,14 @@ xSysCtlPeripheralEnable2(unsigned long ulPeripheralBase)
 //! \brief Disables a peripheral.
 //!
 //! \param ulPeripheralBase a Peripheral base indicate which peripheral to be 
-//! enabled.Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! enabled.Details please refer to \ref xLowLayer_Peripheral_Memmap.
 //!
 //! Peripherals are disabled with this function.  At power-up, all peripherals
 //! are disabled; they must be enabled in order to operate or respond to
 //! register reads/writes.
 //!
 //! The \e ulPeripheral parameter must be only one of the following values:
-//! Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Details please refer to \ref xLowLayer_Peripheral_Memmap.
 //!
 //! \note None.
 //!
@@ -594,14 +596,14 @@ xSysCtlPeripheralDisable2(unsigned long ulPeripheralBase)
 //! \brief Reset a peripheral.
 //!
 //! \param ulPeripheralBase a Peripheral base indicate which peripheral to be 
-//! Reset.Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Reset.Details please refer to \ref xLowLayer_Peripheral_Memmap.
 //!
 //! Peripherals are Reset with this function.  At power-up, all peripherals
 //! are disabled; they must be enabled in order to operate or respond to
 //! register reads/writes.
 //!
 //! The \e ulPeripheral parameter must be only one of the following values:
-//! Details please reference to \ref xLowLayer_Peripheral_Memmap.
+//! Details please refer to \ref xLowLayer_Peripheral_Memmap.
 //!
 //! \note None.
 //!
@@ -709,7 +711,8 @@ xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
     if (ulPeripheralSrc & 0x01000000)
     {
         xHWREG(SYSCLK_CLKDIV) &= ~(SYSCTL_PERIPH_MASK_DIV(ulPeripheralSrc));
-        xHWREG(SYSCLK_CLKDIV) |= (ulDivide-1);
+        xHWREG(SYSCLK_CLKDIV) |= ((ulDivide-1) << (((ulPeripheralSrc) & 
+                                  0x1f00) >> 8));
     }
     SysCtlKeyAddrLock();
 }
@@ -1400,7 +1403,7 @@ SysCtlBODLowPowerModeEnable(xtBoolean bEnable)
     }
     else
     {
-        xHWREG(GCR_BODCR) &= GCR_BODCR_BOD_LPM;
+        xHWREG(GCR_BODCR) &= ~GCR_BODCR_BOD_LPM;
     }
     SysCtlKeyAddrLock();
 }
@@ -1459,7 +1462,7 @@ SysCtlTempatureSensorEnable(xtBoolean bEnable)
     }
     else
     {
-        xHWREG(GCR_TEMPCR) &= GCR_TEMPCR_VTEMP_EN;
+        xHWREG(GCR_TEMPCR) &= ~GCR_TEMPCR_VTEMP_EN;
     }
 }
 
@@ -1512,7 +1515,7 @@ SysCtlBODRstEnable(xtBoolean bEnable)
     }
     else
     {
-        xHWREG(GCR_BODCR) &= GCR_BODCR_BOD_RSTEN;
+        xHWREG(GCR_BODCR) &= ~GCR_BODCR_BOD_RSTEN;
     }
     SysCtlKeyAddrLock();
 }
@@ -1862,7 +1865,7 @@ SysCtlHClockSet(unsigned long ulConfig)
         SysCtlHClockSourceSet(SYSCTL_HLCK_S_EXT12M);
         SysCtlDelay(100);  
         SysCtlIPClockDividerSet(SYSCTL_PERIPH_HCLK_D |                        \
-                               ((ulConfig & 0x0F000000) >> 24));
+                               (((ulConfig & 0x0F000000) >> 24)+1));
         if((ulConfig & SYSCLK_PWRCON_OSC22M_EN)!=0)
         {
             xHWREG(SYSCLK_PWRCON) &= ~SYSCLK_PWRCON_OSC22M_EN;
@@ -1883,7 +1886,7 @@ SysCtlHClockSet(unsigned long ulConfig)
         SysCtlHClockSourceSet(SYSCTL_HLCK_S_EXT32K);
         SysCtlDelay(100);
         SysCtlIPClockDividerSet(SYSCTL_PERIPH_HCLK_D |                        \
-                               ((ulConfig & 0x0F000000) >> 24));
+                               (((ulConfig & 0x0F000000) >> 24)+1));
         if((ulConfig & SYSCLK_PWRCON_OSC22M_EN)!=0)
         {
             xHWREG(SYSCLK_PWRCON) &= ~SYSCLK_PWRCON_OSC22M_EN;
@@ -1964,7 +1967,7 @@ SysCtlHClockSet(unsigned long ulConfig)
         SysCtlHClockSourceSet(SYSCTL_HLCK_S_PLL);
         SysCtlDelay(100);
         SysCtlIPClockDividerSet(SYSCTL_PERIPH_HCLK_D |                        \
-                               ((ulConfig & 0x0F000000) >> 24));
+                               (((ulConfig & 0x0F000000) >> 24)+1));
     }
     //
     // HLCK clock source is SYSCLK_CLKSEL0_HCLK10K
@@ -1975,7 +1978,7 @@ SysCtlHClockSet(unsigned long ulConfig)
         SysCtlHClockSourceSet(SYSCTL_HLCK_S_INT10K);
         SysCtlDelay(100);
         SysCtlIPClockDividerSet(SYSCTL_PERIPH_HCLK_D |                        \
-                               ((ulConfig & 0x0F000000) >> 24));
+                               (((ulConfig & 0x0F000000) >> 24)+1));
         if((ulConfig & SYSCLK_PWRCON_OSC22M_EN)!=0)
         {
             xHWREG(SYSCLK_PWRCON) &= ~SYSCLK_PWRCON_OSC22M_EN;
@@ -2003,7 +2006,7 @@ SysCtlHClockSet(unsigned long ulConfig)
         SysCtlHClockSourceSet(SYSCTL_HLCK_S_INT22M);
         SysCtlDelay(100);
         SysCtlIPClockDividerSet(SYSCTL_PERIPH_HCLK_D |                        \
-                               ((ulConfig & 0x0F000000) >> 24));
+                               (((ulConfig & 0x0F000000) >> 24)+1));
         if((ulConfig & SYSCLK_PWRCON_XTL12M_EN)!=0)
         {
             xHWREG(SYSCLK_PWRCON) &= ~SYSCLK_PWRCON_XTL12M_EN;

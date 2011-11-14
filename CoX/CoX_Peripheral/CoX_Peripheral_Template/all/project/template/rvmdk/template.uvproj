@@ -888,7 +888,7 @@
             <ScatterFile>.\nuc1xx_ram.sct</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
-            <Misc>--entry Reset_Handler</Misc>
+            <Misc>--entry ResetHandler</Misc>
             <LinkerInputFile></LinkerInputFile>
             <DisabledWarnings></DisabledWarnings>
           </LDads>

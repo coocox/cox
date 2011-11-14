@@ -2,8 +2,8 @@
 //
 //! \file xadc.c
 //! \brief Driver for the ADC Controller.
-//! \version V2.0.0
-//! \date 9/30/2011
+//! \version V2.0.1
+//! \date 11/11/2011
 //! \author CooCox
 //! \copy
 //!
@@ -49,7 +49,7 @@ static xtEventCallback g_pfnADCHandlerCallbacks[1] = {0};
 
 //*****************************************************************************
 //
-//! \brief Configures the mode and trigger source of a sample sequence.
+//! \brief Configure the mode and trigger source of a sample sequence.
 //!
 //! \param ulBase is the base address of the ADC module.
 //! \param ulMode is the sequence operation mode. Refrence \ref xADC_Mode.
@@ -122,24 +122,9 @@ xADCConfigure(unsigned long ulBase, unsigned long ulMode,
 //! values).  The configuration is used by the
 //! ADC at the appropriate time when the trigger for this sequence occurs.
 //!
-//! \note If the Digitial Comparator is present and enabled, the ADC sample 
-//! will NOT be written into the ADC sequence data register.
-//!
-//! The \e ulStep parameter determines the order in which the samples are
-//! captured by the ADC when the trigger occurs.  It can range from zero to
-//! seven for the first sample sequence, from zero to three for the second and
-//! third sample sequence, and can only be zero for the fourth sample sequence.
-//!
-//! Differential mode only works with adjacent channel pairs (for example, 0
-//! and 1).  The channel select must be the number of the channel pair to
-//! sample (for example, \b ADC_CTL_CH0 for 0 and 1, or \b ADC_CTL_CH1 for 2
-//! and 3) or undefined results will be returned by the ADC.  Additionally, if
-//! differential mode is selected when the temperature sensor is being sampled,
-//! undefined results will be returned by the ADC.
-//!
-//! It is the responsibility of the caller to ensure that a valid configuration
-//! is specified; this function does not check the validity of the specified
-//! configuration.
+//! \note It is the responsibility of the caller to ensure that a valid 
+//! configuration is specified; this function does not check the validity of 
+//! the specified configuration.
 //!
 //! \return None.
 //
@@ -240,7 +225,7 @@ xADCStepConfigure(unsigned long ulBase, unsigned long ulStep,
 
 //*****************************************************************************
 //
-//! \brief Configures an ADC digital comparator.
+//! \brief Configure an ADC digital comparator.
 //!
 //! \param ulBase is the base address of the ADC module.
 //! \param ulCompID is the ID of the comparator to configure.
@@ -374,7 +359,7 @@ ADCIntHandler(void)
 
 //*****************************************************************************
 //
-//! \brief Gets the captured data for a sample sequence.
+//! \brief Get the captured data for a sample sequence.
 //!
 //! \param ulBase is the base address of the ADC module.
 //! \param pulBuffer is the address where the data is stored.
@@ -444,7 +429,7 @@ xADCDataGet(unsigned long ulBase, unsigned long *pulBuffer)
 
 //*****************************************************************************
 //
-//! \brief Determines if the ADC sample sequence overflow occurred.
+//! \brief Determine if the ADC sample sequence overflow occurred.
 //!
 //! \param ulBase is the base address of the ADC module.
 //!
@@ -476,7 +461,7 @@ xADCOverflow(unsigned long ulBase)
 
 //*****************************************************************************
 //
-//! \brief Clears the overflow condition on the ADC sample sequence.
+//! \brief Clear the overflow condition on the ADC sample sequence.
 //!
 //! \param ulBase is the base address of the ADC module.
 //!
@@ -492,7 +477,7 @@ xADCOverflowClear(unsigned long ulBase)
 {
     unsigned long i;
     unsigned long ulOverRunChannels;
-    unsigned long ulDump = ulDump;
+    volatile unsigned long ulDump;
 
     //
     // Check the arguments
@@ -520,7 +505,7 @@ xADCOverflowClear(unsigned long ulBase)
 
 //*****************************************************************************
 //
-//! \brief Configures the ADC.
+//! \brief Configure the ADC.
 //!
 //! \param ulBase is the base address of the ADC module.
 //! \param ulInputMode is the analog input mode.  
@@ -637,7 +622,7 @@ ADCChannelEnable(unsigned long ulBase, unsigned long ulChannel)
 
 //*****************************************************************************
 //
-//! \brief Disables an ADC channel.
+//! \brief Disable an ADC channel.
 //!
 //! \param ulBase is the base address of the ADC module.
 //! \param ulChannel  is the channel that to enable.
@@ -664,7 +649,7 @@ ADCChannelDisable(unsigned long ulBase, unsigned long ulChannel)
 
 //*****************************************************************************
 //
-//! \brief Enables individual ADC interrupt sources.
+//! \brief Enable individual ADC interrupt sources.
 //!
 //! \param ulBase is the base address of the ADC.
 //! \param ulIntFlags is the bit mask of the interrupt sources to be enabled.
@@ -716,7 +701,7 @@ ADCIntEnable(unsigned long ulBase, unsigned long ulIntFlags)
 
 //*****************************************************************************
 //
-//! \brief Disables individual ADC interrupt sources.
+//! \brief Disable individual ADC interrupt sources.
 //!
 //! \param ulBase is the base address of the ADC.
 //! \param ulIntFlags is the bit mask of the interrupt sources to be disabled.
@@ -768,7 +753,7 @@ ADCIntDisable(unsigned long ulBase, unsigned long ulIntFlags)
 
 //*****************************************************************************
 //
-//! \brief Enables the ADC moudle.
+//! \brief Enable the ADC moudle.
 //!
 //! \param ulBase is the base address of the ADC module.
 //!
@@ -795,7 +780,7 @@ ADCEnable(unsigned long ulBase)
 
 //*****************************************************************************
 //
-//! \brief Gets the current interrupt status.
+//! \brief Get the current interrupt status.
 //!
 //! \param ulBase is the base address of the ADC module.
 //!
@@ -833,7 +818,7 @@ ADCIntStatus(unsigned long ulBase)
 
 //*****************************************************************************
 //
-//! \brief Clears the ADC interrupt source.
+//! \brief Clear the ADC interrupt source.
 //!
 //! \param ulBase is the base address of the ADC module.
 //! \param ulIntFlags is the bit mask of the interrupt sources to clear.
@@ -865,7 +850,7 @@ ADCIntClear(unsigned long ulBase, unsigned long ulIntFlags)
 
 //*****************************************************************************
 //
-//! \brief Disables the ADC sample sequence.
+//! \brief Disable the ADC sample sequence.
 //!
 //! \param ulBase is the base address of the ADC module.
 //!
@@ -892,7 +877,7 @@ ADCDisable(unsigned long ulBase)
 
 //*****************************************************************************
 //
-//! \brief Causes a processor trigger for a sample sequence.
+//! \brief Cause a processor trigger for a sample sequence.
 //!
 //! \param ulBase is the base address of the ADC module.
 //!
@@ -1023,7 +1008,7 @@ ADCDataStatus(unsigned long ulBase, unsigned long ulChannel)
 
 //*****************************************************************************
 //
-//! \brief Gets the captured data for the ADC sample channel.
+//! \brief Get the captured data for the ADC sample channel.
 //!
 //! \param ulBase is the base address of the ADC module.
 //! \param ulChannel is the input channel.
@@ -1093,7 +1078,7 @@ ADCDataGet(unsigned long ulBase, unsigned long ulChannel)
 
 //*****************************************************************************
 //
-//! \brief Enables ADC Self Calibration.
+//! \brief Enable ADC Self Calibration.
 //!
 //! \param ulBase is the base address of the ADC module.
 //! \param ulChannel  is the channel that to enable.
@@ -1122,7 +1107,7 @@ ADCCalibrationEnable(unsigned long ulBase)
 
 //*****************************************************************************
 //
-//! \brief Disables ADC Self Calibration.
+//! \brief Disable ADC Self Calibration.
 //!
 //! \param ulBase is the base address of the ADC module.
 //! \param ulChannel  is the channel that to enable.
@@ -1203,7 +1188,7 @@ ADCPDMAEnable(unsigned long ulBase)
 
 //*****************************************************************************
 //
-//! \brief Disables ADC DMA operation.
+//! \brief Disable ADC DMA operation.
 //!
 //! \param ulBase is the base address of the ADC module.
 //!
@@ -1229,7 +1214,7 @@ ADCPDMADisable(unsigned long ulBase)
 
 //*****************************************************************************
 //
-//! \brief Configures an ADC digital comparator.
+//! \brief Configure an ADC digital comparator.
 //!
 //! \param ulBase is the base address of the ADC module.
 //! \param ulComp is the index of the comparator to configure.
@@ -1274,7 +1259,7 @@ ADCCompConfigure(unsigned long ulBase, unsigned long ulComp,
 
 //*****************************************************************************
 //
-//! \brief Configures the compare data of an ADC digital comparator.
+//! \brief Configure the compare data of an ADC digital comparator.
 //!
 //! \param ulBase is the base address of the ADC module.
 //! \param ulComp is the index of the comparator to configure.
@@ -1328,7 +1313,7 @@ ADCCompDataSet(unsigned long ulBase, unsigned long ulComp,
 
 //*****************************************************************************
 //
-//! \brief Enables the ADC digital comparator.
+//! \brief Enable the ADC digital comparator.
 //!
 //! \param ulBase is the base address of the ADC module.
 //! \param ulComp is the comparator index number(0, 1).
@@ -1355,7 +1340,7 @@ ADCCompEnable(unsigned long ulBase, unsigned long ulComp)
 
 //*****************************************************************************
 //
-//! \brief Disables the ADC digital comparator .
+//! \brief Disable the ADC digital comparator .
 //!
 //! \param ulBase is the base address of the ADC module.
 //! \param ulComp is the comparator index number.

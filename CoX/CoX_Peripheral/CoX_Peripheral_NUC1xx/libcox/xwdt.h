@@ -2,8 +2,8 @@
 //
 //! \file xwdt.h
 //! \brief Prototypes for the WDT Driver.
-//! \version V2.0.0
-//! \date 9/30/2011
+//! \version V2.0.1
+//! \date 11/11/2011
 //! \author CooCox
 //! \copy
 //!
@@ -53,7 +53,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -81,10 +81,10 @@ extern "C"
 //! Values that can be passed to xWDTFunctionEnable(), 
 //! xWDTFunctionDisable() as the ulFunction parameter. 
 //! \n
-//! \section xWDT_Function_Type_COX 2. COX Port Details 
+//! \section xWDT_Function_Type_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------ +----------------+------------------------+
-//! |xWDT Function Type       |       COX      |         NUC1xx         |
+//! |xWDT Function Type       |       CoX      |         NUC1xx         |
 //! |------------------------ |----------------|------------------------|
 //! |xWDT_INT_FUNCTION        |    Mandatory   |            Y           |
 //! |------------------------ |----------------|------------------------|
@@ -135,10 +135,10 @@ extern "C"
 //! Watch dog clock Configs. Such as clock source, Prescaler divider.
 //! Values that can be passed to xWDTInit as the ulConfig parameter 
 //! \n
-//! \section xWDT_Clock_Config_COX 2.COX Port Details 
+//! \section xWDT_Clock_Config_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |Clock Configuration     |       COX      |         NUC1xx         |
+//! |Clock Configuration     |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xWDT_S_INTSL            |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -181,10 +181,10 @@ extern "C"
 //! \section xWDT_Time_Reload_Config_Section 1. Where to use this group
 //! Values that can be passed to xWDTimerInit() as the ulConfig parameter 
 //! \n
-//! \section xWDT_Time_Reload_Config_COX 2.COX Port Details 
+//! \section xWDT_Time_Reload_Config_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |Time Reload Config      |       COX      |         NUC1xx         |
+//! |Time Reload Config      |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |Time Reload Value       |  Non-Mandatory |   xWDT_INTERVAL_2_4T   |
 //! |                        |                |------------------------|
@@ -247,12 +247,12 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xWDT_Exported_APIs xWDT API
-//! \brief xWDT API Refrence.
+//! \brief xWDT API Reference.
 //!
-//! \section xWDT_Exported_APIs_Port COX Port Details
+//! \section xWDT_Exported_APIs_Port CoX Port Details
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xWDT API                |       COX      |         NUC1xx         |
+//! |xWDT API                |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xWDTInit                |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -281,33 +281,33 @@ extern "C"
 //! \param ulBase is the base address of the WatchDog Timer(WDT) module.
 //! \param ulConfig is the Timer's Prescaler divider and clock source 
 //! Selection.
-//! Details please reference to \ref xWDT_Clock_Config and
+//! Details please refer to \ref xWDT_Clock_Config and
 //! xWDT_Time_Reload_Config.
 //! \param ulReload is the Timer's reload value.
 //!
-//! This function is to Configurate The WatchDog Timer(WDT)'s Timer Interval.
-//! There are three factors to determine the Timer Interval,they are :
+//! This function is to configureThe WatchDog Timer(WDT)'s Timer Interval.
+//! There are three factors to determine the Timer Interval, they are:
 //! - clock source
 //! - Prescaler divider
 //! - reload value
 //!
 //! The \e ulConfig parameter contains clock source and Prescaler divider;
-//! When use,this parameter is the logical OR of the two values.
-//! For NUC1xx,there are no Prescaler divider.And the clock source can be:
-//! \b xWDT_S_INTSL,\b xWDT_S_EXTSL,
+//! When being used,this parameter is the logical OR of the two values.
+//! For NUC1xx,there is no Prescaler divider and the clock source can be:
+//! \b xWDT_S_INTSL, \b xWDT_S_EXTSL, 
 //! \b xWDT_S_HCLK_DIV.
-//! Details please reference to \ref xWDT_Clock_Config_COX.
+//! Details please refer to \ref xWDT_Clock_Config_CoX.
 //!
-//! The \e ulReload parameter is value which will reload the counter when feed
-//! the watch dog.The value range dDepends on the number of bits of 
+//! The \e ulReload parameter is the value which will reload the counter when 
+//! feeding the watch dog.The value range depends on the number of bits of 
 //! corresponding counter.
-//! For NUC1xx,the reload value can only be one of the following:
-//! \b xWDT_INTERVAL_2_4T,\b xWDT_INTERVAL_2_6T,\b xWDT_INTERVAL_2_8T,
-//! \b xWDT_INTERVAL_2_10T,\b xWDT_INTERVAL_2_12T,\b xWDT_INTERVAL_2_14T,
-//! \b xWDT_INTERVAL_2_16T,\b xWDT_INTERVAL_2_18T.
-//! Details please reference to \ref xWDT_Time_Reload_Config_COX.
+//! For NUC1xx, the reload value can only be one of the following:
+//! \b xWDT_INTERVAL_2_4T, \b xWDT_INTERVAL_2_6T, \b xWDT_INTERVAL_2_8T,
+//! \b xWDT_INTERVAL_2_10T, \b xWDT_INTERVAL_2_12T, \b xWDT_INTERVAL_2_14T,
+//! \b xWDT_INTERVAL_2_16T, \b xWDT_INTERVAL_2_18T.
+//! Details please refer to \ref xWDT_Time_Reload_Config_CoX.
 //! 
-//! \note When use watch dog xWDTEnable() should be called after call 
+//! \note When using watch dog xWDTEnable() should be called after call 
 //! xWDTInit(ulBase, ulConfig, ulReload).
 //!
 //! \return None.
@@ -407,7 +407,7 @@ extern "C"
 //!
 //! \param ulBase is the base address of the WatchDog Timer(WDT) module.
 //! \param ulFunction is the watch dog timer's function.
-//! Details please reference to \ref xWDT_Function_Type.
+//! Details please refer to \ref xWDT_Function_Type.
 //!
 //! This function is to enable the watch dog timer's function such as Interrupt
 //! reset\wake up \stop in ICE mode.
@@ -415,7 +415,7 @@ extern "C"
 //! The \e ulFunction parameter is the OR value of any of the following:
 //! \b xWDT_INT_FUNCTION,\b xWDT_RESET_FUNCTION,
 //! \b xWDT_WAKEUP_FUNCTION,\b xWDT_HOLD_IN_ICE.
-//! Details please reference to \ref xWDT_Function_Type_COX.
+//! Details please refer to \ref xWDT_Function_Type_CoX.
 //!
 //! \note None.
 //!
@@ -435,7 +435,7 @@ extern "C"
 //!
 //! \param ulBase is the base address of the WatchDog Timer(WDT) module.
 //! \param ulFunction is the watch dog timer's function.
-//! Details please reference to \ref xWDT_Function_Type.
+//! Details please refer to \ref xWDT_Function_Type.
 //!
 //! This function is to disable the watch dog timer's function such as Interrupt
 //! reset\wake up \stop in ICE mode.
@@ -443,7 +443,7 @@ extern "C"
 //! The \e ulFunction parameter is the OR value of any of the following:
 //! \b xWDT_INT_FUNCTION,\b xWDT_RESET_FUNCTION,
 //! \b xWDT_WAKEUP_FUNCTION,\b xWDT_HOLD_IN_ICE.
-//! Details please reference to \ref xWDT_Function_Type_COX.
+//! Details please refer to \ref xWDT_Function_Type_CoX.
 //!
 //! \note None.
 //!
@@ -575,7 +575,7 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup NUC1xx_WDT_Exported_APIs NUC1xx WDT API
-//! \brief NUC1xx WDT API Refrence.
+//! \brief NUC1xx WDT API Reference.
 //! @{
 //! @{
 //

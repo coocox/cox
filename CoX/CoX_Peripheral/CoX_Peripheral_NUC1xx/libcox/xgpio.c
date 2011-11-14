@@ -2,8 +2,8 @@
 //
 //! \file xgpio.c
 //! \brief Driver for the GPIO controller
-//! \version V2.0.0
-//! \date 9/30/2011
+//! \version V2.0.1
+//! \date 11/11/2011
 //! \author CooCox
 //! \copy
 //!
@@ -952,8 +952,7 @@ GPIOPinMaskSet(unsigned long ulPort, unsigned long ulPins)
 //
 //*****************************************************************************
 void
-GPIODebounceTimeSet(unsigned long ulClockSource, 
-                              unsigned long ulDebounceClk)
+GPIODebounceTimeSet(unsigned long ulClockSource, unsigned long ulDebounceClk)
 {
     //
     // Check the arguments.
@@ -968,7 +967,8 @@ GPIODebounceTimeSet(unsigned long ulClockSource,
     xHWREG(GPIO_DBNCECON) =  ((ulClockSource & 1) ?
                               (xHWREG(GPIO_DBNCECON) | GPIO_DBNCECON_DBCLKSRC) :
                               (xHWREG(GPIO_DBNCECON) & ~(GPIO_DBNCECON_DBCLKSRC)));
-    xHWREG(GPIO_DBNCECON) |=  ulDebounceClk;                 
+    xHWREG(GPIO_DBNCECON) &= ~GPIO_DBNCECON_DBCLKSEL_M;
+    xHWREG(GPIO_DBNCECON) |= ulDebounceClk;                 
 }
 
 //*****************************************************************************
@@ -1161,7 +1161,7 @@ GPIOPinConfigure(unsigned long ulPinConfig)
 
 //*****************************************************************************
 //
-//! \brief Initialize the multi-function pin's of the specified function.
+//! \brief Initialize the multi-function pin's specified fucntion.
 //!
 //! \param 
 //! \param ulPort is the base address of the GPIO port.

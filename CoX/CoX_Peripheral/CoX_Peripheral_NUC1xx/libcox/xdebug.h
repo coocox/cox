@@ -2,8 +2,8 @@
 //
 //! \file xdebug.h
 //! \brief Macros for assisting debug of the peripheral library.
-//! \version V2.0.0
-//! \date 9/30/2011
+//! \version V2.0.1
+//! \date 11/11/2011
 //! \author CooCox
 //! \copy
 //!
@@ -42,7 +42,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -50,9 +50,9 @@
 //*****************************************************************************
 //
 //! \addtogroup xDebug xDebug
-//! \brief Provided some assert mocros to help debug.
+//! \brief Provided some assert macros to help debug.
 //!
-//! This moudle provide a macros called \ref xASSERT, Used to assert 
+//! This module provides a macro called \ref xASSERT, Used to assert 
 //! some conditions if is correct.
 //!
 //! \section xDebug_When When User the Debug feature?
@@ -66,13 +66,13 @@
 //! -# add the \ref xASSERT where you want.
 //! . 
 //!
-//! We strongly recommend that when you develop process, open the 
-//! debug characteristics. This way can find out the questions as soon 
+//! We strongly recommend you to open the debug characteristics in your 
+//! development  process. This way can find out the questions as soon 
 //! as possible.
 //!
-//! When release, you should shutdown the debug characteristics, because they 
-//! also take up CPU time, and you have ensured the condition is ok in
-//! the debug process.
+//! When release the code, you should shut down the debug characteristics,  
+//! because they also take up CPU time, and you have ensured the condition 
+//! is ok in the debug process.
 //! 
 //! @{
 //
@@ -81,7 +81,7 @@
 //*****************************************************************************
 //
 //! \addtogroup xDebug_Exported_APIs xDebug API
-//! \brief xDebug API Refrence.
+//! \brief xDebug API Reference.
 //! @{
 //
 //*****************************************************************************

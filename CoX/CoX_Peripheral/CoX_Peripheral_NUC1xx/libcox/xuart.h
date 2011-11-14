@@ -2,8 +2,8 @@
 //
 //! \file xuart.h
 //! \brief Prototypes for the UART Driver.
-//! \version V2.0.0
-//! \date 9/30/2011
+//! \version V2.0.1
+//! \date 11/11/2011
 //! \author CooCox
 //! \copy
 //!
@@ -53,7 +53,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -81,10 +81,10 @@ extern "C"
 //! Values that can be passed to UARTIntEnable, UARTIntDisable, and UARTIntClear
 //! as the ulIntFlags parameter, and returned from UARTIntStatus. 
 //! \n
-//! \section xUART_Ints_COX 2. COX Port Details 
+//! \section xUART_Ints_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Interrupts        |       COX      |         NUC1xx         |
+//! |xUART Interrupts        |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xUART_INT_ERROR         |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -171,10 +171,10 @@ extern "C"
 //! ulMsgParam parmeter. User Callback function can user this to detect what 
 //! event happened.
 //! \n
-//! \section xUART_Event_Flag_COX 2. COX Port Details 
+//! \section xUART_Event_Flag_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Events            |       COX      |         NUC1xx         |
+//! |xUART Events            |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xUART_EVENT_TX          |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -272,10 +272,10 @@ extern "C"
 //! \section xUART_Event_Flag_Section 1. Where to use this group
 //! Values returned from xUARTRxErrorGet().
 //! \n
-//! \section xUART_Event_Flag_COX 2. COX Port Details 
+//! \section xUART_Event_Flag_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Error             |       COX      |         NUC1xx         |
+//! |xUART Error             |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xUART_RXERROR_OVERRUN   |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -314,10 +314,10 @@ extern "C"
 //! UARTParityModeSet as the ulParity parameter, and are returned by
 //! UARTParityModeGet. 
 //! \n
-//! \section xUART_Frame_Configs_COX 2. COX Port Details 
+//! \section xUART_Frame_Configs_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Frame Config      |       COX      |         NUC1xx         |
+//! |xUART Frame Config      |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xUART_CONFIG_WLEN_MASK  |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -443,10 +443,10 @@ extern "C"
 //! Uart IrDA mode that con be passed to UARTIrDAConfig as the
 //! ulMode parameter. 
 //! \n
-//! \section xUART_IrDA_Mode_COX 2. COX Port Details 
+//! \section xUART_IrDA_Mode_CoX 2. CoX Port Details 
 //! \verbatim
 //! +-------------------------+----------------+------------------------+
-//! |xUART IrDA Mode          |       COX      |         NUC1xx         |
+//! |xUART IrDA Mode          |       CoX      |         NUC1xx         |
 //! |-------------------------|----------------|------------------------|
 //! |xUART_IRDA_MODE_NORMAL   |  Non-Mandatory |            Y           |
 //! |-------------------------|----------------|------------------------|
@@ -483,10 +483,10 @@ extern "C"
 //! Uart logic blocks  that can be passed to UARTEnable() or UARTDisable() as 
 //! the ulBlock parameter.
 //! \n
-//! \section xUART_Enable_Blocks_COX 2. COX Port Details 
+//! \section xUART_Enable_Blocks_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Enable Block      |       COX      |         NUC1xx         |
+//! |xUART Enable Block      |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xUART_BLOCK_UART        |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -528,10 +528,10 @@ extern "C"
 //! \section xUART_FIFO_Rx_Tiggle_Level_Section 1. Where to use this group
 //! Values that can be passed to UARTFIFORxLevelSet as the ulRxLevel parameter.
 //! \n
-//! \section xUART_FIFO_Rx_Tiggle_Level_COX 2. COX Port Details 
+//! \section xUART_FIFO_Rx_Tiggle_Level_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |FIFO Rx Tiggle Level    |       COX      |         NUC1xx         |
+//! |FIFO Rx Tiggle Level    |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xUART_FIFO_RX_n         |    Mandatory   |     xUART_FIFO_RX_1    |
 //! |                        |                |------------------------|
@@ -602,10 +602,10 @@ extern "C"
 //! Values that can be passed to UARTModemControlSet(), UARTModemControlClear() 
 //! or returned from UARTModemControlGet().
 //! \n
-//! \section xUART_Modem_Output_COX 2. COX Port Details 
+//! \section xUART_Modem_Output_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Modem Output      |       COX      |         NUC1xx         |
+//! |xUART Modem Output      |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xUART_OUTPUT_RTS        |  Non-Mandatory |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -632,10 +632,10 @@ extern "C"
 //! \section xUART_Modem_Intput_Section 1. Where to use this group
 //! Values that can be returned from UARTModemStatusGet().
 //! \n
-//! \section xUART_Modem_Intput_COX 2. COX Port Details 
+//! \section xUART_Modem_Intput_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Modem Input       |       COX      |         NUC1xx         |
+//! |xUART Modem Input       |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xUART_INPUT_CTS         |  Non-Mandatory |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -668,10 +668,10 @@ extern "C"
 //! Values that can be passed to UARTFlowControlSet() or returned from
 //! UARTFlowControlGet().
 //! \n
-//! \section xUART_Flow_Control_COX 2. COX Port Details 
+//! \section xUART_Flow_Control_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Flow Control      |       COX      |         NUC1xx         |
+//! |xUART Flow Control      |       CoX      |         NUC1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xUART_FLOWCONTROL_TX    |  Non-Mandatory |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -702,10 +702,10 @@ extern "C"
 //! \section xUART_LIN_Config_Section 1. Where to use this group
 //! Values that can be passed to xUARTLINConfig().
 //! \n
-//! \section xUART_LIN_Config_COX 2. COX Port Details 
+//! \section xUART_LIN_Config_CoX 2. CoX Port Details 
 //! \verbatim
 //! +-----------------------------+----------------+-------------------+
-//! |xUART LIN Configuration      |       COX      |      NUC1xx       |
+//! |xUART LIN Configuration      |       CoX      |      NUC1xx       |
 //! |-----------------------------|----------------|-------------------|
 //! |xUART_LIN_MODE_MASK          |  Non-Mandatory |         N         |
 //! |-----------------------------|----------------|-------------------|
@@ -752,11 +752,11 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xUART_Exported_APIs xUART API
-//! \brief UART API Refrence.
-//! \section xUART_Exported_APIs_Port COX Port Details
+//! \brief UART API Reference.
+//! \section xUART_Exported_APIs_Port CoX Port Details
 //! \verbatim
 //! +------------------------+----------------+--------+
-//! |xUART API               |       COX      | NUC1xx |
+//! |xUART API               |       CoX      | NUC1xx |
 //! |------------------------|----------------|--------|
 //! |xUARTConfigSet          |    Mandatory   |    Y   |
 //! |------------------------|----------------|--------|
@@ -1693,7 +1693,7 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 //*****************************************************************************
 //
 //! \addtogroup NUC1xx_UART_Exported_APIs NUC1xx UART API
-//! \brief NUC1xx UART API Refrence.
+//! \brief NUC1xx UART API Reference.
 //! @{
 //
 //*****************************************************************************

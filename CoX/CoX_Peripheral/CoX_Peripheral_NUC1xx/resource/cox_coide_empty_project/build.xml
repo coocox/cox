@@ -35,12 +35,12 @@
       
       <!-- defines -->
       <defineset>
-        <define name="NUC100VE3AN"/>
+        <define name="gcc"/>
       </defineset>
       
       <!-- include compile path -->
       <includepath path="."/>
-      <includepath path="COX/CoX_Peripheral/inc"/>
+      <includepath path="CoX/CoX_Peripheral/inc"/>
       
       <!-- arm-none-eabi-gcc compiler arguments -->
       <compilerarg value="-mcpu=cortex-m0"/>

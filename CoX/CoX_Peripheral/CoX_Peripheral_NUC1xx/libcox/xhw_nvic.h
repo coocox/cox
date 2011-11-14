@@ -2,8 +2,8 @@
 //
 //! \file xhw_nvic.h
 //! \brief Macros used when accessing the NVIC hardware.For M0
-//! \version V2.0.0
-//! \date 9/30/2011
+//! \version V2.0.1
+//! \date 11/11/2011
 //! \author CooCox
 //! \copy
 //!
@@ -43,7 +43,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -58,14 +58,14 @@
 //*****************************************************************************
 //
 //! \addtogroup CORE_NVIC_Register  NVIC Register
-//! \brief Here are the details info of NVIC registers. 
+//! \brief Here are the detailed info of NVIC registers. 
 //!
 //! it contains:
 //! - Register offset.
-//! - Details bit-field of the registers.
+//! - detailed bit-field of the registers.
 //! - Enum and mask of the registers.
 //! .
-//! Users can read or write the registers thourgh xHWREG().
+//! Users can read or write the registers through xHWREG().
 //!
 //! @{
 //

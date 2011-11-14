@@ -2,8 +2,8 @@
 //
 //! \file xhw_types.h
 //! \brief Common types and macros.
-//! \version V2.0.0
-//! \date 9/30/2011
+//! \version V2.0.1
+//! \date 11/11/2011
 //! \author CooCox
 //! \copy
 //!
@@ -42,7 +42,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -64,7 +64,7 @@
 //*****************************************************************************
 //
 //! \addtogroup xLowLayer_Exported_Types xLowLayer Types
-//! \brief Some types define.
+//! \brief Some type definitions.
 //! @{
 //
 //*****************************************************************************
@@ -117,7 +117,7 @@ typedef unsigned long (* xtEventCallback)(void *pvCBData,
 //*****************************************************************************
 //
 //! \addtogroup xLowLayer_Hardware_Access xLowLayer Hardware Access
-//! \brief Macros for hardware(register) access, both direct and 
+//! \brief Macros for hardware(register) accesses, both direct and 
 //! via the bit-band region.
 //! @{
 //
