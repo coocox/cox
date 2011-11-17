@@ -167,41 +167,42 @@ typedef struct
 {
     unsigned long ulPeripheralBase;
     unsigned long ulPeripheralID;
+    unsigned long ulPeripheralIntNum;
 }
 tPeripheralTable;
 
 //*****************************************************************************
 //
-// An array that maps the peripheral base and peripheral ID together to enable
-// a peripheral by a peripheral base.
+// An array that maps the peripheral base and peripheral ID and interrupt number
+// together to enablea peripheral or peripheral interrupt by a peripheral base.
 //
 //*****************************************************************************
 static const tPeripheralTable g_pPeripherals[] =
 {
-    {xGPIO_PORTA_BASE, xSYSCTL_PERIPH_GPIOA},
-    {xGPIO_PORTB_BASE, xSYSCTL_PERIPH_GPIOB},
-    {xGPIO_PORTC_BASE, xSYSCTL_PERIPH_GPIOC},
-    {xGPIO_PORTD_BASE, xSYSCTL_PERIPH_GPIOD},
-    {xGPIO_PORTE_BASE, xSYSCTL_PERIPH_GPIOE},
-    {xWDT_BASE,        xSYSCTL_PERIPH_WDOG},
-    {xUART0_BASE,      xSYSCTL_PERIPH_UART0},
-    {xUART1_BASE,      xSYSCTL_PERIPH_UART1},
-    {xUART2_BASE,      xSYSCTL_PERIPH_UART2},
-    {xTIMER0_BASE,     xSYSCTL_PERIPH_TIMER0},
-    {xTIMER1_BASE,     xSYSCTL_PERIPH_TIMER1},
-    {xTIMER2_BASE,     xSYSCTL_PERIPH_TIMER2},
-    {xTIMER3_BASE,     xSYSCTL_PERIPH_TIMER3},
-    {xSPI0_BASE,       xSYSCTL_PERIPH_SPI0},
-    {xSPI1_BASE,       xSYSCTL_PERIPH_SPI1},
-    {xSPI2_BASE,       xSYSCTL_PERIPH_SPI2},
-    {xSPI3_BASE,       xSYSCTL_PERIPH_SPI3},
-    {xI2C0_BASE,       xSYSCTL_PERIPH_I2C0},
-    {xI2C1_BASE,       xSYSCTL_PERIPH_I2C1},
-    {xADC0_BASE,       xSYSCTL_PERIPH_ADC0},
-    {xACMP0_BASE,      xSYSCTL_PERIPH_ACMP0},
-    {xPWMA_BASE,       xSYSCTL_PERIPH_PWMA},
-    {xPWMB_BASE,       xSYSCTL_PERIPH_PWMB},
-    {0,                0},
+    {xGPIO_PORTA_BASE, xSYSCTL_PERIPH_GPIOA, INT_GPAB},
+    {xGPIO_PORTB_BASE, xSYSCTL_PERIPH_GPIOB, INT_GPAB},
+    {xGPIO_PORTC_BASE, xSYSCTL_PERIPH_GPIOC, INT_GPCDE},
+    {xGPIO_PORTD_BASE, xSYSCTL_PERIPH_GPIOD, INT_GPCDE},
+    {xGPIO_PORTE_BASE, xSYSCTL_PERIPH_GPIOE, INT_GPCDE},
+    {xWDT_BASE,        xSYSCTL_PERIPH_WDOG, INT_WDT},
+    {xUART0_BASE,      xSYSCTL_PERIPH_UART0, INT_UART02},
+    {xUART1_BASE,      xSYSCTL_PERIPH_UART1, INT_UART1},
+    {xUART2_BASE,      xSYSCTL_PERIPH_UART2, INT_UART02},
+    {xTIMER0_BASE,     xSYSCTL_PERIPH_TIMER0, INT_TIMER0},
+    {xTIMER1_BASE,     xSYSCTL_PERIPH_TIMER1, INT_TIMER1},
+    {xTIMER2_BASE,     xSYSCTL_PERIPH_TIMER2, INT_TIMER2},
+    {xTIMER3_BASE,     xSYSCTL_PERIPH_TIMER3, INT_TIMER3},
+    {xSPI0_BASE,       xSYSCTL_PERIPH_SPI0, INT_SPI0},
+    {xSPI1_BASE,       xSYSCTL_PERIPH_SPI1, INT_SPI1},
+    {xSPI2_BASE,       xSYSCTL_PERIPH_SPI2, INT_SPI2},
+    {xSPI3_BASE,       xSYSCTL_PERIPH_SPI3, INT_SPI3},
+    {xI2C0_BASE,       xSYSCTL_PERIPH_I2C0, INT_I2C0},
+    {xI2C1_BASE,       xSYSCTL_PERIPH_I2C1, INT_I2C1},
+    {xADC0_BASE,       xSYSCTL_PERIPH_ADC0, INT_ADC},
+    {xACMP0_BASE,      xSYSCTL_PERIPH_ACMP0, INT_ACMP},
+    {xPWMA_BASE,       xSYSCTL_PERIPH_PWMA, INT_PWMA},
+    {xPWMB_BASE,       xSYSCTL_PERIPH_PWMB, INT_PWMB},
+    {0,                0,                   0},
 };
     
                                 
@@ -622,6 +623,63 @@ xSysCtlPeripheralReset2(unsigned long ulPeripheralBase)
             break;
         }
     }
+}
+
+//*****************************************************************************
+//
+//! \brief Get the peripheral interrupt number through peripheral base.
+//!
+//! \param ulPeripheral The peripheral's base  
+//!
+//! \note It's especially useful to enable the short pin's corresponding 
+//! peripheral interrupt: Use the short pin to Get the GPIO base through 
+//! \ref xGPIOSPinToPort function, and then use this function to enable the GPIO
+//! interrupt.
+//!
+//! \return None.
+//
+//*****************************************************************************
+unsigned long 
+xSysCtlPeripheraIntNumGet(unsigned long ulPeripheralBase)
+{
+    unsigned long i;
+    
+    //
+    // Check the arguments.
+    //
+    xASSERT((ulPeripheralBase == xGPIO_PORTA_BASE)||
+            (ulPeripheralBase == xGPIO_PORTB_BASE)||
+            (ulPeripheralBase == xGPIO_PORTC_BASE)||
+            (ulPeripheralBase == xGPIO_PORTD_BASE)||
+            (ulPeripheralBase == xGPIO_PORTE_BASE)||
+            (ulPeripheralBase == xWDT_BASE)||   
+            (ulPeripheralBase == xUART0_BASE)||   
+            (ulPeripheralBase == xUART1_BASE)||   
+            (ulPeripheralBase == xUART2_BASE)||   
+            (ulPeripheralBase == xTIMER0_BASE)||    
+            (ulPeripheralBase == xTIMER1_BASE)||          
+            (ulPeripheralBase == xTIMER2_BASE)||    
+            (ulPeripheralBase == xTIMER3_BASE)||        
+            (ulPeripheralBase == xSPI0_BASE)||     
+            (ulPeripheralBase == xSPI1_BASE)||         
+            (ulPeripheralBase == xSPI2_BASE)||           
+            (ulPeripheralBase == xSPI3_BASE)||   
+            (ulPeripheralBase == xI2C0_BASE)||  
+            (ulPeripheralBase == xI2C1_BASE)||
+            (ulPeripheralBase == xADC0_BASE)||    
+            (ulPeripheralBase == xACMP0_BASE)||       
+            (ulPeripheralBase == xPWMA_BASE)||        
+            (ulPeripheralBase == xPWMB_BASE)||        
+            );
+            
+    for(i=0; g_pPeripherals[i].ulPeripheralBase != 0; i++)
+    {
+        if(ulPeripheralBase == g_pPeripherals[i].ulPeripheralBase)
+        {
+            break;
+        }
+    }
+    return g_pPeripherals[i].ulPeripheralIntNum;
 }
 
 //*****************************************************************************

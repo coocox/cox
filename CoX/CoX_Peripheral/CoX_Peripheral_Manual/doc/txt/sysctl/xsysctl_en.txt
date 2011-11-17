@@ -123,7 +123,8 @@
 //! - Peripheral Controls
 //!   - Reset the peripheral
 //!   - Enable the peripheral
-//!   - Disable the peripheral      
+//!   - Disable the peripheral   
+//!   - Get the peripheral interrupt number   
 //!   .
 //! - Clock control 
 //!   - System Control clock set
@@ -153,12 +154,14 @@
 //! - xSysCtlPeripheralReset()
 //! - xSysCtlPeripheralReset2()  
 //! .
-//! The peripherals are enabled or disabled with 
+//! The peripherals are enabled or disabled with :
 //! - xSysCtlPeripheralEnable()
 //! - xSysCtlPeripheralDisable()
 //! - xSysCtlPeripheralEnable2()
 //! - xSysCtlPeripheralDisable2()
-//!.
+//! .
+//! The peripherals interrupt number are got with :
+//! - xSysCtlPeripheraIntNumGet()
 //! 
 //! \n
 //! \subsection xSysCtl_API_Group_Clock 2.2 Clock control 
