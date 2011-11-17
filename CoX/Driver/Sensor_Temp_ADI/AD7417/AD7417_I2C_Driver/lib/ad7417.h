@@ -38,8 +38,8 @@
 //
 //*****************************************************************************
 
-#ifndef __I2C_TEMP_AD7417_H__
-#define __I2C_TEMP_AD7417_H__
+#ifndef __AD7417_H__
+#define __AD7417_H__
 
 //*****************************************************************************
 //
@@ -62,6 +62,62 @@ extern "C"
 //! @{
 //! \addtogroup AD7417
 //! @{  
+//
+//*****************************************************************************
+  
+//*****************************************************************************
+//
+//! \addtogroup AD7417_Application_Configs AD7417 Application Configs
+//! \brief It is Static preach, the 4 macros must be define with the right value
+//! according your application before use the APIS.
+//! @{
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! AD7417 Device config ,here must be configured before use the API.
+//
+//*****************************************************************************
+
+//
+//! Config the device i2c Address
+//
+#define AD7417_I2C_ADDRESS      0x28
+
+//
+//! Config the devide i2c bus master
+//
+#define AD7417_MASTER_BASE      xI2C0_BASE
+
+//
+//! Config the i2c0 SDA pin
+//
+#define AD7417_PIN_I2CSDA       PA8
+
+//
+//! Config the i2c0 SCL pin
+//
+#define AD7417_PIN_I2CSCK       PA9
+
+// 
+//! Config the /Convst pin
+//
+#define AD7417_PIN_CONVST       PC4
+  
+//
+//! Config the OTI connect pin
+// 
+#define AD7417_PIN_OTI          PB13
+
+//
+//! Config the OTI active level
+//
+#define AD7417_LEVEL_OTI        xGPIO_LOW_LEVEL  
+
+//*****************************************************************************
+//
+//! @}
 //
 //*****************************************************************************
   
@@ -206,8 +262,8 @@ extern float AD7417TempReadFDC(void);
 extern void AD7417ADConfig(unsigned short ucCfg);
 extern unsigned long AD7417ADCRead(void);
 
-extern void AD7417ShutdownEnable(void);
-extern void AD7417ShutdownDisable(void);
+extern void AD7417ShutdownEnter(void);
+extern void AD7417ShutdownQuit(void);
 extern void AD7417ShutDownConvst(void);
 
 extern void AD7417TriggerEnable(void);
@@ -231,74 +287,6 @@ extern void AD7417RegWrite(unsigned char ucReg, short ulValue);
 //! @}
 //
 //*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup AD7417_Application_Configs AD7417 Application Configs
-//! \brief It is Static preach, the 4 macros must be define with the right value
-//! according your application before use the APIS.
-//! @{
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! AD7417 Device config ,here must be configured before use the API.
-//
-//*****************************************************************************
-
-//
-//! Config the device i2c Address
-//
-#define AD7417Addr             0x28
-
-//
-//! Config the devide i2c bus master
-//
-#define AD7417MasterBase       I2C0_BASE
-
-//
-//! Config the i2c0 SDA pin
-//
-#define AD7417_I2C0_SDA        PA8
-
-//
-//! Config the i2c0 SCL pin
-//
-#define AD7417_I2C0_SCL        PA9
-
-//
-//! Config the i2c1 SDA pin
-//
-#define AD7417_I2C1_SDA        PA10
-
-//
-//! Config the i2c1 SCL pin
-//
-#define AD7417_I2C1_SCL        PA11
-
-//
-//! Config the OTI connect pin
-// 
-#define AD7417_OTI_PIN         PB13
-
-//
-//! Config the OTI active level
-//
-#define AD7417_OTI_ACTIVE      xGPIO_LOW_LEVEL
-
-// 
-//! Config the /Convst pin
-//
-#define AD7417_CONVST_PIN      PC4
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-
 
 //*****************************************************************************
 //

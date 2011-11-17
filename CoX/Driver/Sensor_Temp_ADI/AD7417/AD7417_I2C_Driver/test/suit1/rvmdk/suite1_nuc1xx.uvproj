@@ -532,11 +532,6 @@
           <GroupName>testcase</GroupName>
           <Files>
             <File>
-              <FileName>AD7414test1.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\AD7414test1.c</FilePath>
-            </File>
-            <File>
               <FileName>AD7417test2.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\src\AD7417test2.c</FilePath>
@@ -555,6 +550,11 @@
               <FileName>testcase.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\src\testcase.h</FilePath>
+            </File>
+            <File>
+              <FileName>AD7417test1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\AD7417test1.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1106,11 +1106,6 @@
           <GroupName>testcase</GroupName>
           <Files>
             <File>
-              <FileName>AD7414test1.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\AD7414test1.c</FilePath>
-            </File>
-            <File>
               <FileName>AD7417test2.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\src\AD7417test2.c</FilePath>
@@ -1129,6 +1124,11 @@
               <FileName>testcase.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\src\testcase.h</FilePath>
+            </File>
+            <File>
+              <FileName>AD7417test1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\AD7417test1.c</FilePath>
             </File>
           </Files>
         </Group>

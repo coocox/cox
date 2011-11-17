@@ -70,7 +70,7 @@ short AD7417RegRead (unsigned char ucReg)
     short ulRegData;  
     unsigned char ucFlag;
     
-    cfg.ulSlave = AD7417Addr;
+    cfg.ulSlave = AD7417_I2C_ADDRESS;
     cfg.pvWBuf = &ucTemp;
     cfg.ulWLen = 1;
     cfg.ulRLen = 0;
@@ -123,7 +123,7 @@ short AD7417RegRead (unsigned char ucReg)
     //
     // Data transfering
     //
-    ucFlag = xI2CMasterTransfer(AD7417MasterBase, &cfg, I2C_TRANSFER_POLLING);
+    ucFlag = xI2CMasterTransfer(AD7417_MASTER_BASE, &cfg, I2C_TRANSFER_POLLING);
     
     //
     // if transfer fail, return 0.
@@ -241,7 +241,7 @@ void AD7417RegWrite(unsigned char ucReg, short ulValue)
           break;
     }  
     
-    cfg.ulSlave = AD7417Addr;
+    cfg.ulSlave = AD7417_I2C_ADDRESS;
     cfg.pvWBuf = ucSendBuf;
     cfg.ulWLen = ucSendLength;
     cfg.ulRLen = 0;
@@ -250,7 +250,7 @@ void AD7417RegWrite(unsigned char ucReg, short ulValue)
     //
     // data transfering
     //
-    xI2CMasterTransfer(AD7417MasterBase, &cfg, I2C_TRANSFER_POLLING);
+    xI2CMasterTransfer(AD7417_MASTER_BASE, &cfg, I2C_TRANSFER_POLLING);
 }
 
 //*****************************************************************************
@@ -276,45 +276,28 @@ void AD7417Init(unsigned long ulRate, unsigned long ulMode)
     unsigned long ulTemp;
     
     //
-    // Config the I2C master
+    // Config the I2C pin
     //
-    if (AD7417MasterBase == I2C0_BASE)
+    if(AD7417_MASTER_BASE == xI2C0_BASE)
     {
-        //
-        // Congigure the i2c pin
-        //
-        xSPinTypeI2C(I2C0SCK, AD7417_I2C0_SCL);
-        xSPinTypeI2C(I2C0DATA, AD7417_I2C0_SDA); 
-        
-        //
-        // Enable the i2c peripheral
-        //
-        xSysCtlPeripheralEnable(xSYSCTL_PERIPH_I2C0);
-    }
-    else if(AD7417MasterBase == I2C1_BASE)
-    {
-        //
-        // Congigure the i2c pin
-        //
-        xSPinTypeI2C(I2C1SCL, AD7417_I2C1_SCL);
-        xSPinTypeI2C(I2C1DATA, AD7417_I2C1_SDA); 
-    
-        //
-        // Enable the i2c peripheral
-        //
-        xSysCtlPeripheralEnable(xSYSCTL_PERIPH_I2C1);        
+        xSPinTypeI2C(I2C0SCK, AD7417_PIN_I2CSCK);
+        xSPinTypeI2C(I2C0SDA, AD7417_PIN_I2CSDA);
     }
     else
     {
-        //
-        // more i2c to be enable
-        //
+        xSPinTypeI2C(I2C1SCK, AD7417_PIN_I2CSCK);
+        xSPinTypeI2C(I2C1SDA, AD7417_PIN_I2CSDA);
     }
+    
+    //
+    // Config the I2C master
+    //
+    xSysCtlPeripheralEnable2(AD7417_MASTER_BASE);
    
     //
     // Init the device rate
     //
-    xI2CMasterInit(AD7417MasterBase, ulRate);
+    xI2CMasterInit(AD7417_MASTER_BASE, ulRate);
     AD7417Reset();
    
     //
@@ -562,7 +545,7 @@ unsigned long AD7417ADCRead(void)
 //! \b AD7417_OTI_CMP, \b AD7417_OTI_INT.
 //!
 //! The OTI polarity bit can selected form one of the following bit:
-//! \b AD7417_OTI_ACTIVE_LOW, \b AD7417_OTI_ACTIVE_HIGH
+//! \b AD7417_LEVEL_OTI_LOW, \b AD7417_LEVEL_OTI_HIGH
 //!
 //! The Fault Queue bits can be selected form one of the following bits:
 //! \b AD7417_FAULTQUE_1, \b AD7417_FAULTQUE_2, 
@@ -637,9 +620,9 @@ void AD7417OTIntEnable(void)
 {
     unsigned long ulBase;
     
-    xGPIOSPinTypeGPIOInput(AD7417_OTI_PIN);
-    xGPIOSPinIntEnable(AD7417_OTI_PIN, AD7417_OTI_ACTIVE);
-    ulBase = xGPIOSPinToPort(AD7417_OTI_PIN);
+    xGPIOSPinTypeGPIOInput(AD7417_PIN_OTI);
+    xGPIOSPinIntEnable(AD7417_PIN_OTI, AD7417_LEVEL_OTI);
+    ulBase = xGPIOSPinToPort(AD7417_PIN_OTI);
     xIntEnable(xSysCtlPeripheraIntNumGet(ulBase));
 }
 
@@ -656,8 +639,8 @@ void AD7417OTIntDisable(void)
 {
     unsigned long ulBase;
     
-    xGPIOSPinIntDisable(AD7417_OTI_PIN);
-    ulBase = xGPIOSPinToPort(AD7417_OTI_PIN);
+    xGPIOSPinIntDisable(AD7417_PIN_OTI);
+    ulBase = xGPIOSPinToPort(AD7417_PIN_OTI);
     xIntDisable(xSysCtlPeripheraIntNumGet(ulBase));    
 }
 
@@ -682,8 +665,8 @@ void AD7417OTIntCallbackInit(xtEventCallback xtI2CCallback)
     //
     // Init interrupts callback for the specified Port.
     //
-    xGPIOPinIntCallbackInit(xGPIOSPinToPort(AD7417_OTI_PIN),
-                             xGPIOSPinToPin(AD7417_OTI_PIN), xtI2CCallback);
+    xGPIOPinIntCallbackInit(xGPIOSPinToPort(AD7417_PIN_OTI),
+                             xGPIOSPinToPin(AD7417_PIN_OTI), xtI2CCallback);
     
 }
 
@@ -796,14 +779,14 @@ void AD7417TriggerConvst(void)
     //
     // the /CONVST connect pin need a low to high change
     //
-    xGPIOSPinWrite(AD7417_CONVST_PIN, 0);
-    xGPIOSPinWrite(AD7417_CONVST_PIN, 1);
+    xGPIOSPinWrite(AD7417_PIN_CONVST, 0);
+    xGPIOSPinWrite(AD7417_PIN_CONVST, 1);
     
     //
     // the pin high time need more than 4 us 
     //
     for(i = 0; i < 5; i++);
-    xGPIOSPinWrite(AD7417_CONVST_PIN, 0);
+    xGPIOSPinWrite(AD7417_PIN_CONVST, 0);
 }
 
 //*****************************************************************************
@@ -815,7 +798,7 @@ void AD7417TriggerConvst(void)
 //! \return none
 //
 //*****************************************************************************
-void AD7417ShutdownEnable(void)
+void AD7417ShutdownEnter(void)
 {
     unsigned long ulTemp;
     //
@@ -834,7 +817,7 @@ void AD7417ShutdownEnable(void)
 //! \return none
 //
 //*****************************************************************************
-void AD7417ShutdownDisable(void)
+void AD7417ShutdownQuit(void)
 {
     unsigned long ulTemp;
     //
@@ -890,20 +873,6 @@ void AD7417ShutDownConvst(void)
 //
 //*****************************************************************************
 void AD7417DeInit(void)
-{
-    if(AD7417MasterBase == I2C0_BASE)
-    {
-        xSysCtlPeripheralDisable(xSYSCTL_PERIPH_I2C0);
-    }
-    else if(AD7417MasterBase == I2C1_BASE)
-    {
-        xSysCtlPeripheralDisable(xSYSCTL_PERIPH_I2C1);
-    }
-    else
-    { 
-        //
-        // More i2c to be disable
-        //    
-    }
-    
+{ 
+    xSysCtlPeripheralDisable2(AD7417_MASTER_BASE);    
 }

@@ -195,47 +195,37 @@
 //! //
 //! // Config the device i2c address
 //! //
-//! #define AD7417Addr             0x28
+//! #define AD7417_I2C_ADDRESS      0x28
 //!
 //! //
 //! // Config the devide i2c bus master
 //! //
-//! #define AD7417MasterBase       I2C0_BASE
+//! #define AD7417_MASTER_BASE      xI2C0_BASE
 //!
 //! //
 //! // Config the i2c0 SDA pin
 //! //
-//! #define AD7417_I2C0_SDA        PA8
+//! #define AD7417_PIN_I2CSDA       PA8
 //!
 //! //
 //! // Config the i2c0 SCL pin
 //! //
-//! #define AD7417_I2C0_SCL        PA9
-//!
-//! //
-//! // Config the i2c1 SDA pin
-//! //
-//! #define AD7417_I2C1_SDA        PA10
-//!
-//! //
-//! // Config the i2c1 SCL pin
-//! //
-//! #define AD7417_I2C1_SCL        PA11
-//!
-//! //
-//! // Config the OTI active level
-//! //
-//! #define AD7417_OTI_ACTIVE      xGPIO_LOW_LEVEL
+//! #define AD7417_PIN_I2CSCK       PA9
 //!
 //! //
 //! // Config the OTI connect pin
 //! // 
-//! #define AD7417_OTI_PIN         PB13
+//! #define AD7417_PIN_OTI          PB13
 //!
 //! // 
 //! // Config the /Convst pin
 //! //
-//! #define AD7417_CONVST_PIN      PC4
+//! #define AD7417_PIN_CONVST       PC4
+//!
+//! //
+//! // Config the OTI active level
+//! //
+//! #define AD7417_LEVEL_OTI        xGPIO_LOW_LEVEL 
 //!
 //! \endcode
 //!

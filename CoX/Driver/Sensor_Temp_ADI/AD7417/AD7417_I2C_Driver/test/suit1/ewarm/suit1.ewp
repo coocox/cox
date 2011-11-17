@@ -1735,7 +1735,7 @@
     <group>
       <name>testcase</name>
       <file>
-        <name>$PROJ_DIR$\..\src\AD7414test1.c</name>
+        <name>$PROJ_DIR$\..\src\AD7417test1.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\src\AD7417test2.c</name>

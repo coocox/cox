@@ -90,7 +90,7 @@ static void di_ad7417arz001Setup(void)
     //
     //Set the external 12MHZ clock as system clock 
     //
-    xSysCtlClockSet(12000000, SYSCLK_PWRCON_XTL12M_EN | xSYSCTL_OSC_MAIN);
+    xSysCtlClockSet(12000000, xSYSCTL_XTAL_12MHZ | xSYSCTL_OSC_MAIN);
     
     //
     // AD7417 device init
@@ -139,7 +139,7 @@ static void di_ad7417arz001Execute(void)
     //
     // Config the OTI connected pin as input pin
     //
-    xGPIOSPinTypeGPIOInput(AD7417_OTI_PIN);
+    xGPIOSPinTypeGPIOInput(AD7417_PIN_OTI);
     
     //
     // Config the OTI active level low , Fault QUEUE is 1
@@ -153,7 +153,7 @@ static void di_ad7417arz001Execute(void)
         ulTemp = AD7417TempReadLDC();
         for(i = 0; i < 10000; i++);
         PrintN(ulTemp);
-        ulTemp = xGPIOSPinRead(AD7417_OTI_PIN);
+        ulTemp = xGPIOSPinRead(AD7417_PIN_OTI);
         if(!ulTemp)
         {
             ucFlag = 0;

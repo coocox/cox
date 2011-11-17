@@ -70,7 +70,7 @@ static void di_ad7417arz001Setup(void)
     //
     //Set the external 12MHZ clock as system clock 
     //
-    xSysCtlClockSet(12000000, SYSCLK_PWRCON_XTL12M_EN | xSYSCTL_OSC_MAIN);
+    xSysCtlClockSet(12000000, xSYSCTL_XTAL_12MHZ | xSYSCTL_OSC_MAIN);
     
     //
     // AD7417 device init
@@ -114,8 +114,8 @@ static void di_ad7417arz001Execute(void)
     // Set the PC4 as /convst pin ,out put, low level
     //
     
-    xGPIOSPinTypeGPIOOutput(AD7417_CONVST_PIN);
-    xGPIOSPinWrite(AD7417_CONVST_PIN, 0);
+    xGPIOSPinTypeGPIOOutput(AD7417_PIN_CONVST);
+    xGPIOSPinWrite(AD7417_PIN_CONVST, 0);
     
     while(ucFlag)
     {
