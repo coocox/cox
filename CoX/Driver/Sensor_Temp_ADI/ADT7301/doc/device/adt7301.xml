@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>ADT7301ARTZ-500RL7</Name>
+    <Description>
+    	  The ADT7301 is a complete temperature monitoring system . It contains a band gap temperature sensor and a  
+13-bit ADC to monitor and digitize the temperature reading to a resolution of 0.03125°„C. The ADT7301 has a flexible 
+serial interface that allows easyinterfacing to most microcontrollers. The interface is compatible with SPI,QSPI,and
+MICROWIRE protocols as well as DSPs.
+   </Description>
+    <Manufacturer>ADI</Manufacturer>
+    
+    <Category>Sensor</Category>
+    <SubCategory>Temperature</SubCategory>
+    
+    <KeyWord>ADT7301 Temp, Temperature, Sensor, SPI, ADC</KeyWord>
+    
+    <Communication>
+        <Interface>SPI</Interface>
+    </Communication>
+    
+    <WebPage>http://cn.element14.com/jsp/search/productdetail.jsp?id=1838912</WebPage>
+    <Datasheet>http://www.analog.com/static/imported-files/data_sheets/ADT7301.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

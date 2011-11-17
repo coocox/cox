@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>TC72-3.3MUA</Name>
+    <Description>
+        The TC72 is a digital temperature sensor capable of reading temperatures from -55°„C to +125°„C. This sensor features a serial interface that allows communication with a host controller or other peripherals. The TC72 interface is compatible with the SPI protocol. 
+    </Description>
+    <Manufacturer>Microchip</Manufacturer>
+    
+    <Category>Sensor</Category>
+    <SubCategory>Temperature</SubCategory>
+    
+    <KeyWord>TC72, Temp, Temperature, Sensor, SPI, ADC</KeyWord>
+    
+    <Communication>
+        <Interface>SPI</Interface>
+    </Communication>
+    
+    <WebPage>http://cn.element14.com/jsp/search/productdetail.jsp?id=1852305&Ntt=1852305</WebPage>
+    <Datasheet>http://ww1.microchip.com/downloads/en/devicedoc/21743a.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>
