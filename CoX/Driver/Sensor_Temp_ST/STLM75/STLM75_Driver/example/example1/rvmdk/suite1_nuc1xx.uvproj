@@ -523,47 +523,12 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>testframe</GroupName>
+          <GroupName>example</GroupName>
           <Files>
             <File>
-              <FileName>main.c</FileName>
+              <FileName>example1.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\..\resource\testframe\main.c</FilePath>
-            </File>
-            <File>
-              <FileName>test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\..\resource\testframe\test.c</FilePath>
-            </File>
-            <File>
-              <FileName>test.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\..\..\..\resource\testframe\test.h</FilePath>
-            </File>
-            <File>
-              <FileName>testport.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\..\resource\testframe\testport.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>testcase</GroupName>
-          <Files>
-            <File>
-              <FileName>test1.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\test1.c</FilePath>
-            </File>
-            <File>
-              <FileName>testcase.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\testcase.c</FilePath>
-            </File>
-            <File>
-              <FileName>testcase.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\src\testcase.h</FilePath>
+              <FilePath>..\src\example1.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1086,47 +1051,12 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>testframe</GroupName>
+          <GroupName>example</GroupName>
           <Files>
             <File>
-              <FileName>main.c</FileName>
+              <FileName>example1.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\..\resource\testframe\main.c</FilePath>
-            </File>
-            <File>
-              <FileName>test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\..\resource\testframe\test.c</FilePath>
-            </File>
-            <File>
-              <FileName>test.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\..\..\..\resource\testframe\test.h</FilePath>
-            </File>
-            <File>
-              <FileName>testport.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\..\resource\testframe\testport.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>testcase</GroupName>
-          <Files>
-            <File>
-              <FileName>test1.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\test1.c</FilePath>
-            </File>
-            <File>
-              <FileName>testcase.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\testcase.c</FilePath>
-            </File>
-            <File>
-              <FileName>testcase.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\src\testcase.h</FilePath>
+              <FilePath>..\src\example1.c</FilePath>
             </File>
           </Files>
         </Group>

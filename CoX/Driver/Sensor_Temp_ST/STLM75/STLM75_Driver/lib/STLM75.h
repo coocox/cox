@@ -2,7 +2,7 @@
 // 
 //! \file STLM75.h
 //! \brief Macros used when accessing the STLM75 control hardware.
-//! \version 1.0
+//! \version V2.1.1.0
 //! \date 6. Nov. 2011
 //! \author  CooCox
 //!
@@ -78,13 +78,108 @@
 //
 //*****************************************************************************
 
-#define STLM75_
+//
+//! It can only be config to 0 or 1
+//
+#define STLM75_OSINT_USE_CONFIG (1)
 
 //*****************************************************************************
 //
 //! @}
 //
 //*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STLM75_Config STLM75 Driver Config
+//! \brief Configurtions something before using this driver.
+//! Values that can be passed to STLM75ConfigSet as the ulConfig 
+//! parameter.
+//! 
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Putting the device into Shutdown mode (low-power standby state)
+//
+#define STLM75_CFG_SHUTDOWN_ON  0x01
+//
+//! Putting the device into Normal mode
+//
+#define STLM75_CFG_SHUTDOWN_OFF 0x00
+
+//
+//! Thermostat Mode : Comparator mode (defaults)
+//
+#define STLM75_CFG_MODE_CMP     0x00
+//
+//! Thermostat Mode : Interrupt mode
+//
+#define STLM75_CFG_MODE_INT     0x02
+
+//
+//! Output Polarity : Low (defaults)
+//
+#define STLM75_CFG_POL_LOW      0x00
+//
+//! Output Polarity : High
+//
+#define STLM75_CFG_POL_HIGH     0x04
+
+//
+//! Fault Tolerance, consecutive number : 1 (defaults)
+//
+#define STLM75_CFG_FT1          0x00
+//
+//! Fault Tolerance, consecutive number : 2
+//
+#define STLM75_CFG_FT2          0x08
+//
+//! Fault Tolerance, consecutive number : 4
+//
+#define STLM75_CFG_FT4          0x10
+//
+//! Fault Tolerance, consecutive number : 6
+//
+#define STLM75_CFG_FT6          0x18
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STLM75_Reg_NUM  Command/pointer register
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Temperature Register  (defaults)
+//
+#define STLM75_POINTER_REG_TEMP 0x00
+//
+//! Configuration Register
+//
+#define STLM75_POINTER_REG_CONF 0x01
+//
+//! Hysteresis Register
+//
+#define STLM75_POINTER_REG_THYS 0x02
+//
+//! Over-Limit Signal Temperature register
+//
+#define STLM75_POINTER_REG_TOS  0x03
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
 //*****************************************************************************
 //
 //! \addtogroup STLM75_Device STLM75 Driver Device
@@ -94,7 +189,6 @@
 //
 //*****************************************************************************
 
-//#define STLM75_PIN_DIO         PA0
 typedef struct 
 {
     //
@@ -113,12 +207,28 @@ typedef struct
     //! STLM75 SDA pin
     // 
     unsigned long ulSdaPin;
+    //
+    //! STLM75 INT port
+    // 
+    unsigned long ulIntPort;     
+    //
+    //! STLM75 INT pin
+    // 
+    unsigned long ulIntPin;
     
     //
-    //! Init the STLM75 pin function
-    //! Enable the pin corresponding peripheral
+    //! STLM75 I2C Base
+    // 
+    unsigned long ulI2CBase;
+    
     //
+    //! STLM75 I2C Base
+    // 
     void (*PinSet)(void);
+    
+#if (STLM75_OSINT_USE_CONFIG > 0)
+    xtEventCallback OSPinIntCallback;
+#endif
     
     //
     //! STLM75 Address
@@ -141,8 +251,13 @@ tSTLM75Dev;
 //! @{
 //
 //*****************************************************************************
-extern void STLM75Init(tSTLM75Dev *psDev);
-
+extern void STLM75Init(tSTLM75Dev *psDev, unsigned long ulRate);
+extern float STLM75TempRead(tSTLM75Dev *psDev);
+extern void STLM75LimitSet(tSTLM75Dev *psDev, float fTemp, 
+                           unsigned char ucIndex);
+extern float STLM75LimitRead(tSTLM75Dev *psDev, unsigned char ucIndex);
+extern void STLM75ConfigSet(tSTLM75Dev *psDev, unsigned char ucConfig);
+extern unsigned char STLM75ConfigRead(tSTLM75Dev *psDev);
 
 
 //*****************************************************************************
@@ -182,7 +297,6 @@ extern void STLM75Init(tSTLM75Dev *psDev);
 //*****************************************************************************
 
 #endif
-
 
 
 

@@ -2,7 +2,7 @@
 //
 //! \file AT25FS0x.h
 //! \brief Prototypes for the AT25FS0x Driver.
-//! \version 1.0
+//! \version V2.1.1.0
 //! \date 9/22/2011
 //! \author CooCox
 //! \copy

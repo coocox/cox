@@ -1,173 +1,348 @@
 //*****************************************************************************
 //
-//! \defgroup DS18B20 DS18B20
+//! \defgroup STLM75 STLM75
 //!
-//! \brief Programmable Resolution 1-Wire Digital Thermometer.
+//! \brief Digital temperature sensor and thermal watchdog.
 //!
-//! AThe DS18B20 digital thermometer provides 9-bit to 12-bit Celsius 
-//! temperature measurements and has an alarm function with nonvolatile
-//! user-programmable upper and lower trigger points. The DS18B20 communicates
-//! over a 1-Wire bus that by definition requires only one data line (and ground)
-//! for communication with a central microprocessor. It has an operating
-//! temperature range of -55°„C to +125°„C and is accurate to °¿0.5°„C over the range
-//! of -10°„C to +85°„C. In addition, the DS18B20 can derive power directly from
-//! the data line (°∞parasite power°±), eliminating the need for an external power
-//! supply.
+//! The STLM75 is a high-precision digital CMOS temperature sensor IC with a sigma-delta
+//! temperature-to-digital converter and an I2C-compatible serial digital interface. It is targeted
+//! for general applications such as personal computers, system thermal management,
+//! electronics equipment, and industrial controllers, and is packaged in the industry standard
+//! 8-lead TSSOP and SO8 packages.
 //!
-//! Each DS18B20 has a unique 64-bit serial code, which allows multiple DS18B20s
-//! to function on the same 1-Wire bus. Thus, it is simple to use one
-//! microprocessor to control many DS18B20s distributed over a large area.
+//! The device contains a band gap temperature sensor and 9-bit ADC which monitor and
+//! digitize the temperature to a resolution up to 0.5 °„C. The STLM75 is typically accurate to
+//! (°¿3 °„C - max) over the full temperature measurement range of ®C55 °„C to 125 °„C with °¿2 °„C
+//! accuracy in the ®C25 °„C to +100 °„C range. The STLM75 is pin-for-pin and software
+//! compatible with the LM75B.
+//!
+//! The STLM75 is specified for operating at supply voltages from 2.7 V to 5.5 V. Operating at
+//! 3.3 V, the supply current is typically (125 ¶ÃA).
 //!
 //! <h1>Contents</h1>
-//! - \ref DS18B20_Block
-//! - \ref DS18B20_Func_Desc
-//!   - \ref DS18B20_Func_Pin
-//!   - \ref DS18B20_Func_TRF
-//!   - \ref DS18B20_Func_ROM
-//!   - \ref DS18B20_Func_Memory
-//!   - \ref DS18B20_Func_TRANSACTION
-//!   - \ref DS18B20_Func_ROM_COMMANDS
-//!   - \ref DS18B20_Func_FUNCTION_COMMANDS
+//! - \ref STLM75_Block
+//! - \ref STLM75_Func_Desc
+//!   - \ref STLM75_Func_Pin
+//!   - \ref STLM75_Func_TRF
+//!   - \ref STLM75_Func_APP
+//!   - \ref STLM75_Func_Mode
+//!   - \ref STLM75_Func_Reg
+//!     - \ref STLM75_Func_Command
+//!     - \ref STLM75_Func_Configuration
+//!     - \ref STLM75_Func_Temperature
+//!     .
 //!   .
-//! - \ref DS18B20_API_Group
-//!   - \ref DS18B20_API_Config
-//!   - \ref DS18B20_API_Search
-//!   - \ref DS18B20_API_Location
-//!   - \ref DS18B20_API_Cursor
-//!   - \ref DS18B20_API_Lowlayer
+//! - \ref STLM75_API_Group
+//!   - \ref STLM75_API_Config
+//!   - \ref STLM75_API_Set
+//!   - \ref STLM75_API_Read
 //!   .
-//! - \ref DS18B20_Usage
+//! - \ref STLM75_Usage
 //! .
 //!
-//! \section DS18B20_Block 1. DS18B20 Block Diagram
-//! <img src="DS18B20_Block.png" />
+//! \section STLM75_Block 1. STLM75 Block Diagram
+//! <img src="STLM75_Block.png" />
 //!
-//! \section DS18B20_Func_Desc 2. DS18B20 Function Description
-//! \subsection DS18B20_Func_Pin 2.1 DS18B20 Pin Description
+//! \section STLM75_Func_Desc 2. STLM75 Function Description
+//! \subsection STLM75_Func_Pin 2.1 STLM75 Pin Description
 //! 
-//! <img src="ds18b20.png" />
-//! \verbatim
-//! +----------------+------------------------------------------------+
-//! |Pin Name        |Pin Description                                 |
-//! |----------------|------------------------------------------------|
-//! |DQ              |Data Input/Output. Open-drain 1-Wire interface  |
-//! |                |pin. Also provides power to the device when used|
-//! |                | in parasite power mode                         |
-//! +----------------+------------------------------------------------+
-//! \endverbatim
+//! <img src="STLM75_Pin.png" />
 //!
-//! \subsection DS18B20_Func_TRF 2.2 Temperature Register Format
+//! \subsection STLM75_Func_TRF 2.2 Temperature Register Format
 //!
-//! The DS18B20 output temperature data is calibrated in degrees Celsius;
-//! for Fahrenheit applications, a lookup table or conversion routine
-//! must be used. The temperature data is stored as a 16-bit sign-extended
-//! two°Øs complement number in the temperature register (see Figure 2).
-//! The sign bits (S) indicate if the temperature is positive or negative:
-//! for positive numbers S = 0 and for negative numbers S = 1. If the
-//! DS18B20 is configured for 12-bit resolution, all bits in the temperature
-//! register will contain valid data. For 11-bit resolution, bit 0 is
-//! undefined. For 10-bit resolution, bits 1 and 0 are undefined, and for
-//! 9-bit resolution bits 2, 1, and 0 are undefined. Table 1 gives examples
-//! of digital output data and the corresponding temperature reading for
-//! 12-bit resolution conversions.
-//! <img src="DS18B20_TRF.png" />
-//! <img src="DS18B20_TDR.png" />
+//! Table shows the relationship between the output digital data and the external temperature.
+//! Temperature data for the temperature, TOS, and THYS registers is represented as a 9-bit,
+//! two°Øs complement word.
+//! The left-most bit in the output data stream contains temperature polarity information for
+//! each conversion. If the sign bit is '0', the temperature is positive and if the sign bit is '1,' the
+//! temperature is negative.
+//! <img src="STLM75_TRF.png" />
 //! 
-//! \subsection DS18B20_Func_ROM 2.3 64-BIT LASERED ROM CODE
+//! \subsection STLM75_Func_APP 2.3 Applications information
 //!
-//! Each DS18B20 contains a unique 64®Cbit code (see Figure) stored in ROM.
-//! The least significant 8 bits of the ROM code contain the DS18B20°Øs
-//! 1-Wire family code: 28h. The next 48 bits contain a unique serial number.
-//! The most significant 8 bits contain a cyclic redundancy check (CRC) byte
-//! that is calculated from the first 56 bits of the ROM code. A detailed
-//! explanation of the CRC bits is provided in the CRC Generation section.
-//! The 64-bit ROM code and associated ROM function control logic allow the
-//! DS18B20 to operate as a 1-Wire device using the protocol detailed in the
-//! 1-Wire Bus System section. 
+//! STLM75 digital temperature sensors are optimal for thermal management and thermal
+//! protection applications. They require no external components for operations except for pullup
+//! resistors on SCL, SDA, and OS/INT outputs. A 0.1 ¶ÃF bypass capacitor on VDD is
+//! recommended. The sensing device of STLM75 is the chip itself. The typical interface
+//! connection for this type of digital sensor is shown in Figure. 
 //!
-//! <img src="DS18B20_ROM.png" />
+//! <img src="STLM75_APP.png" />
 //!
-//! \subsection DS18B20_Func_Memory 2.4 DS18B20 Memory Map
-//! The DS18B20°Øs memory is organized as shown in Figure. The memory
-//! consists of an SRAM scratchpad with nonvolatile EEPROM storage for the
-//! high and low alarm trigger registers (TH and TL) and configuration register.
-//! Note that if the DS18B20 alarm function is not used, the TH and TL registers
-//! can serve as general-purpose memory. All memory commands are described in
-//! detail in the DS18B20 Function Commands section.
+//! \subsection STLM75_Func_Mode 2.4 Comparator mode and Interrupt mode
+//! OS output temperature response diagram.
 //!
-//! <img src="DS18B20_Memory.png" />
+//! <img src="STLM75_Mode.png" />
 //!
-//! \subsection DS18B20_Func_TRANSACTION 2.5 TRANSACTION SEQUENCE
+//! \subsection STLM75_Func_Reg 2.5 Registers and register set formats
 //! 
-//! The transaction sequence for accessing the DS18B20 is as follows:
 //!
-//! Step 1. Initialization
+//! \subsubsection STLM75_Func_Command 2.5.1 Command/pointer register
+//! 
+//! The most significant bits (MSBs) of the command register must always be zero. Writing a '1'
+//! into any of these bits will cause the current operation to be terminated (bit 2 through bit 7
+//! must be kept '0', see Table
 //!
-//! Step 2. ROM Command (followed by any required data exchange)
+//! <img src="STLM75_Command.png" />
+//! <img src="STLM75_summary.png" />
 //!
-//! Step 3. DS18B20 Function Command (followed by any required data exchange)
+//! \subsubsection STLM75_Func_Configuration 2.5.2 Configuration register
+//! 
+//! The configuration register is used to store the device settings such as device operation
+//! mode, OS operation mode, OS polarity, and OS fault queue.
+//! The configuration register allows the user to program various options such as thermostat
+//! fault tolerance, thermostat polarity, thermostat operating mode, and shutdown mode. The
+//! user has READ/WRITE access to all of the bits in the configuration register except the MSB
+//! (Bit7), which is reserved as a °∞Read only°± bit (see Table 6). The entire register is volatile and
+//! thus powers-up in its default state only.
 //!
-//! \subsection DS18B20_Func_ROM_COMMANDS 2.6 ROM COMMANDS
+//! <img src="STLM75_Configuration.png" />
 //!
-//! - SEARCH ROM [F0h]
-//! - READ ROM [33h]
-//! - MATCH ROM [55h]
-//! - SKIP ROM [CCh]
-//! - ALARM SEARCH [ECh]
-//! .
+//! \subsubsection STLM75_Func_Temperature 2.5.3 Temperature register
+//! Temperature register, Overlimit temperature register (TOS) and Hysteresis temperature register (THYS) is same.
 //!
-//! \subsection DS18B20_Func_FUNCTION_COMMANDS 2.7 DS18B20 FUNCTION COMMANDS
+//! <img src="STLM75_Temperature.png" />
 //!
-//! - CONVERT T [44h]
-//! - WRITE SCRATCHPAD [4Eh]
-//! - READ SCRATCHPAD [BEh]
-//! - COPY SCRATCHPAD [48h]
-//! - RECALL E2 [B8h]
-//! - READ POWER SUPPLY [B4h]
-//! .
 //!
-//! \section DS18B20_API_Group 3. API Group
-//! \subsection DS18B20_API_Config 3.1 Config API
-//! - DS18B20Init() to initialize.
-//! - DS18B20Reset to reset.
-//! - DS18B20ScratchpadSet() to set the configuration ,Th and Tl register.
+//! \section STLM75_API_Group 3. API Group
+//! \subsection STLM75_API_Config 3.1 Config API
+//! - STLM75Init() to initialize.
+//! - STLM75ConfigSet() to Configuration.
 //! .
 //! 
-//! \subsection DS18B20_API_ROM 3.2 ROM control API
-//! The ROM can be searched by:
-//! - DS18B20ROMSearch()
-//! - DS18B20Verify()
-//! - DS18B20TargetSetup()
-//! - DS18B20FamilySkipSetup()
+//! \subsection STLM75_API_Set 3.2 Temperature control API
+//! The Temperature can be controled by:
+//! - STLM75LimitSet()
+//! - STLM75ConfigSet()
 //! .
-//! 
-//! The Alarm is searched by DS18B20AlarmSearch().
-//!
-//! The ROM is readed by DS18B20ROMRead().
-//!
-//! The ROM is matched by DS18B20ROMMatch().
-//!
-//! The ROM is skiped by DS18B20ROMSkip().
 //!
 //!
-//! \subsection DS18B20_API_FUNCTION 3.3 FUNCTION control API
+//! \subsection STLM75_API_Read 3.3 Read API
 //!
-//! - DS18B20TempConvert()
-//! - DS18B20ScratchpadCopy()
-//! - DS18B20TempRead()
-//! - DS18B20EEROMRecall()
-//! - DS18B20PowerSupplyRead()
+//! - STLM75TempRead()
+//! - STLM75LimitRead()
+//! - STLM75ConfigRead()
 //! .
 //! 
 //!
-//! \section DS18B20_Usage DS18B20 Usage
+//! \section STLM75_Usage STLM75 Usage
 //! 
-//! Before Using the DS18B20 driver, you should do like this.
+//! Before Using the STLM75 driver, you should do like this.
 //!
 //! Below is some example code:
 //!
 //! \code
-
+//! #include "xhw_ints.h"
+//! #include "xhw_nvic.h"
+//! #include "xhw_memmap.h"
+//! #include "xhw_types.h"
+//! #include "xdebug.h"
+//! #include "xcore.h"
+//! #include "xsysctl.h"
+//! #include "xhw_sysctl.h"
+//! #include "xhw_gpio.h"
+//! #include "xgpio.h"
+//! #include "xhw_uart.h"
+//! #include "xuart.h"
+//! #include "xi2c.h"
+//! #include "hw_STLM75.h"
+//! #include "STLM75.h"
+//! 
+//! //
+//! //! STLM75 Init callback.
+//! //
+//! void Dev1GPIOInit(void);
+//! 
+//! //
+//! //! STLM75 Device' OS/INT pin callback.
+//! //
+//! unsigned long UserCallback(void *pvCBData, unsigned long ulEvent, 
+//!                            unsigned long ulMsgParam, void *pvMsgData);
+//! 
+//! //
+//! //! Redefined the STLM75 Device's I2C pins.
+//! //
+//! #define STLM75_Dev1_SDA         PA8
+//! #define STLM75_Dev1_SCK         PA9
+//! 
+//! //
+//! //! STLM75 Device.
+//! //
+//! tSTLM75Dev Dev1={
+//!     //
+//!     // DQ is GPIO 
+//!     //
+//!     xGPIOSPinToPortPin(STLM75_Dev1_SCK),
+//!     xGPIOSPinToPortPin(STLM75_Dev1_SDA),
+//!     xGPIOSPinToPortPin(PA0),
+//!     xI2C0_BASE,
+//!    
+//!     //
+//!     // GPIO A.0 Init
+//!     //
+//!     Dev1GPIOInit,
+//!     UserCallback,
+//!     STLM75_ADDRESS_MASK,
+//! };
+//! 
+//! unsigned char ucTemp1[]="Temperature Overlimit";
+//! unsigned char ucTemp2[]="Temperature not Overlimit";
+//! 
+//! //*****************************************************************************
+//! //
+//!//!  \brief Init uart to print.
+//!//! 
+//!//!  \param None
+//!//! 
+//!//!  \details uart config as (115200, 8 data bit, 1 stop bit , no partiy)
+//!//! 
+//!//!  \return None.
+//! //
+//! //*****************************************************************************
+//! static 
+//! void UartInit(void)
+//! {
+//!     xSPinTypeUART(UART0RX,PB0);
+//!     xSPinTypeUART(UART0TX,PB1);
+//! 
+//!     xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART0);
+//!     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART0);
+//!     
+//!     xSysCtlPeripheralClockSourceSet(xSYSCTL_UART0_MAIN, 1);
+//! 
+//!     xUARTConfigSet(UART0_BASE, 115200, (UART_CONFIG_WLEN_8 |
+//!                                         UART_CONFIG_STOP_ONE | 
+//!                                         UART_CONFIG_PAR_NONE));
+//! }
+//! 
+//! //*****************************************************************************
+//! //
+//!//!  \brief print a char.
+//!//! 
+//!//!  \param None
+//!//! 
+//! //! \return None.
+//! //
+//! //*****************************************************************************
+//! void 
+//! UartPrintfChar(char ch)
+//! {
+//!     unsigned char c;
+//!     c = ch;
+//!     while(!xUARTSpaceAvail(xUART0_BASE));
+//!     
+//!     //
+//!     // Write this character to the transmit FIFO.
+//!     //
+//!     xUARTCharPut(xUART0_BASE, c);
+//! }
+//! 
+//! //*****************************************************************************
+//! //
+//!//!  \brief Prints a decimal unsigned number.
+//!//! 
+//!//!  \param n is the number to be printed
+//!//! 
+//!//!  \details Prints a decimal unsigned number.
+//!//! 
+//!//!  \return None.
+//! //
+//! //*****************************************************************************
+//! static 
+//! void UartPrintfNumber(unsigned long n)
+//! {
+//!     char buf[16], *p;
+//! 
+//!     if (n == 0)
+//!     {
+//!         UartPrintfChar('0');
+//!     }
+//!     else
+//!     {
+//!         p = buf;
+//!         while (n != 0)
+//!         {
+//!             *p++ = (n % 10) + '0';
+//!             n /= 10;
+//!         }
+//! 
+//!         while (p > buf)
+//!             UartPrintfChar(*--p);
+//!     }
+//! }
+//! 
+//! //*****************************************************************************
+//! //
+//! //! \breif STLM75 Init callback.
+//! //!
+//! //! \return None
+//! //
+//! //*****************************************************************************
+//! void Dev1GPIOInit(void)                                        
+//! {
+//!     //
+//!     // Congigure the i2c pin
+//!     //
+//!     xSPinTypeI2C(I2C0SCL, STLM75_Dev1_SCK);
+//!     xSPinTypeI2C(I2C0DATA, STLM75_Dev1_SDA); 
+//! }
+//! //*****************************************************************************
+//! //! \breif GPIO External interrupt handler.
+//! //!
+//! //! \return None
+//! //
+//! //*****************************************************************************
+//! unsigned long UserCallback(void *pvCBData, unsigned long ulEvent, 
+//!                            unsigned long ulMsgParam, void *pvMsgData)                                        
+//! {
+//!     float fTemp,fTos,fThys;
+//!     int i;
+//!     fTemp = STLM75TempRead(&Dev1);
+//!     fTos = STLM75LimitRead(&Dev1, 1);
+//!     fThys = STLM75LimitRead(&Dev1, 0);
+//! 
+//!     if(fTemp > fTos)
+//!     {
+//!         for(i=0; ucTemp1[i]!=0; i++)
+//!             UartPrintfChar(ucTemp1[i]);
+//!     }
+//!     else if(fTemp < fThys)
+//!     {
+//!         for(i=0; ucTemp2[i]!=0; i++)
+//!             UartPrintfChar(ucTemp1[i]);
+//!     } 
+//!     
+//!     return 0;
+//! }
+//! 
+//! //*****************************************************************************
+//! //
+//! //! \brief 001 test execute main body.
+//! //!
+//! //! \return None.
+//! //
+//! //*****************************************************************************
+//! static void Example1(void)
+//! {
+//!     float fTemp;
+//!     
+//!     UartInit();
+//!     STLM75Init(&Dev1, 100000);
+//!     
+//!     STLM75ConfigSet(&Dev1, STLM75_CFG_SHUTDOWN_OFF | STLM75_CFG_MODE_INT |
+//!                            STLM75_CFG_POL_LOW | STLM75_CFG_FT1);
+//!     
+//!     fTemp = STLM75TempRead(&Dev1);
+//!     UartPrintfNumber((unsigned long)fTemp);
+//!     STLM75LimitSet(&Dev1, 25, 0);
+//!     STLM75LimitSet(&Dev1, 27, 1);
+//!     SysCtlDelay(100000);  
+//!     while(1);
+//! 
+//! }
+//! int main(void)
+//! {
+//!     Example1();
+//! }
 //!     
 //! \endcode
 //

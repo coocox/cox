@@ -2,7 +2,7 @@
 //
 //! \file DS18B20.c
 //! \brief Driver for digital thermometer DS18B20.
-//! \version 1.0.0
+//! \version V2.1.1.0
 //! \date 10/18/2011
 //! \author CooCox
 //! \copy
@@ -79,7 +79,7 @@ static void DS18B20DelayNus(unsigned long ulNus)
 //
 //! \brief Initializes the DS18B20 device.
 //!
-//! \param psDev.
+//! \param psDev is a pointer which contains a DS18B20 device information.
 //!
 //! \return None.
 //
@@ -91,6 +91,7 @@ void DS18B20Init(tDS18B20Dev *psDev)
     //
     // Enable the GPIOx port which is connected with DS18B20 
     //
+	xSysCtlPeripheralEnable2(psDev->ulPort);
     psDev->PinSet();
     
     //
@@ -153,7 +154,7 @@ void DS18B20Init(tDS18B20Dev *psDev)
 //
 //! \brief Reset the DS18B20 device.
 //!
-//! \param psDev.
+//! \param psDev is a pointer which contains a DS18B20 device information.
 //!
 //! \return None.
 //
@@ -213,7 +214,7 @@ xtBoolean DS18B20Reset(tDS18B20Dev *psDev)
 //
 //! \brief Read a bit from the DS18B20.
 //!
-//! \param psDev.
+//! \param psDev is a pointer which contains a DS18B20 device information.
 //!
 //! \return 0 or 1.
 //
@@ -277,7 +278,7 @@ unsigned char DS18B20BitRead(tDS18B20Dev *psDev)
 //
 //! \brief Read a byte from the DS18B20.
 //!
-//! \param psDev.
+//! \param psDev is a pointer which contains a DS18B20 device information.
 //!
 //! \return a byte of data.
 //
@@ -308,7 +309,7 @@ unsigned char DS18B20ByteRead(tDS18B20Dev *psDev)
 //
 //! \brief Write a bit from the DS18B20.
 //!
-//! \param psDev.
+//! \param psDev is a pointer which contains a DS18B20 device information.
 //!
 //! \return None.
 //
@@ -349,7 +350,7 @@ void DS18B20BitWrite(tDS18B20Dev *psDev, unsigned char ucBit)
 //
 //! \brief Write a byte from the DS18B20.
 //!
-//! \param psDev.
+//! \param psDev is a pointer which contains a DS18B20 device information.
 //!
 //! \return None.
 //
@@ -375,7 +376,7 @@ void DS18B20ByteWrite(tDS18B20Dev *psDev, unsigned char ucByte)
 //! \brief Perform the 1-Wire Search Algorithm on the 1-Wire bus using the 
 //! existing search state.
 //!
-//! \param psDev.
+//! \param psDev is a pointer which contains a DS18B20 device information.
 //!
 //! \return xTRUE  : device found, ROM number in ucROM buffer
 //!         xFALSE : device not found, end of search
@@ -553,7 +554,7 @@ xtBoolean DS18B20ROMSearch(tDS18B20Dev *psDev)
 //
 //! \brief Verify the device with the ROM number in ROM buffer is present. 
 //!
-//! \param psDev.
+//! \param psDev is a pointer which contains a DS18B20 device information.
 //!
 //! \return xTRUE  : device verified present
 //!         xFALSE : device not present
@@ -612,7 +613,7 @@ xtBoolean DS18B20Verify(tDS18B20Dev *psDev)
 //! \brief Setup the search to find the device type 'family_code' on the 
 //! next call to DS18B20ROMSearch() if it is present. 
 //!
-//! \param psDev.
+//! \param psDev is a pointer which contains a DS18B20 device information.
 //!
 //! \return None
 //
@@ -636,7 +637,7 @@ void DS18B20TargetSetup(tDS18B20Dev *psDev, unsigned char ucFamily)
 //! \brief Setup the search to skip the current device type on the next call
 //! to DS18B20ROMSearch().
 //!
-//! \param psDev.
+//! \param psDev is a pointer which contains a DS18B20 device information.
 //! \param ucFamily.
 //!
 //! \return None
@@ -660,7 +661,7 @@ void DS18B20FamilySkipSetup(tDS18B20Dev *psDev, unsigned char ucFamily)
 //
 //! \brief Get the DS18B20's alarm flag is set or not.
 //!
-//! \param psDev.
+//! \param psDev is a pointer which contains a DS18B20 device information.
 //!
 //! \return None
 //! \note This command can only be used when there is one slave on the bus.
@@ -684,7 +685,7 @@ void DS18B20AlarmSearch(tDS18B20Dev *psDev)
 //! \brief Read the slave¡¯s 64-bit ROM code without using the Search ROM 
 //! procedure.
 //!
-//! \param psDev.
+//! \param psDev is a pointer which contains a DS18B20 device information.
 //!
 //! \return None
 //! \note This command can only be used when there is one slave on the bus.
@@ -706,7 +707,7 @@ void DS18B20ROMRead(tDS18B20Dev *psDev)
 //! the bus master to address a specific slave device on a multidrop or 
 //! single-drop bus.
 //!
-//! \param psDev.
+//! \param psDev is a pointer which contains a DS18B20 device information.
 //!
 //! Only the slave that exactly matches the 64-bit ROM code sequence will 
 //! respond to the function command issued by the master;
@@ -730,7 +731,7 @@ void DS18B20ROMMatch(tDS18B20Dev *psDev)
 //! \brief The master can use this command to address all devices on the bus
 //! simultaneously without sending out any ROM code information.
 //!
-//! \param psDev.
+//! \param psDev is a pointer which contains a DS18B20 device information.
 //!
 //! \return None
 //! \note that the Read Scratchpad [BEh] command can follow the Skip ROM command
@@ -750,7 +751,7 @@ void DS18B20ROMSkip(tDS18B20Dev *psDev)
 //
 //! \brief Initiates temperature conversion.
 //!
-//! \param psDev.
+//! \param psDev is a pointer which contains a DS18B20 device information.
 //!
 //! \return None
 //
@@ -766,7 +767,7 @@ void DS18B20TempConvert(tDS18B20Dev *psDev)
 //! \brief copies the contents of the scratchpad TH, TL and configuration 
 //! registers (bytes 2, 3 and 4) to EEPROM.
 //!
-//! \param psDev.
+//! \param psDev is a pointer which contains a DS18B20 device information.
 //!
 //! \return None
 //
@@ -781,7 +782,7 @@ void DS18B20ScratchpadCopy(tDS18B20Dev *psDev)
 //
 //! \brief Set the Th and Tl register.
 //!
-//! \param psDev.
+//! \param psDev is a pointer which contains a DS18B20 device information.
 //! \param cHigh The data is written into the TH register (byte 2 of the 
 //! scratchpad).
 //! \param cLow The data is written into the TL register (byte 3).
@@ -804,7 +805,7 @@ void DS18B20ScratchpadSet(tDS18B20Dev *psDev, char cHigh, char cLow,
 //
 //! \brief Get the Temperature of DS18B20.
 //!
-//! \param psDev.
+//! \param psDev is a pointer which contains a DS18B20 device information.
 //! \param pfTemp The flaot Temperature vaule.
 //!
 //! \return None
@@ -832,7 +833,7 @@ void DS18B20TempRead(tDS18B20Dev *psDev, float *pfTemp)
 //! \brief Recalls TH, TL, and configuration register data from EEPROM to the
 //! scratchpad..
 //!
-//! \param psDev.
+//! \param psDev is a pointer which contains a DS18B20 device information.
 //!
 //! \return None
 //
@@ -855,7 +856,7 @@ void DS18B20EEROMRecall(tDS18B20Dev *psDev)
 //
 //! \brief Get DS18B20s's power supply.
 //!
-//! \param psDev.
+//! \param psDev is a pointer which contains a DS18B20 device information.
 //!
 //! \return xTRUE  : externally powered
 //!         xFALSE : parasite powered
@@ -878,7 +879,7 @@ xtBoolean DS18B20PowerSupplyRead(tDS18B20Dev *psDev)
 //
 //! \brief Get the Scratchpad of DS18B20.
 //!
-//! \param psDev.
+//! \param psDev is a pointer which contains a DS18B20 device information.
 //! \param pucTemp The point of Scratchpad.
 //!
 //! \return None

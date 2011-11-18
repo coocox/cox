@@ -2,7 +2,7 @@
 //
 //! \file AT25FS0x.c
 //! \brief the AT25FS0x Driver.
-//! \version 1.0
+//! \version V2.1.1.0
 //! \date 9/1/2011
 //! \author CooCox
 //! \copy
@@ -84,10 +84,10 @@ void AT25FS0xInit(unsigned long ulSpiClock)
     //
     // Enable the GPIOx port which is connected with M25Pxx 
     //
-    xSysCtlPeripheralEnable(xGPIOSPinToPort(FLASH_PIN_SPI_CLK));
-    xSysCtlPeripheralEnable(xGPIOSPinToPort(FLASH_PIN_SPI_CS));
-    xSysCtlPeripheralEnable(xGPIOSPinToPort(FLASH_PIN_SPI_MISO));
-    xSysCtlPeripheralEnable(xGPIOSPinToPort(FLASH_PIN_SPI_MOSI));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(FLASH_PIN_SPI_CLK));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(FLASH_PIN_SPI_CS));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(FLASH_PIN_SPI_MISO));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(FLASH_PIN_SPI_MOSI));
     //
     // Enable the SPIx which is connected with M25Pxx
     //

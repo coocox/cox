@@ -2,7 +2,7 @@
 //
 //! \file uc1601.c
 //! \brief the uc1601 Driver.
-//! \version 1.0
+//! \version V2.1.1.0
 //! \date 9/1/2011
 //! \author CooCox
 //! \copy

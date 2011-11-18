@@ -2,7 +2,7 @@
 // 
 //! \file xhw_DS18B20.h
 //! \brief Macros used when accessing the DS18B20 control hardware.
-//! \version 1.0
+//! \version V2.1.1.0
 //! \date 6. Nov. 2011
 //! \author  CooCox
 //!

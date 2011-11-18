@@ -2,7 +2,7 @@
 //
 //! \file hw_uc1601.h
 //! \brief header file of Driver for uc1601
-//! \version 1.0
+//! \version V2.1.1.0
 //! \date 9/6/2011
 //! \author CooCox
 //! \copy
