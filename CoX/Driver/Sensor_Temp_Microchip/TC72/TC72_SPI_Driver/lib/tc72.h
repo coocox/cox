@@ -79,26 +79,24 @@ extern "C"
   
 //*****************************************************************************
 //
-//! \addtogroup TC72_SPI_Set TC72 SPI Connection
-//! \brief Values that can be used in TC72Init(),Define SPIx as a port connecting
-//! TC72 which can be configured,when you use a different SPI port you must
-//! configure them again.
+//! \addtogroup TC72_SPI_Set TC72 SPI Configuration
+//! \brief Values can be used in TC72Init(),Define SPIx as a port connecting TC72
+//! which can be configured,when you use a different SPI port you must configure
+//! them again.
 //! @{
 //
 //*****************************************************************************
-//
-//! Define SPIx as a port connecting TC72 which can be configured,when you use a
-//! different SPI port you must them again.
-//
-#define TS_PIN_SPI_CLK          PC1
-#define TS_PIN_SPI_MISO         PC2
-#define TS_PIN_SPI_MOSI         PC3
-#define TS_PIN_SPI_PORT         SPI0_BASE
+
+#define TC72_PIN_SPI_CLK        PC1
+#define TC72_SPI_CLK            SPI0CLK 
+#define TC72_PIN_SPI_MISO       PC2
+#define TC72_SPI_MISO           SPI0MISO
+#define TC72_PIN_SPI_MOSI       PC3
+#define TC72_SPI_MOSI           SPI0MOSI
   
-//
-//! Configure GPIOC.0 as chip Select
-//
-#define TS_PIN_SPI_CS           PC0
+#define TC72_PIN_SPI_PORT       SPI0_BASE
+  
+#define TC72_PIN_SPI_CS         PC0
 
 //*****************************************************************************
 //
@@ -109,7 +107,10 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup TC72_Mode_Set TC72 Convertion Mode
-//! \brief TC72 Convertion Mode.
+//! \brief Values can be use to set and change TC72 temperature convertion mode, 
+//! you can use TC72_MODE_SHUTDOWN if you want to enter power consumption condition.
+//! And you can use TC72_MODE_CONTINUOUS or TC72_MODE_ONESHOT to switch condition 
+//! from low power mode to start temperature conversion.
 //! @{
 //
 //*****************************************************************************
@@ -149,7 +150,6 @@ extern short TC72TemperRead(void);
 extern float TC72TemperReadFloat(void);
 extern xtBoolean TC72IDCheck(void);
 extern void TC72DeInit(void);
-extern void TC72Disable(void);
 extern unsigned char TC72ControlRegValGet(void);
 
 //*****************************************************************************

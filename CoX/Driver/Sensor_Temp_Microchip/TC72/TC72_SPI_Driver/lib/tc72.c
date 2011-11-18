@@ -53,8 +53,8 @@
 //! \param ulClock specifies the SPI Clock Rate
 //!
 //! This function is to initialize the MCU as master and specified SPI port.Set
-//! TS_PIN_SPI_CS as CS, TS_PIN_SPI_CLK as CLK, TS_PIN_SPI_MISO ->MISO and 
-//! TS_PIN_SPI_MOSI->MOSI.
+//! TC72_PIN_SPI_CS as CS, TC72_PIN_SPI_CLK as CLK, TC72_PIN_SPI_MISO ->MISO and 
+//! TC72_PIN_SPI_MOSI->MOSI.
 //! 
 //! \return None.
 //
@@ -73,47 +73,47 @@ TC72Init(unsigned long ulSpiClock)
     //
     // Enable the GPIOx port which is connected with TC72 
     //
-    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(TS_PIN_SPI_MISO));
-    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(TS_PIN_SPI_MOSI));
-    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(TS_PIN_SPI_CLK));
-    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(TS_PIN_SPI_CS));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(TC72_PIN_SPI_MISO));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(TC72_PIN_SPI_MOSI));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(TC72_PIN_SPI_CLK));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(TC72_PIN_SPI_CS));
     
     //
     // Enable the SPIx which is connected with TC72
     //
-    xSysCtlPeripheralEnable2(TS_PIN_SPI_PORT);
+    xSysCtlPeripheralEnable2(TC72_PIN_SPI_PORT);
 
     //
-    // Set TS_PIN_SPI_CS as a chip select pin and set it as OUT_MODE
+    // Set TC72_PIN_SPI_CS as a chip select pin and set it as OUT_MODE
     //
-    xGPIOSPinDirModeSet(TS_PIN_SPI_CS, xGPIO_DIR_MODE_OUT);
+    xGPIOSPinDirModeSet(TC72_PIN_SPI_CS, xGPIO_DIR_MODE_OUT);
 
     //
-    // Set TS_PIN_SPI_CLK as TS_PIN_SPI_CLK 
+    // Set TC72_PIN_SPI_CLK as TS_PIN_SPI_CLK 
     //
-    xSPinTypeSPI(SPI0CLK, TS_PIN_SPI_CLK);
+    xSPinTypeSPI(TC72_SPI_CLK, TC72_PIN_SPI_CLK);
 
     //
-    // Set TS_PIN_SPI_MISO as SPI0.MISO
+    // Set TC72_PIN_SPI_MISO as SPI0.MISO
     //
-    xSPinTypeSPI(SPI0MISO, TS_PIN_SPI_MISO);
+    xSPinTypeSPI(TC72_SPI_MISO, TC72_PIN_SPI_MISO);
 
     //
-    // Set TS_PIN_SPI_MOSI as SPI0.MOSI
+    // Set TC72_PIN_SPI_MOSI as SPI0.MOSI
     //
-    xSPinTypeSPI(SPI0MOSI, TS_PIN_SPI_MOSI);  
+    xSPinTypeSPI(TC72_SPI_MOSI, TC72_PIN_SPI_MOSI);  
     
     //
     // Configure MCU as a master device , 8 bits data width ,MSB first,Mode_1
     //
-    xSPIConfigSet(TS_PIN_SPI_PORT, ulSpiClock, xSPI_MOTO_FORMAT_MODE_1 |
-                                                      xSPI_MODE_MASTER | 
-                                                        xSPI_MSB_FIRST |
-                                                        xSPI_DATA_WIDTH8);
+    xSPIConfigSet(TC72_PIN_SPI_PORT, ulSpiClock, xSPI_MOTO_FORMAT_MODE_1 |
+                                                        xSPI_MODE_MASTER | 
+                                                          xSPI_MSB_FIRST |
+                                                         xSPI_DATA_WIDTH8);
     //
     // Disable TC72 when Power up
     //
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 0);
+    xGPIOSPinWrite(TC72_PIN_SPI_CS, 0);
 }
 
 //*****************************************************************************
@@ -148,13 +148,13 @@ TC72Configure(unsigned char ucMode)
     //
     // Step 0, Set CS,Start communication
     // 
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 1);
+    xGPIOSPinWrite(TC72_PIN_SPI_CS, 1);
     
     //
     // Step 1, Write address of control register
     //
     ucWrite = TC72_CONTROL_WRITE_REG;
-    xSPIDataWrite(TS_PIN_SPI_PORT, &ucWrite, 1);
+    xSPIDataWrite(TC72_PIN_SPI_PORT, &ucWrite, 1);
     
     //
     // Step 2, Write the mode of convertion
@@ -172,12 +172,12 @@ TC72Configure(unsigned char ucMode)
     	ucWrite = TC72_MODE_ONESHOT;    	
     }
     
-    xSPIDataWrite(TS_PIN_SPI_PORT, &ucWrite, 1);
+    xSPIDataWrite(TC72_PIN_SPI_PORT, &ucWrite, 1);
     
     //
     // Step 3, Set CS => 0 Stop Communication
     //
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 0);
+    xGPIOSPinWrite(TC72_PIN_SPI_CS, 0);
 }
 
 //*****************************************************************************
@@ -196,28 +196,28 @@ TC72IDcodeGet(void)
 {
     unsigned char ucReadVal,ucWriteVal;
     
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 0);
+    xGPIOSPinWrite(TC72_PIN_SPI_CS, 0);
     
     //
     //  Step 0, Set CS,Start communication
     //
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 1);
+    xGPIOSPinWrite(TC72_PIN_SPI_CS, 1);
     
     //
     //  Step 1, Write address of ID register
     //
     ucWriteVal = TC72_ID_REG;
-    xSPIDataWrite(TS_PIN_SPI_PORT, &ucWriteVal, 1);
+    xSPIDataWrite(TC72_PIN_SPI_PORT, &ucWriteVal, 1);
     
     //
     //  Step 2, Read IDcode
     //   
-    xSPIDataRead(TS_PIN_SPI_PORT, &ucReadVal, 1);
+    xSPIDataRead(TC72_PIN_SPI_PORT, &ucReadVal, 1);
     
     //
     // Step 3, Set CS => 0 Stop Communication
     //
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 0);
+    xGPIOSPinWrite(TC72_PIN_SPI_CS, 0);
     
     return ucReadVal;
 }
@@ -241,30 +241,30 @@ TC72TemperRead(void)
     unsigned short usReadMSB;
     unsigned char ucWriteAddr,ucReadLSB,ucControlByte;
     
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 0);
+    xGPIOSPinWrite(TC72_PIN_SPI_CS, 0);
 
     //
     //  Step 0, Set CS,Start communication
     //   
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 1);
+    xGPIOSPinWrite(TC72_PIN_SPI_CS, 1);
     
     //
     // Step 1,  Write address of TC72_MSB_REG
     //
     ucWriteAddr = TC72_MSB_REG;
-    xSPIDataWrite(TS_PIN_SPI_PORT, &ucWriteAddr, 1);
+    xSPIDataWrite(TC72_PIN_SPI_PORT, &ucWriteAddr, 1);
     
     //
     // Step 2, Read MSB and LSB
     //    
-    xSPIDataRead(TS_PIN_SPI_PORT, &usReadMSB, 1);
-    xSPIDataRead(TS_PIN_SPI_PORT, &ucReadLSB, 1);
-    xSPIDataRead(TS_PIN_SPI_PORT, &ucControlByte, 1);
+    xSPIDataRead(TC72_PIN_SPI_PORT, &usReadMSB, 1);
+    xSPIDataRead(TC72_PIN_SPI_PORT, &ucReadLSB, 1);
+    xSPIDataRead(TC72_PIN_SPI_PORT, &ucControlByte, 1);
     
     //
     // Step 3, Set CS => 0 Stop Communication
     //        
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 0);
+    xGPIOSPinWrite(TC72_PIN_SPI_CS, 0);
     
     //
     // Get temperature value of valid bits from TEMP register
@@ -377,7 +377,7 @@ TC72DeInit(void)
     //
     // conversely initialize TC72
     //
-    xSysCtlPeripheralDisable2(TS_PIN_SPI_PORT);
+    xSysCtlPeripheralDisable2(TC72_PIN_SPI_PORT);
 }
 
 //*****************************************************************************
@@ -396,27 +396,27 @@ TC72ControlRegValGet(void)
 {
     unsigned char ucReadVal, ucWriteVal;
     
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 0);
+    xGPIOSPinWrite(TC72_PIN_SPI_CS, 0);
     
     //
     //  Step 0, Set CS,Start communication
     //
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 1);
+    xGPIOSPinWrite(TC72_PIN_SPI_CS, 1);
     
     //
     //  Step 1, Write address of control register
     //
     ucWriteVal = TC72_CONTROL_READ_REG;
-    xSPIDataWrite(TS_PIN_SPI_PORT, &ucWriteVal, 1);
+    xSPIDataWrite(TC72_PIN_SPI_PORT, &ucWriteVal, 1);
     
     //
     //  Step 2, Read the value of mode
     //   
-    xSPIDataRead(TS_PIN_SPI_PORT, &ucReadVal, 1);
+    xSPIDataRead(TC72_PIN_SPI_PORT, &ucReadVal, 1);
     
     //
     // Step 3, Set CS => 0 Stop Communication
     //
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 0);
+    xGPIOSPinWrite(TC72_PIN_SPI_CS, 0);
     return ucReadVal;
 }
