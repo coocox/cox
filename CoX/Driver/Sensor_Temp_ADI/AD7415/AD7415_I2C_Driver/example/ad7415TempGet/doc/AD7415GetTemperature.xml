@@ -1,9 +1,9 @@
 <?xml version="1.0" ?>
 <Example>
-  <Name>AD7417GetTemperature</Name>
-  <Description>AD7417 driver get temperature example</Description>
+  <Name>AD7415GetTemperature</Name>
+  <Description>AD7415 driver get temperature example</Description>
   <Version>1.0.0</Version>
-  <Tags>AD7417</Tags>
+  <Tags>AD7415</Tags>
   <EVKit>nuvoton and AD7417</EVKit>
   
   <Files>

@@ -1632,16 +1632,19 @@
   <group>
     <name>CoX</name>
     <group>
-      <name>ADI7415_Driver</name>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\lib\ad7415.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\lib\ad7415.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\lib\xhw_ad7415.h</name>
-      </file>
+      <name>CoX_Driver</name>
+      <group>
+        <name>Sensor_Temp_AD7415</name>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\lib\ad7415.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\lib\ad7415.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\lib\xhw_ad7415.h</name>
+        </file>
+      </group>
     </group>
     <group>
       <name>CoX_Peripheral</name>

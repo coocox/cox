@@ -36,7 +36,7 @@ void TemperatureGet(void)
     //
     // AD7415 device init
     //
-    AD7415Init(10000, AD7415_PowerDown_Enter); 
+    AD7415Init(10000, AD7415_MODE_POWER_DOWN); 
     
     while(1)
     {               
@@ -44,7 +44,7 @@ void TemperatureGet(void)
         {
             if(i == 3)
             {
-                AD7415PowerDownConvert();
+                AD7415OneShotConvert();
             }
             ulTemp = AD7415TempReadLDC();
             ulTemp = ulTemp + 1;
