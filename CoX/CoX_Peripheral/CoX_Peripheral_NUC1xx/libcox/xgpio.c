@@ -2,8 +2,8 @@
 //
 //! \file xgpio.c
 //! \brief Driver for the GPIO controller
-//! \version V2.0.1
-//! \date 11/11/2011
+//! \version V2.1.1.1
+//! \date 11/14/2011
 //! \author CooCox
 //! \copy
 //!
@@ -658,6 +658,7 @@ GPIOPinIntDisable(unsigned long ulPort, unsigned long ulPins)
 //! \brief Init interrupts callback for the specified Port.
 //!
 //! \param ulPort is the base address of the GPIO port.
+//! \param ulPin is the bit-packed representation of the pin.
 //! \param xtPortCallback is callback for the specified Port.
 //!
 //! Init interrupts callback for the specified Port.

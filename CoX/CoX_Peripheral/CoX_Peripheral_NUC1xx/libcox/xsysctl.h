@@ -3,8 +3,8 @@
 //! \file xsysctl.h
 //! \brief Prototypes for the System Manager Driver.
 //! Prototypes for the Clock Controller Driver.
-//! \version V2.0.1
-//! \date 11/11/2011
+//! \version V2.1.1.1
+//! \date 11/14/2011
 //! \author CooCox
 //! \copy
 //!
@@ -786,6 +786,8 @@ extern "C"
 //! |--------------------------------|----------------|--------|
 //! |xSysCtlPeripheralDisable2       |    Mandatory   |    Y   |
 //! |--------------------------------|----------------|--------|
+//! |xSysCtlPeripheraIntNumGet       |    Mandatory   |    Y   |
+//! |--------------------------------|----------------|--------|
 //! |xSysCtlClockSet                 |    Mandatory   |    Y   |
 //! |--------------------------------|----------------|--------|
 //! |xSysCtlClockGet                 |    Mandatory   |    Y   |
@@ -854,6 +856,7 @@ extern void xSysCtlPeripheralDisable2(unsigned long ulPeripheralBase);
 extern void xSysCtlPeripheralReset2(unsigned long ulPeripheralBase);
 extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
                                             unsigned long ulDivide);
+extern unsigned long xSysCtlPeripheraIntNumGet(unsigned long ulPeripheralBase);
 
 //*****************************************************************************
 //

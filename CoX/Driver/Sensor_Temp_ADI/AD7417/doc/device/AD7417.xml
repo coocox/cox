@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>AD7417AR, AD7417AR-REEL, AD7417AR-REEL7, AD7417ARZ, AD7417ARZ-REEL, AD7417ARZ-REEL7, 
+        AD7417ARU, AD7417ARU-REEL, AD7417ARU-REEL7, AD7417ARUZ, AD7417ARUZ-REEL, AD7417ARUZ-REEL7</Name>
+    <Description>10-Bit Digital Temperature Sensor and ADC with I2C-compatible serial bus interface</Description>
+    <Manufacturer>Analog Devices</Manufacturer>
+    
+    <Category>Sensor</Category>
+    <SubCategory>Temperature</SubCategory>
+    
+    <KeyWord>AD7417, AD741x, Temp, Temperature, Sensor, ADC, I2C</KeyWord>
+    
+    <Communication>
+        <Interface>I2C</Interface>
+    </Communication>
+    
+    <WebPage>http://www.analog.com/en/analog-to-digital-converters/temperature-to-digital-converters/ad7417/products/product.html</WebPage>
+    <Datasheet>http://www.analog.com/en/analog-to-digital-converters/temperature-to-digital-converters/ad7417/products/product.html</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>
