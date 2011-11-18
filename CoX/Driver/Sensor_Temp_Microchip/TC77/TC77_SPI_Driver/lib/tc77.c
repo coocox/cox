@@ -52,8 +52,8 @@
 //! \param ulClock specifies the SPI Clock Rate
 //!
 //! This function is to initialize the MCU as master and specified SPI port.Set
-//! TS_PIN_SPI_CS as CS, TS_PIN_SPI_CLK as CLK, TS_PIN_SPI_MISO ->MISO and 
-//! TS_PIN_SPI_MOSI->MOSI,most of all it check the first conversion is finished 
+//! TC77_PIN_SPI_CS as CS, TC77_PIN_SPI_CLK as CLK, TC77_PIN_SPI_MISO ->MISO and 
+//! TC77_PIN_SPI_MOSI->MOSI,most of all it check the first conversion is finished 
 //! or not in order to execute the following operation.
 //! 
 //! \return None.
@@ -73,42 +73,42 @@ TC77Init(unsigned long ulSpiClock)
     //
     // Enable the GPIOx port which is connected with tc77 
     //
-    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(TS_PIN_SPI_MISO));
-    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(TS_PIN_SPI_MOSI));
-    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(TS_PIN_SPI_CLK));
-    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(TS_PIN_SPI_CS));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(TC77_PIN_SPI_MISO));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(TC77_PIN_SPI_MOSI));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(TC77_PIN_SPI_CLK));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(TC77_PIN_SPI_CS));
     
     //
     // Enable the SPIx which is connected with tc77
     //
-    xSysCtlPeripheralEnable2(TS_PIN_SPI_PORT);
+    xSysCtlPeripheralEnable2(TC77_PIN_SPI_PORT);
     
     //
-    // Set TS_PIN_SPI_CS as a chip select pin and set it as OUT_MODE
+    // Set TC77_PIN_SPI_CS as a chip select pin and set it as OUT_MODE
     //
-    xGPIOSPinDirModeSet(TS_PIN_SPI_CS, xGPIO_DIR_MODE_OUT);
+    xGPIOSPinDirModeSet(TC77_PIN_SPI_CS, xGPIO_DIR_MODE_OUT);
     
     //
-    // Set TS_PIN_SPI_CLK as SPI0.CLK
+    // Set TC77_PIN_SPI_CLK as SPIx.CLK
     //
-    xSPinTypeSPI(SPI0CLK, TS_PIN_SPI_CLK);
+    xSPinTypeSPI(TC77_SPI_CLK, TC77_PIN_SPI_CLK);
     
     //
-    // Set PC2 as SPI0.MISO
+    // Set TC77_PIN_SPI_MISO as SPIx.MISO
     //
-    xSPinTypeSPI(SPI0MISO, TS_PIN_SPI_MISO);
+    xSPinTypeSPI(TC77_SPI_MISO, TC77_PIN_SPI_MISO);
     
     //
     // Configure MCU as a master device , 16 bits data width ,MSB first,Mode_0
     //
-    xSPIConfigSet(TS_PIN_SPI_PORT, ulSpiClock, xSPI_MOTO_FORMAT_MODE_0 |
-                                                     xSPI_DATA_WIDTH16 |
-                                                      xSPI_MODE_MASTER |
-                                                        xSPI_MSB_FIRST);
+    xSPIConfigSet(TC77_PIN_SPI_PORT, ulSpiClock, xSPI_MOTO_FORMAT_MODE_0 |
+                                                       xSPI_DATA_WIDTH16 |
+                                                        xSPI_MODE_MASTER |
+                                                           xSPI_MSB_FIRST);
     //
     // Disable TC77 when Power up
     //
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 1);
+    xGPIOSPinWrite(TC77_PIN_SPI_CS, 1);
 
     //
     // Wait for the first conversion completed
@@ -127,12 +127,12 @@ TC77Init(unsigned long ulSpiClock)
 //! \param ulMode determines if TC77_CONTINUOUS_MODE or TC77_SHUTDOWN_MODE to select.
 //!
 //! The parameter of usMode can be:
-//! - TC77_CONTINUOUS_MODE - enter Continuous Temperature Conversion Mode
-//! - TC77_SHUTDOWN_MODE.  - enter ShutDown Mode
+//! - TC77_MODE_CONTINUOUS - enter Continuous Temperature Conversion Mode
+//! - TC77_MODE_SHUTDOWN.  - enter ShutDown Mode
 //!
 //! This function is to set and change TC77 temperature convertion mode,you can 
-//! use TC77_SHUTDOWN_MODE if you want to enter low power consumption condition.
-//! And you can use TC77_CONTINUOUS_MODE to switch condition from shutdown mode.
+//! use TC77_MODE_SHUTDOWN if you want to enter low power consumption condition.
+//! And you can use TC77_MODE_CONTINUOUS to switch condition from shutdown mode.
 //! 
 //! \return None
 //
@@ -150,16 +150,16 @@ TC77Configure(unsigned short usMode)
     //
     //  Step 0, Set CS,Start communication
     // 
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 0);
+    xGPIOSPinWrite(TC77_PIN_SPI_CS, 0);
     
-    xGPIOSPinTypeGPIOInput(TS_PIN_SPI_MOSI);
+    xGPIOSPinTypeGPIOInput(TC77_PIN_SPI_MOSI);
     
     //
     // Step 1, Read temperature
     //
-    xSPIDataRead(TS_PIN_SPI_PORT, &usRead, 1);  
+    xSPIDataRead(TC77_PIN_SPI_PORT, &usRead, 1);  
 
-    xSPinTypeSPI(SPI0MOSI, TS_PIN_SPI_MOSI);
+    xSPinTypeSPI(TC77_SPI_MOSI, TC77_PIN_SPI_MOSI);
     
     //
     // Continous conversion mode 
@@ -180,12 +180,12 @@ TC77Configure(unsigned short usMode)
     //
     // Step 2, Enter corresponding mode
     //
-    xSPIDataWrite(TS_PIN_SPI_PORT, &usWrite, 1);
+    xSPIDataWrite(TC77_PIN_SPI_PORT, &usWrite, 1);
     
     //
     // Step 3, Set CS => 1 Stop Communication
     //
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 1);
+    xGPIOSPinWrite(TC77_PIN_SPI_CS, 1);
 }
 
 
@@ -205,22 +205,22 @@ TC77TemperRead(void)
 {
     short sTemperature;
     
-    xGPIOSPinTypeGPIOInput(TS_PIN_SPI_MOSI);
+    xGPIOSPinTypeGPIOInput(TC77_PIN_SPI_MOSI);
     
     //
     //  Step 0, Set CS,Start communication
     //   
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 0);
+    xGPIOSPinWrite(TC77_PIN_SPI_CS, 0);
     
     //
     // Step 1, Read 16(temperature value)
     //       
-    xSPIDataRead(TS_PIN_SPI_PORT, &sTemperature, 1);
+    xSPIDataRead(TC77_PIN_SPI_PORT, &sTemperature, 1);
     
     //
     // Step 2, Set CS => 1 Stop Communication
     //        
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 1);
+    xGPIOSPinWrite(TC77_PIN_SPI_CS, 1);
         
     return sTemperature;
 }
@@ -316,45 +316,45 @@ TC77IDcodeGet(void)
     //
     //  Step 0, Set CS,Start communication
     //
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 0);
+    xGPIOSPinWrite(TC77_PIN_SPI_CS, 0);
     
-    xGPIOSPinTypeGPIOInput(TS_PIN_SPI_MOSI);
+    xGPIOSPinTypeGPIOInput(TC77_PIN_SPI_MOSI);
     
     //
     //  Step 1, Read 16
     //
-    xSPIDataRead(TS_PIN_SPI_PORT, &usReadVal, 1);
+    xSPIDataRead(TC77_PIN_SPI_PORT, &usReadVal, 1);
     
     //
     //  Step 2, Enter Shutdown mode : Write 0XFFFF
     //
-    xSPinTypeSPI(SPI0MOSI, TS_PIN_SPI_MOSI);
+    xSPinTypeSPI(TC77_SPI_MOSI, TC77_PIN_SPI_MOSI);
     
     usWriteVal = TC77_MODE_SHUTDOWN;
     
-    xSPIDataWrite(TS_PIN_SPI_PORT, &usWriteVal, 1);
+    xSPIDataWrite(TC77_PIN_SPI_PORT, &usWriteVal, 1);
     
     //
     // Step 3, Read IDcode
     //
-    xGPIOSPinTypeGPIOInput(TS_PIN_SPI_MOSI);
+    xGPIOSPinTypeGPIOInput(TC77_PIN_SPI_MOSI);
     
     usReadVal = 0;
-    xSPIDataRead(TS_PIN_SPI_PORT, &usReadVal, 1);
+    xSPIDataRead(TC77_PIN_SPI_PORT, &usReadVal, 1);
     
     //
     //  Step 4, Enter Continus Mode : Wirte 0x0000
     //
-    xSPinTypeSPI(SPI0MOSI, TS_PIN_SPI_MOSI);
+    xSPinTypeSPI(TC77_SPI_MOSI, TC77_PIN_SPI_MOSI);
     
     usWriteVal = TC77_MODE_CONTINUOUS;
     
-    xSPIDataWrite(TS_PIN_SPI_PORT, &usWriteVal, 1);
+    xSPIDataWrite(TC77_PIN_SPI_PORT, &usWriteVal, 1);
     
     //
     // Step 5, Set CS => 1 Stop Communication
     //
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 1);
+    xGPIOSPinWrite(TC77_PIN_SPI_CS, 1);
     
     usIDcode = usReadVal >> 8;
     
@@ -442,5 +442,5 @@ TC77DeInit(void)
     //
     // Conversely initialize TC77
     //
-    xSysCtlPeripheralDisable2(TS_PIN_SPI_PORT);
+    xSysCtlPeripheralDisable2(TC77_PIN_SPI_PORT);
 }

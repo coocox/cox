@@ -4,56 +4,37 @@
 //! 
 //! \brief Temperature sensor TC77 operate.
 //!
-//! TC77 is a serially accessible digital temperature sensor,Temperature data is suited
-//! converted from the internal thermal sensing element and made availableat anytime as
-//! a 13-bit two's compliment digital word. Communication with the TC77 is accomplished 
-//! via a SPI and MICROWIRE compatible interface. 
+//! TC77 is a digital temperature sensor,it's temperature data is suited 
+//! converted from the internal thermal sensing element and made availableat
+//! anytime as a 13-bit two's compliment digital word. Communication with the 
+//! tc77 is accomplished via a SPI and MICROWIRE compatible interface. 
 //!
-//! <h2>Why do we use TC77 in COX Driver Library?</h2>
-//! TC77 driver in Cox driver library is very convenient to transplant among all kinds
-//! of MCUs and it provides all APIs when you use TC77.<br/>
-//!
-//! <h2>When should we use TC77 in COX Driver Library ?</h2>
-//! - If users may change MCU when they use TC77 in future
-//! - If users plan to use the existing drivers based on COX interface
-//!
-//! <h2> How to use TC77 in COX Driver Library?</h2>
-//! TC77 driver library is a group of APIs and Macros, who have the prefix \b X. such as
-//! TC77_MODE_SHUTDOWN, TC77TemperRead(), etc. \n
-//! First you should select the COX implment according the select mcu. \n
-//! Second you should transplant the driver according to your MCU if you use the SPIx 
-//! port which is different from in the TC77 driver. \n
-//! Thirdly you should set System clock. \n
-//! Fourthly you should use TC77Init() to initialize TC77. \n
-//! Fifthly you can get temperature value and IDcode,if you want to reduce supply current   
-//! for power sensitive applications you can enter shutdown mode and so on. \n
-//!
-//! The COX Driver Library provides the driver of temperature such as  sensor TC77
-//! and so on,it is convenient for you to transplant the driver to other mcu that 
-//! the cox support.
+//! The CoX Driver Library provides the driver of temperature such as sensor
+//! TC77 and so on,it is convenient for you to transplant the driver to other 
+//!  mcu that the cox support.
 //! 
 //! <br />
 //! <h2>Contents</h2>
-//! - \ref COX_TC77_BLOCK
-//! - \ref COX_TC77_TYPICAL_APPLICATION
-//! - \ref COX_TC77_Driver_Desc
-//! - \ref COX_TC77_Driver_API_Group
-//!   - \ref COX_TC77_API_Group_Initialization
-//!   - \ref COX_TC77_API_Group_Read
-//!   - \ref COX_TC77_API_Group_Configure
-//!   - \ref COX_TC77_API_Group_OverTemperatureAndID_Check
-//!   - \ref COX_TC77_API_Group_Disable
+//! - \ref CoX_TC77_BLOCK
+//! - \ref CoX_TC77_TYPICAL_APPLICATION
+//! - \ref CoX_TC77_Driver_Desc
+//! - \ref CoX_TC77_Driver_API_Group
+//!   - \ref CoX_TC77_API_Group_Initialization
+//!   - \ref CoX_TC77_API_Group_Read
+//!   - \ref CoX_TC77_API_Group_Configure
+//!   - \ref CoX_TC77_API_Group_OverTemperatureAndID_Check
+//!   - \ref CoX_TC77_API_Group_Disable
 //! - \ref TC77_Usage
 //!
 //! <br />
-//! \section COX_TC77_BLOCK 1. TC77 Block Diagram
+//! \section CoX_TC77_BLOCK 1. TC77 Block Diagram
 //! <img src="cox_TC77_block.png" />
 //!
 //! <br />
-//! \section COX_TC77_TYPICAL_APPLICATION 2. Connection Diagram
+//! \section CoX_TC77_TYPICAL_APPLICATION 2. Connection Diagram
 //! <img src="TC77_typical_application.png" />
 //! As is shown in diagram,you should connect CS with a GPIO pin in MCU,connect SCK with 
-//! SPIx_CLK in MCU, connect SDI withSPIx_MISOandSPIx_MOSI.Sometimes if the GPIO pin 
+//! SPIx_CLK in MCU, connect SDI with SPIx_MISO and SPIx_MOSI.Sometimes if the GPIO pin 
 //! connecting with CS doesn't have pull-up resistor in MCU,you should set a pull-up
 //! resistor of CS extern MCU.it is recommended that a decoupling capacitor of 0.1 uF
 //! to 1 uF be provided between the VDD and VSS (Ground) pins (a high frequency ceramic
@@ -62,8 +43,8 @@
 //! effective noise protection to the TC77.
 //! 
 //! <br />
-//! \section COX_TC77_Driver_Desc 3. Driver Desrction
-//! The COX TC77 driver has the following functions:
+//! \section CoX_TC77_Driver_Desc 3. Driver Desrction
+//! The CoX TC77 driver has the following functions:
 //! - Get temperature value at any time 
 //! - Shundown mode can be used to reduce supply current for power sensitive
 //!   applications. 
@@ -71,9 +52,9 @@
 //! .
 //!
 //! <br />
-//! \section COX_TC77_Driver_API_Group 4. API Groups
+//! \section CoX_TC77_Driver_API_Group 4. API Groups
 //!
-//! The COX TC77 API is broken into five groups of functions:
+//! The CoX TC77 API is broken into five groups of functions:
 //! - those that deal with SPI_TC77 Initialization
 //! - those that deal with Read temperature or Read ID
 //! - those that deal with Mode Configure
@@ -81,13 +62,13 @@
 //! - those that deal with Diasble TC77
 //! .
 //! <br />
-//! \subsection COX_TC77_API_Group_Initialization 4.1 TC77 initialize
+//! \subsection CoX_TC77_API_Group_Initialization 4.1 TC77 initialize
 //! SPI_TC77 initialization are dealed with:
 //! - TC77Init()
 //! .
 //!
 //! <br />
-//! \subsection COX_TC77_API_Group_Read 4.2 TC77 Read temperature or id 
+//! \subsection CoX_TC77_API_Group_Read 4.2 TC77 Read temperature or id 
 //! Read temperature or ID are dealed with:
 //! - TC77TemperReadDec(),
 //! - TC77IDcodeGet(),
@@ -96,25 +77,27 @@
 //! .
 //!
 //! <br />
-//! \subsection COX_TC77_API_Group_Configure 4.3 TC77 Mode Configure
+//! \subsection CoX_TC77_API_Group_Configure 4.3 TC77 Mode Configure
 //! TC77 Mode Configure are dealed with:
 //! - TC77Configure()
 //! .
 //!
 //! <br />
-//! \subsection COX_TC77_API_Group_OverTemperatureAndID_Check 4.4 TC77 over temperature and ID check
+//! \subsection CoX_TC77_API_Group_OverTemperatureAndID_Check 4.4 TC77 over temperature and ID check
 //! TC77 over temperature check are dealed with:
 //! - TC77Overflow(),
 //! - TC77IDCheck().
 //! .
 //!
 //! <br />
-//! \subsection COX_TC77_API_Group_Disable 4.5 TC77 Disable
+//! \subsection CoX_TC77_API_Group_Disable 4.5 TC77 Disable
 //! TC77 disable and conversely initialize are dealed with:
 //! - TC77DeInit(),
 //! .
 //! \section TC77_Usage TC77 Usage
-//! 
+//! Step 1, you should select the CoX implment according to the mcu that you select. \n
+//! Step 2, you should transplant the driver according to your MCU if you use the SPIx 
+//! port which is different from in the t772 driver. \n
 //! Below is some example code:
 //!
 //! \code
@@ -124,28 +107,28 @@
 //!     short sTemperInDec;
 //!
 //!     //
-//!     // Step 1, you should set system clock.
+//!     // Step 3, you should set system clock.
 //!     // 
 //!     xSysCtlClockSet(50000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_12MHZ);
 //!     
 //!     //
-//!     // Step 2, you should initialize TC77
+//!     // Step 4, you should initialize TC77
 //!     // 
 //!     TC77Init(1000000);
 //!     
 //!     //
-//!     // Step 3, you should check whether TC77 is existent and usable or not
+//!     // Step 5, you should check whether TC77 is existent and usable or not
 //!     // 
 //!    
 //!     if(xtrue == TC77IDCheck())
 //!     {
 //!     //
-//!     // Step 4, you should configure the mode of temperature convertion.
+//!     // Step 6, you should configure the mode of temperature convertion.
 //!     //
 //!        TC77Configure(TC77_MODE_CONTINUOUS);
 //!         
 //!     //
-//!     // Step 5, you can get temperature value from TC77.
+//!     // Step 7, you can get temperature value from TC77.
 //!     //
 //!        sTemperInDec = TC77TemperReadDec();
 //!     }

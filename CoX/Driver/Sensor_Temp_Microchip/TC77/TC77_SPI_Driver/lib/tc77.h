@@ -80,28 +80,24 @@ extern "C"
   
 //*****************************************************************************
 //
-//! \addtogroup TC77_SPI_Set TC77 SPI Connection 
-//! \brief Values that can be used in Tc77Init(),Define SPIx as a port connecting
+//! \addtogroup TC77_SPI_Set TC77 Configuration 
+//! \brief Values can be used in Tc77Init(),Define SPIx as a port connecting
 //! TC77 which can be configured,when you use a different SPI port you should
 //! configure them again.
 //! @{
 //
 //*****************************************************************************
- 
+
+#define TC77_PIN_SPI_CLK        PC1
+#define TC77_SPI_CLK            SPI0CLK 
+#define TC77_PIN_SPI_MISO       PC2
+#define TC77_SPI_MISO           SPI0MISO
+#define TC77_PIN_SPI_MOSI       PC3  
+#define TC77_SPI_MOSI           SPI0MOSI
   
-//
-//! Define SPIx as a port connecting TC77 which can be configured,when you use a
-//! different SPI port you must configure them again.
-//
-#define TS_PIN_SPI_CLK          PC1
-#define TS_PIN_SPI_MISO         PC2
-#define TS_PIN_SPI_MOSI         PC3
-#define TS_PIN_SPI_PORT         SPI0_BASE
-  
-//
-//! Configure GPIOC.0 as chip Select
-//
-#define TS_PIN_SPI_CS           PC0
+#define TC77_PIN_SPI_PORT       SPI0_BASE
+
+#define TC77_PIN_SPI_CS           PC0
  
 //*****************************************************************************
 //
@@ -112,7 +108,10 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup TC77_Mode_Set TC77 Convertion Mode
-//! \brief TC77 Convertion Mode.
+//! \brief Values can be use to set and change TC77 temperature convertion mode, 
+//! you can use TC77_MODE_SHUTDOWN if you want to enter power consumption condition.
+//! And you can use TC77_MODE_CONTINUOUS to switch condition from low power mode
+//! to start temperature conversion.
 //! @{
 //
 //*****************************************************************************  

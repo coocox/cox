@@ -1,8 +1,10 @@
 <?xml version="1.0" ?>
 <Device>
-    <Name>TC77-5.0MCTTR</Name>
+    <Name>TC77-5.0MCTTR,TC773.3MCTTR</Name>
     <Description>
-        The TC77 is a serially accessible digital temperature sensor Temperature data is converted from the internal thermal sensing element and made available at anytime as a 13-bit two¡¯s compliment digital word. Communication with the TC77 is accomplished via a SPI interface.
+        The TC77 is a digital temperature sensor,Temperature data is made available at 
+        anytime as a 13-bit two's compliment digital word. Communication with the TC77  
+        is accomplished via a SPI interface.
     </Description>
     <Manufacturer>Microchip</Manufacturer>
     
