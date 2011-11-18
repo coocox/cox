@@ -18,9 +18,9 @@
       <File>$Driver_ROOT$\lib\*</File> 
     </Files>
     <CoIDEFiles>
-      <File>PROJECT_ROOT$\CoX\Driver\Sensor_Temp_ADI\AD7415\AD7415_I2C_Driver\lib\hw_AD7415.h</File> 
-      <File>PROJECT_ROOT$\CoX\Driver\Sensor_Temp_ADI\AD7415\AD7415_I2C_Driver\lib\AD7415.h</File> 
-      <File>PROJECT_ROOT$\CoX\Driver\Sensor_Temp_ADI\AD7415\AD7415_I2C_Driver\lib\AD7415.c</File> 
+      <File>PROJECT_ROOT$\CoX\CoX_Driver\Sensor_Temp_AD7417\hw_AD7415.h</File> 
+      <File>PROJECT_ROOT$\CoX\CoX_Driver\Sensor_Temp_AD7417\AD7415.h</File> 
+      <File>PROJECT_ROOT$\CoX\CoX_Driver\Sensor_Temp_AD7417\AD7415.c</File> 
     </CoIDEFiles>
     <DependentComponentInterfaceTag>
       <Tag>CoX.I2C</Tag> 

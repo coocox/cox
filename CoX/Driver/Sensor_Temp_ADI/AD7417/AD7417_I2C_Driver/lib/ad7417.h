@@ -56,7 +56,7 @@ extern "C"
 //
 //! \addtogroup CoX_Driver_Lib
 //! @{
-//! \addtogruop Sensor
+//! \addtogroup Sensor
 //! @{  
 //! \addtogroup Temperature_Sensor
 //! @{
@@ -131,24 +131,24 @@ extern "C"
 //*****************************************************************************
 
 //
-//! Enable the shut down mode
+//! Enable the power down mode
 //  
-#define AD7417_ShutDown_Enable  0x00000001
+#define AD7417_POWER_SHUTDOWM   0x00000001
   
 //
-//! Disable the shut down mode
+//! Disable the power down mode 
 // 
-#define AD7417_ShutDown_Disable 0x00000000   
+#define AD7417_POWER_NORMAL     0x00000000   
   
 //
 //! Enable the triger mode
 //  
-#define AD7417_Triger_Enable    0x00000080  
+#define AD7417_TRIGGER_ENABLE   0x00000080  
   
 //
 //! Disable the triger mode
 //  
-#define AD7417_Triger_Disable   0x00000000
+#define AD7417_TRIGGER_DISABLE  0x00000000
   
 //*****************************************************************************
 //
@@ -167,10 +167,10 @@ extern "C"
 //
 //! ADC convert channel select
 //  
-#define AD7417_ADC_Channel1     0x00000020
-#define AD7417_ADC_Channel2     0x00000040
-#define AD7417_ADC_Channel3     0x00000060
-#define AD7417_ADC_Channel4     0x00000080  
+#define AD7417_ADC_CHANNEL1     0x00000020
+#define AD7417_ADC_CHANNEL2     0x00000040
+#define AD7417_ADC_CHANNEL3     0x00000060
+#define AD7417_ADC_CHANNEL4     0x00000080  
   
 //*****************************************************************************
 //
@@ -262,9 +262,9 @@ extern float AD7417TempReadFDC(void);
 extern void AD7417ADConfig(unsigned short ucCfg);
 extern unsigned long AD7417ADCRead(void);
 
-extern void AD7417ShutdownEnter(void);
-extern void AD7417ShutdownQuit(void);
-extern void AD7417ShutDownConvst(void);
+extern void AD7417ShutDown(void);
+extern void AD7417WakeUp(void);
+extern void AD7417OneShotConvst(void);
 
 extern void AD7417TriggerEnable(void);
 extern void AD7417TriggerDisable(void);

@@ -192,8 +192,8 @@ void AD7415RegWrite(unsigned char ucReg, short ulValue)
 //! \param rate The master baud rate  
 //!
 //! \ulPDEnable The ulPDEnble is chose to decide enable the power down mode or 
-//! not. it can be selected from: - AD7415_PowerDown_Enter
-//!                               - AD7415_PowerDown_Quit
+//! not. it can be selected from: - AD7415_MODE_POWER_DOWN
+//!                               - AD7415_MODE_NORMAL
 //!                               .
 //!
 //! \return none
@@ -322,7 +322,7 @@ short AD7415TempReadMSB10Bit(void)
 //! \return none
 //
 //*****************************************************************************
-void AD7415PowerDownEnter(void)
+void AD7415PowerDown(void)
 {
     unsigned long ulTemp;
     
@@ -338,7 +338,7 @@ void AD7415PowerDownEnter(void)
 //! \return none
 //
 //*****************************************************************************
-void AD7415PowerDownQuit(void)
+void AD7415WakeUp(void)
 {
     unsigned long ulTemp;
     
@@ -355,7 +355,7 @@ void AD7415PowerDownQuit(void)
 //! \return none
 //
 //*****************************************************************************
-void AD7415PowerDownConvert(void)
+void AD7415OneShotConvert(void)
 {
     unsigned long ulTemp;
     

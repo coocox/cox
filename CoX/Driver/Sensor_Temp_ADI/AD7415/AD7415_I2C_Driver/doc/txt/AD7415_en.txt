@@ -103,9 +103,9 @@
 //! \subsection AD7415_PD_APIs 2.5 AD7415 PD APIs
 //! These APIs are method to enter or quit power down mode, and trigger one 
 //! temperature convert in power down mode.
-//! - AD7415PowerDownEnter(void)
-//! - AD7415PowerDownQuit(void)
-//! - AD7415PowerDownConvert(void)
+//! - AD7415PowerDown(void)
+//! - AD7415WakeUp(void)
+//! - AD7415OneShotConvert(void)
 //! .
 //!
 //! <br />
@@ -239,11 +239,11 @@
 //!     //
 //!     // AD7417Dev Init
 //!     //
-//!     AD7415Init(10000, AD7415_PowerDown_Enter); 
+//!     AD7415Init(10000, AD7415_MODE_POWER_DOWN); 
 //!     
 //!     while(1)
 //!     {        
-//!         AD7415PowerDownConvert();
+//!         AD7415OneShotConvert();
 //!         AD7415TempReadLDC();
 //!      
 //!     }

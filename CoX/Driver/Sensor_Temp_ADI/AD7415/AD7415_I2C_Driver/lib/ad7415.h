@@ -56,7 +56,7 @@ extern "C"
 //
 //! \addtogroup CoX_Driver_Lib
 //! @{
-//! \addtogruop Sensor
+//! \addtogroup Sensor
 //! @{  
 //! \addtogroup Temperature_Sensor
 //! @{
@@ -114,10 +114,9 @@ extern "C"
 //! @{
 //  
 //*****************************************************************************
-
   
-#define AD7415_PowerDown_Enter  0x80
-#define AD7415_PowerDown_Quit   0 
+#define AD7415_MODE_POWER_DOWN  0x80
+#define AD7415_MODE_NORMAL      0 
   
 //*****************************************************************************
 //
@@ -138,9 +137,9 @@ extern short AD7415TempReadLDC(void);
 extern short AD7415TempReadMSB10Bit(void);
 extern float AD7415TempReadFDC(void);
 
-extern void AD7415PowerDownEnter(void);
-extern void AD7415PowerDownQuit(void);
-extern void AD7415PowerDownConvert(void);
+extern void AD7415PowerDown(void);
+extern void AD7415WakeUp(void);
+extern void AD7415OneShotConvert(void);
 
 extern void AD7415FilterEnable(void);
 extern void AD7415FilterDisable(void);

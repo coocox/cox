@@ -76,7 +76,7 @@ static void di_ad7415arz001Setup(void)
     //
     // AD7415 device init
     // 
-    AD7415Init(1000, AD7415_PowerDown_Quit);
+    AD7415Init(1000, AD7415_MODE_NORMAL);
 }
 
 //*****************************************************************************
@@ -105,14 +105,14 @@ static void di_ad7415arz001Execute(void)
     //
     // Power down enter in Init funciton
     //
-    AD7415Init(1000, AD7415_PowerDown_Enter);
+    AD7415Init(1000, AD7415_MODE_POWER_DOWN);
     ulTemp = AD7415RegRead(AD7415_CFG) & AD7415_CFG_PD_ENABLE;
     TestAssert(AD7415_CFG_PD_ENABLE == ulTemp,
                "xAPI, \" Power bit configure test\" error! ");
     //
     // Power down quit in Init function
     //
-    AD7415Init(1000, AD7415_PowerDown_Quit);
+    AD7415Init(1000, AD7415_MODE_NORMAL);
     ulTemp = AD7415RegRead(AD7415_CFG) & AD7415_CFG_PD_ENABLE;
     TestAssert(0 == ulTemp,
                "xAPI, \" Power bit configure test\" error! ");    
@@ -120,7 +120,7 @@ static void di_ad7415arz001Execute(void)
     //
     // Power down enter
     //
-    AD7415PowerDownEnter();
+    AD7415PowerDown();
     ulTemp = AD7415RegRead(AD7415_CFG) & AD7415_CFG_PD_ENABLE;
     TestAssert(AD7415_CFG_PD_ENABLE == ulTemp,
                "xAPI, \" Power bit configure test\" error! ");
@@ -128,7 +128,7 @@ static void di_ad7415arz001Execute(void)
     //
     // Power down quit
     //
-    AD7415PowerDownQuit();
+    AD7415WakeUp();
     ulTemp = AD7415RegRead(AD7415_CFG) & AD7415_CFG_PD_ENABLE;
     TestAssert(0 == ulTemp,
                "xAPI, \" Power bit configure test\" error! ");    
@@ -188,7 +188,7 @@ static void di_ad7415arz002Setup(void)
     //
     // AD7415 device init
     //
-    AD7415Init(10000, AD7415_PowerDown_Enter); 
+    AD7415Init(10000, AD7415_MODE_POWER_DOWN); 
 }
 
 //*****************************************************************************
@@ -219,7 +219,7 @@ static void di_ad7415arz002Execute(void)
     {
         if(i == 3)
         {
-            AD7415PowerDownConvert();
+            AD7415OneShotConvert();
         }
         ulTemp = AD7415TempReadLDC();
         ulTemp = ulTemp + 1;
