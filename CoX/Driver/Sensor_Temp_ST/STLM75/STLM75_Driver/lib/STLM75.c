@@ -89,7 +89,7 @@ void STLM75Init(tSTLM75Dev *psDev, unsigned long ulRate)
     // Enable GPIO pin interrupt.
     //
     xGPIOPinIntEnable(psDev->ulIntPort, psDev->ulIntPin, xGPIO_BOTH_EDGES);
-    xIntEnable(xINT_GPIOA);
+    xIntEnable(xSysCtlPeripheraIntNumGet(psDev->ulIntPort));
 #endif
     
     //

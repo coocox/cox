@@ -669,7 +669,7 @@ xSysCtlPeripheraIntNumGet(unsigned long ulPeripheralBase)
             (ulPeripheralBase == xADC0_BASE)||    
             (ulPeripheralBase == xACMP0_BASE)||       
             (ulPeripheralBase == xPWMA_BASE)||        
-            (ulPeripheralBase == xPWMB_BASE)||        
+            (ulPeripheralBase == xPWMB_BASE)       
             );
             
     for(i=0; g_pPeripherals[i].ulPeripheralBase != 0; i++)
