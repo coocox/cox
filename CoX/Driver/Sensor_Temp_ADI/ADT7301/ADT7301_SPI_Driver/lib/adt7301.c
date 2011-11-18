@@ -51,8 +51,8 @@
 //! \param ulClock specifies the SPI Clock Rate
 //!
 //! This function is to initialize the MCU as master and specified SPI port.Set
-//! TS_PIN_SPI_CS as CS, TS_PIN_SPI_CLK as CLK, TS_PIN_SPI_MISO ->MISO and 
-//! TS_PIN_SPI_MOSI->MOSI.
+//! ADT7301_PIN_SPI_CS as CS, ADT7301_PIN_SPI_CLK as CLK, ADT7301_PIN_SPI_MISO  
+//! ->MISO and ADT7301_PIN_SPI_MOSI->MOSI.
 //! 
 //! \return None.
 //
@@ -63,47 +63,47 @@ ADT7301Init(unsigned long ulSpiClock)
     //
     // Enable the GPIOx port which is connected with ADT7301 
     //
-    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(TS_PIN_SPI_MISO));
-    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(TS_PIN_SPI_MOSI));
-    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(TS_PIN_SPI_CLK));
-    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(TS_PIN_SPI_CS));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(ADT7301_PIN_SPI_MISO));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(ADT7301_PIN_SPI_MOSI));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(ADT7301_PIN_SPI_CLK));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(ADT7301_PIN_SPI_CS));
     
     //
     // Enable the SPIx which is connected with ADT7301
     //
-    xSysCtlPeripheralEnable2(TS_PIN_SPI_PORT);
+    xSysCtlPeripheralEnable2(ADT7301_PIN_SPI_PORT);
 
     //
-    // Set TS_PIN_SPI_CS as a chip select pin and set it as OUT_MODE
+    // Set ADT7301_PIN_SPI_CS as a chip select pin and set it as OUT_MODE
     //
-    xGPIOSPinDirModeSet(TS_PIN_SPI_CS, xGPIO_DIR_MODE_OUT);
+    xGPIOSPinDirModeSet(ADT7301_PIN_SPI_CS, xGPIO_DIR_MODE_OUT);
 
     //
-    // Set TS_PIN_SPI_CLK as TS_PIN_SPI_CLK
+    // Set ADT7301_PIN_SPI_CLK as SPIx.CLK
     //
-    xSPinTypeSPI(SPI0CLK, TS_PIN_SPI_CLK);
+    xSPinTypeSPI(ADT7301_SPI_CLK, ADT7301_PIN_SPI_CLK);
 
     //
-    // Set TS_PIN_SPI_MISO as SPI0.MISO
+    // Set ADT7301_PIN_SPI_MISO as SPIx.MISO
     //
-    xSPinTypeSPI(SPI0MISO, TS_PIN_SPI_MISO);
+    xSPinTypeSPI(ADT7301_SPI_MISO, ADT7301_PIN_SPI_MISO);
 
     //
-    // Set TS_PIN_SPI_MOSI as SPI0.MOSI
+    // Set ADT7301_PIN_SPI_MOSI as SPIx.MOSI
     //
-    xSPinTypeSPI(SPI0MOSI, TS_PIN_SPI_MOSI);  
+    xSPinTypeSPI(ADT7301_SPI_MOSI, ADT7301_PIN_SPI_MOSI);  
     
     //
-    // Configure MCU as a master device , 16 bits data width ,MSB first,Mode_3
+    // Configure MCU as a master device,16 bits data width,MSB first,Mode_3
     //
-    xSPIConfigSet(TS_PIN_SPI_PORT, ulSpiClock, xSPI_MOTO_FORMAT_MODE_3 |
-                                                      xSPI_MODE_MASTER | 
-                                                        xSPI_MSB_FIRST |
-                                                      xSPI_DATA_WIDTH16);
+    xSPIConfigSet(ADT7301_PIN_SPI_PORT, ulSpiClock, xSPI_MOTO_FORMAT_MODE_3 |
+                                                           xSPI_MODE_MASTER | 
+                                                             xSPI_MSB_FIRST |
+                                                           xSPI_DATA_WIDTH16);
     //
     // Disable ADT7301 when Power up
     //
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 1);
+    xGPIOSPinWrite(ADT7301_PIN_SPI_CS, 1);
 }
 
 //*****************************************************************************
@@ -136,7 +136,7 @@ ADT7301Configure(unsigned short usMode)
     //
     // Step 0, Set CS,Start communication
     // 
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 0);
+    xGPIOSPinWrite(ADT7301_PIN_SPI_CS, 0);
     
     //
     // Step 1, Write the mode of convertion
@@ -150,12 +150,12 @@ ADT7301Configure(unsigned short usMode)
     	usWrite = ADT7301_MODE_SHUTDOWN;
     }
     
-    xSPISingleDataReadWrite(TS_PIN_SPI_PORT, usWrite);
+    xSPISingleDataReadWrite(ADT7301_PIN_SPI_PORT, usWrite);
     
     //
     // Step 2, Set CS => 1 Stop Communication
     //
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 1);
+    xGPIOSPinWrite(ADT7301_PIN_SPI_CS, 1);
 }
 
 //*****************************************************************************
@@ -181,22 +181,22 @@ ADT7301TemperRead(void)
     ulSysClk = xSysCtlClockGet();
     xSysCtlDelay(ulSysClk/10);
     
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 1);
+    xGPIOSPinWrite(ADT7301_PIN_SPI_CS, 1);
     
     //
     // Step 0, Set CS,Start communication
     //   
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 0);
+    xGPIOSPinWrite(ADT7301_PIN_SPI_CS, 0);
     
     //
     // Step 1,  Read temperature value
     //
-    sReadVal = xSPISingleDataReadWrite(TS_PIN_SPI_PORT, 0x0000);
+    sReadVal = xSPISingleDataReadWrite(ADT7301_PIN_SPI_PORT, 0x0000);
     
     //
     // Step 2, Set CS => 1 Stop Communication
     //        
-    xGPIOSPinWrite(TS_PIN_SPI_CS, 1);
+    xGPIOSPinWrite(ADT7301_PIN_SPI_CS, 1);
     
     //
     // Temperature value stored in sReadVal
@@ -315,5 +315,5 @@ ADT7301DeInit(void)
     //
     // conversely initialize ADT7301
     //
-    xSysCtlPeripheralDisable2(TS_PIN_SPI_PORT);
+    xSysCtlPeripheralDisable2(ADT7301_PIN_SPI_PORT);
 }

@@ -1,12 +1,11 @@
 <?xml version="1.0" ?>
 <Device>
-    <Name>ADT7301ARTZ-500RL7</Name>
+    <Name>ADT7301ARTZ-500RL7,ADT7301ARMZ,ADT7301ARMZ-REEL7,ADT7301ARTZ-REEL7</Name>
     <Description>
-    	  The ADT7301 is a complete temperature monitoring system . It contains a band gap temperature sensor and a  
-13-bit ADC to monitor and digitize the temperature reading to a resolution of 0.03125°„C. The ADT7301 has a flexible 
-serial interface that allows easyinterfacing to most microcontrollers. The interface is compatible with SPI,QSPI,and
-MICROWIRE protocols as well as DSPs.
-   </Description>
+    	The ADT7301 is a complete temperature monitoring system.It contains a temperature sensor and a  
+      13-bit ADC. It has a flexible serial interface which is compatible with SPI protocols.
+    </Description>
+
     <Manufacturer>ADI</Manufacturer>
     
     <Category>Sensor</Category>

@@ -79,26 +79,24 @@ extern "C"
   
 //*****************************************************************************
 //
-//! \addtogroup ADC7301_SPI_Set ADT7301 SPI Connection
-//! \brief Values that can be used in ADT7301Init(),Define SPIx as a port connecting
+//! \addtogroup ADC7301_SPI_Set ADT7301 Configuration
+//! \brief Values can be used in ADT7301Init(),Define SPIx as a port connecting
 //! with ADC7301 which can be configured,when you use a different SPI port you 
 //! must configure them again.
 //! @{
 //
 //*****************************************************************************
 
-//
-//! Define SPIx as a port connecting ADT7301 which can be configured,when you use 
-//! a different SPI port you must them again.
-//
-#define TS_PIN_SPI_CLK          PC1
-#define TS_PIN_SPI_MISO         PC2
-#define TS_PIN_SPI_MOSI         PC3
-#define TS_PIN_SPI_PORT         SPI0_BASE
-//
-//! Configure GPIOC.0 as chip Select
-//
-#define TS_PIN_SPI_CS           PC0
+#define ADT7301_PIN_SPI_CLK     PC1
+#define ADT7301_SPI_CLK         SPI0CLK 
+#define ADT7301_PIN_SPI_MISO    PC2
+#define ADT7301_SPI_MISO        SPI0MISO
+#define ADT7301_PIN_SPI_MOSI    PC3
+#define ADT7301_SPI_MOSI        SPI0MOSI
+  
+#define ADT7301_PIN_SPI_PORT    SPI0_BASE
+
+#define ADT7301_PIN_SPI_CS      PC0
   
 //*****************************************************************************
 //
@@ -109,7 +107,10 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup ADT7301_Mode_Set ADT7301 Convertion Mode
-//! \brief ADT7301 Convertion Mode.
+//! \brief Values can be use to set and change ADT7301 temperature convertion mode, 
+//! you can use ADT7301_MODE_SHUTDOWN if you want to enter power consumption condition.
+//! And you can use ADT7301_MODE_NORMAL to switch condition from low power mode
+//! to start temperature conversion.
 //! @{
 //
 //*****************************************************************************
