@@ -1,0 +1,256 @@
+//******************************************************
+//
+//! \addtogroup AD7415 AD7415
+//!
+//! Analog Digital's Inc.'s AD7415 digital temperature sensor
+//! converts temperatures from -40°Ê and +125°Ê to a digital word.
+//! Typical accuracy of °¿0.5°„C at +40°„C.
+//! 
+//! <h1>Contents</h1>
+//! - \ref AD7415_Features
+//!   - \ref AD7415_Feature_
+//!   - \ref AD7415_TemSensor_Features
+//!   .
+//! - \ref AD7415_APIs
+//!   - \ref AD7415_Basic_APIs
+//!   - \ref AD7415_Init_DeInit_APIs 
+//!   - \ref AD7415_Temp_APIs
+//!   - \ref AD7415_Filter_APIs
+//!   - \ref AD7415_PD_APIs
+//!   .
+//! - \ref AD7415_Typical_App
+//! - \ref AD7415_Package
+//!   - \ref AD7415_Package_
+//!   - \ref AD7415_Connection
+//!   .
+//! - \ref AD7415_Usage
+//! .
+//!
+//! <br />
+//!
+//! \section AD7415_Features 1. AD7415 Features
+//! 
+//! <br />
+//!
+//! \subsection AD7415_Feature_ 1.1 Features
+//! - Supply voltage of 2.7 V to 5.5 V.
+//! - SMBus/I2C-compatible serial interface.
+//! - The temperature sensor has a working measurement range of -40°„C to +125°„C
+//! - Current during conversion 1.2mA(typ),Peak current between conversions 900 ¶ÃA(max).
+//! - Avaliable Packages: SOT-32(RT-6), SOT-32(RT-5), MSOP(RM-8)
+//! .
+//! 
+//! \subsection AD7415_TemSensor_Features 1.2 Temperature Sensor Features
+//! - Temperature-to-Digital Converter
+//! - Accuracy: 
+//!   - °¿0.5(typ)->VDD = 3 V @ +40°„C
+//!   - -0.87 to +0.822(max) -> VDD = 3 V @ +40°„C
+//!   - °¿1.5(max) -> VDD = 3 V @ -40°„C to +70°„C
+//!   - °¿2.0(max) -> VDD = 3 V @ -40°„C to +85°„C
+//!   - °¿3.0(max) -> VDD = 3 V @ -40°„C to +125°„C
+//!   - °¿2.0(typ) -> VDD = 3 V @ -40°„C to +125°„C
+//!   - °¿1.872(max) -> VDD = 5.5 V @ +40°„C
+//!   - °¿2.0(typ) -> VDD = 5.5 V @ -40°„C to +85°„C
+//!   - °¿3.0(max) -> VDD = 5.5 V @ -40°„C to +85°„C
+//!   - °¿3.0(typ) -> VDD = 5.5 V @ -40°„C to +125°„C
+//!   .
+//! .
+//! 
+//! <br />
+//!  
+//! \section AD7415_APIs 2. AD7415 APIs
+//!
+//! \subsection AD7415_Basic_APIs 2.1 AD7415 Basic APIs
+//!
+//! The basic APIs are methods to write and read the temperature sensor's registers
+//! 
+//! - AD7415RegRead(unsigned char ucReg)
+//! - AD7415RegWrite(unsigned char ucReg, short ulValue)
+//! .
+//! <br />
+//! 
+//! \subsection AD7415_Init_DeInit_APIs 2.2 AD7415 Init DeInit APIs 
+//!
+//! These APIs are methods to Init/disable the master i2c bus etc. Select whether 
+//! enter power down mode in the Init function.
+//! 
+//! - AD7415Init(unsigned long ulRate, unsigned long ulPDEnable)
+//! - AD7415DeInit(void)
+//! . 
+//!
+//! <br />
+//! 
+//! \subsection AD7415_Temp_APIs 2.3 AD7415 Temp APIs
+//!  
+//! These APIs are method to read the temperature in different data type.
+//!
+//! - AD7415TempReadLDC(void)
+//! - AD7415TempReadMSB10Bit(void)
+//! - AD7415TempReadFDC(void)
+//! .
+//!
+//! <br />
+//!
+//! \subsection AD7415_Filter_APIs 2.4 AD7415 Filter APIs
+//! 
+//! These APIs are method to enable or disable I2C filter.
+//! 
+//! - AD7415FilterEnable(void)
+//! - AD7415FilterDisable(void)
+//! .
+//!
+//! <br />
+//! \subsection AD7415_PD_APIs 2.5 AD7415 PD APIs
+//! These APIs are method to enter or quit power down mode, and trigger one 
+//! temperature convert in power down mode.
+//! - AD7415PowerDownEnter(void)
+//! - AD7415PowerDownQuit(void)
+//! - AD7415PowerDownConvert(void)
+//! .
+//!
+//! <br />
+//! 
+//! \section AD7415_Typical_App 3. AD7415 Typical App
+//! - Hard disk drives
+//! - Personal computers
+//! - Electronic test equipment
+//! - Office equipment
+//! - Domestic appliances
+//! - Process control
+//! - Cellular phones
+//! .
+//!
+//! <br />
+//! 
+//! \section AD7415_Package 4. AD7415 Package Type and Connection
+//!  
+//! \subsection AD7415_Package_ 4.1 AD7415 Package Type
+//! 
+//! This sensor has an industry standard 2-wire, I2C/SMBus 
+//! compatible serial interface, two AD7415 versions allow 6
+//! devices to be controlled in a single serial bus. To
+//! maintain interchangeability with the I2C/SMBus
+//! interface the electrical specifications are specified with
+//! the operating voltage of 2.7V to 5.5V. In addition, a
+//! 800 ms (typical) time out is implemented.
+//!
+//! <img src="AD7415_Package_Type.png" />
+//!
+//! <br /> 
+//!
+//! \subsection AD7415_Connection 4.2 AD7415 Connection
+//! 
+//! The SDA and SCLK serial interface pins are
+//! open-drain pins that require pull-up resistors. This
+//! configuration is shown as below.
+//!
+//! <img src="AD7415_Connection.png" />
+//!
+//! \n
+//!
+//! \section AD7415_Usage 5. AD7415 Usage
+//!
+//! <ol>
+//! <li>As a \b temperature \b sensor, connect \b pin2 \b GND, connect \b pin3 to \b //! VDD3.3, keep the \b pin1 float, then the \b slave \b address in the driver is set //! to \b (AD7415-0) or \b 0x4c(AD7415-1).</li>
+//! <li>Connect the \b SCL and \b SDA pins to the \b master board \b I2C port.</li>
+//! <li>The pull-up resistor values for a \b 3.3V system ranges \b 9k¶∏ to \b //! 33k//! ¶∏.</li>
+//! <li>It is recommended that a decoupling capacitor of \b 0.1¶ÃF to \b 1¶ÃF be used //! between the \b VDD and \b GND pins. </li>
+//! </ol> 
+//!
+//! \n\n\n
+//! Here we introduce how to get ambient temperature with MCP98242.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref AD7415_TempGet_Steps
+//! - \ref AD7415_TempGet_Code
+//! .
+//!
+//! <br />
+//! \section AD7415_TempGet_Steps 1.How to configure AD7415. 
+//!
+//! <ol>
+//! <li>Select and enable I2C, configure I2C clock rate and related GPIO Pins,
+//! enter the Power down mode.</li>
+//! <li>Trigger one convert in power down mode</li>
+//! <li>Read temperature.</li>
+//! </ol>
+//!
+//! <br />
+//! \section AD7415_TempGet_Code 2.The code to get ambient temperature.
+//! 
+//! \code
+//! 
+//! //
+//! // Config the device i2c address
+//! //
+//! #define AD7415_I2C_ADDRESS      0x48
+//!
+//! //
+//! // Config the devide i2c bus master
+//! //
+//! #define AD7415_MASTER_BASE      xI2C0_BASE
+//!
+//! //
+//! // Config the i2c SDA pin
+//!
+//! #define AD7415_PIN_I2CSDA       PA8
+//!
+//! //
+//! // Config the i2c SCL pin
+//! //
+//! #define AD7415_PIN_I2CSCK       PA9
+//! 
+//! \endcode
+//!
+//! \code
+//!
+//! //*****************************************************************************
+//! //
+//! // \file main.c
+//! // \brief power down mode test.
+//! // \version 1.0
+//! // \date 8/1/2011
+//! // \author CooCox
+//! //
+//! //*****************************************************************************
+//! #include "xhw_types.h"
+//! #include "xcore.h"
+//! #include "xhw_memmap.h"
+//! #include "xgpio.h"
+//! #include "xsysctl.h"
+//! #include "xi2c.h"
+//! #include "ad7415.h"
+//!
+//! //*****************************************************************************
+//! //
+//! // The main function of the adi7417 Get Temperature
+//! //
+//! // return none
+//! //
+//! //*****************************************************************************
+//! void TemperatureGet(void)
+//! {
+//!     //
+//!     //Set the external 12MHZ clock as system clock 
+//!     //
+//!     xSysCtlClockSet(12000000, xSYSCTL_XTAL_12MHZ | xSYSCTL_OSC_MAIN);
+//!     
+//!     //
+//!     // AD7417Dev Init
+//!     //
+//!     AD7415Init(10000, AD7415_PowerDown_Enter); 
+//!     
+//!     while(1)
+//!     {        
+//!         AD7415PowerDownConvert();
+//!         AD7415TempReadLDC();
+//!      
+//!     }
+//! }
+//!
+//! \endcode
+//!
+//! @}
+//
+//********************************************************

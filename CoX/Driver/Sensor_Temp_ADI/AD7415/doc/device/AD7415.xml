@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>AD7414ARTZ-3REEL71, AD7414ARTZ-3REEL1, AD7415ART-0REEL7, AD7415ART-0REEL, AD7415ART-0500RL7, AD7415ARTZ-0REEL71, AD7415ARTZ-0REEL1, AD7415ARTZ-0500RL71, AD7415ART-1REEL7, AD7415ART-1REEL, AD7415ART-1500RL7, AD7415ARTZ-1REEL71, AD7415ARTZ-1REEL1, AD7415ARTZ-1500RL71</Name>
+    <Description>10-Bit Digital Temperature Sensor with I2C-compatible serial bus interface</Description>
+    <Manufacturer>Analog Devices</Manufacturer>
+    <Category>Sensor</Category>
+    <SubCategory>Temperature</SubCategory>
+    
+    <KeyWord>AD7415, AD741x, Temp, Temperature, Sensor</KeyWord>
+    
+    <Communication>
+        <Interface>I2C</Interface>
+    </Communication>
+    
+    <WebPage>http://www.analog.com/en/analog-to-digital-converters/temperature-to-digital-converters/ad7415/products/product.html</WebPage>
+    <Datasheet>http://www.analog.com/static/imported-files/data_sheets/AD7414_7415.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>
