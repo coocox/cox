@@ -1,0 +1,13 @@
+//******************************************************
+//
+//!
+//! \addtogroup MCP98242_3_Driver
+//! @{
+//! 
+//! This MCP98242_3 Drvier is used for MCP98242 and MCP982423.It provides APIs to operate
+//! the Temperature Sensor and EEPROM. 
+//! 
+//!
+//! @}
+//
+//******************************************************

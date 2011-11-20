@@ -1,0 +1,202 @@
+//******************************************************
+//
+//!
+//! \addtogroup MCP98242_3_TempSensor_EEPROM
+//! @{
+//!
+//! Microchip Technology Inc.'s MCP98242 digital
+//! temperature sensor converts temperature from -40°Ê 
+//! and +125°Ê to a digital word. This sensor meets
+//! JEDEC Specification JC42.4 Mobile Platform Memory
+//! Module Thermal Sensor Component. It provides an
+//! accuracy of °¿0.5°Ê/°¿1°Ê(typical/maximum) from
+//! +75°„C to +95°„C. In addition, this device has an internal
+//! 256 Byte EEPROM which can be used to store memory
+//! module and vendor information. 
+//!
+//! <h1>Contents</h1>
+//! - \ref MCP98242_3_Features
+//!   - \ref MCP98242_3_Features_
+//!   - \ref MCP98242_3_TempSensor_Features
+//!   - \ref MCP98242_3_EEPROM_Features
+//!   - \ref MCP98242_3_Conv_Time
+//!   - \ref MCP98242_3_Event_Out
+//!   .
+//! - \ref MCP98242_3_APIs
+//!   - \ref MCP98242_3_Temp_APIs
+//!   - \ref MCP98242_3_EEPROM_APIs
+//!   .
+//! - \ref MCP98242_3_Typical_App 
+//! - \ref MCP98242_3_Package
+//!   - \ref MCP98242_3_Package_
+//!   - \ref MCP98242_3_Connection
+//!   .
+//! - \ref MCP98242_3_Usage
+//! .
+//! 
+//! <br />
+//!
+//! \section MCP98242_3_Features 1. MCP98242_3 Features
+//!
+//! <br />
+//!
+//! \subsection MCP98242_3_Features_ 1.1 Features
+//! - Temperature Sensor + 256 Byte Serial EEPROM
+//! - EEPROM for Serial Presence Detect (SPD)
+//! - Optimized for Voltage Range: 3.0V to 3.6V
+//! - Shutdown/Standby Current: 3 ¶ÃA (maximum)
+//! - 2-wire Interface: I2C/SMBus Compatible
+//! - Available Packages: DFN-8, TDFN-8, UDFN-8, TSSOP-8 
+//! .
+//! 
+//! \subsection MCP98242_3_TempSensor_Features 1.2 Temperature Sensor Features
+//! - Temperature-to-Digital Converter
+//! - Operating Current: 200 ¶ÃA (typical)
+//! - Accuracy:
+//!   - °¿0.5°„C/°¿1°„C (typ./max.) -> +75°„C to +95°„C
+//!   - °¿1°„C/°¿2°„C (typ./max.) -> +40°„C to +125°„C
+//!   - °¿2°„C/°¿3°„C (typ./max.) -> -20°„C to +125°„C
+//!   .
+//! .
+//! 
+//!
+//! <br />
+//!
+//! \subsection MCP98242_3_EEPROM_Features 1.3 Serial EEPROM Features
+//! - Operating Current: 
+//!   - Write -> 1.1 mA (typical) for 3.5 ms (typical)
+//!   - Read -> 100 ¶ÃA (typical)
+//!   .
+//! - Permanent and Reversible Software Write-Protect
+//! - Software Write Protection for the Lower 128 Bytes
+//! - Organized as 1 Block of 256 Bytes (256x8)
+//! .
+//!
+//! <br />
+//!
+//! \subsection MCP98242_3_Conv_Time 1.4 TEMPERATURE CONVERSION TIME
+//!
+//! <img src="MCP TEMPERATURE CONVERSION TIME.png" />
+//!
+//! <br />
+//!
+//! \subsection MCP98242_3_Event_Out 1.5 Event Output Condition
+//!
+//! <img src="MCP Event Output Condition.png" />
+//!
+//! <br />
+//!
+//! \section MCP98242_3_APIs 2. MCP98242_3 APIs
+//!
+//! <br />
+//! \subsection MCP98242_3_Temp_APIs 2.1 MCP98242_3 Temperature Sensor APIs
+//!
+//! These APIs are methods to configure the temperature sensor, and get the ambient 
+//! temperature.
+//!
+//! - MCP98242_3RegSet(MCP98242_3Dev *pDev, void *vpValue, unsigned short usType, char cTransType)
+//! - MCP98242_3RegGet(MCP98242_3Dev *pDev, void *vpValue, unsigned short usType, char cTransType)
+//! - MCP98242_3SENInit(MCP98242_3Dev *pDev, unsigned long ulRate)
+//! - MCP98242_3SENDeInit(MCP98242_3Dev *pDev)
+//! - MCP98242_3Config(MCP98242_3Dev *pDev, unsigned short usConfig)
+//! - MCP98242_3IntEnable(MCP98242_3Dev *pDev)
+//! - MCP98242_3IntConfig(MCP98242_3Dev *pDev, xtEventCallback xtIntCallback, unsigned long ucTrigMode, unsigned long ulEventMode)
+//! - MCP98242_3IntDisable(MCP98242_3Dev *pDev)
+//! - MCP98242_3ModeSet(MCP98242_3Dev *pDev, char cMode)
+//! - MCP98242_3ModeGet(MCP98242_3Dev *pDev)
+//! - MCP98242_3EvnCondGet(MCP98242_3Dev *pDev)
+//! - MCP98242_3ResSet(MCP98242_3Dev *pDev, unsigned char sResol)
+//! - MCP98242_3ResGet(MCP98242_3Dev *pDev)
+//! - MCP98242_3HystSet(MCP98242_3Dev *pDev, unsigned long ulHyst)
+//! - MCP98242_3HystGet(MCP98242_3Dev *pDev)
+//! - MCP98242_3GetID(MCP98242_3Dev *pDev, MCP98242_3_ID *id)
+//! - MCP98242_3IntClear(MCP98242_3Dev *pDev)
+//! - MCP98242_3CapGet(pDev, sencap)
+//! - MCP98242_3ConfigGet(pDev, senconfig)
+//! - MCP98242_3UpperSet(pDev, limValue)
+//! - MCP98242_3UpperGetFt(pDev, fLimValue)
+//! - MCP98242_3UpperGetDec(pDev, sLimValue)  
+//! - MCP98242_3LowerSet(pDev, limValue) 
+//! - MCP98242_3LowerGetFt(pDev, fLimValue)
+//! - MCP98242_3LowerGetDec(pDev, sLimValue) 
+//! - MCP98242_3CritSet(pDev, limValue)
+//! - MCP98242_3CritGetFt(pDev, fLimValue) 
+//! - MCP98242_3CritGetDec(pDev, sLimValue) 
+//! - MCP98242_3GetTempFt(pDev, fValue) 
+//! - MCP98242_3GetTempDec(pDev, sValue) 
+//! .
+//!
+//! <br />
+//! \subsection MCP98242_3_EEPROM_APIs 2.2 MCP98242_3 EEPROM APIs
+//!
+//! The APIs are methods to write and read EEPROM.
+//!
+//! - MCP98242_3EEPROMInit(MCP98242_3Dev *pDev, unsigned long ulRate)
+//! - MCP98242_3EEPROMDeInit(MCP98242_3Dev *pDev)
+//! - MCP98242_3ByteWrite(MCP98242_3Dev *pDev, char cAddr, char *cpValue, char cTransType) 
+//! - MCP98242_3ByteRead(MCP98242_3Dev *pDev, char cAddr, char *cpValue, char cTransType)
+//! - MCP98242_3MutiByteWrite(MCP98242_3Dev *pDev, char cAddr, char *cpValue, char cTransType, unsigned char ucNum)
+//! - MCP98242_3PageWrite(MCP98242_3Dev *pDev, char cAddr, char *cpValue, char cTransType)  
+//! - MCP98242_3MemRead(MCP98242_3Dev *pDev, char cAddr, char *cpValue, char cTransType, unsigned char ucNum)
+//! - MCP98242_3SWPRead(pDev, addr, value, TransType) 
+//! - MCP98242_3SWPWrite(pDev, addr, value, TransType)
+//! - MCP98242_3CWPRead(pDev, addr, value, TransType)
+//! - MCP98242_3CWPWrite(pDev, addr, value, TransType)
+//! - MCP98242_3PWPRead(pDev, addr, value, TransType)  
+//! - MCP98242_3PWPWrite(pDev, addr, value, TransType) 
+//! .
+//!
+//! <br />
+//! 
+//! \section MCP98242_3_Typical_App 3. Typical Applications
+//! - DIMM Modules
+//! - Laptops, Personal Computers and Servers
+//! - Hard Disk Drives and Other PC Peripherals
+//! .
+//! <img src="MCP DIMM MODULE.png" />
+//!
+//! <br />
+//!
+//! \section MCP98242_3_Package 4. Package Types and Connection
+//!
+//! <br />
+//! \subsection MCP98242_3_Package_ 4.1 Package Types
+//! This sensor has an industry standard 2-wire, I2C/SMBus 
+//! compatible serial interface, allowing up to eight
+//! devices to be controlled in a single serial bus. To
+//! maintain interchangeability with the I2C/SMBus
+//! interface the electrical specifications are specified with
+//! the operating voltage of 3.0V to 3.6V. In addition, a
+//! 40 ms (typical) time out is implemented.
+//!
+//! <img src="MCP Package Types.png" />
+//!
+//! <br />
+//!
+//! \subsection MCP98242_3_Connection 4.2 Connecting to the Serial Bus
+//! The SDA and SCLK serial interface pins are
+//! open-drain pins that require pull-up resistors. This
+//! configuration is shown as below.
+//!
+//! <img src="SDA and SCLK serial interface.png" />
+//! 
+//! \n
+//!
+//! \section MCP98242_3_Usage 5. MCP98242_3 Usage
+//!
+//! <ol>
+//! <li>When used as \b temperature \b sensor, connect \b A0 and \b A1 to \b GND, connect \b A2 to \b VCC3.3, because the \b slave \b address in the driver is set to \b 0x1C.</li>
+//! <li>When used as \b EEPROM and \b Software \b Write-Protect, apply \b VHI_WP at \b A0 pin and connect \b GND to \b A1 and \b A2 pins. The \b slave \b address is \b 0x31.</li>
+//! <li>When used as \b EEPROM and \b Clear \b Write-Protect, apply \b VHI_WP at \b A0 pin, apply \b VDD at \b A1 pin, connect \b A2 pin to \b GND. The \b slave \b address is \b 0x33.</li>
+//! <li>When used as \b EEPROM and \b Permanent \b Write-Protect, apply \b VDD at \b A0, \b A1 and \b A2 pins. The \b slave \b address is \b 0x37.</li>
+//! <li>Connect the \b SCL and \b SDA pins to the \b master board \b I2C port.</li>
+//! <li>Connect the \b Event pin to one \b GPIO pin of \b master board.</li>
+//! <li>The pull-up resistor values for a \b 3.3V system ranges \b 9k¶∏ to \b 33k¶∏.</li>
+//! <li>It is recommended that a decoupling capacitor of \b 0.1¶ÃF to \b 1¶ÃF be used between the \b VDD and \b GND pins. </li>
+//! </ol> 
+//!
+//! \n\n\n
+//!
+//! @}
+//
+//******************************************************
