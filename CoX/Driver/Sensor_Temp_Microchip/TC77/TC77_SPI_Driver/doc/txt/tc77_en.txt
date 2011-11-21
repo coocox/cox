@@ -1,0 +1,139 @@
+//******************************************************
+//
+//! \addtogroup TC77 TC77
+//! 
+//! \brief Temperature sensor TC77 operate.
+//!
+//! TC77 is a digital temperature sensor,it's temperature data is suited 
+//! converted from the internal thermal sensing element and made availableat
+//! anytime as a 13-bit two's compliment digital word. Communication with the 
+//! tc77 is accomplished via a SPI and MICROWIRE compatible interface. 
+//!
+//! The CoX Driver Library provides the driver of temperature such as sensor
+//! TC77 and so on,it is convenient for you to transplant the driver to other 
+//!  mcu that the cox support.
+//! 
+//! <br />
+//! <h2>Contents</h2>
+//! - \ref CoX_TC77_BLOCK
+//! - \ref CoX_TC77_TYPICAL_APPLICATION
+//! - \ref CoX_TC77_Driver_Desc
+//! - \ref CoX_TC77_Driver_API_Group
+//!   - \ref CoX_TC77_API_Group_Initialization
+//!   - \ref CoX_TC77_API_Group_Read
+//!   - \ref CoX_TC77_API_Group_Configure
+//!   - \ref CoX_TC77_API_Group_OverTemperatureAndID_Check
+//!   - \ref CoX_TC77_API_Group_Disable
+//! - \ref TC77_Usage
+//!
+//! <br />
+//! \section CoX_TC77_BLOCK 1. TC77 Block Diagram
+//! <img src="cox_TC77_block.png" />
+//!
+//! <br />
+//! \section CoX_TC77_TYPICAL_APPLICATION 2. Connection Diagram
+//! <img src="TC77_typical_application.png" />
+//! As is shown in diagram,you should connect CS with a GPIO pin in MCU,connect SCK with 
+//! SPIx_CLK in MCU, connect SDI with SPIx_MISO and SPIx_MOSI.Sometimes if the GPIO pin 
+//! connecting with CS doesn't have pull-up resistor in MCU,you should set a pull-up
+//! resistor of CS extern MCU.it is recommended that a decoupling capacitor of 0.1 uF
+//! to 1 uF be provided between the VDD and VSS (Ground) pins (a high frequency ceramic
+//! capacitor should be used).It is necessary for the capacitor to be located as 
+//! possible to the integrated circuit (IC) power pins in order close as to provide
+//! effective noise protection to the TC77.
+//! 
+//! <br />
+//! \section CoX_TC77_Driver_Desc 3. Driver Desrction
+//! The CoX TC77 driver has the following functions:
+//! - Get temperature value at any time 
+//! - Shundown mode can be used to reduce supply current for power sensitive
+//!   applications. 
+//! - A Manufacturer's ID register identifies the TC77 is a Microchip Technology product.
+//! .
+//!
+//! <br />
+//! \section CoX_TC77_Driver_API_Group 4. API Groups
+//!
+//! The CoX TC77 API is broken into five groups of functions:
+//! - those that deal with SPI_TC77 Initialization
+//! - those that deal with Read temperature or Read ID
+//! - those that deal with Mode Configure
+//! - those that deal with Over Temperature and ID Check
+//! - those that deal with Diasble TC77
+//! .
+//! <br />
+//! \subsection CoX_TC77_API_Group_Initialization 4.1 TC77 initialize
+//! SPI_TC77 initialization are dealed with:
+//! - TC77Init()
+//! .
+//!
+//! <br />
+//! \subsection CoX_TC77_API_Group_Read 4.2 TC77 Read temperature or id 
+//! Read temperature or ID are dealed with:
+//! - TC77TemperReadDec(),
+//! - TC77IDcodeGet(),
+//! - TC77TemperRead(),
+//! - TC77TemperReadFloat().
+//! .
+//!
+//! <br />
+//! \subsection CoX_TC77_API_Group_Configure 4.3 TC77 Mode Configure
+//! TC77 Mode Configure are dealed with:
+//! - TC77Configure()
+//! .
+//!
+//! <br />
+//! \subsection CoX_TC77_API_Group_OverTemperatureAndID_Check 4.4 TC77 over temperature and ID check
+//! TC77 over temperature check are dealed with:
+//! - TC77Overflow(),
+//! - TC77IDCheck().
+//! .
+//!
+//! <br />
+//! \subsection CoX_TC77_API_Group_Disable 4.5 TC77 Disable
+//! TC77 disable and conversely initialize are dealed with:
+//! - TC77DeInit(),
+//! .
+//! \section TC77_Usage TC77 Usage
+//! Step 1, you should select the CoX implment according to the mcu that you select. \n
+//! Step 2, you should transplant the driver according to your MCU if you use the SPIx 
+//! port which is different from in the t772 driver. \n
+//! Below is some example code:
+//!
+//! \code
+
+//! void TC77TemperGet()
+//! {   
+//!     short sTemperInDec;
+//!
+//!     //
+//!     // Step 3, you should set system clock.
+//!     // 
+//!     xSysCtlClockSet(50000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_12MHZ);
+//!     
+//!     //
+//!     // Step 4, you should initialize TC77
+//!     // 
+//!     TC77Init(1000000);
+//!     
+//!     //
+//!     // Step 5, you should check whether TC77 is existent and usable or not
+//!     // 
+//!    
+//!     if(xtrue == TC77IDCheck())
+//!     {
+//!     //
+//!     // Step 6, you should configure the mode of temperature convertion.
+//!     //
+//!        TC77Configure(TC77_MODE_CONTINUOUS);
+//!         
+//!     //
+//!     // Step 7, you can get temperature value from TC77.
+//!     //
+//!        sTemperInDec = TC77TemperReadDec();
+//!     }
+//! }
+//!     
+//! \endcode
+//
+//*****************************************************************************
