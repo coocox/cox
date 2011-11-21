@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>TC77-5.0MCTTR,TC773.3MCTTR</Name>
+    <Description>
+        The TC77 is a digital temperature sensor,Temperature data is made available at 
+        anytime as a 13-bit two's compliment digital word. Communication with the TC77  
+        is accomplished via a SPI interface.
+    </Description>
+    <Manufacturer>Microchip</Manufacturer>
+    
+    <Category>Sensor</Category>
+    <SubCategory>Temperature</SubCategory>
+    
+    <KeyWord>TC77 Temp, Temperature, Sensor, ADC, SPI</KeyWord>
+    
+    <Communication>
+        <Interface>SPI</Interface>
+    </Communication>
+    
+    <WebPage>http://cn.element14.com/jsp/search/productdetail.jsp?sku=1292291</WebPage>
+    <Datasheet>http://www.farnell.com/datasheets/47931.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

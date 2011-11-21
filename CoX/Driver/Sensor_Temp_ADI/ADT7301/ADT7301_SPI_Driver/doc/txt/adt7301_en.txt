@@ -1,0 +1,123 @@
+//******************************************************
+//
+//! \addtogroup ADT7301 ADT7301
+//! 
+//! \brief Temperature sensor ADT7301 operate.
+//!
+//! The ADT7301 is a complete temperature monitoring system. It contains a band temperature
+//! sensor and a 13-bit ADC to monitor and digitize the temperature reading to a resolution
+//! of 0.03125 degree Celsius.It has a flexible serial interface that allows easy interfacing
+//! to most microcontrollers.The interface is compatible with SPI,QSPI,and MICROWIRE protocols
+//! as well as DSPs.
+//!
+//! The CoX Driver Library provides the driver of temperature such as sensor ADT7301
+//! and so on,it is convenient for you to transplant the driver to other mcu that 
+//! the cox support.
+//! 
+//! <br />
+//! <h2>Contents</h2>
+//! - \ref CoX_ADT7301_BLOCK
+//! - \ref CoX_ADT7301_TYPICAL_APPLICATION
+//! - \ref CoX_ADT7301_Driver_Desc
+//! - \ref CoX_ADT7301_Driver_API_Group
+//!   - \ref CoX_ADT7301_API_Group_Initialization
+//!   - \ref CoX_ADT7301_API_Group_Read
+//!   - \ref CoX_ADT7301_API_Group_Configure
+//!   - \ref CoX_ADT7301_API_Group_Disable
+//! - \ref ADT7301_Usage
+//!
+//! <br />
+//! \section CoX_ADT7301_BLOCK 1. ADT7301 Block Diagram
+//! <img src="ADT7301_Block_Diagram.png" />
+//!
+//! <br />
+//! \section CoX_ADT7301_TYPICAL_APPLICATION 2. Connection Diagram
+//! <img src="ADT7301_Typical_Application.png" />
+//! As is shown in diagram,you should connect CS with a GPIO pin in MCU,connect SCK with 
+//! SPIx_CLK in MCU, connect DIN and DOUT with SPIx_MISO and SPIx_MOSI.Sometimes if the  
+//! GPIO pin connecting with CS doesn't have pull-up resistor in MCU,you should set a 
+//! pull-up resistor of CS extern MCU.it is recommended that a decoupling capacitor of 0.1
+//! uF to 1 uF be provided between the VDD and VSS (Ground) pins (a high frequency ceramic
+//! capacitor should be used).It is necessary for the capacitor to be located as possible
+//! to the integrated circuit (IC) power pins in order close as to provide effective noise
+//! protection to the ADT7301.
+//! 
+//! <br />
+//! \section CoX_ADT7301_Driver_Desc 3. Driver Desrction
+//! The CoX ADT7301 driver has the following functions:
+//! - Get temperature value per 1.5 second using normal mode.
+//! - Shundown mode can be used to reduce supply current for power sensitive
+//!   applications. 
+//! .
+//!
+//! <br />
+//! \subsection CoX_ADT7301_Driver_API_Group 4. API Groups
+//!
+//! The CoX ADT7301 API is broken into five groups of functions:
+//! - those that deal with SPI_ADT7301 Initialization
+//! - those that deal with Read temperature
+//! - those that deal with Mode Configure
+//! - those that deal with Diasble ADT7301
+//! .
+//! <br />
+//! \subsection CoX_ADT7301_API_Group_Initialization 4.1 ADT7301 initialize
+//! SPI_ADT7301 initialization are dealed with:
+//! - ADT7301Init()
+//! .
+//!
+//! <br />
+//! \subsection CoX_ADT7301_API_Group_Read 4.2 ADT7301 Read temperature
+//! Get temperature value are dealed with:
+//! - ADT7301TemperReadDec(),
+//! - ADT7301TemperRead(),
+//! - ADT7301TemperReadFloat().
+//! .
+//!
+//! <br />
+//! \subsection CoX_ADT7301_API_Group_Configure 4.3 ADT7301 Mode Configure
+//! ADT7301 Mode Configure are dealed with:
+//! - ADT7301Configure()
+//! .
+//!
+//! <br />
+//! \subsection CoX_ADT7301_API_Group_Disable 4.4 ADT7301 Disable
+//! ADT7301 disable and conversely initialize are dealed with:
+//! - ADT7301DeInit()
+//! .
+//!
+//! \section ADT7301_Usage ADT7301 Usage
+//! Step 1, you should select the CoX implment according to the mcu that you select. \n
+//! Step 2, you should transplant the driver according to your MCU if you use the SPIx 
+//! port which is different from in the tc72 driver. \n
+//! Below is some example code:
+//!
+//! \code
+
+//! void ADT7301ReadTemper()
+//! {   
+//!     short sTemperInDec;
+//!     
+//!     //
+//!     // Step 3, you should set system clock.
+//!     // 
+//!     xSysCtlClockSet(50000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_12MHZ);
+//!     
+//!     //
+//!     // Step 4, you should initialize ADT7301
+//!     // 
+//!     ADT7301Init(1000000);
+//!  
+//!     //
+//!     // Step 5, you should configure the mode of temperature convertion.
+//!     //
+//!     ADT7301Configure(ADT7301_MODE_NORMAL);
+//!         
+//!     //
+//!     // Step 6, you can get temperature value from ADT7301.
+//!     //
+//!     sTemperInDec = ADT7301TemperReadDec();
+//! }
+//!     
+//! \endcode
+//
+//*****************************************************************************
