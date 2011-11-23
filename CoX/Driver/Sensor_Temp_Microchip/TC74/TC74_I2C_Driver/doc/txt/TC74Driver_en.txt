@@ -1,0 +1,212 @@
+//*****************************************************************************
+//
+//! \defgroup TC74
+//! 
+//! \brief Tiny Serial Digital Thermal Sensor.
+//!
+//! The TC74 is a serially accessible, digital temperature sensor particularly 
+//! suited for low cost and small form-factor applications. Temperature data 
+//! is converted from the onboard thermal sensing element and made available 
+//! as an 8-bit digital word.
+//! 
+//! Communication with the TC74 is accomplished via a 2-wire SMBus/I2C compatible
+//! serial port. This bus alsocan be used to implement multi-drop/multi-zone
+//! monitoring. The SHDN bit in the CONFIG register canbe used to activate the 
+//! low power Standby mode.
+//!  
+//! <br />
+//! <h1>Contents</h1>
+//! <h1>Contents</h1>
+//! - \ref TC74_Physical
+//!   - \ref TC74_Package
+//!   - \ref TC74_Function_Block
+//!   .
+//! - \ref TC74_Function_Desc
+//!   - \ref TC74_Init_Control
+//!   - \ref TC74_Mode_Control
+//!   - \ref TC74_Temperature_Get
+//!   .
+//! - \ref TC74_API_Group
+//!   - \ref TC74_API_Group_Init
+//!   - \ref TC74_API_Group_RegWR
+//!   - \ref TC74_API_Group_Mode
+//!   - \ref TC74_API_Group_Temper
+//!   .
+//! - \ref TC74_Usage
+//! 
+//! <br />
+//! \section TC74_Physical 1. TC74 Physical Block
+//!
+//! <br />
+//! \subsection TC74_Package 1.1 TC74 Package type
+//! <img src="TC74_Package.png" />
+//!
+//! <br />
+//! \subsection TC74_Function_Block 1.2 TC74 Function Block
+//! <img src="TC74_Function.png" />
+//!
+//! <br />
+//! \section TC74_Function_Desc 2. TC74 Functional Description
+//!
+//! <br />
+//! \subsection TC74_Init_Control 2.1 TC74 Initalization control
+//! This function can enable or disable I2C to work,and when I2C is disabled,
+//! sets TC74 as standby mode. 
+//! 
+//! <br />
+//! \subsection TC74_Mode_Control 2.2 TC74 mode control
+//! This function can set TC74 to standby or normal mode and get its mode.
+//! In standby mode, the A/D converter is halted and the temperature data 
+//! registers are frozen. The SMBus/I2C port, though, operates normally. 
+//!
+//! <br />
+//! \subsection TC74_Temperature_Get 2.3 TC74 temperature get
+//! We can get the current temperature from TC74's TEMP register. 
+//! In temperature data registers, each unit value represents one degree 
+//!(Celsius). The value is in 2°Øs complement binary format such that a 
+//! reading of 00000000b corresponds to 0°„C.Temperature resolution is 1°„C.  
+//!
+//! <br />
+//! \section TC74_API_Group 3. TC74 API group
+//! 
+//! The TC74 API is broken  into three groups of functions:
+//! - those that deal with TC74 initalization,
+//! - those that deal with write and read TC74 registers,
+//! - those that deal with TC74 mode,
+//! - those that deal with TC74 temperature.
+//! .
+//! 
+//! <br />
+//! \subsection TC74_API_Group_Init 3.1 TC74 initalization
+//! We can use the following APIs to initalize I2C interface and TC74.
+//! - TC74Init()
+//! - TC74DeInit().
+//!
+//! <br />
+//! \subsection TC74_API_Group_RegWR 3.2 TC74 registers read and write
+//! We can use the following APIs to write or read a value from TC74 
+//! registers through I2C interface.
+//! - TC74RegRead()
+//! - TC74RegWrite().
+//!
+//! <br />
+//! \subsection TC74_API_Group_Mode 3.3 TC74 mode control APIS
+//! TC74 mode can be set and get from following APIs:
+//! - TC74ModeSet()
+//! - TC74ModeGet()
+//! .
+//!
+//! <br />
+//! \subsection TC74_API_Group_Temper 3.4 TC74 temperature get APIS
+//! We can use the following APIs to get the current temperature
+//! - TC74DATAReady()
+//! - TC74TempGet().
+//! .
+//! 
+//! \section TC74_Usage 4. Usage & Program Examples
+//! The following example shows how to set TC74 mode and get current 
+//! temperature.
+//! 
+//! \code
+//! unsigned char ucMode, ucStatus, ucTemp;
+//!    
+//! //
+//! //Initalizes I2C.
+//! //
+//! TC74Init(50000);
+//!
+//! //
+//! //Sets TC74 as standby mode.
+//! //
+//! TC74ModeSet(TC74_MODE_STANDBY);
+//!    
+//! //
+//! //Gets the mode of TC74.
+//! //
+//! ucMode = TC74ModeGet();
+//!
+//! //
+//! //Sets TC74 as normal mode.
+//! //
+//! TC74ModeSet(TC74_MODE_NORMAL);
+//!
+//! //
+//! //Gets the mode of TC74.
+//! //
+//! ucMode = TC74ModeGet();
+//! 
+//! TC74TempGet();
+//! //
+//! // Disable I2C0, set TC74 as standby mode.
+//! //
+//! TC74DeInit();
+//!	
+//! \endcode
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup COX_Driver_Lib  COX Driver Lib
+//! 
+//! \brief The source of COX driver.
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup COX_TempSensor_Lib  COX TempSensor Lib
+//! 
+//! \brief COX temperature sensor.
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup TC74_Address  TC74 Address
+//! 
+//! \brief The value of TC74 slaver address.
+//!
+//
+//*****************************************************************************
+//*****************************************************************************
+//
+//! \defgroup TC74_I2C_Set  TC74 I2C Set
+//! 
+//! \brief Sets the connection between TC74 and master.
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup TC74_Mode  TC74 Mode
+//! 
+//! \brief Values that can be passed to TC74ModeSet.
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup TC74_Register TC74 registers
+//! 
+//! \brief TC74 registers.
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup TC74_Exported_APIs TC74 Exported APIs
+//! 
+//! \brief TC74 APIs.
+//!
+//
+//*****************************************************************************
+
+
+
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>TC74A0-3.3VAT</Name>
+    <Description> Digital temperature sensor particularly suited for low cost and small formfactor applications. </Description>
+    <Manufacturer>Microchip</Manufacturer>
+    
+    <Category>Sensor</Category>
+    <SubCategory>Temperature</SubCategory>
+    
+    <KeyWord>TC74,d Temperature, Sensor</KeyWord>
+    
+    <Communication>
+        <Interface>SMBus</Interface>
+        <Interface>I2C</Interface>
+    </Communication>
+    
+    <WebPage>http://cn.element14.com/jsp/search/productdetail.jsp?id=1863985</WebPage>
+    <Datasheet>http://www.farnell.com/datasheets/5070.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

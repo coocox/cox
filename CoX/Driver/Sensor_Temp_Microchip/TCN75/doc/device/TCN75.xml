@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>TCN75-5.0MOA</Name>
+    <Description> Digital temperature sensor particularly suited for low cost and small formfactor applications. </Description>
+    <Manufacturer>Microchip</Manufacturer>
+    
+    <Category>Sensor</Category>
+    <SubCategory>Temperature</SubCategory>
+    
+    <KeyWord>TCN75-5.0MOA, Temperature Sensor</KeyWord>
+    
+    <Communication>
+        <Interface>SMBus</Interface>
+        <Interface>I2C</Interface>
+    </Communication>
+    
+    <WebPage>http://cn.element14.com/jsp/search/productdetail.jsp?id=1212686</WebPage>
+    <Datasheet>http://ww1.microchip.com/downloads/en/DeviceDoc/21490C.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>
