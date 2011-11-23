@@ -80,7 +80,47 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup W25X_Connection W25X Configuration
+//! \addtogroup W25X_Attribute W25X Attribute
+//! \brief W25X attribute include the pagesize of W25X,the block size of W25X and
+//!  the minimum unit that can be erased per time.
+//! \note The uint of page,block or chip size always are "byte".
+//! @{
+//
+//*****************************************************************************
+
+#define W25X_PAGE_SIZE          256UL
+#define W25X_SECTOR_SIZE        4096UL
+#define W25X_BLOCK_SIZE         65536UL
+#define W25X_MINIMUN_ERASE_UNIT 4096UL
+
+#if(W25X_Device == W25X16)
+
+#define W25X_CHIP_SIZE          2097152UL
+
+#elif(W25X_Device == W25X32)
+
+#define W25X_CHIP_SIZE          4194304UL
+
+#elif(W25X_Device == W25X32)
+
+#define W25X_CHIP_SIZE          8388608UL
+
+#endif
+
+#define W25X16                  0
+#define W25X16A                 0
+#define W25X32                  1
+#define W25X64                  2
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup W25X_Configuration  W25X Configuration
 //! \brief Values can be used in W25XInit(),Define SPIx as a port connecting W25X
 //! which can be configured,when you use a different SPI port you must configure
 //! them again.
@@ -88,6 +128,11 @@ extern "C"
 //
 //*****************************************************************************
 
+//
+//! User device configure,it can only be W25X16,W25X32 and W25X64.
+// 
+#define W25X_Device             W25X16
+  
 //
 //! The configuration of write protect function,if the value is bigger than 0
 //
@@ -159,62 +204,62 @@ extern "C"
 //! The upper 1/MemorySize will be protected(MemorySize is 64 for W25X64 and W25X32,
 //! MemorySizeis 32 for W25X16).
 //
-#define W25X_REGION1            0x04
+#define W25X_1_MEMORYSIZE_UP    0x04
 
 //
 //! The upper 2/MemorySize will be protected
 //
-#define W25X_REGION2            0x08
+#define W25X_2_MEMORYSIZE_UP    0x08
 
 //
 //! The upper 4/MemorySize will be protected
 //
-#define W25X_REGION3            0x0c
+#define W25X_4_MEMORYSIZE_UP    0x0c
 
 //
 //! The upper 8/MemorySize will be protected
 //
-#define W25X_REGION4            0x10
+#define W25X_8_MEMORYSIZE_UP    0x10
   
 //
 //! The upper 16/MemorySize will be protected
 //
-#define W25X_REGION5            0x14
+#define W25X_16_MEMORYSIZE_UP   0x14
 
 //
 //! The upper 32/MemorySize will be protected
 //
-#define W25X_REGION6            0x18
+#define W25X_32_MEMORYSIZE_UP   0x18
 
 //
 //! The lower 1/MemorySize will be protected
 //
-#define W25X_REGION7            0x24
+#define W25X_1_MEMORYSIZE_LOW   0x24
 
 //
 //! The lower 2/MemorySize will be protected
 //
-#define W25X_REGION8            0x28
+#define W25X_2_MEMORYSIZE_LOW   0x28
 
 //
 //! The lower 4/MemorySize will be protected
 //
-#define W25X_REGION9            0x2c
+#define W25X_4_MEMORYSIZE_LOW   0x2c
   
 //
 //! The lower 8/MemorySize will be protected
 //
-#define W25X_REGION11           0x30
+#define W25X_8_MEMORYSIZE_LOW   0x30
   
 //
 //! The lower 16/MemorySize will be protected
 //
-#define W25X_REGION12           0x34
+#define W25X_16_MEMORYSIZE_LOW  0x34
   
 //
 //! The lower 32/MemorySize will be protected
 //
-#define W25X_REGION13           0x38
+#define W25X_32_MEMORYSIZE_LOW  0x38
   
 //
 //! The chip will be protected for W25X. 
@@ -242,12 +287,14 @@ extern unsigned long W25XWrite(unsigned char* pucBuffer,
 extern void W25XRead(unsigned char* pucBuffer, 
                      unsigned long  ulReadAddr,
                      unsigned long ulNumByteToRead);
-extern unsigned long W25XVerify(unsigned char* pucWriteBuffer,
-                                unsigned long  ulReadAddr,
-                                unsigned long ulNumByteToWrite);
+extern unsigned long W25XVerify(unsigned char* pucVerifyBuffer,
+                                unsigned long ulVerifyAddr,
+                                unsigned long ulVerifyByteLength);
 extern void W25XChipErase(void);
-extern void W25XSectorErase(unsigned long ulDstAddr);
-extern void W25XBlockErase(unsigned long ulDstAddr);
+extern void W25XSectorErase(unsigned long ulIndexSector);
+extern void W25XSectorErase2(unsigned long ulAddress);
+extern void W25XBlockErase(unsigned long ulIndexBlock);
+extern void W25XBlockErase2(unsigned long ulAddress);
 extern void W25XPowerDown(void);
 extern void W25XWakeUp(void);
 void W25XWriteProtect(unsigned char ucBlock);
@@ -256,6 +303,10 @@ xtBoolean W25XIsBusy(void);
 extern void W25XDeInit(void);
 extern void W25XWriteEnable(void);
 extern void W25XWriteDisable(void);
+extern unsigned long W25XChipSizeGet(void);
+extern unsigned long W25XSectorSizeGet(void);
+extern unsigned long W25XBlockSizeGet(void);
+extern unsigned long W25XPageSizeGet(void);
 
 #if WP_CONFIG > 0
 extern void W25XWpDisable(void);

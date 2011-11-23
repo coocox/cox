@@ -23,6 +23,7 @@
 //!   - \ref CoX_W25X_API_Group_ReadandWrite
 //!   - \ref CoX_W25X_API_Group_Control
 //!   - \ref CoX_W25X_API_Group_PowerDown
+//!   - \ref CoX_W25X_API_Group_Attribute
 //! - \ref W25X_Usage
 //! .
 //!
@@ -50,6 +51,7 @@
 //!   applications. 
 //! - A Manufacturer's ID register
 //! - Read data from W25X
+//! - Get attribute of W25X.
 //! .
 //!
 //! <br />
@@ -75,6 +77,8 @@
 //! - W25XChipErase(),
 //! - W25XSectorErase(),
 //! - W25XBlockErase(),
+//! - W25XSectorErase2(),
+//! - W25XBlockErase2(),
 //! - W25XWrite().
 //! .
 //!
@@ -88,9 +92,16 @@
 //! .
 //!
 //! <br />
-//! \subsection CoX_W25X_API_Group_PowerDown 4.4 W25X enter power down status and wake up
-//! - W25XPowerDown()
-//! - W25XWakeUp()
+//! \subsection CoX_W25X_API_Group_PowerDown 4.4 W25X enter powerdown status and wake up
+//! - W25XPowerDown(),
+//! - W25XWakeUp().
+//! .
+//! <br />
+//! \subsection CoX_W25X_API_Group_Attribute 4.5 W25X Attribute Get
+//! - W25XPageSizeGet(),
+//! - W25XChipSizeGet(),
+//! - W25XSectorSizeGet(),
+//! - W25XBlockSizeGet(),
 //! .
 //! \section W25X_Usage W25X Usage
 //! Step 1, you should select the CoX implment according to the mcu that you select. \n

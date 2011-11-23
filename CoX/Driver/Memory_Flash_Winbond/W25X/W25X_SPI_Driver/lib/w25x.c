@@ -401,7 +401,9 @@ W25XWrite(unsigned char* pucBuffer,
 //
 //! \brief W25X Verify
 //! 
-//! \param ucBlock specifies the block or blocks which will be protected.
+//! \param pucVerifyBuffer specifies the data which will be verified.
+//! \param ulVerifyAddr specifies the address which will be verified.
+//! \param ulVerifyByteLength specifies the length of data which will be verified.
 //!
 //! This function is to verify whether the data writing is sucessful or not.
 //! 
@@ -409,24 +411,24 @@ W25XWrite(unsigned char* pucBuffer,
 //
 //*****************************************************************************
 unsigned long 
-W25XVerify(unsigned char* pucWriteBuffer,
-           unsigned long  ulReadAddr,
-           unsigned long ulNumByteToWrite)
+W25XVerify(unsigned char* pucVerifyBuffer,
+           unsigned long ulVerifyAddr,
+           unsigned long ulVerifyByteLength)
 {
     unsigned long i;
     unsigned char* pucRead;
 
-    for(i=0; i < ulNumByteToWrite; i++)
+    for(i=0; i < ulVerifyByteLength; i++)
     {
     //
     // Step 1 Read the data from W25X
     //
-        W25XRead(pucRead, ulReadAddr, 1);
+        W25XRead(pucRead, ulVerifyAddr, 1);
     
     //
     // Step 2 Check the data which have been written to W25X
     //
-        if(*pucRead != pucWriteBuffer[i])
+        if(*pucRead != pucVerifyBuffer[i])
         {
             break;
         }
@@ -522,21 +524,20 @@ void W25XChipErase(void)
 //
 //! \brief Erase a sector
 //! 
-//! \param ulDstAddr specifies the sector address which will be erased.and for
-//! W25X16,it must be smaller than 512
-//! This function is to Erase a sector
+//! \param ulIndexSector specifies the sector number which will be erased.
+//! This function is to erase a sector
 //! 
 //! \return none
 //
 //*****************************************************************************
-void W25XSectorErase(unsigned long ulDstAddr)
+void W25XSectorErase(unsigned long ulIndexSector)
 {
     unsigned char ucCommand,ucAddrBuffer[3];
     
-    ulDstAddr = ulDstAddr * 4096;
-    ucAddrBuffer[0] = (unsigned char)(ulDstAddr >> 16);
-    ucAddrBuffer[1] = (unsigned char)(ulDstAddr >> 8);
-    ucAddrBuffer[2] = (unsigned char)(ulDstAddr >> 0);
+    ulIndexSector = ulIndexSector * 4096;
+    ucAddrBuffer[0] = (unsigned char)(ulIndexSector >> 16);
+    ucAddrBuffer[1] = (unsigned char)(ulIndexSector >> 8);
+    ucAddrBuffer[2] = (unsigned char)(ulIndexSector >> 0);
     
     //
     //Step 1 Set write enable
@@ -575,22 +576,124 @@ void W25XSectorErase(unsigned long ulDstAddr)
 //
 //! \brief Erase a block
 //! 
-//! \param ulDstAddr specifies the block address which will be erased.and for
-//! W25X16,it must be smaller than 32
+//! \param ulIndexBlock specifies the block number which will be erased.
 //!
-//! This function is to Erase a block
+//! This function is to erase a block
 //! 
 //! \return none
 //
 //*****************************************************************************
-void W25XBlockErase(unsigned long ulDstAddr)
+void W25XBlockErase(unsigned long ulIndexBlock)
 {
-    unsigned char ucCommand;
-    unsigned char ucAddrBuffer[3];
-    ulDstAddr = ulDstAddr * 65536;
-    ucAddrBuffer[0] = (unsigned char)(ulDstAddr >> 16);
-    ucAddrBuffer[1] = (unsigned char)(ulDstAddr >> 8);
-    ucAddrBuffer[2] = (unsigned char)(ulDstAddr >> 0);
+    unsigned char ucCommand,ucAddrBuffer[3];
+    
+    ulIndexBlock = ulIndexBlock * 65536;
+    ucAddrBuffer[0] = (unsigned char)(ulIndexBlock >> 16);
+    ucAddrBuffer[1] = (unsigned char)(ulIndexBlock >> 8);
+    ucAddrBuffer[2] = (unsigned char)(ulIndexBlock >> 0);
+    
+    //
+    //Step 1 Set write enable
+    //
+    W25XWriteEnable();
+    W25XSPICSDisable();
+    
+    //
+    //Step 2 Select Chip
+    //
+    W25XSPICSAssert();
+    
+    //
+    //Step 3 Transfer the command Block Erase
+    // 
+    ucCommand = W25X_INS_BLOCK_ERASE;
+    xSPIDataWrite(W25X_PIN_SPI_PORT, &ucCommand, 1);
+    
+    //
+    //Step 4 Transfer the address which will be erased
+    //
+    xSPIDataWrite(W25X_PIN_SPI_PORT, ucAddrBuffer, 3);
+    
+    //
+    //Step 5 Disable chip select
+    //
+    W25XSPICSDisable();
+    
+    //
+    //Step 6  wait for the operation is over
+    //
+    while(W25XIsBusy()); 
+}
+
+//*****************************************************************************
+//
+//! \brief Erase a sector
+//! 
+//! \param ulAddress specifies the sector address which will be erased.
+//! This function is to erase a sector
+//! 
+//! \return none
+//
+//*****************************************************************************
+void W25XSectorErase2(unsigned long ulAddress)
+{
+    unsigned char ucCommand,ucAddrBuffer[3];
+    
+    ucAddrBuffer[0] = (unsigned char)(ulAddress >> 16);
+    ucAddrBuffer[1] = (unsigned char)(ulAddress >> 8);
+    ucAddrBuffer[2] = (unsigned char)(ulAddress >> 0);
+    
+    //
+    //Step 1 Set write enable
+    //
+    W25XWriteEnable();
+    W25XSPICSDisable();
+    
+    //
+    //Step 2 Select Chip
+    //
+    W25XSPICSAssert();
+    
+    //
+    //Step 3 Transfer the command Sector Erase
+    // 
+    ucCommand = W25X_INS_SECTOR_ERASE;
+    xSPIDataWrite(W25X_PIN_SPI_PORT, &ucCommand, 1);
+    
+    //
+    //Step 4 Transfer the address which will be erased
+    //
+    xSPIDataWrite(W25X_PIN_SPI_PORT, ucAddrBuffer, 3);
+    
+    //
+    //Step 5 Disable chip select
+    //
+    W25XSPICSDisable();
+    
+    //
+    //Step 6  wait for the operation is over
+    //
+    while(W25XIsBusy()); 
+}
+
+//*****************************************************************************
+//
+//! \brief Erase a block
+//! 
+//! \param ulAddress specifies the block address which will be erased.
+//!
+//! This function is to erase a block
+//! 
+//! \return none
+//
+//*****************************************************************************
+void W25XBlockErase2(unsigned long ulAddress)
+{
+    unsigned char ucCommand,ucAddrBuffer[3];
+
+    ucAddrBuffer[0] = (unsigned char)(ulAddress >> 16);
+    ucAddrBuffer[1] = (unsigned char)(ulAddress >> 8);
+    ucAddrBuffer[2] = (unsigned char)(ulAddress >> 0);
     
     //
     //Step 1 Set write enable
@@ -883,4 +986,67 @@ void W25XWriteDisable(void)
     //Step 3 Disable chip select
     //
     W25XSPICSDisable();
+}
+//*****************************************************************************
+//
+//! \brief Get W25X Page Size
+//! 
+//! \param None
+//!
+//! This function is to get W25X Page Size
+//! 
+//! \return W25X Page Size
+//
+//*****************************************************************************
+unsigned long W25XPageSizeGet(void)
+{
+    return W25X_PAGE_SIZE;
+}
+
+//*****************************************************************************
+//
+//! \brief Get W25X Sector Size
+//! 
+//! \param None
+//!
+//! This function is to get W25X Sector Size
+//! 
+//! \return W25X Sector Size
+//
+//*****************************************************************************
+unsigned long W25XSectorSizeGet(void)
+{
+    return W25X_SECTOR_SIZE;
+}
+
+//*****************************************************************************
+//
+//! \brief Get W25X Block Size
+//! 
+//! \param None
+//!
+//! This function is to get W25X Block Size
+//! 
+//! \return W25X Block Size
+//
+//*****************************************************************************
+unsigned long W25XBlockSizeGet(void)
+{
+    return W25X_BLOCK_SIZE;
+}
+
+//*****************************************************************************
+//
+//! \brief Get W25X Chip Size
+//! 
+//! \param None
+//!
+//! This function is to get W25X Chip Size
+//! 
+//! \return W25X Chip Size
+//
+//*****************************************************************************
+unsigned long W25XChipSizeGet(void)
+{
+    return W25X_CHIP_SIZE;
 }
