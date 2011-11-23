@@ -1,7 +1,8 @@
-//******************************************************
+
+//*****************************************************************************
 //
 //!
-//! \addtogroup MCP98242_3_TempSensor_EEPROM
+//! \addtogroup MCP98242_TempSensor_EEPROM
 //! @{
 //!
 //! Microchip Technology Inc.'s MCP98242 digital
@@ -94,36 +95,21 @@
 //! These APIs are methods to configure the temperature sensor, and get the ambient 
 //! temperature.
 //!
-//! - MCP98242_3RegSet(MCP98242_3Dev *pDev, void *vpValue, unsigned short usType, char cTransType)
-//! - MCP98242_3RegGet(MCP98242_3Dev *pDev, void *vpValue, unsigned short usType, char cTransType)
-//! - MCP98242_3SENInit(MCP98242_3Dev *pDev, unsigned long ulRate)
-//! - MCP98242_3SENDeInit(MCP98242_3Dev *pDev)
-//! - MCP98242_3Config(MCP98242_3Dev *pDev, unsigned short usConfig)
-//! - MCP98242_3IntEnable(MCP98242_3Dev *pDev)
-//! - MCP98242_3IntConfig(MCP98242_3Dev *pDev, xtEventCallback xtIntCallback, unsigned long ucTrigMode, unsigned long ulEventMode)
-//! - MCP98242_3IntDisable(MCP98242_3Dev *pDev)
-//! - MCP98242_3ModeSet(MCP98242_3Dev *pDev, char cMode)
-//! - MCP98242_3ModeGet(MCP98242_3Dev *pDev)
-//! - MCP98242_3EvnCondGet(MCP98242_3Dev *pDev)
-//! - MCP98242_3ResSet(MCP98242_3Dev *pDev, unsigned char sResol)
-//! - MCP98242_3ResGet(MCP98242_3Dev *pDev)
-//! - MCP98242_3HystSet(MCP98242_3Dev *pDev, unsigned long ulHyst)
-//! - MCP98242_3HystGet(MCP98242_3Dev *pDev)
-//! - MCP98242_3GetID(MCP98242_3Dev *pDev, MCP98242_3_ID *id)
-//! - MCP98242_3IntClear(MCP98242_3Dev *pDev)
-//! - MCP98242_3CapGet(pDev, sencap)
-//! - MCP98242_3ConfigGet(pDev, senconfig)
-//! - MCP98242_3UpperSet(pDev, limValue)
-//! - MCP98242_3UpperGetFt(pDev, fLimValue)
-//! - MCP98242_3UpperGetDec(pDev, sLimValue)  
-//! - MCP98242_3LowerSet(pDev, limValue) 
-//! - MCP98242_3LowerGetFt(pDev, fLimValue)
-//! - MCP98242_3LowerGetDec(pDev, sLimValue) 
-//! - MCP98242_3CritSet(pDev, limValue)
-//! - MCP98242_3CritGetFt(pDev, fLimValue) 
-//! - MCP98242_3CritGetDec(pDev, sLimValue) 
-//! - MCP98242_3GetTempFt(pDev, fValue) 
-//! - MCP98242_3GetTempDec(pDev, sValue) 
+//! - MCP98242RegSet(MCP98242Dev *pDev, void *vpValue, unsigned char ucType, unsigned char ucTransType)
+//! - MCP98242RegGet(MCP98242Dev *pDev, void *vpValue, unsigned char ucType, unsigned char ucTransType)
+//! - MCP98242SensorInit(MCP98242Dev *pDev, unsigned long ulRate)
+//! - MCP98242CapGet(MCP98242Dev *pDev)
+//! - MCP98242Config(MCP98242Dev *pDev, unsigned short usConfig, unsigned long ulResol, unsigned long ulHyst)
+//! - MCP98242IntEnable(MCP98242Dev *pDev)
+//! - MCP98242IntConfig(MCP98242Dev *pDev, xtEventCallback xtIntCallback, unsigned long ulTrigMode, unsigned long ulEventMode)
+//! - MCP98242IntClear(MCP98242Dev *pDev)
+//! - MCP98242IntDisable(MCP98242Dev *pDev)
+//! - MCP98242SHDNEnable(MCP98242Dev *pDev)
+//! - MCP98242SHDNDisable(MCP98242Dev *pDev)
+//! - MCP98242EvnCondGet(MCP98242Dev *pDev)
+//! - MCP98242LimitSet(MCP98242Dev *pDev, void *vpValue, unsigned char ucLimitType)
+//! - MCP98242TempGet(MCP98242Dev *pDev, void *vpValue, unsigned char ucDataType)
+//! - MCP98242GetID(MCP98242Dev *pDev, MCP98242_ID *id)
 //! .
 //!
 //! <br />
@@ -131,19 +117,13 @@
 //!
 //! The APIs are methods to write and read EEPROM.
 //!
-//! - MCP98242_3EEPROMInit(MCP98242_3Dev *pDev, unsigned long ulRate)
-//! - MCP98242_3EEPROMDeInit(MCP98242_3Dev *pDev)
-//! - MCP98242_3ByteWrite(MCP98242_3Dev *pDev, char cAddr, char *cpValue, char cTransType) 
-//! - MCP98242_3ByteRead(MCP98242_3Dev *pDev, char cAddr, char *cpValue, char cTransType)
-//! - MCP98242_3MutiByteWrite(MCP98242_3Dev *pDev, char cAddr, char *cpValue, char cTransType, unsigned char ucNum)
-//! - MCP98242_3PageWrite(MCP98242_3Dev *pDev, char cAddr, char *cpValue, char cTransType)  
-//! - MCP98242_3MemRead(MCP98242_3Dev *pDev, char cAddr, char *cpValue, char cTransType, unsigned char ucNum)
-//! - MCP98242_3SWPRead(pDev, addr, value, TransType) 
-//! - MCP98242_3SWPWrite(pDev, addr, value, TransType)
-//! - MCP98242_3CWPRead(pDev, addr, value, TransType)
-//! - MCP98242_3CWPWrite(pDev, addr, value, TransType)
-//! - MCP98242_3PWPRead(pDev, addr, value, TransType)  
-//! - MCP98242_3PWPWrite(pDev, addr, value, TransType) 
+//! - MCP98242EEPROMInit(MCP98242Dev *pDev, unsigned long ulRate)
+//! - MCP98242ByteWrite(MCP98242Dev *pDev, unsigned char ucAddr, unsigned char ucValue)
+//! - MCP98242PageWrite(MCP98242Dev *pDev, unsigned char ucAddr, unsigned char *ucpValue)
+//! - MCP98242ByteRead(MCP98242Dev *pDev, unsigned char ucAddr)
+//! - MCP98242MemRead(MCP98242Dev *pDev, unsigned char ucAddr, unsigned char *ucpValue, unsigned char ucNum)
+//! - MCP98242ProtWrite(MCP98242Dev *pDev, unsigned char ucAddr, unsigned char ucValue, unsigned char cType)
+//! - MCP98242ProtClear(MCP98242Dev *pDev, unsigned char ucAddr)
 //! .
 //!
 //! <br />
@@ -200,3 +180,432 @@
 //! @}
 //
 //******************************************************
+
+
+//******************************************************
+//
+//!
+//! \addtogroup MCP98242_App MCP98242 Applications
+//! @{
+//!
+//! 
+//! \defgroup MCP98242_3_TempGet Get Temperature Example
+//!
+//! \brief Get Temperature Example.
+//!
+//! Here we introduce how to get ambient temperature with MCP98242.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref MCP98242_3_TempGet_Steps
+//! - \ref MCP98242_3_TempGet_Code
+//! .
+//!
+//! <br />
+//! \section MCP98242_3_TempGet_Steps 1.How to configure MCP98242. 
+//!
+//! <ol>
+//! <li>Select and enable I2C, configure I2C clock rate and related GPIO Pins.</li>
+//! <li>
+//! Set MCP98242_3Dev struct: <br />
+//!  a. I2C Base <br />
+//!  b. Temperature Sensor Slave Address <br />
+//!  c. EEPROM Slave Address <br />
+//!  d. PWP Slave Address <br />
+//!  e. Event Pin <br />
+//!  f. Event Interrupt ID <br />
+//!  g. Function to configure the GPIO Pins. 
+//! </li>
+//! <li>Set callback function for MCP98242_3 Event Output.</li>
+//! <li>Initialize the temperature sensor.</li>
+//! <li>Set the upper, lower, and critical temperature.</li>
+//! <li>Set RESOLUTION, HYSTERESIS.</li>
+//! <li>
+//! Configure the Interrupt. <br />
+//!  a. Specify the device <br />
+//!  b. Initialize the callback funtion <br />
+//!  c. Event Alert Polarity: Low Level <br />
+//!  d. Event Mode: Comparator
+//! </li>
+//! <li>Enable MCP98242_3 Interrupt.</li>
+//! </ol>
+//!
+//! <br />
+//! \section MCP98242_3_TempGet_Code 2.The code to get ambient temperature.
+//!
+//! \code
+//! 
+//! #include "xhw_types.h"
+//! #include "xhw_memmap.h"
+//! #include "xcore.h"
+//! #include "xi2c.h"
+//! #include "xsysctl.h"
+//! #include "xhw_sysctl.h"
+//! #include "xgpio.h"
+//! #include "xhw_ints.h"
+//! #include "MCP98242_3.h"
+//!
+//! volatile  unsigned char Event_mode = 0;
+//!
+//! volatile  unsigned char Int_Status = 0;
+//!
+//! unsigned long test_Sen_Event (void *pvCBData, 
+//!                                    unsigned long ulEvent,
+//!                                    unsigned long ulMsgParam,
+//!                                    void *pvMsgData);
+//!
+//! int test_led(void);
+//!
+//! //
+//! // Enable I2C, GPIO clock
+//! // Set pins to I2C funciton
+//! //
+//! void pinSet()
+//! {
+//!     //
+//!     // Enable GPIO Clock
+//!     //
+//!     xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(PA8));
+//!     xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(PA9));
+//!
+//!     xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(PB13));
+//!
+//!     xSPinTypeI2C(I2C0SDA, PA8);
+//!     xSPinTypeI2C(I2C0SCK, PA9);
+//! }
+//!
+//! //
+//! // Set MCP98242_3Dev struct:
+//! // 1. I2C Base
+//! // 2. Temperature Sensor Slave Address
+//! // 3. EEPROM Slave Address
+//! // 4. PWP Slave Address
+//! // 5. Event Pin
+//! // 6. Event Interrupt ID
+//! // 7. Function to configure the GPIO Pins. 
+//! //
+//! MCP98242_3Dev dev = {I2C0_BASE, 0x1C, 0x54, 0x37,xGPIOSPinToPortPin(PB13), 
+//!                         xINT_GPIOB, pinSet};
+//!
+//! int test_led()
+//! {
+//!     int i;
+//!     for(i=0; i<100000; i++);
+//!     GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_12, 
+//!         !((GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_12) & GPIO_PIN_12)>>12));
+//!     return 0;
+//! }
+//!
+//! unsigned long test_Sen_Event (void *pvCBData, 
+//!                                    unsigned long ulEvent,
+//!                                    unsigned long ulMsgParam,
+//!                                    void *pvMsgData)
+//! {
+//!     //
+//!     // Int Mode
+//!     //
+//!     if(Event_mode)
+//!     {
+//!         MCP98242_3IntClear(&dev);
+//!         Int_Status = 1;
+//!     }
+//!     //
+//!     // Comparator Mode
+//!     //
+//!     else
+//!         test_led();
+//!
+//!     return 0;
+//! }
+//!
+//! void TempSensor_Event()
+//! {
+//!     unsigned short s;
+//!     float f;     
+//!
+//!     //
+//!     // Initialize the temperature sensor.
+//!     //
+//!     MCP98242_3SENInit(&dev, 50000);
+//!
+//!     //
+//!     // Set the UPPER temperature.
+//!     //
+//!     f = 28.0;
+//!     MCP98242_3UpperSet(&dev, &f);
+//!
+//!     //
+//!     // Set the LOWER temperature.
+//!     //
+//!     f = 10.0;
+//!     MCP98242_3LowerSet(&dev, &f); 
+//!
+//!     //
+//!     // Set the CRITICAL temperature.
+//!     //
+//!     f = 30.0;
+//!     MCP98242_3CritSet(&dev, &f);
+//!
+//!     //
+//!     // Set RESOLUTION: 0.125¡æ
+//!     //
+//!     MCP98242_3ResSet(&dev, RESOLUTION_125);
+//!
+//!     //
+//!     // Set HYSTERESIS: 0¡æ
+//!     //
+//!     MCP98242_3HystSet(&dev, HYSTERESIS_1_5);
+//!
+//!     //
+//!     // Set the Event Output to be Comparator mode.
+//!     //
+//!     Event_mode = EVENT_COMP; 
+//!     //Event_mode = EVENT_INT;     //You can change to Int Mode.  
+//!     
+//!     //
+//!     // Configure the Interrupt.
+//!     // 1. Specify the device
+//!     // 2. Initialize the callback funtion
+//!     // 3. Event Alert Polarity: Low Level
+//!     // 4. Event Mode: Comparator
+//!     //         
+//!     MCP98242_3IntConfig(&dev, test_Sen_Event, EVENT_LOW_LEVEL, Event_mode);
+//!
+//!     //
+//!     // Enable MCP98242_3 Interrupt.
+//!     //
+//!     MCP98242_3IntEnable(&dev);
+//!
+//!     //
+//!     // Configure PA12 for Int Mode, PC12 for Comparator Mode.
+//!     //
+//!     xSysCtlPeripheralEnable(SYSCTL_PERIPH_GPIO);
+//!     xGPIODirModeSet(GPIO_PORTA_BASE, GPIO_BIT_12, GPIO_DIR_MODE_OUT);
+//!     xGPIODirModeSet(GPIO_PORTC_BASE, GPIO_BIT_12, GPIO_DIR_MODE_OUT);
+//!     GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_12, 1);
+//!     GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_12, 1);
+//!
+//!     while(1) 
+//!     { 
+//!         //
+//!         // Get Ambient temperature
+//!         //
+//!         MCP98242_3GetTempFt(&dev, &f);
+//!         for(f=0;f<10000;f++);
+//!
+//!         //
+//!         // For Int mode.
+//!         // If the T_A is above the T_UPPER , a interrupt will
+//!         // happen and the Blue LED turns on.
+//!         // If the T_A is below the T_UPPER - T_HYST, a interrupt will
+//!         // happen and the Blue LED turns off. 
+//!         //
+//!         if(Int_Status)
+//!         {
+//!             Int_Status = 0;
+//!             MCP98242_3RegGet(&dev, &s, MCP98242_3_TEMP, I2C_TRANSFER_POLLING);
+//!             if((s>>14)&1)
+//!                 GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_12, 0);
+//!             else
+//!                 GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_12, 1);
+//!         }
+//!     }    
+//! }
+//!
+//! int main()
+//! {
+//!     TempSensor_Event();
+//! }
+//! \endcode
+//!
+//!
+//!
+//!
+//! \defgroup MCP98242_3_EEPROM_WR EEPROM Write and Read Example
+//!
+//! \brief EEPROM Write and Read Example.
+//!
+//! Here we introduce how to write and read EEPROM.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref MCP98242_3_EEPROM_WR_Steps
+//! - \ref MCP98242_3_EEPROM_WR_Code
+//! .
+//!
+//! <br />
+//! \section MCP98242_3_EEPROM_WR_Steps 1.How to configure the EEPROM. 
+//!
+//! <ol>
+//! <li>Select and enable I2C, configure I2C clock rate and related GPIO Pins.</li>
+//! <li>Set the address, and write or read.</li>
+//! </ol>
+//!
+//! <br />
+//! \section MCP98242_3_EEPROM_WR_Code 2.The code write and read EEPROM.
+//!
+//! \code
+//! 
+//! #include "xhw_types.h"
+//! #include "xhw_memmap.h"
+//! #include "xcore.h"
+//! #include "xi2c.h"
+//! #include "xsysctl.h"
+//! #include "xhw_sysctl.h"
+//! #include "xgpio.h"
+//! #include "MCP98242_3.h"
+//!
+//! //
+//! // Enable I2C, GPIO clock
+//! // Set pins to I2C funciton
+//! //
+//! void pinSet()
+//! {
+//!     //
+//!     // Enable GPIO Clock
+//!     //
+//!     xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(PA8));
+//!     xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(PA9));
+//!
+//!     xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(PB13));
+//!
+//!     xSPinTypeI2C(I2C0SDA, PA8);
+//!     xSPinTypeI2C(I2C0SCK, PA9);
+//! }
+//!
+//! //
+//! // Set MCP98242_3Dev struct:
+//! // 1. I2C 
+//! // 2. EEPROM Slave Address
+//! // 3. Function to configure the GPIO Pins. 
+//! //
+//! MCP98242_3Dev dev = {I2C0_BASE, 0, 0x54, 0, 0, 0, 0, pinSet};
+//!
+//! void eepromWR()
+//! { 
+//!     char multWrite[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07};
+//!     char page_addr_data[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 
+//!                                         0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
+//!     char addr, *value;
+//!
+//!     //
+//!     // Initialize the EEPROM.
+//!     //
+//!     MCP98242_3EEPROMInit(&dev, 20000);
+//!
+//!     
+//!     addr = 0xA0;
+//!     value = multWrite;
+//!     //
+//!     // Write EEPROM with the content of multWrite from address 0xA0.
+//!     //
+//!     MCP98242_3MutiByteWrite(&dev, addr, value, I2C_TRANSFER_POLLING, sizeof(multWrite));
+//!
+//!     //
+//!     // Change part of multWrite.
+//!     //
+//!     value[0]=value[1]=value[2]=0x55;
+//!     SysCtlDelay(10000);
+//!
+//!     //
+//!     // Read from address 0xA0 of EEPROM.
+//!     //
+//!     MCP98242_3MemRead(&dev, addr, value, I2C_TRANSFER_POLLING, sizeof(multWrite));
+//!
+//!     if(page_addr_data[2] == 0x02)
+//!     {
+//!         //MultiByteWrite and Read succeed!
+//!     }
+//!
+//!     addr = 0xB0;
+//!     value = page_addr_data;
+//!
+//!     //
+//!     // Write a Page from address 0xB0 with content of page_addr_data.
+//!     //
+//!     MCP98242_3PageWrite(&dev, addr, value, I2C_TRANSFER_POLLING);
+//!
+//!     //
+//!     // Change part of page_addr_data.
+//!     //
+//!     value[0]=value[1]=value[2]=value[15]=value[14]=value[13]=0x55;
+//!     SysCtlDelay(10000);
+//!
+//!     //
+//!     // Read from address 0xB0 of EEPROM.
+//!     //
+//!     MCP98242_3MemRead(&dev, addr, value, I2C_TRANSFER_POLLING, sizeof(page_addr_data));
+//!
+//!     if(page_addr_data[13] == 0x0D)
+//!     {
+//!         //PageWrite and Read succeed!
+//!     }
+//!
+//!     //
+//!     // Change part of page_addr_data.
+//!     //
+//!     value[0]=value[1]=value[2]=value[13]=value[14]=0x55;
+//!     
+//!     //
+//!     // Sequential Read, read 15 byte sequentially from address 0xB0 of EEPROM.
+//!     //
+//!     MCP98242_3MemRead(&dev, addr, value, I2C_TRANSFER_POLLING, 15);
+//!
+//!     if(page_addr_data[13] == 0x0D)
+//!     {
+//!         //Sequential Read succeed!
+//!     }
+//!
+//!     //
+//!     // Current Address Read.We will read from address 0xBF.
+//!     // Value in address 0xBF equels page_addr_data[15].
+//!     //
+//!     MCP98242_3MemRead(&dev, 0, value, I2C_TRANSFER_POLLING, 0);
+//!
+//!     if(*value == 0x0F)
+//!     {
+//!         //Current Address Read succeed!
+//!     }
+//!    
+//! }
+//!
+//!
+//! int main()
+//! {
+//!     eepromWR();
+//!     return 0;
+//! }
+//!
+//! \endcode
+//!
+//! @}
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
+//!
+//! \addtogroup COX_Driver_Lib
+//! @{
+//! \addtogroup Sensor 
+//! @{
+//! \addtogroup Temperature_Sensor
+//! @{
+//! \addtogroup MCP98242_TempSensor_EEPROM
+//! @{
+//! \addtogroup MCP98242_Register
+//! @{
+//! @}
+//! \addtogroup MCP98242_Driver
+//! @{
+//! @}
+//! \addtogroup MCP98242_App
+//! @{
+//! @}
+//! @}
+//! @}
+//! @}
+//! @}
+//
+//*****************************************************************************

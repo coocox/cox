@@ -26,24 +26,26 @@ void pinSet()
 }
 
 //
-// Set MCP98242_3Dev struct:
+// Set MCP98242Dev struct:
 // 1. I2C 
 // 2. EEPROM Slave Address
 // 3. Function to configure the GPIO Pins. 
 //
-MCP98242_3Dev dev = {I2C0_BASE, 0, 0x54, 0, 0, 0, 0, pinSet};
+MCP98242Dev dev = {I2C0_BASE, 0, 0x54, 0, 0, 0, 0, pinSet};
 
 void eepromWR()
-{ 
-    char multWrite[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07};
-    char page_addr_data[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 
+{
+    unsigned char multWrite[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07};
+    unsigned char page_addr_data[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 
                                         0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
-    char addr, *value;
+    unsigned char addr, *value;
+
+    int i;
 
     //
     // Initialize the EEPROM.
     //
-    MCP98242_3EEPROMInit(&dev, 20000);
+    MCP98242EEPROMInit(&dev, 20000);
 
     
     addr = 0xA0;
@@ -51,7 +53,11 @@ void eepromWR()
     //
     // Write EEPROM with the content of multWrite from address 0xA0.
     //
-    MCP98242_3MutiByteWrite(&dev, addr, value, I2C_TRANSFER_POLLING, sizeof(multWrite));
+    for(i=0; i<8; i++, addr++)
+    {
+        MCP98242ByteWrite(&dev, addr, multWrite[i]);
+        xSysCtlDelay(10000);
+    }
 
     //
     // Change part of multWrite.
@@ -62,11 +68,11 @@ void eepromWR()
     //
     // Read from address 0xA0 of EEPROM.
     //
-    MCP98242_3MemRead(&dev, addr, value, I2C_TRANSFER_POLLING, sizeof(multWrite));
+    MCP98242MemRead(&dev, addr, value, sizeof(multWrite));
 
     if(page_addr_data[2] == 0x02)
     {
-        //MultiByteWrite and Read succeed!
+        //MCP98242ByteWrite and Read succeed!
     }
 
     addr = 0xB0;
@@ -75,7 +81,7 @@ void eepromWR()
     //
     // Write a Page from address 0xB0 with content of page_addr_data.
     //
-    MCP98242_3PageWrite(&dev, addr, value, I2C_TRANSFER_POLLING);
+    MCP98242PageWrite(&dev, addr, value);
 
     //
     // Change part of page_addr_data.
@@ -86,7 +92,7 @@ void eepromWR()
     //
     // Read from address 0xB0 of EEPROM.
     //
-    MCP98242_3MemRead(&dev, addr, value, I2C_TRANSFER_POLLING, sizeof(page_addr_data));
+    MCP98242MemRead(&dev, addr, value, sizeof(page_addr_data));
 
     if(page_addr_data[13] == 0x0D)
     {
@@ -101,7 +107,7 @@ void eepromWR()
     //
     // Sequential Read, read 15 byte sequentially from address 0xB0 of EEPROM.
     //
-    MCP98242_3MemRead(&dev, addr, value, I2C_TRANSFER_POLLING, 15);
+    MCP98242MemRead(&dev, addr, value, 15);
 
     if(page_addr_data[13] == 0x0D)
     {
@@ -112,7 +118,7 @@ void eepromWR()
     // Current Address Read.We will read from address 0xBF.
     // Value in address 0xBF equels page_addr_data[15].
     //
-    MCP98242_3MemRead(&dev, 0, value, I2C_TRANSFER_POLLING, 0);
+    MCP98242MemRead(&dev, 0, value, 0);
 
     if(*value == 0x0F)
     {

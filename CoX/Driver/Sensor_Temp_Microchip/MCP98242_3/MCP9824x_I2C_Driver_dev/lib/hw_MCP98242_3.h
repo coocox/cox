@@ -1,9 +1,9 @@
 //*****************************************************************************
 //
-//! \file xhw_MCP98242_3.h
-//! \brief header file of Driver for MCP98242_3
-//! \version 1.0
-//! \date 9/6/2011
+//! \file xhw_MCP98242.h
+//! \brief header file of Driver for MCP98242/3
+//! \version 2.1.2.0
+//! \date 20/11/2011
 //! \author CooCox
 //! \copy
 //!
@@ -38,8 +38,8 @@
 
 
 
-#ifndef __XHW_MCP98242_3_H__
-#define __XHW_MCP98242_3_H__
+#ifndef __XHW_MCP98242_H__
+#define __XHW_MCP98242_H__
 
 //*****************************************************************************
 //
@@ -49,7 +49,7 @@
 //! @{
 //! \addtogroup Temperature_Sensor  Temperature Sensor
 //! @{
-//! \addtogroup MCP98242_3_TempSensor_EEPROM MCP98242_3 TempSensor EEPROM
+//! \addtogroup MCP98242_TempSensor_EEPROM MCP98242 TempSensor EEPROM
 //! @{
 //
 //*****************************************************************************
@@ -57,16 +57,16 @@
 
 //*****************************************************************************
 //
-//! \addtogroup MCP98242_3_Register MCP98242_3 Register
-//! MCP98242_3 Temperature Sensor Registers.
+//! \addtogroup MCP98242_Register MCP98242 Register
+//! MCP98242 Temperature Sensor Registers.
 //! @{
 //
 //*****************************************************************************
 
 //*****************************************************************************
 //
-//! \addtogroup MCP98242_3_Register_Offsets MCP98242_3 Register Offset(Map)
-//! MCP98242_3 Temperature Sensor Registers.
+//! \addtogroup MCP98242_Register_Offsets MCP98242 Register Offset(Map)
+//! MCP98242 Temperature Sensor Registers.
 //! @{
 //
 //*****************************************************************************
@@ -74,47 +74,47 @@
 //
 //! Temperature Sensor Capability Register.
 //
-#define    MCP98242_3_Cap             0x00000000
+#define    MCP98242_Cap             0x00000000
 
 //
 //! Temperature Sensor Configuration Register.
 //
-#define    MCP98242_3_CONFIG          0x00000001
+#define    MCP98242_CONFIG          0x00000001
 
 //
 //! Temperature Sensor Upper Limit Register.
 //
-#define    MCP98242_3_UPPER           0x00000002
+#define    MCP98242_UPPER           0x00000002
 
 //
 //! Temperature Sensor Lower Limit Register.
 //
-#define    MCP98242_3_LOWER           0x00000003
+#define    MCP98242_LOWER           0x00000003
 
 //
 //! Temperature Sensor Critical Limit Register.
 //
-#define    MCP98242_3_CRITICAL        0x00000004
+#define    MCP98242_CRITICAL        0x00000004
 
 //
 //! Temperature Sensor Temperatrue Register.
 //
-#define    MCP98242_3_TEMP            0x00000005
+#define    MCP98242_TEMP            0x00000005
 
 //
 //! MANUFACTURER ID Register.
 //
-#define    MCP98242_3_ManuID          0x00000006
+#define    MCP98242_ManuID          0x00000006
 
 //
 //! DEVICE ID AND REVISION REGISTER ID Register.
 //
-#define    MCP98242_3_DevID_Rev       0x00000007   
+#define    MCP98242_DevID_Rev       0x00000007   
 
 //
 //! Temperature Sensor RESOLUTION Register.
 //
-#define    MCP98242_3_RSL             0x00000008
+#define    MCP98242_RSL             0x00000008
 
 //*****************************************************************************
 //
@@ -124,8 +124,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup MCP98242_3_Cap MCP98242_3 CAPABILITY
-//! MCP98242_3 Temperature Sensor Capability Register
+//! \addtogroup MCP98242_Cap MCP98242 CAPABILITY
+//! MCP98242 Temperature Sensor Capability Register
 //! @{
 //
 //*****************************************************************************
@@ -134,19 +134,19 @@
 //
 //! Temperature Alarm Enable.
 //
-#define   MCP98242_3_CAP_ALARM  0x00000001
+#define   MCP98242_CAP_ALARM  0x00000001
 
 //
 //! Temperature Accuracy: ¡À1¡ãC from +75¡ãC to +95¡ãC (Active Range) and 
 //! ¡À2¡ãC from +40¡ãC to +125¡ãC.
 //
-#define   MCP98242_3_CAP_ACR    0x00000002
+#define   MCP98242_CAP_ACR    0x00000002
 
 //
 //! Temperature Measurement Range: The part can measure 
 //! temperature below 0¡ãC (power-up default).
 //
-#define   MCP98242_3_CAP_MEAS  0x00000004
+#define   MCP98242_CAP_MEAS  0x00000004
 
 #ifdef   MCP98243
 
@@ -154,18 +154,18 @@
 //! Pin A0 accepts High Voltage for the EEPROM Write Protect 
 //! feature (power-up default).
 //
-#define   MCP98242_3_CAP_HV     0x00000020
+#define   MCP98242_CAP_HV     0x00000020
 
 //
 //! Bus time-out range is 25 ms to 35 ms.
 //
-#define   MCP98242_3_CAP_TOUT   0x00000040
+#define   MCP98242_CAP_TOUT   0x00000040
 
 //
 //! Event output de-asserts during shutdown. After shutdown, 
 //! it takes T_CONV to re-assert the Event output (power-up default)
 //
-#define   MCP98242_3_CAP_SHDN_DE   0x00000080
+#define   MCP98242_CAP_SHDN_DE   0x00000080
 
 #endif
 
@@ -177,8 +177,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup MCP98242_3_Config  MCP98242_3 Configuration
-//! MCP98242_3 Temperature Sensor Configuration Register
+//! \addtogroup MCP98242_Config  MCP98242 Configuration
+//! MCP98242 Temperature Sensor Configuration Register
 //! @{
 //
 //*****************************************************************************
@@ -186,47 +186,47 @@
 //
 //! Event Output Mode: Interrupt output.
 //
-#define   MCP98242_3_CONF_EVMODE   0x00000001
+#define   MCP98242_CONF_EVMODE   0x00000001
 
 //
 //! Event Output Polarity.
 //
-#define   MCP98242_3_HIGH_LEVEL    0x00000002
+#define   MCP98242_HIGH_LEVEL    0x00000002
 
 //
 //! Event Output Select: TA > TCRIT only.
 //
-#define   MCP98242_3_CONF_SEL      0x00000004
+#define   MCP98242_CONF_SEL      0x00000004
 
 //
 //! Event Output Enable.
 //
-#define   MCP98242_3_CONF_EN       0x00000008
+#define   MCP98242_CONF_EN       0x00000008
 
 //
 //! Event Output Status: asserted.
 //
-#define   MCP98242_3_CONF_STAT     0x00000010
+#define   MCP98242_CONF_STAT     0x00000010
 
 //
 //! Event Output Interrupt Clear.
 //
-#define   MCP98242_3_CONF_INTCLR   0x00000020
+#define   MCP98242_CONF_INTCLR   0x00000020
 
 //
 //! TUPPER and TLOWER Window Lock.
 //
-#define   MCP98242_3_CONF_WINLOCK  0x00000040
+#define   MCP98242_CONF_WINLOCK  0x00000040
 
 //
 //! TCRIT Lock.
 //
-#define   MCP98242_3_CONF_CRTLOCK  0x00000080
+#define   MCP98242_CONF_CRTLOCK  0x00000080
 
 //
 //! Shutdown Mode.
 //
-#define   MCP98242_3_CONF_SHDN     0x00000100
+#define   MCP98242_CONF_SHDN     0x00000100
 
 //*****************************************************************************
 //
@@ -252,4 +252,4 @@
 
 
 
-#endif // __XHW_MCP98242_3_H__
+#endif // __XHW_MCP98242_H__

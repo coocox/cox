@@ -422,19 +422,19 @@
           <GroupName>driver</GroupName>
           <Files>
             <File>
-              <FileName>MCP9824x.c</FileName>
+              <FileName>MCP98242_3.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\lib\MCP9824x.c</FilePath>
+              <FilePath>..\..\..\lib\MCP98242_3.c</FilePath>
             </File>
             <File>
-              <FileName>MCP9824x.h</FileName>
+              <FileName>MCP98242_3.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\lib\MCP9824x.h</FilePath>
+              <FilePath>..\..\..\lib\MCP98242_3.h</FilePath>
             </File>
             <File>
-              <FileName>xhw_MCP9824x.h</FileName>
+              <FileName>hw_MCP98242_3.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\lib\xhw_MCP9824x.h</FilePath>
+              <FilePath>..\..\..\lib\hw_MCP98242_3.h</FilePath>
             </File>
           </Files>
         </Group>

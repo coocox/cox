@@ -89,7 +89,7 @@ void pinSet()
     xSPinTypeI2C(I2C0SCK, PA9);
 }
 
-MCP98242_3Dev dev = {I2C0_BASE, 0x1C, 0x54, 0x37,xGPIOSPinToPortPin(PB13), 
+MCP98242Dev dev = {I2C0_BASE, 0x1C, 0x54, 0x37,xGPIOSPinToPortPin(PB13), 
                         xINT_GPIOB, pinSet};
 
 //*****************************************************************************
@@ -113,143 +113,100 @@ static char* TempSensor_GetTest(void)
 //*****************************************************************************
 static void TempSensor_Setup()
 {
-    MCP98242_3SENInit(&dev, 80000);
+    MCP98242SensorInit(&dev, 10000);
 }
 
 void TempSensor_RegTest()
 {
     short s=0;
     float f = 0;
-    short cofig;
-    MCP98242_3_ID id;
+    short config;
+    MCP98242_ID id;
     int i;
     
-    MCP98242_3CapGet(&dev, &s);
+    s = MCP98242CapGet(&dev);
     TestAssert((s&0x07) == 0x07,
-             "xuart API \"MCP98242_3CapSet\" or \"MCP98242_3CapGet\" error!");  
+             "xuart API \"MCP98242CapSet\" or \"MCP98242CapGet\" error!");  
 
     //
     // UPPER, LOWER, CRITICAL Limit registers
     //
     f = 24.0;
-    MCP98242_3UpperSet(&dev, &f);
-    f = 0.0;
-    MCP98242_3UpperGetFt(&dev, &f);
-    TestAssert((f-24.0)<0.0001,
-            "xuart API \"MCP98242_3LimitSet\" or \"MCP98242_3UpperGetFt\" error!");
-    MCP98242_3UpperGetDec(&dev, &s);
-    TestAssert(s == 24,
-            "xuart API \"MCP98242_3UpperSet\" or \"MCP98242_3UpperGetDec\" error!");
+    MCP98242LimitSet(&dev, &f, T_UPPER);
+    MCP98242RegGet(&dev, &s, MCP98242_UPPER, I2C_TRANSFER_POLLING);
+    TestAssert((s>>4) == 24,
+            "xuart API \"MCP98242LimitSet\" or \"MCP98242RegGet\" error!"); 
 
     f = -8.5;
-    MCP98242_3LowerSet(&dev, &f); 
-    f = 0.0;
-    MCP98242_3LowerGetFt(&dev, &f);
+    MCP98242LimitSet(&dev, &f, T_LOWER); 
+    MCP98242RegGet(&dev, &s, MCP98242_LOWER, I2C_TRANSFER_POLLING);
+    s = s<<3;
+    s = s>>3;
+    f = s * 0.0625;
     TestAssert((-f-8.5)<0.0001,
-            "xuart API \"MCP98242_3LowerSet\" or \"MCP98242_3LowerGetFt\" error!"); 
-    MCP98242_3LowerGetDec(&dev, &s);
-    TestAssert(s == (short)-8,
-            "xuart API \"MCP98242_3LowerSet\" or \"MCP98242_3LowerGetDec\" error!");             
+            "xuart API \"MCP98242LimitSet\" or \"MCP98242RegGet\" error!");             
 
     f = 26.0;
-    MCP98242_3CritSet(&dev, &f); 
-    f = 0.0;
-    MCP98242_3CritGetFt(&dev, &f);
-    TestAssert((f-26.0)<0.0001,
-            "xuart API \"MCP98242_3CritSet\" or \"MCP98242_3CritGetFt\" error!"); 
-    MCP98242_3CritGetDec(&dev, &s);
-    TestAssert(s == 26,
-            "xuart API \"MCP98242_3CritSet\" or \"MCP98242_3CritGetDec\" error!"); 
+    MCP98242LimitSet(&dev, &f, T_CRITICAL);
+    MCP98242RegGet(&dev, &s, MCP98242_CRITICAL, I2C_TRANSFER_POLLING);
+    TestAssert((s>>4) == 26,
+            "xuart API \"MCP98242LimitSet\" or \"MCP98242RegGet\" error!"); 
     
     //
     // Event output enable/disable
     //
-    MCP98242_3IntEnable(&dev);
-    MCP98242_3ConfigGet(&dev, &cofig);
-    TestAssert((cofig & MCP98242_3_CONF_EN) == MCP98242_3_CONF_EN,
-            "xuart API \"MCP98242_3IntEnable\" error!"); 
+    MCP98242IntEnable(&dev);
+    MCP98242RegGet(&dev, &config, MCP98242_CONFIG, I2C_TRANSFER_POLLING);
+    TestAssert((config & MCP98242_CONF_EN) == MCP98242_CONF_EN,
+            "xuart API \"MCP98242IntEnable\" error!"); 
 
-    MCP98242_3IntDisable(&dev);
-    MCP98242_3ConfigGet(&dev, &cofig);
-    TestAssert((cofig & MCP98242_3_CONF_EN) == 0,
-            "xuart API \"MCP98242_3EventDisable\" error!"); 
+    MCP98242IntDisable(&dev);
+    MCP98242RegGet(&dev, &config, MCP98242_CONFIG, I2C_TRANSFER_POLLING);
+    TestAssert((config & MCP98242_CONF_EN) == 0,
+            "xuart API \"MCP98242EventDisable\" error!"); 
 
     //
     // Set Temperatrue Sensor Mode
     //
-    MCP98242_3ModeSet(&dev, MCP98242_3_SEN_SHDN);     
-    TestAssert(MCP98242_3ModeGet(&dev) == MCP98242_3_SEN_SHDN,
-            "xuart API \"MCP98242_3ModeSet\" error!");
+    MCP98242SHDNEnable(&dev); 
+    MCP98242RegGet(&dev, &config, MCP98242_CONFIG, I2C_TRANSFER_POLLING);    
+    TestAssert((config | MCP98242_CONF_SHDN) == MCP98242_CONF_SHDN,
+            "xuart API \"MCP98242SHDNEnable\" error!");
 
 
-    MCP98242_3ModeSet(&dev, MCP98242_3_SEN_CONTI);     
-    TestAssert(MCP98242_3ModeGet(&dev) == MCP98242_3_SEN_CONTI,
-            "xuart API \"MCP98242_3ModeSet\" error!");
-
-//    //
-//    // Configuration register test.If the two lock bits are set, they're 
-//    // cleared only by a reset, you can't write a '0' after writing a '1'.
-//    // PS: Most of the Configuration register can't be written after the
-//    // lock bits are set.
-//    //
-//    for(i=0; i<6; i++)
-//    {
-//       MCP98242_3Config(&dev, ulConfig[i]);
-//       MCP98242_3ConfigGet(&dev, &s);
-//       TestAssert((s & (ulConfigTemp[i] & 0x00FF)) == (ulConfigTemp[i]>>8),
-//            "xuart API \"MCP98242_3Config\" or \"MCP98242_3ConfigGet\" error!");
-//    }
-
-//    //
-//    // Lock Bits test. The two lock bits has been set in the Configuration 
-//    // register test. It's not possible to write new value to UPPER, LOWER
-//    // and CRITICAL registers.
-//    //
-//    f = 40.0;
-//    MCP98242_3UpperSet(&dev, &f);
-//    MCP98242_3UpperGetDec(&dev, &s);
-//    TestAssert(s == 24,            //It's not 40 as win.lock bit set.
-//            "MCP98242_3 WIN.Lock Bit Set error!");
-//
-//    f = 50.0;
-//    MCP98242_3CritSet(&dev, &f); 
-//    MCP98242_3CritGetDec(&dev, &s);
-//    TestAssert(s == 26,            //It's not 50 as Crit.lock bit set.
-//            "xuart API \"MCP98242_3CritSet\" or \"MCP98242_3CritGetDec\" error!"); 
+    MCP98242SHDNDisable(&dev);     
+    MCP98242RegGet(&dev, &config, MCP98242_CONFIG, I2C_TRANSFER_POLLING);    
+    TestAssert((config & MCP98242_CONF_SHDN) == 0,
+            "xuart API \"MCP98242SHDNDisable\" error!");
 
     //
     // Set Resolution of Temperature Sensor
     //
-
-    
     for(i=0; i<4; i++)
     {
-        MCP98242_3ResSet(&dev, ulRes[i]);
-        TestAssert(ulRes[i] == MCP98242_3ResGet(&dev),
-            "xuart API \"MCP98242_3ResSet\" or \"MCP98242_3ResGet\" error!"); 
+        MCP98242Config(&dev, 0, ulRes[i], HYSTERESIS_0);
+        s = MCP98242CapGet(&dev);
+        TestAssert(ulRes[i] == (s>>3),
+            "xuart API \"MCP98242Config\" or \"MCP98242CapGet\" error!"); 
     }
 
     //
     // Set hysteresis
     //
-    MCP98242_3HystSet(&dev, HYSTERESIS_1_5);
-    TestAssert(HYSTERESIS_1_5 == MCP98242_3HystGet(&dev),
-            "xuart API \"MCP98242_3HystSet\" or \"MCP98242_3HystGet\" error!");
-    MCP98242_3HystSet(&dev, HYSTERESIS_0);
-
     for(i=0; i<4; i++)
     {
-        MCP98242_3HystSet(&dev, ulHys[i]);
-        TestAssert(ulHys[i] == MCP98242_3HystGet(&dev),
-            "xuart API \"MCP98242_3HystSet\" or \"MCP98242_3HystGet\" error!"); 
+        MCP98242Config(&dev, 0, ulRes[1], ulHys[i]);
+        MCP98242RegGet(&dev, &config, MCP98242_CONFIG, I2C_TRANSFER_POLLING);
+        TestAssert(ulHys[i] == (HYSTERESIS_M & config),
+            "xuart API \"MCP98242Config\" or \"MCP98242RegGet\" error!"); 
     }
     
     //
-    // Get MCP98242_3 Manufacture ID, Device ID, and Revision
+    // Get MCP98242 Manufacture ID, Device ID, and Revision
     //
-    MCP98242_3GetID(&dev, &id);
+    MCP98242GetID(&dev, &id);
     TestAssert((id.MANU_ID == 0x54) && (id.REVISION == 0) && 
-            (id.DEV_ID == 0x20), "xuart API \"MCP98242_3GetID\" error!");
+            (id.DEV_ID == 0x20), "xuart API \"MCP98242GetID\" error!");
 
 }
 
@@ -269,7 +226,7 @@ unsigned long test_Sen_Event (void *pvCBData,
 {
     if(Event_mode)
     {
-        MCP98242_3IntClear(&dev);
+        MCP98242IntClear(&dev);
         Int_Status = 1;
     }
     else
@@ -283,25 +240,26 @@ void TempSensor_EventTest(void)
     unsigned short s;
     float f;     
 
-    MCP98242_3SENInit(&dev, 50000);
+    MCP98242SensorInit(&dev, 50000);
+
+    MCP98242Config(&dev, 0, RESOLUTION_125, HYSTERESIS_0);
 
     for(f=0;f<1000;f++);
-    f = 24.0;
-    MCP98242_3UpperSet(&dev, &f);
+    f = 27.0;
+    MCP98242LimitSet(&dev, &f, T_UPPER);
     for(f=0;f<1000;f++);
-    f = 10.0;
-    MCP98242_3LowerSet(&dev, &f); 
+    f = 25.0;
+    MCP98242LimitSet(&dev, &f, T_LOWER);
     for(f=0;f<1000;f++);
-    f = 44.25;
-    MCP98242_3CritSet(&dev, &f); 
+    f = 32.0;
+    MCP98242LimitSet(&dev, &f, T_CRITICAL);
     for(f=0;f<1000;f++);
 
-    
     Event_mode = EVENT_COMP; 
-    Event_mode = EVENT_INT;                
-    MCP98242_3IntConfig(&dev, test_Sen_Event, EVENT_LOW_LEVEL, Event_mode);
+    //Event_mode = EVENT_INT;                
+    MCP98242IntConfig(&dev, test_Sen_Event, EVENT_LOW_LEVEL, Event_mode);
     for(f=0;f<100000;f++);
-    MCP98242_3IntEnable(&dev);
+    MCP98242IntEnable(&dev);
 
     xSysCtlPeripheralEnable(SYSCTL_PERIPH_GPIO);
     xGPIODirModeSet(GPIO_PORTA_BASE, GPIO_BIT_12, GPIO_DIR_MODE_OUT);
@@ -311,14 +269,14 @@ void TempSensor_EventTest(void)
 
     while(1) 
     { 
-        MCP98242_3GetTempFt(&dev, &f);
+        MCP98242TempGet(&dev, &f, T_FLOAT);
         for(f=0;f<10000;f++);
 
         if(Int_Status)
         {
             Int_Status = 0;
-            MCP98242_3RegGet(&dev, &s, MCP98242_3_TEMP, I2C_TRANSFER_POLLING);
-            if((s>>14)&1)
+            s = MCP98242EvnCondGet(&dev);
+            if(s == EVENT_COND_3)
                 GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_12, 0);
             else
                 GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_12, 1);
@@ -335,7 +293,7 @@ void TempSensor_EventTest(void)
 //*****************************************************************************
 static void TempSensor_TearDown(void)
 {
-    MCP98242_3SENDeInit(&dev);
+
 }
 
 //*****************************************************************************
@@ -391,7 +349,7 @@ static char* MemWR_GetTest(void)
 //*****************************************************************************
 static void MemWR_Setup(void)
 {
-    MCP98242_3EEPROMInit(&dev, 80000);
+    MCP98242EEPROMInit(&dev, 80000);
 }
 
 //*****************************************************************************
@@ -403,48 +361,54 @@ static void MemWR_Setup(void)
 //*****************************************************************************
 static void MemWR_Execute(void)
 {
-
-    char multWrite[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07};
-    char page_addr_data[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 
+    unsigned char multWrite[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07};
+    unsigned char page_addr_data[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 
                                         0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
-    char addr, *value;
+    unsigned char addr, *value;
+    int i;
 
     
     addr = 0xA0;
     value = multWrite;
-    MCP98242_3MutiByteWrite(&dev, addr, value, I2C_TRANSFER_POLLING, sizeof(multWrite));
+    for(i=0; i<8; i++, addr++)
+    {
+        MCP98242ByteWrite(&dev, addr, multWrite[i]);
+        xSysCtlDelay(10000);
+    }
 
+    addr = 0xA0;
     value[0]=value[1]=value[2]=0x55;
     SysCtlDelay(10000);
-    MCP98242_3MemRead(&dev, addr, value, I2C_TRANSFER_POLLING, sizeof(multWrite));
-    TestAssert(page_addr_data[2] == 0x02, 
-         "xuart API \"MCP98242_3MutiByteWrite\" or \"MCP98242_3MemRead\" error!");
-
+    MCP98242MemRead(&dev, addr, value, sizeof(multWrite));
+    TestAssert(multWrite[2] == 0x02, 
+         "xuart API \"MCP98242MutiByteWrite\" or \"MCP98242MemRead\" error!");
+    
+    SysCtlDelay(10000);
     addr = 0xB0;
     value = page_addr_data;
-    MCP98242_3PageWrite(&dev, addr, value, I2C_TRANSFER_POLLING);
+    MCP98242PageWrite(&dev, addr, value);
 
     value[0]=value[1]=value[2]=value[15]=value[14]=value[13]=0x55;
-    SysCtlDelay(10000);
-    MCP98242_3MemRead(&dev, addr, value, I2C_TRANSFER_POLLING, sizeof(page_addr_data));
+    SysCtlDelay(50000);
+    MCP98242MemRead(&dev, addr, value, sizeof(page_addr_data));
     TestAssert(page_addr_data[13] == 0x0D, 
-         "xuart API \"MCP98242_3PageWrite\" or \"MCP98242_3MemRead\" error!");
+         "xuart API \"MCP98242PageWrite\" or \"MCP98242MemRead\" error!");
 
     value[0]=value[1]=value[2]=value[13]=value[14]=0x55;
     
     //
     // Sequential Read Test
     //
-    MCP98242_3MemRead(&dev, addr, value, I2C_TRANSFER_POLLING, 15);
+    MCP98242MemRead(&dev, addr, value, 15);
     TestAssert(page_addr_data[13] == 0x0D, 
-         "xuart API \"MCP98242_3PageWrite\" or \"MCP98242_3MemRead\" error!");
+         "xuart API \"MCP98242PageWrite\" or \"MCP98242MemRead\" error!");
 
     //
     // Current Address Read.
     //
-    MCP98242_3MemRead(&dev, 0, value, I2C_TRANSFER_POLLING, 0);
+    MCP98242MemRead(&dev, 0, value, 0);
     TestAssert(*value == 0x0F, 
-         "xuart API \"MCP98242_3PageWrite\" or \"MCP98242_3MemRead\" error!");
+         "xuart API \"MCP98242PageWrite\" or \"MCP98242MemRead\" error!");
 }
 
 //*****************************************************************************
@@ -456,7 +420,7 @@ static void MemWR_Execute(void)
 //*****************************************************************************
 static void MemWR_TearDown(void)
 {
-    MCP98242_3SENDeInit(&dev);
+
 }
 
 //

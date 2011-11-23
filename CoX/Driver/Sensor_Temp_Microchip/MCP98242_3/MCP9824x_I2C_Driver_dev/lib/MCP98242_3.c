@@ -1,9 +1,9 @@
 //*****************************************************************************
 //
 //! \file MCP98242_3.c
-//! \brief source file of Driver for MCP98242_3
-//! \version 1.0
-//! \date 8/25/2011
+//! \brief source file of Driver for MCP98242/3
+//! \version 2.1.2.0
+//! \date 20/11/2011
 //! \author CooCox
 //! \copy
 //!
@@ -47,7 +47,7 @@
 
 //*****************************************************************************
 //
-//! \brief Initialize the MCP98242_3 Temperature Sensor, and select I2C port.
+//! \brief Initialize the MCP98242/3 Temperature Sensor, and select I2C port.
 //!
 //! \param *pDev specifies the device
 //! \param ulRate set the I2C transfer rate
@@ -55,16 +55,10 @@
 //! \return None.
 //
 //*****************************************************************************
-void  MCP98242_3SENInit(MCP98242_3Dev *pDev, unsigned long ulRate)
+void  MCP98242SensorInit(MCP98242Dev *pDev, unsigned long ulRate)
 {
     tI2CMasterTransferCfg Cfg;
-
-    unsigned char ucTemp[3];
-    unsigned char *SendBuf;
-    unsigned long SendLength = 3;
-    
-    unsigned char ReceiveBuf[2] = {0};
-    unsigned char ReceiveLength = 2;
+    unsigned char ucTemp[3];   
 
     //
     // Enable I2C, GPIO clock
@@ -83,46 +77,53 @@ void  MCP98242_3SENInit(MCP98242_3Dev *pDev, unsigned long ulRate)
     // I2C master transfer config
     //
     Cfg.ulSlave = pDev->SensorSlaAddr;   
-    Cfg.ulWLen = SendLength;
+    Cfg.ulWLen = 3;
     Cfg.ulWCount = 0;
-    Cfg.pvRBuf = ReceiveBuf;
-    Cfg.ulRLen = ReceiveLength;
+    Cfg.pvRBuf = 0;
+    Cfg.ulRLen = 0;
     Cfg.ulRCount = 0; 
 
     ucTemp[0] = 0x1;
     ucTemp[1] = 0x00;
     ucTemp[2] = 0x00;
-    SendBuf = ucTemp;
-    Cfg.pvWBuf = SendBuf;
+    Cfg.pvWBuf = ucTemp;
+
     xI2CMasterTransfer(pDev->I2CBase, &Cfg, I2C_TRANSFER_POLLING);
 }
 
 //*****************************************************************************
 //
-//! \brief DeInialize the Temperatrue Sensor.
+//! \brief Get Capability of MCP98242/3 Temperature Sensor.
 //!
 //! \param *pDev specifies the device
 //!
-//! Set the Sensor as shutdown mode, disable interrupt and I2C.
-//!
-//! \return None.
+//! \return the content of Capability Register of MCP98242/3.
 //
 //*****************************************************************************
-void  MCP98242_3SENDeInit(MCP98242_3Dev *pDev)
+unsigned short MCP98242CapGet(MCP98242Dev *pDev)
 {
-    MCP98242_3ModeSet(pDev, MCP98242_3_SEN_SHDN);
-    MCP98242_3IntDisable(pDev);
-    xSysCtlPeripheralDisable2(pDev->I2CBase);
+    unsigned short usCap;
+    MCP98242RegGet(pDev, &usCap, MCP98242_Cap, I2C_TRANSFER_POLLING);
+    return usCap;
 }
-
 //*****************************************************************************
 //
 //! \brief Set the Config register of Temperature Sensor. 
 //!
 //! \param pDev specifies the device
 //! \param usConfig specifies Config register of Temperature Sensor.
-//!
-//! This function is to set the Config register of Temperature Sensor.
+//! \param ulResol The Resolution of MCP98242 Temperature Sensor.
+//!  It can be the below value:
+//!         \b RESOLUTION_5, Resolution of 0.5¡æ
+//!         \b RESOLUTION_25, Resolution of 0.25¡æ
+//!         \b RESOLUTION_125, Resolution of 0.125¡æ
+//!         \b RESOLUTION_0625, Resolution of 0.0625¡æ
+//! \param ulHyst The Limit Hysteresis to set.
+//!  It can be the below vaule:
+//!         \b HYSTERESIS_0, 0¡æ
+//!         \b HYSTERESIS_1_5, 1.5¡æ
+//!         \b HYSTERESIS_3, 3¡æ
+//!         \b HYSTERESIS_6, 6¡æ
 //!
 //! The \e usConfig parameter is the logical OR of these values: event output
 //! select, T_CRIT lock, and T_UPPER,T_LOWER window lock. \b EVENT_SEL_ALL and
@@ -132,22 +133,32 @@ void  MCP98242_3SENDeInit(MCP98242_3Dev *pDev)
 //! \return None.
 //
 //*****************************************************************************
-void  MCP98242_3Config(MCP98242_3Dev *pDev, unsigned short usConfig)
+void  MCP98242Config(MCP98242Dev *pDev, unsigned short usConfig, 
+                     unsigned long ulResol, unsigned long ulHyst)
 {
-    unsigned short usTemp;
+    unsigned short config;
 
     xASSERT((usConfig == EVENT_SEL_ALL) || (usConfig == EVENT_SEL_CRIT) || 
             (usConfig == CRIT_LOCK) || (usConfig == CRIT_UNLOCK) || 
             (usConfig == WIN_LOCK) || (usConfig == WIN_UNLOCK));
 
-    MCP98242_3RegGet(pDev, &usTemp, MCP98242_3_CONFIG, I2C_TRANSFER_POLLING);
+    xASSERT((ucResol == RESOLUTION_5) || (ucResol == RESOLUTION_25) ||
+            (ucResol == RESOLUTION_125) || (ucResol == RESOLUTION_0625));
 
-    usTemp &= ~LOCK_M;
-    usTemp |= (LOCK_M & usConfig);    // Set the lock bits
-    usTemp &= ~EVENT_SEL_CRIT;
-    usTemp |= (EVENT_SEL_CRIT & usConfig);   // Select output event
+    xASSERT((ulHyst == HYSTERESIS_0) || (ulHyst == HYSTERESIS_1_5) ||
+            (ulHyst == HYSTERESIS_3) || (ulHyst == HYSTERESIS_6));
 
-    MCP98242_3RegSet(pDev, &usTemp, MCP98242_3_CONFIG, I2C_TRANSFER_POLLING);
+    MCP98242RegGet(pDev, &config, MCP98242_CONFIG, I2C_TRANSFER_POLLING);
+
+    config &= ~LOCK_M;
+    config |= (LOCK_M & usConfig);    // Set the lock bits
+    config &= ~EVENT_SEL_CRIT;
+    config |= (EVENT_SEL_CRIT & usConfig);   // Select output event
+    config = (config & (~HYSTERESIS_M)) | ulHyst;
+
+    MCP98242RegSet(pDev, &config, MCP98242_CONFIG, I2C_TRANSFER_POLLING);    
+
+    MCP98242RegSet(pDev, &ulResol, MCP98242_RSL, I2C_TRANSFER_POLLING);
 }
 
 //*****************************************************************************
@@ -155,18 +166,17 @@ void  MCP98242_3Config(MCP98242_3Dev *pDev, unsigned short usConfig)
 //! \brief Set the value of Temperature Sensor.
 //!
 //! \param *pDev specifies the device
-//! \param vpvalue The data to write into the specified register
-//! \param ustype  The register type
-//! \param cTransType I2C transfer type, Poll or Interrupt 
+//! \param *vpvalue The data to write into the specified register
+//! \param ucType  The register type
+//! \param ucTransType I2C transfer type, Poll or Interrupt 
 //!
 //! \return None.
 //
 //*****************************************************************************
-void  MCP98242_3RegSet(MCP98242_3Dev *pDev, void * vpValue, unsigned short usType, 
-                            char cTransType)
+void  MCP98242RegSet(MCP98242Dev *pDev, void * vpValue, unsigned char ucType, 
+                     unsigned char ucTransType)
 {
     tI2CMasterTransferCfg Cfg;
-    int temp;
     char ucTemp[3];
     char *SendBuf;
     unsigned long SendLength;
@@ -175,68 +185,41 @@ void  MCP98242_3RegSet(MCP98242_3Dev *pDev, void * vpValue, unsigned short usTyp
     //Sensor address, for example: 0x1C
     //
     unsigned long SlaveAddress = pDev->SensorSlaAddr;
-    
-    unsigned char ReceiveBuf[2] = {0};
-    unsigned char ReceiveLength ;
 
-    //
-    // Set UPPER,LOWER,CRITICAL,EMBIENT Temperature
-    // in float type.
-    //        
-    if ((usType>0x11) && (usType<0x16))
-    {
-        temp = (int) ((*(float *)vpValue)*10000);
-        temp = temp/625;
-        ucTemp[0] = ((char) usType) & 0x0F;
-        ucTemp[2] = (char) temp;
-        ucTemp[1] = (char) (temp>>8);
-        SendBuf = ucTemp;
-    }
+    xASSERT(ucType <= 8);
+
     //
     // Set Sensor registers, except for RESOLUTION register
     // because this register is 8 bit width.
     //
-    else if(usType<8)
+    if(ucType<8)
     {
-        ucTemp[0] = (char)usType;
+        ucTemp[0] = ucType;
         ucTemp[2] = (char) (*(unsigned short *)vpValue);
         ucTemp[1] = (char) ((*(unsigned short *)vpValue)>>8);
         SendBuf = ucTemp;
+        SendLength = 3;
     }
     //
     // Set the RESOLUTION register of Sensor
     //
     else
     {
-        ucTemp[0] = (char)usType;
+        ucTemp[0] = 0x08;
         ucTemp[1] =  (*(char*)vpValue);
         SendBuf = ucTemp;
-    }
-
-    //
-    // The RESOLUTION REGISTER is one byte long, other sensor
-    // registers  are two bytes long.
-    //
-    if(usType == 8)
-    {
         SendLength = 2;
-        ReceiveLength = 1;
-    }
-    else
-    {
-        SendLength = 3;
-        ReceiveLength = 2;
     }
 
     Cfg.ulSlave = SlaveAddress;
     Cfg.pvWBuf = SendBuf;
     Cfg.ulWLen = SendLength;
     Cfg.ulWCount = 0;
-    Cfg.pvRBuf = ReceiveBuf;
-    Cfg.ulRLen = ReceiveLength;
+    Cfg.pvRBuf = 0;
+    Cfg.ulRLen = 0;
     Cfg.ulRCount = 0;  
 
-    if(cTransType == ((char)I2C_TRANSFER_POLLING))
+    if(ucTransType == ((char)I2C_TRANSFER_POLLING))
         xI2CMasterTransfer(pDev->I2CBase, &Cfg, I2C_TRANSFER_POLLING);
     else
         xI2CMasterTransfer(pDev->I2CBase, &Cfg, I2C_TRANSFER_INTERRUPT);
@@ -247,39 +230,31 @@ void  MCP98242_3RegSet(MCP98242_3Dev *pDev, void * vpValue, unsigned short usTyp
 //! \brief Get the value of Temperature Sensor.
 //!
 //! \param *pDev specifies the device
-//! \param value The data of the specified register or address.
-//! \param usType The register type or address
-//! \param cTransType I2C transfer type, Poll or Interrupt 
+//! \param *vpValue The data of the specified register or address.
+//! \param ucType The register type or address
+//! \param ucTransType I2C transfer type, Poll or Interrupt 
 //!
 //! \return None.
 //
 //*****************************************************************************
-void  MCP98242_3RegGet(MCP98242_3Dev *pDev, void * vpValue, unsigned short usType, 
-                            char cTransType)
+void  MCP98242RegGet(MCP98242Dev *pDev, void * vpValue, unsigned char ucType, 
+                     unsigned char ucTransType)
 {
     tI2CMasterTransferCfg Cfg;
-    int temp;
     unsigned char *uctemp;
-    unsigned char *SendBuf;
-    unsigned long SendLength = 1;
-
-    //
-    //Sensor address, for example: 0x1C
-    //
-    unsigned long SlaveAddress = pDev->SensorSlaAddr;
     
     unsigned char ReceiveBuf[2] = {0};
     unsigned char ReceiveLength = 0;
+
+    xASSERT(ucType <= 8);
 
     //
     // The RESOLUTION register is one byte long, the others are 
     // two bytes long.
     //
-    if(usType<8 || (usType>0x11 && usType<0x16) || (usType>0x21 && usType<0x26))
+    if(ucType<8)
     {
-        ReceiveLength = 2;
-        temp = (((int)usType) & 0x0F);
-        SendBuf = (unsigned char *)&temp;
+        ReceiveLength = 2;        
     }
     //
     // Resolution register of temp sensor
@@ -287,51 +262,25 @@ void  MCP98242_3RegGet(MCP98242_3Dev *pDev, void * vpValue, unsigned short usTyp
     else   
     {
         ReceiveLength = 1;
-        SendBuf = (unsigned char *)&usType; 
     }
 
-    Cfg.ulSlave = SlaveAddress;
-    Cfg.pvWBuf = SendBuf;
-    Cfg.ulWLen = SendLength;
+    Cfg.ulSlave = pDev->SensorSlaAddr;
+    Cfg.pvWBuf = &ucType;
+    Cfg.ulWLen = 1;
     Cfg.ulWCount = 0;
     Cfg.pvRBuf = ReceiveBuf;
     Cfg.ulRLen = ReceiveLength;
     Cfg.ulRCount = 0;  
 
-    if(cTransType == ((char)I2C_TRANSFER_POLLING))
+    if(ucTransType == ((char)I2C_TRANSFER_POLLING))
         xI2CMasterTransfer(pDev->I2CBase, &Cfg, I2C_TRANSFER_POLLING);
     else
         xI2CMasterTransfer(pDev->I2CBase, &Cfg, I2C_TRANSFER_INTERRUPT);
 
     //
-    // Get the UPPER,LOWER,CRITICAL,EMBIENT Temperature
-    // in float type.
-    //
-    if((usType>0x11) && (usType<0x16))
-    {
-        temp = ((ReceiveBuf[0]<<8) + ReceiveBuf[1]) & 0x01FFF;
-        if((temp & 0x1000) == 0x1000)
-            temp |= 0xFFFFF000;
-        *(float*)vpValue = temp * 0.0625;
-    }
-    //
-    // Get the UPPER,LOWER,CRITICAL,EMBIENT Temperature
-    // in integer type.
-    //
-    else if((usType>0x21) && (usType<0x26))
-    {
-        temp = ((ReceiveBuf[0]<<8) + ReceiveBuf[1]) & 0x01FFF;
-        if((temp & 0x1000) == 0x1000)
-        {
-            temp |= 0xFFFFF000;
-            temp += 0x10;
-        }
-        *(short *)vpValue = (temp>>4);
-    }
-    //
     // Get the register of Sensor
     //
-    else if(usType<8)
+    if(ucType<8)
     {
         *(unsigned char*)vpValue = ReceiveBuf[1];
         uctemp = vpValue;
@@ -348,24 +297,24 @@ void  MCP98242_3RegGet(MCP98242_3Dev *pDev, void * vpValue, unsigned short usTyp
 
 //*****************************************************************************
 //
-//! \brief Enable interrupt of Event output of MCP98242_3 Temperature Sensor.
+//! \brief Enable interrupt of Event output of MCP98242/3 Temperature Sensor.
 //!
 //! \param *pDev specifies the device
 //!
 //! \return None.
 //
 //*****************************************************************************
-void  MCP98242_3IntEnable(MCP98242_3Dev *pDev)
+void  MCP98242IntEnable(MCP98242Dev *pDev)
 {
-    short config;
+    unsigned short config;
     
-    MCP98242_3RegGet(pDev, &config, MCP98242_3_CONFIG, I2C_TRANSFER_POLLING);
+    MCP98242RegGet(pDev, &config, MCP98242_CONFIG, I2C_TRANSFER_POLLING);
 
     //
     // Enable Event output
     //
-    config |= MCP98242_3_CONF_EN;
-    MCP98242_3RegSet(pDev, &config, MCP98242_3_CONFIG, I2C_TRANSFER_POLLING);
+    config |= MCP98242_CONF_EN;
+    MCP98242RegSet(pDev, &config, MCP98242_CONFIG, I2C_TRANSFER_POLLING);
 
     //
     // Enable the interrupt of the Pin which connected with
@@ -382,8 +331,8 @@ void  MCP98242_3IntEnable(MCP98242_3Dev *pDev)
 //! \param *pDev specifies the device
 //! \param xtIntCallback The callback function for event interrupt.
 //! \param ucTrigMode The trigger condition of interrupt of Event Output.
-//!  it can be: \b  MCP98242_3_HIGH_LEVEL, assert with high level
-//!             \b  MCP98242_3_LOW_LEVEL, assert with low level
+//!  it can be: \b  MCP98242_HIGH_LEVEL, assert with high level
+//!             \b  MCP98242_LOW_LEVEL, assert with low level
 //! \param ulEventMode Comparator mode or Interrupt mode, it can be:
 //!        \b EVENT_COMP, Comparator mode
 //!        \b EVENT_INT, Interrupt mode
@@ -391,24 +340,24 @@ void  MCP98242_3IntEnable(MCP98242_3Dev *pDev)
 //! \return None.
 //
 //*****************************************************************************
-void  MCP98242_3IntConfig(MCP98242_3Dev *pDev, xtEventCallback xtIntCallback, 
+void  MCP98242IntConfig(MCP98242Dev *pDev, xtEventCallback xtIntCallback, 
                  unsigned long ulTrigMode, unsigned long ulEventMode)
 {
-    short config;
+    unsigned short config;
 
-    xASSERT((ulTrigMode == MCP98242_3_HIGH_LEVEL) || 
-            (ulTrigMode == MCP98242_3_LOW_LEVEL));
+    xASSERT((ulTrigMode == MCP98242_HIGH_LEVEL) || 
+            (ulTrigMode == MCP98242_LOW_LEVEL));
     xASSERT((ulEventMode == EVENT_COMP) || 
             (ulEventMode == EVENT_INT));
 
-    MCP98242_3RegGet(pDev, &config, MCP98242_3_CONFIG, I2C_TRANSFER_POLLING);
+    MCP98242RegGet(pDev, &config, MCP98242_CONFIG, I2C_TRANSFER_POLLING);
     
     //
     // Config the trigger level and Event Output Mode
     //
     config = (config & 0xFFFD) | ulTrigMode;
     config = (config & 0xFFFE) | ulEventMode;    
-    MCP98242_3RegSet(pDev, &config, MCP98242_3_CONFIG, I2C_TRANSFER_POLLING);
+    MCP98242RegSet(pDev, &config, MCP98242_CONFIG, I2C_TRANSFER_POLLING);
 
     //
     // Config the Pin mode and Set callback funciton.
@@ -416,7 +365,7 @@ void  MCP98242_3IntConfig(MCP98242_3Dev *pDev, xtEventCallback xtIntCallback,
     xGPIODirModeSet(pDev->EventPort, pDev->EventPin, GPIO_DIR_MODE_IN);
     xGPIOPinIntCallbackInit(pDev->EventPort, pDev->EventPin, xtIntCallback);
 
-    if(ulTrigMode & MCP98242_3_HIGH_LEVEL == MCP98242_3_HIGH_LEVEL)
+    if(ulTrigMode & MCP98242_HIGH_LEVEL == MCP98242_HIGH_LEVEL)
     {
         xGPIOPinIntEnable(pDev->EventPort, pDev->EventPin, GPIO_HIGH_LEVEL);   
     }
@@ -428,25 +377,25 @@ void  MCP98242_3IntConfig(MCP98242_3Dev *pDev, xtEventCallback xtIntCallback,
 
 //*****************************************************************************
 //
-//! \brief Disable Event output of MCP98242_3 Temperature Sensor.
+//! \brief Disable Event output of MCP98242 Temperature Sensor.
 //!
 //! \param *pDev specifies the device
 //!
 //! \return None.
 //
 //*****************************************************************************
-void  MCP98242_3IntDisable(MCP98242_3Dev *pDev)
+void  MCP98242IntDisable(MCP98242Dev *pDev)
 {
-    short config;
+    unsigned short config;
     
-    MCP98242_3RegGet(pDev, &config, MCP98242_3_CONFIG, I2C_TRANSFER_POLLING);
+    MCP98242RegGet(pDev, &config, MCP98242_CONFIG, I2C_TRANSFER_POLLING);
 
-    config  &= ~MCP98242_3_CONF_EN;
+    config  &= ~MCP98242_CONF_EN;
 
     //
     // Disable Event Output
     //
-    MCP98242_3RegSet(pDev, &config, MCP98242_3_CONFIG, I2C_TRANSFER_POLLING);
+    MCP98242RegSet(pDev, &config, MCP98242_CONFIG, I2C_TRANSFER_POLLING);
 
     //
     // Disable the interrupt
@@ -464,88 +413,61 @@ void  MCP98242_3IntDisable(MCP98242_3Dev *pDev)
 //! \return None.
 //
 //*****************************************************************************
-void  MCP98242_3IntClear(MCP98242_3Dev *pDev)
+void  MCP98242IntClear(MCP98242Dev *pDev)
 {
-    short  senconfig;
+    unsigned short  senconfig;
 
-    MCP98242_3ConfigGet(pDev, &senconfig);
+    MCP98242RegGet(pDev, &senconfig, MCP98242_CONFIG, I2C_TRANSFER_POLLING);
 
-    senconfig |= MCP98242_3_CONF_INTCLR;
+    senconfig |= MCP98242_CONF_INTCLR;
 
-    MCP98242_3RegSet(pDev, &senconfig, MCP98242_3_CONFIG, I2C_TRANSFER_POLLING);
+    MCP98242RegSet(pDev, &senconfig, MCP98242_CONFIG, I2C_TRANSFER_POLLING);
 }
 
 //*****************************************************************************
 //
-//! \brief Set the mode of MCP98242_3 Temperature Sensor.
+//! \brief Get into shut down mode.
 //!
 //! \param *pDev specifies the device
-//! \param cMode Sensor mode to set, it can be:
-//!            \b MCP98242_3_SEN_SHDN
-//!            \b MCP98242_3_SEN_CONTI
 //!
-//! \return \b xtrue SUCCESS
-//!         \b xfalse FAILURE
+//! \return None.
 //
 //*****************************************************************************
-xtBoolean  MCP98242_3ModeSet(MCP98242_3Dev *pDev, char cMode)
+xtBoolean  MCP98242SHDNEnable(MCP98242Dev *pDev)
 {
     unsigned short config;
-    
-    xASSERT((cMode == MCP98242_3_SEN_SHDN) || (cMode == MCP98242_3_SEN_CONTI));
 
-    MCP98242_3RegGet(pDev, &config, MCP98242_3_CONFIG, I2C_TRANSFER_POLLING);
+    MCP98242RegGet(pDev, &config, MCP98242_CONFIG, I2C_TRANSFER_POLLING);
 
     //
-    // Shut Down mode
+    // If bit6 or bit7 is set, it can't set to be shutdown mode.
     //
-    if(cMode == MCP98242_3_SEN_SHDN)
-    {
-        //
-        // If bit6 or bit7 is set, it can't set to be shutdown mode.
-        //
-        if(config & 0xC0)
-            return xfalse;
-        else
-        {
-            config |= MCP98242_3_CONF_SHDN;
-            MCP98242_3RegSet(pDev, &config, MCP98242_3_CONFIG, I2C_TRANSFER_POLLING); 
-            return xtrue;      
-        } 
-    }  
-    //
-    // Continue mode
-    //
-    else if(cMode == MCP98242_3_SEN_CONTI)
-    {
-        config &= ~MCP98242_3_CONF_SHDN;
-        MCP98242_3RegSet(pDev, &config, MCP98242_3_CONFIG, I2C_TRANSFER_POLLING); 
-        return xtrue;
-    } 
+    if(config & 0xC0)
+        return xfalse;
     else
-        return xfalse;        
+    {
+        config |= MCP98242_CONF_SHDN;
+        MCP98242RegSet(pDev, &config, MCP98242_CONFIG, I2C_TRANSFER_POLLING); 
+        return xtrue;      
+    } 
 }
 
 //*****************************************************************************
 //
-//! \brief Get the mode of MCP98242_3 Temperature Sensor.
+//! \brief Get out of shut down mode.
 //!
 //! \param *pDev specifies the device
 //!
-//! \return \b MCP98242_3_SEN_SHDN   Shut down mode,
-//!         \b MCP98242_3_SEN_CONTI  continuously mode.
+//! \return None.
 //
 //*****************************************************************************
-char  MCP98242_3ModeGet(MCP98242_3Dev *pDev)
+void  MCP98242SHDNDisable(MCP98242Dev *pDev)
 {
-    unsigned short  config;
+    unsigned short config;
 
-    MCP98242_3RegGet(pDev, &config, MCP98242_3_CONFIG, I2C_TRANSFER_POLLING);
-
-    if(config & 0x100)
-        return  MCP98242_3_SEN_SHDN;
-    else
-        return  MCP98242_3_SEN_CONTI;
+    MCP98242RegGet(pDev, &config, MCP98242_CONFIG, I2C_TRANSFER_POLLING);
+    config &= ~MCP98242_CONF_SHDN;
+    MCP98242RegSet(pDev, &config, MCP98242_CONFIG, I2C_TRANSFER_POLLING); 
 }
 
 //*****************************************************************************
@@ -559,113 +481,119 @@ char  MCP98242_3ModeGet(MCP98242_3Dev *pDev)
 //!        \b  EVENT_COND_4, T_A >= T_CRIT
 //
 //*****************************************************************************
-char  MCP98242_3EvnCondGet(MCP98242_3Dev *pDev)
+char  MCP98242EvnCondGet(MCP98242Dev *pDev)
 {
-    short s;
-    MCP98242_3RegGet(pDev, &s, MCP98242_3_TEMP, I2C_TRANSFER_POLLING);  
+    unsigned short s;
+    MCP98242RegGet(pDev, &s, MCP98242_TEMP, I2C_TRANSFER_POLLING);  
     return (s>>13);  
 }
 
 //*****************************************************************************
 //
-//! \brief Set the Resolution of MCP98242_3 Temperature Sensor.
+//! \brief Set the limit temperature of Temperature Sensor. 
 //!
 //! \param *pDev specifies the device
-//! \param ucResol The Resolution of MCP98242_3 Temperature Sensor.
-//!  It can be the below value:
-//!         \b RESOLUTION_5, Resolution of 0.5¡æ
-//!         \b RESOLUTION_25, Resolution of 0.25¡æ
-//!         \b RESOLUTION_125, Resolution of 0.125¡æ
-//!         \b RESOLUTION_0625, Resolution of 0.0625¡æ
+//! \param *vpValue specifies limit temperature.
+//! \param ucLimitType specifies limit type.
+//!  it can be: \b  T_UPPER
+//!             \b  T_LOWER
+//!             \b  T_CRITICAL
+//!
+//! The \e *vpValue can be type of short or float. 
 //!
 //! \return None.
 //
-//*****************************************************************************
-void  MCP98242_3ResSet(MCP98242_3Dev *pDev, unsigned char ucResol)
+//***************************************************************************** 
+void  MCP98242LimitSet(MCP98242Dev *pDev, void *vpValue, 
+                       unsigned char ucLimitType)
 {
-    //xASSERT((ucResol & 0xFC) == 0);
-    xASSERT((ucResol == RESOLUTION_5) || (ucResol == RESOLUTION_25) ||
-            (ucResol == RESOLUTION_125) || (ucResol == RESOLUTION_0625));
+    tI2CMasterTransferCfg Cfg;
+    int temp;
+    unsigned char ucTemp[3];  
 
-    MCP98242_3RegSet(pDev, &ucResol, MCP98242_3_RSL, I2C_TRANSFER_POLLING);
+    xASSERT((ucLimitType == T_UPPER) ||
+            (ucLimitType == T_LOWER) ||
+            (ucLimitType == T_CRITICAL));
+
+    //
+    // Set UPPER,LOWER,CRITICAL Temperature in Float type.
+    //        
+    temp = (int) ((*(float *)vpValue)*10000);
+    temp = temp/625;
+    ucTemp[0] = ucLimitType;
+    ucTemp[2] = (char) temp;
+    ucTemp[1] = (char) (temp>>8);
+
+    Cfg.ulSlave = pDev->SensorSlaAddr;
+    Cfg.pvWBuf = ucTemp;
+    Cfg.ulWLen = 3;
+    Cfg.ulWCount = 0;
+    Cfg.pvRBuf = 0;
+    Cfg.ulRLen = 0;
+    Cfg.ulRCount = 0;  
+
+    xI2CMasterTransfer(pDev->I2CBase, &Cfg, I2C_TRANSFER_POLLING);  
 }
 
 //*****************************************************************************
 //
-//! \brief Get the Resolution of MCP98242_3 Temperature Sensor.
+//! \brief Get the ambient temperature of Temperature Sensor. 
 //!
 //! \param *pDev specifies the device
-//! \return the Resolution of MCP98242_3 Temperature Sensor.
-//!  The return value would be:
-//!         \b 0, Resolution of 0.5¡æ
-//!         \b 1, Resolution of 0.25¡æ
-//!         \b 2, Resolution of 0.125¡æ
-//!         \b 3, Resolution of 0.0625¡æ      
-//
-//*****************************************************************************
-char  MCP98242_3ResGet(MCP98242_3Dev *pDev)
-{
-    short sResol;
-    MCP98242_3CapGet(pDev, &sResol);
-    return (char) ((sResol & 0x18)>>3);
-}
-
-//*****************************************************************************
-//
-//! \brief  Set the TUPPER and TLOWER Limit Hysteresis.
-//!
-//! \param *pDev specifies the device
-//! \param cHyst The Limit Hysteresis to set.
-//!  It can be the below vaule:
-//!         \b HYSTERESIS_0, 0¡æ
-//!         \b HYSTERESIS_1_5, 1.5¡æ
-//!         \b HYSTERESIS_3, 3¡æ
-//!         \b HYSTERESIS_6, 6¡æ
+//! \param *vpValue the ambient temperature.
+//! \param ucDataType the temperature data type, \b T_FLOAT or \b T_INT.
 //!
 //! \return None.
 //
-//*****************************************************************************
-void  MCP98242_3HystSet(MCP98242_3Dev *pDev, unsigned long ulHyst)
+//***************************************************************************** 
+void  MCP98242TempGet(MCP98242Dev *pDev, void *vpValue, 
+                      unsigned char ucDataType)
 {
-    short config;
+    tI2CMasterTransferCfg Cfg;
+    int temp;
+    char cTempReg = 0x05;
+    unsigned char ReceiveBuf[2] = {0};
 
-    //xASSERT((ulHyst & 0xF9FF) == 0);
-    xASSERT((ulHyst == HYSTERESIS_0) || (ulHyst == HYSTERESIS_1_5) ||
-            (ulHyst == HYSTERESIS_3) || (ulHyst == HYSTERESIS_6));
+    xASSERT((ucDataType == T_FLOAT) || (ucDataType == T_INT));
+   
+    Cfg.ulSlave = pDev->SensorSlaAddr;
+    Cfg.pvWBuf = &cTempReg;
+    Cfg.ulWLen = 1;
+    Cfg.ulWCount = 0;
+    Cfg.pvRBuf = ReceiveBuf;
+    Cfg.ulRLen = 2;
+    Cfg.ulRCount = 0;  
 
-    MCP98242_3RegGet(pDev, &config, MCP98242_3_CONFIG, I2C_TRANSFER_POLLING);
+    xI2CMasterTransfer(pDev->I2CBase, &Cfg, I2C_TRANSFER_POLLING);
 
-    config = (config & (~HYSTERESIS_M)) | ulHyst;
-
-    MCP98242_3RegSet(pDev, &config, MCP98242_3_CONFIG, I2C_TRANSFER_POLLING);
+    //
+    // Get AMBIENT Temperature in float type.
+    //
+    if(ucDataType == T_FLOAT)
+    {
+        temp = ((ReceiveBuf[0]<<8) + ReceiveBuf[1]) & 0x01FFF;
+        if((temp & 0x1000) == 0x1000)
+            temp |= 0xFFFFF000;
+        *(float*)vpValue = temp * 0.0625;
+    }
+    //
+    // Get AMBIENT Temperature in integer type.
+    //
+    else
+    {
+        temp = ((ReceiveBuf[0]<<8) + ReceiveBuf[1]) & 0x01FFF;
+        if((temp & 0x1000) == 0x1000)
+        {
+            temp |= 0xFFFFF000;
+            temp += 0x10;
+        }
+        *(short *)vpValue = (temp>>4);
+    }
 }
 
 //*****************************************************************************
 //
-//! \brief Get the TUPPER and TLOWER Limit Hysteresis .
-//!
-//! \param *pDev specifies the device
-//!
-//! \return the Hysteresis of MCP98242_3 Temperature Sensor.
-//!  The return value would be:
-//!         \b HYSTERESIS_0, 0.5¡æ
-//!         \b HYSTERESIS_1_5, 1.5¡æ
-//!         \b HYSTERESIS_3, 3¡æ
-//!         \b HYSTERESIS_6, 6¡æ
-//
-//*****************************************************************************
-unsigned short MCP98242_3HystGet(MCP98242_3Dev *pDev)
-{
-    short config;
-
-    MCP98242_3RegGet(pDev, &config, MCP98242_3_CONFIG, I2C_TRANSFER_POLLING);
-
-    return (config & HYSTERESIS_M);
-}
-
-//*****************************************************************************
-//
-//! \brief Get MCP98242_3 Manufacture ID, Device ID, and Revision.
+//! \brief Get MCP98242 Manufacture ID, Device ID, and Revision.
 //!
 //! \param *pDev specifies the device
 //! \param id  The Manufacture ID, Device ID, and Revision.
@@ -673,21 +601,21 @@ unsigned short MCP98242_3HystGet(MCP98242_3Dev *pDev)
 //! \return None.
 //
 //*****************************************************************************
-void  MCP98242_3GetID(MCP98242_3Dev *pDev, MCP98242_3_ID *id)
+void  MCP98242GetID(MCP98242Dev *pDev, MCP98242_ID *id)
 {
     unsigned short *s;
        
     //
     // Get MANUFACTURER ID
     //
-    MCP98242_3RegGet(pDev, id, MCP98242_3_ManuID, I2C_TRANSFER_POLLING);
+    MCP98242RegGet(pDev, id, MCP98242_ManuID, I2C_TRANSFER_POLLING);
 
     //
     // Get DEVICE ID AND REVISION
     //
     s = ((unsigned short *)id);
     s++;
-    MCP98242_3RegGet(pDev, s, MCP98242_3_DevID_Rev, I2C_TRANSFER_POLLING);
+    MCP98242RegGet(pDev, s, MCP98242_DevID_Rev, I2C_TRANSFER_POLLING);
 }
 
 //*****************************************************************************
@@ -698,7 +626,7 @@ void  MCP98242_3GetID(MCP98242_3Dev *pDev, MCP98242_3_ID *id)
 
 //*****************************************************************************
 //
-//! \brief Initialize the MCP98242_3 Temperature Sensor, and select I2C port.
+//! \brief Initialize the MCP98242 Temperature Sensor, and select I2C port.
 //!
 //! \param *pDev specifies the device
 //! \param ulRate Specifies the I2C clock rate.
@@ -706,7 +634,7 @@ void  MCP98242_3GetID(MCP98242_3Dev *pDev, MCP98242_3_ID *id)
 //! \return None.
 //
 //*****************************************************************************
-void  MCP98242_3EEPROMInit(MCP98242_3Dev *pDev, unsigned long ulRate)
+void  MCP98242EEPROMInit(MCP98242Dev *pDev, unsigned long ulRate)
 {
     //
     // Initialize I2C port
@@ -718,311 +646,152 @@ void  MCP98242_3EEPROMInit(MCP98242_3Dev *pDev, unsigned long ulRate)
 
 //*****************************************************************************
 //
-//! \brief DeInitialize EEPROM.
-//!
-//! \param *pDev specifies the device
-//!
-//! \return None.
-//
-//*****************************************************************************
-void  MCP98242_3EEPROMDeInit(MCP98242_3Dev *pDev)
-{
-    xSysCtlPeripheralDisable2(pDev->I2CBase);    
-}
-
-//*****************************************************************************
-//
 //! \brief Write one byte to EEPROM Standard Array. 
 //!
 //! \param pDev pointer of the device
-//! \param usAddr specifies address.
-//! \param cpvalue pointer of value to be writen.
-//! \param TransType specifies I2C transfer type.
+//! \param ucAddr specifies address.
+//! \param ucValue value to be writen.
 //!
-//! This function is to write one byte to EEPROM.
-//!
-//! The \e usAddr should be between 0x80 to 0xff, the standard array.
-//!
-//! The \e TransType can be \b XI2C_TRANSFER_POLLING or 
-//! \b XI2C_TRANSFER_INTERRUPT.
+//! The \e ucAddr should be between 0x80 to 0xff, the standard array.
 //!
 //! \return None.
 //
 //***************************************************************************** 
-void  MCP98242_3ByteWrite(MCP98242_3Dev *pDev, unsigned short usAddr, 
-            char *cpValue, char cTransType)
+void  MCP98242ByteWrite(MCP98242Dev *pDev, unsigned char ucAddr, 
+                        unsigned char ucValue)
 {
     tI2CMasterTransferCfg Cfg;
-    char ucTemp[2];
-    char *SendBuf;
-    unsigned long SendLength;
-    unsigned long SlaveAddress;
+    unsigned char ucTemp[2];
+
+    xASSERT((ucAddr >= 0x80) && (ucAddr <= 0xFF));
     
-    unsigned char ReceiveBuf[2] = {0};
-    unsigned char ReceiveLength ;
+    ucTemp[0] = ucAddr;
+    ucTemp[1] = ucValue;
 
-    if(usAddr>=0x80 && usAddr<0x100)
-    {
-        //
-        // EEPROM address, for example: 0x54
-        //
-        SlaveAddress = pDev->EEPROMSlaAddr;
-    }
-    else if((((short)usAddr)>>8) == 1)
-    {
-        //
-        // SWP address, it's fixed.
-        //
-        SlaveAddress = 0x31;
-    }
-    else if((((short)usAddr)>>8) == 2)
-    {
-        //
-        // CWP address, it's fixed.
-        //
-        SlaveAddress = 0x33;   
-    }
-    else if((((short)usAddr)>>8) == 3)
-    {
-        //
-        // PWP address, for example: 0x37
-        //
-        SlaveAddress = pDev->PWPSlaAddr;
-    }
-      
-    ucTemp[0] = usAddr;
-    ucTemp[1] =  *cpValue;
-    SendBuf = ucTemp;
-    SendLength = 2;
-    ReceiveLength = 0;
-
-    Cfg.ulSlave = SlaveAddress;
-    Cfg.pvWBuf = SendBuf;
-    Cfg.ulWLen = SendLength;
+    Cfg.ulSlave = pDev->EEPROMSlaAddr;
+    Cfg.pvWBuf = ucTemp;
+    Cfg.ulWLen = 2;
     Cfg.ulWCount = 0;
-    Cfg.pvRBuf = ReceiveBuf;
-    Cfg.ulRLen = ReceiveLength;
+    Cfg.pvRBuf = 0;
+    Cfg.ulRLen = 0;
     Cfg.ulRCount = 0;  
 
-    if(cTransType == ((char)I2C_TRANSFER_POLLING))
-        xI2CMasterTransfer(pDev->I2CBase, &Cfg, I2C_TRANSFER_POLLING);
-    else
-        xI2CMasterTransfer(pDev->I2CBase, &Cfg, I2C_TRANSFER_INTERRUPT);
+    xI2CMasterTransfer(pDev->I2CBase, &Cfg, I2C_TRANSFER_POLLING);
 }
 
-//*****************************************************************************
-//
-//! \brief Read one byte from EEPROM Standard Array. 
-//!
-//! \param pDev pointer of the device
-//! \param usAddr specifies address.
-//! \param cpvalue pointer of the received value.
-//! \param TransType specifies I2C transfer type.
-//!
-//! This function is to read one byte from EEPROM.
-//!
-//! The \e usAddr should be between 0x80 to 0xff, the standard array.
-//!
-//! The \e TransType can be \b XI2C_TRANSFER_POLLING or 
-//! \b XI2C_TRANSFER_INTERRUPT.
-//!
-//! \return None.
-//
-//***************************************************************************** 
-void  MCP98242_3ByteRead(MCP98242_3Dev *pDev, unsigned short usAddr, 
-                char *cpValue,  char cTransType)
-{
-    tI2CMasterTransferCfg Cfg;
-    unsigned long SendLength = 1;
-    unsigned long SlaveAddress;
-    
-    unsigned char ReceiveBuf[1] = {0};
-    unsigned char ReceiveLength = 1;
-
-    unsigned char *SendBuf = (unsigned char *)&usAddr;
-
-    if(usAddr>=0x80 && usAddr<0x100)
-    {
-        //
-        // EEPROM address, for example: 0x54
-        //
-        SlaveAddress = pDev->EEPROMSlaAddr;
-    }
-    else if((((short)usAddr)>>8) == 1)
-    {
-        //
-        // SWP address, it's fixed.
-        //
-        SlaveAddress = 0x31;
-    }
-    else if((((short)usAddr)>>8) == 2)
-    {
-        //
-        // CWP address, it's fixed.
-        //
-        SlaveAddress = 0x33;   
-    }
-    else if((((short)usAddr)>>8) == 3)
-    {
-        //
-        // PWP address, for example: 0x37
-        //
-        SlaveAddress = pDev->PWPSlaAddr;
-    }
-
-    Cfg.ulSlave = SlaveAddress;
-    Cfg.pvWBuf = SendBuf;
-    Cfg.ulWLen = SendLength;
-    Cfg.ulWCount = 0;
-    Cfg.pvRBuf = ReceiveBuf;
-    Cfg.ulRLen = ReceiveLength;
-    Cfg.ulRCount = 0;  
-
-    if(cTransType == ((char)I2C_TRANSFER_POLLING))
-        xI2CMasterTransfer(pDev->I2CBase, &Cfg, I2C_TRANSFER_POLLING);
-    else
-        xI2CMasterTransfer(pDev->I2CBase, &Cfg, I2C_TRANSFER_INTERRUPT);
-
-    //
-    // the value from EEPROM
-    //
-    *(unsigned char*)cpValue = ReceiveBuf[0];
-}
-
-//*****************************************************************************
-//
-//! \brief Write multi-byte of EEPORM.
-//!
-//! \param *pDev specifies the device
-//! \param usAddr The beginning address to read from
-//! \param cpValue The data you read
-//! \param cTransType I2C transfer type, Poll or Interrupt 
-//! \param ucNum The number of bytes to write
-//!
-//! \return \b xtrue SUCCESS
-//!         \b xfalse FAILURE
-//
-//*****************************************************************************
-xtBoolean  MCP98242_3MutiByteWrite(MCP98242_3Dev *pDev, unsigned short usAddr, 
-                char *cpValue, char cTransType, unsigned char ucNum)
-{
-    if((usAddr+ucNum) >= 256)
-        return xfalse;
-
-    while(ucNum--)
-    {
-        MCP98242_3ByteWrite(pDev, usAddr++, cpValue++, cTransType);
-        xSysCtlDelay(10000);
-    }
-
-    return xtrue;
-}
 
 //*****************************************************************************
 //
 //! \brief Write one page to EEPROM Standard Array. 
 //!
 //! \param pDev specifies the device
-//! \param usAddr specifies beginning address of page.
-//! \param cValue specifies value.
-//! \param TransType specifies I2C transfer type.
+//! \param ucAddr specifies beginning address of page.
+//! \param ucpValue specifies value.
 //!
 //! This function is to write one page to EEPROM Standard Array.
 //!
-//! The \e usAddr should be between 0x80 to 0xff, the standard array. And the low
-//! 4 bits should be 0.
-//!
-//! The \e TransType can be \b XI2C_TRANSFER_POLLING or \b XI2C_TRANSFER_INTERRUPT.
+//! The \e usAddr should be between 0x80 to 0xff, the standard array. 
+//! And the low 4 bits should be 0.
 //!
 //! \return None.
 //
 //***************************************************************************** 
-void MCP98242_3PageWrite(MCP98242_3Dev *pDev, unsigned short usAddr, char cValue[], 
-                    char cTransType)
+void MCP98242PageWrite(MCP98242Dev *pDev, unsigned char ucAddr, 
+                       unsigned char *ucpValue)
 {
     tI2CMasterTransferCfg Cfg;
     int temp;
-    char ucTemp[17];
-    char *SendBuf;
-    unsigned long SendLength = 17;
-    
-    unsigned char ReceiveBuf[2] = {0};
-    unsigned char ReceiveLength = 0;
+    unsigned char ucTemp[17];      
 
-    //
-    // EEPROM address, for example: 0x54
-    //
-    unsigned long SlaveAddress = pDev->EEPROMSlaAddr;
-
-    xASSERT((sizeof(cValue) == 16) &&
-            ((usAddr & 0x0F) == 0x00) &&
-            (usAddr < 0xFF));
+    xASSERT(((ucAddr & 0x0F) == 0x00) &&
+             (ucAddr >= 0x80) && (ucAddr < 0xFF)); 
 
     for(temp=0; temp<16; temp++)
     {
-        ucTemp[temp+1] = cValue[temp];
+        ucTemp[temp+1] = ucpValue[temp];
     }
-    ucTemp[0] = usAddr;
-    SendBuf = ucTemp;
+    ucTemp[0] = ucAddr;
 
-    Cfg.ulSlave = SlaveAddress;
-    Cfg.pvWBuf = SendBuf;
-    Cfg.ulWLen = SendLength;
+    Cfg.ulSlave = pDev->EEPROMSlaAddr;
+    Cfg.pvWBuf = ucTemp;
+    Cfg.ulWLen = 17;
     Cfg.ulWCount = 0;
-    Cfg.pvRBuf = ReceiveBuf;
-    Cfg.ulRLen = ReceiveLength;
+    Cfg.pvRBuf = 0;
+    Cfg.ulRLen = 0;
     Cfg.ulRCount = 0;  
 
-    if(cTransType == ((char)I2C_TRANSFER_POLLING))
-        xI2CMasterTransfer(pDev->I2CBase, &Cfg, I2C_TRANSFER_POLLING);
-    else
-        xI2CMasterTransfer(pDev->I2CBase, &Cfg, I2C_TRANSFER_INTERRUPT);
+    xI2CMasterTransfer(pDev->I2CBase, &Cfg, I2C_TRANSFER_POLLING);
+}
+
+
+//*****************************************************************************
+//
+//! \brief Read one byte from EEPROM. 
+//!
+//! \param pDev pointer of the device
+//! \param ucAddr specifies address.
+//!
+//! The \e usAddr should be between 0x00 to 0xff, the whole region.
+//!
+//! \return value of the specified address.
+//
+//***************************************************************************** 
+unsigned char MCP98242ByteRead(MCP98242Dev *pDev, unsigned char ucAddr)
+{
+    tI2CMasterTransferCfg Cfg;
+    unsigned char ReceiveBuf[1] = {0};
+
+    xASSERT((ucAddr >= 0x00) && (ucAddr <= 0xFF));
+
+    Cfg.ulSlave = pDev->EEPROMSlaAddr;
+    Cfg.pvWBuf = &ucAddr;
+    Cfg.ulWLen = 1;
+    Cfg.ulWCount = 0;
+    Cfg.pvRBuf = ReceiveBuf;
+    Cfg.ulRLen = 1;
+    Cfg.ulRCount = 0;  
+
+    xI2CMasterTransfer(pDev->I2CBase, &Cfg, I2C_TRANSFER_POLLING);
+
+    //
+    // the value from EEPROM
+    //
+    return ReceiveBuf[0];
 }
 
 //*****************************************************************************
 //
-//! \brief Read from EEPROM Standard Array. 
+//! \brief Current address or Sequential Read from EEPROM. 
 //!
 //! \param pDev pointer of the device
-//! \param cAddr specifies address.
-//! \param cpvalue pointer of the received value.
-//! \param cTransType specifies I2C transfer type.
+//! \param ucAddr specifies address.
+//! \param ucpValue pointer of the received value.
 //! \param ucNum the number of bytes to be received.
 //!
-//! When usAddr and ucNum equal 0, byte of current address will be read. 
+//! When ucAddr and ucNum equal 0, byte of current address will be read. 
 //! Otherwise, bytes with number of "ucnum" from address "usAddr" will be read.
-//! 
-//! The \e addr should be between 0x80 to 0xff, the standard array.
-//!
-//! The \e TransType can be \b XI2C_TRANSFER_POLLING or 
-//! \b XI2C_TRANSFER_INTERRUPT.
 //!
 //! \return None.
 //
 //***************************************************************************** 
-void MCP98242_3MemRead(MCP98242_3Dev *pDev, char cAddr, char *cpValue, 
-                    char cTransType, unsigned char ucNum)
+void MCP98242MemRead(MCP98242Dev *pDev, unsigned char ucAddr, 
+                     unsigned char *ucpValue, unsigned char ucNum)
 {
     tI2CMasterTransferCfg Cfg;
     int i;
-    char *cp;
-    char *SendBuf;
+    unsigned char *cp;
+    unsigned char *SendBuf;
     unsigned long SendLength = 0;
     
     unsigned char ReceiveBuf[16] = {0};
     unsigned char ReceiveLength = 0;
-
-    //
-    // EEPROM address, for example: 0x54
-    //
-    unsigned long SlaveAddress = pDev->EEPROMSlaAddr;
 
     xASSERT(ucNum < 17);
 
     //
     // Current Address Read
     //
-    if(cAddr == 0)
+    if(ucAddr == 0)
     {
         ReceiveLength = 1;    
     }
@@ -1031,12 +800,12 @@ void MCP98242_3MemRead(MCP98242_3Dev *pDev, char cAddr, char *cpValue,
     //
     else
     {
-        SendBuf = &cAddr;
+        SendBuf = &ucAddr;
         SendLength = 1;
         ReceiveLength = ucNum;
     }
 
-    Cfg.ulSlave = SlaveAddress;
+    Cfg.ulSlave = pDev->EEPROMSlaAddr;
     Cfg.pvWBuf = SendBuf;
     Cfg.ulWLen = SendLength;
     Cfg.ulWCount = 0;
@@ -1044,27 +813,120 @@ void MCP98242_3MemRead(MCP98242_3Dev *pDev, char cAddr, char *cpValue,
     Cfg.ulRLen = ReceiveLength;
     Cfg.ulRCount = 0;  
 
-    if(cTransType == ((char)I2C_TRANSFER_POLLING))
-        xI2CMasterTransfer(pDev->I2CBase, &Cfg, I2C_TRANSFER_POLLING);
-    else
-        xI2CMasterTransfer(pDev->I2CBase, &Cfg, I2C_TRANSFER_INTERRUPT);
+    xI2CMasterTransfer(pDev->I2CBase, &Cfg, I2C_TRANSFER_POLLING);
 
     //
     // Current Address Read
     //
-    if(cAddr == 0)
+    if(ucAddr == 0)
     {
-        *(unsigned char*)cpValue = ReceiveBuf[0];    
+        *ucpValue = ReceiveBuf[0];    
     }
     //
     // Sequential Read, 16 bytes at most.
     //
     else
     {
-        cp = cpValue;
+        cp = ucpValue;
         for(i=0; i<ucNum; i++, cp++)
         {
             *cp = ReceiveBuf[i];    
         }
     }
+}
+
+//*****************************************************************************
+//
+//! \brief Write one byte to EEPROM Write-Protected Array. 
+//!
+//! \param pDev pointer of the device
+//! \param ucAddr specifies address.
+//! \param ucValue value to be writen.
+//! \param ucType type of different writing.
+//!  It can be : \b EEPROM_SWP
+//!              \b EEPROM_CWP
+//!              \b EEPROM_PWP
+//!
+//! The \e ucAddr should be between 0x00 to 0x7f, the Write-Protected array.
+//!
+//! \return None.
+//
+//***************************************************************************** 
+void  MCP98242ProtWrite(MCP98242Dev *pDev, unsigned char ucAddr,  
+                        unsigned char ucValue, unsigned char ucType)
+{
+    tI2CMasterTransferCfg Cfg;
+    unsigned char ucTemp[2];
+    unsigned long SlaveAddress;
+
+    if(ucType == EEPROM_SWP)
+    {
+        //
+        // SWP address, it's fixed.
+        //
+        SlaveAddress = 0x31;
+    }
+    else if(ucType == EEPROM_CWP)
+    {
+        //
+        // CWP address, it's fixed.
+        //
+        SlaveAddress = 0x33;   
+    }
+    else if(ucType == EEPROM_PWP)
+    {
+        //
+        // PWP address, for example: 0x37
+        //
+        SlaveAddress = pDev->PWPSlaAddr;
+    }
+      
+    ucTemp[0] = ucAddr;
+    ucTemp[1] = ucValue;
+
+    Cfg.ulSlave = SlaveAddress;
+    Cfg.pvWBuf = ucTemp;
+    Cfg.ulWLen = 2;
+    Cfg.ulWCount = 0;
+    Cfg.pvRBuf = 0;
+    Cfg.ulRLen = 0;
+    Cfg.ulRCount = 0;  
+
+    xI2CMasterTransfer(pDev->I2CBase, &Cfg, I2C_TRANSFER_POLLING);
+}
+
+//*****************************************************************************
+//
+//! \brief Clear the SWP. 
+//!
+//! \param pDev pointer of the device
+//! \param ucAddr specifies address to be cleared.
+//!
+//! The \e ucAddr should be between 0x00 to 0x7f, the Write-Protected array.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void  MCP98242ProtClear(MCP98242Dev *pDev, unsigned char ucAddr)
+{
+    tI2CMasterTransferCfg Cfg;
+    unsigned char ucTemp[2];
+
+    //
+    // CWP address, it's fixed.
+    //
+    unsigned long SlaveAddress = 0x33;
+   
+    ucTemp[0] = ucAddr;
+    ucTemp[1] = 0x00;
+
+    Cfg.ulSlave = SlaveAddress;
+    Cfg.pvWBuf = ucTemp;
+    Cfg.ulWLen = 2;
+    Cfg.ulWCount = 0;
+    Cfg.pvRBuf = 0;
+    Cfg.ulRLen = 0;
+    Cfg.ulRCount = 0;  
+
+    xI2CMasterTransfer(pDev->I2CBase, &Cfg, I2C_TRANSFER_POLLING);   
 }

@@ -1635,13 +1635,13 @@
       <group>
         <name>Sensor_Temp_MCP98242_3</name>
         <file>
+          <name>$PROJ_DIR$\..\..\..\lib\hw_MCP98242_3.h</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\lib\MCP98242_3.c</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\lib\MCP98242_3.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\lib\xhw_MCP98242_3.h</name>
         </file>
       </group>
     </group>

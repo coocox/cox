@@ -47,7 +47,7 @@ void pinSet()
 // 6. Event Interrupt ID
 // 7. Function to configure the GPIO Pins. 
 //
-MCP98242_3Dev dev = {I2C0_BASE, 0x1C, 0x54, 0x37,xGPIOSPinToPortPin(PB13), 
+MCP98242Dev dev = {I2C0_BASE, 0x1C, 0x54, 0x37,xGPIOSPinToPortPin(PB13), 
                         xINT_GPIOB, pinSet};
 
 int test_led()
@@ -69,7 +69,7 @@ unsigned long test_Sen_Event (void *pvCBData,
     //
     if(Event_mode)
     {
-        MCP98242_3IntClear(&dev);
+        MCP98242IntClear(&dev);
         Int_Status = 1;
     }
     //
@@ -84,60 +84,62 @@ unsigned long test_Sen_Event (void *pvCBData,
 void TempSensor_Event()
 {
     unsigned short s;
-    float f;     
-
+    float f;   
+    
     //
     // Initialize the temperature sensor.
+    //  
+    MCP98242SensorInit(&dev, 50000);
+
     //
-    MCP98242_3SENInit(&dev, 50000);
+    // Set RESOLUTION: 0.125¡æ, HYSTERESIS: 0¡æ
+    //
+    //
+    MCP98242Config(&dev, 0, RESOLUTION_125, HYSTERESIS_0);
+
+    for(f=0;f<1000;f++);
 
     //
     // Set the UPPER temperature.
     //
-    f = 28.0;
-    MCP98242_3UpperSet(&dev, &f);
+    f = 27.0;
+    MCP98242LimitSet(&dev, &f, T_UPPER);
+    for(f=0;f<1000;f++);
 
     //
     // Set the LOWER temperature.
     //
-    f = 10.0;
-    MCP98242_3LowerSet(&dev, &f); 
+    f = 25.0;
+    MCP98242LimitSet(&dev, &f, T_LOWER);
+    for(f=0;f<1000;f++);
 
     //
     // Set the CRITICAL temperature.
     //
-    f = 30.0;
-    MCP98242_3CritSet(&dev, &f);
-
-    //
-    // Set RESOLUTION: 0.125¡æ
-    //
-    MCP98242_3ResSet(&dev, RESOLUTION_125);
-
-    //
-    // Set HYSTERESIS: 0¡æ
-    //
-    MCP98242_3HystSet(&dev, HYSTERESIS_1_5);
+    f = 32.0;
+    MCP98242LimitSet(&dev, &f, T_CRITICAL);
+    for(f=0;f<1000;f++);
 
     //
     // Set the Event Output to be Comparator mode.
     //
     Event_mode = EVENT_COMP; 
-    //Event_mode = EVENT_INT;     //You can change to Int Mode.  
-    
+    //Event_mode = EVENT_INT;   //You can change to Int Mode.
+     
     //
     // Configure the Interrupt.
     // 1. Specify the device
     // 2. Initialize the callback funtion
     // 3. Event Alert Polarity: Low Level
     // 4. Event Mode: Comparator
-    //         
-    MCP98242_3IntConfig(&dev, test_Sen_Event, EVENT_LOW_LEVEL, Event_mode);
+    //               
+    MCP98242IntConfig(&dev, test_Sen_Event, EVENT_LOW_LEVEL, Event_mode);
+    for(f=0;f<100000;f++);
 
     //
     // Enable MCP98242_3 Interrupt.
     //
-    MCP98242_3IntEnable(&dev);
+    MCP98242IntEnable(&dev);
 
     //
     // Configure PA12 for Int Mode, PC12 for Comparator Mode.
@@ -153,11 +155,11 @@ void TempSensor_Event()
         //
         // Get Ambient temperature
         //
-        MCP98242_3GetTempFt(&dev, &f);
+        MCP98242TempGet(&dev, &f, T_FLOAT);
         for(f=0;f<10000;f++);
 
         //
-        // For Int mode.
+        // For Interrupt mode.
         // If the T_A is above the T_UPPER , a interrupt will
         // happen and the Blue LED turns on.
         // If the T_A is below the T_UPPER - T_HYST, a interrupt will
@@ -166,8 +168,8 @@ void TempSensor_Event()
         if(Int_Status)
         {
             Int_Status = 0;
-            MCP98242_3RegGet(&dev, &s, MCP98242_3_TEMP, I2C_TRANSFER_POLLING);
-            if((s>>14)&1)
+            s = MCP98242EvnCondGet(&dev);
+            if(s == EVENT_COND_3)
                 GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_12, 0);
             else
                 GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_12, 1);

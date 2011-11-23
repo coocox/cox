@@ -346,7 +346,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\..\..\..\..\CoX_Peripheral\CoX_Peripheral_NUC1xx\libcox;..\..\..\lib;..\..\..\..\..\..\resource\testframe;..\src</IncludePath>
+              <IncludePath>..\..\..\..\..\..\..\CoX_Peripheral\CoX_Peripheral_NUC1xx\libcox;..\..\..\lib;..\..\..\..\..\..\..\resource\testframe;..\src</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -542,9 +542,9 @@
               <FilePath>..\..\..\lib\MCP98242_3.h</FilePath>
             </File>
             <File>
-              <FileName>xhw_MCP98242_3.h</FileName>
+              <FileName>hw_MCP98242_3.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\lib\xhw_MCP98242_3.h</FilePath>
+              <FilePath>..\..\..\lib\hw_MCP98242_3.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -557,11 +557,6 @@
               <FilePath>..\src\testcase.c</FilePath>
             </File>
             <File>
-              <FileName>testport.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\resource\testframe\testport.c</FilePath>
-            </File>
-            <File>
               <FileName>xmcp98242test.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\src\xmcp98242test.c</FilePath>
@@ -569,12 +564,17 @@
             <File>
               <FileName>test.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\resource\testframe\test.c</FilePath>
+              <FilePath>..\..\..\..\..\..\..\resource\testframe\test.c</FilePath>
+            </File>
+            <File>
+              <FileName>testport.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\..\resource\testframe\testport.c</FilePath>
             </File>
             <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\src\main.c</FilePath>
+              <FilePath>..\..\..\..\..\..\..\resource\testframe\main.c</FilePath>
             </File>
           </Files>
         </Group>
