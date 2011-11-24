@@ -73,35 +73,68 @@ void WEAK  SVCIntHandler(void);
 void WEAK  DebugMonIntHandler(void);
 void WEAK  PendSVIntHandler(void);
 void WEAK  SysTickIntHandler(void);
-void WEAK  BODIntHandler(void);  
-void WEAK  WDTIntHandler(void);  
-void WEAK  EINT0IntHandler(void);
-void WEAK  EINT1IntHandler(void);
-void WEAK  GPABIntHandler(void); 
-void WEAK  GPCDEIntHandler(void);
-void WEAK  PWMAIntHandler(void); 
-void WEAK  PWMBIntHandler(void); 
-void WEAK  TIMER0IntHandler(void); 
-void WEAK  TIMER1IntHandler(void); 
-void WEAK  TIMER2IntHandler(void); 
-void WEAK  TIMER3IntHandler(void); 
-void WEAK  UART02IntHandler(void);
-void WEAK  UART1IntHandler(void);
-void WEAK  SPI0IntHandler(void); 
-void WEAK  SPI1IntHandler(void); 
-void WEAK  SPI2IntHandler(void); 
-void WEAK  SPI3IntHandler(void); 
-void WEAK  I2C0IntHandler(void); 
-void WEAK  I2C1IntHandler(void); 
-void WEAK  CAN0IntHandler(void); 
-void WEAK  USBDIntHandler(void);  
-void WEAK  PS2IntHandler(void);  
-void WEAK  ACMPIntHandler(void); 
-void WEAK  PDMAIntHandler(void);
-void WEAK  I2SIntHandler(void);
-void WEAK  PWRWUIntHandler(void);
-void WEAK  ADCIntHandler(void);
+void WEAK  WWDGIntHandler(void);  
+void WEAK  PVDIntHandler(void);  
+void WEAK  TAMPERIntHandler(void);
 void WEAK  RTCIntHandler(void);
+void WEAK  FLASHIntHandler(void); 
+void WEAK  RCCIntHandler(void);
+void WEAK  EXTI0IntHandler(void); 
+void WEAK  EXTI1IntHandler(void); 
+void WEAK  EXTI2IntHandler(void); 
+void WEAK  EXTI3IntHandler(void); 
+void WEAK  EXTI4IntHandler(void); 
+void WEAK  DMA1Channel1IntHandler(void); 
+void WEAK  DMA1Channel2IntHandler(void);
+void WEAK  DMA1Channel3IntHandler(void);
+void WEAK  DMA1Channel4IntHandler(void); 
+void WEAK  DMA1Channel5IntHandler(void); 
+void WEAK  DMA1Channel6IntHandler(void); 
+void WEAK  DMA1Channel7IntHandler(void); 
+void WEAK  ADC12IntHandler(void); 
+void WEAK  CAN1TXIntHandler(void); 
+void WEAK  CAN1RX0IntHandler(void); 
+void WEAK  CAN1RX1IntHandler(void);  
+void WEAK  CAN1SCEIntHandler(void);  
+void WEAK  EXTI95IntHandler(void); 
+void WEAK  TIM1BRKIntHandler(void);
+void WEAK  TIM1UPIntHandler(void);
+void WEAK  TIM1TRGCOMIntHandler(void);
+void WEAK  TIM1CCIntHandler(void);
+void WEAK  TIM2IntHandler(void);
+void WEAK  TIM3IntHandler(void);
+void WEAK  TIM4IntHandler(void);
+void WEAK  I2C1EVIntHandler(void);
+void WEAK  I2C1ERIntHandler(void);
+void WEAK  I2C2EVIntHandler(void);
+void WEAK  I2C2ERIntHandler(void);
+void WEAK  SPI1IntHandler(void);
+void WEAK  SPI2IntHandler(void);
+void WEAK  USART1IntHandler(void);
+void WEAK  USART2IntHandler(void);
+void WEAK  USART3IntHandler(void);
+void WEAK  EXTI1510IntHandler(void);
+void WEAK  RTCAlarmIntHandler(void);
+void WEAK  OTGFSWKUPIntHandler(void);
+void WEAK  TIM5IntHandler(void);
+void WEAK  SPI3IntHandler(void);
+void WEAK  UART4IntHandler(void);
+void WEAK  UART5IntHandler(void);
+void WEAK  TIM6IntHandler(void);
+void WEAK  TIM7IntHandler(void);
+void WEAK  DMA2Channel1IntHandler(void);
+void WEAK  DMA2Channel2IntHandler(void);
+void WEAK  DMA2Channel3IntHandler(void);
+void WEAK  DMA2Channel4IntHandler(void);
+void WEAK  DMA2Channel5IntHandler(void);
+void WEAK  ETHIntHandler(void);
+void WEAK  ETHWKUPIntHandler(void);
+void WEAK  CAN2TXIntHandler(void);
+void WEAK  CAN2RX0IntHandler(void);
+void WEAK  CAN2RX1IntHandler(void);
+void WEAK  CAN2SCEIntHandler(void);
+void WEAK  OTGFSIntHandler(void);
+
 
 //*****************************************************************************
 //
@@ -168,42 +201,69 @@ void (* const g_pfnVectors[])(void) =
     0,                                      // Reserved                                  
     PendSVIntHandler,                       // The PendSV handler                      
     SysTickIntHandler,                      // The SysTick handler                    
-    BODIntHandler,                          // Brownout low voltage detected
-    WDTIntHandler,                          // Watch Dog Timer  
-    EINT0IntHandler,                        // External signal interrupt from
-                                            // PB.14 pin 
-    EINT1IntHandler,                        // External signal interrupt from
-                                            // PB.15 pin 
-    GPABIntHandler,                         // External signal interrupt from 
-                                            // PA[15:0] / PB[13:0]
-    GPCDEIntHandler,                        // External interrupt from 
-                                            // PC[15:0]/PD[15:0]/PE[15:0]
-    PWMAIntHandler,                         // PWM0 or PWM2 
-    PWMBIntHandler,                         // PWM1 or PWM3   
-    TIMER0IntHandler,                       // Timer 0 
-    TIMER1IntHandler,                       // Timer 1
-    TIMER2IntHandler,                       // Timer 2
-    TIMER3IntHandler,                       // Timer 3
-    UART02IntHandler,                       // UART0
-    UART1IntHandler,                        // UART1
-    SPI0IntHandler,                         // SPI0 
-    SPI1IntHandler,                         // SPI1 
-    SPI2IntHandler,                         // SPI2
-    SPI3IntHandler,                         // SPI3 
-    I2C0IntHandler,                         // I2C0
-    I2C1IntHandler,                         // I2C1
-    CAN0IntHandler,                         // Reserved 
-    DefaultIntHandler,                      // Reserved
-    DefaultIntHandler,                      // Reserved 
-    USBDIntHandler,                         // USB Device  
-    PS2IntHandler,                          // PS2  
-    ACMPIntHandler,                         // Analog Comparator 
-    PDMAIntHandler,                         // PDMA
-    I2SIntHandler,                          // I2S 
-    PWRWUIntHandler,                        // Clock controller
-    ADCIntHandler,                          // ADC
-    DefaultIntHandler,                      // Reserved  
-    RTCIntHandler,                          // RTC
+    WWDGIntHandler,                         // 0 Window Watchdog interrupt
+    PVDIntHandler,                          // 1 PVD through EXTI Line detection  
+    TAMPERIntHandler,                       // 2 Tamper interrupt 
+    RTCIntHandler,                          // 3 RTC global interrupt
+    FLASHIntHandler,                        // 4 Flash global interrupt
+    RCCIntHandler,                          // 5 RCC global interrupt
+    EXTI0IntHandler,                        // 6 EXTI Line0 interrupt
+    EXTI1IntHandler,                        // 7 EXTI Line1 interrupt 
+    EXTI2IntHandler,                        // 8 EXTI Line2 interrupt
+    EXTI3IntHandler,                        // 9 EXTI Line3 interrupt
+    EXTI4IntHandler,                        // 10 EXTI Line4 interrupt
+    DMA1Channel1IntHandler,                 // 11 DMA1 Channel1 global interrupt
+    DMA1Channel2IntHandler,                 // 12 DMA1 Channel2 global interrupt
+    DMA1Channel3IntHandler,                 // 13 DMA1 Channel3 global interrupt
+    DMA1Channel4IntHandler,                 // 14 DMA1 Channel4 global interrupt
+    DMA1Channel5IntHandler,                 // 15 DMA1 Channel5 global interrupt
+    DMA1Channel6IntHandler,                 // 16 DMA1 Channel6 global interrupt
+    DMA1Channel7IntHandler,                 // 17 DMA1 Channel7 global interrupt
+    ADC12IntHandler,                        // 18 ADC1 and ADC2 global interrupt
+    CAN1TXIntHandler,                       // 19 CAN1 TX interrupts
+    CAN1RX0IntHandler,                      // 20 CAN1 RX0 interrupts
+    CAN1RX1IntHandler,                      // 21 CAN1 RX1 interrupt
+    CAN1SCEIntHandler,                      // 22 CAN1 SCE interrupt 
+    EXTI95IntHandler,                       // 23 EXTI Line[9:5] interrupts 
+    TIM1BRKIntHandler,                      // 24 TIM1 Break interrupt
+    TIM1UPIntHandler,                       // 25 TIM1 Update interrupt
+    TIM1TRGCOMIntHandler,                   // 26 TIM1 Trigger and Commutation
+    TIM1CCIntHandler,                       // 27 TIM1 Capture Compare interrupt
+    TIM2IntHandler,                         // 28 TIM2 global interrupt
+    TIM3IntHandler,                         // 29 TIM3 global interrupt
+    TIM4IntHandler,                         // 30 TIM4 global interrupt
+    I2C1EVIntHandler,                       // 31 I2C1 event interrupt
+    I2C1ERIntHandler,                       // 32 I2C1 error interrupt
+    I2C2EVIntHandler,                       // 33 I2C2 event interrupt
+    I2C2ERIntHandler,                       // 34 I2C2 error interrupt
+    SPI1IntHandler,                         // 35 SPI1 global interrupt
+    SPI2IntHandler,                         // 36 SPI2 global interrupt
+    USART1IntHandler,                       // 37 USART1 global interrupt
+    USART2IntHandler,                       // 38 USART2 global interrupt
+    USART3IntHandler,                       // 39 USART3 global interrupt
+    EXTI1510IntHandler,                     // 40 EXTI Line[15:10] interrupts
+    RTCAlarmIntHandler,                     // 41 RTC alarm through EXTI line
+    OTGFSWKUPIntHandler,                    // 42 USB On-The-Go FS Wakeup
+    0,0,0,0,0,0,0,
+    TIM5IntHandler,                         // 50 TIM5 global interrupt
+    SPI3IntHandler,                         // 51 SPI3 global interrupt
+    UART4IntHandler,                        // 52 UART4 global interrupt
+    UART5IntHandler,                        // 53 UART5 global interrupt
+    TIM6IntHandler,                         // 54 TIM6 global interrupt
+    TIM7IntHandler,                         // 55 TIM7 global interrupt
+    DMA2Channel1IntHandler,                 // 56 DMA2 Channel1 global interrupt
+    DMA2Channel2IntHandler,                 // 57 DMA2 Channel2 global interrupt
+    DMA2Channel3IntHandler,                 // 58 DMA2 Channel3 global interrupt
+    DMA2Channel4IntHandler,                 // 59 DMA2 Channel4 global interrupt
+    DMA2Channel5IntHandler,                 // 60 DMA2 Channel5 global interrupt
+    ETHIntHandler,                          // 61 Ethernet global interrupt
+    ETHWKUPIntHandler,                      // 62 Ethernet Wakeup through EXTI line
+    CAN2TXIntHandler,                       // 63 CAN2 TX interrupts
+    CAN2RX0IntHandler,                      // 64 CAN2 RX0 interrupts
+    CAN2RX1IntHandler,                      // 65 CAN2 RX1 interrupt
+    CAN2SCEIntHandler,                      // 66 CAN2 SCE interrupt
+    OTGFSIntHandler,                        // 67 USB On The Go FS global interrupt
+    (void *)0xF108F85F                      // Boot in RAM mode 
 };
 
 //*****************************************************************************
@@ -267,35 +327,68 @@ void Default_ResetHandler(void)
 #pragma weak DebugMonIntHandler = DefaultIntHandler
 #pragma weak PendSVIntHandler = DefaultIntHandler
 #pragma weak SysTickIntHandler = DefaultIntHandler
-#pragma weak BODIntHandler = DefaultIntHandler  
-#pragma weak WDTIntHandler = DefaultIntHandler  
-#pragma weak EINT0IntHandler = DefaultIntHandler
-#pragma weak EINT1IntHandler = DefaultIntHandler
-#pragma weak GPABIntHandler = DefaultIntHandler 
-#pragma weak GPCDEIntHandler = DefaultIntHandler
-#pragma weak PWMAIntHandler = DefaultIntHandler 
-#pragma weak PWMBIntHandler = DefaultIntHandler 
-#pragma weak TIMER0IntHandler = DefaultIntHandler 
-#pragma weak TIMER1IntHandler = DefaultIntHandler 
-#pragma weak TIMER2IntHandler = DefaultIntHandler 
-#pragma weak TIMER3IntHandler = DefaultIntHandler 
-#pragma weak UART02IntHandler = DefaultIntHandler
-#pragma weak UART1IntHandler = DefaultIntHandler
-#pragma weak SPI0IntHandler = DefaultIntHandler 
+#pragma weak WWDGIntHandler = DefaultIntHandler  
+#pragma weak PVDIntHandler = DefaultIntHandler  
+#pragma weak TAMPERIntHandler = DefaultIntHandler
+#pragma weak RTCIntHandler = DefaultIntHandler
+#pragma weak FLASHIntHandler = DefaultIntHandler 
+#pragma weak RCCIntHandler = DefaultIntHandler
+#pragma weak EXTI0IntHandler = DefaultIntHandler 
+#pragma weak EXTI1IntHandler = DefaultIntHandler 
+#pragma weak EXTI2IntHandler = DefaultIntHandler 
+#pragma weak EXTI3IntHandler = DefaultIntHandler 
+#pragma weak EXTI4IntHandler = DefaultIntHandler 
+#pragma weak DMA1Channel1IntHandler = DefaultIntHandler 
+#pragma weak DMA1Channel2IntHandler = DefaultIntHandler
+#pragma weak DMA1Channel3IntHandler = DefaultIntHandler
+#pragma weak DMA1Channel4IntHandler = DefaultIntHandler 
+#pragma weak DMA1Channel5IntHandler = DefaultIntHandler 
+#pragma weak DMA1Channel6IntHandler = DefaultIntHandler 
+#pragma weak DMA1Channel7IntHandler = DefaultIntHandler 
+#pragma weak ADC12IntHandler = DefaultIntHandler 
+#pragma weak CAN1TXIntHandler = DefaultIntHandler 
+#pragma weak CAN1RX0IntHandler = DefaultIntHandler 
+#pragma weak CAN1RX1IntHandler = DefaultIntHandler  
+#pragma weak CAN1SCEIntHandler = DefaultIntHandler  
+#pragma weak EXTI95IntHandler = DefaultIntHandler 
+#pragma weak TIM1BRKIntHandler = DefaultIntHandler
+#pragma weak TIM1UPIntHandler = DefaultIntHandler
+#pragma weak TIM1TRGCOMIntHandler = DefaultIntHandler
+#pragma weak TIM1CCIntHandler = DefaultIntHandler
+#pragma weak TIM2IntHandler = DefaultIntHandler  
+#pragma weak TIM3IntHandler = DefaultIntHandler 
+#pragma weak TIM4IntHandler = DefaultIntHandler 
+#pragma weak I2C1EVIntHandler = DefaultIntHandler 
+#pragma weak I2C1ERIntHandler = DefaultIntHandler 
+#pragma weak I2C2EVIntHandler = DefaultIntHandler 
+#pragma weak I2C2ERIntHandler = DefaultIntHandler 
 #pragma weak SPI1IntHandler = DefaultIntHandler 
 #pragma weak SPI2IntHandler = DefaultIntHandler 
+#pragma weak USART1IntHandler = DefaultIntHandler 
+#pragma weak USART2IntHandler = DefaultIntHandler 
+#pragma weak USART3IntHandler = DefaultIntHandler 
+#pragma weak EXTI1510IntHandler = DefaultIntHandler 
+#pragma weak RTCAlarmIntHandler = DefaultIntHandler 
+#pragma weak OTGFSWKUPIntHandler = DefaultIntHandler 
+#pragma weak TIM5IntHandler = DefaultIntHandler 
 #pragma weak SPI3IntHandler = DefaultIntHandler 
-#pragma weak I2C0IntHandler = DefaultIntHandler 
-#pragma weak I2C1IntHandler = DefaultIntHandler 
-#pragma weak CAN0IntHandler = DefaultIntHandler 
-#pragma weak USBDIntHandler = DefaultIntHandler  
-#pragma weak PS2IntHandler = DefaultIntHandler  
-#pragma weak ACMPIntHandler = DefaultIntHandler 
-#pragma weak PDMAIntHandler = DefaultIntHandler
-#pragma weak I2SIntHandler = DefaultIntHandler
-#pragma weak PWRWUIntHandler = DefaultIntHandler
-#pragma weak ADCIntHandler = DefaultIntHandler
-#pragma weak RTCIntHandler = DefaultIntHandler  
+#pragma weak UART4IntHandler = DefaultIntHandler 
+#pragma weak UART5IntHandler = DefaultIntHandler 
+#pragma weak TIM6IntHandler = DefaultIntHandler 
+#pragma weak TIM7IntHandler = DefaultIntHandler 
+#pragma weak DMA2Channel1IntHandler = DefaultIntHandler 
+#pragma weak DMA2Channel2IntHandler = DefaultIntHandler 
+#pragma weak DMA2Channel3IntHandler = DefaultIntHandler 
+#pragma weak DMA2Channel4IntHandler = DefaultIntHandler 
+#pragma weak DMA2Channel5IntHandler = DefaultIntHandler 
+#pragma weak ETHIntHandler = DefaultIntHandler 
+#pragma weak ETHWKUPIntHandler = DefaultIntHandler 
+#pragma weak CAN2TXIntHandler = DefaultIntHandler 
+#pragma weak CAN2RX0IntHandler = DefaultIntHandler 
+#pragma weak CAN2RX1IntHandler = DefaultIntHandler 
+#pragma weak CAN2SCEIntHandler = DefaultIntHandler 
+#pragma weak OTGFSIntHandler = DefaultIntHandler 
+  
 
 //*****************************************************************************
 //

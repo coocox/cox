@@ -2,14 +2,40 @@
 //
 //! \file xcore.c
 //! \brief Instruction wrappers for special CPU instructions.
-//! \brief Driver for the NVIC Interrupt Controller.
-//! \brief Driver for the SysTick driver.
-//! \version 1.0
-//! \date 5/13/2011
+//! Driver for the NVIC Interrupt Controller.
+//! Driver for the SysTick driver.
+//! \version V2.1.1.0
+//! \date 11/14/2011
 //! \author CooCox
 //! \copy
 //!
-//! Copyright (c) 2009-2011 CooCox.  All rights reserved.
+//! Copyright (c)  2011, CooCox 
+//! All rights reserved.
+//! 
+//! Redistribution and use in source and binary forms, with or without 
+//! modification, are permitted provided that the following conditions 
+//! are met: 
+//! 
+//!     * Redistributions of source code must retain the above copyright 
+//! notice, this list of conditions and the following disclaimer. 
+//!     * Redistributions in binary form must reproduce the above copyright
+//! notice, this list of conditions and the following disclaimer in the
+//! documentation and/or other materials provided with the distribution. 
+//!     * Neither the name of the <ORGANIZATION> nor the names of its 
+//! contributors may be used to endorse or promote products derived 
+//! from this software without specific prior written permission. 
+//! 
+//! THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+//! AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//! IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+//! ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+//! LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+//! CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+//! SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+//! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+//! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+//! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+//! THE POSSIBILITY OF SUCH DAMAGE.
 //
 //*****************************************************************************
 
@@ -43,7 +69,8 @@ static const unsigned long g_pulRegs[] =
 {
     0, NVIC_SYS_PRI1, NVIC_SYS_PRI2, NVIC_SYS_PRI3, NVIC_PRI0, NVIC_PRI1,
     NVIC_PRI2, NVIC_PRI3, NVIC_PRI4, NVIC_PRI5, NVIC_PRI6, NVIC_PRI7,
-    NVIC_PRI8, NVIC_PRI9, NVIC_PRI10, NVIC_PRI11, NVIC_PRI12, NVIC_PRI13
+    NVIC_PRI8, NVIC_PRI9, NVIC_PRI10, NVIC_PRI11, NVIC_PRI12, NVIC_PRI13,
+    NVIC_PRI14, NVIC_PRI15, NVIC_PRI16, NVIC_PRI17, NVIC_PRI18
 };
 
 //*****************************************************************************
@@ -79,7 +106,7 @@ IntDefaultHandler(void)
 //*****************************************************************************
 #if defined(codered) || defined(gcc) || defined(sourcerygxx)
 unsigned long __attribute__((naked))
-XCPUcpsid(void)
+xCPUcpsid(void)
 {
     unsigned long ulRet;
 
@@ -102,7 +129,7 @@ XCPUcpsid(void)
 #endif
 #if defined(ewarm)
 unsigned long
-XCPUcpsid(void)
+xCPUcpsid(void)
 {
     //
     // Read PRIMASK and disable interrupts.
@@ -121,7 +148,7 @@ XCPUcpsid(void)
 #endif
 #if defined(rvmdk) || defined(__ARMCC_VERSION)
 __asm unsigned long
-XCPUcpsid(void)
+xCPUcpsid(void)
 {
     //
     // Read PRIMASK and disable interrupts.
@@ -140,7 +167,7 @@ XCPUcpsid(void)
 //*****************************************************************************
 #if defined(codered) || defined(gcc) || defined(sourcerygxx)
 unsigned long __attribute__((naked))
-XCPUprimask(void)
+xCPUprimask(void)
 {
     unsigned long ulRet;
 
@@ -162,7 +189,7 @@ XCPUprimask(void)
 #endif
 #if defined(ewarm)
 unsigned long
-XCPUprimask(void)
+xCPUprimask(void)
 {
     //
     // Read PRIMASK and disable interrupts.
@@ -180,7 +207,7 @@ XCPUprimask(void)
 #endif
 #if defined(rvmdk) || defined(__ARMCC_VERSION)
 __asm unsigned long
-XCPUprimask(void)
+xCPUprimask(void)
 {
     //
     // Read PRIMASK and disable interrupts.
@@ -198,7 +225,7 @@ XCPUprimask(void)
 //*****************************************************************************
 #if defined(codered) || defined(gcc) || defined(sourcerygxx)
 unsigned long __attribute__((naked))
-XCPUcpsie(void)
+xCPUcpsie(void)
 {
     unsigned long ulRet;
 
@@ -221,7 +248,7 @@ XCPUcpsie(void)
 #endif
 #if defined(ewarm)
 unsigned long
-XCPUcpsie(void)
+xCPUcpsie(void)
 {
     //
     // Read PRIMASK and enable interrupts.
@@ -240,7 +267,7 @@ XCPUcpsie(void)
 #endif
 #if defined(rvmdk) || defined(__ARMCC_VERSION)
 __asm unsigned long
-XCPUcpsie(void)
+xCPUcpsie(void)
 {
     //
     // Read PRIMASK and enable interrupts.
@@ -258,7 +285,7 @@ XCPUcpsie(void)
 //*****************************************************************************
 #if defined(codered) || defined(gcc) || defined(sourcerygxx)
 void __attribute__((naked))
-XCPUwfi(void)
+xCPUwfi(void)
 {
     //
     // Wait for the next interrupt.
@@ -269,7 +296,7 @@ XCPUwfi(void)
 #endif
 #if defined(ewarm)
 void
-XCPUwfi(void)
+xCPUwfi(void)
 {
     //
     // Wait for the next interrupt.
@@ -279,7 +306,7 @@ XCPUwfi(void)
 #endif
 #if defined(rvmdk) || defined(__ARMCC_VERSION)
 __asm void
-XCPUwfi(void)
+xCPUwfi(void)
 {
     //
     // Wait for the next interrupt.
@@ -297,7 +324,7 @@ XCPUwfi(void)
 //*****************************************************************************
 #if defined(codered) || defined(gcc) || defined(sourcerygxx)
 void __attribute__((naked))
-XCPUbasepriSet(unsigned long ulNewBasepri)
+xCPUbasepriSet(unsigned long ulNewBasepri)
 {
 
     //
@@ -309,7 +336,7 @@ XCPUbasepriSet(unsigned long ulNewBasepri)
 #endif
 #if defined(ewarm)
 void
-XCPUbasepriSet(unsigned long ulNewBasepri)
+xCPUbasepriSet(unsigned long ulNewBasepri)
 {
     //
     // Set the BASEPRI register
@@ -319,7 +346,7 @@ XCPUbasepriSet(unsigned long ulNewBasepri)
 #endif
 #if defined(rvmdk) || defined(__ARMCC_VERSION)
 __asm void
-XCPUbasepriSet(unsigned long ulNewBasepri)
+xCPUbasepriSet(unsigned long ulNewBasepri)
 {
     //
     // Set the BASEPRI register
@@ -336,7 +363,7 @@ XCPUbasepriSet(unsigned long ulNewBasepri)
 //*****************************************************************************
 #if defined(codered) || defined(gcc) || defined(sourcerygxx)
 unsigned long __attribute__((naked))
-XCPUbasepriGet(void)
+xCPUbasepriGet(void)
 {
     unsigned long ulRet;
 
@@ -358,7 +385,7 @@ XCPUbasepriGet(void)
 #endif
 #if defined(ewarm)
 unsigned long
-XCPUbasepriGet(void)
+xCPUbasepriGet(void)
 {
     //
     // Read BASEPRI
@@ -376,7 +403,7 @@ XCPUbasepriGet(void)
 #endif
 #if defined(rvmdk) || defined(__ARMCC_VERSION)
 __asm unsigned long
-XCPUbasepriGet(void)
+xCPUbasepriGet(void)
 {
     //
     // Read BASEPRI
@@ -393,7 +420,7 @@ XCPUbasepriGet(void)
 //*****************************************************************************
 #if defined(codered) || defined(gcc) || defined(sourcerygxx)
 void __attribute__((naked))
-XCPUpspSet(unsigned long ulNewPspStack)
+xCPUpspSet(unsigned long ulNewPspStack)
 {
 
     //
@@ -405,7 +432,7 @@ XCPUpspSet(unsigned long ulNewPspStack)
 #endif
 #if defined(ewarm)
 void
-XCPUpspSet(unsigned long ulNewPspStack)
+xCPUpspSet(unsigned long ulNewPspStack)
 {
     //
     // Set the psp register
@@ -415,7 +442,7 @@ XCPUpspSet(unsigned long ulNewPspStack)
 #endif
 #if defined(rvmdk) || defined(__ARMCC_VERSION)
 __asm void
-XCPUpspSet(unsigned long ulNewPspStack)
+xCPUpspSet(unsigned long ulNewPspStack)
 {
     //
     // Set the psp register
@@ -432,7 +459,7 @@ XCPUpspSet(unsigned long ulNewPspStack)
 //*****************************************************************************
 #if defined(codered) || defined(gcc) || defined(sourcerygxx)
 unsigned long __attribute__((naked))
-XCPUpspGet(void)
+xCPUpspGet(void)
 {
     unsigned long ulRet;
 
@@ -454,7 +481,7 @@ XCPUpspGet(void)
 #endif
 #if defined(ewarm)
 unsigned long
-XCPUpspGet(void)
+xCPUpspGet(void)
 {
     //
     // Read psp
@@ -472,7 +499,7 @@ XCPUpspGet(void)
 #endif
 #if defined(rvmdk) || defined(__ARMCC_VERSION)
 __asm unsigned long
-XCPUpspGet(void)
+xCPUpspGet(void)
 {
     //
     // Read psp
@@ -483,7 +510,7 @@ XCPUpspGet(void)
 #endif
 #if defined(ccs)
 unsigned long
-XCPUpspGet(void)
+xCPUpspGet(void)
 {
     //
     // Read psp
@@ -509,7 +536,7 @@ XCPUpspGet(void)
 //*****************************************************************************
 #if defined(codered) || defined(gcc) || defined(sourcerygxx)
 void __attribute__((naked))
-XCPUmspSet(unsigned long ulNewmspStack)
+xCPUmspSet(unsigned long ulNewmspStack)
 {
 
     //
@@ -521,7 +548,7 @@ XCPUmspSet(unsigned long ulNewmspStack)
 #endif
 #if defined(ewarm)
 void
-XCPUmspSet(unsigned long ulNewmspStack)
+xCPUmspSet(unsigned long ulNewmspStack)
 {
     //
     // Set the msp register
@@ -531,7 +558,7 @@ XCPUmspSet(unsigned long ulNewmspStack)
 #endif
 #if defined(rvmdk) || defined(__ARMCC_VERSION)
 __asm void
-XCPUmspSet(unsigned long ulNewmspStack)
+xCPUmspSet(unsigned long ulNewmspStack)
 {
     //
     // Set the msp register
@@ -542,7 +569,7 @@ XCPUmspSet(unsigned long ulNewmspStack)
 #endif
 #if defined(ccs)
 void
-XCPUmspSet(unsigned long ulNewmspStack)
+xCPUmspSet(unsigned long ulNewmspStack)
 {
     //
     // Set the msp register
@@ -559,7 +586,7 @@ XCPUmspSet(unsigned long ulNewmspStack)
 //*****************************************************************************
 #if defined(codered) || defined(gcc) || defined(sourcerygxx)
 unsigned long __attribute__((naked))
-XCPUmspGet(void)
+xCPUmspGet(void)
 {
     unsigned long ulRet;
 
@@ -581,7 +608,7 @@ XCPUmspGet(void)
 #endif
 #if defined(ewarm)
 unsigned long
-XCPUmspGet(void)
+xCPUmspGet(void)
 {
     //
     // Read msp
@@ -599,7 +626,7 @@ XCPUmspGet(void)
 #endif
 #if defined(rvmdk) || defined(__ARMCC_VERSION)
 __asm unsigned long
-XCPUmspGet(void)
+xCPUmspGet(void)
 {
     //
     // Read msp
@@ -610,7 +637,7 @@ XCPUmspGet(void)
 #endif
 #if defined(ccs)
 unsigned long
-XCPUmspGet(void)
+xCPUmspGet(void)
 {
     //
     // Read msp
@@ -642,12 +669,12 @@ XCPUmspGet(void)
 //
 //*****************************************************************************
 xtBoolean
-XIntMasterEnable(void)
+xIntMasterEnable(void)
 {
     //
     // Enable processor interrupts.
     //
-    return(XCPUcpsie());
+    return(xCPUcpsie());
 }
 
 //*****************************************************************************
@@ -663,12 +690,12 @@ XIntMasterEnable(void)
 //
 //*****************************************************************************
 xtBoolean
-XIntMasterDisable(void)
+xIntMasterDisable(void)
 {
     //
     // Disable processor interrupts.
     //
-    return(XCPUcpsid());
+    return(xCPUcpsid());
 }
 
 //*****************************************************************************
@@ -688,17 +715,17 @@ XIntMasterDisable(void)
 //
 //*****************************************************************************
 void
-XIntPriorityGroupingSet(unsigned long ulBits)
+xIntPriorityGroupingSet(unsigned long ulBits)
 {
     //
     // Check the arguments.
     //
-    XASSERT(ulBits < NUM_PRIORITY);
+    xASSERT(ulBits < NUM_PRIORITY);
 
     //
     // Set the priority grouping.
     //
-    XHWREG(NVIC_APINT) = NVIC_APINT_VECTKEY | g_pulPriority[ulBits];
+    xHWREG(NVIC_APINT) = NVIC_APINT_VECTKEY | g_pulPriority[ulBits];
 }
 
 //*****************************************************************************
@@ -712,14 +739,14 @@ XIntPriorityGroupingSet(unsigned long ulBits)
 //
 //*****************************************************************************
 unsigned long
-XIntPriorityGroupingGet(void)
+xIntPriorityGroupingGet(void)
 {
     unsigned long ulLoop, ulValue;
 
     //
     // Read the priority grouping.
     //
-    ulValue = XHWREG(NVIC_APINT) & NVIC_APINT_PRIGROUP_M;
+    ulValue = xHWREG(NVIC_APINT) & NVIC_APINT_PRIGROUP_M;
 
     //
     // Loop through the priority grouping values.
@@ -766,22 +793,81 @@ XIntPriorityGroupingGet(void)
 //
 //*****************************************************************************
 void
-XIntPrioritySet(unsigned long ulInterrupt, unsigned char ucPriority)
+xIntPrioritySet(unsigned long ulInterrupt, unsigned char ucPriority)
 {
     unsigned long ulTemp;
 
     //
     // Check the arguments.
     //
-    XASSERT((ulInterrupt >= 4) && (ulInterrupt < NUM_INTERRUPTS));
+    xASSERT(((ulInterrupt & 0xFF) == 0) || (((ulInterrupt & 0xFF) >= 4) && 
+            ((ulInterrupt & 0xFF) < NUM_INTERRUPTS)));
 
-    //
-    // Set the interrupt priority.
-    //
-    ulTemp = XHWREG(g_pulRegs[ulInterrupt >> 2]);
-    ulTemp &= ~(0xFF << (8 * (ulInterrupt & 3)));
-    ulTemp |= ucPriority << (8 * (ulInterrupt & 3));
-    XHWREG(g_pulRegs[ulInterrupt >> 2]) = ulTemp;
+    if((ulInterrupt & 0xFF) != 0)
+    {
+        //
+        // Set the interrupt priority.
+        //
+        ulTemp = xHWREG(g_pulRegs[(ulInterrupt & 0xFF) >> 2]);
+        ulTemp &= ~(0xFF << (8 * ((ulInterrupt & 0xFF) & 3)));
+        ulTemp |= ucPriority << (8 * ((ulInterrupt & 0xFF) & 3));
+        xHWREG(g_pulRegs[(ulInterrupt & 0xFF) >> 2]) = ulTemp;
+    }
+    else if(ulInterrupt == INT_TIM1)
+    {
+        ulTemp = ucPriority | (ucPriority << 8) | (ucPriority << 16) | 
+                 (ucPriority << 24);
+        xHWREG(NVIC_PRI6) = ulTemp;
+    }
+    else if(ulInterrupt == INT_GPIO)
+    {
+        ulTemp = xHWREG(NVIC_PRI1);
+        ulTemp &= 0x0000FFFF;
+        ulTemp = (ucPriority << 16) | (ucPriority << 24);
+        xHWREG(NVIC_PRI1) = ulTemp;
+        
+        ulTemp = xHWREG(NVIC_PRI2);
+        ulTemp &= 0xFF000000;
+        ulTemp = (ucPriority << 8) | (ucPriority << 16) | (ucPriority << 24);
+        xHWREG(NVIC_PRI2) = ulTemp;
+
+        ulTemp = xHWREG(NVIC_PRI5);
+        ulTemp &= 0x00FFFFFF;
+        ulTemp = (ucPriority << 24);
+        xHWREG(NVIC_PRI5) = ulTemp;
+
+        ulTemp = xHWREG(NVIC_PRI10);
+        ulTemp &= 0xFFFFFF00;
+        ulTemp = ucPriority;
+        xHWREG(NVIC_PRI10) = ulTemp;
+    }
+    else if(ulInterrupt == INT_DMA1)
+    {
+        ulTemp = xHWREG(NVIC_PRI2);
+        ulTemp &= 0x00FFFFFF;
+        ulTemp = (ucPriority << 24);
+        xHWREG(NVIC_PRI2) = ulTemp;
+        
+        ulTemp = ucPriority | (ucPriority << 8) | (ucPriority << 16) | 
+                 (ucPriority << 24);
+        xHWREG(NVIC_PRI3) = ulTemp;
+        
+        ulTemp = xHWREG(NVIC_PRI4);
+        ulTemp &= 0xFFFF0000;
+        ulTemp = ucPriority | (ucPriority << 8);
+        xHWREG(NVIC_PRI4) = ulTemp;
+    }
+    else if(ulInterrupt == INT_DMA2)
+    {        
+        ulTemp = ucPriority | (ucPriority << 8) | (ucPriority << 16) | 
+                 (ucPriority << 24);
+        xHWREG(NVIC_PRI14) = ulTemp;
+        
+        ulTemp = xHWREG(NVIC_PRI15);
+        ulTemp &= 0xFFFFFF00;
+        ulTemp = ucPriority;
+        xHWREG(NVIC_PRI15) = ulTemp;
+    }
 }
 
 //*****************************************************************************
@@ -798,18 +884,38 @@ XIntPrioritySet(unsigned long ulInterrupt, unsigned char ucPriority)
 //
 //*****************************************************************************
 long
-XIntPriorityGet(unsigned long ulInterrupt)
+xIntPriorityGet(unsigned long ulInterrupt)
 {
     //
     // Check the arguments.
     //
-    XASSERT((ulInterrupt >= 4) && (ulInterrupt < NUM_INTERRUPTS));
+    xASSERT(((ulInterrupt & 0xFF) == 0) || (((ulInterrupt & 0xFF) >= 4) && 
+            ((ulInterrupt & 0xFF) < NUM_INTERRUPTS)));
 
-    //
-    // Return the interrupt priority.
-    //
-    return((XHWREG(g_pulRegs[ulInterrupt >> 2]) >> (8 * (ulInterrupt & 3))) &
-           0xFF);
+    if((ulInterrupt & 0xFF) != 0)
+    {
+        //
+        // Return the interrupt priority.
+        //
+        return((xHWREG(g_pulRegs[ulInterrupt >> 2]) >> (8 * (ulInterrupt & 3))) &
+               0xFF);
+    }
+    else if(ulInterrupt == INT_TIM1)
+    {
+        return ((xHWREG(NVIC_PRI6) >> 16) &0xFF);
+    }
+    else if(ulInterrupt == INT_GPIO)
+    {
+        return ((xHWREG(NVIC_PRI1) >> 16) &0xFF);
+    }
+    else if(ulInterrupt == INT_DMA1)
+    {
+        return ((xHWREG(NVIC_PRI3)) &0xFF);
+    }
+    else if(ulInterrupt == INT_DMA2)
+    {
+        return ((xHWREG(NVIC_PRI14)) &0xFF);
+    }
 }
 
 //*****************************************************************************
@@ -826,12 +932,12 @@ XIntPriorityGet(unsigned long ulInterrupt)
 //
 //*****************************************************************************
 void
-XIntEnable(unsigned long ulInterrupt)
+xIntEnable(unsigned long ulInterrupt)
 {
     //
     // Check the arguments.
     //
-    XASSERT(ulInterrupt < NUM_INTERRUPTS);
+    xASSERT((ulInterrupt & 0xFF) < NUM_INTERRUPTS);
 
     //
     // Determine the interrupt to enable.
@@ -841,42 +947,81 @@ XIntEnable(unsigned long ulInterrupt)
         //
         // Enable the MemManage interrupt.
         //
-        XHWREG(NVIC_SYS_HND_CTRL) |= NVIC_SYS_HND_CTRL_MEM;
+        xHWREG(NVIC_SYS_HND_CTRL) |= NVIC_SYS_HND_CTRL_MEM;
     }
     else if(ulInterrupt == FAULT_BUS)
     {
         //
         // Enable the bus fault interrupt.
         //
-        XHWREG(NVIC_SYS_HND_CTRL) |= NVIC_SYS_HND_CTRL_BUS;
+        xHWREG(NVIC_SYS_HND_CTRL) |= NVIC_SYS_HND_CTRL_BUS;
     }
     else if(ulInterrupt == FAULT_USAGE)
     {
         //
         // Enable the usage fault interrupt.
         //
-        XHWREG(NVIC_SYS_HND_CTRL) |= NVIC_SYS_HND_CTRL_USAGE;
+        xHWREG(NVIC_SYS_HND_CTRL) |= NVIC_SYS_HND_CTRL_USAGE;
     }
     else if(ulInterrupt == FAULT_SYSTICK)
     {
         //
         // Enable the System Tick interrupt.
         //
-        XHWREG(NVIC_ST_CTRL) |= NVIC_ST_CTRL_INTEN;
+        xHWREG(NVIC_ST_CTRL) |= NVIC_ST_CTRL_INTEN;
     }
-    else if((ulInterrupt >= 16) && (ulInterrupt <= 47))
+    else if(((ulInterrupt & 0xFF) >= 16) && 
+            ((ulInterrupt & 0xFF) < xNUM_INTERRUPTS))
     {
         //
         // Enable the general interrupt.
         //
-        XHWREG(NVIC_EN0) = 1 << (ulInterrupt - 16);
+        xHWREG(NVIC_EN0 + (((ulInterrupt & 0xFF)-16)/32)*4) 
+        = 1 << (((ulInterrupt & 0xFF)-16)%32);
     }
-    else if(ulInterrupt >= 48)
+    else if((((ulInterrupt >> 8) & 0xFF) >= 16) &&
+            (((ulInterrupt >> 8) & 0xFF) <= xNUM_INTERRUPTS))
     {
         //
         // Enable the general interrupt.
         //
-        XHWREG(NVIC_EN1) = 1 << (ulInterrupt - 48);
+        xHWREG(NVIC_EN0 + ((((ulInterrupt >> 8) & 0xFF)-16)/32)*4) 
+        = 1 << ((((ulInterrupt >> 8) & 0xFF)-16)%32);
+    }
+    else if(ulInterrupt == INT_TIM1)
+    {
+        xHWREG(NVIC_EN0) = 1 << (INT_TIM1BRK - 16);
+        xHWREG(NVIC_EN0) = 1 << (INT_TIM1UP - 16);
+        xHWREG(NVIC_EN0) = 1 << (INT_TIM1TRGCOM - 16);
+        xHWREG(NVIC_EN0) = 1 << (INT_TIM1CC - 16);
+    }
+    else if(ulInterrupt == INT_GPIO)
+    {
+        xHWREG(NVIC_EN0) = 1 << (INT_EXTI0 - 16);
+        xHWREG(NVIC_EN0) = 1 << (INT_EXTI1 - 16);
+        xHWREG(NVIC_EN0) = 1 << (INT_EXTI2 - 16);
+        xHWREG(NVIC_EN0) = 1 << (INT_EXTI3 - 16);
+        xHWREG(NVIC_EN0) = 1 << (INT_EXTI4 - 16);
+        xHWREG(NVIC_EN0) = 1 << (INT_EXTI95 - 16);
+        xHWREG(NVIC_EN1) = 1 << (INT_EXTI1510 - 48);
+    }
+    else if(ulInterrupt == INT_DMA1)
+    {
+        xHWREG(NVIC_EN0) = 1 << (INT_DMA1C1 - 16);
+        xHWREG(NVIC_EN0) = 1 << (INT_DMA1C2 - 16);
+        xHWREG(NVIC_EN0) = 1 << (INT_DMA1C3 - 16);
+        xHWREG(NVIC_EN0) = 1 << (INT_DMA1C4 - 16);
+        xHWREG(NVIC_EN0) = 1 << (INT_DMA1C5 - 16);
+        xHWREG(NVIC_EN0) = 1 << (INT_DMA1C6 - 16);
+        xHWREG(NVIC_EN0) = 1 << (INT_DMA1C7 - 16);
+    }
+    else if(ulInterrupt == INT_DMA2)
+    {
+        xHWREG(NVIC_EN1) = 1 << (INT_DMA2C1 - 48);
+        xHWREG(NVIC_EN1) = 1 << (INT_DMA2C2 - 48);
+        xHWREG(NVIC_EN1) = 1 << (INT_DMA2C3 - 48);
+        xHWREG(NVIC_EN1) = 1 << (INT_DMA2C4 - 48);
+        xHWREG(NVIC_EN1) = 1 << (INT_DMA2C5 - 48);
     }
 }
 
@@ -894,12 +1039,12 @@ XIntEnable(unsigned long ulInterrupt)
 //
 //*****************************************************************************
 void
-XIntDisable(unsigned long ulInterrupt)
+xIntDisable(unsigned long ulInterrupt)
 {
     //
     // Check the arguments.
     //
-    XASSERT(ulInterrupt < NUM_INTERRUPTS);
+    xASSERT((ulInterrupt & 0xFF) < NUM_INTERRUPTS);
 
     //
     // Determine the interrupt to disable.
@@ -909,42 +1054,81 @@ XIntDisable(unsigned long ulInterrupt)
         //
         // Disable the MemManage interrupt.
         //
-        XHWREG(NVIC_SYS_HND_CTRL) &= ~(NVIC_SYS_HND_CTRL_MEM);
+        xHWREG(NVIC_SYS_HND_CTRL) &= ~(NVIC_SYS_HND_CTRL_MEM);
     }
     else if(ulInterrupt == FAULT_BUS)
     {
         //
         // Disable the bus fault interrupt.
         //
-        XHWREG(NVIC_SYS_HND_CTRL) &= ~(NVIC_SYS_HND_CTRL_BUS);
+        xHWREG(NVIC_SYS_HND_CTRL) &= ~(NVIC_SYS_HND_CTRL_BUS);
     }
     else if(ulInterrupt == FAULT_USAGE)
     {
         //
         // Disable the usage fault interrupt.
         //
-        XHWREG(NVIC_SYS_HND_CTRL) &= ~(NVIC_SYS_HND_CTRL_USAGE);
+        xHWREG(NVIC_SYS_HND_CTRL) &= ~(NVIC_SYS_HND_CTRL_USAGE);
     }
     else if(ulInterrupt == FAULT_SYSTICK)
     {
         //
         // Disable the System Tick interrupt.
         //
-        XHWREG(NVIC_ST_CTRL) &= ~(NVIC_ST_CTRL_INTEN);
+        xHWREG(NVIC_ST_CTRL) &= ~(NVIC_ST_CTRL_INTEN);
     }
-    else if((ulInterrupt >= 16) && (ulInterrupt <= 47))
+    else if(((ulInterrupt & 0xFF) >= 16) && 
+            ((ulInterrupt & 0xFF) < xNUM_INTERRUPTS))
     {
         //
-        // Disable the general interrupt.
+        // Enable the general interrupt.
         //
-        XHWREG(NVIC_DIS0) = 1 << (ulInterrupt - 16);
+        xHWREG(NVIC_DIS0 + ((ulInterrupt & 0xFF)/32)*4) 
+        = 1 << ((ulInterrupt & 0xFF)%32);
     }
-    else if(ulInterrupt >= 48)
+    else if((((ulInterrupt >> 8) & 0xFF) >= 16) &&
+            (((ulInterrupt >> 8) & 0xFF) <= xNUM_INTERRUPTS))
     {
         //
-        // Disable the general interrupt.
+        // Enable the general interrupt.
         //
-        XHWREG(NVIC_DIS1) = 1 << (ulInterrupt - 48);
+        xHWREG(NVIC_DIS0 + (((ulInterrupt >> 8) & 0xFF)/32)*4) 
+        = 1 << (((ulInterrupt >> 8) & 0xFF)%32);
+    }
+    else if(ulInterrupt == INT_TIM1)
+    {
+        xHWREG(NVIC_DIS0) = 1 << (INT_TIM1BRK - 16);
+        xHWREG(NVIC_DIS0) = 1 << (INT_TIM1UP - 16);
+        xHWREG(NVIC_DIS0) = 1 << (INT_TIM1TRGCOM - 16);
+        xHWREG(NVIC_DIS0) = 1 << (INT_TIM1CC - 16);
+    }
+    else if(ulInterrupt == INT_GPIO)
+    {
+        xHWREG(NVIC_DIS0) = 1 << (INT_EXTI0 - 16);
+        xHWREG(NVIC_DIS0) = 1 << (INT_EXTI1 - 16);
+        xHWREG(NVIC_DIS0) = 1 << (INT_EXTI2 - 16);
+        xHWREG(NVIC_DIS0) = 1 << (INT_EXTI3 - 16);
+        xHWREG(NVIC_DIS0) = 1 << (INT_EXTI4 - 16);
+        xHWREG(NVIC_DIS0) = 1 << (INT_EXTI95 - 16);
+        xHWREG(NVIC_DIS1) = 1 << (INT_EXTI1510 - 48);
+    }
+    else if(ulInterrupt == INT_DMA1)
+    {
+        xHWREG(NVIC_DIS0) = 1 << (INT_DMA1C1 - 16);
+        xHWREG(NVIC_DIS0) = 1 << (INT_DMA1C2 - 16);
+        xHWREG(NVIC_DIS0) = 1 << (INT_DMA1C3 - 16);
+        xHWREG(NVIC_DIS0) = 1 << (INT_DMA1C4 - 16);
+        xHWREG(NVIC_DIS0) = 1 << (INT_DMA1C5 - 16);
+        xHWREG(NVIC_DIS0) = 1 << (INT_DMA1C6 - 16);
+        xHWREG(NVIC_DIS0) = 1 << (INT_DMA1C7 - 16);
+    }
+    else if(ulInterrupt == INT_DMA2)
+    {
+        xHWREG(NVIC_DIS1) = 1 << (INT_DMA2C1 - 48);
+        xHWREG(NVIC_DIS1) = 1 << (INT_DMA2C2 - 48);
+        xHWREG(NVIC_DIS1) = 1 << (INT_DMA2C3 - 48);
+        xHWREG(NVIC_DIS1) = 1 << (INT_DMA2C4 - 48);
+        xHWREG(NVIC_DIS1) = 1 << (INT_DMA2C5 - 48);
     }
 }
 
@@ -966,12 +1150,12 @@ XIntDisable(unsigned long ulInterrupt)
 //
 //*****************************************************************************
 void
-XIntPendSet(unsigned long ulInterrupt)
+xIntPendSet(unsigned long ulInterrupt)
 {
     //
     // Check the arguments.
     //
-    XASSERT(ulInterrupt < NUM_INTERRUPTS);
+    xASSERT((ulInterrupt & 0xFF) < NUM_INTERRUPTS);
 
     //
     // Determine the interrupt to pend.
@@ -981,35 +1165,74 @@ XIntPendSet(unsigned long ulInterrupt)
         //
         // Pend the NMI interrupt.
         //
-        XHWREG(NVIC_INT_CTRL) |= NVIC_INT_CTRL_NMI_SET;
+        xHWREG(NVIC_INT_CTRL) |= NVIC_INT_CTRL_NMI_SET;
     }
     else if(ulInterrupt == FAULT_PENDSV)
     {
         //
         // Pend the PendSV interrupt.
         //
-        XHWREG(NVIC_INT_CTRL) |= NVIC_INT_CTRL_PEND_SV;
+        xHWREG(NVIC_INT_CTRL) |= NVIC_INT_CTRL_PEND_SV;
     }
     else if(ulInterrupt == FAULT_SYSTICK)
     {
         //
         // Pend the SysTick interrupt.
         //
-        XHWREG(NVIC_INT_CTRL) |= NVIC_INT_CTRL_PENDSTSET;
+        xHWREG(NVIC_INT_CTRL) |= NVIC_INT_CTRL_PENDSTSET;
     }
-    else if((ulInterrupt >= 16) && (ulInterrupt <= 47))
+    else if(((ulInterrupt & 0xFF) >= 16) && 
+            ((ulInterrupt & 0xFF) < xNUM_INTERRUPTS))
     {
         //
-        // Pend the general interrupt.
+        // Enable the general interrupt.
         //
-        XHWREG(NVIC_PEND0) = 1 << (ulInterrupt - 16);
+        xHWREG(NVIC_PEND0 + ((ulInterrupt & 0xFF)/32)*4) 
+        = 1 << ((ulInterrupt & 0xFF)%32);
     }
-    else if(ulInterrupt >= 48)
+    else if((((ulInterrupt >> 8) & 0xFF) >= 16) &&
+            (((ulInterrupt >> 8) & 0xFF) <= xNUM_INTERRUPTS))
     {
         //
-        // Pend the general interrupt.
+        // Enable the general interrupt.
         //
-        XHWREG(NVIC_PEND1) = 1 << (ulInterrupt - 48);
+        xHWREG(NVIC_PEND0 + (((ulInterrupt >> 8) & 0xFF)/32)*4) 
+        = 1 << (((ulInterrupt >> 8) & 0xFF)%32);
+    }
+    else if(ulInterrupt == INT_TIM1)
+    {
+        xHWREG(NVIC_PEND0) = 1 << (INT_TIM1BRK - 16);
+        xHWREG(NVIC_PEND0) = 1 << (INT_TIM1UP - 16);
+        xHWREG(NVIC_PEND0) = 1 << (INT_TIM1TRGCOM - 16);
+        xHWREG(NVIC_PEND0) = 1 << (INT_TIM1CC - 16);
+    }
+    else if(ulInterrupt == INT_GPIO)
+    {
+        xHWREG(NVIC_PEND0) = 1 << (INT_EXTI0 - 16);
+        xHWREG(NVIC_PEND0) = 1 << (INT_EXTI1 - 16);
+        xHWREG(NVIC_PEND0) = 1 << (INT_EXTI2 - 16);
+        xHWREG(NVIC_PEND0) = 1 << (INT_EXTI3 - 16);
+        xHWREG(NVIC_PEND0) = 1 << (INT_EXTI4 - 16);
+        xHWREG(NVIC_PEND0) = 1 << (INT_EXTI95 - 16);
+        xHWREG(NVIC_PEND1) = 1 << (INT_EXTI1510 - 48);
+    }
+    else if(ulInterrupt == INT_DMA1)
+    {
+        xHWREG(NVIC_PEND0) = 1 << (INT_DMA1C1 - 16);
+        xHWREG(NVIC_PEND0) = 1 << (INT_DMA1C2 - 16);
+        xHWREG(NVIC_PEND0) = 1 << (INT_DMA1C3 - 16);
+        xHWREG(NVIC_PEND0) = 1 << (INT_DMA1C4 - 16);
+        xHWREG(NVIC_PEND0) = 1 << (INT_DMA1C5 - 16);
+        xHWREG(NVIC_PEND0) = 1 << (INT_DMA1C6 - 16);
+        xHWREG(NVIC_PEND0) = 1 << (INT_DMA1C7 - 16);
+    }
+    else if(ulInterrupt == INT_DMA2)
+    {
+        xHWREG(NVIC_PEND1) = 1 << (INT_DMA2C1 - 48);
+        xHWREG(NVIC_PEND1) = 1 << (INT_DMA2C2 - 48);
+        xHWREG(NVIC_PEND1) = 1 << (INT_DMA2C3 - 48);
+        xHWREG(NVIC_PEND1) = 1 << (INT_DMA2C4 - 48);
+        xHWREG(NVIC_PEND1) = 1 << (INT_DMA2C5 - 48);
     }
 }
 
@@ -1028,12 +1251,12 @@ XIntPendSet(unsigned long ulInterrupt)
 //
 //*****************************************************************************
 void
-XIntPendClear(unsigned long ulInterrupt)
+xIntPendClear(unsigned long ulInterrupt)
 {
     //
     // Check the arguments.
     //
-    XASSERT(ulInterrupt < NUM_INTERRUPTS);
+    xASSERT((ulInterrupt & 0xFF) < NUM_INTERRUPTS);
 
     //
     // Determine the interrupt to unpend.
@@ -1043,28 +1266,67 @@ XIntPendClear(unsigned long ulInterrupt)
         //
         // Unpend the PendSV interrupt.
         //
-        XHWREG(NVIC_INT_CTRL) |= NVIC_INT_CTRL_UNPEND_SV;
+        xHWREG(NVIC_INT_CTRL) |= NVIC_INT_CTRL_UNPEND_SV;
     }
     else if(ulInterrupt == FAULT_SYSTICK)
     {
         //
         // Unpend the SysTick interrupt.
         //
-        XHWREG(NVIC_INT_CTRL) |= NVIC_INT_CTRL_PENDSTCLR;
+        xHWREG(NVIC_INT_CTRL) |= NVIC_INT_CTRL_PENDSTCLR;
     }
-    else if((ulInterrupt >= 16) && (ulInterrupt <= 47))
+    else if(((ulInterrupt & 0xFF) >= 16) && 
+            ((ulInterrupt & 0xFF) < xNUM_INTERRUPTS))
     {
         //
-        // Unpend the general interrupt.
+        // Enable the general interrupt.
         //
-        XHWREG(NVIC_UNPEND0) = 1 << (ulInterrupt - 16);
+        xHWREG(NVIC_UNPEND0 + ((ulInterrupt & 0xFF)/32)*4) 
+        = 1 << ((ulInterrupt & 0xFF)%32);
     }
-    else if(ulInterrupt >= 48)
+    else if((((ulInterrupt >> 8) & 0xFF) >= 16) &&
+            (((ulInterrupt >> 8) & 0xFF) <= xNUM_INTERRUPTS))
     {
         //
-        // Unpend the general interrupt.
+        // Enable the general interrupt.
         //
-        XHWREG(NVIC_UNPEND1) = 1 << (ulInterrupt - 48);
+        xHWREG(NVIC_UNPEND0 + (((ulInterrupt >> 8) & 0xFF)/32)*4) 
+        = 1 << (((ulInterrupt >> 8) & 0xFF)%32);
+    }
+    else if(ulInterrupt == INT_TIM1)
+    {
+        xHWREG(NVIC_UNPEND0) = 1 << (INT_TIM1BRK - 16);
+        xHWREG(NVIC_UNPEND0) = 1 << (INT_TIM1UP - 16);
+        xHWREG(NVIC_UNPEND0) = 1 << (INT_TIM1TRGCOM - 16);
+        xHWREG(NVIC_UNPEND0) = 1 << (INT_TIM1CC - 16);
+    }
+    else if(ulInterrupt == INT_GPIO)
+    {
+        xHWREG(NVIC_UNPEND0) = 1 << (INT_EXTI0 - 16);
+        xHWREG(NVIC_UNPEND0) = 1 << (INT_EXTI1 - 16);
+        xHWREG(NVIC_UNPEND0) = 1 << (INT_EXTI2 - 16);
+        xHWREG(NVIC_UNPEND0) = 1 << (INT_EXTI3 - 16);
+        xHWREG(NVIC_UNPEND0) = 1 << (INT_EXTI4 - 16);
+        xHWREG(NVIC_UNPEND0) = 1 << (INT_EXTI95 - 16);
+        xHWREG(NVIC_UNPEND1) = 1 << (INT_EXTI1510 - 48);
+    }
+    else if(ulInterrupt == INT_DMA1)
+    {
+        xHWREG(NVIC_UNPEND0) = 1 << (INT_DMA1C1 - 16);
+        xHWREG(NVIC_UNPEND0) = 1 << (INT_DMA1C2 - 16);
+        xHWREG(NVIC_UNPEND0) = 1 << (INT_DMA1C3 - 16);
+        xHWREG(NVIC_UNPEND0) = 1 << (INT_DMA1C4 - 16);
+        xHWREG(NVIC_UNPEND0) = 1 << (INT_DMA1C5 - 16);
+        xHWREG(NVIC_UNPEND0) = 1 << (INT_DMA1C6 - 16);
+        xHWREG(NVIC_UNPEND0) = 1 << (INT_DMA1C7 - 16);
+    }
+    else if(ulInterrupt == INT_DMA2)
+    {
+        xHWREG(NVIC_UNPEND1) = 1 << (INT_DMA2C1 - 48);
+        xHWREG(NVIC_UNPEND1) = 1 << (INT_DMA2C2 - 48);
+        xHWREG(NVIC_UNPEND1) = 1 << (INT_DMA2C3 - 48);
+        xHWREG(NVIC_UNPEND1) = 1 << (INT_DMA2C4 - 48);
+        xHWREG(NVIC_UNPEND1) = 1 << (INT_DMA2C5 - 48);
     }
 }
 
@@ -1092,9 +1354,9 @@ XIntPendClear(unsigned long ulInterrupt)
 //
 //*****************************************************************************
 void
-XIntPriorityMaskSet(unsigned long ulPriorityMask)
+xIntPriorityMaskSet(unsigned long ulPriorityMask)
 {
-    XCPUbasepriSet(ulPriorityMask);
+    xCPUbasepriSet(ulPriorityMask);
 }
 
 //*****************************************************************************
@@ -1118,9 +1380,9 @@ XIntPriorityMaskSet(unsigned long ulPriorityMask)
 //
 //*****************************************************************************
 unsigned long
-XIntPriorityMaskGet(void)
+xIntPriorityMaskGet(void)
 {
-    return(XCPUbasepriGet());
+    return(xCPUbasepriGet());
 }
 
 //*****************************************************************************
@@ -1142,12 +1404,12 @@ XIntPriorityMaskGet(void)
 //
 //*****************************************************************************
 void
-XSysTickEnable(void)
+xSysTickEnable(void)
 {
     //
     // Enable SysTick.
     //
-    XHWREG(NVIC_ST_CTRL) |= NVIC_ST_CTRL_CLK_SRC | NVIC_ST_CTRL_ENABLE;
+    xHWREG(NVIC_ST_CTRL) |= NVIC_ST_CTRL_CLK_SRC | NVIC_ST_CTRL_ENABLE;
 }
 
 //*****************************************************************************
@@ -1161,12 +1423,12 @@ XSysTickEnable(void)
 //
 //*****************************************************************************
 void
-XSysTickDisable(void)
+xSysTickDisable(void)
 {
     //
     // Disable SysTick.
     //
-    XHWREG(NVIC_ST_CTRL) &= ~(NVIC_ST_CTRL_ENABLE);
+    xHWREG(NVIC_ST_CTRL) &= ~(NVIC_ST_CTRL_ENABLE);
 }
 
 
@@ -1185,12 +1447,12 @@ XSysTickDisable(void)
 //
 //*****************************************************************************
 void
-XSysTickIntEnable(void)
+xSysTickIntEnable(void)
 {
     //
     // Enable the SysTick interrupt.
     //
-    XHWREG(NVIC_ST_CTRL) |= NVIC_ST_CTRL_INTEN;
+    xHWREG(NVIC_ST_CTRL) |= NVIC_ST_CTRL_INTEN;
 }
 
 //*****************************************************************************
@@ -1204,12 +1466,12 @@ XSysTickIntEnable(void)
 //
 //*****************************************************************************
 void
-XSysTickIntDisable(void)
+xSysTickIntDisable(void)
 {
     //
     // Disable the SysTick interrupt.
     //
-    XHWREG(NVIC_ST_CTRL) &= ~(NVIC_ST_CTRL_INTEN);
+    xHWREG(NVIC_ST_CTRL) &= ~(NVIC_ST_CTRL_INTEN);
 }
 
 //*****************************************************************************
@@ -1232,17 +1494,17 @@ XSysTickIntDisable(void)
 //
 //*****************************************************************************
 void
-XSysTickPeriodSet(unsigned long ulPeriod)
+xSysTickPeriodSet(unsigned long ulPeriod)
 {
     //
     // Check the arguments.
     //
-    XASSERT((ulPeriod > 0) && (ulPeriod <= 16777216));
+    xASSERT((ulPeriod > 0) && (ulPeriod <= 16777216));
 
     //
     // Set the period of the SysTick counter.
     //
-    XHWREG(NVIC_ST_RELOAD) = ulPeriod - 1;
+    xHWREG(NVIC_ST_RELOAD) = ulPeriod - 1;
 }
 
 //*****************************************************************************
@@ -1256,12 +1518,12 @@ XSysTickPeriodSet(unsigned long ulPeriod)
 //
 //*****************************************************************************
 unsigned long
-XSysTickPeriodGet(void)
+xSysTickPeriodGet(void)
 {
     //
     // Return the period of the SysTick counter.
     //
-    return(XHWREG(NVIC_ST_RELOAD) + 1);
+    return(xHWREG(NVIC_ST_RELOAD) + 1);
 }
 
 //*****************************************************************************
@@ -1275,11 +1537,11 @@ XSysTickPeriodGet(void)
 //
 //*****************************************************************************
 unsigned long
-XSysTickValueGet(void)
+xSysTickValueGet(void)
 {
     //
     // Return the current value of the SysTick counter.
     //
-    return(XHWREG(NVIC_ST_CURRENT));
+    return(xHWREG(NVIC_ST_CURRENT));
 }
 
