@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>DS18B20</Name>
+    <Description>DS18B20 Programmable Resolution 1-Wire Digital Thermometer</Description>
+    <Manufacturer>Maxim</Manufacturer>
+    
+    <Category>Sensor</Category>
+    <SubCategory>Temperature</SubCategory>
+    
+    <KeyWord>DS18B20, DS18B20x, Temp, Temperature, Sensor, Maxim</KeyWord>
+    
+    <Communication>
+        <Interface>1-Wire</Interface>
+    </Communication>
+    
+    <WebPage>http://www.maxim-ic.com/datasheet/index.mvp/id/2812</WebPage>
+    <Datasheet>http://datasheets.maxim-ic.com/en/ds/DS18B20.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

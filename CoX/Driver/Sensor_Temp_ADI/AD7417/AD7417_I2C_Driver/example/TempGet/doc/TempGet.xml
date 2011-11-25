@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>TempGet</Name>
+  <Description>AD7417 driver get temperature example</Description>
+  <Version>1.0.0</Version>
+  <Tags>AD7417</Tags>
+  <EVKit>NUC140VE3CN and AD7417</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\CoX\Driver\Sensor_Temp_ADI\AD741\AD7417_I2C_Driver\example\TempGet\src\TempGet.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CoX.I2C</Dependency>
+    <Dependency>CoX.GPIO</Dependency>
+    <Dependency>CoX.SysCtl</Dependency>
+    <Dependency>CoX.UART</Dependency>
+  </Dependencys>
+  
+   
+</Example>

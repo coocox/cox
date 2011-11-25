@@ -786,6 +786,8 @@ extern "C"
 //! |--------------------------------|----------------|--------|
 //! |xSysCtlPeripheralDisable2       |    Mandatory   |    Y   |
 //! |--------------------------------|----------------|--------|
+//! |xSysCtlPeripheraIntNumGet       |    Mandatory   |    Y   |
+//! |--------------------------------|----------------|--------|
 //! |xSysCtlClockSet                 |    Mandatory   |    Y   |
 //! |--------------------------------|----------------|--------|
 //! |xSysCtlClockGet                 |    Mandatory   |    Y   |
@@ -854,6 +856,7 @@ extern void xSysCtlPeripheralDisable2(unsigned long ulPeripheralBase);
 extern void xSysCtlPeripheralReset2(unsigned long ulPeripheralBase);
 extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
                                             unsigned long ulDivide);
+extern unsigned long xSysCtlPeripheraIntNumGet(unsigned long ulPeripheralBase);
 
 //*****************************************************************************
 //

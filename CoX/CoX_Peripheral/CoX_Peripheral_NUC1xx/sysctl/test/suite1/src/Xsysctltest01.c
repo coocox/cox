@@ -85,6 +85,9 @@ xSYSCTL_TIMER2_HCLK, xSYSCTL_TIMER2_EXTTRG, xSYSCTL_TIMER2_INT};
 unsigned long ulxTIMER3ClkSource[] = {xSYSCTL_TIMER3_MAIN, xSYSCTL_TIMER3_EXTSL ,
 xSYSCTL_TIMER3_HCLK, xSYSCTL_TIMER3_EXTTRG, xSYSCTL_TIMER3_INT};
 
+unsigned long ulPeripheralBaseInt[3][2] = {{xGPIO_PORTA_BASE, INT_GPAB},
+                                           {xTIMER3_BASE, INT_TIMER3},
+                                           {xPWMB_BASE, INT_PWMB}};
 //*****************************************************************************
 //
 //! \brief Get the Test description of xsysctl002 register test.
@@ -283,7 +286,20 @@ static void xsysctl_xSysCtlPeripheralClockSourceSet_test(void)
 //*****************************************************************************
 static void xSysctl002Execute(void)
 {
+    unsigned long i;
+    unsigned long ulTemp;
+    
     xsysctl_xSysCtlPeripheralClockSourceSet_test();
+    
+    //
+    // Peripheral base to peripheral IntID test
+    //    
+    for(i = 0; i < 3; i++)
+    {
+        ulTemp = xSysCtlPeripheraIntNumGet(ulPeripheralBaseInt[i][0]);
+        TestAssert(ulPeripheralBaseInt[i][1] == ulTemp,
+                   "xsysctl, \"xSysCtlPeripheralBaseToIntID\" error");
+    }    
 }
 
 //

@@ -347,7 +347,7 @@ _TestAssertSequenceBreak(char *pcExpected, unsigned long ulDelay)
             ClearTokens();
             return xfalse;
         }
-        if (ulDelay == -1)
+        if (ulDelay == 0xFFFFFFFF)
         {
             ulTemp = 1;
         }

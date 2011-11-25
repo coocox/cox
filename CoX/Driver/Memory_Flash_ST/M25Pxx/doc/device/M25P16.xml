@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>M25P16</Name>
+    <Description>16 Mbit, Low Voltage, Serial Flash Memory With 50MHz SPI Bus Interface</Description>
+    <Manufacturer>STMicroelectronics</Manufacturer>
+    
+    <Category>Memory</Category>
+    <SubCategory>SPI Flash</SubCategory>
+    
+    <KeyWord>M25P16, M25Pxx, SPI Flash, Memory</KeyWord>
+    
+    <Communication>
+        <Interface>SPI</Interface>
+    </Communication>
+    
+    <WebPage>......</WebPage>
+    <Datasheet>http://www.datasheetcatalog.org/datasheet2/b/0f5y226fwq7kc7g0eg31yofupcpy.pdf</Datasheet>
+</Device>

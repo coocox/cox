@@ -1,0 +1,174 @@
+//*****************************************************************************
+//
+//! \defgroup DS18B20 DS18B20
+//!
+//! \brief Programmable Resolution 1-Wire Digital Thermometer.
+//!
+//! AThe DS18B20 digital thermometer provides 9-bit to 12-bit Celsius 
+//! temperature measurements and has an alarm function with nonvolatile
+//! user-programmable upper and lower trigger points. The DS18B20 communicates
+//! over a 1-Wire bus that by definition requires only one data line (and ground)
+//! for communication with a central microprocessor. It has an operating
+//! temperature range of -55°„C to +125°„C and is accurate to °¿0.5°„C over the range
+//! of -10°„C to +85°„C. In addition, the DS18B20 can derive power directly from
+//! the data line (°∞parasite power°±), eliminating the need for an external power
+//! supply.
+//!
+//! Each DS18B20 has a unique 64-bit serial code, which allows multiple DS18B20s
+//! to function on the same 1-Wire bus. Thus, it is simple to use one
+//! microprocessor to control many DS18B20s distributed over a large area.
+//!
+//! <h1>Contents</h1>
+//! - \ref DS18B20_Block
+//! - \ref DS18B20_Func_Desc
+//!   - \ref DS18B20_Func_Pin
+//!   - \ref DS18B20_Func_TRF
+//!   - \ref DS18B20_Func_ROM
+//!   - \ref DS18B20_Func_Memory
+//!   - \ref DS18B20_Func_TRANSACTION
+//!   - \ref DS18B20_Func_ROM_COMMANDS
+//!   - \ref DS18B20_Func_FUNCTION_COMMANDS
+//!   .
+//! - \ref DS18B20_API_Group
+//!   - \ref DS18B20_API_Config
+//!   - \ref DS18B20_API_Search
+//!   - \ref DS18B20_API_Location
+//!   - \ref DS18B20_API_Cursor
+//!   - \ref DS18B20_API_Lowlayer
+//!   .
+//! - \ref DS18B20_Usage
+//! .
+//!
+//! \section DS18B20_Block 1. DS18B20 Block Diagram
+//! <img src="DS18B20_Block.png" />
+//!
+//! \section DS18B20_Func_Desc 2. DS18B20 Function Description
+//! \subsection DS18B20_Func_Pin 2.1 DS18B20 Pin Description
+//! 
+//! <img src="ds18b20.png" />
+//! \verbatim
+//! +----------------+------------------------------------------------+
+//! |Pin Name        |Pin Description                                 |
+//! |----------------|------------------------------------------------|
+//! |DQ              |Data Input/Output. Open-drain 1-Wire interface  |
+//! |                |pin. Also provides power to the device when used|
+//! |                | in parasite power mode                         |
+//! +----------------+------------------------------------------------+
+//! \endverbatim
+//!
+//! \subsection DS18B20_Func_TRF 2.2 Temperature Register Format
+//!
+//! The DS18B20 output temperature data is calibrated in degrees Celsius;
+//! for Fahrenheit applications, a lookup table or conversion routine
+//! must be used. The temperature data is stored as a 16-bit sign-extended
+//! two°Øs complement number in the temperature register (see Figure 2).
+//! The sign bits (S) indicate if the temperature is positive or negative:
+//! for positive numbers S = 0 and for negative numbers S = 1. If the
+//! DS18B20 is configured for 12-bit resolution, all bits in the temperature
+//! register will contain valid data. For 11-bit resolution, bit 0 is
+//! undefined. For 10-bit resolution, bits 1 and 0 are undefined, and for
+//! 9-bit resolution bits 2, 1, and 0 are undefined. Table 1 gives examples
+//! of digital output data and the corresponding temperature reading for
+//! 12-bit resolution conversions.
+//! <img src="DS18B20_TRF.png" />
+//! <img src="DS18B20_TDR.png" />
+//! 
+//! \subsection DS18B20_Func_ROM 2.3 64-BIT LASERED ROM CODE
+//!
+//! Each DS18B20 contains a unique 64®Cbit code (see Figure) stored in ROM.
+//! The least significant 8 bits of the ROM code contain the DS18B20°Øs
+//! 1-Wire family code: 28h. The next 48 bits contain a unique serial number.
+//! The most significant 8 bits contain a cyclic redundancy check (CRC) byte
+//! that is calculated from the first 56 bits of the ROM code. A detailed
+//! explanation of the CRC bits is provided in the CRC Generation section.
+//! The 64-bit ROM code and associated ROM function control logic allow the
+//! DS18B20 to operate as a 1-Wire device using the protocol detailed in the
+//! 1-Wire Bus System section. 
+//!
+//! <img src="DS18B20_ROM.png" />
+//!
+//! \subsection DS18B20_Func_Memory 2.4 DS18B20 Memory Map
+//! The DS18B20°Øs memory is organized as shown in Figure. The memory
+//! consists of an SRAM scratchpad with nonvolatile EEPROM storage for the
+//! high and low alarm trigger registers (TH and TL) and configuration register.
+//! Note that if the DS18B20 alarm function is not used, the TH and TL registers
+//! can serve as general-purpose memory. All memory commands are described in
+//! detail in the DS18B20 Function Commands section.
+//!
+//! <img src="DS18B20_Memory.png" />
+//!
+//! \subsection DS18B20_Func_TRANSACTION 2.5 TRANSACTION SEQUENCE
+//! 
+//! The transaction sequence for accessing the DS18B20 is as follows:
+//!
+//! Step 1. Initialization
+//!
+//! Step 2. ROM Command (followed by any required data exchange)
+//!
+//! Step 3. DS18B20 Function Command (followed by any required data exchange)
+//!
+//! \subsection DS18B20_Func_ROM_COMMANDS 2.6 ROM COMMANDS
+//!
+//! - SEARCH ROM [F0h]
+//! - READ ROM [33h]
+//! - MATCH ROM [55h]
+//! - SKIP ROM [CCh]
+//! - ALARM SEARCH [ECh]
+//! .
+//!
+//! \subsection DS18B20_Func_FUNCTION_COMMANDS 2.7 DS18B20 FUNCTION COMMANDS
+//!
+//! - CONVERT T [44h]
+//! - WRITE SCRATCHPAD [4Eh]
+//! - READ SCRATCHPAD [BEh]
+//! - COPY SCRATCHPAD [48h]
+//! - RECALL E2 [B8h]
+//! - READ POWER SUPPLY [B4h]
+//! .
+//!
+//! \section DS18B20_API_Group 3. API Group
+//! \subsection DS18B20_API_Config 3.1 Config API
+//! - DS18B20Init() to initialize.
+//! - DS18B20Reset to reset.
+//! - DS18B20ScratchpadSet() to set the configuration ,Th and Tl register.
+//! .
+//! 
+//! \subsection DS18B20_API_ROM 3.2 ROM control API
+//! The ROM can be searched by:
+//! - DS18B20ROMSearch()
+//! - DS18B20Verify()
+//! - DS18B20TargetSetup()
+//! - DS18B20FamilySkipSetup()
+//! .
+//! 
+//! The Alarm is searched by DS18B20AlarmSearch().
+//!
+//! The ROM is readed by DS18B20ROMRead().
+//!
+//! The ROM is matched by DS18B20ROMMatch().
+//!
+//! The ROM is skiped by DS18B20ROMSkip().
+//!
+//!
+//! \subsection DS18B20_API_FUNCTION 3.3 FUNCTION control API
+//!
+//! - DS18B20TempConvert()
+//! - DS18B20ScratchpadCopy()
+//! - DS18B20TempRead()
+//! - DS18B20EEROMRecall()
+//! - DS18B20PowerSupplyRead()
+//! .
+//! 
+//!
+//! \section DS18B20_Usage DS18B20 Usage
+//! 
+//! Before Using the DS18B20 driver, you should do like this.
+//!
+//! Below is some example code:
+//!
+//! \code
+
+//!     
+//! \endcode
+//
+//*****************************************************************************

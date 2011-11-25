@@ -1,0 +1,315 @@
+//*****************************************************************************
+//
+//!
+//! \defgroup M25Pxx
+//!
+//! \brief This is the M25Pxx series Driver.
+//! 
+//! M25Pxx is low-voltage, Serial Flash memory with SPI bus interface.
+//! M25Pxx series containing 8 chips:M25P10,M25P20,M25P40,M25P80,M25P16,
+//! M25P32,M25P64,M25P128.The chip size is from 1 Mbit (128 Kbit ¡Á 8),
+//! to 128 Mbit (16 Mbit ¡Á 8).
+//!
+//! <h1>Contents</h1>
+//! - \ref M25Pxx_Blcok
+//! - \ref M25Pxx_Pins
+//! - \ref M25Pxx_SPI_MODE
+//! - \ref M25Pxx_Function_Desc
+//! .
+//!
+//! \section M25Pxx_Blcok 1. M25Pxx Physical Block
+//! <img src="M25Pxx.png" />
+//!
+//! \section M25Pxx_Pins 2. M25Pxx Signal names
+//! <img src="M25Pxx_Pins.png" />
+//!
+//! \section M25Pxx_SPI_MODE 3. M25Pxx supported SPI mode
+//! These devices can be driven by a microcontroller with its SPI peripheral 
+//! running in either of the two following modes:
+//! - CPOL=0, CPHA=0    \ref xSPI_MOTO_FORMAT_MODE_0
+//! - CPOL=1, CPHA=1    \ref xSPI_MOTO_FORMAT_MODE_3
+//! .
+//! For these two modes, input data is latched in on the rising edge of Serial
+//! Clock (C), and output data is available from the falling edge of Serial Clock (C).
+//!
+//! \section M25Pxx_Function_Desc 4. M25Pxx Instructions
+//! - Write Enable                 \ref M25Pxx_CMD_WREN
+//! - Write Disable                \ref M25Pxx_CMD_WRDI
+//! - Read Identification          \ref M25Pxx_CMD_RDID
+//! - Read Status Register         \ref M25Pxx_CMD_RDSR
+//! - Write Status Register        \ref M25Pxx_CMD_WRSR
+//! - Read Data Bytes              \ref M25Pxx_CMD_READ
+//! - Read Data Bytes at Higher Speed \ref M25Pxx_CMD_FAST_READ
+//! - Page Program                 \ref M25Pxx_CMD_PP
+//! - Sector Erase                 \ref M25Pxx_CMD_SE
+//! - Bulk Erase                   \ref M25Pxx_CMD_BE
+//! - Read Electronic Signature    \ref M25Pxx_CMD_RES
+//!
+//! \defgroup M25Pxx_Driver_Single  
+//!  
+//! \brief This is the M25Pxx series Driver can be used in the condition which
+//! the system only have one M25Pxx series device.
+//!
+//! This driver is implemented by using defines and global variables.It can only 
+//! use on one device because all the APIs use the some macros and global variables.
+//!
+//! <h1>Contents</h1>
+//! - \ref M25Pxx_How_Define
+//! - \ref M25Pxx_API_Group
+//!   - \ref M25Pxx_API_Group_CMD
+//!   - \ref M25Pxx_API_Group_AttriGet
+//!   - \ref M25Pxx_API_Group_Special
+//!   .
+//! - \ref M25Pxx_Usage 
+//! .
+//!
+//! \section M25Pxx_How_Define 1. How is the M25Pxx Driver implemented?
+//! Use define to config some Fixing things,such as SPI base and SPI pins
+//! CS pin,use hold input or not,use write protect or not and which device
+//! to use(This contains chip information).
+//!
+//! Use global variables to save variables use by the APIs.
+//!
+//! \section M25Pxx_API_Group 2. API Groups
+//! 
+//! The M25Pxx API is broken into three groups of functions: 
+//! - those that deal with M25Pxx CMD , 
+//! - those that deal with M25Pxx chip information and init, 
+//! - those that deal with M25Pxx hold input and write protect function.
+//! .
+//!
+//! \n
+//! \subsection M25Pxx_API_Group_CMD 2.1 M25Pxx CMD APIs
+//! 
+//! The M25Pxx CMD is implemented by :
+//! - M25PxxIDcodeGet() 
+//! - M25PxxStatusRegRead() 
+//! - M25PxxWaitNotBusy() 
+//! - M25PxxWriteEnable() 
+//! - M25PxxWriteDisable() 
+//! - M25PxxPageWrite() 
+//! - M25PxxDataRead() 
+//! - M25PxxDataFastRead() 
+//! - M25PxxChipErase() 
+//! - M25PxxSectorErase() 
+//! - M25PxxStatusRegWrite() 
+//! - M25PxxEScodeGet() 
+//! .
+//!
+//! \n
+//! \subsection M25Pxx_API_Group_AttriGet 2.2 M25Pxx chip information get APIs
+//! 
+//! The M25Pxx chip information is get by :
+//! - M25PxxEScodeGet() 
+//! - M25PxxPageSizeGet() 
+//! - M25PxxSectorSizeGet() 
+//! - M25PxxChipSizeGet() 
+//! - M25PxxInit() 
+//! - M25PxxDisable() 
+//! .
+//!
+//! \n
+//! \subsection M25Pxx_API_Group_Special 2.3 M25Pxx Special functions APIs
+//! 
+//! The M25Pxx chip information is get by :
+//! - M25PxxHoldEnable() 
+//! - M25PxxHoldDisable() 
+//! - M25PxxWriteProtectEnable() 
+//! - M25PxxWriteProtectDisable() 
+//! .
+//!
+//! \section M25Pxx_Usage 1. Usage & Program Examples
+//! 
+//! \code
+//!//*****************************************************************************
+//!//
+//!//! \file Example.c
+//!//! \brief the M25Pxx Example.
+//!//! \version 1.0
+//!//! \date 10/15/2011
+//!//! \author CooCox
+//!//! \copy
+//!//!
+//!//! Copyright (c)  2011, CooCox 
+//!//! All rights reserved.
+//!//! 
+//!//! Redistribution and use in source and binary forms, with or without 
+//!//! modification, are permitted provided that the following conditions 
+//!//! are met: 
+//!//! 
+//!//!     * Redistributions of source code must retain the above copyright 
+//!//! notice, this list of conditions and the following disclaimer. 
+//!//!     * Redistributions in binary form must reproduce the above copyright
+//!//! notice, this list of conditions and the following disclaimer in the
+//!//! documentation and/or other materials provided with the distribution. 
+//!//!     * Neither the name of the <ORGANIZATION> nor the names of its 
+//!//! contributors may be used to endorse or promote products derived 
+//!//! from this software without specific prior written permission. 
+//!//! 
+//!//! THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+//!//! AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//!//! IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+//!//! ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+//!//! LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+//!//! CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+//!//! SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+//!//! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+//!//! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+//!//! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+//!//! THE POSSIBILITY OF SUCH DAMAGE.
+//!//*****************************************************************************
+//!#include "M25Pxx.h"
+//!#include "xhw_ints.h"
+//!#include "xhw_nvic.h"
+//!#include "xhw_memmap.h"
+//!#include "xhw_types.h"
+//!#include "xdebug.h"
+//!#include "xcore.h"
+//!#include "xsysctl.h"
+//!#include "xhw_sysctl.h"
+//!#include "xhw_gpio.h"
+//!#include "xgpio.h"
+//!#include "xhw_uart.h"
+//!#include "xuart.h"
+//!unsigned char ucWriteData[];
+//!//
+//!//! Get the Length of data will be oparated
+//!//
+//!#define Length 256
+//!
+//!unsigned char ucReadData[Length];
+//!
+//!//*****************************************************************************
+//!//
+//!//! \brief Init uart to print.
+//!//!
+//!//! \param None
+//!//!
+//!//! \details uart config as (115200, 8 data bit, 1 stop bit , no partiy)
+//!//!
+//!//! \return None.
+//!//
+//!//*****************************************************************************
+//!static 
+//!void UartInit(void)
+//!{
+//!    xSPinTypeUART(UART0RX,PB0);
+//!    xSPinTypeUART(UART0TX,PB1);
+//!
+//!    xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART0);
+//!    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART0);
+//!    
+//!    xSysCtlPeripheralClockSourceSet(xSYSCTL_UART0_MAIN, 1);
+//!
+//!    xUARTConfigSet(UART0_BASE, 115200, (UART_CONFIG_WLEN_8 |
+//!                                        UART_CONFIG_STOP_ONE | 
+//!                                        UART_CONFIG_PAR_NONE));
+//!}
+//!
+//!//*****************************************************************************
+//!//
+//!//! \brief print a char.
+//!//!
+//!//! \param None
+//!//!
+//!//! \return None.
+//!//
+//!//*****************************************************************************
+//!void 
+//!UartPrintfChar(char ch)
+//!{
+//!    unsigned char c;
+//!    c = ch;
+//!    while(!xUARTSpaceAvail(xUART0_BASE));
+//!  
+//!    //
+//!    // Write this character to the transmit FIFO.
+//!    //
+//!    xUARTCharPut(xUART0_BASE, c);
+//!}
+//!
+//!//*****************************************************************************
+//!//
+//!//! \brief Prints a decimal unsigned number.
+//!//!
+//!//! \param n is the number to be printed
+//!//!
+//!//! \details Prints a decimal unsigned number.
+//!//!
+//!//! \return None.
+//!//
+//!//*****************************************************************************
+//!static 
+//!void UartPrintfNumber(unsigned long n)
+//!{
+//!    char buf[16], *p;
+//!
+//!    if (n == 0)
+//!    {
+//!        UartPrintfChar('0');
+//!    }
+//!    else
+//!    {
+//!        p = buf;
+//!        while (n != 0)
+//!        {
+//!            *p++ = (n % 10) + '0';
+//!            n /= 10;
+//!        }
+//!
+//!        while (p > buf)
+//!            UartPrintfChar(*--p);
+//!    }
+//!}
+
+//!//*****************************************************************************
+//!//
+//!//! \brief The example of the function of read and write.
+//!//!
+//!//! \param None
+//!//!
+//!//! \details The example of the function of read and write.
+//!//! \return None.
+//!//
+//!//*****************************************************************************
+//!void M25PxxReadWrite(void)
+//!{
+//!    unsigned long i;
+//!    unsigned short ulID; 
+//!    //
+//!    // Set SysClk 50MHz using Extern 12M oscillator
+//!    //
+//!    xSysCtlClockSet(50000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_12MHZ);
+//!    UartInit(); 
+//!    M25PxxInit(10000000);
+//!    
+//!    ulID = M25PxxIDcodeGet();
+//!    i = ulID;
+//!    UartPrintfNumber(ulID);
+//!    UartPrintfChar('\n');
+//!    UartPrintfChar('\r');
+//!    
+//!    for(i = 0; i < Length; i++)
+//!    {
+//!        ucWriteData[i] = i;      
+//!    }
+//!
+//!    //
+//!    // Erase all chip
+//!    //
+//!    M25PxxChipErase();
+//!    //
+//!    // write data to W25Xxx
+//!    //
+//!    M25PxxWrite(ucWriteData, 100, Length);
+//!    SysCtlDelay(50000000);
+//!    M25PxxDataRead(ucReadData, 100, Length);
+//!    for(i = 0; i < Length; i++)
+//!    {
+//!        UartPrintfChar(ucReadData[i]);      
+//!    }
+//!}
+//! \endcode
+//!
+//
+//*****************************************************************************

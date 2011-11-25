@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>STLM75</Name>
+    <Description>STLM75 Digital temperature sensor and thermal watchdog</Description>
+    <Manufacturer>ST</Manufacturer>
+    
+    <Category>Sensor</Category>
+    <SubCategory>Temperature</SubCategory>
+    
+    <KeyWord>STLM75, STLM75x, Temp, Temperature, Sensor, ST</KeyWord>
+    
+    <Communication>
+        <Interface>I2C</Interface>
+    </Communication>
+    
+    <WebPage>http://www.st.com/internet/analog/product/121768.jsp</WebPage>
+    <Datasheet>http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/DATASHEET/CD00153511.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>M25P10</Name>
+    <Description>1 Mbit, Low Voltage, Serial Flash Memory With 25MHz SPI Bus Interface</Description>
+    <Manufacturer>STMicroelectronics</Manufacturer>
+    
+    <Category>Memory</Category>
+    <SubCategory>SPI Flash</SubCategory>
+    
+    <KeyWord>M25P10, M25Pxx, SPI Flash, Memory</KeyWord>
+    
+    <Communication>
+        <Interface>SPI</Interface>
+    </Communication>
+    
+    <WebPage>......</WebPage>
+    <Datasheet>http://www.datasheetcatalog.org/datasheet/stmicroelectronics/7022.pdf</Datasheet>
+</Device>

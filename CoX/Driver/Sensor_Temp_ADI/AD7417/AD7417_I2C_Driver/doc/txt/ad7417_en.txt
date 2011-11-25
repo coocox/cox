@@ -1,0 +1,365 @@
+//*****************************************************************************
+//
+//! \defgroup AD7417
+//! 
+//! \brief AD7417 TempSensor ADC Driver.
+//!
+//! The AD7417 is 4-channel and single channel ADCs with an on-chip temperature 
+//! sensor The on-chip temperature sensor: -40°„C to +125°„C, an overtemperature
+//! indicator is impelemented by carrying out with the contents of the on-chip 
+//! overtemperature register. The AD7414 has the automatic power-down feature.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref AD7417_Features
+//!   - \ref AD7417_Features_
+//!   - \ref AD7417_OTI_OutMode
+//!   - \ref AD7417_Conv_Mode
+//!   - \ref AD7417_Powerdown
+//!   .
+//! - \ref AD7417_APIs
+//!   - \ref AD7417_Basic_APIs
+//!   - \ref AD7417_Mode_APIs
+//!   - \ref AD7417_Temp_APIs
+//!   - \ref AD7417_ADC_APIs
+//!   - \ref AD7417_Common_APIs
+//!   .
+//! - \ref AD7417_Typical_Application
+//!   .
+//! - \ref AD7417_Package
+//!   - \ref AD7417_Package_
+//!   - \ref AD7417_Typical_Connection
+//!   .
+//! - \ref AD7417_Pin_Description
+//! - \ref AD7417_Usage
+//! .
+//! 
+//! <br />
+//! \section AD7417_Features 1. AD7417 Features
+//! 
+//! <br />
+//! \subsection AD7417_Features_ 1.1 Feature 
+//! - 10-bit ADC with On-chip temperature sensor
+//! - On-chip temperature sensor: -40°„C to +125°„C
+//! - Operate from a single 2.7 V to 5.5 V power supply
+//! - On-chip track-and-hold Overtemperature indicator 
+//! - Automatic power-down at the end of a conversion
+//! - I2C-compatible serial interface with Selectable up to 8 bus address 
+//! - AD7416 is a superior replacement for LM75
+//! .
+//!
+//! <br />
+//! \subsection AD7417_OTI_OutMode 1.2 AD7417 OTI OutMode
+//! The OTI output has two operating modes, which are selected by Bit D1 of the
+//! Configuration Register.
+//! - D1 = 0: In the comparator mode
+//! - D1 = 1: In the interrupt mode
+//!
+//! Operation of OTI Output (Shown Active Low) 
+//! <img src="OTI_Output.png" />
+//!
+//! <br />
+//! \subsection AD7417_Conv_Mode 1.3 AD7417 Conv Mode
+//! - \ref Normal operation mode, in this mode a conversion takes place every 400 ¶Ãs.
+//! - \ref Trigger operation mode, a conversion is Tigger by CONVST pin.
+//!
+//! <br />
+//! \subsection AD7417_Powerdown 1.4 AD7417 Powerdown
+//! The AD7417 has two possible modes of operation depending on 
+//! the value of D0 in the Configuration Register.
+//! D0 = 0: Normal operation mode
+//! D0 = 1: Power down mode
+//!
+//! <br />
+//! \section AD7417_APIs 2. AD7417 APIs
+//! 
+//! <br />
+//! \subsection AD7417_Basic_APIs 2.1 AD7417 Basic APIs
+//! The basic APIs are methods to write and read the chip's register.
+//! 
+//! - AD7417RegRead(unsigned char ucReg)
+//! - AD7417RegWrite(unsigned char ucReg, short ulValue)
+//! .
+//!
+//! <br />
+//! \subsection AD7417_Mode_APIs 2.2 AD7417 Mode APIs
+//! The mode APIs are methods to operate at the chip's corresponding mode.
+//! - AD7417ShutdownEnable(void)
+//! - AD7417ShutdownDisable(void)
+//! - AD7417ShutDownConvst(void)
+//! - AD7417TriggerEnable(void)
+//! - AD7417TriggerDisable(void)
+//! - AD7417TriggerConvst(void)
+//! .
+//!
+//! <br />
+//! \subsection AD7417_Temp_APIs 2.3 AD7417 Temp APIs
+//! The Temp APIs are methods to configure the temperature sensor, read
+//! ambient temperature, OTI interrupt cofigure.
+//! - AD7417UpLimitSetFloat(float fTemp)
+//! - AD7417UpLimitSetLong(short lTemp)
+//! - AD7417LowLimitSetFloat(float fTemp)
+//! - AD7417LowLimitSetLong(short lTemp)
+//! - AD7417TempConfig(unsigned char ucCfg)
+//! - AD7417OTIntEnable(void)
+//! - AD7417OTIntDisable(void)
+//! - AD7417OTIntCallbackInit(xtEventCallback xtI2CCallback);
+//! - AD7417TempReadLDC(void)
+//! - AD7417TempReadMSB10Bit(void)
+//! - AD7417TempReadFDC(void)
+//! .
+//! 
+//! <br />
+//! \subsection AD7417_Common_APIs 2.4 AD7417 Common APIs
+//! The common APIs are methods the init and deinit the chip, etc.
+//! - AD7417Init(unsigned long ulRate, unsigned long ulMode)
+//! - AD7417DeInit(void)
+//! - AD7417Reset(void)
+//! .
+//!
+//! <br />
+//! \subsection AD7417_ADC_APIs 2.4 AD7417 ADC APIs
+//! The ADC APIs are mothods to configure the ADC channel and read the ADC 
+//! register value.
+//! - AD7417ADConfig(unsigned short ucCfg)
+//! - AD7417ADCRead(void)
+//! .
+//! 
+//! <br />
+//! \section AD7417_Typical_Application 3. AD7417 Typical Application
+//! - Used as a Fan Controller
+//!   <img src="Fan_Controller.png" />
+//! - Used as a Thermostat
+//!   <img src="Thermostat.png" />
+//! .
+//!
+//! <br />
+//! \section AD7417_Package 4. AD7417 Package
+//! 
+//! <br />
+//! \subsection AD7417_Package_ 4.1 AD7417 Package
+//! <img src="Function_block_diagram.png" />
+//!
+//! <br />
+//! \subsection AD7417_Typical_Connection 4.2 AD7417 Typical Connection
+//! <img src="Typical_connection_Diagram.png" />
+//! 
+//! <br />
+//! \section AD7417_Pin_Description  5. AD7417 Pin Description                             
+//!              
+//! - SDA (open drain) : Digital I/O. Serial bus bidirectional data. Push-pull 
+//!   output.  
+//! - SCL : Digital Input. Serial bus clock.                     
+//! - OTI (open drain): This is a logic output. The overtemperature indicator (OTI)
+//!   is set if the result of a conversion on Channel 0 (temperature sensor) is 
+//!   greater than an 8-bit word in the overtemperature register (OTR).The
+//!   signal is reset at the end of a serial read operation.
+//! - REFIN : Reference Input. An external 2.5 V reference can be connected to the 
+//!   AD7417 at this pin. To enable the on-chip reference, the REFIN pin should be 
+//!   tied to GND. If an external reference is connected to the AD7417, the 
+//!   internal reference will shut down.
+//! - GND : Ground reference for track-and-hold, comparator and capacitor DAC, and 
+//!   digital circuitry.
+//! - AIN1 to AIN4 : Analog Input Channels. The AD7417 has four analog input 
+//!   channels. The input channels are single-ended with respect to GND. The input 
+//!   channels can convert voltage signals in the range 0 V to VREF. A channel is 
+//!   selected by writing to the configuration register of the AD7417.
+//! - A2 : Digital Input. The highest programmable bit of the serial bus address.
+//! - A1 : Digital Input. The middle programmable bit of the serial bus address.
+//! - A0 : Digital Input. The lowest programmable bit of the serial bus address.
+//! - VDD : Positive Supply Voltage, 2.7 V to 5.5 V.
+//! - CONVST : Logic Input Signal. Convert start signal. The rising edge of this
+//!   signal fully powers up the part. The power-up time for the part is 4 |®¨s. If 
+//!   the CONVST pulse is greater than 4 |®¨s,the falling edge of CONVST places the
+//!   track-and-hold mode into hold mode and initiates a conversion. If the pulse 
+//!   is less than 4 |®¨s, an internal timer ensures that the  track-and-hold does 
+//!   not go into hold and conversion is not initiated until the power-up time has 
+//!   elapsed. The track-and-hold goes into track mode again at the end of conversion. 
+//! .
+//!
+//! \section AD7417_Usage 6. AD7417 Usage
+//!
+//! It's easy to use this driver referring to the following steps:
+//! - Configure the I2C master base, slave address, OTI and trigger connected pins etc,
+//!   refer to \ref AD7417_Application_Configs.
+//! - Init the device, set the transfer baudrate, sensor operate mode.
+//! - If the sensor operate at OTI interrupt mode, Enable the OTI connected pin
+//!   interrupt.
+//! - Set the up and low temperature limit
+//! - Get the temperature
+//!
+//! Define with the right value according your application before use the APIS in 
+//! AD7417 Application Configs.
+//!
+//! \code
+//! //
+//! // Config the device i2c address
+//! //
+//! #define AD7417_I2C_ADDRESS      0x28
+//!
+//! //
+//! // Config the devide i2c bus master
+//! //
+//! #define AD7417_MASTER_BASE      xI2C0_BASE
+//!
+//! //
+//! // Config the i2c0 SDA pin
+//! //
+//! #define AD7417_PIN_I2CSDA       PA8
+//!
+//! //
+//! // Config the i2c0 SCL pin
+//! //
+//! #define AD7417_PIN_I2CSCK       PA9
+//!
+//! //
+//! // Config the OTI connect pin
+//! // 
+//! #define AD7417_PIN_OTI          PB13
+//!
+//! // 
+//! // Config the /Convst pin
+//! //
+//! #define AD7417_PIN_CONVST       PC4
+//!
+//! //
+//! // Config the OTI active level
+//! //
+//! #define AD7417_LEVEL_OTI        xGPIO_LOW_LEVEL 
+//!
+//! \endcode
+//!
+//! \code
+//! //*****************************************************************************
+//! //
+//! // file main.c
+//! // brief get ambient temperature.
+//! // version 1.0
+//! // date 8/1/2011
+//! // author CooCox
+//! //
+//! //*****************************************************************************
+//! #include "xhw_types.h"
+//! #include "xcore.h"
+//! #include "xdebug.h"
+//! #include "xhw_memmap.h"
+//! #include "xgpio.h"
+//! #include "xsysctl.h"
+//! #include "xi2c.h"
+//! #include "ad7417.h"
+//! 
+//! //*****************************************************************************
+//! //
+//! //! \brief  GPIOB BIT13 interrupt serivce function
+//! //! 
+//! //! \ return 0
+//! //
+//! //*****************************************************************************
+//! unsigned long SensorEvent (void *pvCBData, 
+//!                                    unsigned long ulEvent,
+//!                                    unsigned long ulMsgParam,
+//!                                    void *pvMsgData)
+//! {
+//!     int i;
+//!     
+//!     //
+//!     // Delay to see the led blink
+//!     //
+//!     for(i=0; i<1000; i++);
+//!     
+//!     //
+//!     // Output the opposite bit value the blink the led 
+//!     //
+//!     xGPIOSPinWrite(PC12, !xGPIOSPinRead(PC12));
+//!     
+//!     //
+//!     // Read operation to reset the OTI pin value
+//!     // 
+//!     AD7417TempReadLDC();
+//!     
+//!     return 0;
+//! }
+//!
+//! //*****************************************************************************
+//! //
+//! // brief gpio init ,enble the GPB13 int ,low level triger
+//! //
+//! // return none
+//! //
+//! //
+//! //*****************************************************************************
+//! void GPIOInit()
+//! {
+//!     //
+//!     // PB12 used to driver led.
+//!     //
+//!     xGPIOSPinDirModeSet(PC12, xGPIO_DIR_MODE_OUT);
+//!     xGPIOSPinWrite(PC12, 1);
+//!
+//! }
+//!
+//!
+//! //*****************************************************************************
+//! //
+//! // brief The main function
+//! //
+//! // return none
+//! //
+//! //*****************************************************************************
+//! int main(void)
+//! {
+//!    int i;
+//!     
+//!    //
+//!    //Set the external 12MHZ clock as system clock 
+//!    //
+//!    xSysCtlClockSet(12000000, xSYSCTL_XTAL_12MHZ | xSYSCTL_OSC_MAIN);
+//!     
+//!    //
+//!    // Init the gpio connected to led
+//!    //     
+//!    GPIOInit();
+//! 
+//!    //
+//!    // AD7417Dev Init
+//!    //
+//!    AD7417Init(10000, AD7417_ShutDown_Disable | AD7417_Triger_Disable);
+//!    
+//!    
+//!    //
+//!    // Select temperature channel, OTI interrupt mode,
+//!    // OTI active output low, fault queue is 1;
+//!    //
+//!    AD7417TempConfig(AD7417_OTI_INT | AD7417_OTI_ACTIVE_LOW | 
+//!                       AD7417_FAULTQUE_1| AD7417_TEMP_CHANNEL);
+//!    
+//!    //
+//!    // Enable OTI interrupt, install callback function
+//!    //
+//!    AD7417OTIntEnable();
+//!    AD7417OTIntCallbackInit(SensorEvent);
+//! 
+//!    //
+//!    // Set the up temperature(TOTI) to 35, when the Ambient temperature reach 
+//!    // at 35, the OTI pin will active low, and the trigger the AD7417_OTI_PIN 
+//!    // interrupt.
+//!    //
+//!    AD7417LowLimitSetLong(32);
+//!    AD7417UpLimitSetLong(35);
+//!    
+//!    
+//!    while(1)
+//!    {        
+//!        //
+//!        // Get and print the temperature
+//!        //
+//!        AD7417TempReadLDC();
+//!        for(i = 0; i < 1000; i++);
+//!     
+//!    }
+//! }
+//!
+//! \endcode
+//! \todo 
+//
+//*****************************************************************************
