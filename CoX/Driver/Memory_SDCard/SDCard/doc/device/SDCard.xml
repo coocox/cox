@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>SDCard</Name>
+    <Description>
+        SD Memory Card is a memory card that is specifically designed to meet the security, capacity, performance, and environment requirements inherent in newly emerging audio and video consumer electronic devices.
+    </Description>
+    <Manufacturer>Sandisk, Toshiba ...</Manufacturer>
+    
+    <Category>Mermory</Category>
+    <SubCategory>SDCard</SubCategory>
+    
+    <KeyWord>SD, SD Card, SDSC, SDHC, SDXC, MMC, Card, SPI</KeyWord>
+    
+    <Communication>
+        <Interface>SPI</Interface>
+        <Interface>SD</Interface>
+    </Communication>
+    
+    <WebPage></WebPage>
+    <Datasheet>https://www.sdcard.org/downloads/pls/</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>
