@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>sysclk_tick</Name>
+  <Description>This is a example that show how to config the system tick. First it select AHBClk as SysTick clock, and set the reload value of the system tick counter and before enable the systick counter, enable the interrupt. it has been tested on the HT32F125x_Development_Board,and you could see the led which is connected to the pin.5 of GPIOA flash,this code segment suit for ht32f125x serial mcu.</Description>
+  <Version>1.0.0</Version>
+  <Tags>MISC</Tags>
+  <EVKit>HT32F125x Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\Holtek\HT32F125x\cmsis_lib\misc\example\sysclk_tick\src\sysclk_tick.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CMSIS_BOOT</Dependency>
+    <Dependency>GPIO</Dependency>
+    <Dependency>CKCU</Dependency>
+    <Dependency>RSTCU</Dependency>
+  </Dependencys>
+  
+   
+</Example>

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>power_reset</Name>
+  <Description>The Reset Control Unit (RSTCU) has three kinds of reset including power on reset, system reset, and
+APB unit reset. Power on reset (Cold reset) resets full system during power up. System reset resets
+the processor core and peripheral IP components but the SW-DP controller are excluded. The resets
+can be triggered by an external signal (off chip), internal events, and reset generators.</Description>
+  <Version>1.0.0</Version>
+  <Tags>PWRCU</Tags>
+  <EVKit>HT32F125x Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\Holtek\HT32F125x\cmsis_lib\rstcu\example\power_reset\src\power_reset.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CMSIS_BOOT</Dependency>
+    <Dependency>GPIO</Dependency>
+    <Dependency>CKCU</Dependency>
+  </Dependencys>
+  
+   
+</Example>

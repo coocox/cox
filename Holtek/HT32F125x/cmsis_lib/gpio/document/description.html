@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head><body>
+<!-- XXXX help content begin XXXX -->
+<p>
+<link href="cox_series_component.css" type="text/css" rel="stylesheet" /></p>
+<h1>GPIO</h1>
+<h2>Overview</h2>
+<ul>&bull; Up to 32 General Purpose I/O port (GPIO), named PA0 ~ PA15 and PB0 ~ PB15 for the device to implement the functions of input/output. Each of the GPIO ports has the related registers for the control and configuration to make the specific port suitable for the applications. <br />
+    &bull; pin-shared with other alternate functions (AFs) to obtain the maximum performance. <br />
+    &bull; The external interrupts from GPIO ports of the device have the related control and configuration registers in the External Interrupt Control Unit (EXTI). <br />
+    &bull; Input/output direction control. <br />
+    &bull; Output push-pull/open drain enable control. <br />
+    &bull; Input weak pull-up/pull-down control. <br />
+    This component can be used to set General Purpose I/O port mode, configure alternate functions, configure interrupt, etc. </ul>
+    <h2>API Reference
+    <h2>&nbsp;</h2>
+    </h2>
+    <ul>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tbody>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPIO__Private__Function.html#gaa60bdf3182c44b5fa818f237042f52ee">GPIO_DeInit</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Deinitializes the GPIOx peripheral registers to their default reset values.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPIO__Private__Function.html#ga8538b670bf6df290cc5e5d5ddc5d93fb">GPIO_DirectionConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Configures the direction of specified GPIO pins.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPIO__Private__Function.html#gaef20b5106139a96ce9c2d5011245c5cb">GPIO_PullResistorConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Configures the pull resistor of specified GPIO pins.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPIO__Private__Function.html#ga927368ab37dc8a98db3017b49d1d1177">GPIO_InputConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or Disables the input control of specified GPIO pins.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPIO__Private__Function.html#gae11fea53a385fead8baddced24690c26">GPIO_DriveConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Selects the driving current of specified GPIO pins.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPIO__Private__Function.html#gaa93aff32ce48450353e9c1e8e24575db">GPIO_OpenDrainConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or Disables the open drain function of specified GPIO pins.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPIO__Private__Function.html#ga616d5f901fd08ef6891901f6fc8c41c0">GPIO_ReadInBit</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Get the input data of specified port pin.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPIO__Private__Function.html#ga604a98c499644de84c69227c942f2fe3">GPIO_ReadInData</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Get the input data of specified GPIO port.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPIO__Private__Function.html#gae5d0c3b017b7770a4adb7ba6d610bf07">GPIO_ReadOutBit</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Get the output data of specified port pin.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPIO__Private__Function.html#ga43918a7ece6ccf74ca81d12e8e8d2f02">GPIO_ReadOutData</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Get the output data of specified GPIO port.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPIO__Private__Function.html#gacef5fe8fd179c900af32ffccf53f86cc">GPIO_SetOutBits</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Sets the selected port bits of output data.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPIO__Private__Function.html#ga0c9bb10c11be62eb3c31b95deafabcf0">GPIO_ClearOutBits</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Clears the selected port bits of output data.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPIO__Private__Function.html#gaea3966044d92a6d3cfbe78f01f3a5625">GPIO_WriteOutBits</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Sets or Clears the selected port bits of data.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPIO__Private__Function.html#ga41b00ec903487b3359be8d476c5e3aec">GPIO_WriteOutData</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Puts data to the specified GPIO data port.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPIO__Private__Function.html#ga160b2bcfda3a89aafce50d68a81069d7">AFIO_EXTISourceConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Selects the GPIO pin to be used as EXTI channel.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPIO__Private__Function.html#gab3d4679da13903122b312525b444b700">GPIO_PinLock</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Lock configuration of GPIO pins.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPIO__Private__Function.html#gaf9dfbb155d80f91f5ff18aa2ee70abe8">GPIO_IsPortLocked</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Gets the lock state of specified GPIO port.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPIO__Private__Function.html#ga9099a249159deb96f6c3df358e0a5083">GPIO_IsPinLocked</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Gets the lock state of specified GPIO port pin.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPIO__Private__Function.html#ga98978e96abbaa29f4ad717c3a4189092">AFIO_DeInit</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Deinitializes the AFIO peripheral registers to their default reset values.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPIO__Private__Function.html#gaff1d1ac103ae65f1435d091d7f6ef8e8">AFIO_GPAConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Configures alternated mode of GPIOA with specified pins.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPIO__Private__Function.html#ga6b274577066d85c24638f31394dfff44">AFIO_GPBConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Configures alternated mode of GPIOB with specified pins.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </ul>
+<!-- XXXX help content end XXXX -->
+</body> </html>

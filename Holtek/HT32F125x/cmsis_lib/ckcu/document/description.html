@@ -1,0 +1,200 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head><body>
+<!-- XXXX help content begin XXXX -->
+<p>
+<link href="cox_series_component.css" type="text/css" rel="stylesheet" /></p>
+<h1>CKCU</h1>
+<h2>Overview</h2>
+<ul>The Clock Control unit (CKCU) provides functions of high speed internal RC oscillator (HSI), high speed external crystal oscillator (HSE), low speed internal RC oscillator (LSI), low speed external crystal oscillator (LSE), Phase Lock Loop(PLL), HSE clock monitor,clock prescaler, clock multiplexer and clock gating. <br />
+    Features : <br />
+    &bull; 4 ~ 16 MHz external crystal oscillator (HSE) <br />
+    &bull; Internal 8 MHz RC oscillator (HSI) with configuration option calibration <br />
+    &bull; PLL with selectable clock source (from HSE or HSI) for system clock <br />
+    &bull; 32,768 Hz external crystal oscillator (LSE) for Watchdog Timer or RTC <br />
+    &bull; Internal 32 kHz RC oscillator (LSI) for Watchdog Timer or RTC <br />
+    &bull; HSE clock monitor <br />
+    This component can be used to configure HSE, HSI, PLL, SYS_CK, HCLK, USART divider, ADC clock divider, WDT clock source and APB peripheral clock, return the ready flag, etc. </ul>
+    <h2>API Reference</h2>
+    <ul>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tbody>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#ga4ed1ace27eaa82037e56d600a9c2f2ae">CKCU_DeInit</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Deinitializes the CKCU registers to the reset values.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#ga784742a01d1de95c57e17eeb8b42364b">CKCU_HSECmd</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or disables the external high speed oscillator (HSE).</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#ga1d68f58750a3d1f736203cdaf1bc3086">CKCU_HSICmd</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or disables the internal high speed oscillator (HSI).</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#ga66fb91f6e135875566f8b3c154ff5218">CKCU_PLLCmd</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or disables the PLL clock.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#gaf12a387feafe4e818c559c0fea5dcb99">CKCU_WaitHSEReady</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Waits for HSE ready to use.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#ga23699cc1d8f3fce32ecb45650310bb90">CKCU_GetClockReadyStatus</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Checks whether the specific clock ready flag is set or not.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#gacac26e0a2a68f215950d0c9e0db95a26">CKCU_PLLInit</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>This function is used to configure PLL.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#ga49969f5d0011005f2fd77f36d0c9a539">CKCU_PLLSourceConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Configures the PLL clock source.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#gabb82a123a2aa4baefcae2ec69aa3e4ed">CKCU_SysClockConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Configures the system clock (SYS_CK).</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#gacfbf1b8cf81855d4c83a76af1a1e0103">CKCU_GetSysClockSource</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Returns the source clock which is used as system clock.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#ga846e50170f476c0ef98204d057cf07c6">CKCU_SetHCLKPrescaler</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Configures the AHB clock (HCLK).</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#ga763242300e5a17aa6a77a143b801ec61">CKCU_SetUSARTPrescaler</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Configures the USART divider.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#ga2a88faee89702c82c297ccb03e1dcde3">CKCU_SetADCDivide</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Configures the ADC clock divider.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#ga070ff2720080c6815b18ccab088f6976">CKCU_WDTSourceConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Configures the WDT clock source (WDT_CK).</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#ga93b684974ce5125e302fbe18ad2f633d">CKCU_GetClocksFrequency</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Returns the frequency of the different clocks.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#ga65e8d03d8d853b1c48e3f0f7d43eaea8">CKCU_APBPerip0ClockConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or disables the APB peripheral 0 clock.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#ga9c8f777e6a59603bf4ae233d8177bda2">CKCU_APBPerip1ClockConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or disables the APB peripheral 1 clock.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#ga972afe85f432d588ea7d10f2b16033cb">CKCU_CKMCmd</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or disables the HSE Clock Monitor function.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#gacc4240d69ce5a41843b5165ccd24ac5b">CKCU_PSRCWKUPCmd</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or disables the power saving wakeup RC clock.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#ga4c47fa92e51efa857f9f0aca4a8f4d4c">CKCU_CKOUTConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Selects the output clock source through the CKOUT pin.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#ga61bde95c3b7826b84fb00859dd0d09ba">CKCU_GetIntStatus</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Checks whether the specific CKCU interrupt has occurred or not.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#gafe22cbe431395bd6f67b374359248749">CKCU_ClearIntFlag</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Clear the CKCU interrupt flag.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#gae6d1ab579a06fd2d44fac8c29e3f4992">CKCU_IntConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or disables the specific CKCU interrupts.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#ga610edda299a32ffd548ecc5efc8f0e2b">CKCU_SleepClockConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or disables SRAM/FMC clock during Sleep mode.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#ga34e93597f1e5c76caac276e57eaf8079">CKCU_IS_PLL_USED</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Check PLL clock used by the specific target source or not.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#ga8ba587f12bb42b024e5016bd9786d667">CKCU_IS_HSI_USED</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Check HSI clock used by the specific target source or not.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#ga9beaff14db5f9f734ef86dce36a79c23">CKCU_IS_HSE_USED</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Check HSE clock used by the specific target source or not.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#gabe3f40f7a68505a8873dc604b2b09a09">CKCU_MCUDBGConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or disables the specific debug function.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__CKCU__Private__Function.html#ga47e7453a658c0b8306b91b1b49207570">CKCU_BKISOCmd</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or disables the Backup domain isolation control.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </ul>
+<!-- XXXX help content end XXXX -->
+</body> </html>

@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>HyperTerminal_Tx</Name>
+  <Description>In this example,we send data to the hyperterminal.We use GA8 and GA9 for usart,so we must configure these pins' mode as USART_Rx and USART_Tx function.Here we set the mode to be AFIO_MODE_2.Before transmitting,we should configure the USART with these settings: - 115200 bauds - 8 bits of data - No parity - 1 stop bit - No flow control This code segment suits for ht32f125x serial mcu.</Description>
+  <Version>1.0.0</Version>
+  <Tags>USART</Tags>
+  <EVKit>HT32F125x Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\Holtek\HT32F125x\cmsis_lib\usart\example\HyperTerminal_Tx\src\HyperTerminal_Tx.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CMSIS_BOOT</Dependency>
+    <Dependency>GPIO</Dependency>
+    <Dependency>CKCU</Dependency>
+    <Dependency>RSTCU</Dependency>
+  </Dependencys>
+  
+   
+</Example>

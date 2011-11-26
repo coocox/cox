@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head><body>
+<!-- XXXX help content begin XXXX -->
+<p>
+<link href="cox_series_component.css" type="text/css" rel="stylesheet" /></p>
+<h1>I2C</h1>
+<h2>Overview</h2>
+<ul>
+    <li>The I2C interface is connected to I2C bus by two serial signals, which is known as a serial data line (SDA) and a serial clock line (SCL). The I2C module provides two types of data transfer rate: (1) 100 kHz in Standard-mode or (2) 400 kHz in Fast-mode. By defining the SCL period generation register, different kinds of duty cycle can be reached for SCL pulse. The SDA line which is connected with the whole I2C bus is bi-directional between master and slave device to transmit or receive data. The I2C module also has the function of detecting arbitration to prevent more than one master from trying to transmit.</li>
+</ul>
+<h2>API Reference</h2>
+<ul>
+    <table cellspacing="0" cellpadding="0" border="0">
+        <tbody>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__I2C__Private__Function.html#ga2ee214364603059ad5d9089f749f5bfd">I2C_DeInit</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Deinitializes the I2C peripheral registers to their default reset values.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__I2C__Private__Function.html#gaac29465bca70fbc91c2f922ab67bb88e">I2C_Init</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Initializes the I2Cx peripheral according to the specified parameters in the I2C_InitStruct.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__I2C__Private__Function.html#ga08582aca6d7d7910cd5cbff0d9def350">I2C_StructInit</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Fills each I2C_InitStruct member with its default value.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__I2C__Private__Function.html#ga07eb6af47594b0f8baf9a6944ba78a7f">I2C_Cmd</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Enables or Disables the specified I2C peripheral.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__I2C__Private__Function.html#ga843e4eff5920238f2ebe2851ab301c85">I2C_GenerateSTOP</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Generates STOP condition of I2C communication.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__I2C__Private__Function.html#ga7a98de90c8d59aa72ecc1baf98245708">I2C_IntConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Enables or Disables I2C interrupts.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__I2C__Private__Function.html#ga28ca61dec20a08b49c60706683671ccc">I2C_GeneralCallCmd</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Enables or Disables I2C General Call.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__I2C__Private__Function.html#ga1362d37e6949fe1ef2f3aac343f9d684">I2C_AckCmd</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Enables or Disables I2C sending acknowledgment.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__I2C__Private__Function.html#ga30b1d22517901d64137d2df30c8f338b">I2C_SetOwnAddress</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Configures own address of the specified I2C.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__I2C__Private__Function.html#gadf71ab30f9be9c8c68457cc7c2412c58">I2C_TargetAddressConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Starts transmitting to target slave address.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__I2C__Private__Function.html#ga30d434efc2c0b3b0352b51b492de4ed2">I2C_SendData</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Sends a data word through the I2Cx peripheral.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__I2C__Private__Function.html#ga6a7c5f0aaf048ec8e4f2854c2965fdee">I2C_ReceiveData</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Returns the received data by the I2Cx peripheral.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__I2C__Private__Function.html#ga1f8f61a904aa9cfced86894e8cb0cfe6">I2C_ReadRegister</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Reads the specified I2C register and returns its value.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__I2C__Private__Function.html#ga4663f01a3f797dc93b5bd5dc4206b04d">I2C_GetFlagStatus</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Check whether the specified I2C flag has been set.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__I2C__Private__Function.html#gacf602e1446bbe937c6ca8b024c17da1b">I2C_CheckStatus</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Check whether the specified I2C status has been active .</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__I2C__Private__Function.html#ga78f637371ef52f48a704c7398e7dec9e">I2C_ClearFlag</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Clear the specified I2C flag.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__I2C__Private__Function.html#ga084984e590b2e2415f2372be175d87bc">I2C_SetSCLHighPeriod</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Sets the interval timing of the high period of the I2C clock.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__I2C__Private__Function.html#ga5d70af19c080eb87766d8495a2f94055">I2C_SetSCLLowPeriod</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Sets the interval timing of low period of the I2C clock.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ul>
+<!-- XXXX help content end XXXX -->
+</body> </html>

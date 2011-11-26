@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>I2C_CfgInit</Name>
+  <Description>This example is a simple code segment ,it description how to config the i2c conpemnent ,including enable the i2c clock and slect the pin mode as i2c mode and then init the I2C_InitTypeDef,users can continue add code to this example to complete the i2c funtions . it suit for ht32f125x serial mcus.and can be tested with HT32F125x_Development_Board.</Description>
+  <Version>1.0.0</Version>
+  <Tags>I2C</Tags>
+  <EVKit>HT32F125x Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\Holtek\HT32F125x\cmsis_lib\i2c\example\I2C_CfgInit\src\I2C_CfgInit.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CMSIS_BOOT</Dependency>
+    <Dependency>GPIO</Dependency>
+    <Dependency>CKCU</Dependency>
+    <Dependency>RSTCU</Dependency>
+  </Dependencys>
+  
+   
+</Example>

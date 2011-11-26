@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>Calendar</Name>
+  <Description>In this example,we set time the first time(PWRCU_BAKREG_0 is not 0x5A5A),and store the time in backup register PWRCU_BAKREG_1.We also write 0x5A5A(or any value you like) in backup register PWRCU_BAKREG_0 to avoid set time again.It will load the time from this register PWRCU_BAKREG_1 after reset.The led3 blink every second.This code segment suits for ht32f125x serial mcu.</Description>
+  <Version>1.0.0</Version>
+  <Tags>RTC</Tags>
+  <EVKit>HT32F125x Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\Holtek\HT32F125x\cmsis_lib\rtc\example\Calendar\src\Calendar.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CMSIS_BOOT</Dependency>
+    <Dependency>GPIO</Dependency>
+    <Dependency>CKCU</Dependency>
+    <Dependency>RSTCU</Dependency>
+    <Dependency>PWRCU</Dependency>
+    <Dependency>USART</Dependency>
+  </Dependencys>
+  
+   
+</Example>

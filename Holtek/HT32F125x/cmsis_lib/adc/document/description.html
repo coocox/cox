@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head><body>
+<!-- XXXX help content begin XXXX -->
+<p>
+<link href="cox_series_component.css" type="text/css" rel="stylesheet" /></p>
+<h1>ADC</h1>
+<h2>Overview</h2>
+<ul>
+    <li>A 12-bit ADC is an approximation method for Analog to Digital Converter. There are totally 10 multiplexed channels with 8 external channels which can measure signals from analog input and 2 internal sources. If the input voltage is beyond the thresholds, the feature of Analog Watchdog will detect the outranged signal. An interrupt will then be generated to warn that the input voltage is higher or lower then the thresholds. There are three conversion modes to translate a data from analog to digital. Various channels of the A/D conversion can be operated in one shot, continuous and discontinuous mode. A left-aligned or right-aligned 16-bit data register is provided to store the data after conversion.</li>
+</ul>
+<h2>API Reference</h2>
+<ul>
+    <table cellspacing="0" cellpadding="0" border="0">
+        <tbody>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__ADC__Private__Function.html#ga31fa6bc09de17125e9db2830ce77c09b">ADC_DeInit</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Deinitializes the ADCx peripheral registers to their default reset values.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__ADC__Private__Function.html#ga449d40734cd036b3bfefcbeb9729de08">ADC_Init</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Initializes the ADC peripheral according to the specified parameters in the ADC_InitStruct.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__ADC__Private__Function.html#ga05a1ffe8f741ab3566e6089a8057b128">ADC_Reset</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Reset ADC.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__ADC__Private__Function.html#ga04bf79848256eff773ddf5df7d5b8353">ADC_IntConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Enables or Disables the specified ADC interrupts.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__ADC__Private__Function.html#ga5caf69ca38ef6a45533b1f603e3b8f88">ADC_GetIntStatus</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Checks whether the specified ADC interrupt has occurred.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__ADC__Private__Function.html#ga34521f5b4a2254f944bb5dd70cb5f418">ADC_GetFlagStatus</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Checks whether the specified ADC flag has been set.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__ADC__Private__Function.html#ga2e6acbaf2072caf669d48a436aec8dda">ADC_ClearIntPendingBit</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Clears the ADCx interrupt pending bits.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__ADC__Private__Function.html#ga234c7a89fdffe77f8cf6013e9d267141">ADC_ClearFlag</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Clears the ADC pending flags.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__ADC__Private__Function.html#ga451fcb56db072864a7525faa5a3fddca">ADC_ExtTrigRegularConvConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Configures the ADCx external trigger for regular channels conversion.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__ADC__Private__Function.html#gab36e21590915594f2f0af63ce8410f15">ADC_ExtTrigHPConvConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Configures the ADCx external trigger for high priority channels conversion.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__ADC__Private__Function.html#gab1c26554d8d547d08a7580a5032795d3">ADC_RegularGroupConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Configures cyclic conversion mode and length of list queue for regular group.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__ADC__Private__Function.html#ga4f280993924f8ab0face332700080675">ADC_HPGroupConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Configures cyclic conversion mode and length of list queue for high priority group.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__ADC__Private__Function.html#ga0ee47830cabb43273774d18f4f86be6a">ADC_GetHPConversionData</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Returns the result of ADC high priority channel conversion.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__ADC__Private__Function.html#ga482fdc25bc0e234b626dd1e3fd4f8c20">ADC_GetConversionData</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Returns the result of ADC regular channel conversion.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__ADC__Private__Function.html#ga825584d782d544a8d20ca9419d546ccd">ADC_RegularChannelConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Configures the corresponding rank in the sequencer and the sample time for the regular channel of the selected ADC.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__ADC__Private__Function.html#gab6c9ddc9fb205d3dbd58d7e5f045b751">ADC_HPChannelConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Configures the corresponding rank in the sequencer and the sample time for the high-priority channel of the selected ADC.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__ADC__Private__Function.html#ga09ee1781bf1645711116afaa3ba58071">ADC_SoftwareStartConvCmd</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Enables or Disables software start of the regular channel conversion of the selected ADC .</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__ADC__Private__Function.html#ga29f5da87dba4871c40fc954c6bd493eb">ADC_SoftwareStartHPConvCmd</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Enables or Disables software start of the high priority channel conversion of the selected ADC .</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__ADC__Private__Function.html#gab094a8c0f99e279b2c28540fc2de3b40">ADC_AWDConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Enables or Disables Lower/Upper threshold warning of the analog watchdog on single/all channels.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__ADC__Private__Function.html#ga8f1de27738df615ca4871050c1ebf2cc">ADC_AWDSingleChannelConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Configures the analog watchdog that guards single channel.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__ADC__Private__Function.html#ga7870bc069b3c60b5427b99db0f3e6171">ADC_AWDThresholdsConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Configures the high and low thresholds of the analog watchdog.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ul>
+<!-- XXXX help content end XXXX -->
+</body> </html>

@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head><body>
+<!-- XXXX help content begin XXXX -->
+<p>
+<link href="cox_series_component.css" type="text/css" rel="stylesheet" /></p>
+<h1>RTC</h1>
+<h2>Overview</h2>
+<ul>&bull; Real Time Clock (RTC) includes APB interface, 32 bits up counter, control register, prescaler, compare register, and status register. Most of the RTC portion located in Backup Domain except the APB interface. RTC is used as a wakeup timer to let the system resume from Power-Down mode. <br />
+    &bull; 32 bits up counter for counting elapsed time <br />
+    &bull; Three kinds of Interrupt/wakeup setting: RTC second clock interrupt/wakeup 、RTC match interrupt/wakeup and RTC counter overflow interrupt/wakeup <br />
+    &bull; RTC clock source could be any of the following :LSE oscillator clock 、LSI oscillator clock <br />
+    &bull; Programmable clock prescaler.Division factor: 1, 2, 4, 8&hellip;,32768 <br />
+    This component can be used to set RTC time, configure Alarm function, configure interrupt, read and write backup registers. </ul>
+    <h2>API Reference</h2>
+    <ul>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tbody>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RTC__Private__Function.html#gaff0c9fef0c90de5f25dc02b7ec887d63">RTC_DeInit</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Deinitializes the RTC peripheral registers to their default reset values.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RTC__Private__Function.html#ga0627e31eea00cc37c010fb13c7f038d3">RTC_ClockSourceConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Selection of RTC timer clock source.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RTC__Private__Function.html#ga9bd6f77e566339f8989d8cb7227e7e31">RTC_LSILoadTrimData</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Loads the LSI trim data.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RTC__Private__Function.html#ga4209ffd63da3eb2d186eed47fd3681de">RTC_LSICmd</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or Disables LSI clock.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RTC__Private__Function.html#ga6cfe3ee33ff502c0c24c80f77bc01cda">RTC_LSESMConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Selects LSE startup mode.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RTC__Private__Function.html#gaa4bec461b0e9f6e8ddc56d9be4ec255a">RTC_LSECmd</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or Disables LSE clock.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RTC__Private__Function.html#ga7e0e78bbc23ce5280a2bfee6114c9db3">RTC_CMPCLRCmd</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or Disables RTC counter cleared by compare match function.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RTC__Private__Function.html#ga7f0252599bfe1c0a8222bc595b900260">RTC_SetPrescaler</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Config RTC prescaler to a specified value.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RTC__Private__Function.html#ga33ddee636a8bf6d6be0812cd87fc2f92">RTC_GetPrescaler</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Returns the value of divider.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RTC__Private__Function.html#ga007f9250de642952cec9380a23f0d38c">RTC_Cmd</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or Disables RTC timer.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RTC__Private__Function.html#gad0ed150c22d59b3728550812c3cf7d02">RTC_GetCounter</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Returns the counter value of RTC timer.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RTC__Private__Function.html#gaeb89e521085aaf2f39a930652cdd25f4">RTC_SetCompare</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Configures the compare match value.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RTC__Private__Function.html#ga686f60312a9fc2ffb1f25a16797595bb">RTC_GetCompare</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Returns the compare match value of RTC timer.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RTC__Private__Function.html#gacea9c664fa7584955674c2ab2f6ae5a9">RTC_WakeupConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or Disables the specified wakeup source.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RTC__Private__Function.html#gae245827afa438ca23526a9c27cc9ce8a">RTC_IntConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enable or Disables the specified interrupt source.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RTC__Private__Function.html#gad3d5980446367a5adb41d04eaaf7539c">RTC_GetFlagStatus</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Returns the RTC flags.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RTC__Private__Function.html#gac738afb6addcfc6de71ee4b05c2d9b0a">RTC_OutConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Configures the RTC output function.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RTC__Private__Function.html#gab449bd95c678e6b91e6f9329774e9a5b">RTC_OutCmd</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or Disables RTC output.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RTC__Private__Function.html#ga0c455005868700c11a7e086a25d069cd">RTC_GetOutStatus</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Returns the RTCOUT level mode flag.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </ul>
+<!-- XXXX help content end XXXX -->
+</body> </html>

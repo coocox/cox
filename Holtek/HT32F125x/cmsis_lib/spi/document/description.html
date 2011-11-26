@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head><body>
+<!-- XXXX help content begin XXXX -->
+<p>
+<link href="cox_series_component.css" type="text/css" rel="stylesheet" /></p>
+<h1>SPI</h1>
+<h2>Overview</h2>
+<ul>
+    <li>The Serial Peripheral Interface (SPI) provides SPI protocol data transmission and receiving function in either master or slave mode. The SPI protocol consists of 4 pins including serial data input/output (MISO and MOSI), clock (SCK), and slave select (SS). One SPI device acts the master which controls the data flow by SS and SCK to indicate the start of communication and data sampling rate. To receive, streaming data are latched on each specific clock edge and saved as 1 ~ 16 bits to the data register or<br />
+    Rx FIFO. Transmission of data are similar but with the reverse sequence. Besides, mode fault detection provides the capability for multi-master application.</li>
+</ul>
+<h2>API Reference
+<h2>
+<table cellspacing="0" cellpadding="0" border="0">
+    <tbody>
+        <tr>
+            <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__SPI__Private__Function.html#gae33578348c53fb7140d994563bdf8ae4">SPI_DeInit</a></td>
+            <td class="memItemRight" valign="bottom">
+            <p>Deinitializes the SPI peripheral registers to their default reset values.</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__SPI__Private__Function.html#ga8dacc1dc48bf08c0f12da409f4889037">SPI_Init</a></td>
+            <td class="memItemRight" valign="bottom">
+            <p>Initializes the SPIx peripheral according to the specified parameters in the SPI_InitStruct.</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__SPI__Private__Function.html#ga9a0116f88cc2c4478c270f05608703f1">SPI_StructInit</a></td>
+            <td class="memItemRight" valign="bottom">
+            <p>Fills each SPI_InitStruct member with its default value.</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__SPI__Private__Function.html#gaac5fbfb986f1a8873118163307c1695e">SPI_Cmd</a></td>
+            <td class="memItemRight" valign="bottom">
+            <p>Enables or Disables the specified SPI peripheral.</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__SPI__Private__Function.html#ga35d684c8e50fb100f5aea615135cb216">SPI_SSOutputCmd</a></td>
+            <td class="memItemRight" valign="bottom">
+            <p>Enables or Disables the SS output for the specified SPI peripheral.</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__SPI__Private__Function.html#ga42efe08d0e4a380dad2d66be309ba604">SPI_FIFOCmd</a></td>
+            <td class="memItemRight" valign="bottom">
+            <p>Enables or Disables SPI FIFO.</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__SPI__Private__Function.html#ga0aef691a75ea95bd0c33b9372ce1044c">SPI_SetDataLength</a></td>
+            <td class="memItemRight" valign="bottom">
+            <p>Configures the data length for the selected SPI.</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__SPI__Private__Function.html#ga97603848bde020d6456459bf48713bce">SPI_SSModeConfig</a></td>
+            <td class="memItemRight" valign="bottom">
+            <p>Configures the SS pin that is driven by hardware or software.</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__SPI__Private__Function.html#gad5601f225fd8b9db96ccaeb16839be5e">SPI_SoftwareSSCmd</a></td>
+            <td class="memItemRight" valign="bottom">
+            <p>Configures the SS state to by software.</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__SPI__Private__Function.html#ga07c574b34702f2ff38be0887aa16e24a">SPI_SendData</a></td>
+            <td class="memItemRight" valign="bottom">
+            <p>Sends a data word through the SPIx peripheral.</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__SPI__Private__Function.html#ga81a5eaed37eae8880a8332e7017c5d65">SPI_ReceiveData</a></td>
+            <td class="memItemRight" valign="bottom">
+            <p>Returns the received data thorugh the SPIx peripheral.</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__SPI__Private__Function.html#gac74ac2aa4582117dd7fe0b1c58657cb4">SPI_SetTimeOutValue</a></td>
+            <td class="memItemRight" valign="bottom">
+            <p>Sets the value of SPI FIFO Time Out.</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__SPI__Private__Function.html#gabbad4981fbbc5658d3eaa28aa87aef8d">SPI_IntConfig</a></td>
+            <td class="memItemRight" valign="bottom">
+            <p>Enables or Disables the specified SPI interrupt.</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__SPI__Private__Function.html#gaa6565ea88096538c6e8c2ae2f432c7f3">SPI_GetFlagStatus</a></td>
+            <td class="memItemRight" valign="bottom">
+            <p>Check whether the specified SPI flag has been set.</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__SPI__Private__Function.html#ga4912be20d1f9d523ff9be8750b7eeb89">SPI_GetFIFOStatus</a></td>
+            <td class="memItemRight" valign="bottom">
+            <p>Returns the status of specified SPI FIFO.</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__SPI__Private__Function.html#gae51d73aa74050f563cd46dc2950120a4">SPI_ClearFlag</a></td>
+            <td class="memItemRight" valign="bottom">
+            <p>Clears the specified SPI flag.</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__SPI__Private__Function.html#ga74c70444c6d60c863f610d9b87b49065">SPI_FIFOTriggerLevelConfig</a></td>
+            <td class="memItemRight" valign="bottom">
+            <p>Sets the trigger level of SPI FIFO .</p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</h2>
+</h2>
+<!-- XXXX help content end XXXX -->
+</body> </html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>ADC_OneShotMode</Name>
+  <Description>This example shows how to use ADC one shot mode. First is config the pin as ADC,and enable the ADC ckcu,also config the usart to print the ADC convert value. The ADC is configed as ONT_SHOT_ MODE, and SOFTWARE_TRIGGER, when the ADC convert compeletely, print the value through usart.This example runs on HT32F125x Development Board,and it's suit for ht32f125x serial mcu.</Description>
+  <Version>1.0.0</Version>
+  <Tags>ADC</Tags>
+  <EVKit>HT32F125x Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\Holtek\HT32F125x\cmsis_lib\adc\example\ADC_OneShotMode\src\ADC_OneShotMode.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CMSIS_BOOT</Dependency>
+    <Dependency>GPIO</Dependency>
+    <Dependency>CKCU</Dependency>
+    <Dependency>RSTCU</Dependency>
+    <Dependency>USART</Dependency>
+  </Dependencys>
+  
+   
+</Example>

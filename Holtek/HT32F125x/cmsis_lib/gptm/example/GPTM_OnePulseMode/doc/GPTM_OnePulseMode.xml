@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>GPTM_OnePulseMode</Name>
+  <Description>This program show how to cofig the GPTM as one pulse mode.Enable the clock of AFIO,GPIOB config the GPTM0 base clock,confin the AFIO mode as GTO_ETI and GTO_CH3 function. Enable peripheral clock of GPTM0, config the GPTM0 Time base,config GPTM0 as one pulse mode: The external edge is used as active edge,The one pulse signal is output on GTO_CH3 pin, The counterreload value is 65535,kso the maximux frequency value to trigger the GPTM0 input is 500 Hz.The Compare defines the delay value, the delay value is fixed to 455.08 us. The (CounterReload - Compare + 1) defines the One Pulse value, the pulse value is fixed to 1.365ms This example runs on the HT32F125x Development Board.It is suit for ht32f125x serial mcu.</Description>
+  <Version>1.0.0</Version>
+  <Tags>GPTM</Tags>
+  <EVKit>HT32F125x Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\Holtek\HT32F125x\cmsis_lib\gptm\example\GPTM_OnePulseMode\src\GPTM_OnePulseMode.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CMSIS_BOOT</Dependency>
+    <Dependency>GPIO</Dependency>
+    <Dependency>CKCU</Dependency>
+    <Dependency>RSTCU</Dependency>
+  </Dependencys>
+  
+   
+</Example>

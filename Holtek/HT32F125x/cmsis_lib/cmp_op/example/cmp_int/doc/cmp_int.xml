@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>cmp_int</Name>
+  <Description>This example shows how to config the cmp_op ,in this code segment, config the cmp_op as CMP mode ,and enable the output fall edge interrupt and output raise edge interrupt.At the last enable the interrupt,it can run on HT32F125x Development Board, suit for ht32f125x serial mcu.</Description>
+  <Version>1.0.0</Version>
+  <Tags>CMP_OP</Tags>
+  <EVKit>HT32F125x Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\Holtek\HT32F125x\cmsis_lib\cmp_op\example\cmp_int\src\cmp_int.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CMSIS_BOOT</Dependency>
+    <Dependency>GPIO</Dependency>
+    <Dependency>CKCU</Dependency>
+    <Dependency>RSTCU</Dependency>
+    <Dependency>MISC</Dependency>
+  </Dependencys>
+  
+   
+</Example>

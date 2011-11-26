@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head><body>
+<!-- XXXX help content begin XXXX -->
+<p>
+<link href="cox_series_component.css" type="text/css" rel="stylesheet" /></p>
+<h1>WDT</h1>
+<h2>Overview</h2>
+<ul>&bull; 12-bit down counter with 3-bit prescaler <br />
+    &bull; Clock source from either internal 32 kHz RC oscillator (LSI) or 32,768 Hz oscillator (LSE) <br />
+    &bull; Provides reset or interrupt signals to the system <br />
+    &bull; Limited reload window setting to prevent unsuitable Watchdog Timer reload <br />
+    &bull; Watchdog Timer may be stopped while the processor is in debug state <br />
+    &bull; Restart lock key to prevent unexpected operation <br />
+    &bull; Write protection function of configuration register (counter value, interrupt enable, reset enable, delta value, and prescaler) <br />
+    This component can be used to set WDT mode (reset or interrupt), set reload and delta value, reload counter (to prevent underflow). </ul>
+    <h2>API Reference</h2>
+    <ul>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tbody>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__WDT__Private__Function.html#ga5d8cfa4447306b3c27aa3451489086c1">WDT_DeInit</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Deinitializes the WDT peripheral registers to their default reset values.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__WDT__Private__Function.html#ga2c538e24a87de33f51574d66a36c6d05">WDT_IntConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or Disables the WDT interrupt when WDT meets underflow or error.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__WDT__Private__Function.html#ga16e0fac0976723629915c608a491a6c9">WDT_ResetCmd</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or Disables the WDT Reset when WDT meets underflow or error.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__WDT__Private__Function.html#ga4c81f18e7eb71795a8fdaed738b74eff">WDT_ProtectCmd</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or Disables protect mechanism of the WDT.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__WDT__Private__Function.html#ga6f4b11495397452f8059c0102103eb30">WDT_SetReloadValue</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Sets Reload value of the WDT.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__WDT__Private__Function.html#ga8d3e88a50aede9daa2c9bd196779a7ac">WDT_GetReloadValue</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Get the current reload value of the WDT.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__WDT__Private__Function.html#gac173301e02b74cee72e536835026ac57">WDT_SetDeltaValue</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Sets delta value of the WDT.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__WDT__Private__Function.html#ga13077af9822c88907b5ba7db6eb4eb08">WDT_GetDeltaValue</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Get the current delta value of the WDT.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__WDT__Private__Function.html#gacda13c323906cde305bb615bc36887d4">WDT_SetPrescaler</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Sets Prescaler value of the WDT.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__WDT__Private__Function.html#ga50f4cde94107f8271942aafcde2c159a">WDT_GetPrescaler</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Get the current prescaler value of the WDT.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__WDT__Private__Function.html#gaf209b9f336a3d6304fb0e667d0f29963">WDT_Restart</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>WDT Restart (Reload WDT Counter).</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__WDT__Private__Function.html#gae8988c3fd32ee3c0e5158e0e82696cec">WDT_GetFlagStatus</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Check whether the specified WDT flag has been set.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </ul>
+<!-- XXXX help content end XXXX -->
+</body> </html>

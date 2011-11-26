@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head><body>
+<!-- XXXX help content begin XXXX -->
+<p>
+<link href="cox_series_component.css" type="text/css" rel="stylesheet" /></p>
+<h1>PWRCU</h1>
+<h2>Overview</h2>
+<ul>Power Control Unit (PWRCU) provides many kinds of power saving mode such as Sleep, Deep-Sleep1, Deep-Sleep2, and Power-Down mode to reduce the power consumption.There are three digital power domains (backup domain is excluded) can be turned off properly under some conditions.Three different power domains are backup domain, 3.3V power domain, and 1.8V power domain. Both of internal voltage regulator and depletion MOS can supplie 1.8V power.Battery power (VBAT) will be used for backup domain when VDD33 is shut down. <br />
+    This component can be used to read/write specified backup register, enters SLEEP mode, enters POWER-DOWN Mode, configures LVD, BOD, DMOS, external WAKEUP pin function, etc. </ul>
+    <h2>API Reference</h2>
+    <ul>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tbody>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__PWRCU__Private__Function.html#ga413c0f21f701434486c3d91ecb126380">PWRCU_DeInit</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Deinitializes backup domain which contains PWRCU and RTC units.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__PWRCU__Private__Function.html#ga68bfca0bb60a6dc3dbac264aa222012d">PWRCU_CheckReadyAccessed</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Waits, until the RTC &amp; PWRCU can be accessed.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__PWRCU__Private__Function.html#gaff42446cb96d2e10dc9a0987521f5344">PWRCU_GetFlagStatus</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Returns the flags of PWRCU.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__PWRCU__Private__Function.html#gadaa73bcb26702272e1605ecb53401b91">PWRCU_ReadBackupRegister</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Returns the value of specified backup register.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__PWRCU__Private__Function.html#gac5462941edb995910d64b48c3dbd7e57">PWRCU_WriteBackupRegister</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Writes the DATA to specified backup register.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__PWRCU__Private__Function.html#ga90d2e5d1a489c378bb0528f1bad10026">PWRCU_Sleep</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enters SLEEP mode.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__PWRCU__Private__Function.html#ga7ef333d5db3b17a9ba48fc9c9adb759a">PWRCU_DeepSleep1</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enters DEEP-SLEEP Mode 1.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__PWRCU__Private__Function.html#gac492caea36969bee0a4948ca2bf4b839">PWRCU_DeepSleep2</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enters DEEP-SLEEP Mode 2.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__PWRCU__Private__Function.html#ga08ede1bff33c314bc20bb8541205de85">PWRCU_PowerDown</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enters POWER-DOWN Mode.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__PWRCU__Private__Function.html#ga63eaade3a6130308464e1ffdb3e4dce1">PWRCU_SetLVDS</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Configures LVD voltage level.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__PWRCU__Private__Function.html#ga6e7000e9d17118faa4590ed53658e5c8">PWRCU_LVDCmd</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or Disables LVD function.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__PWRCU__Private__Function.html#ga9bf59ec5ee5818eabc5bce32a5b9bab8">PWRCU_BODCmd</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or Disables BOD reset function.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__PWRCU__Private__Function.html#ga78755644de2a0cc109f98763b400f90f">PWRCU_BODRISConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Select when the BOD occurs, the action for the cause Reset or Interrupt.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__PWRCU__Private__Function.html#ga1258de0357caeceba3f5e417c8bc8e60">PWRCU_GetLVDFlagStatus</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Return the flag status of LVD .</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__PWRCU__Private__Function.html#gae4512f08b15f66cc3b59738f82e92dcb">PWRCU_GetBODFlagStatus</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Return the flag status of BOD .</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__PWRCU__Private__Function.html#ga359ad0f83899fdc7405732c26698dca9">PWRCU_GetDMOSStatus</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Returns the DMOS status.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__PWRCU__Private__Function.html#ga140ae3e70a161f28adde10423f697a99">PWRCU_DMOSCmd</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or Disables DMOS function.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__PWRCU__Private__Function.html#ga77ef634e51091176c2edff9d5a638b93">PWRCU_V18RDYSourceConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Configures VDD18 power good source.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__PWRCU__Private__Function.html#ga670939c7d9fc9edda0c221e4380d97c6">PWRCU_LVDWakeupIntConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or Disables LVD wakeup and interrupt function.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__PWRCU__Private__Function.html#ga7979062f367667292da97a8bb5c739e4">PWRCU_WakeupPinCmd</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or Disables external WAKEUP pin function.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__PWRCU__Private__Function.html#gabf56df11bced5ebe2f180d18d630f3b3">PWRCU_WakeupPinIntConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or Disables external WAKEUP pin interrupt function.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__PWRCU__Private__Function.html#ga46ec1d79a82563f96a0d9c2031133faf">PWRCU_HSIReadyCounterBitLengthConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Configures HSI ready counter bit length.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </ul>
+<!-- XXXX help content end XXXX -->
+</body> </html>

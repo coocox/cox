@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head><body>
+<!-- XXXX help content begin XXXX -->
+<p>
+<link href="cox_series_component.css" type="text/css" rel="stylesheet" /></p>
+<h1>FMC</h1>
+<h2>Overview</h2>
+<ul>
+    <li>The Flash Memory Controller (FMC) provides functions of flash operation and pre-fetch buffer for the embedded on-chip Flash memory. Figure below shows the block diagram of FMC which includes programming interface, control register, pre-fetch buffer, and access interface. Since the access speed of Flash memory is slower than the CPU, a wide access interface with pre-fetch buffer is provided to the Flash memory in order to reduce the wait state (which will cause instruction gaps) of the CPU. The functions of word program/page erase are also provided for instruction/data storage of Flash memory</li>
+</ul>
+<h2>API Reference
+<h2>&nbsp;</h2>
+</h2>
+<ul>
+    <table cellspacing="0" cellpadding="0" border="0">
+        <tbody>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__FLASH__Private__Function.html#ga7173b62bc9e2801ce4edd4322acc69d4">FLASH_SetWaitState</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Configures the FLASH wait state.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__FLASH__Private__Function.html#ga08d5f5b52361e9ab842ec51c947d717a">FLASH_SetPowerSaving</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Enables or Disables FLASH power saving mode.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__FLASH__Private__Function.html#ga741a1e83107ce3bc25ec687d127e0bc4">FLASH_SetPrefetchBuffer</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Enables or Disables FLASH pre-fetch buffer.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__FLASH__Private__Function.html#ga9294ff3f846cd36d5f2b6ed69b03c358">FLASH_SetRemappingMode</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Sets vector remapping mode.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__FLASH__Private__Function.html#ga8212ace91c77cf28a50e7be4dc0eaea2">FLASH_ErasePage</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Erases a specific FLASH page.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__FLASH__Private__Function.html#ga7d239262e8a86dd5164b4531c7c3e118">FLASH_EraseOptionByte</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Erases FLASH Option Byte page.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__FLASH__Private__Function.html#ga4c10f2dfd551cd8e10ceb47929ddd17a">FLASH_MassErase</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Erases the entire FLASH.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__FLASH__Private__Function.html#ga67ccd035d93237eb8a6437e249276066">FLASH_ProgramWordData</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Programs one word data.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__FLASH__Private__Function.html#gad5349f0835d3c847d5a10f56035b0ff7">FLASH_EnablePageWriteProtection</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Enables write protection for the specific pages.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__FLASH__Private__Function.html#ga3ac30c6748e88f6670461ef00efbe4a7">FLASH_EnableSecurity</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Enables security lock for the page of main FLASH or option byte.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__FLASH__Private__Function.html#gae4936d2bd1a084deac4b330a0ab27c0e">FLASH_GetWriteProtectionStatus</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Returns write-protection status of FLASH page .</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__FLASH__Private__Function.html#gac228bf4319ba418967ec4f5defb25262">FLASH_GetSecurityStatus</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Returns security status of the FLASH.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__FLASH__Private__Function.html#ga9a1a8a6bcab3a0a86977c1778eaafd5d">FLASH_IntConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Enables or Disables the specific FLASH interrupts.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__FLASH__Private__Function.html#ga97b6aab6f5ea8ffbd3676dc2a365131a">FLASH_GetIntStatus</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Returns flag status of the FLASH interrupt.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__FLASH__Private__Function.html#ga2a4d9553712549bd458f03c1019e05f7">FLASH_ClearIntFlag</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Clear specific interrupt flags of FLASH.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__FLASH__Private__Function.html#gae1578057f029095c66d95e77a0987e1c">FLASH_WaitForOperationEnd</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Waits till the FLASH operation has finished or time-out has occurred.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ul>
+<!-- XXXX help content end XXXX -->
+</body> </html>

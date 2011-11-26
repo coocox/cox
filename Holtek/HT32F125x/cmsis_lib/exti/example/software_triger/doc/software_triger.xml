@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>software_triger</Name>
+  <Description>This example we use software to triger exit intertupt ,before triger the interrupt we should have configered the uart, and in the interrupt print some word to indicate that the interrupt has been produced.This example runs on the HT32F125x Development Board, and we can see the print words though the usart, it suit for ht32f125x serial mcu.</Description>
+  <Version>1.0.0</Version>
+  <Tags>EXTI</Tags>
+  <EVKit>HT32F125x Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\Holtek\HT32F125x\cmsis_lib\exti\example\software_triger\src\software_triger.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CMSIS_BOOT</Dependency>
+    <Dependency>GPIO</Dependency>
+    <Dependency>CKCU</Dependency>
+    <Dependency>RSTCU</Dependency>
+    <Dependency>USART</Dependency>
+  </Dependencys>
+  
+   
+</Example>

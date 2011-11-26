@@ -1,0 +1,364 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head><body>
+<!-- XXXX help content begin XXXX -->
+<p>
+<link href="cox_series_component.css" type="text/css" rel="stylesheet" /></p>
+<h1>GPTM</h1>
+<h2>Overview</h2>
+<ul>
+    <li>The General-Purpose Timer (GPTM0 and GPTM1) is consisted of one 16-bit up/down-counter, four 16-bit CCRs (Capture/Compare Register), one 16-bit counter-reload counter and several control/status registers. It can be used for a variety of purposes; including measurement of the pulse width of the input signal or generation of the output waveforms (compare match output, PWM output). The GPTM supports Encoder Interface by a decoder with two inputs. This GPTM can also support motor control; Hall sensor interface.</li>
+</ul>
+<h2>API Reference
+<h2>&nbsp;</h2>
+</h2>
+<ul>
+    <table cellspacing="0" cellpadding="0" border="0">
+        <tbody>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga4edc32bda8d23d14a08266d5e3f8bff8">gptm_CHx_Config</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Configures the CHx as input.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#gafb644aee9041e64e1ca45c3e15923dcc">GPTM_DeInit</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Deinitializes the GPTMx peripheral registers to their default reset values.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#gaaaea42667e1fc8bacc2c5891b805f08a">GPTM_TimeBaseInit</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Initializes the GPTM counter to reload, prescaler and counter mode.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#gae8c358550e6a6ad0869e934f2dee08e5">GPTM_OutputInit</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Initializes the GPTMx channel x output.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#gaa039d605fef14da7bb44d06cda07cc10">GPTM_CaptureInit</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Initializes input capture of the GPTM channel.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga00583ebfa8534640f89bcd6cb37911ce">GPTM_PwmInputInit</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Configures the GPTM to measure an external PWM signal.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga067ec7ef76311b3b8bc45d6e3bd22c5c">GPTM_TimeBaseStructInit</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Fills each TimeBaseInit member with its default value.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga202f76c5f9d90a071fb447408e208c82">GPTM_OutputStructInit</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Fills each OutInit member with its default value.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga4b6b571197bb0c707a9c69f2d665deba">GPTM_CaptureStructInit</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Fills each CapInit member with its default value.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga28d9e98a53bd2b1e84c62aa6905e1b24">GPTM_Cmd</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Enables or Disables GPTM counter.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#gac2dbfe239c940e353c9b002b26298b48">GPTM_ItiExternalClockConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Configures external clock mode of the GPTM. Used ITIx as the clock source.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#gabd5acab7b8a25390cf1c9941489a5f60">GPTM_ChExternalClockConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Configures external clock mode of the GPTM . Used CHx as the clock source.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga3a8e272562b165107bffcca227098f6a">GPTM_EtiExternalClockConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Configures external clock mode of the GPTM. Used ETI as the clock source.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#gab70d49620a9d1e7b1616bf16429a215d">GPTM_EtiConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Configures external trigger input (ETI) of the GPTMx .</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga06691732131f7dce693da1212d827c83">GPTM_PrescalerConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Configures prescaler of the GPTMx.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga92b34fc09701ca28f31acb17cbe26a07">GPTM_CounterModeConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Configures counter mode of the GPTMx.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#gafe28045a4dc7baa5098c7448a86e42e4">GPTM_StiConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Selects the STI source.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga5f37c7a0ca4144fc7ae9546a267224dd">GPTM_DecoderConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Configures encoder interface of the GPTMx.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga7d3431ee3443b27791d382da1802cec8">GPTM_ForcedOREF0</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Forces CH0OREF waveform of the GPTMx to active or inactive level.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga042bb92c536b555e71963ae4af2968ab">GPTM_ForcedOREF1</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Forces CH1OREF waveform of the GPTMx to active or inactive level.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga09e423facf85294c0fd137f14348912a">GPTM_ForcedOREF2</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Forces CH2OREF waveform of the GPTMx to active or inactive level.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga8fdadac29f4f35aaf4fdaa83961a3aec">GPTM_ForcedOREF3</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Forces the GPTMx CH3OREF waveform to active or inactive level.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga713c773b10d69ff11327de595747cbb5">GPTM_CRRPreloadCmd</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Enables or Disables GPTM CRR preload function.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga6de8e4d6e2fe95a3280410bc0e3d41d6">GPTM_CHCCRPreloadConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Enables or Disables the GPTM CHxCCR preload function.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga7f5247a585845f9ad5d87e1bb12645a0">GPTM_ClearOREFConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Clears or Safeguards the CHxOREF signal when ETI is active.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga10e4d7e1c7ef3f93437d8fd139bd6d30">GPTM_ChPolarityConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Configures polarity of the GPTMx channel x.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#gaec9c25345fda4f9e2b63f9071e943752">GPTM_ImmActiveConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Enables or Disables the one pulse immediate active function.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga4d1221c64a300d2262aedfeb716efed6">GPTM_ChannelConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Enables or Disables the GPTM channel x.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#gaea31c3424c00dfe185275265ebf28ea0">GPTM_OutputModeConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Configures ouput mode of the GPTM.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga2d1e74735e6f1f7ddc5354f06f08a932">GPTM_UpdateCmd</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Enables or Disables update event of the GPTM.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga91a587def605b3da4fd4825734403176">GPTM_UEV1G_IntConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Configures UEV1G interrupt function of the GPTMx.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#gaed0bfeb8c7b38efa34e5e874c1d56922">GPTM_HallInterfaceCmd</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Enables or Disables hall sensor interface of the GPTMx.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga57d4dc6789b0e1828c77d3fd407a7a90">GPTM_OnePulseModeCmd</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Selects one pulse mode of the GPTMx.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga1c7c54d3a98d012777ecf3e8df0786b1">GPTM_MMSELConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Selects master trigger output source of the GPTMx.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga082433de5873f2930727b84b6e1cf416">GPTM_SlaveModeConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Selects slave mode of the GPTMx.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga5669618cbccb8d80d6df83e2183e1545">GPTM_TimSyncCmd</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Enables or Disables the master &amp; slave GPTM synchronous function.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga2a345a32c62d7f77b28ed60e0bbfd00b">GPTM_SetCounter</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Sets counter register value of the GPTMx.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga34d4af4086f92524bc86d86c371f3872">GPTM_SetCounterReload</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Sets counter reload register value of the GPTMx .</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#gabfabd78d7b5e8942d842504e309a88cf">GPTM_SetCaptureCompare0</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Sets channel 0 capture/compare register value of the GPTMx.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga907d5d85ba9542b6d07b4727145f510e">GPTM_SetCaptureCompare1</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Sets channel 1 capture/compare register value of the GPTMx.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga240660411d45bd68b028ede3d3839677">GPTM_SetCaptureCompare2</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Sets channel 2 capture/compare register value of the GPTMx.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#gac65ed3d19c809386cb060d10cb5234b3">GPTM_SetCaptureCompare3</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Sets channel 3 capture/compare register value of the GPTMx .</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga5a629b427fda8f54670413db3309dbdb">GPTM_CHPSCConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Configures input capture prescaler.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga91d671232d3887a48c6849a05b6b44fe">GPTM_CKDIVConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Sets clock division value of the GPTMx.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#gac5272a6b443cb8c437379a60570c7114">GPTM_GetCaptureCompare0</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Gets channel 0 capture/compare register value of the GPTM.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga7caae14498cffdaad6e6d6456cc0c871">GPTM_GetCaptureCompare1</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Gets channel 1 capture/compare register value of the GPTM.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#gac7e627d808d92ff2b156b68353d6cc5e">GPTM_GetCaptureCompare2</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Gets channel 2 capture/compare register value of the GPTM.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga115c4f0eff6d22fe56e483acf0384fbb">GPTM_GetCaptureCompare3</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Gets channel 3 capture/compare register value of the GPTM.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga0309b36df93499463adbf13eb3a868b4">GPTM_GetCounter</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Gets counter value of the GPTMx.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#gad1762a665c081a2a079b93d41c971ed8">GPTM_GetPrescaler</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Gets prescaler value of the GPTMx.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga23bd512079fa2227222cfdb06e746e12">GPTM_GenerateEvent</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Generate GPTM events.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#gabdf2a393c0ae18e0c7dee9594a140d15">GPTM_GetFlagStatus</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Checks whether the specified GPTM flag has been set.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga5b7273710a8c663f4b4a81986170691a">GPTM_ClearFlag</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Clears flags of the GPTMx.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga5bd5809aab56bf0abb51d1cca1e4d535">GPTM_IntConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Enables or Disables the specified interrupts of the GPTM.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#gad1766faa0f7668f5a0c3c735a3c7c219">GPTM_GetIntStatus</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Checks whether the GPTM interrupt has occurred.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#gab1a012ed305bbb010b27899b5ec7496d">GPTM_ClearIntPendingBit</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Clears interrupt pending bits of the GPTMx.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__GPTM__Private__Function.html#ga39d7b3e352cbd4520d4fe0ce263b6d22">GPTM_InternalClockConfig</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Disables slave mode to clock the prescaler directly with the internal clock.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ul>
+<!-- XXXX help content end XXXX -->
+</body> </html>

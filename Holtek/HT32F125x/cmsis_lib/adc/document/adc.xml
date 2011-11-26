@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<Component>
+  <Name>ADC</Name>
+  <Description>HT32F125X Analog to Digital Converter Driver</Description>
+  <Category>Peripheral</Category>
+  <Version>1.0.0</Version>
+  <Tags>ADC</Tags>
+  
+  <files>
+    <File>$REPO_ROOT$\Holtek\HT32Fxx\cmsis_lib\lib\Include\ht32f125x_adc.h</File>
+    <File>$REPO_ROOT$\Holtek\HT32Fxx\cmsis_lib\lib\Src\ht32f125x_adc.c</File>
+  </files>
+  
+  <CoIDEFiles>
+    <File>$PROJECT_ROOT$cmsis_lib\include\ht32f125x_adc.h</File>
+    <File>$PROJECT_ROOT$cmsis_lib\source\ht32f125x_adc.c</File>
+  </CoIDEFiles>
+  
+  <Dependencys>
+    <Dependency>CMSIS_BOOT</Dependency>
+    <Dependency>RSTCU</Dependency>
+    <Dependency>CKCU</Dependency>
+  </Dependencys>
+  
+  <SupportDevices>
+    <Device>HT32F1251, HT32F1251B, HT32F1252, HT32F1253</Device>
+  </SupportDevices>
+
+   
+</Component>

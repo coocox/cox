@@ -1,0 +1,4 @@
+you can get the HT32F125x datasheet at the ftp server.
+
+address: ftp://184.173.227.21
+password:

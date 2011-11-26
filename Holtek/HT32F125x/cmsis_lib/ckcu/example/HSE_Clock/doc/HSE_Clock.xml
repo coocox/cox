@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>HSE_Clock</Name>
+  <Description>In this example,we set the High Speed External Crystal Oscillator (HSE) as SysClock, and GPIO will use it as clock source.When programs start to run,The High Speed Internal Oscillator (HSI) will start up as the defualt SysClock.We need to set HSE as SysClock by programing.This code segment suits for ht32f125x serial mcu.</Description>
+  <Version>1.0.0</Version>
+  <Tags>CKCU</Tags>
+  <EVKit>HT32F125x Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\Holtek\HT32F125x\cmsis_lib\ckcu\example\HSE_Clock\src\HSE_Clock.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CMSIS_BOOT</Dependency>
+    <Dependency>GPIO</Dependency>
+    <Dependency>CKCU</Dependency>
+    <Dependency>RSTCU</Dependency>
+  </Dependencys>
+  
+   
+</Example>

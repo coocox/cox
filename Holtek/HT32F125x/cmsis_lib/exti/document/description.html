@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head><body>
+<!-- XXXX help content begin XXXX -->
+<p>
+<link href="cox_series_component.css" type="text/css" rel="stylesheet" /></p>
+<h1>EXTI</h1>
+<h2>Overview</h2>
+<ul>The External Interrupt / Event Controller (EXTI) is comprised of 16 edge detectors which can generate event/ interrupts requests independently. In interrupt mode, five source trigger types can be selected(low level, high level, negative edge, positiveedge, and both edge) by setting the EXTICFGRn register.In event mode, wake up event polarity can be configured by setting the EXTIWAKUPPOLR register. If the EVWUPIEN bit in the EXTIWAKUP Register is set, EVWUP interrupt can be generated when the event occurs. Each EXTI line can also be masked independently. </ul>
+    <h2>API Reference
+    <h2>&nbsp;</h2>
+    </h2>
+    <ul>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tbody>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__EXTI__Private__Function.html#ga3257b712742c96ca5f2baa0117058227">EXTI_DeInit</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Deinitializes the EXTI peripheral registers.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__EXTI__Private__Function.html#ga8c9ce6352a3a2dfc8fc9287cb24c6501">EXTI_Init</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Initializes the EXTI peripheral.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__EXTI__Private__Function.html#gac49cbef3af72d00a34833ed874faa7f3">EXTI_IntConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or Disables the specified EXTI channelx interrupts.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__EXTI__Private__Function.html#ga341bcb1c985301986bb06c8bffba6b84">EXTI_WakeupEventConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Configures the EXTI channelx event wakeup function.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__EXTI__Private__Function.html#ga4c656f6a09ab9d8095a9888575f9988b">EXTI_WakeupEventIntConfig</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Enables or Disables the EXTI channelx event wakeup interrupt.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__EXTI__Private__Function.html#ga11863d0c9ca29cc197bfe7b48b983f4a">EXTI_ClearEdgeFlag</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Clears the specified EXTI channelx edge flag.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__EXTI__Private__Function.html#ga82b7c88944814919b88645ef9543ce66">EXTI_ClearWakeupFlag</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Clears the specified EXTI channelx wakeup flag.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__EXTI__Private__Function.html#ga8c9bb977796c149f52e291962f1982a5">EXTI_GetWakeupFlagStatus</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Gets the specified EXTI channelx wakeup flag.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__EXTI__Private__Function.html#ga617ebc7625e6dfbfe9af2c2c9e613b7a">EXTI_SWIntCmd</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Activates or Deactivates an EXTI channelx interrupt by software.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__EXTI__Private__Function.html#ga22dfcc08add6c1e27936c1d1f2f194b4">EXTI_GetSWCmdStatus</a></td>
+                    <td class="memItemRight" valign="bottom">
+                    <p>Gets the specified EXTI channelx software command register bit.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </ul>
+<!-- XXXX help content end XXXX -->
+</body> </html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>Flash_Program</Name>
+  <Description>This program shows how to program the on chip flash, the srartAddress and the EndAddress is defined by users ,note that make sure the address is correct. Erase the flash before program it, After the program done, we check whether the date that program into the flash is correct, if yes,we use usart to print 'Y', otherwise, print 'N'. It has been tested on the "HT32F125x_Development_Board" and we could see the usart print 'Y' on the computer. This code segment suit for ht32f125x serial mcus.</Description>
+  <Version>1.0.0</Version>
+  <Tags>FMC</Tags>
+  <EVKit>HT32F125x Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\Holtek\HT32F125x\cmsis_lib\fmc\example\Flash_Program\src\Flash_Program.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CMSIS_BOOT</Dependency>
+    <Dependency>GPIO</Dependency>
+    <Dependency>CKCU</Dependency>
+    <Dependency>RSTCU</Dependency>
+    <Dependency>USART</Dependency>
+  </Dependencys>
+  
+   
+</Example>

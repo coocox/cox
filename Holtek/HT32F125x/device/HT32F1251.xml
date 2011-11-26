@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<!--
+    Copyright 2010 coocox.org
+	
+    This file is part of CooCox Softwares.
+-->
+<Device>
+	<Name>HT32F1251</Name>
+	<Vendor>Holtek</Vendor>
+	<Family>HT32F125x</Family>
+	<Arch>Cortex-M3</Arch>
+	<Description>HOLTEK's HT32F1251 operates at a maximum speed of 72MHz and features 8 Kbytes of Flash and 2 Kbytes of SRAM.</Description>
+	<Parameters>
+		<Parameter>31 interrupt with 16-levels of priority</Parameter>
+		<Parameter>32 GPIOs, LQFP48 Package</Parameter>
+		<Parameter>2 x16-bit GPTM, 4 PWM, RTC</Parameter>
+		<Parameter>8 channels 12-bit ADC</Parameter>
+		<Parameter>2 x Opetational Amplifier or 2 x Compatator</Parameter>
+		<Parameter>1 UART, 1 SPI, 1 I2C</Parameter>
+		<Parameter>Low power sleep mode, Serial Wire Debug</Parameter>
+	</Parameters>
+	<ReferenceLinks>
+		<Link name="Chips Page">http://www.holtek.com.cn/china/products/mcu_71.htm</Link>
+		<Link name="Chips Datasheet">http://www.holtek.com.cn/pdf/32bit_Flash_MCU/simHT32F125xv100.pdf</Link>
+	</ReferenceLinks>
+	
+	
+	<DebugSetting>$TOOLKIT_CONFIG_DIR$\debugger\HT32Fx.xml</DebugSetting>
+	
+	<Flash>
+		<Block addr="0x00000000" size="0x00002000" read="true" write="false" execute="true" name="Embedded Flash" />	<!-- 8K -->
+	</Flash>
+	
+	<Ram>
+		<Block addr="0x20000000" size="0x0800" read="true" write="true"  execute="true" name="Embedded SRAM" />	    <!-- 2K -->
+	</Ram>
+	
+	<FlashLoader>
+		<loader>$TOOLKIT_FLASH_DIR$\HT32F_8.elf</loader>
+	</FlashLoader>
+</Device>

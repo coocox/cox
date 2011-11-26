@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>SPI_MasterMode</Name>
+  <Description>This code segment describe how to config the spi as master mode,and users can continue add code with these code. it suits for ht32f125x serials mcus,and can be tested on the HT32F125x_Development_Board, this example is with no Obvious phenomenon.</Description>
+  <Version>1.0.0</Version>
+  <Tags>RTC</Tags>
+  <EVKit>HT32F125x Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\Holtek\HT32F125x\cmsis_lib\spi\example\SPI_MasterMode\src\SPI_MasterMode.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CMSIS_BOOT</Dependency>
+    <Dependency>GPIO</Dependency>
+    <Dependency>CKCU</Dependency>
+    <Dependency>RSTCU</Dependency>
+  </Dependencys>
+  
+   
+</Example>

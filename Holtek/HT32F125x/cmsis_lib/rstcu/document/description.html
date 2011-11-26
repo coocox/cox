@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head><body>
+<!-- XXXX help content begin XXXX -->
+<p>
+<link href="cox_series_component.css" type="text/css" rel="stylesheet" /></p>
+<h1>RSTCU</h1>
+<h2>Overview</h2>
+<ul>
+    <li>The Reset Control Unit (RSTCU) has three kinds of reset including power on reset, system reset, and<br />
+    APB unit reset. Power on reset (Cold reset) resets full system during power up. System reset resets<br />
+    the processor core and peripheral IP components but the SW-DP controller are excluded. The resets<br />
+    can be triggered by an external signal (off chip), internal events, and reset generators.</li>
+</ul>
+<h2>API Reference</h2>
+<ul>
+    <table cellspacing="0" cellpadding="0" border="0">
+        <tbody>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RSTCU__Private__Function.html#gad903e6e1c15b3c0750fc3bb6d954d6c3">RSTCU_GetResetFlagStatus</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Checks the specific global reset flag is set or not.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RSTCU__Private__Function.html#ga0f05c11b7e09dee5d6c968463d07d331">RSTCU_ClearResetFlag</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Clear the specific global reset flag.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RSTCU__Private__Function.html#ga5ca9f481feb506fd140f6a06a87f3e36">RSTCU_APBPerip0Reset</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Enable APB peripheral 0 reset function.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RSTCU__Private__Function.html#ga4bff172392905a35571aee9057cff84b">RSTCU_APBPerip1Reset</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Enable APB peripheral 1 reset function.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RSTCU__Private__Function.html#gaa336c72cebc0b1369416ff91ac18c0d0">RSTCU_IS_APBPerip0ResetEnd</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>This function is used to check APB peripheral 0 reset state.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__RSTCU__Private__Function.html#ga4d21780df94494730a1410fd24c0da04">RSTCU_IS_APBPerip1ResetEnd</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>This function is used to check APB peripheral 1 reset state.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ul>
+<!-- XXXX help content end XXXX -->
+</body> </html>

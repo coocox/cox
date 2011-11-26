@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>DeepSleepMode1</Name>
+  <Description>In this example,we will enter Deep-Sleep1 mode,and resume every three seconds by RTC. The led3 will turn on when wakeup and turn off in Deep-Sleep1 mode.We should configure RTC first,enable its wakeup function.We must clear RTC's wakeup flag by reading it when it is set by hardware,or it can't work correctly.This code segment suits for ht32f125x serial mcu.</Description>
+  <Version>1.0.0</Version>
+  <Tags>PWRCU</Tags>
+  <EVKit>HT32F125x Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\Holtek\HT32F125x\cmsis_lib\pwrcu\example\DeepSleepMode1\src\DeepSleepMode1.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CMSIS_BOOT</Dependency>
+    <Dependency>GPIO</Dependency>
+    <Dependency>CKCU</Dependency>
+    <Dependency>RSTCU</Dependency>
+    <Dependency>RTC</Dependency>
+  </Dependencys>
+  
+   
+</Example>

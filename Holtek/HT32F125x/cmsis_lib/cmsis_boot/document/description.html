@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head><body>
+<!-- XXXX help content begin XXXX -->
+<p>
+<link href="cox_series_component.css" type="text/css" rel="stylesheet" /></p>
+<h1>CMSIS_BOOT</h1>
+<h2>Overview</h2>
+<ul>
+    <li>This component is used to boot the HT32F125x device. It provides definition of the peripherals for the actual device, startup code and the complete (device specific) Interrupt Vector Table.</li>
+</ul>
+<ul>
+    <h2>API Reference</h2>
+    <table cellspacing="0" cellpadding="0" border="0">
+        <tbody>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/startup__ht32f125x_8c.html#a15ef44219320e11dd82b4db680796652">__attribute__</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>The minimal vector table for a Cortex M3. Note that the proper constructs must be placed on this to ensure that it ends up at physical address 0x00000000.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/startup__ht32f125x_8c.html#a0b25f0c80528ba782dfb09214c5b1737">Default_Reset_Handler</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>This is the code that gets called when the processor first starts execution following a reset event. Only the absolutely necessary set is performed, after which the application supplied main() routine is called.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/startup__ht32f125x_8c.html#acb0b643d387b9f2deba64cd8259f276d">Default_Handler</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Provide weak aliases for each Exception handler to the Default_Handler. As they are weak aliases, any function with the same name will override this definition.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__HT32F125x__System__Private__Functions.html#ga93f514700ccf00d08dbdcff7f1224eb2">SystemInit</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Setup the microcontroller system. Initializes the system clocks and the embedded Flash.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="memItemLeft" valign="top" align="left"><a class="el" href="../doxygen/group__HT32F125x__System__Private__Functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a></td>
+                <td class="memItemRight" valign="bottom">
+                <p>Update SystemCoreClock.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ul>
+<!-- XXXX help content end XXXX -->
+</body> </html>
