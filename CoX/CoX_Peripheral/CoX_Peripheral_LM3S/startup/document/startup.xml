@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<Component>
+    <Name>COX.Peripheral.Stellaris.Startup Code</Name>
+    <Description>Stellaris Startup File</Description>
+    <Category>Peripheral</Category>
+    <Version>1.0.0</Version>
+    <Tags>Boot, startup</Tags>
+
+    <Files>
+        <File>$REPO_ROOT$\CoX\CoX_Peripheral\CoX_Peripheral_LM3S\startup\src\startup_coide.c</File>
+    </Files>
+
+    <FilesCoIDE>
+        <File>$PROJECT_ROOT$\startup_coide.c</File>
+    </FilesCoIDE>
+
+    <Dependencys>
+        <Dependency></Dependency>
+    </Dependencys>
+
+    <SupportDevices>
+        <Series>
+            <Serie exclude="">Stellaris</Serie>
+        </Series>
+        <Devices>
+            <Device></Device>
+        </Devices>
+    </SupportDevices>
+
+    <Micros>
+        <Comm>
+            <Define></Define>
+        </Comm>
+        <Device name="">
+            <Define></Define>
+        </Device>   
+    </Micros>
+
+    <Help>$DOCUMENT_ROOT$\</Help>
+
+</Component>

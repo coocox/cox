@@ -74,4 +74,11 @@ if exist %clean_target% rd /s /q %clean_target% >>nul
 echo completed
 echo -----------------------------------
 
+echo -----------------------------------
+set clean_target=CoX\CoX_Peripheral\CoX_Peripheral_LM3S\all\project\template\coide
+echo clean %clean_target%(genernate)
+if exist %clean_target% rd /s /q %clean_target% >>nul
+echo completed
+echo -----------------------------------
+
 pause
