@@ -1,6 +1,6 @@
 
-lst/
-obj/
+HT32F1253_DVB/
+Project.uvgui.Administrator
 *.dep
 *.uvgui.*
 *.bak
