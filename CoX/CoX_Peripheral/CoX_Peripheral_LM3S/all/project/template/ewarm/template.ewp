@@ -1634,6 +1634,9 @@
       <group>
         <name>inc</name>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xcore.h</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xdebug.h</name>
         </file>
         <file>
@@ -1643,11 +1646,17 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_memmap.h</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_nvic.h</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_types.h</name>
         </file>
       </group>
       <group>
         <name>src</name>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xcore.c</name>
+        </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xdebug.c</name>
         </file>
