@@ -3,7 +3,7 @@
 //! \file xacmp.h
 //! \brief Defines and Macros for the analog comparator API.
 //! \version V2.1.1.0
-//! \date 11/14/2011
+//! \date 11/20/2011
 //! \author CooCox
 //! \copy
 //!
