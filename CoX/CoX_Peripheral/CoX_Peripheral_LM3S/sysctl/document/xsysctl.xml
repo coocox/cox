@@ -1,0 +1,46 @@
+<?xml version="2.0" ?>
+<Component>
+    <Name>CoX.Peripheral.LM3S.xSysCtl</Name>
+    <Description>LM3S System Control Driver</Description>
+    <Category>Peripheral.CoX</Category>
+    <Version>2.0.0</Version>
+    <Tags>CoX, xSysCtl, SysCtl, SysCtrl, RCC, PMC, CG, System Control</Tags>
+
+    <Files>
+        <File>..\..\libcox\xhw_sysctl.h</File>
+        <File>..\..\libcox\xsysctl.h</File>
+        <File>..\..\libcox\xsysctl.c</File>
+    </Files>
+
+    <FilesCoIDE>
+        <File>$PROJECT_ROOT$\CoX\CoX_Peripheral\src\xhw_sysctl.h</File>
+        <File>$PROJECT_ROOT$\CoX\CoX_Peripheral\src\xsysctl.h</File>
+        <File>$PROJECT_ROOT$\CoX\CoX_Peripheral\inc\xsysctl.c</File>
+    </FilesCoIDE>
+
+    <Dependencys>
+        <Dependency>CoX.Peripheral.LM3S.xStartup</Dependency>
+        <Dependency>CoX.Peripheral.LM3S.xLowLayer</Dependency>
+    </Dependencys>
+
+    <SupportDevices>
+        <Series>
+            <Serie exclude="">LM3S</Serie>
+        </Series>
+        <Devices>
+            <Device></Device>
+        </Devices>
+    </SupportDevices>
+
+    <Micros>
+        <Comm>
+            <Define></Define>
+        </Comm>
+        <Device name="">
+            <Define></Define>
+        </Device>   
+    </Micros>
+
+    <Help>$DOCUMENT_ROOT$\xSysCtl</Help>
+
+</Component>
