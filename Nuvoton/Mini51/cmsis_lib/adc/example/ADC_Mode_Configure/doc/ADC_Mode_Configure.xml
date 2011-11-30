@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>ADC_Mode_Configure</Name>
+  <Description>This example shows how to use ADC. Step 1: Set 
+system clock. Step 2: Configure the pins as ADC,and enable the
+ADC. Step 3: Configure the mode of ADC and Start convert.This 
+example runs on Nu-LB-Mini_V001 Development Board,and it's suit
+for Mini51 serial mcu.
+  </Description>
+  <Version>1.0.0</Version>
+  <Tags>ADC</Tags>
+  <EVKit>Nu-LB-Mini_V001 Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\adc\example\ADC_Mode_Configure\src\ADC_Mode_Configure.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CMSIS_BOOT</Dependency>
+    <Dependency>SysCtl</Dependency>
+    <Dependency>GPIO</Dependency>
+  </Dependencys>
+  
+   
+</Example>

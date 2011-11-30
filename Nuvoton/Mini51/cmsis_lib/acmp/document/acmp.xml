@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<Component>
+  <Name>acmp</Name>
+  <Description>Mini51 Analog Comparator Driver</Description>
+  <Category>Peripheral</Category>
+  <Version>1.0.0</Version>
+  <Tags>ACMP</Tags>
+  
+  <files>
+    <File> </File>
+    <File> </File>
+  </files>
+  
+  <CoIDEFiles>
+    <File> </File>
+    <File> </File>
+  </CoIDEFiles>
+  
+  <Dependencys>
+    <Dependency>CMSIS_BOOT</Dependency>
+    <Dependency>SysCtl</Dependency>
+  </Dependencys>
+  
+  <SupportDevices>
+    <Device>MINI51LAN , MINI51ZAN , MINI52LAN, MINI52ZAN, MINI54LAN, MINI54ZAN</Device>
+  </SupportDevices>
+
+</Component>

@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head><body>
+<!-- XXXX help content begin XXXX -->
+<p>
+<link href="cox_series_component.css" type="text/css" rel="stylesheet" /></p>
+<h1>SysCtl</h1>
+<h2>Overview</h2>
+<ul>
+    <li>The following functions are included in system manager section System Memory Map 
+        System Timer (SysTick),Nested Vectored Interrupt Controller(NVIC),System management
+        registers for product ID System management registers for chip and module functional
+        reset and multi-function pin control,Brownout and chip miscellaneous Control Register 
+        Combined peripheral interrupt source identify.The clock controller generates the clocks
+        for the whole chip,including system clocks and all peripheral clocks.The clock controller
+        also implements the power control function with the individually clock ON/OFF control, 
+        clock source selection and a 4-bit clock divider.The chip will not enter power-down mode
+        until CPU sets the power down enable bit(PWR_DOWN_EN) and Cortex-M0 core executes the WFI
+        instruction. After that, chip enter power-down mode and wait for wake-up interrupt source 
+        triggered to leave  power-down mode.In the power down mode,the clock controller turns off
+        the external crystal and internal 22.1184 MHz oscillator to reduce the overall system power
+        consumption. 
+    </li>
+</ul>
+
+<!-- XXXX help content end XXXX -->
+</body> </html>

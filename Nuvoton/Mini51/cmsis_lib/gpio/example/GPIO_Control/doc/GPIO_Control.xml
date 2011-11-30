@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>GPIO_Control</Name>
+  <Description>This example shows how to use GPIO. Step 1: Set 
+system clock.Step 2: Enable GPIO and interrupt.Step 3: Set the 
+GPIO pins and trig interrupt.The example runs on Nu-LB-Mini_V001
+Development Board,and it's suit for Mini51 serial mcu.
+  </Description>
+  <Version>1.0.0</Version>
+  <Tags>GPIO</Tags>
+  <EVKit>Nu-LB-Mini_V001 Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\gpio\example\GPIO_Control\src\GPIO_Control.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CMSIS_BOOT</Dependency>
+    <Dependency>SysCtl</Dependency>
+  </Dependencys>
+  
+   
+</Example>

@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<Component>
+  <Name>timer</Name>
+  <Description>Mini51 Timer Controller Driver</Description>
+  <Category>Peripheral</Category>
+  <Version>1.0.0</Version>
+  <Tags>TIMER</Tags>
+  
+  <files>
+    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\Include\DrvTIMER.h</File>
+    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\Source\DrvTIMER.c</File>
+  </files>
+  
+  <CoIDEFiles>
+    <File>$PROJECT_ROOT$cmsis_lib\include\DrvTIMER.h</File>
+    <File>$PROJECT_ROOT$cmsis_lib\source\DrvTIMER.c</File>
+  </CoIDEFiles>
+  
+  <Dependencys>
+    <Dependency>CMSIS_BOOT</Dependency>
+    <Dependency>SysCtl</Dependency>
+    <Dependency>GPIO</Dependency>
+  </Dependencys>
+  
+  <SupportDevices>
+    <Device>MINI51LAN, MINI51ZAN, MINI52LAN, MINI52ZAN, MINI54LAN, MINI54ZAN</Device>
+  </SupportDevices>
+
+   
+</Component>

@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>I2CEeprom</Name>
+  <Description>This example shows how to use I2C to operate 
+EEPROM 24LC64. Step 1: Set system clock. Step 2: Enable I2C,GPIO
+and interrupt.Step 3: Transfer Address and read or write data.
+This example runs on Nu-LB-Mini_V001 Development Board,and it's
+suit for Mini51 serial mcu.
+  </Description>
+  <Version>1.0.0</Version>
+  <Tags>I2C</Tags>
+  <EVKit>Nu-LB-Mini_V001 Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\i2c\example\I2CEeprom\src\I2CEeprom.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CMSIS_BOOT</Dependency>
+    <Dependency>SysCtl</Dependency>
+    <Dependency>GPIO</Dependency>
+  </Dependencys>
+  
+   
+</Example>

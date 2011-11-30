@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>SysCtl</Name>
+  <Description>This example shows how to use sysctl. Step 1: Set 
+system clock. Step 2: Reset CPU. Step 3: Set the Bod and trig its
+interrupt.This example runs on Nu-LB-Mini_V001 Development Board,
+and it's suit for Mini51 serial mcu.
+  </Description>
+  <Version>1.0.0</Version>
+  <Tags>SysCtl</Tags>
+  <EVKit>Nu-LB-Mini_V001 Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\sysctl\example\SysCtl\src\SysCtl.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CMSIS_BOOT</Dependency>
+  </Dependencys>
+
+</Example>

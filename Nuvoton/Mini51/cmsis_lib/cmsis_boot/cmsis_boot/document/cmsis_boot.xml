@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<Component>
+  <Name>CMSIS_BOOT</Name>
+  <Description>cmsis boot for Mini51</Description>
+  <Category>BOOT</Category>
+  <Version>1.0.0</Version>
+  <Tags>CMSIS_BOOT</Tags>
+  
+  <files>
+    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\cmsis_boot\startup\startup_Mini51Series.c</File>
+    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\cmsis_boot\system_MINI51.h</File>
+    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\cmsis_boot\system_MINI51.c</File>
+    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\cmsis_boot\MINI51.h</File>
+  </files>
+  
+  <CoIDEFiles>
+    <File>$PROJECT_ROOT$cmsis_boot\startup\coide\startup_Mini51Series.c</File>
+    <File>$PROJECT_ROOT$cmsis_boot\system_MINI51.h</File>
+    <File>$PROJECT_ROOT$cmsis_boot\system_MINI51.c</File>
+    <File>$PROJECT_ROOT$cmsis_boot\MINI51.h</File>
+  </CoIDEFiles>
+  
+  <Dependencys>
+    <Dependency>CMSIS_CORE</Dependency>
+  </Dependencys>
+  
+  <SupportDevices>
+    <Device>MINI51LAN , MINI51ZAN , MINI52LAN, MINI52ZAN, MINI54LAN, MINI54ZAN</Device>
+  </SupportDevices>
+
+</Component>
