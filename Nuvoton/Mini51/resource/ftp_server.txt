@@ -1,0 +1,4 @@
+you can get the Mini51 datasheet at the ftp server.
+
+address: ftp://184.173.227.21
+password:

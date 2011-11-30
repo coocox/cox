@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<Component>
+    <Name>Nuvoton.Peripheral.Mini51.Startup</Name>
+    <Description>Nuvoton Mini51 Series Startup Code</Description>
+    <Category>Peripheral.CoX</Category>
+    <Version>2.0.0</Version>
+    <Tags>Startup, Boot</Tags>
+
+    <Files>
+        <File>..\..\startup\startup_Mini51Series.c</File>
+    </Files>
+
+    <FilesCoIDE>
+        <File>$PROJECT_ROOT$\startup_Mini51Series.c</File>
+    </FilesCoIDE>
+
+    <Dependencys>
+    </Dependencys>
+
+    <SupportDevices>
+        <Series>
+            <Serie exclude="">NUC1xx</Serie>
+        </Series>
+        <Devices>
+            <Device></Device>
+        </Devices>
+    </SupportDevices>
+
+    <Micros>
+        <Comm>
+            <Define></Define>
+        </Comm>
+        <Device name="">
+            <Define></Define>
+        </Device>   
+    </Micros>
+
+    <Help></Help>
+
+</Component>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<Component>
+  <Name>fmc</Name>
+  <Description>Mini51 FLASH Memory Controller Driver</Description>
+  <Category>Peripheral</Category>
+  <Version>1.0.0</Version>
+  <Tags>FMC</Tags>
+  
+  <files>
+    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\Include\DrvFMC.h</File>
+    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\Source\DrvFMC.c</File>
+  </files>
+  
+  <CoIDEFiles>
+    <File>$PROJECT_ROOT$cmsis_lib\include\DrvFMC.h</File>
+    <File>$PROJECT_ROOT$cmsis_lib\source\DrvFMC.c</File>
+  </CoIDEFiles>
+  
+  <Dependencys>
+    <Dependency>CMSIS_BOOT</Dependency>
+    <Dependency>SysCtl</Dependency>
+  </Dependencys>
+  
+  <SupportDevices>
+    <Device>MINI51LAN , MINI51ZAN , MINI52LAN, MINI52ZAN, MINI54LAN, MINI54ZAN</Device>
+  </SupportDevices>
+
+   
+</Component>

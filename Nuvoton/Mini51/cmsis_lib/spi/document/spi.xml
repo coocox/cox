@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<Component>
+  <Name>spi</Name>
+  <Description>Mini51  Serial Peripheral Interface Driver</Description>
+  <Category>Peripheral</Category>
+  <Version>1.0.0</Version>
+  <Tags>SPI</Tags>
+  
+  <files>
+    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\Include\DrvSPI.h</File>
+    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\Source\DrvSPI.c</File>
+  </files>
+  
+  <CoIDEFiles>
+    <File>$PROJECT_ROOT$cmsis_lib\include\DrvSPI.h</File>
+    <File>$PROJECT_ROOT$cmsis_lib\source\DrvSPI.c</File>
+  </CoIDEFiles>
+  
+  <Dependencys>
+    <Dependency>CMSIS_BOOT</Dependency>
+    <Dependency>SysCtl</Dependency>
+    <Dependency>GPIO</Dependency>
+  </Dependencys>
+  
+  <SupportDevices>
+    <Device>MINI51LAN , MINI51ZAN , MINI52LAN, MINI52ZAN, MINI54LAN, MINI54ZAN</Device>
+  </SupportDevices>
+
+   
+</Component>
