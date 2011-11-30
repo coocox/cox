@@ -1,4 +1,4 @@
-@echo off
+@echo off 
 
 echo -----------------------------------
 echo clean project/coide_gen/rvmdk/ewarm
