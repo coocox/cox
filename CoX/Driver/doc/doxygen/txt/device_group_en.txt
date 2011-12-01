@@ -1,8 +1,10 @@
 //*****************************************************************************
 //
-//! \defgroup COX_Driver_Lib CoX Driver Library
+//! \defgroup CoX_Driver_Lib CoX Driver Library
 //! \defgroup LCD LCD
 //! \defgroup LCD_Character Character LCD
+//! \defgroup Sensor Sensor
+//! \defgroup Temperature_Sensor Temperature Sensor
 //!
 //
 //*****************************************************************************

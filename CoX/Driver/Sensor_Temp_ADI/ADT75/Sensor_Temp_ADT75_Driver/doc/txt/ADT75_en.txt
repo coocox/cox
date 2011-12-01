@@ -1,0 +1,319 @@
+//******************************************************
+//
+//! \addtogroup ADT75 ADT75
+//!
+//! Analog Digital's Inc.'s ADT75 digital temperature sensor
+//! converts temperatures from -55⊥ and +125⊥ to a digital word.
+//! A grade accuracy ㊣2.0～C from 每25～C to +100～C
+//! A grade accuracy ㊣2.0～C from 每25～C to +100～C
+//! 
+//! <h1>Contents</h1>
+//! - \ref ADT75_Features
+//!   - \ref ADT75_Feature_
+//!   - \ref ADT75_TemSensor_Features
+//!   .
+//! - \ref ADT75_APIs
+//!   - \ref ADT75_Basic_APIs
+//!   - \ref ADT75_Init_DeInit_APIs 
+//!   - \ref ADT75_Power_CFG_APIs
+//!   - \ref ADT75_OneShot_Mode_APIs
+//!   - \ref ADT75_Other_CFG_APIs
+//!   - \ref ADT75_Limits_Set_APIs
+//!   - \ref ADT75_Temp_Read_APIs
+//!   - \ref ADT75_Int_APIs
+//!   .
+//! - \ref ADT75_Typical_App
+//! - \ref ADT75_Package
+//!   - \ref ADT75_Package_
+//!   - \ref ADT75_Connection
+//!   .
+//! - \ref ADT75_Usage
+//! .
+//!
+//! <br />
+//!
+//! \section ADT75_Features 1. ADT75 Features
+//! 
+//! <br />
+//!
+//! \subsection ADT75_Feature_ 1.1 Features
+//! - Supply voltage of 3 V to 5.5 V.
+//! - SMBus/I2C-compatible serial interface.
+//! - The temperature sensor has a working measurement range of -55～C to +125～C
+//! - Power consumption 79 米W typically at 3.3 V.
+//! - Avaliable Packages: 8-pin MSOP in Pb-Sn and Pb-free, 8-pin MSOP in Pb-Sn 
+//!   and Pb-free
+//! .
+//! 
+//! \subsection ADT75_TemSensor_Features 1.2 Temperature Sensor Features
+//! - Temperature-to-Digital Converter
+//! - Accuracy: 
+//!   - ㊣1(max) -> VDD = 3V to 5.5v @ 0～C to +70～C
+//!   - ㊣2(max) -> VDD = 3V to 5.5v @ -25～C to +100～C
+//!   - ㊣3(max) -> VDD = 3V to 5.5v @ -55～C to +100～C
+//!   - ㊣3(max) -> VDD = 3V to 3.6v @ 100～C to +125～C
+//!   - ㊣2(typ) -> VDD = 4.5V to 5.5v @ 100～C to +125～C
+//!   .
+//! .
+//! 
+//! <br />
+//!  
+//! \section ADT75_APIs 2. ADT75 APIs
+//!
+//! \subsection ADT75_Basic_APIs 2.1 ADT75 Basic APIs
+//!
+//! The basic APIs are methods to write and read the temperature sensor's registers
+//! 
+//! - ADT75RegRead(unsigned char ucReg)
+//! - ADT75RegWrite(unsigned char ucReg, short ulValue)
+//! .
+//! <br />
+//! 
+//! \subsection ADT75_Init_DeInit_APIs 2.2 ADT75 Init DeInit APIs 
+//!
+//! These APIs are methods to Init/Deinit the master i2c bus etc. Select whether 
+//! enter power down mode in the Init function.
+//! 
+//! - ADT75Init(unsigned long ulRate, unsigned long ulPDEnable)
+//! - ADT75DeInit(void)
+//! . 
+//!
+//! <br />
+//! 
+//! \subsection ADT75_Power_CFG_APIs 2.3 ADT75 Power Configure APIs
+//!  
+//! These APIs are method used to shut down the device, wake up the device
+//!
+//! - ADT75ShutDown(void)
+//! - ADT75WakeUp(void)
+//! .
+//!
+//! <br />
+//!
+//! \subsection ADT75_OneShot_Mode_APIs 2.4 ADT75 OneShot Mode APIs
+//! 
+//! These APIs are method used to Configure OS Int mode, OS pin active level, 
+//! fault queue value, and Alert configure.
+//! 
+//! - ADT75OneShotEnable(void)
+//! - ADT75OneShotDisable(void)
+//! - ADT75OneShotConvst(void)
+//! .
+//!
+//! <br />
+//!
+//! \subsection ADT75_Other_CFG_APIs 2.5 ADT75 Other CFG APIs
+//! 
+//! These APIs are method used to enable or disable the device's one shot mode, and
+//! trigger the temperature one conversion when in one-shot mode
+//! 
+//! - ADT75IntModeConfig(unsigned long ulIntMode)
+//! - ADT75OSActiveLevelConfig(unsigned long ulOSLevel)
+//! - ADT75FaultQueueConfig(unsigned long ulFaultQueue)
+//! - ADT75AlertConfig(unsigned long ulSMBusAlert)
+//! .
+//!
+//! <br />
+//! \subsection ADT75_Limits_Set_APIs 2.6 ADT75 Limits Set APIs
+//! These APIs are method used to set the TOS and THYST register in integer or float 
+//! degree type.
+//! 
+//! - ADT75UpLimitSetFloat(float fTemp)
+//! - ADT75UpLimitSetLong(long lTemp)
+//! - ADT75LowLimitSetFloat(float fTemp)
+//! - ADT75LowLimitSetLong(long lTemp)
+//! .
+//!
+//! <br />
+//! \subsection ADT75_Temp_Read_APIs 2.7 ADT75 Temp Read APIs
+//! These APIs are method used to read the temperature value in integer, float degree,
+//! and also in original register data
+//! 
+//! - ADT75UpLimitSetFloat(float fTemp)
+//! - ADT75UpLimitSetLong(long lTemp)
+//! - ADT75LowLimitSetFloat(float fTemp)
+//! - ADT75LowLimitSetLong(long lTemp)
+//! .
+//!
+//! <br />
+//! \subsection ADT75_Int_APIs 2.8 ADT75 Int APIs
+//! These APIs are method used to Enable/Disable the OS pin connected pin's interrupt,
+//! and install the interrupt callback function 
+//! 
+//! - ADT75IntEnable(void)
+//! - ADT75IntDisable(void)
+//! - ADT75IntCallbackInit(xtEventCallback xtI2CCallback)
+//! .
+//!
+//! <br />
+//! 
+//! \section ADT75_Typical_App 3. ADT75 Typical App
+//! - TEMPERATURE MONITORING
+//! .
+//!
+//! <br />
+//! 
+//! \section ADT75_Package 4. ADT75 Package Type and Connection
+//!  
+//! \subsection ADT75_Package_ 4.1 ADT75 Package Type
+//! 
+//! This sensor has an industry standard 2-wire, I2C/SMBus 
+//! compatible serial interface, two ADT75 versions allow 8
+//! devices to be controlled in a single serial bus. To
+//! maintain interchangeability with the I2C/SMBus
+//! interface the electrical specifications are specified with
+//! the operating voltage of 3V to 5.5V.
+//!
+//! <img src="ADT75_Function_Block.png" />
+//!
+//! <br /> 
+//!
+//! \subsection ADT75_Connection 4.2 ADT75 Connection
+//! 
+//! The SDA and SCLK serial interface pins are
+//! open-drain pins that require pull-up resistors. This
+//! configuration is shown as below.
+//!
+//! <img src="ADT75_Connection.png" />
+//!
+//! \n
+//!
+//! \section ADT75_Usage 5. ADT75 Usage
+//!
+//! <ol>
+//! <li>As a \b temperature \b sensor, connect \b pin4 \b GND, connect \b pin8 to \b 
+//! VDD3.3, connect \b pin5 \b pin6 \b pin7 to GND, then the \b slave \b address in
+//! the driver is set to 0x48.</li>
+//! <li>Connect the \b SCL and \b SDA pins to the \b master board \b I2C port.</li>
+//! <li>Connect the \b pin3 to the MCU's corresponding gpio pin.</li>
+//! <li>The pull-up resistor values for a \b 3.3V system ranges \b 9k次 to \b 33k
+//! 次.</li>
+//! <li>It is recommended that a decoupling capacitor of \b 0.1米F to \b 1米F be used
+//! between the \b VDD and \b GND pins. </li>
+//! </ol> 
+//!
+//! \n\n\n
+//! Here we introduce how to get ambient temperature with ADT75.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref ADT75_TempGet_Steps
+//! - \ref ADT75_TempGet_Code
+//! .
+//!
+//! <br />
+//! \section ADT75_TempGet_Steps 1.How to configure ADT75. 
+//!
+//! <ol>
+//! <li>Select and enable I2C, configure I2C clock rate and related GPIO Pins,
+//! Select the power mode.</li>
+//! <li>Set the OS Int mode, OS pin active level, FaultQueue value. </li>
+//! <li>Enable One shot mode</li>
+//! <li>Trigger one convert in one shot mode mode</li>
+//! <li>Read temperature.</li>
+//! </ol>
+//!
+//! <br />
+//! \section ADT75_TempGet_Code 2.The code shows to get ambient temperature.
+//! 
+//! \code
+//! 
+//! //
+//! // Config the device i2c Address
+//! //
+//! #define ADT75_I2C_ADDRESS       0x48
+//! 
+//! //
+//! // Config the devide i2c bus master
+//! //
+//! #define ADT75_MASTER_BASE       xI2C0_BASE
+//!
+//! //
+//! // Config the i2c0 SDA pin
+//! // 
+//! #define ADT75_PIN_I2CSDA        PA8
+//! 
+//! //
+//! // Config the i2c0 SCL pin
+//! //
+//! #define ADT75_PIN_I2CSCK        PA9
+//!   
+//! //
+//! // Config the OTI connect pin
+//! // 
+//! #define ADT75_PIN_OS            PB13
+//!
+//! //
+//! // Config the OS/Alert active level
+//! //
+//! #define ADT75_LEVEL_OS         xGPIO_LOW_LEVEL  
+//! 
+//! \endcode
+//!
+//! \code
+//!
+//! #include "xhw_types.h"
+//! #include "xcore.h"
+//! #include "xhw_memmap.h"
+//! #include "xgpio.h"
+//! #include "xsysctl.h"
+//! #include "xi2c.h"
+//! #include "adt75.h"
+//!
+//! //*****************************************************************************
+//! //
+//! // The main function of the adt75 one-shot mode.
+//! //
+//! // return none
+//! //
+//! //*****************************************************************************
+//! void TemperatureGet(void)
+//! {
+//!     long lTemp;
+//!     //
+//!     //Set the external 12MHZ clock as system clock 
+//!     //
+//!     xSysCtlClockSet(12000000, xSYSCTL_XTAL_12MHZ | xSYSCTL_OSC_MAIN);
+//!     
+//!     ADT75Init(10000, ADT75_POWER_NORMAL); 
+//!     
+//!     //
+//!     // OS Int mode configure
+//!     //
+//!     ADT75IntModeConfig(ADT75_OPEMODE_CMP);
+//!     
+//!     //
+//!     // OS pin active level is low, a pull-up register should add on this pin.
+//!     //
+//!     ADT75OSActiveLevelConfig(ADT75_OSALERT_LEVEL_LOW);
+//!     
+//!     //
+//!     // Set the Faultqueue is 1
+//!     //
+//!     ADT75FaultQueueConfig(ADT75_FAULTQUE_1);
+//!     
+//!     //
+//!     // Enable the one-shot mode
+//!     //
+//!     ADT75OneShotEnable();
+//!         
+//!     //
+//!     // Configure the setpoint register
+//!     //
+//!     ADT75LowLimitSetLong(25);
+//!     ADT75UpLimitSetLong(28);    
+//!
+//!     while(1)
+//!     {
+//!         ADT75OneShotConvst();
+//!         lTemp = ADT75TempReadLDC();      
+//!     }
+//!     
+//! }
+
+//!
+//! \endcode
+//!
+//! @}
+//
+//********************************************************

@@ -1634,6 +1634,21 @@
   <group>
     <name>CoX</name>
     <group>
+      <name>CoX_Driver</name>
+      <group>
+        <name>Sensor_Temp_AD7417</name>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\lib\ad7417.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\lib\ad7417.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\lib\xhw_AD7417.h</name>
+        </file>
+      </group>
+    </group>
+    <group>
       <name>CoX_Peripheral</name>
       <group>
         <name>inc</name>
@@ -1702,27 +1717,6 @@
         </file>
       </group>
     </group>
-    <group>
-      <name>CoX_Driver</name>
-      <group>
-        <name>Sensor_Temp_AD7417</name>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\lib\ad7417.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\lib\ad7417.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\lib\xhw_AD7417.h</name>
-        </file>
-      </group>
-    </group>
-  </group>
-  <group>
-    <name>document</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\..\CoX_Peripheral\CoX_Peripheral_LM3S\startup\document\startup.xml</name>
-    </file>
   </group>
   <group>
     <name>ewarm</name>

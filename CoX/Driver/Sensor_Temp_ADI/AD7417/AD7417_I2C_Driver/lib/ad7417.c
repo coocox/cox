@@ -263,10 +263,10 @@ void AD7417RegWrite(unsigned char ucReg, short ulValue)
 //! which are grouped into sets where only one can be chosen.
 //!
 //! The shoutdown mode config is selected form one of the following value:
-//! \b AD7417_ShutDown_Enable, \b AD7417_ShutDown_Disable
+//! \b AD7417_POWER_SHUTDOWM, \b AD7417_POWER_NORMAL
 //!
 //! The Triger mode config is selected form one of the following value:
-//! \b AD7417_Triger_Enable, \b AD7417_Triger_Disable
+//! \b AD7417_TRIGGER_ENABLE, \b AD7417_TRIGGER_DISABLE
 //!
 //! \return none
 //
@@ -501,10 +501,10 @@ void AD7417UpLimitSetLong(short lTemp)
 //! \brief Configure the channel of ADC. 
 //! 
 //! \param ucCfg ADC channel selected ,it should be:
-//!  - AD7417_CFG1_CHNSEL_AIN1: ADC channel1
-//!  - AD7417_CFG1_CHNSEL_AIN2: ADC channel2
-//!  - AD7417_CFG1_CHNSEL_AIN3: ADC channel3
-//!  - AD7417_CFG1_CHNSEL_AIN4: ADC channel4
+//!  - AD7417_ADC_CHANNEL1: ADC channel1
+//!  - AD7417_ADC_CHANNEL2: ADC channel2
+//!  - AD7417_ADC_CHANNEL3: ADC channel3
+//!  - AD7417_ADC_CHANNEL4: ADC channel4
 //! 
 //! \return none.
 //
@@ -798,7 +798,7 @@ void AD7417TriggerConvst(void)
 //! \return none
 //
 //*****************************************************************************
-void AD7417ShutdownEnter(void)
+void AD7417ShutDown(void)
 {
     unsigned long ulTemp;
     //
@@ -817,7 +817,7 @@ void AD7417ShutdownEnter(void)
 //! \return none
 //
 //*****************************************************************************
-void AD7417ShutdownQuit(void)
+void AD7417WakeUp(void)
 {
     unsigned long ulTemp;
     //
@@ -840,7 +840,7 @@ void AD7417ShutdownQuit(void)
 //! \return none
 //
 //*****************************************************************************
-void AD7417ShutDownConvst(void)
+void AD7417OneShotConvert(void)
 {
     int i = 0;
     unsigned long ulTemp;

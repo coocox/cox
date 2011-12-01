@@ -75,7 +75,7 @@ static void di_ad7417arz001Setup(void)
     //
     // AD7417 device init
     //
-    AD7417Init(10000, AD7417_Triger_Enable); 
+    AD7417Init(10000, AD7417_TRIGGER_ENABLE); 
    
 }
 

@@ -84,9 +84,9 @@
 //! <br />
 //! \subsection AD7417_Mode_APIs 2.2 AD7417 Mode APIs
 //! The mode APIs are methods to operate at the chip's corresponding mode.
-//! - AD7417ShutdownEnable(void)
-//! - AD7417ShutdownDisable(void)
-//! - AD7417ShutDownConvst(void)
+//! - AD7417ShutDown(void)
+//! - AD7417WakeUp(void)
+//! - AD7417OneShotConvert(void)
 //! - AD7417TriggerEnable(void)
 //! - AD7417TriggerDisable(void)
 //! - AD7417TriggerConvst(void)
@@ -323,7 +323,7 @@
 //!    //
 //!    // AD7417Dev Init
 //!    //
-//!    AD7417Init(10000, AD7417_ShutDown_Disable | AD7417_Triger_Disable);
+//!    AD7417Init(10000, AD7417_POWER_NORMAL | AD7417_TRIGGER_DISABLE);
 //!    
 //!    
 //!    //
