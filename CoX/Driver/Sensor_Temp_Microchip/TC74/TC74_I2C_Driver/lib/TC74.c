@@ -44,7 +44,7 @@
 #include "xgpio.h"
 #include "xi2c.h"
 #include "TC74.h"
-#include "xhw_TC74.h"
+#include "hw_TC74.h"
 
 //*****************************************************************************
 //

@@ -44,7 +44,7 @@
 #include "xgpio.h"
 #include "xi2c.h"
 #include "TCN75.h"
-#include "xhw_TCN75.h"
+#include "hw_TCN75.h"
 
 //*****************************************************************************
 //
@@ -58,25 +58,29 @@
 void 
 TCN75Init(unsigned long ulRate)
 {
+	//
+    // Config the I2C pin
     //
-    //Enable I2C0.
+    if(TCN75_MASTER_BASE == xI2C0_BASE)
+    {
+        xSPinTypeI2C(I2C0SCK, TCN75_PIN_I2CSCK);
+        xSPinTypeI2C(I2C0SDA, TCN75_PIN_I2CSDA);
+    }
+    else
+    {
+        xSPinTypeI2C(I2C1SCK, TCN75_PIN_I2CSCK);
+        xSPinTypeI2C(I2C1SDA, TCN75_PIN_I2CSDA);
+    }
+    
     //
-    xSysCtlPeripheralEnable(XSYSCTL_PERIPH_I2C);
-
+    // Config the I2C master
     //
-    //Select PA8 as the SDA of I2C0.
+    xSysCtlPeripheralEnable2(TCN75_MASTER_BASE);
+   
     //
-    xSPinTypeI2C(I2C0SDA, I2CDATA_PIN); 
-
+    // Init the device rate
     //
-    //Select PA9 as the SCL of I2C0.
-    //
-    xSPinTypeI2C(I2C0SCL, I2CSCL_PIN);
-
-    //
-    //Set the clock rate of the I2C0.
-    //
-    xI2CMasterInit(I2C_BASE, ulRate);
+    xI2CMasterInit(TCN75_MASTER_BASE, ulRate);
 }
 
 //*****************************************************************************
@@ -92,9 +96,9 @@ TCN75Init(unsigned long ulRate)
 void  
 TCN75DeInit()
 {
-    TCN75ModeSet(TCN75_SHUTDOWM_ON);
+    TCN75Shutdown();
    
-    xSysCtlPeripheralDisable(XSYSCTL_PERIPH_I2C);
+    xSysCtlPeripheralDisable2(TCN75_MASTER_BASE);
 }
 
 //*****************************************************************************
@@ -153,7 +157,7 @@ TCN75RegRead(unsigned char ucReg)
     //
     //Starts transfer.
     // 
-    ucFlag = I2CMasterTransfer(I2C_BASE, &Cfg, I2C_TRANSFER_POLLING);
+    ucFlag = I2CMasterTransfer(TCN75_MASTER_BASE, &Cfg, I2C_TRANSFER_POLLING);
 	if(ucFlag == xfalse)
     {
         return 0;
@@ -234,175 +238,254 @@ TCN75RegWrite(unsigned char ucReg, void* vpValue)
     //
     // Starts transfer.
     // 
-    I2CMasterTransfer(I2C_BASE, &Cfg, I2C_TRANSFER_POLLING);  
+    I2CMasterTransfer(TCN75_MASTER_BASE, &Cfg, I2C_TRANSFER_POLLING);  
 }
 
 //*****************************************************************************
 //
-//! \brief Sets TCN75 mode.
+//! \brief Sets TCN75 as shutdown mode.
 //!
-//! \param ucMode The mode of TCN75.
-//!
-//! The parameter \e ucMode can be one of the following values:
-//!
-//! - \b  TCN75_SHUTDOWM_ON 
-//! - \b  TCN75_SHUTDOWN_OFF
+//! \param ucMode None.
 //!
 //! \return None.
 //
 //*****************************************************************************
 void 
-TCN75ModeSet(unsigned char ucMode)
+TCN75Shutdown(void)
 {
 	unsigned char ucConfig;
-	
+    
+    //
+    // Enables shut down mode.
+    //
 	ucConfig = TCN75RegRead(TCN75_CONFIG);
 
-	ucConfig = (ucConfig & 0xFE) | ucMode;
+	ucConfig = (ucConfig & 0xFE) | TCN75_SHUTDOWM_ON;
 
 	TCN75RegWrite(TCN75_CONFIG, &ucConfig);
 }
 
 //*****************************************************************************
 //
-//! \brief Gets TCN75 mode.
-//!
-//! \param None.
-//!
-//! \return the following value.
-//!            - \ref TCN75_SHUTDOWM_ON, shut down mode
-//!            - \ref TCN75_SHUTDOWN_OFF, normal mode
-//
-//*****************************************************************************
-unsigned char
-TCN75ModeGet()
-{
-	return TCN75RegRead(TCN75_CONFIG) & 0x1;
-}
-
-//*****************************************************************************
-//
-//! \brief Sets the Fault Queue of TCN75 Temperature Sensor.
-//!
-//! \param ucFq The Fault Queue of TCN75 Temperature Sensor.
-//!       - \ref TCN75_FAULTQUE_1, 1
-//!       - \ref TCN75_FAULTQUE_2, 2
-//!       - \ref TCN75_FAULTQUE_4, 4
-//!       - \ref TCN75_FAULTQUE_6, 6
-//!
-//! \return None.
-//
-//*****************************************************************************
-void 
-TCN75FaultQueSet(unsigned char ucFq)
-{
-	unsigned char ucConfig;
-
-	ucConfig = TCN75RegRead(TCN75_CONFIG);
-
-	ucConfig = (ucConfig & 0xE7) | ucFq;
-
-	TCN75RegWrite(TCN75_CONFIG, &ucConfig);
-}
-//*****************************************************************************
-//
-//! \brief Gets the Fault Queue of TCN75 Temperature Sensor.
-//!
-//! \param None
+//! \brief Disable the sensor's shut dowm mode
 //! 
-//! \return the Fault Queue of TCN75 Temperature Sensor.
+//! \param none
+//! 
+//! \return none
 //
 //*****************************************************************************
-unsigned char
-TCN75FaultQueGet()
+void 
+TCN75WakeUp(void)
 {
-	return TCN75RegRead(TCN75_CONFIG) & 0x18;
+    unsigned char ucConfig;
+    //
+    // Disables shut down mode.
+    //
+    ucConfig = TCN75RegRead(TCN75_CONFIG);
+
+	ucConfig = (ucConfig & 0xFE) | TCN75_SHUTDOWN_OFF;
+
+	TCN75RegWrite(TCN75_CONFIG, &ucConfig);
 }
+
+//*****************************************************************************
+//
+//! \brief Configuration of TCN75. 
+//! 
+//! \param ucCfg The value of TCN75 Config register.
+//!
+//! The \e ucCfg parameter is the logical OR of several different values,
+//! many of which are grouped into sets where only one can be chosen.
+//!
+//! The operation mode bits can be selected from one of the following value:
+//! \b TCN75_MODE_CMP , \b TCN75_MODE_INT.
+//!
+//! The polarity bit can selected form one of the following bit:
+//! \b TCN75_POLARITY_LOW  , \b TCN75_POLARITY_HIGH 
+//!
+//! The Fault Queue bits can be selected form one of the following bits:
+//! \b TCN75_FAULTQUE_1, \b TCN75_FAULTQUE_2, 
+//! \b TCN75_FAULTQUE_4, \b TCN75_FAULTQUE_6.
+//!
+//! \return none.
+//
+//*****************************************************************************
+void
+TCN75Config(unsigned char ucCfg)
+{
+    unsigned char ucTemp;
+    
+    ucTemp = TCN75RegRead(TCN75_CONFIG);
+      
+    //
+    // TCN75 mode set.
+    //
+    if((ucCfg & TCN75_MODE_INT) == 0)
+    {
+        ucTemp = ucTemp & (~TCN75_MODE_INT);    
+    }
+    else
+    {
+        ucTemp |= TCN75_MODE_INT;
+    }
+    
+    //
+    // OTI active level set
+    //
+    if((ucCfg & TCN75_POLARITY_HIGH) == 0)
+    {
+        ucTemp = ucTemp & (~TCN75_POLARITY_HIGH);
+    }
+    else
+    {
+        ucTemp |= TCN75_POLARITY_HIGH;
+    }
+    
+    //
+    // Fault queue set
+    //
+    ucTemp = ucTemp & (~TCN75_FAULTQUE_M);
+    ucTemp |= (ucCfg & TCN75_FAULTQUE_M);
+    
+    TCN75RegWrite(TCN75_CONFIG, &ucTemp);
+}
+
 
 //*****************************************************************************
 //
 //! \brief Configures the GPIO pin and set callback function.
 //!
-//! \param xtIntCallback The callback function for event interrupt.
-//! \param ucTrigMode The trigger condition of interrupt of Event Output.
-//!  it can be: 
-//!       - \ref ALERTPOL_HIGH, assert with high level
-//!       - \ref ALERTPOL_LOW, assert with low level
-//! \param ulEventMode Comparator mode or Interrupt mode, it can be:
-//!        - \ref TCN75_MODE_CMP, Comparator mode
-//!        - \ref TCN75_MODE_INT, Interrupt mode
+//! \param xtIntCallback The callback function for event interrupt
 //!
 //! \return None.
 //
 //*****************************************************************************
 void  
-TCN75IntConfig(xtEventCallback xtIntCallback, 
-                 unsigned long ulTrigMode, unsigned long ulEventMode)
+TCN75IntConfig(xtEventCallback xtIntCallback)
+                
 {
-    unsigned char ucConfig;
+    unsigned char ucTemp;
     
-    ucConfig = TCN75RegRead(TCN75_CONFIG);
+    ucTemp = TCN75RegRead(TCN75_CONFIG);
     
-    //
-    // Config the trigger level and Event Output Mode
-    //
-    ucConfig = (ucConfig & 0xFB) | ulTrigMode;
-    ucConfig = (ucConfig & 0xFD) | (ulEventMode<<1);    
-    TCN75RegWrite(TCN75_CONFIG, &ucConfig);
-
-    //
+	//
     // Config the Pin mode and Set callback funciton.
     //
-    xGPIODirModeSet(EventPORT, EventPIN, GPIO_DIR_MODE_IN);
-    xGPIOPinIntCallbackInit(EventPORT, EventPIN, xtIntCallback);
+   	xGPIOSPinTypeGPIOInput(TCN75_EVENTPIN);
+    xGPIOPinIntCallbackInit(xGPIOSPinToPort(TCN75_EVENTPIN), 
+	                          xGPIOSPinToPin(TCN75_EVENTPIN), xtIntCallback);
 
-    if(ulTrigMode & ALERTPOL_HIGH == ALERTPOL_HIGH)
+    if(ucTemp & TCN75_POLARITY_HIGH)
     {
-        xGPIOPinIntEnable(EventPORT, EventPIN, GPIO_HIGH_LEVEL);   
+        xGPIOSPinIntEnable(TCN75_EVENTPIN, GPIO_HIGH_LEVEL);   
     }
     else
     {
-        xGPIOPinIntEnable(EventPORT, EventPIN, GPIO_LOW_LEVEL);
+        xGPIOSPinIntEnable(TCN75_EVENTPIN, GPIO_LOW_LEVEL);
     } 
 }
+
 //*****************************************************************************
 //
-//! \brief Gets temperature from TCN75 register.
 //!
-//! \param ucReg The register that stores temperature.
+//! \brief Sets THYST setpoint register in float degree celsius (¡ãC)
 //!
-//! The parameter \e ucReg can be one of the following values:
+//! \param fTemp Temperature value in degree celsius (-55¡ãC ~125 ¡ãC)
 //!
-//! - \b   TCN75_TEMP
-//! - \b   TCN75_THYS 
-//! - \b   TCN75_TSET
+//! \return none
+//
+//*****************************************************************************
+void 
+TCN75LowLimitSet(float fTemp)
+{   
+    TCN75RegWrite(TCN75_THYS, &fTemp);
+}
+
+//*****************************************************************************
+//
+//!
+//! \brief Gets the value of THYST setpoint register.
+//!
+//! \param None
+//!
+//! \return The temperature value in THYST register.
+//
+//*****************************************************************************
+float 
+TCN75LowLimitGet(void)
+{
+    long ulTemp;
+	float fTemp;
+       
+    //
+    // Read the THYS register
+    //
+    ulTemp = TCN75RegRead(TCN75_THYS);
+	ulTemp = ulTemp>>7;
+    
+    //
+    // Conveter the temperature register data to degree celsius (¡ãC)
+    //
+    fTemp = (float)(ulTemp * 0.5);   
+    return fTemp;
+}
+
+//*****************************************************************************
+//
+//!
+//! \brief Sets setpoint register in float degree celsius (¡ãC)
+//!
+//! \param fTemp Temperature value in degree celsius (-55¡ãC ~125 ¡ãC)
+//!
+//! \return none
+//
+//*****************************************************************************
+void 
+TCN75UpLimitSet(float fTemp)
+{      
+    TCN75RegWrite(TCN75_TSET, &fTemp);
+}
+
+//*****************************************************************************
+//
+//!
+//! \brief Gets the value of TSET register.
+//!
+//! \param None
+//!
+//! \return The temperature value in TSET register.
+//
+//*****************************************************************************
+float 
+TCN75UpLimitGet(void)
+{
+    long ulTemp;
+	float fTemp;
+       
+    //
+    // Read the TSET register
+    //
+    ulTemp = TCN75RegRead(TCN75_TSET);
+	ulTemp = ulTemp>>7;
+    
+    //
+    // Conveter the temperature register data to degree celsius (¡ãC)
+    //
+    fTemp = (float)(ulTemp * 0.5);   
+    return fTemp;
+}
+
+//*****************************************************************************
+//
+//! \brief Gets current temperature.
+//!
+//! \param None.
 //!
 //! \return Returns  temperature.
 //
 //*****************************************************************************
-long 
-TCN75TempGet(unsigned char ucReg)
-{
-    return TCN75RegRead(ucReg)>>7; 
-}
-
-//*****************************************************************************
-//
-//! \brief Read the temperature value in float degree celsius (¡ãC)
-//!
-//! \param ucReg The register that stores temperature.
-//!
-//! The parameter \e ucReg can be one of the following values:
-//!
-//! -\b  TCN75_TEMP
-//! -\b	 TCN75_THYS 
-//! -\b	 TCN75_TSET
-//!
-//! \return temperature in 	parameter \e ucReg.
-//
-//*****************************************************************************
 float 
-TCN75TempReadFDC(unsigned char ucReg)
+TCN75TempReadFDC(void)
 {
     long ulTemp;
 	float fTemp;
@@ -410,7 +493,7 @@ TCN75TempReadFDC(unsigned char ucReg)
     //
     // Read the temperature register
     //
-    ulTemp = TCN75RegRead(ucReg);
+    ulTemp = TCN75RegRead(TCN75_TEMP);
 	ulTemp = ulTemp>>7;
     
     //

@@ -40,7 +40,7 @@
 #include "xgpio.h"
 #include "xi2c.h"
 #include "TCN75.h"
-#include "xhw_TCN75.h"
+#include "hw_TCN75.h"
 #include "test.h"
 #include "testcase.h"
 unsigned long uli, ulj;
@@ -119,27 +119,59 @@ static void TCN75001TearDown(void)
 //*****************************************************************************
 static void TCN75001CofigExecute()
 {
-    unsigned char ucMode[2] = {TCN75_SHUTDOWM_ON , TCN75_SHUTDOWN_OFF};
+    unsigned char ucTemp;
+	unsigned char ucMode[2] = {TCN75_MODE_INT, TCN75_MODE_CMP};
+	unsigned char ucPolarity[2] = {TCN75_POLARITY_HIGH, TCN75_POLARITY_LOW};
     unsigned char ucFaultQue[4] = {TCN75_FAULTQUE_1, TCN75_FAULTQUE_2,
                                     TCN75_FAULTQUE_4, TCN75_FAULTQUE_6};	
 	//
-	//Tests TCN75 shutdowm mode and normal mode.
+	//Test TCN75 shutdowm mode and normal mode.
 	//
-	TCN75ModeSet(ucMode[0]);
-	TestAssert(ucMode[0] == TCN75ModeGet(),
-		  "TCN75 API \"TCN75ModeSet \"or \"TCN75ModeGet\"  error!");
-	TCN75ModeSet(ucMode[1]);
-	TestAssert(ucMode[1] == TCN75ModeGet(),
-		  "TCN75 API \"TCN75ModeSet \"or \"TCN75ModeGet\"  error!");
+	TCN75Shutdown();
+	ucTemp = TCN75RegRead(TCN75_CONFIG) & 0x01;
+	TestAssert(ucTemp == TCN75_SHUTDOWM_ON,
+		  "TCN75 API \"TCN75Shutdown\" error!");
+	
+	TCN75WakeUp();
+	ucTemp = TCN75RegRead(TCN75_CONFIG) & 0x01;
+	TestAssert(ucTemp == 0,
+		  "TCN75 API \"TCN75WakeUp \" error!");
+
+	//
+	// Test TCN75 interrupt and compare mode.
+	//
+	TCN75Config(ucMode[0]);
+	ucTemp = TCN75RegRead(TCN75_CONFIG) & 0x02;
+	TestAssert(ucTemp == ucMode[0],
+		  "TCN75 API \"TCN75Config\" error!");
+
+    TCN75Config(ucMode[1]);
+	ucTemp = TCN75RegRead(TCN75_CONFIG) & 0x02;
+	TestAssert(ucTemp == ucMode[1],
+		  "TCN75 API \"TCN75Config\" error!");
+
+	//
+	// Test TCN75 polarity.
+	//
+    TCN75Config(ucPolarity[0]);
+	ucTemp = TCN75RegRead(TCN75_CONFIG) & 0x04;
+	TestAssert(ucTemp == ucPolarity[0],
+		  "TCN75 API \"TCN75Config\" error!");
+    
+	TCN75Config(ucPolarity[1]);
+	ucTemp = TCN75RegRead(TCN75_CONFIG) & 0x04;
+	TestAssert(ucTemp == ucPolarity[1],
+		  "TCN75 API \"TCN75Config\" error!");
 
     //
-    // Fault Queue test
+    // Test TCN75 Fault Queue.
     //
 	for(uli = 0; uli < 4; uli ++)
 	{
-	    TCN75FaultQueSet(ucFaultQue[uli]);
-		TestAssert(ucFaultQue[uli] == TCN75FaultQueGet(),
-		  "TCN75 API \"TCN75ModeSet \"or \"TCN75ModeGet\"  error!");
+	    TCN75Config(ucFaultQue[uli]);
+		ucTemp = TCN75RegRead(TCN75_CONFIG) & 0x18;
+		TestAssert(ucTemp == ucFaultQue[uli],
+		    "TCN75 API \"TCN75Config \" error!");
 	}	
 }
 
@@ -200,27 +232,16 @@ static void TCN75002TearDown(void)
 static void TCN75002TempExecute()
 {	
     float fTestTemper[4] = {-55, 0, 30, 125};
-	float fTemper[4] = {-110, 0, 60, 250};
-
 	for(uli = 0; uli < 4; uli ++)
 	{
-	    //
-		// Writes a temperature value in THYS register and test.
-		//
-	    TCN75RegWrite(TCN75_THYS, &fTestTemper[uli]);
-		TestAssert(fTestTemper[uli] == TCN75TempReadFDC(TCN75_THYS),
-		  "TCN75 API \"TCN75RegWrite \"or \"TCN75TempReadFDC\"  error!");
-		TestAssert(fTemper[uli] == TCN75TempGet(TCN75_THYS),
-		  "TCN75 API \"TCN75RegWrite \"or \"TCN75TempGet\"  error!");
+	    TCN75LowLimitSet(fTestTemper[uli]);
+		TestAssert(fTestTemper[uli] == TCN75LowLimitGet(),
+		  "TCN75 API \"TCN75LowLimitSet \"or \"TCN75LowLimitGet\"  error!");
+	
 
-		//
-		// Writes a temperature value in TSET register and test.
-		//
-		TCN75RegWrite(TCN75_TSET, &fTestTemper[uli]);
-		TestAssert(fTestTemper[uli] == TCN75TempReadFDC(TCN75_TSET),
-		  "TCN75 API \"TCN75RegWrite \"or \"TCN75TempReadFDC\"  error!");
-		TestAssert(fTemper[uli] == TCN75TempGet(TCN75_TSET),
-		  "TCN75 API \"TCN75RegWrite \"or \"TCN75TempGet\"  error!");
+		TCN75UpLimitSet(fTestTemper[uli]);
+		TestAssert(fTestTemper[uli] == TCN75UpLimitGet(),
+		  "TCN75 API \"TCN75UpLimitSet \"or \"TCN75UpLimitGet\"  error!");
 	}
 }
 
@@ -242,7 +263,7 @@ const tTestCase sTestTCN75Temp= {
 //*****************************************************************************
 static char* TCN75003GetTest(void)
 {
-    return "TCN75  compare and interrupt mode test";
+    return "TCN75  compare  mode test";
 }
 
 //*****************************************************************************
@@ -271,22 +292,27 @@ static void TCN75003TearDown(void)
 
 //*****************************************************************************
 //
-//! \brief TCN75003 test execute main body for compare mode.
+//! \brief TCN75003 test execute main body for  compare mode.
 //!
 //! \return None.
 //
 //*****************************************************************************
-static void TCN75003IntExecute()
+static void TCN75003CMPExecute()
 {
     float fTemp = 25;
 
-	TCN75RegWrite(TCN75_THYS, &fTemp);
-	TCN75RegWrite(TCN75_TSET, &fTemp);
+	TCN75LowLimitSet(fTemp);
+	TCN75UpLimitSet(fTemp);
 
     xSysCtlPeripheralEnable(SYSCTL_PERIPH_GPIO);
     xGPIODirModeSet(GPIO_PORTA_BASE, GPIO_PIN_12, GPIO_DIR_MODE_OUT);
+
+	//
+	// Test TCN75 compare mode.
+	//
+	TCN75Config(TCN75_MODE_CMP);
     
-	TCN75IntConfig(Test_CMP, ALERTPOL_LOW, TCN75_MODE_CMP);
+	TCN75IntConfig(Test_CMP);
 
     xIntEnable(xINT_GPIOB);
     xIntMasterEnable();
@@ -295,14 +321,10 @@ static void TCN75003IntExecute()
 
 	while(!uli)
 	{
-	    fTemp = TCN75TempReadFDC(TCN75_TEMP);
-
+	    fTemp = TCN75TempReadFDC();
+		
 	    for(ulj = 0; ulj < 0xfff ;ulj++);
-	} 
-	
-	TCN75IntConfig(Test_Int, ALERTPOL_LOW, TCN75_MODE_INT);
-	
-	TestAssertQ("a", "TCN75 interrupt mode test fail"); 
+	}  
 	
 	xIntDisable(xINT_GPIOB);
     xIntMasterDisable();	
@@ -310,13 +332,82 @@ static void TCN75003IntExecute()
 //
 // TCN75003  test case struct.
 //
-const tTestCase sTestTCN75Int = {
+const tTestCase sTestTCN75CMP = {
 		TCN75003GetTest,
 		TCN75003Setup,
 		TCN75003TearDown,
-		TCN75003IntExecute		
+		TCN75003CMPExecute		
 };
 
+//*****************************************************************************
+//
+//! \brief Gets the description of TCN75004 test.
+//!
+//! \return the desccription of the TCN75004 test.
+//
+//*****************************************************************************
+static char* TCN75004GetTest(void)
+{
+    return "TCN75  interrupt  mode test";
+}
+
+//*****************************************************************************
+//
+//! \brief something should do before the execute of TCN75004 test.
+//!
+//! \return None.
+//
+//*****************************************************************************
+static void TCN75004Setup(void)
+{
+    TCN75Init(5000);    
+}
+
+//*****************************************************************************
+//
+//! \brief something should do after the execute of TCN75004 test.
+//!
+//! \return None.
+//
+//*****************************************************************************
+static void TCN75004TearDown(void)
+{
+    TCN75DeInit();    
+}
+
+//*****************************************************************************
+//
+//! \brief TCN75004 test execute main body for  interrupt mode.
+//!
+//! \return None.
+//
+//*****************************************************************************
+static void TCN75004IntExecute()
+{
+	//
+	// Test TCN75 interrupt mode.
+	//
+	TCN75Config(TCN75_MODE_INT);
+    
+	TCN75IntConfig(Test_Int);
+
+    xIntEnable(xINT_GPIOB);
+    xIntMasterEnable();
+	
+	TestAssertQ("a", "TCN75 interrupt mode test fail"); 
+	
+	xIntDisable(xINT_GPIOB);
+    xIntMasterDisable();	
+}
+//
+// TCN75002  test case struct.
+//
+const tTestCase sTestTCN75Int = {
+		TCN75004GetTest,
+		TCN75004Setup,
+		TCN75004TearDown,
+		TCN75004IntExecute		
+};
 //
 // TCN75 test suits.
 //
@@ -324,6 +415,7 @@ const tTestCase * const psPatternTCN75[] =
 {
     &sTestTCN75Config,
 	&sTestTCN75Temp,
+	&sTestTCN75CMP,
 	&sTestTCN75Int,
     0
 };

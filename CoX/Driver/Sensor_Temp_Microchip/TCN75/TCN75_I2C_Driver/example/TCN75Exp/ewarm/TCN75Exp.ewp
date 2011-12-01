@@ -1632,6 +1632,21 @@
   <group>
     <name>COX</name>
     <group>
+      <name>CoX_Driver</name>
+      <group>
+        <name>Sensor_Temp_TCN75</name>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\lib\hw_TCN75.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\lib\TCN75.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\lib\TCN75.h</name>
+        </file>
+      </group>
+    </group>
+    <group>
       <name>CoX_Peripheral</name>
       <group>
         <name>inc</name>
@@ -1678,18 +1693,6 @@
           <name>$PROJ_DIR$\..\..\..\..\..\..\..\CoX_Peripheral\CoX_Peripheral_NUC1xx\libcox\xuart.c</name>
         </file>
       </group>
-    </group>
-    <group>
-      <name>TCN75</name>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\lib\TCN75.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\lib\TCN75.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\lib\xhw_TCN75.h</name>
-      </file>
     </group>
   </group>
   <group>

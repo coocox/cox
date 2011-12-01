@@ -39,10 +39,10 @@
 #include "xsysctl.h"
 #include "xgpio.h"
 #include "xi2c.h"
-#include "TC74.h"
-#include "xhw_TC74.h"
 #include "test.h"
 #include "testcase.h"
+#include "TC74.h"
+#include "hw_TC74.h"
 
 unsigned char ucMode, ucStatus, ucTemp;
 //*****************************************************************************

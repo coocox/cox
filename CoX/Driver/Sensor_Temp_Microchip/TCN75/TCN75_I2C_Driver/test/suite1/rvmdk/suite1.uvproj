@@ -472,11 +472,6 @@
           <GroupName>tcn75</GroupName>
           <Files>
             <File>
-              <FileName>xhw_TCN75.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\lib\xhw_TCN75.h</FilePath>
-            </File>
-            <File>
               <FileName>TCN75.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\lib\TCN75.c</FilePath>
@@ -485,6 +480,11 @@
               <FileName>TCN75.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\..\lib\TCN75.h</FilePath>
+            </File>
+            <File>
+              <FileName>hw_TCN75.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\lib\hw_TCN75.h</FilePath>
             </File>
           </Files>
         </Group>

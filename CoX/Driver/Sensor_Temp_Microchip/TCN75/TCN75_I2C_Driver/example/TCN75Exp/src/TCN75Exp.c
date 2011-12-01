@@ -8,9 +8,9 @@
 #include "xcore.h"
 #include "xi2c.h"
 #include "TCN75.h"
-#include "xhw_TCN75.h"
+#include "hw_TCN75.h"
 
-float  fTemp = 30;
+float  fTemp = 25;
 unsigned long uli = 0, ulj;
 
 unsigned long test_Led (void *pvCBData, 
@@ -26,38 +26,33 @@ void TCN75Exp()
     TCN75Init(5000);
 
 	//
-	// Sets fault queue number.
+	// config TCN75.
 	//
-	TCN75FaultQueSet(TCN75_FAULTQUE_6);
-
-	//
-	// Sets temperature in THYS and TSET registers.
-	//
-    TCN75RegWrite(TCN75_THYS, &fTemp);
-	TCN75RegWrite(TCN75_TSET, &fTemp);
-
-	xSysCtlPeripheralEnable(SYSCTL_PERIPH_GPIO);
+	TCN75WakeUp();
+	TCN75Config(TCN75_MODE_CMP | TCN75_POLARITY_HIGH | TCN75_FAULTQUE_6);
+	TCN75LowLimitSet(fTemp);
+	TCN75UpLimitSet(fTemp);
+	
+	
+    xSysCtlPeripheralEnable(SYSCTL_PERIPH_GPIO);
     xGPIODirModeSet(GPIO_PORTA_BASE, GPIO_PIN_12, GPIO_DIR_MODE_OUT);
     
-	//
-	// Sets TCN75 as compare mode and low level alert.
-	//
-	TCN75IntConfig(test_Led, ALERTPOL_LOW, TCN75_MODE_CMP);
+	TCN75IntConfig(test_Led);
 
     xIntEnable(xINT_GPIOB);
     xIntMasterEnable();
 	
+	uli = 0;
+
 	while(!uli)
 	{
-	    //
-		// Gets current temperature.
-		//
-	    fTemp = TCN75TempReadFDC(TCN75_TEMP);
-
+	    fTemp = TCN75TempReadFDC();
+		
 	    for(ulj = 0; ulj < 0xfff ;ulj++);
-	}
+	}  
+	
 	xIntDisable(xINT_GPIOB);
-	xIntMasterDisable(); 
+    xIntMasterDisable();	
   
 	//
 	// Disables I2C0, set TCN75 as shutdown mode.

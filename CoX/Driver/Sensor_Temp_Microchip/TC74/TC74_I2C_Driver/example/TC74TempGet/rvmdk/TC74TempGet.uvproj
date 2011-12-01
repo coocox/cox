@@ -437,11 +437,6 @@
           <GroupName>TC74</GroupName>
           <Files>
             <File>
-              <FileName>xhw_TC74.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\lib\xhw_TC74.h</FilePath>
-            </File>
-            <File>
               <FileName>TC74.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\lib\TC74.c</FilePath>
@@ -450,6 +445,11 @@
               <FileName>TC74.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\..\lib\TC74.h</FilePath>
+            </File>
+            <File>
+              <FileName>hw_TC74.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\lib\hw_TC74.h</FilePath>
             </File>
           </Files>
         </Group>

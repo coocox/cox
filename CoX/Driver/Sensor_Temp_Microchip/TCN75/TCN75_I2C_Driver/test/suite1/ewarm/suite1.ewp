@@ -1636,6 +1636,21 @@
   <group>
     <name>CoX</name>
     <group>
+      <name>CoX_Driver</name>
+      <group>
+        <name>Sensor_Temp_TCN75</name>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\lib\hw_TCN75.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\lib\TCN75.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\lib\TCN75.h</name>
+        </file>
+      </group>
+    </group>
+    <group>
       <name>CoX_Peripheral</name>
       <group>
         <name>inc</name>
@@ -1683,18 +1698,6 @@
         </file>
       </group>
     </group>
-    <group>
-      <name>TCN75</name>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\lib\TCN75.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\lib\TCN75.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\lib\xhw_TCN75.h</name>
-      </file>
-    </group>
   </group>
   <group>
     <name>document</name>
@@ -1706,31 +1709,34 @@
     </file>
   </group>
   <group>
-    <name>testframe</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\main.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\test.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\test.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\testport.c</name>
-    </file>
-  </group>
-  <group>
-    <name>testcase</name>
-    <file>
-      <name>$PROJ_DIR$\..\src\TCN75 _Test.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\testcase.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\testcase.h</name>
-    </file>
+    <name>test</name>
+    <group>
+      <name>testcase</name>
+      <file>
+        <name>$PROJ_DIR$\..\src\TCN75 _Test.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\src\testcase.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\src\testcase.h</name>
+      </file>
+    </group>
+    <group>
+      <name>testframe</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\main.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\test.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\test.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\testport.c</name>
+      </file>
+    </group>
   </group>
 </project>
 

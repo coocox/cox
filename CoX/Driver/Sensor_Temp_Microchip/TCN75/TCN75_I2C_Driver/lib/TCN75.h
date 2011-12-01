@@ -53,14 +53,14 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Driver_Lib
+//! \addtogroup COX_Driver_Lib COX Driver Lib
 //! @{
 //
 //*****************************************************************************
 
 //*****************************************************************************
 //
-//! \addtogroup COX_TempSensor_Lib
+//! \addtogroup COX_TempSensor_Lib COX TempSensor Lib
 //! @{
 //
 //*****************************************************************************
@@ -74,7 +74,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup TCN75_Address
+//! \addtogroup TCN75_Address TCN75 Address
 //! @{
 //
 //*****************************************************************************
@@ -95,18 +95,15 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup TCN75_I2C_Set
+//! \addtogroup TCN75_I2C_Set TCN75 I2C Set
 //! Enable and Set I2C, and related GPIO Pins.
 //! @{
 //
 //*****************************************************************************
-
-#define  XSYSCTL_PERIPH_I2C      xSYSCTL_PERIPH_I2C0
-#define  I2C_BASE      I2C0_BASE
-#define  I2CSCL_PIN    PA9
-#define  I2CDATA_PIN   PA8
-#define  EventPORT     GPIO_PORTB_BASE
-#define  EventPIN	   0x1000
+#define  TCN75_MASTER_BASE     xI2C0_BASE
+#define  TCN75_PIN_I2CSCK      PA9
+#define  TCN75_PIN_I2CSDA      PA8
+#define  TCN75_EVENTPIN	   	   PB12
 
 //*****************************************************************************
 //
@@ -117,7 +114,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup TCN75_Shutdown_Mode
+//! \addtogroup TCN75_Shutdown_Mode TCN75 Shutdown Mode
 //! Values that can be passed to TCN75ModeSet().
 //! @{
 //
@@ -141,32 +138,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup TCN75_Alert_Pol  TCN75 Alert Polarity
-//! Values that can be passed to TCN75IntConfig().
-//! @{
-//
-//*****************************************************************************
-
-//
-//! Set Alert Polarity as Low(power-up default)
-//
-#define  ALERTPOL_LOW      0
-
-//
-//! Set Alert Polarity as High
-//
-#define  ALERTPOL_HIGH      1
-
-
-//*****************************************************************************
-//
-//! @}
-//
-//***************************************************************************** 
-
-//*****************************************************************************
-//
-//! \addtogroup TCN75_Mode_Set
+//! \addtogroup TCN75_Mode_Set  TCN75 Mode Set
 //! Values that can be passed to TCN75IntConfig().
 //! @{
 //
@@ -190,7 +162,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup TCN75_Polarity_Set
+//! \addtogroup TCN75_Polarity_Set TCN75 Polarity Set
 //! Set TCN75 polarity active.
 //! @{
 //
@@ -207,7 +179,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup TCN75_Queue_Set
+//! \addtogroup TCN75_Queue_Set TCN75 Queue Set
 //! @{
 //
 //*****************************************************************************
@@ -217,7 +189,13 @@ extern "C"
 #define TCN75_FAULTQUE_1  0x00
 #define TCN75_FAULTQUE_2  0x08
 #define TCN75_FAULTQUE_4  0x10
-#define TCN75_FAULTQUE_6  0x18  
+#define TCN75_FAULTQUE_6  0x18 
+
+//
+//! Fault Queue bits mask
+//
+#define TCN75_FAULTQUE_M  0x18
+
 
 //*****************************************************************************
 //
@@ -236,23 +214,29 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup TCN75_Exported_APIs
+//! \addtogroup TCN75_Exported_APIs TCN75 Exported APIs
 //! @{
 //
 //*****************************************************************************
 
 extern void TCN75Init(unsigned long ulRate);
 extern void TCN75DeInit(void);
+
 extern long TCN75RegRead(unsigned char ucReg);
 extern void TCN75RegWrite(unsigned char ucReg, void* vpValue);
-extern void TCN75ModeSet(unsigned char ucMode);
-extern unsigned char TCN75ModeGet(void);
-extern void TCN75FaultQueSet(unsigned char ucFq);
-extern unsigned char TCN75FaultQueGet(void);
-extern void TCN75IntConfig(xtEventCallback xtIntCallback, 
-                 unsigned long ulTrigMode, unsigned long ulEventMode);
-extern long TCN75TempGet(unsigned char ucReg);
-extern float TCN75TempReadFDC(unsigned char ucReg);
+
+extern void TCN75Shutdown(void);
+extern void TCN75WakeUp(void);
+
+extern void TCN75Config(unsigned char ucCfg);
+extern void TCN75IntConfig(xtEventCallback xtIntCallback);
+                
+
+extern void TCN75LowLimitSet(float fTemp);
+extern float TCN75LowLimitGet(void);
+extern void TCN75UpLimitSet(float fTemp);
+extern float TCN75UpLimitGet(void);
+extern float TCN75TempReadFDC(void);
        
 //*****************************************************************************
 //
