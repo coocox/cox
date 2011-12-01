@@ -1636,13 +1636,13 @@
       <group>
         <name>Sensor_Temp_MCP98242_3</name>
         <file>
+          <name>$PROJ_DIR$\..\..\..\lib\hw_MCP98242_3.h</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\lib\MCP98242_3.c</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\lib\MCP98242_3.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\lib\xhw_MCP98242_3.h</name>
         </file>
       </group>
     </group>
@@ -1723,31 +1723,34 @@
     </file>
   </group>
   <group>
-    <name>testcase</name>
-    <file>
-      <name>$PROJ_DIR$\..\src\testcase.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\testcase.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\xmcp98242test.c</name>
-    </file>
-  </group>
-  <group>
-    <name>testframe</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\main.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\test.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\test.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\testport.c</name>
-    </file>
+    <name>test</name>
+    <group>
+      <name>testcase</name>
+      <file>
+        <name>$PROJ_DIR$\..\src\testcase.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\src\testcase.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\src\xmcp98242test.c</name>
+      </file>
+    </group>
+    <group>
+      <name>testframe</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\main.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\test.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\test.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\..\..\..\resource\testframe\testport.c</name>
+      </file>
+    </group>
   </group>
 </project>
 

@@ -114,21 +114,21 @@ unsigned short MCP98242CapGet(MCP98242Dev *pDev)
 //! \param usConfig specifies Config register of Temperature Sensor.
 //! \param ulResol The Resolution of MCP98242 Temperature Sensor.
 //!  It can be the below value:
-//!         \b RESOLUTION_5, Resolution of 0.5¡æ
-//!         \b RESOLUTION_25, Resolution of 0.25¡æ
-//!         \b RESOLUTION_125, Resolution of 0.125¡æ
-//!         \b RESOLUTION_0625, Resolution of 0.0625¡æ
+//!         \b MCP_RESOLUTION_5, Resolution of 0.5¡æ
+//!         \b MCP_RESOLUTION_25, Resolution of 0.25¡æ
+//!         \b MCP_RESOLUTION_125, Resolution of 0.125¡æ
+//!         \b MCP_RESOLUTION_0625, Resolution of 0.0625¡æ
 //! \param ulHyst The Limit Hysteresis to set.
 //!  It can be the below vaule:
-//!         \b HYSTERESIS_0, 0¡æ
-//!         \b HYSTERESIS_1_5, 1.5¡æ
-//!         \b HYSTERESIS_3, 3¡æ
-//!         \b HYSTERESIS_6, 6¡æ
+//!         \b MCP_HYSTERESIS_0, 0¡æ
+//!         \b MCP_HYSTERESIS_1_5, 1.5¡æ
+//!         \b MCP_HYSTERESIS_3, 3¡æ
+//!         \b MCP_HYSTERESIS_6, 6¡æ
 //!
 //! The \e usConfig parameter is the logical OR of these values: event output
-//! select, T_CRIT lock, and T_UPPER,T_LOWER window lock. \b EVENT_SEL_ALL and
-//! \b EVENT_SEL_CRIT select output event. \b CRIT_LOCK, \b CRIT_UNLOCK, 
-//! \b WIN_LOCK and \b WIN_UNLOCK set the lock bits.
+//! select, T_CRIT lock, and MCP_UPPER,MCP_LOWER window lock. \b MCP_EVENT_SEL_ALL and
+//! \b MCP_EVENT_SEL_CRIT select output event. \b MCP_CRIT_LOCK, \b MCP_CRIT_UNLOCK, 
+//! \b MCP_WIN_LOCK and \b MCP_WIN_UNLOCK set the lock bits.
 //!
 //! \return None.
 //
@@ -138,23 +138,23 @@ void  MCP98242Config(MCP98242Dev *pDev, unsigned short usConfig,
 {
     unsigned short config;
 
-    xASSERT((usConfig == EVENT_SEL_ALL) || (usConfig == EVENT_SEL_CRIT) || 
-            (usConfig == CRIT_LOCK) || (usConfig == CRIT_UNLOCK) || 
-            (usConfig == WIN_LOCK) || (usConfig == WIN_UNLOCK));
+    xASSERT((usConfig == MCP_EVENT_SEL_ALL) || (usConfig == MCP_EVENT_SEL_CRIT) || 
+            (usConfig == MCP_CRIT_LOCK) || (usConfig == MCP_CRIT_UNLOCK) || 
+            (usConfig == MCP_WIN_LOCK) || (usConfig == MCP_WIN_UNLOCK));
 
-    xASSERT((ucResol == RESOLUTION_5) || (ucResol == RESOLUTION_25) ||
-            (ucResol == RESOLUTION_125) || (ucResol == RESOLUTION_0625));
+    xASSERT((ucResol == MCP_RESOLUTION_5) || (ucResol == MCP_RESOLUTION_25) ||
+            (ucResol == MCP_RESOLUTION_125) || (ucResol == MCP_RESOLUTION_0625));
 
-    xASSERT((ulHyst == HYSTERESIS_0) || (ulHyst == HYSTERESIS_1_5) ||
-            (ulHyst == HYSTERESIS_3) || (ulHyst == HYSTERESIS_6));
+    xASSERT((ulHyst == MCP_HYSTERESIS_0) || (ulHyst == MCP_HYSTERESIS_1_5) ||
+            (ulHyst == MCP_HYSTERESIS_3) || (ulHyst == MCP_HYSTERESIS_6));
 
     MCP98242RegGet(pDev, &config, MCP98242_CONFIG, I2C_TRANSFER_POLLING);
 
-    config &= ~LOCK_M;
-    config |= (LOCK_M & usConfig);    // Set the lock bits
-    config &= ~EVENT_SEL_CRIT;
-    config |= (EVENT_SEL_CRIT & usConfig);   // Select output event
-    config = (config & (~HYSTERESIS_M)) | ulHyst;
+    config &= ~MCP_LOCK_M;
+    config |= (MCP_LOCK_M & usConfig);           // Set the lock bits
+    config &= ~MCP_EVENT_SEL_CRIT;
+    config |= (MCP_EVENT_SEL_CRIT & usConfig);   // Select output event
+    config = (config & (~MCP_HYSTERESIS_M)) | ulHyst;
 
     MCP98242RegSet(pDev, &config, MCP98242_CONFIG, I2C_TRANSFER_POLLING);    
 
@@ -334,8 +334,8 @@ void  MCP98242IntEnable(MCP98242Dev *pDev)
 //!  it can be: \b  MCP98242_HIGH_LEVEL, assert with high level
 //!             \b  MCP98242_LOW_LEVEL, assert with low level
 //! \param ulEventMode Comparator mode or Interrupt mode, it can be:
-//!        \b EVENT_COMP, Comparator mode
-//!        \b EVENT_INT, Interrupt mode
+//!        \b MCP_EVENT_COMP, Comparator mode
+//!        \b MCP_EVENT_INT, Interrupt mode
 //!
 //! \return None.
 //
@@ -347,8 +347,8 @@ void  MCP98242IntConfig(MCP98242Dev *pDev, xtEventCallback xtIntCallback,
 
     xASSERT((ulTrigMode == MCP98242_HIGH_LEVEL) || 
             (ulTrigMode == MCP98242_LOW_LEVEL));
-    xASSERT((ulEventMode == EVENT_COMP) || 
-            (ulEventMode == EVENT_INT));
+    xASSERT((ulEventMode == MCP_EVENT_COMP) || 
+            (ulEventMode == MCP_EVENT_INT));
 
     MCP98242RegGet(pDev, &config, MCP98242_CONFIG, I2C_TRANSFER_POLLING);
     
@@ -475,10 +475,10 @@ void  MCP98242SHDNDisable(MCP98242Dev *pDev)
 //! \brief Get Event Output Condition.
 //!
 //! \return There are four conditions:
-//!        \b  EVENT_COND_1, T_A >= T_LOWER OR T_A <= T_UPPER - T_HYST
-//!        \b  EVENT_COND_2, T_A < T_LOWER - T_HYST
-//!        \b  EVENT_COND_3, T_A > T_UPPER OR T_A < T_CRIT - T_HYST
-//!        \b  EVENT_COND_4, T_A >= T_CRIT
+//!        \b  MCP_EVENT_COND_1, T_A >= MCP_LOWER OR T_A <= MCP_UPPER - T_HYST
+//!        \b  MCP_EVENT_COND_2, T_A < MCP_LOWER - T_HYST
+//!        \b  MCP_EVENT_COND_3, T_A > MCP_UPPER OR T_A < T_CRIT - T_HYST
+//!        \b  MCP_EVENT_COND_4, T_A >= T_CRIT
 //
 //*****************************************************************************
 char  MCP98242EvnCondGet(MCP98242Dev *pDev)
@@ -495,9 +495,9 @@ char  MCP98242EvnCondGet(MCP98242Dev *pDev)
 //! \param *pDev specifies the device
 //! \param *vpValue specifies limit temperature.
 //! \param ucLimitType specifies limit type.
-//!  it can be: \b  T_UPPER
-//!             \b  T_LOWER
-//!             \b  T_CRITICAL
+//!  it can be: \b  MCP_UPPER
+//!             \b  MCP_LOWER
+//!             \b  MCP_CRITICAL
 //!
 //! The \e *vpValue can be type of short or float. 
 //!
@@ -511,9 +511,9 @@ void  MCP98242LimitSet(MCP98242Dev *pDev, void *vpValue,
     int temp;
     unsigned char ucTemp[3];  
 
-    xASSERT((ucLimitType == T_UPPER) ||
-            (ucLimitType == T_LOWER) ||
-            (ucLimitType == T_CRITICAL));
+    xASSERT((ucLimitType == MCP_UPPER) ||
+            (ucLimitType == MCP_LOWER) ||
+            (ucLimitType == MCP_CRITICAL));
 
     //
     // Set UPPER,LOWER,CRITICAL Temperature in Float type.
@@ -541,7 +541,7 @@ void  MCP98242LimitSet(MCP98242Dev *pDev, void *vpValue,
 //!
 //! \param *pDev specifies the device
 //! \param *vpValue the ambient temperature.
-//! \param ucDataType the temperature data type, \b T_FLOAT or \b T_INT.
+//! \param ucDataType the temperature data type, \b MCP_FLOAT or \b MCP_INT.
 //!
 //! \return None.
 //
@@ -554,7 +554,7 @@ void  MCP98242TempGet(MCP98242Dev *pDev, void *vpValue,
     char cTempReg = 0x05;
     unsigned char ReceiveBuf[2] = {0};
 
-    xASSERT((ucDataType == T_FLOAT) || (ucDataType == T_INT));
+    xASSERT((ucDataType == MCP_FLOAT) || (ucDataType == MCP_INT));
    
     Cfg.ulSlave = pDev->SensorSlaAddr;
     Cfg.pvWBuf = &cTempReg;
@@ -569,7 +569,7 @@ void  MCP98242TempGet(MCP98242Dev *pDev, void *vpValue,
     //
     // Get AMBIENT Temperature in float type.
     //
-    if(ucDataType == T_FLOAT)
+    if(ucDataType == MCP_FLOAT)
     {
         temp = ((ReceiveBuf[0]<<8) + ReceiveBuf[1]) & 0x01FFF;
         if((temp & 0x1000) == 0x1000)
@@ -843,9 +843,9 @@ void MCP98242MemRead(MCP98242Dev *pDev, unsigned char ucAddr,
 //! \param ucAddr specifies address.
 //! \param ucValue value to be writen.
 //! \param ucType type of different writing.
-//!  It can be : \b EEPROM_SWP
-//!              \b EEPROM_CWP
-//!              \b EEPROM_PWP
+//!  It can be : \b MCP_EEPROM_SWP
+//!              \b MCP_EEPROM_CWP
+//!              \b MCP_EEPROM_PWP
 //!
 //! The \e ucAddr should be between 0x00 to 0x7f, the Write-Protected array.
 //!
@@ -859,21 +859,21 @@ void  MCP98242ProtWrite(MCP98242Dev *pDev, unsigned char ucAddr,
     unsigned char ucTemp[2];
     unsigned long SlaveAddress;
 
-    if(ucType == EEPROM_SWP)
+    if(ucType == MCP_EEPROM_SWP)
     {
         //
         // SWP address, it's fixed.
         //
         SlaveAddress = 0x31;
     }
-    else if(ucType == EEPROM_CWP)
+    else if(ucType == MCP_EEPROM_CWP)
     {
         //
         // CWP address, it's fixed.
         //
         SlaveAddress = 0x33;   
     }
-    else if(ucType == EEPROM_PWP)
+    else if(ucType == MCP_EEPROM_PWP)
     {
         //
         // PWP address, for example: 0x37

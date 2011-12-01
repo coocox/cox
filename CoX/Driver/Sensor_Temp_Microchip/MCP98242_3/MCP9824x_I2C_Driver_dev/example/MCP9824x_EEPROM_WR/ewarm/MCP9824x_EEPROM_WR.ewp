@@ -1713,7 +1713,7 @@
     </file>
   </group>
   <group>
-    <name>Example</name>
+    <name>example</name>
     <file>
       <name>$PROJ_DIR$\..\src\MCP9824x_EEPROM_WR.c</name>
     </file>

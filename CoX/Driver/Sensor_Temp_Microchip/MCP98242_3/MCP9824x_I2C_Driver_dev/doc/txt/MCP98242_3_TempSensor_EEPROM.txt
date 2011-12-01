@@ -6,11 +6,11 @@
 //! @{
 //!
 //! Microchip Technology Inc.'s MCP98242 digital
-//! temperature sensor converts temperature from -40°Ê 
-//! and +125°Ê to a digital word. This sensor meets
+//! temperature sensor converts temperature from -40°„C 
+//! and +125°„C to a digital word. This sensor meets
 //! JEDEC Specification JC42.4 Mobile Platform Memory
 //! Module Thermal Sensor Component. It provides an
-//! accuracy of °¿0.5°Ê/°¿1°Ê(typical/maximum) from
+//! accuracy of °¿0.5°„C/°¿1°„C(typical/maximum) from
 //! +75°„C to +95°„C. In addition, this device has an internal
 //! 256 Byte EEPROM which can be used to store memory
 //! module and vendor information. 
@@ -22,6 +22,7 @@
 //!   - \ref MCP98242_3_EEPROM_Features
 //!   - \ref MCP98242_3_Conv_Time
 //!   - \ref MCP98242_3_Event_Out
+//!   - \ref MCP98242_3_Diff
 //!   .
 //! - \ref MCP98242_3_APIs
 //!   - \ref MCP98242_3_Temp_APIs
@@ -84,6 +85,12 @@
 //! \subsection MCP98242_3_Event_Out 1.5 Event Output Condition
 //!
 //! <img src="MCP Event Output Condition.png" />
+//!
+//! <br />
+//!
+//! \subsection MCP98242_3_Diff 1.6 Difference between MCP98242 and MCP98243
+//!
+//! <img src="MCP MCP98242 vs MCP98243.png" />
 //!
 //! <br />
 //!
@@ -164,16 +171,17 @@
 //!
 //! \section MCP98242_3_Usage 5. MCP98242_3 Usage
 //!
-//! <ol>
-//! <li>When used as \b temperature \b sensor, connect \b A0 and \b A1 to \b GND, connect \b A2 to \b VCC3.3, because the \b slave \b address in the driver is set to \b 0x1C.</li>
-//! <li>When used as \b EEPROM and \b Software \b Write-Protect, apply \b VHI_WP at \b A0 pin and connect \b GND to \b A1 and \b A2 pins. The \b slave \b address is \b 0x31.</li>
-//! <li>When used as \b EEPROM and \b Clear \b Write-Protect, apply \b VHI_WP at \b A0 pin, apply \b VDD at \b A1 pin, connect \b A2 pin to \b GND. The \b slave \b address is \b 0x33.</li>
-//! <li>When used as \b EEPROM and \b Permanent \b Write-Protect, apply \b VDD at \b A0, \b A1 and \b A2 pins. The \b slave \b address is \b 0x37.</li>
+//! <ul>
+//! <li>When you select MCP98243, you should define a macro "MCP98243".</li>
+//! <li>When used as \b temperature \b sensor, you can connect \b A0 and \b A1 to \b GND, connect \b A2 to \b VCC3.3, and then the \b slave \b address in the driver is set to \b 0x1C.</li>
+//! <li>When used as \b EEPROM and \b Software \b Write-Protect, you should apply \b VHI_WP at \b A0 pin and connect \b GND to \b A1 and \b A2 pins. The \b slave \b address is fixed as \b 0x31.</li>
+//! <li>When used as \b EEPROM and \b Clear \b Write-Protect, you should apply \b VHI_WP at \b A0 pin, apply \b VDD at \b A1 pin, connect \b A2 pin to \b GND. The \b slave \b address is fixed as \b 0x33.</li>
+//! <li>When used as \b EEPROM and \b Permanent \b Write-Protect, you can apply \b VDD at \b A0, \b A1 and \b A2 pins, and then the \b slave \b address is \b 0x37.</li>
 //! <li>Connect the \b SCL and \b SDA pins to the \b master board \b I2C port.</li>
 //! <li>Connect the \b Event pin to one \b GPIO pin of \b master board.</li>
 //! <li>The pull-up resistor values for a \b 3.3V system ranges \b 9k¶∏ to \b 33k¶∏.</li>
 //! <li>It is recommended that a decoupling capacitor of \b 0.1¶ÃF to \b 1¶ÃF be used between the \b VDD and \b GND pins. </li>
-//! </ol> 
+//! </ul> 
 //!
 //! \n\n\n
 //!
@@ -208,13 +216,13 @@
 //! <li>Select and enable I2C, configure I2C clock rate and related GPIO Pins.</li>
 //! <li>
 //! Set MCP98242_3Dev struct: <br />
-//!  a. I2C Base <br />
-//!  b. Temperature Sensor Slave Address <br />
-//!  c. EEPROM Slave Address <br />
-//!  d. PWP Slave Address <br />
-//!  e. Event Pin <br />
-//!  f. Event Interrupt ID <br />
-//!  g. Function to configure the GPIO Pins. 
+//!  (a). I2C Base <br />
+//!  (b). Temperature Sensor Slave Address <br />
+//!  (c). EEPROM Slave Address <br />
+//!  (d). PWP Slave Address <br />
+//!  (e). Event Pin <br />
+//!  (f). Event Interrupt ID <br />
+//!  (g). Function to configure the GPIO Pins. 
 //! </li>
 //! <li>Set callback function for MCP98242_3 Event Output.</li>
 //! <li>Initialize the temperature sensor.</li>
@@ -222,10 +230,10 @@
 //! <li>Set RESOLUTION, HYSTERESIS.</li>
 //! <li>
 //! Configure the Interrupt. <br />
-//!  a. Specify the device <br />
-//!  b. Initialize the callback funtion <br />
-//!  c. Event Alert Polarity: Low Level <br />
-//!  d. Event Mode: Comparator
+//!  (a). Specify the device <br />
+//!  (b). Initialize the callback funtion <br />
+//!  (c). Event Alert Polarity: Low Level <br />
+//!  (d). Event Mode: Comparator
 //! </li>
 //! <li>Enable MCP98242_3 Interrupt.</li>
 //! </ol>
@@ -284,7 +292,7 @@
 //! // 6. Event Interrupt ID
 //! // 7. Function to configure the GPIO Pins. 
 //! //
-//! MCP98242_3Dev dev = {I2C0_BASE, 0x1C, 0x54, 0x37,xGPIOSPinToPortPin(PB13), 
+//! MCP98242Dev dev = {I2C0_BASE, 0x1C, 0x54, 0x37,xGPIOSPinToPortPin(PB13), 
 //!                         xINT_GPIOB, pinSet};
 //!
 //! int test_led()
@@ -306,7 +314,7 @@
 //!     //
 //!     if(Event_mode)
 //!     {
-//!         MCP98242_3IntClear(&dev);
+//!         MCP98242IntClear(&dev);
 //!         Int_Status = 1;
 //!     }
 //!     //
@@ -321,60 +329,62 @@
 //! void TempSensor_Event()
 //! {
 //!     unsigned short s;
-//!     float f;     
-//!
+//!     float f;   
+//!     
 //!     //
 //!     // Initialize the temperature sensor.
+//!     //  
+//!     MCP98242SensorInit(&dev, 50000);
+//!
 //!     //
-//!     MCP98242_3SENInit(&dev, 50000);
+//!     // Set RESOLUTION: 0.125°„C, HYSTERESIS: 0°„C
+//!     //
+//!     //
+//!     MCP98242Config(&dev, 0, MCP_RESOLUTION_125, MCP_HYSTERESIS_0);
+//!
+//!     for(f=0;f<1000;f++);
 //!
 //!     //
 //!     // Set the UPPER temperature.
 //!     //
-//!     f = 28.0;
-//!     MCP98242_3UpperSet(&dev, &f);
+//!     f = 27.0;
+//!     MCP98242LimitSet(&dev, &f, MCP_UPPER);
+//!     for(f=0;f<1000;f++);
 //!
 //!     //
 //!     // Set the LOWER temperature.
 //!     //
-//!     f = 10.0;
-//!     MCP98242_3LowerSet(&dev, &f); 
+//!     f = 25.0;
+//!     MCP98242LimitSet(&dev, &f, MCP_LOWER);
+//!     for(f=0;f<1000;f++);
 //!
 //!     //
 //!     // Set the CRITICAL temperature.
 //!     //
-//!     f = 30.0;
-//!     MCP98242_3CritSet(&dev, &f);
-//!
-//!     //
-//!     // Set RESOLUTION: 0.125°Ê
-//!     //
-//!     MCP98242_3ResSet(&dev, RESOLUTION_125);
-//!
-//!     //
-//!     // Set HYSTERESIS: 0°Ê
-//!     //
-//!     MCP98242_3HystSet(&dev, HYSTERESIS_1_5);
+//!     f = 32.0;
+//!     MCP98242LimitSet(&dev, &f, MCP_CRITICAL);
+//!     for(f=0;f<1000;f++);
 //!
 //!     //
 //!     // Set the Event Output to be Comparator mode.
 //!     //
-//!     Event_mode = EVENT_COMP; 
-//!     //Event_mode = EVENT_INT;     //You can change to Int Mode.  
-//!     
+//!     Event_mode = MCP_EVENT_COMP; 
+//!     //Event_mode = MCP_EVENT_INT;   //You can change to Int Mode.
+//!      
 //!     //
 //!     // Configure the Interrupt.
 //!     // 1. Specify the device
 //!     // 2. Initialize the callback funtion
 //!     // 3. Event Alert Polarity: Low Level
 //!     // 4. Event Mode: Comparator
-//!     //         
-//!     MCP98242_3IntConfig(&dev, test_Sen_Event, EVENT_LOW_LEVEL, Event_mode);
+//!     //               
+//!     MCP98242IntConfig(&dev, test_Sen_Event, MCP_EVENT_LOW_LEVEL, Event_mode);
+//!     for(f=0;f<100000;f++);
 //!
 //!     //
 //!     // Enable MCP98242_3 Interrupt.
 //!     //
-//!     MCP98242_3IntEnable(&dev);
+//!     MCP98242IntEnable(&dev);
 //!
 //!     //
 //!     // Configure PA12 for Int Mode, PC12 for Comparator Mode.
@@ -390,21 +400,21 @@
 //!         //
 //!         // Get Ambient temperature
 //!         //
-//!         MCP98242_3GetTempFt(&dev, &f);
+//!         MCP98242TempGet(&dev, &f, MCP_FLOAT);
 //!         for(f=0;f<10000;f++);
 //!
 //!         //
-//!         // For Int mode.
-//!         // If the T_A is above the T_UPPER , a interrupt will
+//!         // For Interrupt mode.
+//!         // If the T_A is above the MCP_UPPER , a interrupt will
 //!         // happen and the Blue LED turns on.
-//!         // If the T_A is below the T_UPPER - T_HYST, a interrupt will
+//!         // If the T_A is below the MCP_UPPER - T_HYST, a interrupt will
 //!         // happen and the Blue LED turns off. 
 //!         //
 //!         if(Int_Status)
 //!         {
 //!             Int_Status = 0;
-//!             MCP98242_3RegGet(&dev, &s, MCP98242_3_TEMP, I2C_TRANSFER_POLLING);
-//!             if((s>>14)&1)
+//!             s = MCP98242EvnCondGet(&dev);
+//!             if(s == MCP_EVENT_COND_3)
 //!                 GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_12, 0);
 //!             else
 //!                 GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_12, 1);
@@ -474,24 +484,26 @@
 //! }
 //!
 //! //
-//! // Set MCP98242_3Dev struct:
+//! // Set MCP98242Dev struct:
 //! // 1. I2C 
 //! // 2. EEPROM Slave Address
 //! // 3. Function to configure the GPIO Pins. 
 //! //
-//! MCP98242_3Dev dev = {I2C0_BASE, 0, 0x54, 0, 0, 0, 0, pinSet};
+//! MCP98242Dev dev = {I2C0_BASE, 0, 0x54, 0, 0, 0, 0, pinSet};
 //!
 //! void eepromWR()
-//! { 
-//!     char multWrite[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07};
-//!     char page_addr_data[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 
+//! {
+//!     unsigned char multWrite[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07};
+//!     unsigned char page_addr_data[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 
 //!                                         0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
-//!     char addr, *value;
+//!     unsigned char addr, *value;
+//!
+//!     int i;
 //!
 //!     //
 //!     // Initialize the EEPROM.
 //!     //
-//!     MCP98242_3EEPROMInit(&dev, 20000);
+//!     MCP98242EEPROMInit(&dev, 20000);
 //!
 //!     
 //!     addr = 0xA0;
@@ -499,7 +511,11 @@
 //!     //
 //!     // Write EEPROM with the content of multWrite from address 0xA0.
 //!     //
-//!     MCP98242_3MutiByteWrite(&dev, addr, value, I2C_TRANSFER_POLLING, sizeof(multWrite));
+//!     for(i=0; i<8; i++, addr++)
+//!     {
+//!         MCP98242ByteWrite(&dev, addr, multWrite[i]);
+//!         xSysCtlDelay(10000);
+//!     }
 //!
 //!     //
 //!     // Change part of multWrite.
@@ -510,11 +526,11 @@
 //!     //
 //!     // Read from address 0xA0 of EEPROM.
 //!     //
-//!     MCP98242_3MemRead(&dev, addr, value, I2C_TRANSFER_POLLING, sizeof(multWrite));
+//!     MCP98242MemRead(&dev, addr, value, sizeof(multWrite));
 //!
 //!     if(page_addr_data[2] == 0x02)
 //!     {
-//!         //MultiByteWrite and Read succeed!
+//!         //MCP98242ByteWrite and Read succeed!
 //!     }
 //!
 //!     addr = 0xB0;
@@ -523,7 +539,7 @@
 //!     //
 //!     // Write a Page from address 0xB0 with content of page_addr_data.
 //!     //
-//!     MCP98242_3PageWrite(&dev, addr, value, I2C_TRANSFER_POLLING);
+//!     MCP98242PageWrite(&dev, addr, value);
 //!
 //!     //
 //!     // Change part of page_addr_data.
@@ -534,7 +550,7 @@
 //!     //
 //!     // Read from address 0xB0 of EEPROM.
 //!     //
-//!     MCP98242_3MemRead(&dev, addr, value, I2C_TRANSFER_POLLING, sizeof(page_addr_data));
+//!     MCP98242MemRead(&dev, addr, value, sizeof(page_addr_data));
 //!
 //!     if(page_addr_data[13] == 0x0D)
 //!     {
@@ -549,7 +565,7 @@
 //!     //
 //!     // Sequential Read, read 15 byte sequentially from address 0xB0 of EEPROM.
 //!     //
-//!     MCP98242_3MemRead(&dev, addr, value, I2C_TRANSFER_POLLING, 15);
+//!     MCP98242MemRead(&dev, addr, value, 15);
 //!
 //!     if(page_addr_data[13] == 0x0D)
 //!     {
@@ -560,7 +576,7 @@
 //!     // Current Address Read.We will read from address 0xBF.
 //!     // Value in address 0xBF equels page_addr_data[15].
 //!     //
-//!     MCP98242_3MemRead(&dev, 0, value, I2C_TRANSFER_POLLING, 0);
+//!     MCP98242MemRead(&dev, 0, value, 0);
 //!
 //!     if(*value == 0x0F)
 //!     {
@@ -568,7 +584,6 @@
 //!     }
 //!    
 //! }
-//!
 //!
 //! int main()
 //! {

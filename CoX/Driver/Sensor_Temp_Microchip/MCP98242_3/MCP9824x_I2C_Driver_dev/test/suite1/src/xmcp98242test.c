@@ -51,18 +51,18 @@ volatile  unsigned char Int_Status = 0;
 //
 // 0x0004, 0x0000, 0x0080, 0x0000, 0x0040, 0x0000
 //
-unsigned long ulConfig[] = {EVENT_SEL_CRIT, EVENT_SEL_ALL, 
-                            CRIT_LOCK, CRIT_UNLOCK,
-                            WIN_LOCK, WIN_UNLOCK};
+unsigned long ulConfig[] = {MCP_EVENT_SEL_CRIT, MCP_EVENT_SEL_ALL, 
+                            MCP_CRIT_LOCK, MCP_CRIT_UNLOCK,
+                            MCP_WIN_LOCK, MCP_WIN_UNLOCK};
 
 unsigned long ulConfigTemp[] = {0x0404, 0x0004, 0x8080, 
                                 0x8080, 0x4040, 0x4040};
 
-unsigned long ulRes[] = {RESOLUTION_5, RESOLUTION_25, RESOLUTION_125, 
-                         RESOLUTION_0625};
+unsigned long ulRes[] = {MCP_RESOLUTION_5, MCP_RESOLUTION_25, MCP_RESOLUTION_125, 
+                         MCP_RESOLUTION_0625};
 
-unsigned long ulHys[] = {HYSTERESIS_6, HYSTERESIS_1_5, HYSTERESIS_3,
-                         HYSTERESIS_0};
+unsigned long ulHys[] = {MCP_HYSTERESIS_6, MCP_HYSTERESIS_1_5, MCP_HYSTERESIS_3,
+                         MCP_HYSTERESIS_0};
 
 void TempSensor_RegTest(void);
 
@@ -132,13 +132,13 @@ void TempSensor_RegTest()
     // UPPER, LOWER, CRITICAL Limit registers
     //
     f = 24.0;
-    MCP98242LimitSet(&dev, &f, T_UPPER);
+    MCP98242LimitSet(&dev, &f, MCP_UPPER);
     MCP98242RegGet(&dev, &s, MCP98242_UPPER, I2C_TRANSFER_POLLING);
     TestAssert((s>>4) == 24,
             "xuart API \"MCP98242LimitSet\" or \"MCP98242RegGet\" error!"); 
 
     f = -8.5;
-    MCP98242LimitSet(&dev, &f, T_LOWER); 
+    MCP98242LimitSet(&dev, &f, MCP_LOWER); 
     MCP98242RegGet(&dev, &s, MCP98242_LOWER, I2C_TRANSFER_POLLING);
     s = s<<3;
     s = s>>3;
@@ -147,7 +147,7 @@ void TempSensor_RegTest()
             "xuart API \"MCP98242LimitSet\" or \"MCP98242RegGet\" error!");             
 
     f = 26.0;
-    MCP98242LimitSet(&dev, &f, T_CRITICAL);
+    MCP98242LimitSet(&dev, &f, MCP_CRITICAL);
     MCP98242RegGet(&dev, &s, MCP98242_CRITICAL, I2C_TRANSFER_POLLING);
     TestAssert((s>>4) == 26,
             "xuart API \"MCP98242LimitSet\" or \"MCP98242RegGet\" error!"); 
@@ -184,7 +184,7 @@ void TempSensor_RegTest()
     //
     for(i=0; i<4; i++)
     {
-        MCP98242Config(&dev, 0, ulRes[i], HYSTERESIS_0);
+        MCP98242Config(&dev, 0, ulRes[i], MCP_HYSTERESIS_0);
         s = MCP98242CapGet(&dev);
         TestAssert(ulRes[i] == (s>>3),
             "xuart API \"MCP98242Config\" or \"MCP98242CapGet\" error!"); 
@@ -197,7 +197,7 @@ void TempSensor_RegTest()
     {
         MCP98242Config(&dev, 0, ulRes[1], ulHys[i]);
         MCP98242RegGet(&dev, &config, MCP98242_CONFIG, I2C_TRANSFER_POLLING);
-        TestAssert(ulHys[i] == (HYSTERESIS_M & config),
+        TestAssert(ulHys[i] == (MCP_HYSTERESIS_M & config),
             "xuart API \"MCP98242Config\" or \"MCP98242RegGet\" error!"); 
     }
     
@@ -242,22 +242,22 @@ void TempSensor_EventTest(void)
 
     MCP98242SensorInit(&dev, 50000);
 
-    MCP98242Config(&dev, 0, RESOLUTION_125, HYSTERESIS_0);
+    MCP98242Config(&dev, 0, MCP_RESOLUTION_125, MCP_HYSTERESIS_0);
 
     for(f=0;f<1000;f++);
     f = 27.0;
-    MCP98242LimitSet(&dev, &f, T_UPPER);
+    MCP98242LimitSet(&dev, &f, MCP_UPPER);
     for(f=0;f<1000;f++);
     f = 25.0;
-    MCP98242LimitSet(&dev, &f, T_LOWER);
+    MCP98242LimitSet(&dev, &f, MCP_LOWER);
     for(f=0;f<1000;f++);
     f = 32.0;
-    MCP98242LimitSet(&dev, &f, T_CRITICAL);
+    MCP98242LimitSet(&dev, &f, MCP_CRITICAL);
     for(f=0;f<1000;f++);
 
-    Event_mode = EVENT_COMP; 
-    //Event_mode = EVENT_INT;                
-    MCP98242IntConfig(&dev, test_Sen_Event, EVENT_LOW_LEVEL, Event_mode);
+    Event_mode = MCP_EVENT_COMP; 
+    //Event_mode = MCP_EVENT_INT;                
+    MCP98242IntConfig(&dev, test_Sen_Event, MCP_EVENT_LOW_LEVEL, Event_mode);
     for(f=0;f<100000;f++);
     MCP98242IntEnable(&dev);
 
@@ -269,14 +269,14 @@ void TempSensor_EventTest(void)
 
     while(1) 
     { 
-        MCP98242TempGet(&dev, &f, T_FLOAT);
+        MCP98242TempGet(&dev, &f, MCP_FLOAT);
         for(f=0;f<10000;f++);
 
         if(Int_Status)
         {
             Int_Status = 0;
             s = MCP98242EvnCondGet(&dev);
-            if(s == EVENT_COND_3)
+            if(s == MCP_EVENT_COND_3)
                 GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_12, 0);
             else
                 GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_12, 1);

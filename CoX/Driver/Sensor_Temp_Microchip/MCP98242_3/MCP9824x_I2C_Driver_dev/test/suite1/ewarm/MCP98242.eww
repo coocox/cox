@@ -4,6 +4,12 @@
   <project>
     <path>$WS_DIR$\MCP98242.ewp</path>
   </project>
+  <project>
+    <path>$WS_DIR$\..\..\..\example\MCP9824x_EEPROM_WR\ewarm\MCP9824x_EEPROM_WR.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\..\..\..\example\TempSensor_Event\ewarm\TempSensor_Event.ewp</path>
+  </project>
   <batchBuild/>
 </workspace>
 

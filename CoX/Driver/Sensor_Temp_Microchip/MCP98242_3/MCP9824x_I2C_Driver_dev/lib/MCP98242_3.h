@@ -114,9 +114,9 @@ typedef struct
 //
 //*****************************************************************************
 
-#define  T_UPPER        0x02      // Upper Temperature
-#define  T_LOWER        0x03      // Low Temperature
-#define  T_CRITICAL     0x04      // Critical Temperature
+#define  MCP_UPPER              0x00000002      // Upper Temperature
+#define  MCP_LOWER              0x00000003      // Low Temperature
+#define  MCP_CRITICAL           0x00000004      // Critical Temperature
 
 
 //*****************************************************************************
@@ -132,8 +132,8 @@ typedef struct
 //
 //*****************************************************************************
 
-#define  T_FLOAT        0x01      // Float data type
-#define  T_INT          0x02      // Integer data type
+#define  MCP_FLOAT              0x00000001      // Float data type
+#define  MCP_INT                0x00000002      // Integer data type
 
 //*****************************************************************************
 //
@@ -148,10 +148,10 @@ typedef struct
 //
 //*****************************************************************************
 
-#define  EEPROM_STD          0x00      // Standard Area
-#define  EEPROM_SWP          0x01      // Software Write-Protect
-#define  EEPROM_CWP          0x02      // Clear Write-Protect
-#define  EEPROM_PWP          0x03      // Permanently Write-Protect
+#define  MCP_EEPROM_STD         0x00000000      // Standard Area
+#define  MCP_EEPROM_SWP         0x00000001      // Software Write-Protect
+#define  MCP_EEPROM_CWP         0x00000002      // Clear Write-Protect
+#define  MCP_EEPROM_PWP         0x00000003      // Permanently Write-Protect
 
 //*****************************************************************************
 //
@@ -170,32 +170,32 @@ typedef struct
 //
 //! Set Event Output Mode as Comparator output(power-up default)
 //
-#define   EVENT_COMP      0
+#define MCP_EVENT_COMP          0x00000000
 
 //
 //! Set Event Output Mode as interrupt output
 //
-#define   EVENT_INT       1
+#define MCP_EVENT_INT           0x00000001
 
 //
-//! Event Output Select: for T_UPPER, T_LOWER and T_CRIT (power-up default)
+//! Event Output Select: for MCP_UPPER, MCP_LOWER and T_CRIT (power-up default)
 //
-#define   EVENT_SEL_ALL    0x0000
+#define MCP_EVENT_SEL_ALL       0x00000000
 
 //
 //! Event Output Select: T_A ¡Ý T_CRIT only.
 //
-#define   EVENT_SEL_CRIT   0x0004
+#define MCP_EVENT_SEL_CRIT      0x00000004
 
 //
 //! Event Output Polarity: Active-high.
 //
-#define   EVENT_HIGH_LEVEL      0x00000002
+#define MCP_EVENT_HIGH_LEVEL    0x00000002
 
 //
 //! Event Output Polarity: Active low.
 //
-#define   EVENT_LOW_LEVEL       0x00000000
+#define MCP_EVENT_LOW_LEVEL     0x00000000
 
 //*****************************************************************************
 //
@@ -211,11 +211,11 @@ typedef struct
 //
 //*****************************************************************************
 
-#define  LOCK_M        0x00C0    //Lock Bits Mask
-#define  CRIT_LOCK     0x0080    //Lock T_CRIT Bit
-#define  CRIT_UNLOCK   0x0000    //Unlock T_CRIT Bit
-#define  WIN_LOCK      0x0040    //Lock the T_UPPER and T_LOWER Window
-#define  WIN_UNLOCK    0x0000    //Unock the T_UPPER and T_LOWER Window
+#define  MCP_LOCK_M             0x000000C0  //Lock Bits Mask
+#define  MCP_CRIT_LOCK          0x00000080  //Lock T_CRIT Bit
+#define  MCP_CRIT_UNLOCK        0x00000000  //Unlock T_CRIT Bit
+#define  MCP_WIN_LOCK           0x00000040  //Lock the UPPER and LOWER Window
+#define  MCP_WIN_UNLOCK         0x00000000  //Unock the UPPER and LOWER Window
 
 //*****************************************************************************
 //
@@ -232,23 +232,23 @@ typedef struct
 //*****************************************************************************
 
 //
-//! T_A >= T_LOWER OR T_A <= T_UPPER - T_HYST
+//! T_A >= MCP_LOWER OR T_A <= MCP_UPPER - T_HYST
 //
-#define  EVENT_COND_1      0
+#define  MCP_EVENT_COND_1       0x00000000
 
 //
-//! T_A < T_LOWER - T_HYST
+//! T_A < MCP_LOWER - T_HYST
 //
-#define  EVENT_COND_2      1
+#define  MCP_EVENT_COND_2       0x00000001
 
 //
-//! T_A > T_UPPER OR T_A < T_CRIT - T_HYST
+//! T_A > MCP_UPPER OR T_A < T_CRIT - T_HYST
 //
-#define  EVENT_COND_3      2
+#define  MCP_EVENT_COND_3       0x00000002
 //
 //! T_A >= T_CRIT
 //
-#define  EVENT_COND_4      6
+#define  MCP_EVENT_COND_4       0x00000006
 
 //*****************************************************************************
 //
@@ -267,22 +267,22 @@ typedef struct
 //
 //! Set the Temperature Sensor Resolution to be 0.5¡æ
 //
-#define   RESOLUTION_5     0x00000000
+#define   MCP_RESOLUTION_5      0x00000000
 
 //
 //! Set the Temperature Sensor Resolution to be 0.25¡æ
 //
-#define   RESOLUTION_25    0x00000001
+#define   MCP_RESOLUTION_25     0x00000001
 
 //
 //! Set the Temperature Sensor Resolution to be 0.125¡æ
 //
-#define   RESOLUTION_125   0x00000002
+#define   MCP_RESOLUTION_125    0x00000002
 
 //
 //! Set the Temperature Sensor Resolution to be 0.0625¡æ
 //
-#define   RESOLUTION_0625  0x00000003
+#define   MCP_RESOLUTION_0625   0x00000003
 
 //*****************************************************************************
 //
@@ -301,32 +301,32 @@ typedef struct
 //
 //! The Hysteresis Offset
 //
-#define   HYSTERESIS_S     0x00000009
+#define   MCP_HYSTERESIS_S      0x00000009
 
 //
 //! The Mask of Hysteresis
 //
-#define   HYSTERESIS_M     0x00000600
+#define   MCP_HYSTERESIS_M      0x00000600
 
 //
 //! Set the Temperature Sensor Resolution to be 0¡æ
 //
-#define   HYSTERESIS_0      0x00000000
+#define   MCP_HYSTERESIS_0      0x00000000
 
 //
 //! Set the Temperature Sensor Resolution to be 1.5¡æ
 //
-#define   HYSTERESIS_1_5    0x00000200
+#define   MCP_HYSTERESIS_1_5    0x00000200
 
 //
 //! Set the Temperature Sensor Resolution to be 3¡æ 
 //
-#define   HYSTERESIS_3      0x00000400
+#define   MCP_HYSTERESIS_3      0x00000400
 
 //
 //! Set the Temperature Sensor Resolution to be 6¡æ 
 //
-#define   HYSTERESIS_6      0x00000600
+#define   MCP_HYSTERESIS_6      0x00000600
 
 //*****************************************************************************
 //
@@ -341,9 +341,9 @@ typedef struct
 //
 //*****************************************************************************
 typedef struct{
-    unsigned short  MANU_ID;
-    unsigned char  REVISION;
-    unsigned char  DEV_ID;
+    unsigned short  MANU_ID;   // MANUFACTURER ID
+    unsigned char  REVISION;   // DEVICE ID
+    unsigned char  DEV_ID;     // REVISION
 }MCP98242_ID;
 
 //*****************************************************************************
