@@ -1,0 +1,445 @@
+//******************************************************
+//
+//!
+//! \addtogroup MCP9804_TempSensor
+//! @{
+//!
+//! Microchip Technology Inc.°Øs MCP9804/5 digital tempera-
+//! ture sensor converts temperatures between -40°„C and
+//! +125°„C to a digital word.
+//!
+//! The MCP9804/5 comes with user-programmable
+//! registers that provide flexibility temperature sensing
+//! applications. The registers allow user-selectable
+//! settings such as Shutdown or low-power modes and
+//! the specification of temperature Alert window limits and
+//! Critical output limits. When the temperature changes
+//! beyond the specified boundary limits, the MCP9804/5
+//! outputs an Alert signal. The user has the option of
+//! setting the Alert output signal polarity as an active-low
+//! or active-high comparator output for thermostat
+//! operation, or as temperature Alert interrupt output for
+//! microprocessor-based systems. The Alert output can
+//! also be configured as a  Critical temperature output
+//! only.
+//!
+//! <h1>Contents</h1>
+//! - \ref MCP9804_Features
+//!   - \ref MCP9804_Features_
+//!   - \ref MCP9804_Conv_Time
+//!   - \ref MCP9804_Event_Out
+//!   .
+//! - \ref MCP9804_APIs
+//!   - \ref MCP9804_Basic_APIs
+//!   - \ref MCP9804_Temp_APIs
+//!   .
+//! - \ref MCP9804_Typical_App 
+//! - \ref MCP9804_Package
+//!   - \ref MCP9804_Package_
+//!   - \ref MCP9804_Connection
+//!   .
+//! - \ref MCP9804_Notice
+//! .
+//! 
+//! <br />
+//!
+//! \section MCP9804_Features 1. MCP9804 Features
+//!
+//! <br />
+//!
+//! \subsection MCP9804_Features_ 1.1 Features
+//! Accuracy of MCP9804:
+//! °¿0.25°„C (typical) from -40°„C to +125°„C
+//! °¿1°„C (maximum) from -40°„C to +125°„C
+//! Accuracy of MCP9805:
+//! °¿1°„C (max.) from +75°„C to +95°„C
+//! °¿2°„C (max.) from +40°„C to +125°„C
+//! °¿3°„C (max.) from -20°„C to +125°„C
+//! Resolution of MCP9804:
+//! 0.5°„C, 0.25°„C, 0.125°„C, 0.0625°„C
+//! Resolution of MCP9805:
+//! 0.25°„C
+//! User Programmable Temperature Limits:
+//! Temperature Window Limit
+//! Critical Temperature Limit
+//! User Programmable Temperature Alert Output
+//! Operating Voltage Range: 2.7V to 5.5V(3.0V to 3.6V for MCP9805)
+//! Operating Current: 200 ¶ÃA (typical)
+//! Shutdown Current: 0.1 ¶ÃA (typical)
+//! 2-wire Interface: I2C/SMBus Compatible
+//! Available Packages: 2x3 DFN-8, MSOP-8
+//! <br />
+//!
+//! \subsection MCP9804_Conv_Time 1.2 TEMPERATURE CONVERSION TIME
+//!
+//! <img src="MCP9804_CONV_TIME.png" />
+//!
+//! <br />
+//!
+//! \subsection MCP9804_Event_Out 1.3 Event Output Condition
+//!
+//! <img src="MCP Event Output Condition.png" />
+//!
+//! <br />
+//!
+//! \section MCP9804_APIs 2. MCP9804 APIs
+//!
+//! \subsection MCP9804_Basic_APIs 2.1 MCP9804 Basic APIs
+//! 
+//! The basic APIs are methods to write and read the temperature sensor's registers.
+//!
+//! - MCP9804RegSet(MCP9804Dev *pDev, void *vpValue, unsigned short usType, char cTransType)
+//! - MCP9804RegGet(MCP9804Dev *pDev, void *vpValue, unsigned short usType, char cTransType)
+//! .
+//! <br />
+//! \subsection MCP9804_Temp_APIs 2.2 MCP9804 Temperature Sensor APIs
+//!
+//! These APIs are methods to configure the temperature sensor, and get the ambient 
+//! temperature.
+//!
+//! - MCP9804RegSet(MCP9804Dev *pDev, void *vpValue, unsigned char ucType, unsigned char ucTransType)
+//! - MCP9804RegGet(MCP9804Dev *pDev, void *vpValue, unsigned char ucType, unsigned char ucTransType)
+//! - MCP9804Init(MCP9804Dev *pDev, unsigned long ulRate)
+//! - MCP9804CapGet(MCP9804Dev *pDev)
+//! - MCP9804Config(MCP9804Dev *pDev, unsigned short usConfig, unsigned long ulResol, unsigned long ulHyst)
+//! - MCP9804IntEnable(MCP9804Dev *pDev)
+//! - MCP9804IntConfig(MCP9804Dev *pDev, xtEventCallback xtIntCallback, unsigned long ulTrigMode, unsigned long ulEventMode)
+//! - MCP9804IntClear(MCP9804Dev *pDev)
+//! - MCP9804IntDisable(MCP9804Dev *pDev)
+//! - MCP9804SHDNEnable(MCP9804Dev *pDev)
+//! - MCP9804SHDNDisable(MCP9804Dev *pDev)
+//! - MCP9804EvnCondGet(MCP9804Dev *pDev)
+//! - MCP9804LimitSet(MCP9804Dev *pDev, void *vpValue, unsigned char ucLimitType)
+//! - MCP9804TempGet(MCP9804Dev *pDev, void *vpValue, unsigned char ucDataType)
+//! - MCP9804GetID(MCP9804Dev *pDev, MCP9804_ID *id)
+//! .
+//!
+//! <br />
+//! 
+//! \section MCP9804_Typical_App 3. Typical Applications
+//!
+//! MCP9804
+//! - General Purpose 
+//! - Industrial Applications
+//! - Industrial Freezers and Refrigerations
+//! - Food Processing 
+//! - Personal Computers and Servers
+//! - PC Peripherals
+//! - Consumer Electronics
+//! - Hand-held/Portable Devices
+//! .
+//!
+//! MCP9805
+//! - Dual In-line Memory Module (DIMM)
+//! - Personal Computers (PCs) and Servers
+//! - Hard Disk Drives and Other PC Peripherals
+//! - General Purpose Temperature Sensor
+//!
+//! <br />
+//!
+//! \section MCP9804_Package 4. Package Types and Connection
+//!
+//! <br />
+//! \subsection MCP9804_Package_ 4.1 Package Types
+//! This sensor has an industry standard 2-wire, I2C/SMBus 
+//! compatible serial interface, allowing up to eight
+//! devices to be controlled in a single serial bus. To
+//! maintain interchangeability with the I2C/SMBus
+//! interface the electrical specifications are specified with
+//! the operating voltage of 3.0V to 3.6V.
+//!
+//! <img src="MCP9804_PACKAGE_TYPE.png" />
+//! <br />
+//! <br />
+//! <img src="MCP9805_PACKAGE_TYPE.png" />
+//! <br />
+//!
+//! \subsection MCP9804_Connection 4.2 Connecting to the Serial Bus
+//! The SDA and SCLK serial interface pins are
+//! open-drain pins that require pull-up resistors. This
+//! configuration is shown as below.
+//!
+//! <img src="MCP9805_TYPICAL_APP.png" />
+//! 
+//! \n
+//!
+//! \section MCP9804_Notice 5. Notice
+//!
+//! <ol>
+//! <li>You can connect \b A0 and \b A1 to \b GND, connect \b A2 to \b VCC3.3, the \b slave \b address is set to \b 0x1C.</li>
+//! <li>Connect the \b SCL and \b SDA pins to the \b master board \b I2C port.</li>
+//! <li>Connect the \b Event pin to one \b GPIO pin of \b master board.</li>
+//! <li>It is recommended that a decoupling capacitor of \b 0.1¶ÃF to \b 1¶ÃF be used between the \b VDD and \b GND pins. </li>
+//! <li> \ref MCP9804_TempEvent</li>
+//! </ol> 
+//!
+//! \n\n\n
+//!
+//! @}
+//
+//******************************************************
+
+
+//******************************************************
+//
+//!
+//! \addtogroup MCP9804_App  MCP9804 Applications
+//! @{
+//!
+//! 
+//! \defgroup MCP9804_TempEvent Get Temperature and Event Output Example
+//!
+//!
+//! Here we introduce how to get ambient temperature with MCP9804 and trigger output event.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref MCP9804_TempEvent_Steps
+//! - \ref MCP9804_TempEvent_Code
+//! .
+//!
+//! <br />
+//! \section MCP9804_TempEvent_Steps 1.How to configure MCP9804. 
+//!
+//! <ol>
+//! <li>Select and enable I2C, configure I2C clock rate and related GPIO Pins.</li>
+//! <li>
+//! Set MCP9804Dev struct: <br />
+//!  a. I2C Base <br />
+//!  b. Temperature Sensor Slave Address <br />
+//!  c. Event Pin <br />
+//!  d. Event Interrupt ID <br />
+//!  e. Function to configure the GPIO Pins. 
+//! </li>
+//! <li>Set callback function for MCP9804 Event Output.</li>
+//! <li>Initialize the temperature sensor.</li>
+//! <li>Set the upper, lower, and critical temperature.</li>
+//! <li>Set RESOLUTION, HYSTERESIS.</li>
+//! <li>
+//! Configure the Interrupt. <br />
+//!  a. Specify the device <br />
+//!  b. Initialize the callback funtion <br />
+//!  c. Event Alert Polarity: Low Level <br />
+//!  d. Event Mode: Comparator
+//! </li>
+//! <li>Enable MCP9804 Interrupt.</li>
+//! </ol>
+//!
+//! <br />
+//! \section MCP9804_TempEvent_Code 2.The code to get ambient temperature and trigger output event.
+//!
+//! \code
+//! 
+//! #include "xhw_types.h"
+//! #include "xhw_memmap.h"
+//! #include "xcore.h"
+//! #include "xi2c.h"
+//! #include "xsysctl.h"
+//! #include "xhw_sysctl.h"
+//! #include "xgpio.h"
+//! #include "xhw_ints.h"
+//! #include "MCP9804.h"
+//!
+//! volatile  unsigned char Event_mode = 0;
+//!
+//! volatile  unsigned char Int_Status = 0;
+//!
+//! unsigned long test_Sen_Event (void *pvCBData, 
+//!                                    unsigned long ulEvent,
+//!                                    unsigned long ulMsgParam,
+//!                                    void *pvMsgData);
+//!
+//! int test_led(void);
+//!
+//! //
+//! // Enable I2C, GPIO clock
+//! // Set pins to I2C funciton
+//! //
+//! void pinSet()
+//! {
+//!     //
+//!     // Enable GPIO Clock
+//!     //
+//!     xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(PA8));
+//!     xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(PA9));
+//!
+//!     xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(PB13));
+//!
+//!     xSPinTypeI2C(I2C0SDA, PA8);
+//!     xSPinTypeI2C(I2C0SCK, PA9);
+//! }
+//!
+//! //
+//! // Set MCP9804Dev struct:
+//! // 1. I2C Base
+//! // 2. Temperature Sensor Slave Address
+//! // 3. Event Pin
+//! // 4. Event Interrupt ID
+//! // 5. Function to configure the GPIO Pins. 
+//! //
+//! MCP9804Dev dev = {I2C0_BASE, 0x1C, xGPIOSPinToPortPin(PB13), 
+//!                         xINT_GPIOB, pinSet};
+//!
+//! int test_led()
+//! {
+//!     int i;
+//!     for(i=0; i<100000; i++);
+//!     GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_12, 
+//!         !((GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_12) & GPIO_PIN_12)>>12));
+//!     return 0;
+//! }
+//!
+//! unsigned long test_Sen_Event (void *pvCBData, 
+//!                                    unsigned long ulEvent,
+//!                                    unsigned long ulMsgParam,
+//!                                    void *pvMsgData)
+//! {
+//!     //
+//!     // Int Mode
+//!     //
+//!     if(Event_mode)
+//!     {
+//!         MCP9804IntClear(&dev);
+//!         Int_Status = 1;
+//!     }
+//!     //
+//!     // Comparator Mode
+//!     //
+//!     else
+//!         test_led();
+//!
+//!     return 0;
+//! }
+//!
+//! void TempSensor_Event()
+//! {
+//!     unsigned short s;
+//!     float f;   
+//!     
+//!     //
+//!     // Initialize the temperature sensor.
+//!     //  
+//!     MCP9804Init(&dev, 50000);
+//!
+//!     //
+//!     // Set RESOLUTION: 0.125°Ê, HYSTERESIS: 0°Ê
+//!     //
+//!     //
+//!     MCP9804Config(&dev, 0, MCP_RESOLUTION_125, MCP_HYSTERESIS_0);
+//!
+//!     for(f=0;f<1000;f++);
+//!
+//!     //
+//!     // Set the UPPER temperature.
+//!     //
+//!     f = 27.0;
+//!     MCP9804LimitSet(&dev, &f, MCP_UPPER);
+//!     for(f=0;f<1000;f++);
+//!
+//!     //
+//!     // Set the LOWER temperature.
+//!     //
+//!     f = 25.0;
+//!     MCP9804LimitSet(&dev, &f, MCP_LOWER);
+//!     for(f=0;f<1000;f++);
+//!
+//!     //
+//!     // Set the CRITICAL temperature.
+//!     //
+//!     f = 32.0;
+//!     MCP9804LimitSet(&dev, &f, MCP_CRITICAL);
+//!     for(f=0;f<1000;f++);
+//!
+//!     //
+//!     // Set the Event Output to be Comparator mode.
+//!     //
+//!     Event_mode = MCP_EVENT_COMP; 
+//!     //Event_mode = MCP_EVENT_INT;   //You can change to Int Mode.
+//!      
+//!     //
+//!     // Configure the Interrupt.
+//!     // 1. Specify the device
+//!     // 2. Initialize the callback funtion
+//!     // 3. Event Alert Polarity: Low Level
+//!     // 4. Event Mode: Comparator
+//!     //               
+//!     MCP9804IntConfig(&dev, test_Sen_Event, MCP_EVENT_LOW_LEVEL, Event_mode);
+//!     for(f=0;f<100000;f++);
+//!
+//!     //
+//!     // Enable MCP9804_3 Interrupt.
+//!     //
+//!     MCP9804IntEnable(&dev);
+//!
+//!     //
+//!     // Configure PA12 for Int Mode, PC12 for Comparator Mode.
+//!     //
+//!     xSysCtlPeripheralEnable(SYSCTL_PERIPH_GPIO);
+//!     xGPIODirModeSet(GPIO_PORTA_BASE, GPIO_BIT_12, GPIO_DIR_MODE_OUT);
+//!     xGPIODirModeSet(GPIO_PORTC_BASE, GPIO_BIT_12, GPIO_DIR_MODE_OUT);
+//!     GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_12, 1);
+//!     GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_12, 1);
+//!
+//!     while(1) 
+//!     { 
+//!         //
+//!         // Get Ambient temperature
+//!         //
+//!         MCP9804TempGet(&dev, &f, MCP_FLOAT);
+//!         for(f=0;f<10000;f++);
+//!
+//!         //
+//!         // For Interrupt mode.
+//!         // If the T_A is above the MCP_UPPER , a interrupt will
+//!         // happen and the Blue LED turns on.
+//!         // If the T_A is below the MCP_UPPER - T_HYST, a interrupt will
+//!         // happen and the Blue LED turns off. 
+//!         //
+//!         if(Int_Status)
+//!         {
+//!             Int_Status = 0;
+//!             s = MCP9804EvnCondGet(&dev);
+//!             if(s == MCP_EVENT_COND_3)
+//!                 GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_12, 0);
+//!             else
+//!                 GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_12, 1);
+//!         }
+//!     }    
+//! }
+//!
+//! int main()
+//! {
+//!     TempSensor_Event();
+//! }
+//! \endcode
+//!
+//! @}
+//
+//******************************************************
+
+//******************************************************
+//
+//!
+//! \addtogroup COX_Driver_Lib
+//! @{
+//! \addtogroup Sensor 
+//! @{
+//! \addtogroup Temperature_Sensor 
+//! @{
+//! \addtogroup MCP9804_TempSensor 
+//! @{
+//! \addtogroup MCP9804_Register
+//! @{
+//! @}
+//! \addtogroup MCP9804_Driver
+//! @{
+//! @}
+//! \addtogroup MCP9804_App
+//! @{
+//! @}
+//! @}
+//! @}
+//! @}
+//! @}
+//
+//******************************************************

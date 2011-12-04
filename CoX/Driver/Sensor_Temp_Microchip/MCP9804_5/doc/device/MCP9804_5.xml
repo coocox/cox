@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>
+    MCP9805-BE/MC, MCP9805-BE/P, MCP9805-BE/ST, MCP9805T-BE/MC, MCP9805T-BE/MNY, MCP9805T-BE/ST
+    MCP9804-E/MC, MCP9804-E/MS, MCP9804T-E/MC, MCP9804T-E/MS
+    </Name>
+    <Description>Memory Module Digital Temperature Sensor</Description>
+    <Manufacturer>Analog Devices</Manufacturer>
+    
+    <Category>Sensor</Category>
+    <SubCategory>Temperature</SubCategory>
+    
+    <KeyWord>MCP9804, MCP9805, Temp, Temperature, Sensor, ADC, I2C</KeyWord>
+    
+    <Communication>
+        <Interface>I2C</Interface>
+    </Communication>
+    
+    <WebPage>http://www.microchip.com/wwwproducts/Devices.aspx?dDocName=en530196</WebPage>
+    <Datasheet>http://ww1.microchip.com/downloads/en/DeviceDoc/22203b.pdf</Datasheet>
+    <Datasheet>http://www.microchip.com/wwwproducts/Devices.aspx?dDocName=en024417</Datasheet>
+    <Datasheet>http://ww1.microchip.com/downloads/en/DeviceDoc/21977b.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>
