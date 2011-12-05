@@ -204,7 +204,7 @@ void TempSensor_RegTest()
     //
     MCP9804GetID(&dev, &id);
     TestAssert((id.MANU_ID == 0x54) && (id.REVISION == 0) && 
-            (id.DEV_ID == 0x20), "xuart API \"MCP9804GetID\" error!");
+            (id.DEV_ID == 0x00), "xuart API \"MCP9804GetID\" error!");
 
 }
 
@@ -246,7 +246,7 @@ void TempSensor_EventTest(void)
     f = 27.0;
     MCP9804LimitSet(&dev, &f, MCP_UPPER);
     for(f=0;f<1000;f++);
-    f = 25.0;
+    f = 15.0;
     MCP9804LimitSet(&dev, &f, MCP_LOWER);
     for(f=0;f<1000;f++);
     f = 32.0;
@@ -306,12 +306,12 @@ static void TempSensor_Execute(void)
     //
     // Registers write and read test.
     //
-	TempSensor_RegTest();
+	//TempSensor_RegTest();
 
     //
     // Event output test in compare mode
     //
-    //TempSensor_EventTest();
+    TempSensor_EventTest();
     
 }
 

@@ -48,26 +48,26 @@
 //! <br />
 //!
 //! \subsection MCP9804_Features_ 1.1 Features
-//! Accuracy of MCP9804:
-//! °¿0.25°„C (typical) from -40°„C to +125°„C
-//! °¿1°„C (maximum) from -40°„C to +125°„C
-//! Accuracy of MCP9805:
-//! °¿1°„C (max.) from +75°„C to +95°„C
-//! °¿2°„C (max.) from +40°„C to +125°„C
-//! °¿3°„C (max.) from -20°„C to +125°„C
-//! Resolution of MCP9804:
-//! 0.5°„C, 0.25°„C, 0.125°„C, 0.0625°„C
-//! Resolution of MCP9805:
-//! 0.25°„C
-//! User Programmable Temperature Limits:
-//! Temperature Window Limit
-//! Critical Temperature Limit
-//! User Programmable Temperature Alert Output
-//! Operating Voltage Range: 2.7V to 5.5V(3.0V to 3.6V for MCP9805)
-//! Operating Current: 200 ¶ÃA (typical)
-//! Shutdown Current: 0.1 ¶ÃA (typical)
-//! 2-wire Interface: I2C/SMBus Compatible
-//! Available Packages: 2x3 DFN-8, MSOP-8
+//! Accuracy of MCP9804: \n
+//! °¿0.25°„C (typical) from -40°„C to +125°„C \n
+//! °¿1°„C (maximum) from -40°„C to +125°„C \n
+//! Accuracy of MCP9805: \n
+//! °¿1°„C (max.) from +75°„C to +95°„C \n
+//! °¿2°„C (max.) from +40°„C to +125°„C \n
+//! °¿3°„C (max.) from -20°„C to +125°„C \n
+//! Resolution of MCP9804: \n
+//! 0.5°„C, 0.25°„C, 0.125°„C, 0.0625°„C \n
+//! Resolution of MCP9805: \n
+//! 0.25°„C \n
+//! User Programmable Temperature Limits: \n
+//! Temperature Window Limit \n
+//! Critical Temperature Limit \n
+//! User Programmable Temperature Alert Output \n
+//! Operating Voltage Range: 2.7V to 5.5V(3.0V to 3.6V for MCP9805) \n
+//! Operating Current: 200 ¶ÃA (typical) \n
+//! Shutdown Current: 0.1 ¶ÃA (typical) \n
+//! 2-wire Interface: I2C/SMBus Compatible \n
+//! Available Packages: 2x3 DFN-8, MSOP-8 \n
 //! <br />
 //!
 //! \subsection MCP9804_Conv_Time 1.2 TEMPERATURE CONVERSION TIME
