@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>TempSensor_Event</Name>
+  <Description>MCP9800/3 temperature sensor example</Description>
+  <Version>2.1.2.0</Version>
+  <Tags>MCP9800/3</Tags>
+  <EVKit>NUC140VE3CN and MCP9800/3</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\CoX\Driver\Sensor_Temp_Microchip\MCP9800_3\MCP9800_3_I2C_Driver_dev\example\MCP980x_Temp_Read\src\TempSensor_Event.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CoX.I2C</Dependency>
+    <Dependency>CoX.GPIO</Dependency>
+    <Dependency>CoX.SysCtl</Dependency>
+  </Dependencys>
+  
+   
+</Example>
