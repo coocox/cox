@@ -8,3 +8,7 @@
 *.uvgui.*
 *.uvopt
 
+
+/CoX/Driver/Sensor_Temp_Microchip/MCP98242_3/MCP9824x_I2C_Driver_dev/doc/en
+/CoX/Driver/Sensor_Temp_Microchip/MCP9804_5/MCP9804_I2C_Driver_dev/doc/en
+/CoX/Driver/Sensor_Temp_Microchip/MCP9800_3/MCP9800_3_I2C_Driver_dev/doc/en
