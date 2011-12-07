@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>
+    MCP9800A0T-M/OT, MCP9800A1T-M/OT, MCP9800A2T-M/OT, MCP9800A3T-M/OT, 
+    MCP9800A4T-M/OT, MCP9800A5T-M/OT, MCP9800A6T-M/OT, MCP9800A7T-M/OT
+    </Name>
+    <Description>2-Wire High-Accuracy Temperature Sensor</Description>
+    <Manufacturer>Analog Devices</Manufacturer>
+    
+    <Category>Sensor</Category>
+    <SubCategory>Temperature</SubCategory>
+    
+    <KeyWord>MCP980x, MCP9800, MCP9801, MCP9802, MCP9803, Temp, Temperature, Sensor, ADC, I2C</KeyWord>
+    
+    <Communication>
+        <Interface>I2C</Interface>
+    </Communication>
+    
+    <WebPage>http://www.microchip.com/wwwproducts/Devices.aspx?dDocName=en020949</WebPage>
+    <Datasheet>http://ww1.microchip.com/downloads/en/DeviceDoc/21909D.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

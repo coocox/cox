@@ -1,0 +1,332 @@
+//******************************************************
+//
+//!
+//! \addtogroup MCP9800_TempSensor
+//! @{
+//!
+//! Microchip Technology Inc.°Øs MCP9800/1/2/3 family of
+//! digital temperature sensors converts temperatures
+//! between -55°„C and +125°„C to a digital word. They
+//! provide an accuracy of °¿1°„C (max.) from -10°„C to
+//! +85°„C.
+//!
+//! <h1>Contents</h1>
+//! - \ref MCP9800_3_Features
+//!   - \ref MCP9800_3_Features_
+//!   - \ref MCP9800_3_Application   
+//!   .
+//! - \ref MCP9800_3_Interface
+//!   - \ref MCP9800_3_Slave_Address
+//!   - \ref MCP9800_3_Register
+//!   .
+//! - \ref MCP9800_3_APIs
+//!   - \ref MCP9800_3_Basic_APIs
+//!   - \ref MCP9800_3_Temp_APIs
+//!   .
+//! - \ref MCP9800_3_Conn 
+//!   - \ref MCP9800_3_Package
+//!   - \ref MCP9800_3_Connection
+//!   .
+//! - \ref MCP9800_3_Usage
+//! .
+//! 
+//! <br />
+//!
+//! \section MCP9800_3_Features 1. MCP9800_3 Features
+//!
+//! <br />
+//!
+//! \subsection MCP9800_3_Features_ 1.1 Features
+//! Accuracy: \n
+//! °¿0.5°„C (typical) at +25°„C \n
+//! °¿1°„C (maximum) from -10°„C to +85°„C \n
+//! °¿2°„C (max.) from -10°„C to +125°„C \n
+//! °¿3°„C (max.) from -55°„C to +125°„C \n
+//! User Programmable Temperature Alert Output \n
+//! Operating Voltage Range: 2.7V to 5.5V \n
+//! Operating Current: 200 ¶ÃA (typical) \n
+//! Shutdown Current: 1 ¶ÃA (max.) \n
+//! Power-saving One-shot Temperature Measurement \n
+//! Available Packages: SOT-23-5, MSOP-8, SOIC-8 \n
+//! <br />
+//!
+//! \subsection MCP9800_3_Application 1.2 Typical Applications
+//!
+//! - Personal Computers and Servers
+//! - Hard Disk Drives and Other PC Peripherals
+//! - Entertainment Systems
+//! - Office Equipment
+//! - Data Communication Equipment
+//! - Mobile Phones
+//! - General-purpose Temperature Monitoring
+//! .
+//!
+//! <br />
+//!
+//! \section MCP9800_3_Interface 2. MCP9800_3 Interface
+//!
+//! <br />
+//!
+//! \subsection MCP9800_3_Slave_Address 2.1 MCP9800_3 Slave Address
+//!
+//! <img src="MCP9800_3_SLAVE_ADDRESS.png" />
+//!
+//! <br />
+//!
+//! \subsection MCP9800_3_Register 2.2 MCP9800_3 Register
+//!
+//! <img src="MCP9800_3_Register_Block_Diagram.png" />
+//!
+//! <br />
+//!
+//! \section MCP9800_3_APIs 3. MCP9800_3 APIs
+//!
+//! \subsection MCP9800_3_Basic_APIs 3.1 MCP9800_3 Basic APIs
+//! 
+//! The basic APIs are methods to write and read the temperature sensor's registers.
+//!
+//! - MCP980xRegSet(MCP9800Dev *pDev, void *vpValue, unsigned short usType, char cTransType)
+//! - MCP980xRegGet(MCP9800Dev *pDev, void *vpValue, unsigned short usType, char cTransType)
+//! .
+//! <br />
+//! \subsection MCP9800_3_Temp_APIs 3.2 MCP9800_3 Temperature Sensor APIs
+//!
+//! These APIs are methods to configure the temperature sensor, and get the ambient 
+//! temperature.
+//!
+//! - MCP980xInit(MCP9800Dev *pDev, unsigned long ulRate)
+//! - MCP980xDeInit(MCP9800Dev *pDev)
+//! - MCP980xConfig(MCP9800Dev *pDev, unsigned char ucConfig)
+//! - MCP980xIntConfig(MCP9800Dev *pDev, xtEventCallback xtIntCallback, unsigned long ulTrigMode, unsigned long ulEventMode)
+//! - MCP980xModeSet(MCP9800Dev *pDev, char cMode)
+//! - MCP980xModeGet(MCP9800Dev *pDev)
+//! - MCP980xIntClear(MCP9800Dev *pDev)
+//! - MCP980xLimitSet(MCP9800Dev *pDev, void *vpValue, unsigned long ulType)
+//! - MCP980xTempGet(MCP9800Dev *pDev, void *vpValue, unsigned long ulDataType)
+//! .
+//!
+//! <br />
+//! 
+//! 
+//! \section MCP9800_3_Conn 4. MCP9800_3 Connection
+//!
+//! <br />
+//!
+//! \subsection MCP9800_3_Package 4.1 Package Types
+//!
+//! <br />
+//! <img src="MCP9800_3_Package_Types.png" />
+//!
+//! <br />
+//!
+//! \subsection MCP9800_3_Connection 4.2 Connecting to the Serial Bus
+//! The SDA and SCLK serial interface pins are
+//! open-drain pins that require pull-up resistors. This
+//! configuration is shown as below.
+//!
+//! <img src="MCP9800_3_Conn.png" />
+//! 
+//! \n
+//!
+//! \section MCP9800_3_Usage 5. MCP9800_3 Usage
+//!
+//! \ref MCP9800_3_TempGet
+//!
+//! \n\n\n
+//!
+//! @}
+//
+//******************************************************
+
+
+
+//******************************************************
+//
+//!
+//! \addtogroup MCP9800_3_App MCP9800 Applications
+//! @{
+//!
+//! 
+//! \defgroup MCP9800_3_TempGet Get Temperature Example
+//!
+//! \brief Get Temperature Example.
+//!
+//! Here we introduce how to get ambient temperature with MCP9800_3.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref MCP9800_3_TempGet_Steps
+//! - \ref MCP9800_3_TempGet_Code
+//! .
+//!
+//! <br />
+//! \section MCP9800_3_TempGet_Steps 1.How to configure MCP9800_3. 
+//!
+//! <ol>
+//! <li>Select and enable I2C, configure I2C clock rate and related GPIO Pins.</li>
+//! <li>Set the Capability and Config registers</li>
+//! <li>Set the upper, hysteresis temperature.</li>
+//! <li>Read temperature.</li>
+//! </ol>
+//!
+//! <br />
+//! \section MCP9800_3_TempGet_Code 2.The code to get ambient temperature.
+//!
+//! \code
+//! 
+//! #include "xhw_types.h"
+//! #include "xhw_memmap.h"
+//! #include "xcore.h"
+//! #include "xi2c.h"
+//! #include "xsysctl.h"
+//! #include "xhw_sysctl.h"
+//! #include "xgpio.h"
+//! #include "xhw_ints.h"
+//! #include "MCP9800_3.h"
+//!
+//! volatile  unsigned char Event_mode = 0;
+//!
+//! void pinSet()
+//! {
+//!     //
+//!     // Enable GPIO Clock
+//!     //
+//!     xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(PA8));
+//!     xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(PA9));
+//!
+//!     xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(PB13));
+//!
+//!     xSPinTypeI2C(I2C0SDA, PA8);
+//!     xSPinTypeI2C(I2C0SCK, PA9);
+//! }
+//!
+//! MCP9800Dev dev = {I2C0_BASE, 0x48,xGPIOSPinToPortPin(PB13), 
+//!                         xINT_GPIOB, pinSet};
+//!
+//! unsigned long test_led()
+//! {
+//!     int i;
+//!     for(i=0; i<100000; i++);
+//!     GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_12, 
+//!         !((GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_12) & GPIO_PIN_12)>>12));
+//!     return 0;
+//! }
+//!
+//! unsigned long test_Sen_Event (void *pvCBData, 
+//!                                    unsigned long ulEvent,
+//!                                    unsigned long ulMsgParam,
+//!                                    void *pvMsgData)
+//! {
+//!     if(Event_mode == MCP9800_EVENT_INT)
+//!     {
+//!         MCP980xIntClear(&dev);
+//!         GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_13, 
+//!                 !((GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_13) & GPIO_PIN_13)>>13));
+//!     }
+//!     else
+//!         test_led();
+//!     return 0;
+//! }
+//!
+//!
+//! int TempGet()
+//! {
+//!     float f = 0.0;
+//!
+//!     //
+//!     // Initialize MCP90x
+//!     //
+//!     MCP980xInit(&dev, 50000);
+//!
+//!     //
+//!     // Set the UPPER temperature.
+//!     //
+//!     f = 25.0;
+//!     MCP980xLimitSet(&dev, &f , MCP9800_LIMIT);
+//!
+//!     //
+//!     // Set the HYSTERESIS temperature.
+//!     //
+//!     f = 24.5;
+//!     MCP980xLimitSet(&dev, &f , MCP9800_HYSTERESIS);
+//!
+//!     //
+//!     // Set RESOLUTION: 0.125°Ê
+//!     //
+//!     MCP980xConfig(&dev, MCP9800_RESOL_125);
+//!
+//!     Event_mode = MCP9800_EVENT_COMP; 
+//!     //Event_mode = MCP9800_EVENT_INT;
+//!
+//!     //
+//!     // Configure the Interrupt.
+//!     // 1. Specify the device
+//!     // 2. Initialize the callback funtion
+//!     // 3. Event Alert Polarity: Low Level
+//!     // 4. Event Mode: Comparator
+//!     //  
+//!     MCP980xIntConfig(&dev, test_Sen_Event, MCP9800_ALERTPOL_LOW, Event_mode);
+//!
+//!     //
+//!     // Configure PC12 for Int Mode, PC13 for Comparator Mode.
+//!     //
+//!     xSysCtlPeripheralEnable(SYSCTL_PERIPH_GPIO);
+//!     xGPIODirModeSet(GPIO_PORTC_BASE, GPIO_PIN_12, GPIO_DIR_MODE_OUT);
+//!     GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_12, 1);
+//!     xGPIODirModeSet(GPIO_PORTC_BASE, GPIO_PIN_13, GPIO_DIR_MODE_OUT);
+//!     GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_13, 1);
+//!
+//!     //
+//!     // Enable Interrupt of GPIO Pin connected with Event Pin.
+//!     //
+//!     xIntEnable(dev.EventIntVec);
+//!     xIntMasterEnable();
+//!
+//!     while(1) 
+//!     { 
+//!         if(Event_mode == MCP9800_EVENT_COMP)
+//!             MCP980xTempGet(&dev, &f, MCP_FLOAT);
+//!         for(f=0;f<10000;f++);
+//!     }
+//! }
+//!
+//! int main()
+//! {
+//!     TempGet();
+//! }
+//! \endcode
+//!
+//!
+//!
+//! @}
+//
+//******************************************************
+
+
+
+//******************************************************
+//
+//!
+//! \addtogroup COX_Driver_Lib
+//! @{
+//! \addtogroup Sensor 
+//! @{
+//! \addtogroup Temperature_Sensor 
+//! @{
+//! \addtogroup MCP9800_TempSensor
+//! @{
+//! \addtogroup MCP9800_Register
+//! @{
+//! @}
+//! \addtogroup MCP9800_Driver
+//! @{
+//! @}
+//! \addtogroup MCP9800_3_App
+//! @{
+//! @}
+//! @}
+//! @}
+//! @}
+//! @}
+//
+//******************************************************
