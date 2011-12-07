@@ -1,0 +1,203 @@
+//*****************************************************************************
+//
+//! \defgroup TCN75
+//! 
+//! \brief 2-Wire serial temperature sensor and  thermal monitor.
+//!
+//! The TCN75 is a serially programmable temperature sensor that notifies the 
+//! host controller when ambient temperature exceeds a user programmed set 
+//! point.Hysteresis is also programmable. The INT/CMPTR output is programmable  
+//! as either a simple comparator for thermostat operation or as a temperature 
+//! event interrupt. 
+//!
+//! Communication with the TCN75 is accomplished via a two-wire bus that is 
+//! compatible with industry standard protocols. This permits reading the
+//! current temperature, programming the set point and hysteresis, and 
+//! configuring the device.
+//!  
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref TCN75_Physical
+//!   - \ref TCN75_Package
+//!   - \ref TCN75_Function_Block
+//!   .
+//! - \ref TCN75_Function_Desc
+//!   - \ref TCN75_Mode_Control
+//!   - \ref TCN75_Int_CMP
+//!   - \ref TCN75_Temper_Control
+//!   .
+//! - \ref TCN75_API_Group
+//!   - \ref TCN75_API_Group_Init
+//!   - \ref TCN75_API_Group_RegWR
+//!   - \ref TCN75_API_Group_Config
+//!   - \ref TCN75_API_Group_Temper
+//!   - \ref TCN75_API_Group_Int
+//!   .
+//! - \ref TCN75_Usage
+//! 
+//! <br />
+//! \section TCN75_Physical 1. TCN75 Physical Block
+//!
+//! <br />
+//! \subsection TCN75_Package 1.1 TCN75 Package type
+//! <img src="TCN75_Package.png" />
+//!
+//! <br />
+//! \subsection TCN75_Function_Block 1.2 TCN75 Function Block
+//! <img src="TCN75_Function.png" />
+//!
+//! <br />
+//! \section TCN75_Function_Desc 2. TCN75 Functional Description
+//!
+//! <br />
+//! \subsection TCN75_Mode_Control 2.1 TCN75 Mode Control
+//! When the appropriate bit is set in the configuration register (CONFIG) the
+//! TCN75 enters its low-power Shutdown mode (IDD = 1 ¦ÌA, typical) and the
+//! temperature-to-digital conversion process is halted. The TCN75¡¯s bus 
+//! interface remains active and TEMP, TSET, and THYST may be read from and 
+//! written to. Transitions on SDA or SCL due to external bus activity may 
+//! increase the standby power consumption. If the TCN75 is in Interrupt mode, 
+//! the state of INT/CMPTR will be reset upon entering Shutdown mode. 
+//! 
+//! <br />
+//! \subsection TCN75_Int_CMP 2.2 TCN75 interrupt and compare mode
+//! INT/CMPTR behaves differently depending on whether the TCN75 is in 
+//! Comparator mode or Interrupt mode.Comparator mode is designed for simple
+//! thermostatic operation. INT/CMPTR will go active anytime TEMPexceeds TSET. 
+//! When in Comparator mode, INT/CMPTR will remain active until TEMP falls 
+//! below THYST, whereupon it will reset to its inactive state. The state of 
+//! INT/CMPTR is maintained in Shutdown mode when the TCN75 is in Comparator 
+//! mode. In Interrupt mode, INT/CMPTR will remain active indefinitely, even
+//! if TEMP falls below THYST, until any register is read via the 2-wire bus.
+//! Interrupt mode is better suited to interrupt driven microprocessor-based 
+//! systems.
+//!
+//! To lessen the probability of spurious activation of INT/CMPTR the TCN75 may
+//! be programmed to filter out transient events. This is done by programming 
+//! the desired value into the Fault Queue. Logic inside the TCN75 will prevent 
+//! the device from triggering INT/CMPTR unless the programmed number of 
+//! sequential temperature-to-digital conversions yield the same qualitative 
+//! result. 
+//!
+//! <br />
+//! \subsection TCN75_Temper_Control 2.3 TCN75 temperature set and read
+//! We can get the current temperature from TCN75's TEMP register.We can also
+//! set temperature in TCN75 Tset and THYST registers.
+//!
+//! <br />
+//! \section TCN75_API_Group 3. TCN75 API group
+//! 
+//! The TCN75 API is broken  into three groups of functions:
+//! - those that deal with TCN75 initalization,
+//! - those that deal with write and read TCN75 registers,
+//! - those that deal with TCN75 configuration,
+//! - those that deal with TCN75 temperature.
+//! .
+//! 
+//! <br />
+//! \subsection TCN75_API_Group_Init 3.1 TCN75 initalization
+//! We can use the following APIs to initalize I2C interface and TCN75.
+//! - TCN75Init()
+//! - TCN75DeInit().
+//!
+//! <br />
+//! \subsection TCN75_API_Group_RegWR 3.2 TCN75 registers read and write
+//! We can use the following APIs to write or read a value from TCN75 
+//! registers through I2C interface.
+//! - TCN75RegRead()
+//! - TCN75RegWrite().
+//!
+//! <br />
+//! \subsection TCN75_API_Group_Config 3.3 TCN75 cofiguration APIS
+//! TCN75 mode can be set and get from following APIs:
+//! - TCN75ModeSet()
+//! - TCN75ModeGet()
+//! - TCN75FaultQueSet()
+//! - TCN75FaultQueGet()
+//! .
+//!
+//! <br />
+//! \subsection TCN75_API_Group_Temper 3.4 TCN75 temperature set and get APIS
+//! We can use the following APIs to get the current temperature
+//! - TCN75TempGet()
+//! - TCN75TempReadFDC()
+//! .
+//! 
+//! <br />
+//! \subsection TCN75_API_Group_Int 3.5 TCN75 interrupt and compare APIS
+//! We can set interrupt or compare mode and clear interrupt using the following 
+//! APIS.
+//! - TCN75IntConfig()
+//! - TCN75IntClear()
+//! .
+//! 
+//! \section TCN75_Usage 4. Usage & Program Examples
+//! The following example shows how to config TCN75 mode and get current 
+//! temperature in compare mode.
+//! 
+//! \code
+//! float  fTemp = 30;
+//! unsigned long uli = 0, ulj;
+//!
+//! unsigned long test_Led (void *pvCBData, 
+//!                                   unsigned long ulEvent,
+//!                                   unsigned long ulMsgParam,
+//!                                   void *pvMsgData);
+//!
+//! void TCN75Exp()
+//! {   
+//!     //
+//!	// Initalizes I2C.
+//!	//
+//!     TCN75Init(5000);
+//!
+//!	//
+//!	// config TCN75.
+//!	//
+//!	TCN75WakeUp();
+//!	TCN75Config(TCN75_MODE_CMP | TCN75_POLARITY_HIGH | TCN75_FAULTQUE_6);
+//!	TCN75LowLimitSet(fTemp);
+//!	TCN75UpLimitSet(fTemp);
+//!	
+//!	xSysCtlPeripheralEnable(SYSCTL_PERIPH_GPIO);
+//!     xGPIODirModeSet(GPIO_PORTA_BASE, GPIO_PIN_12, GPIO_DIR_MODE_OUT);
+//!   
+//!	TCN75IntConfig(test_Led);
+//!
+//!     xIntEnable(xINT_GPIOB);
+//!     xIntMasterEnable();
+//!	
+//!	uli = 0;
+//!
+//!	while(!uli)
+//!	{
+//!	    fTemp = TCN75TempReadFDC();
+//!		
+//!	    for(ulj = 0; ulj < 0xfff ;ulj++);
+//!	}  
+//!	
+//!	xIntDisable(xINT_GPIOB);
+//!     xIntMasterDisable();	
+//!  
+//!	//
+//!	// Disables I2C0, set TCN75 as shutdown mode.
+//!	//
+//!	TCN75DeInit();	
+//! }
+//!
+//! unsigned long test_Led (void *pvCBData, 
+//!                                   unsigned long ulEvent,
+//!                                   unsigned long ulMsgParam,
+//!                                   void *pvMsgData)
+//! {
+//!     xGPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_12, 0);
+//!
+//!	uli = 1;
+//!
+//!     return 0;
+//! }
+//!	
+//! \endcode
+//
+//*****************************************************************************
+
