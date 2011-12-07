@@ -460,8 +460,50 @@ xSysCtlPeripheraIntNumGet(unsigned long ulPeripheralBase)
 void
 SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
 {
+    volatile unsigned long ulStartUpCounter;
+    xtBoolean xtStatus;
     unsigned long ulOscFreq, ulSysDiv;
     xASSERT((ulSysClk > 0 && ulSysClk <= 72000000));
+
+    //
+    // Set HSION bit
+    //
+    xHWREG(RCC_CR) |= RCC_CR_HSION;
+
+    //
+    // Reset SW, HPRE, PPRE1, PPRE2, ADCPRE and MCO bits
+    //
+    xHWREG(RCC_CFGR) &= 0xF0FF0000;
+    
+    //
+    // Reset HSEON, CSSON and PLLON bits 
+    //
+    xHWREG(RCC_CR) &= 0xFEF6FFFF;
+
+    //
+    // Reset HSEBYP bit
+    //
+    xHWREG(RCC_CR) &= 0xFFFBFFFF;
+
+    //
+    // Reset PLLSRC, PLLXTPRE, PLLMUL and USBPRE/OTGFSPRE bits
+    //
+    xHWREG(RCC_CFGR) &= 0xFF80FFFF;
+
+    //
+    // Reset HSEBYP bit
+    //
+    xHWREG(RCC_CR) &= 0xEBFFFFFF;
+    
+    //
+    // Disable all interrupts and clear pending bits
+    //
+    xHWREG(RCC_CIR) &= 0x00FF0000;
+
+    //
+    // Disable all interrupts and clear pending bits
+    //
+    xHWREG(RCC_CFGR2) = 0x00000000; 
     
     //
     // Calc oscillator freq
@@ -472,23 +514,378 @@ SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
         case SYSCTL_OSC_MAIN:
         {
             xASSERT(!(ulConfig & SYSCTL_MAIN_OSC_DIS));
-            
-            xHWREG(SYSCLK_PWRCON) |= SYSCLK_PWRCON_XTL12M_EN;
-            
-            SysCtlHClockSourceSet(SYSCTL_HLCK_S_EXT12M);
-            SysCtlDelay(100);
-            ulOscFreq = s_ulExtClockMHz*1000000;      
-            if((ulConfig & SYSCLK_PWRCON_OSC22M_EN)!=0)
+
+            xHWREG(RCC_CR) &= ~RCC_CR_HSEON;
+            xHWREG(RCC_CR) &= ~RCC_CR_HSERDY;
+
+            xHWREG(RCC_CR) |= RCC_CR_HSEON;
+
+            //
+            // Wait till HSE is ready and if Time out is reached exit 
+            //
+            do
             {
-                xHWREG(SYSCLK_PWRCON) &= ~SYSCLK_PWRCON_OSC22M_EN;
+                xtStatus = (xHWREG(RCC_CR) & RCC_CR_HSERDY) ? xtrue : xfalse;
+                ulStartUpCounter++;  
+            } while((ulStartUpCounter != 0x0500) && (xtStatus == xfalse));
+
+            if(xtStatus == xtrue)
+            {
+                xHWREG(RCC_CFGR) &= ~RCC_CFGR_SW_M;
+                xHWREG(RCC_CFGR) |= 1;
+
+                while((xHWREG(RCC_CFGR) & RCC_CFGR_SWS_M) != 0x04);
             }
-            if((ulConfig & SYSCLK_PLLCON_PD)!=0)
+            else
             {
-                xHWREG(SYSCLK_PLLCON) |= SYSCLK_PLLCON_PD;
+                while(1);
+            }
+            
+            ulOscFreq = s_ulExtClockMHz*1000000; 
+            
+            if((ulConfig & SYSCTL_INT_OSC_DIS)!=0)
+            {
+                xHWREG(RCC_CR) &= ~RCC_CR_HSION;
+            }
+            if((ulConfig & SYSCTL_PLL_PWRDN)!=0)
+            {
+                xHWREG(RCC_CR) |= RCC_CR_PLLON;
             }
             break;
         }
+        case SYSCTL_OSC_INT:
+        {
+            xASSERT(!(ulConfig & SYSCTL_INT_OSC_DIS));
 
-    }        
+            xHWREG(RCC_CR) |= RCC_CR_HSION;
+
+            //
+            // Wait till HSI is ready 
+            //
+            while((xHWREG(RCC_CR) & RCC_CR_HSIRDY) != RCC_CR_HSIRDY);
+
+            xHWREG(RCC_CFGR) &= ~RCC_CFGR_SW_M;
+            xHWREG(RCC_CFGR) |= 0;
+            
+            while((xHWREG(RCC_CFGR) & RCC_CFGR_SWS_M) != 0x00); 
+            
+            if((ulConfig & SYSCTL_INT_OSC_DIS)!=0)
+            {
+                xHWREG(RCC_CR) &= ~RCC_CR_HSION;
+            }
+            if((ulConfig & SYSCTL_PLL_PWRDN)!=0)
+            {
+                xHWREG(RCC_CR) |= RCC_CR_PLLON;
+            }
+            break;
+        }
+        default:
+        {
+            xASSERT(0);
+            break;
+        }
+    }
+    xHWREG(RCC_CFGR) &= ~(RCC_CFGR_PPRE2_M | RCC_CFGR_PPRE1_M | RCC_CFGR_HPRE_M);
+    if(ulSysClk == ulOscFreq)
+    {
+        return;
+    }
+    else if (ulSysClk < ulOscFreq)
+    {
+        if((ulOscFreq % ulSysClk) == 0)
+        {
+            xHWREG(RCC_CFGR) |= (ulOscFreq / ulSysClk) << RCC_CFGR_HPRE_S;
+            xHWREG(RCC_CFGR) |= SYSCTL_APB1CLOCK_DIV << RCC_CFGR_PPRE1_S;
+            xHWREG(RCC_CFGR) |= SYSCTL_APB2CLOCK_DIV << RCC_CFGR_PPRE2_S;
+        }
+        else
+        {
+            xASSERT(0);
+        }
+        
+    }
+    else
+    {
+        xASSERT(!(ulConfig & xSYSCTL_PLL_PWRDN));
+        xASSERT(((ulConfig & SYSCTL_OSCSRC_M) == xSYSCTL_OSC_MAIN) ||
+                ((ulConfig & SYSCTL_OSCSRC_M) == xSYSCTL_OSC_INT));
+        
+        if((ulConfig & SYSCTL_PLL_MAIN) == 1)
+        {
+            if((ulSysClk % ulOscFreq) == 0)
+            {
+                xHWREG(RCC_CFGR) |= RCC_CFGR_PLLSRC;
+                xHWREG(RCC_CFGR) &= ~(RCC_CFGR_PLLXTPRE | RCC_CFGR_PLLMUL_M);
+                xHWREG(RCC_CFGR) |= ((ulSysClk / ulOscFreq) << 
+                                     RCC_CFGR_PLLMUL_S) & RCC_CFGR_PLLMUL_M;
+            }
+            else if(((ulSysClk*2) % ulOscFreq) == 0)
+            {
+                xHWREG(RCC_CFGR) |= RCC_CFGR_PLLXTPRE | RCC_CFGR_PLLSRC;
+                xHWREG(RCC_CFGR) &= ~(RCC_CFGR_PLLMUL_M);
+                xHWREG(RCC_CFGR) |= ((ulSysClk * 2 / ulOscFreq) << 
+                                     RCC_CFGR_PLLMUL_S) & RCC_CFGR_PLLMUL_M;
+            }
+            else
+            {
+                xASSERT(0);
+                return;
+            }
+        }
+        else
+        {
+            if(((ulSysClk*2) % ulOscFreq) == 0)
+            {
+                xHWREG(RCC_CFGR) &= ~(RCC_CFGR_PLLSRC | RCC_CFGR_PLLMUL_M);
+                xHWREG(RCC_CFGR) |= ((ulSysClk * 2 / ulOscFreq) << 
+                                     RCC_CFGR_PLLMUL_S) & RCC_CFGR_PLLMUL_M;
+            }
+            else
+            {
+                xASSERT(0);
+                return;
+            }
+        }
+        xHWREG(RCC_CFGR) |= SYSCTL_APB1CLOCK_DIV << RCC_CFGR_PPRE1_S;
+        xHWREG(RCC_CFGR) |= SYSCTL_APB2CLOCK_DIV << RCC_CFGR_PPRE2_S;
+        xHWREG(RCC_CR) |= RCC_CR_PLLON;
+        while((xHWREG(RCC_CR) | RCC_CR_PLLRDY) == 0);
+        xHWREG(RCC_CFGR) &= ~RCC_CFGR_SW_M;
+        xHWREG(RCC_CFGR) |= 2;
+        while((xHWREG(RCC_CFGR) & RCC_CFGR_SWS_M) != 0x08);
+    }
+}
+
+//*****************************************************************************
+//
+//! \brief Enable the system control interrupts.
+//!
+//! \param ulIntFlags is the bit mask of the interrupt sources to be enabled.  
+//!
+//! Enables the indicated Sysctl interrupt sources.  Only the sources that are
+//! enabled can be reflected to the processor interrupt; disabled sources have
+//! no effect on the processor.
+//!
+//! The \e ulIntFlags parameter is the logical OR of any of the following:
+//! \b SYSCTL_INT_LSI, \b SYSCTL_INT_LSE, \b SYSCTL_INT_HSE, 
+//! \b SYSCTL_INT_HSI,  \b SYSCTL_INT_PLL,  \b SYSCTL_INT_PLL2,
+//! \b SYSCTL_INT_PLL3,
+//!
+//! \return None.
+//
+//*****************************************************************************
+void 
+SysCtlIntEnable(unsigned long ulIntFlags)
+{ 
+    //
+    // Check the arguments.
+    //
+    xASSERT(((ulIntFlags & SYSCTL_INT_LSI) == SYSCTL_INT_LSI) || 
+            ((ulIntFlags & SYSCTL_INT_LSE) == SYSCTL_INT_LSE) ||
+            ((ulIntFlags & SYSCTL_INT_HSE) == SYSCTL_INT_HSE) ||
+            ((ulIntFlags & SYSCTL_INT_HSI) == SYSCTL_INT_HSI) ||
+            ((ulIntFlags & SYSCTL_INT_PLL) == SYSCTL_INT_PLL) ||
+            ((ulIntFlags & SYSCTL_INT_PLL2) == SYSCTL_INT_PLL2) ||
+            ((ulIntFlags & SYSCTL_INT_PLL3) == SYSCTL_INT_PLL3)
+           );
+    //
+    // Enable the specified interrupts.
+    //
+    xHWREG(RCC_CIR) |= (ulIntFlags << 8);
+}
+
+//*****************************************************************************
+//
+//! \brief Disable the system control interrupts.
+//!
+//! \param ulIntFlags is the bit mask of the interrupt sources to be disabled.  
+//!
+//! Disable the indicated Sysctl interrupt sources.  Only the sources that are
+//! enabled can be reflected to the processor interrupt; disabled sources have
+//! no effect on the processor.
+//!
+//! The \e ulIntFlags parameter is the logical OR of any of the following:
+//! \b SYSCTL_INT_LSI, \b SYSCTL_INT_LSE, \b SYSCTL_INT_HSE, 
+//! \b SYSCTL_INT_HSI,  \b SYSCTL_INT_PLL,  \b SYSCTL_INT_PLL2,
+//! \b SYSCTL_INT_PLL3,
+//!
+//! \return None.
+//
+//*****************************************************************************
+void 
+SysCtlIntDisable(unsigned long ulIntFlags)
+{ 
+    //
+    // Check the arguments.
+    //
+    xASSERT(((ulIntFlags & SYSCTL_INT_LSI) == SYSCTL_INT_LSI) || 
+            ((ulIntFlags & SYSCTL_INT_LSE) == SYSCTL_INT_LSE) ||
+            ((ulIntFlags & SYSCTL_INT_HSE) == SYSCTL_INT_HSE) ||
+            ((ulIntFlags & SYSCTL_INT_HSI) == SYSCTL_INT_HSI) ||
+            ((ulIntFlags & SYSCTL_INT_PLL) == SYSCTL_INT_PLL) ||
+            ((ulIntFlags & SYSCTL_INT_PLL2) == SYSCTL_INT_PLL2) ||
+            ((ulIntFlags & SYSCTL_INT_PLL3) == SYSCTL_INT_PLL3)
+           );
+    //
+    // Enable the specified interrupts.
+    //
+    xHWREG(RCC_CIR) &= ~(ulIntFlags << 8);
+}
+
+//*****************************************************************************
+//
+//! \brief Clear the system control interrupts flag.
+//!
+//! \param ulIntFlags is the bit mask of the interrupt flag to be cleared.  
+//!
+//! Clear the indicated Sysctl interrupt flag.
+//!
+//! The \e ulIntFlags parameter is the logical OR of any of the following:
+//! \b SYSCTL_INT_LSI, \b SYSCTL_INT_LSE, \b SYSCTL_INT_HSE, 
+//! \b SYSCTL_INT_HSI,  \b SYSCTL_INT_PLL,  \b SYSCTL_INT_PLL2,
+//! \b SYSCTL_INT_PLL3,\b SYSCTL_INT_CSS.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+SysCtlIntFlagClear(unsigned long ulIntFlags)
+{ 
+    //
+    // Check the arguments.
+    //
+    xASSERT(((ulIntFlags & SYSCTL_INT_LSI) == SYSCTL_INT_LSI) || 
+            ((ulIntFlags & SYSCTL_INT_LSE) == SYSCTL_INT_LSE) ||
+            ((ulIntFlags & SYSCTL_INT_HSE) == SYSCTL_INT_HSE) ||
+            ((ulIntFlags & SYSCTL_INT_HSI) == SYSCTL_INT_HSI) ||
+            ((ulIntFlags & SYSCTL_INT_PLL) == SYSCTL_INT_PLL) ||
+            ((ulIntFlags & SYSCTL_INT_PLL2) == SYSCTL_INT_PLL2) ||
+            ((ulIntFlags & SYSCTL_INT_CSS) == SYSCTL_INT_CSS) ||
+            ((ulIntFlags & SYSCTL_INT_PLL3) == SYSCTL_INT_PLL3)
+           );
+    //
+    // Enable the specified interrupts.
+    //
+    xHWREG(RCC_CIR) |= (ulIntFlags << 16);
+}
+
+//*****************************************************************************
+//
+//! \brief Get the system control interrupts flag.
+//!
+//! \param None.  
+//!
+//! Get the indicated Sysctl interrupt flag.
+//!
+//! \return the return value is the logical OR of any of the following:
+//! \b SYSCTL_INT_LSI, \b SYSCTL_INT_LSE, \b SYSCTL_INT_HSE, 
+//! \b SYSCTL_INT_HSI,  \b SYSCTL_INT_PLL,  \b SYSCTL_INT_PLL2,
+//! \b SYSCTL_INT_PLL3,\b SYSCTL_INT_CSS.
+//
+//*****************************************************************************
+unsigned long 
+SysCtlIntFlagGet(void)
+{ 
+    //
+    // return the system control interrupts flag.
+    //
+    return (xHWREG(RCC_CIR) & 0xFF);
+}
+
+//*****************************************************************************
+//
+//! \brief Get the system control reset flag.
+//!
+//! \param None.  
+//!
+//! Get the indicated Sysctl reset flag.
+//!
+//! \return the return value is the logical OR of any of the following:
+//! \b SYSCTL_RESET_LPWR, \b SYSCTL_RESET_WWDG, \b SYSCTL_RESET_IWDG,
+//! \b SYSCTL_RESET_SFT, \b SYSCTL_RESET_POR, \b SYSCTL_RESET_PIN.
+//
+//*****************************************************************************
+unsigned long
+SysCtlResetFlagGet(void)
+{ 
+    //
+    // return the system control reset flag.
+    //
+    return (xHWREG(RCC_CSR) & 0xFC000000);
+}
+
+//*****************************************************************************
+//
+//! \brief Clear the system control reset flag.
+//!
+//! \param None.  
+//!
+//! Clear the indicated Sysctl reset flag.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+SysCtlResetFlagGet(void)
+{ 
+    //
+    // Clear the system control reset flag.
+    //
+    xHWREG(RCC_CSR) |= RCC_CSR_RMVF;
+}
+
+//*****************************************************************************
+//
+//! \brief Config the system control LSI clock.
+//!
+//! \param ulLSIConfig.  
+//!
+//! Config the system control LSI clock.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+SysCtlLSIConfig(unsigned long ulLSIConfig)
+{ 
+    //
+    // Check the arguments.
+    //
+    xASSERT((ulLSIConfig == SYSCTL_LSI_OSC_DIS) ||
+            (ulLSIConfig == SYSCTL_LSI_OSC_EN));
+    
+    //
+    // Config the system control LSI clock.
+    //
+    xHWREG(RCC_CSR) &= ~(RCC_CSR_LSION | RCC_CSR_RMVF);
+    xHWREG(RCC_CSR) |= ulLSIConfig;
+    while(!(xHWREG(RCC_CSR) & RCC_CSR_LSIRDY));
+}
+
+//*****************************************************************************
+//
+//! \brief Config the system control LSE clock.
+//!
+//! \param ulLSEConfig .  
+//!
+//! Config the system control LSE clock.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+SysCtlLSEConfig(unsigned long ulLSEConfig)
+{ 
+    //
+    // Check the arguments.
+    //
+    xASSERT((ulLSEConfig == SYSCTL_LSE_OSC_DIS) ||
+            (ulLSEConfig == SYSCTL_LSE_OSC_EN));
+    //
+    // Config the system control LSE clock.
+    //
+    xHWREG(RCC_BDCR) &= ~RCC_BDCR_LSEON;
+    xHWREG(RCC_BDCR) |= ulLSEConfig;
+    while(!(xHWREG(RCC_BDCR) & RCC_BDCR_LSERDY));
 }
 

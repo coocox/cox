@@ -1208,6 +1208,31 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 
 //*****************************************************************************
 //
+//! \addtogroup STM32F1xx_SysCtl_Config STM32F1xx SysCtl config
+//! 
+//! \section STM32F1xx_SysCtl_Config_section 1. Where to use this group
+//! This is use to config APB1 and APB2 clock divide.
+//! 
+//! @{
+//
+//*****************************************************************************
+
+//
+//! STM32F1xx SysCtl config
+//
+#define SYSCTL_APB1CLOCK_DIV    2
+
+#define SYSCTL_APB2CLOCK_DIV    1
+
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
 //! \addtogroup STM32F1xx_SysCtl_Peripheral_ID STM32F1xx SysCtl Peripheral ID
 //! \brief Values that show SysCtl Peripheral ID
 //! Values that can be passed to the
@@ -1228,6 +1253,16 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 //! ETHMACTX (Enable Only)
 //
 #define SYSCTL_PERIPH_ETHMACRX  0x00008000
+
+//
+//! SDIO (Enable Only)
+//
+#define SYSCTL_PERIPH_SDIO      0x00000400
+
+//
+//! FSMC (Enable Only)
+//
+#define SYSCTL_PERIPH_FSMC      0x00000100
 
 //
 //! CRC (Enable Only)
@@ -1263,12 +1298,37 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 //
 //! USB OTG FS
 //
-#define SYSCTL_PERIPH_USB       0x00001000  
+#define SYSCTL_PERIPH_USB       0x00001000 
+
+//
+//! TIM11
+//
+#define SYSCTL_PERIPH_TIM11     0x10100020
+
+//
+//! TIM10
+//
+#define SYSCTL_PERIPH_TIM10     0x10100010
+
+//
+//! TIM9
+//
+#define SYSCTL_PERIPH_TIM9      0x10100008
+
+//
+//! ADC3
+//
+#define SYSCTL_PERIPH_ADC3      0x10008000
 
 //
 //! USART1
 //
 #define SYSCTL_PERIPH_USART1    0x10004000
+
+//
+//! TIM8
+//
+#define SYSCTL_PERIPH_TIM8      0x10002000
 
 //
 //! SPI1
@@ -1289,6 +1349,16 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 //! ADC1
 //
 #define SYSCTL_PERIPH_ADC1      0x10000200
+
+//
+//! I/O port G
+//
+#define SYSCTL_PERIPH_IOPG      0x10000100
+
+//
+//! I/O port F
+//
+#define SYSCTL_PERIPH_IOPF      0x10000080
 
 //
 //! I/O port E
@@ -1346,6 +1416,11 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 #define SYSCTL_PERIPH_CAN2      0x20100200
 
 //
+//! USB
+//
+#define SYSCTL_PERIPH_USB       0x20100080
+
+//
 //! I2C2
 //
 #define SYSCTL_PERIPH_I2C2      0x20100040
@@ -1391,6 +1466,21 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 #define SYSCTL_PERIPH_WWDG      0x20000800
 
 //
+//! TIM14
+//
+#define SYSCTL_PERIPH_TIM14     0x20000100
+
+//
+//! TIM13
+//
+#define SYSCTL_PERIPH_TIM13     0x20000080
+
+//
+//! TIM12
+//
+#define SYSCTL_PERIPH_TIM12     0x20000040
+
+//
 //! TIM7
 //
 #define SYSCTL_PERIPH_TIM7      0x20000020
@@ -1429,6 +1519,164 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 
 //*****************************************************************************
 //
+//! \addtogroup STM32F1xx_SysCtl_Ints STM32F1xx SysCtl Interrupt
+//! \brief Values that show STM32F1xx SysCtl Interrupt Mask
+//! @{
+//
+//*****************************************************************************
+
+//
+//! LSI ready interrupt Mask
+//
+#define SYSCTL_INT_LSI          0x01        
+
+//
+//! LSE ready interrupt Mask
+//
+#define SYSCTL_INT_LSE          0x02
+
+//
+//! HSI ready interrupt Mask
+//
+#define SYSCTL_INT_HSI          0x04
+
+//
+//! HSE ready interrupt Mask
+//
+#define SYSCTL_INT_HSE          0x08
+
+//
+//! PLL ready interrupt Mask
+//
+#define SYSCTL_INT_PLL          0x10
+
+//
+//! PLL2 ready interrupt Mask
+//
+#define SYSCTL_INT_PLL2         0x20
+
+//
+//! PLL3 ready interrupt Mask
+//
+#define SYSCTL_INT_PLL3         0x40
+
+//
+//! Clock security system interrupt Mask
+//
+#define SYSCTL_INT_CSS          0x80
+
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_SysCtl_Event_Flag STM32F1xx SysCtl Event Flag
+//! \brief Values that show STM32F1xx SysCtl Event Flag Mask
+//! SysCtl Event/Error Flag, Used by IntHandle's Event Callback Function as 
+//! ulMsgParam parmeter. User Callback function can user this to detect what 
+//! event happened.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! LSI ready Event Flag Mask
+//
+#define SYSCTL_EVENT_LSI        0x01        
+
+//
+//! LSE ready Event Flag Mask
+//
+#define SYSCTL_EVENT_LSE        0x02
+
+//
+//! HSI ready Event Flag Mask
+//
+#define SYSCTL_EVENT_HSI        0x04
+
+//
+//! HSE ready Event Flag Mask
+//
+#define SYSCTL_EVENT_HSE        0x08
+
+//
+//! PLL ready Event Flag Mask
+//
+#define SYSCTL_EVENT_PLL        0x10
+
+//
+//! PLL2 ready Event Flag Mask
+//
+#define SYSCTL_EVENT_LSI        0x20
+
+//
+//! PLL3 ready Event Flag Mask
+//
+#define SYSCTL_EVENT_LSI        0x40
+
+//
+//! Clock security system Event Flag Mask
+//
+#define SYSCTL_EVENT_CSS        0x80
+
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_SysCtl_Reset_Flag STM32F1xx SysCtl Reset Flag
+//! \brief Values that show STM32F1xx SysCtl Reset Flag Mask
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Low-power reset flag Mask
+//
+#define SYSCTL_RESET_LPWR       0x80000000        
+
+//
+//! Window watchdog reset flag
+//
+#define SYSCTL_RESET_WWDG       0x40000000
+
+//
+//! Independent watchdog reset flag
+//
+#define SYSCTL_RESET_IWDG       0x20000000
+
+//
+//! Software reset flag
+//
+#define SYSCTL_RESET_SFT        0x10000000
+
+//
+//! POR/PDR reset flag
+//
+#define SYSCTL_RESET_POR        0x08000000
+
+//
+//! PIN reset flag
+//
+#define SYSCTL_RESET_PIN        0x04000000
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
 //! \addtogroup STM32F1xx_SysCtl_Peripheral_Src_Clk SysCtl Peripheral Source Clock
 //! \brief Values that show SysCtl Peripheral Source Clock
 //! The following are values that can be passed to the
@@ -1443,337 +1691,7 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 //
 #define SYSCTL_PERIPH_WDG_S_EXT32K                                            \
                                 0x00000301  
-                                
-//
-//! Watch dog clock source is HCLK/2048 clock
-//
-#define SYSCTL_PERIPH_WDG_S_HCLK_2048                                         \
-                                0x00000302     
-                                
-//
-//! Watch dog clock source is internal 10 kHz oscillator clock
-//
-#define SYSCTL_PERIPH_WDG_S_INT10K                                            \
-                                0x00000303  
-                                
-//
-//! ADC clock source is external 12 MHz crystal clock
-//
-#define SYSCTL_PERIPH_ADC_S_EXT12M                                            \
-                                0x00020300  
-                                
-//
-//! ADC clock source is PLL clock
-//
-#define SYSCTL_PERIPH_ADC_S_PLL                                               \
-                                0x00020301   
-                                
-//
-//! ADC clock source is internal 22 MHz oscillator clock
-//
-#define SYSCTL_PERIPH_ADC_S_INT22M                                            \
-                                0x00020303  
-                                
-//
-//! Timer0 clock source is external 12 MHz crystal clock
-//
-#define SYSCTL_PERIPH_TMR0_S_EXT12M                                           \
-                                0x00080700  
-                                
-//
-//! Timer0 clock source is external 32 KHz crystal clock
-//
-#define SYSCTL_PERIPH_TMR0_S_EXT32K                                           \
-                                0x00080701   
-                                
-//
-//! Timer0 clock source is HCLK
-//
-#define SYSCTL_PERIPH_TMR0_S_HCLK                                             \
-                                0x00080702   
-                                
-//
-//! Timer0 clock source is external trigger
-//
-#define SYSCTL_PERIPH_TMR0_S_EXTTRG                                           \
-                                0x00080703  
-                                
-//
-//! Timer0 clock source is internal 22 MHz oscillator clock
-//
-#define SYSCTL_PERIPH_TMR0_S_INT22M                                           \
-                                0x00080704  
-                                
-//
-//! Timer1 clock source is external 12 MHz crystal clock
-//
-#define SYSCTL_PERIPH_TMR1_S_EXT12M                                           \
-                                0x000C0700  
-                                
-//
-//! Timer1 clock source is external 32kHz crystal clock
-//
-#define SYSCTL_PERIPH_TMR1_S_EXT32K                                           \
-                                0x000C0701  
-                                
-//
-//! Timer1 clock source is HCLK
-//
-#define SYSCTL_PERIPH_TMR1_S_HCLK                                             \
-                                0x000C0702    
-                                
-//
-//! Timer1 clock source is external trigger
-//
-#define SYSCTL_PERIPH_TMR1_S_EXTTRG                                           \
-                                0x000C0703  
-                                
-//
-//! Timer1 clock source is internal 22 MHz oscillator clock
-//
-#define SYSCTL_PERIPH_TMR1_S_INT22M                                           \
-                                0x000C0707  
-                                
-//
-//! Timer2 clock source is external 12 MHz crystal clock
-//
-#define SYSCTL_PERIPH_TMR2_S_EXT12M                                           \
-                                0x00100700  
-                                
-//
-//! Timer2 clock source is external 32kHz crystal clock
-//
-#define SYSCTL_PERIPH_TMR2_S_EXT32K                                           \
-                                0x00100701   
-                                
-//
-//! Timer2 clock source is HCLK
-//
-#define SYSCTL_PERIPH_TMR2_S_HCLK                                             \
-                                0x00100702  
-                                
-//
-//! Timer2 clock source is external trigger
-//
-#define SYSCTL_PERIPH_TMR2_S_EXTTRG                                           \
-                                0x00100703  
-                                
-//
-//! Timer2 clock source is internal 22 MHz oscillator clock
-//
-#define SYSCTL_PERIPH_TMR2_S_INT22M                                           \
-                                0x00100707
-                                
-//
-//! Timer3 clock source is external 12 MHz crystal clock
-//
-#define SYSCTL_PERIPH_TMR3_S_EXT12M                                           \
-                                0x00140700  
-                                
-//
-//! Timer3 clock source is external 32 KHz crystal clock
-//
-#define SYSCTL_PERIPH_TMR3_S_EXT32K                                           \
-                                0x00140701   
-                                
-//
-//! Timer3 clock source is HCLK
-//
-#define SYSCTL_PERIPH_TMR3_S_HCLK                                             \
-                                0x00140702    
-                                
-//
-//! Timer3 clock source is external trigger
-//
-#define SYSCTL_PERIPH_TMR3_S_EXTTRG                                           \
-                                0x00140703  
-                                
-//
-//! Timer3 clock source is internal 22 MHz oscillator clock
-//
-#define SYSCTL_PERIPH_TMR3_S_INT22M                                           \
-                                0x00140707  
-                                
-//
-//! UART clock source is external 12 MHz crystal clock
-//
-#define SYSCTL_PERIPH_UART_S_EXT12M                                           \
-                                0x00180300  
-                                
-//
-//! UART clock source is PLL clock
-//
-#define SYSCTL_PERIPH_UART_S_PLL                                              \
-                                0x00180301  
-                                
-//
-//! UART clock source is internal 22 MHz oscillator clock
-//
-#define SYSCTL_PERIPH_UART_S_INT22M                                           \
-                                0x00180303  
-                                
-//
-//! CAN clock source is external 12 MHz crystal clock
-//
-#define SYSCTL_PERIPH_CAN_S_EXT12M                                            \
-                                0x001A0300  
-                                
-//
-//! CAN clock source is PLL clock 
-//
-#define SYSCTL_PERIPH_CAN_S_PLL                                               \
-                                0x001A0301   
-                                
-//
-//! CAN clock source is internal 22 MHz oscillator clock
-//
-#define SYSCTL_PERIPH_CAN_S_INT22M                                            \
-                                0x001A0302  
-                                
-//
-//! PWM0 and PWM1 clock source is external 12 MHz crystal clock
-//
-#define SYSCTL_PERIPH_PWM01_S_EXT12M                                          \
-                                0x001C0300 
-                                
-//
-//! PWM0 and PWM1 clock source is external 32kHz crystal clock
-//
-#define SYSCTL_PERIPH_PWM01_S_EXT32K                                          \
-                                0x001C0301   
-                                
-//
-//! PWM0 and PWM1 clock source is HCLK
-//
-#define SYSCTL_PERIPH_PWM01_S_HCLK                                            \
-                                0x001C0302   
-                                
-//
-//! PWM0 and PWM1 clock source is internal 22 MHz oscillator clock
-//
-#define SYSCTL_PERIPH_PWM01_S_INT22M                                          \
-                                0x001C0303  
-                                
-//
-//! PWM2 and PWM3 clock source is external 12 MHz crystal clock
-//
-#define SYSCTL_PERIPH_PWM23_S_EXT12M                                          \
-                                0x001E0300  
-                                
-//
-//! PWM2 and PWM3 clock source is external 32kHz crystal clock
-//
-#define SYSCTL_PERIPH_PWM23_S_EXT32K                                          \
-                                0x001E0301    
-                                
-//
-//! PWM2 and PWM3 clock source is HCLK
-//
-#define SYSCTL_PERIPH_PWM23_S_HCLK                                            \
-                                0x001E0302  
-                                
-//
-//! PWM2 and PWM3 clock source is internal 22 MHz oscillator clock
-//
-#define SYSCTL_PERIPH_PWM23_S_INT22M                                          \
-                                0x001E0303  
-                                
-//
-//! I2S clock source is external 12 MHz crystal clock
-//
-#define SYSCTL_PERIPH_I2S_S_EXT12M                                            \
-                                0x10000300  
-                                
-//
-//! I2S clock source is PLL
-//
-#define SYSCTL_PERIPH_I2S_S_PLL                                               \
-                                0x10000301   
-                                
-//
-//! I2S clock source is HCLK
-//
-#define SYSCTL_PERIPH_I2S_S_HCLK                                              \
-                                0x10000302     
-                                
-//
-//! I2S clock source is internal 22 MHz oscillator clock
-//
-#define SYSCTL_PERIPH_I2S_S_INT22M                                            \
-                                0x10000303  
-                                
-//
-//! frequency divide source is external 12 MHz crystal clock
-//
-#define SYSCTL_PERIPH_FRQDIV_S_EXT12M                                         \
-                                0x10020300  
-                                
-//
-//! frequency divide source is external 32kHz crystal clock
-//
-#define SYSCTL_PERIPH_FRQDIV_S_EXT32K                                         \
-                                0x10020301  
-                                
-//
-//! frequency divide source is HCLK
-//
-#define SYSCTL_PERIPH_FRQDIV_S_HCLK                                           \
-                                0x10020302          
-                                
-//
-//! frequency divide source is internal 22 MHz oscillator clock
-//
-#define SYSCTL_PERIPH_FRQDIV_S_INT22M                                         \
-                                0x10020303  
-                                
-//
-//! PWM4 and PWM5 clock source is external 12 MHz crystal clock
-//
-#define SYSCTL_PERIPH_PWM45_S_EXT12M                                          \
-                                0x10040300  
-                                
-//
-//! PWM4 and PWM5 clock source is external 32 KHz crystal clock
-//
-#define SYSCTL_PERIPH_PWM45_S_EXT32K                                          \
-                                0x10040301  
-                                
-//
-//! PWM4 and PWM5 clock source is HCLK
-//
-#define SYSCTL_PERIPH_PWM45_S_HCLK                                            \
-                                0x10040302       
-                                
-//
-//! PWM4 and PWM5 clock source is internal 22 MHz oscillator clock
-//
-#define SYSCTL_PERIPH_PWM45_S_INT22M                                          \
-                                0x10040303  
-                                
-//
-//! PWM6 and PWM7 clock source is external 12 MHz crystal clock
-//
-#define SYSCTL_PERIPH_PWM67_S_EXT12M                                          \
-                                0x10060300  
-                                
-//
-//! PWM6 and PWM7 clock source is external 32 KHz crystal clock
-//
-#define SYSCTL_PERIPH_PWM67_S_EXT32K                                          \
-                                0x10060301   
-                                
-//
-//! PWM6 and PWM7 clock source is HCLK 
-//
-#define SYSCTL_PERIPH_PWM67_S_HCLK                                            \
-                                0x10060302   
-                                
-//
-//! PWM6 and PWM7 clock source is internal 22 MHz oscillator clock
-//
-#define SYSCTL_PERIPH_PWM67_S_INT22M                                          \
-                                0x10060303  
-
+ 
 //*****************************************************************************
 //
 //! @}
@@ -1790,26 +1708,6 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 //! @{
 //
 //*****************************************************************************
-
-//
-//! Systick Clock source is external 12 MHz crystal clock
-//
-#define SYSCTL_HLCK_S_EXT12M    0x00000000 
-
-//
-//! Systick Clock source is external 32 KHz crystal clock
-//
-#define SYSCTL_HLCK_S_EXT32K    0x00000001  
-
-//
-//! Systick Clock source is PLL clock
-//
-#define SYSCTL_HLCK_S_PLL       0x00000002  
-
-//
-//! Systick Clock source is internal 10 kHz oscillator clock
-//
-#define SYSCTL_HLCK_S_INT10K    0x00000003  
 
 //
 //! Systick Clock source is internal 22 MHz oscillator clock
@@ -1834,29 +1732,79 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 //*****************************************************************************
 
 //
-//! Systick Clock source is external 12 MHz crystal clock
+//! LSE oscillator clock used as RTC clock
 //
-#define SYSCTL_STCLK_S_EXT12M   0x00000000  
+#define SYSCTL_RTC_LSE          0x00080001
 
 //
-//! Systick Clock source is external 32 KHz crystal clock
+//! LSI oscillator clock used as RTC clock
 //
-#define SYSCTL_STCLK_S_EXT32K   0x00000008  
+#define SYSCTL_RTC_LSI          0x00080002
 
 //
-//! Systick Clock source is 12 MHz crystal clock/2
+//! HSE oscillator clock divided by 128 used as RTC clock
 //
-#define SYSCTL_STCLK_S_EXT12M_2 0x00000010  
+#define SYSCTL_RTC_LSE_128      0x00080003
 
 //
-//! Systick Clock source is HCLK/2
+//! Microcontroller clock output System clock (SYSCLK) selected
 //
-#define SYSCTL_STCLK_S_HCLK_2   0x00000018  
+#define SYSCTL_MCO_SYSCLK       0x00180004
 
 //
-//! Systick Clock source is internal 22 MHz oscillator clock/2
+//! Microcontroller clock output HSI clock selected
 //
-#define SYSCTL_STCLK_S_INT22M_2 0x00000038  
+#define SYSCTL_MCO_HSI          0x00180005
+
+//
+//! Microcontroller clock output HSE clock selected
+//
+#define SYSCTL_MCO_HSE          0x00180006
+
+//
+//! Microcontroller clock output PLL clock divided by 2 selected
+//
+#define SYSCTL_MCO_PLL_2        0x00180007
+
+//
+//! Microcontroller clock output PLL2 clock selected
+//
+#define SYSCTL_MCO_PLL2         0x00180008
+
+//
+//! Microcontroller clock output PLL3 clock selected
+//
+#define SYSCTL_MCO_PLL3_2       0x00180009
+
+//
+//! XT1 external 3-25 MHz oscillator clock selected (for Ethernet)
+//
+#define SYSCTL_MCO_XT1          0x0018000A
+
+//
+//! Microcontroller clock output PLL3 clock selected (for Ethernet)
+//
+#define SYSCTL_MCO_PLL3         0x0018000B
+
+//
+//! System clock (SYSCLK) selected as I2S3 clock entry
+//
+#define SYSCTL_I2S3_SYSCLK      0x00120000
+
+//
+//! PLL3 VCO clock selected as I2S3 clock entry
+//
+#define SYSCTL_I2S3_PLL3        0x00120001
+
+//
+//! System clock (SYSCLK) selected as I2S2 clock entry
+//
+#define SYSCTL_I2S2_SYSCLK      0x00110000
+
+//
+//! PLL3 VCO clock selected as I2S2 clock entry
+//
+#define SYSCTL_I2S2_PLL3        0x00110001
 
 //*****************************************************************************
 //
@@ -1917,76 +1865,33 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 
 //*****************************************************************************
 //
-//! \addtogroup STM32F1xx_SysCtl_Bod_level STM32F1xx SysCt Bod level
-//! \brief Values that show STM32F1xx SysCt Bod level
-//! The following are values that can be passed to the
-//! SysCtlSelectBODVolt()  API as the
-//! ulVoltage parameter.  
+//! \addtogroup STM32F1xx_SysCtl_low_Clock STM32F1xx SysCtl low clock config
+//! \brief Values that show STM32F1xx SysCtl low clock config
+//! The following are values that can be passed to 
+//! the SysCtlLSEConfig() and SysCtlLSIConfig() API.   
 //! @{
 //
 //*****************************************************************************
 
 //
-//! Threshold Voltage 2.2V
+//! Disable Low Speed Internal oscillator
 //
-#define SYSCTL_BOD_2_2          0x00000000  
+#define SYSCTL_LSI_OSC_DIS      0x00000000
 
 //
-//! Threshold Voltage 2.6V
+//! Enable Low Speed Internal oscillator
 //
-#define SYSCTL_BOD_2_6          0x00000002  
+#define SYSCTL_LSI_OSC_EN       0x00000001
 
 //
-//! Threshold Voltage 3.8V
+//! Disable Low Speed External oscillator
 //
-#define SYSCTL_BOD_3_8          0x00000004  
+#define SYSCTL_LSE_OSC_DIS      0x00000000
 
 //
-//! Threshold Voltage 4.5V
+//! Enable Low Speed External oscillator
 //
-#define SYSCTL_BOD_4_5          0x00000006  
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup STM32F1xx_SysCtl_Peripheral_ClkDiv STM32F1xx SysCtl Peripheral ClkDiv
-//! \brief Values that show STM32F1xx SysCtl Peripheral ClkDiv
-//! The following are values that can be passed to the
-//! SysCtlIPClockDividerSet()  API as the
-//! ulConfig parameter. 
-//! @{
-//
-//*****************************************************************************
-
-//
-//! HCLK clock divide number mask
-// 
-#define SYSCTL_PERIPH_HCLK_D    0x00000000  
-
-//
-//! USB clock divide number mask
-//
-#define SYSCTL_PERIPH_USB_D     0x00040800  
-
-//
-//! UART clock divide number mask
-//
-#define SYSCTL_PERIPH_UART_D    0x00080800  
-
-//
-//! CAN clock divide number mask
-//
-#define SYSCTL_PERIPH_CAN_D     0x000C0C00  
-
-//
-//! ADC clock divide number mask
-//
-#define SYSCTL_PERIPH_ADC_D     0x00101000  
+#define SYSCTL_LSE_OSC_EN       0x00000001
 
 //*****************************************************************************
 //
@@ -2004,7 +1909,6 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 //
 //*****************************************************************************
   
-
 //
 //! Disable internal oscillator
 //

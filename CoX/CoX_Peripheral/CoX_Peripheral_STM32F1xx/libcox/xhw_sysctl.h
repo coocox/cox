@@ -254,7 +254,7 @@
 //
 //! Microcontroller clock output mask
 //
-#define RCC_CFGR_MCO_M          0x07000000
+#define RCC_CFGR_MCO_M          0x0F000000
 
 //
 //! Microcontroller clock output shift
@@ -262,7 +262,7 @@
 #define RCC_CFGR_MCO_S          24
 
 //
-//! USB OTG FS prescaler
+//! USB OTG FS prescaler/USB prescaler
 //
 #define RCC_CFGR_OTGFSPRE       0x00400000
 
@@ -492,9 +492,34 @@
 //*****************************************************************************
 
 //
+//! TIM11 timer reset
+//
+#define RCC_APB2RSTR_TIM11RST   0x00200000
+
+//
+//! TIM10 timer reset
+//
+#define RCC_APB2RSTR_TIM10RST   0x00100000
+
+//
+//! TIM9 timer reset
+//
+#define RCC_APB2RSTR_TIM9RST    0x00080000
+
+//
+//! ADC3 interface reset
+//
+#define RCC_APB2RSTR_ADC3RST    0x00008000
+
+//
 //! USART1 reset
 //
 #define RCC_APB2RSTR_USART1RST  0x00004000
+
+//
+//! TIM8 timer reset
+//
+#define RCC_APB2RSTR_TIM8RST    0x00002000
 
 //
 //! SPI 1 reset
@@ -515,6 +540,16 @@
 //! ADC 1 interface reset
 //
 #define RCC_APB2RSTR_ADC1RST    0x00000200
+
+//
+//! I/O port G reset
+//
+#define RCC_APB2RSTR_IOPGRST    0x00000100
+
+//
+//! I/O port F reset
+//
+#define RCC_APB2RSTR_IOPFRST    0x00000080
 
 //
 //! I/O port E reset
@@ -586,6 +621,11 @@
 #define RCC_APB1RSTR_CAN1RST    0x02000000
 
 //
+//! USB reset
+//
+#define RCC_APB1RSTR_USBRST     0x01000000
+
+//
 //! I2C 2 reset
 //
 #define RCC_APB1RSTR_I2C2RST    0x00400000
@@ -629,6 +669,21 @@
 //! Window watchdog reset
 //
 #define RCC_APB1RSTR_WWDGRST    0x00000800
+
+//
+//! Timer 14 reset
+//
+#define RCC_APB1RSTR_TIM14RST   0x00000100
+
+//
+//! Timer 13 reset
+//
+#define RCC_APB1RSTR_TIM13RST   0x00000080
+
+//
+//! Timer 12 reset
+//
+#define RCC_APB1RSTR_TIM12RST   0x00000040
 
 //
 //! Timer 7 reset
@@ -695,6 +750,16 @@
 #define RCC_AHBENR_OTGFSEN    0x00001000
 
 //
+//! SDIOclock enable
+//
+#define RCC_AHBENR_SDIOEN     0x00000400
+
+//
+//! FSMC clock enable
+//
+#define RCC_AHBENR_FSMCEN     0x00000100
+
+//
 //! CRC clock enable
 //
 #define RCC_AHBENR_CRCEN      0x00000040
@@ -734,9 +799,34 @@
 //*****************************************************************************
 
 //
+//! TIM11 clock enable
+//
+#define RCC_APB2ENR_TIM11EN     0x00200000
+
+//
+//! TIM10 clock enable
+//
+#define RCC_APB2ENR_TIM10EN     0x00100000
+
+//
+//! TIM9 clock enable
+//
+#define RCC_APB2ENR_TIM9EN      0x00080000
+
+//
+//! ADC3 clock enable
+//
+#define RCC_APB2ENR_ADC3EN      0x00008000
+
+//
 //! USART1 clock enable
 //
 #define RCC_APB2ENR_USART1EN    0x00004000
+
+//
+//! TIM8 clock enable
+//
+#define RCC_APB2ENR_TIM8EN      0x00002000
 
 //
 //! SPI 1 clock enable
@@ -757,6 +847,16 @@
 //! ADC 1 interface clock enable
 //
 #define RCC_APB2ENR_ADC1EN      0x00000200
+
+//
+//! I/O port G clock enable
+//
+#define RCC_APB2ENR_IOPGEN      0x00000100
+
+//
+//! I/O port F clock enable
+//
+#define RCC_APB2ENR_IOPFEN      0x00000080
 
 //
 //! I/O port E clock enable
@@ -828,6 +928,11 @@
 #define RCC_APB1ENR_CAN1EN      0x02000000
 
 //
+//! USB clock enable
+//
+#define RCC_APB1ENR_USBEN       0x00800000
+
+//
 //! I2C 2 clock enable
 //
 #define RCC_APB1ENR_I2C2EN      0x00400000
@@ -871,6 +976,21 @@
 //! Window watchdog clock enable
 //
 #define RCC_APB1ENR_WWDGEN      0x00000800
+
+//
+//! Timer 14 clock enable
+//
+#define RCC_APB1ENR_TIM14EN     0x00000100
+
+//
+//! Timer 13 clock enable
+//
+#define RCC_APB1ENR_TIM13EN     0x00000080
+
+//
+//! Timer 12 clock enable
+//
+#define RCC_APB1ENR_TIM12EN     0x00000040
 
 //
 //! Timer 7 clock enable
