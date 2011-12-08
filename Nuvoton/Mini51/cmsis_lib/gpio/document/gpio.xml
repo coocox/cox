@@ -1,13 +1,13 @@
 <?xml version="1.0" ?>
 <Component>
-  <Name>gpio</Name>
+  <Name>GPIO</Name>
   <Description>Mini51 General Purpose I/O Driver</Description>
   <Category>Peripheral</Category>
   <Version>1.0.0</Version>
   <Tags>GPIO</Tags>
   
   <files>
-    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\Include\DrvGPIO.h</File>
+    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\Include\Driver\DrvGPIO.h</File>
     <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\Source\DrvGPIO.c</File>
   </files>
   
@@ -18,7 +18,7 @@
   
   <Dependencys>
     <Dependency>CMSIS_BOOT</Dependency>
-    <Dependency>SysCtl</Dependency>
+    <Dependency>SYS</Dependency>
   </Dependencys>
   
   <SupportDevices>

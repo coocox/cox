@@ -26,21 +26,7 @@
 #define SIGNATURE       0x125ab234
 #define FLAG_ADDR       0x200007FC
 
-//*****************************************************************************
-//
-//! \brief Brown out Callback Function.
-//!
-//! \param None  
-//!
-//! \return None  
-//
-//*****************************************************************************
-void BOD_CallbackFn(void)
-{
-//
-// Brown Out Detect
-//
-}
+void BOD_CallbackFn(void);
 
 //*****************************************************************************
 //
@@ -139,3 +125,20 @@ void SysCtlTest(void)
     //
     DrvSYS_ResetCPU();
 }
+
+//*****************************************************************************
+//
+//! \brief Brown out Callback Function.
+//!
+//! \param None  
+//!
+//! \return None  
+//
+//*****************************************************************************
+void BOD_CallbackFn(void)
+{
+//
+// Brown Out Detect
+//
+}
+

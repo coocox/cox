@@ -1,10 +1,10 @@
 <?xml version="1.0" ?>
 <Example>
   <Name>SmplFmc</Name>
-  <Description>This example shows how to use FMC. Step 1: Set 
-system clock. Step 2: Enable ISP. Step 3: Erase and Program ROM.
-This example runs on Nu-LB-Mini_V001 Development Board,and it's
-suit for Mini51 serial mcu.
+  <Description>This example shows how to use FMC. Step 1:
+     Set system clock. Step 2: Enable ISP. Step 3: Erase 
+     and Program ROM.This example runs on Nu-LB-Mini_V001 
+     Development Board,and it's suit for Mini51 serial mcu.
   </Description>
   <Version>1.0.0</Version>
   <Tags>FMC</Tags>

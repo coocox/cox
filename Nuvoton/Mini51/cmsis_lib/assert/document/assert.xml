@@ -1,28 +1,26 @@
 <?xml version="1.0" ?>
 <Component>
-  <Name>ACMP</Name>
-  <Description>Mini51 Analog Comparator Driver</Description>
+  <Name>Assert</Name>
+  <Description>Mini51 Assert</Description>
   <Category>Peripheral</Category>
   <Version>1.0.0</Version>
-  <Tags>ACMP</Tags>
+  <Tags>Assert</Tags>
   
   <files>
-    <File> </File>
-    <File> </File>
+    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\Include\Driver\Assert.h</File>
   </files>
   
   <CoIDEFiles>
-    <File> </File>
-    <File> </File>
+    <File>$PROJECT_ROOT$cmsis_lib\include\Assert.h</File>
   </CoIDEFiles>
   
   <Dependencys>
-    <Dependency>CMSIS_BOOT</Dependency>
-    <Dependency>SYS</Dependency>
+
   </Dependencys>
   
   <SupportDevices>
     <Device>MINI51LAN , MINI51ZAN , MINI52LAN, MINI52ZAN, MINI54LAN, MINI54ZAN</Device>
   </SupportDevices>
 
+   
 </Component>

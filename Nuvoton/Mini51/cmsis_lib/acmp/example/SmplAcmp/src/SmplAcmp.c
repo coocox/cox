@@ -15,51 +15,14 @@
 #include "DrvSYS.h"
 #include "MINI51.h"
 
+static uint32_t acmpIntCnt = 0;
+
 //*****************************************************************************
 //
 //!Define functions prototype  
 //
 //*****************************************************************************
 void ACMP_IRQHandler(void);
-
-
-//*****************************************************************************
-//
-//! \brief FMC interrupt callback function.
-//!
-//! \param None  
-//!
-//! \return None  
-//
-//*****************************************************************************
-static uint32_t acmpIntCnt = 0;
-void ACMP_IRQHandler(void)
-{
-    acmpIntCnt++;
-    if(ACMP->SR_BITS.CMPF0)
-    {
-        if(ACMP->SR_BITS.CO0 == 1)
-        {
-        }
-        else
-        {
-        }
-
-        ACMP->SR = 1;   // clear
-    }
-
-    if(ACMP->SR_BITS.CMPF1)
-    {
-        if(ACMP->SR_BITS.CO1 == 1)
-        {
-        }
-        else
-        {
-        }
-        ACMP->SR = 2;	// clear
-    }
-}
-
 
 //*****************************************************************************
 //
@@ -105,4 +68,41 @@ void SmplAcmp(void)
     ACMP->CR1 = 0x13;
 
     NVIC_EnableIRQ(ACMP_IRQn);
+}
+
+//*****************************************************************************
+//
+//! \brief FMC interrupt callback function.
+//!
+//! \param None  
+//!
+//! \return None  
+//
+//*****************************************************************************
+
+void ACMP_IRQHandler(void)
+{
+    acmpIntCnt++;
+    if(ACMP->SR_BITS.CMPF0)
+    {
+        if(ACMP->SR_BITS.CO0 == 1)
+        {
+        }
+        else
+        {
+        }
+
+        ACMP->SR = 1;   // clear
+    }
+
+    if(ACMP->SR_BITS.CMPF1)
+    {
+        if(ACMP->SR_BITS.CO1 == 1)
+        {
+        }
+        else
+        {
+        }
+        ACMP->SR = 2;	// clear
+    }
 }

@@ -1,13 +1,13 @@
 <?xml version="1.0" ?>
 <Component>
-  <Name>sysctl</Name>
-  <Description>Mini51 System Manager Driver</Description>
+  <Name>SYS</Name>
+  <Description>Mini51 System Manager and Clock Driver</Description>
   <Category>Peripheral</Category>
   <Version>1.0.0</Version>
-  <Tags>SysCtl</Tags>
+  <Tags>SYS</Tags>
   
   <files>
-    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\Include\DrvSYS.h</File>
+    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\Include\Driver\DrvSYS.h</File>
     <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\Source\DrvSYS.c</File>
   </files>
   

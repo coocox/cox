@@ -10,7 +10,11 @@
 //! COPYRIGHT 2011 Nuvoton Technology Corp.
 //
 //*****************************************************************************
-
+void P0P1Callback(uint32_t u32P0Status, uint32_t u32P1Status);
+void P2P3P4Callback(uint32_t u32P2Status, uint32_t u32P3Status, uint32_t u32P4Status);
+void P5Callback(uint32_t u32P5Status);
+void EINT0Callback(void);
+void EINT1Callback(void);
 //*****************************************************************************
 //
 //! Include related header files  
@@ -18,35 +22,6 @@
 //*****************************************************************************
 #include "DrvGPIO.h"
 #include "DrvSYS.h"
-
-void P0P1Callback(uint32_t u32P0Status, uint32_t u32P1Status)
-{
-
-	DrvGPIO_SetBit(E_PORT2, E_PIN0);
-}
-
-void P2P3P4Callback(uint32_t u32P2Status, uint32_t u32P3Status, uint32_t u32P4Status)
-{
-	DrvGPIO_SetBit(E_PORT2, E_PIN0);
-}
-
-void P5Callback(uint32_t u32P5Status)
-{
-
-	DrvGPIO_SetBit(E_PORT2, E_PIN0);
-}
-
-void EINT0Callback(void)
-{
-	DrvGPIO_SetBit(E_PORT2, E_PIN0);
-
-}
-
-void EINT1Callback(void)
-{
-	DrvGPIO_SetBit(E_PORT2, E_PIN0);
-
-}
 
 //*****************************************************************************
 //
@@ -144,3 +119,34 @@ void GpioTest(void)
     DrvGPIO_EnableEINT(E_EINT0_PIN, E_IO_FALLING, E_MODE_EDGE, EINT0Callback);
     DrvGPIO_EnableEINT(E_EINT1_PIN, E_IO_BOTH_EDGE, E_MODE_EDGE, EINT1Callback);
 }
+
+void P0P1Callback(uint32_t u32P0Status, uint32_t u32P1Status)
+{
+
+	DrvGPIO_SetBit(E_PORT2, E_PIN0);
+}
+
+void P2P3P4Callback(uint32_t u32P2Status, uint32_t u32P3Status, uint32_t u32P4Status)
+{
+	DrvGPIO_SetBit(E_PORT2, E_PIN0);
+}
+
+void P5Callback(uint32_t u32P5Status)
+{
+
+	DrvGPIO_SetBit(E_PORT2, E_PIN0);
+}
+
+void EINT0Callback(void)
+{
+	DrvGPIO_SetBit(E_PORT2, E_PIN0);
+
+}
+
+void EINT1Callback(void)
+{
+	DrvGPIO_SetBit(E_PORT2, E_PIN0);
+
+}
+
+

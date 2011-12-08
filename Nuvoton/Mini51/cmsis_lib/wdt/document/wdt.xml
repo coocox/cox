@@ -1,13 +1,13 @@
 <?xml version="1.0" ?>
 <Component>
-  <Name>wdt</Name>
+  <Name>WDT</Name>
   <Description>Mini51 Watchdog Timer Driver</Description>
   <Category>Peripheral</Category>
   <Version>1.0.0</Version>
   <Tags>WDT</Tags>
   
   <files>
-    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\Include\DrvTIMER.h</File>
+    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\Include\Driver\DrvTIMER.h</File>
     <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\Source\DrvTIMER.c</File>
   </files>
   
@@ -18,7 +18,7 @@
   
   <Dependencys>
     <Dependency>CMSIS_BOOT</Dependency>
-    <Dependency>SysCtl</Dependency>
+    <Dependency>SYS</Dependency>
     <Dependency>GPIO</Dependency>
   </Dependencys>
   

@@ -1,11 +1,11 @@
 <?xml version="1.0" ?>
 <Example>
   <Name>SmplUart</Name>
-  <Description>This example shows how to use UART. Step 1: Set 
-system clock. Step 2: Enable UART ,Interrupt and Configure UART
-parameter. Step 3: Transfer data and trig interrupt.This example
-runs on Nu-LB-Mini_V001 Development Board,and it's suit for 
-Mini51 serial mcu.
+  <Description>This example shows how to use UART. Step 1: 
+    Set system clock. Step 2: Enable UART ,Interrupt and 
+    Configure UART parameter. Step 3: Transfer data and 
+    trig interrupt.This example runs on Nu-LB-Mini_V001 
+    Development Board,and it's suit for Mini51 serial mcu.
   </Description>
   <Version>1.0.0</Version>
   <Tags>UART</Tags>
