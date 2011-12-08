@@ -1,13 +1,13 @@
 <?xml version="1.0" ?>
 <Component>
-  <Name>gpio</Name>
+  <Name>I2C</Name>
   <Description>Mini51 I2C Serial Interface Controller Driver</Description>
   <Category>Peripheral</Category>
   <Version>1.0.0</Version>
   <Tags>I2C</Tags>
   
   <files>
-    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\Include\DrvI2C.h</File>
+    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\Include\Driver\DrvI2C.h</File>
     <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\Source\DrvI2C.c</File>
   </files>
   
@@ -18,7 +18,7 @@
   
   <Dependencys>
     <Dependency>CMSIS_BOOT</Dependency>
-    <Dependency>SysCtl</Dependency>
+    <Dependency>SYS</Dependency>
     <Dependency>GPIO</Dependency>
   </Dependencys>
   

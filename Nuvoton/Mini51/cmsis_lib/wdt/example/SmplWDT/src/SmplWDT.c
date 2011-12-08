@@ -14,20 +14,7 @@
 #include "DrvGPIO.h"
 #include "DrvTimer.h"
 
-/*---------------------------------------------------------------------------------------------------------*/
-/*  Callback funtion                                                                                       */
-/*---------------------------------------------------------------------------------------------------------*/
-
-volatile uint8_t b8WDTINT = FALSE;
-
-void WDT_Callback()
-{
-    b8WDTINT = TRUE;
-
-    DrvWDT_Ioctl(E_WDT_IOC_RESET_TIMER, 0);
-
-    DrvWDT_Close();
-}
+void WDT_Callback();
 
 void SmplWDT(void)
 {
@@ -63,6 +50,20 @@ void SmplWDT(void)
 
 }
 
+/*---------------------------------------------------------------------------------------------------------*/
+/*  Callback funtion                                                                                       */
+/*---------------------------------------------------------------------------------------------------------*/
+
+volatile uint8_t b8WDTINT = FALSE;
+
+void WDT_Callback()
+{
+    b8WDTINT = TRUE;
+
+    DrvWDT_Ioctl(E_WDT_IOC_RESET_TIMER, 0);
+
+    DrvWDT_Close();
+}
 
 
 /*** (C) COPYRIGHT 2011 Nuvoton Technology Corp. ***/

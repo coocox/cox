@@ -1,11 +1,11 @@
 <?xml version="1.0" ?>
 <Example>
   <Name>PWMOutput</Name>
-  <Description>This example shows how to use PWM. Step 1: Set 
-system clock.Step 2: Enable pwm and select clock source. Step 3:
-Set PWM parameter and start PWW.This example runs on 
-Nu-LB-Mini_V001 Development Board,and it's suit for Mini51
-serial mcu.
+  <Description>This example shows how to use PWM. Step 1: 
+    Set system clock. Step 2: Enable pwm and select clock
+    source. Step 3: Set PWM parameter and start PWW.This 
+    example runs on Nu-LB-Mini_V001 Development Board,and
+    it's suit for Mini51 serial mcu.
   </Description>
   <Version>1.0.0</Version>
   <Tags>PWM</Tags>

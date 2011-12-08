@@ -38,6 +38,32 @@ volatile uint8_t gu8AdcIntFlag;
 
 //*****************************************************************************
 //
+//! \brief ADCSingleMode
+//!
+//! \param None  
+//!
+//! \return None  
+//
+//*****************************************************************************
+void ADCSingleMode(void)
+{
+    UNLOCKREG();
+
+    GCR->P5_MFP = (GCR->P5_MFP & 0x00FFFCFC) | 0x03;  /* P5.1 -> XTAL2, P5.0 -> XTAL1 */
+    CLK->PWRCON_BITS.XTLCLK_EN = 1;
+
+    /* Waiting for 12M Xtal stalble */
+    while (DrvSYS_GetChipClockSourceStatus(XTL_CLK) != 1);
+    /*                           ADC sample code                                       */
+
+    /* default setting: single end input, single operation mode, all channel disable, ADC clock frequency = 12MHz/(3+1) */
+    DrvADC_Open(0, EXTERNAL_CLOCK, 3);
+    AdcSingleModeTest();
+
+    DrvADC_Close();
+}
+//*****************************************************************************
+//
 //! \brief ADC single mode test.
 //!
 //! \param None  
@@ -79,31 +105,4 @@ void AdcSingleModeTest()
 void AdcIntCallback_SingleMode(uint32_t u32UserData)
 {
     gu8AdcIntFlag = 1;
-}
-
-//*****************************************************************************
-//
-//! \brief ADCSingleMode
-//!
-//! \param None  
-//!
-//! \return None  
-//
-//*****************************************************************************
-void ADCSingleMode(void)
-{
-    UNLOCKREG();
-
-    GCR->P5_MFP = (GCR->P5_MFP & 0x00FFFCFC) | 0x03;  /* P5.1 -> XTAL2, P5.0 -> XTAL1 */
-    CLK->PWRCON_BITS.XTLCLK_EN = 1;
-
-    /* Waiting for 12M Xtal stalble */
-    while (DrvSYS_GetChipClockSourceStatus(XTL_CLK) != 1);
-    /*                           ADC sample code                                       */
-
-    /* default setting: single end input, single operation mode, all channel disable, ADC clock frequency = 12MHz/(3+1) */
-    DrvADC_Open(0, EXTERNAL_CLOCK, 3);
-    AdcSingleModeTest();
-
-    DrvADC_Close();
 }

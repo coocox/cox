@@ -23,28 +23,7 @@ int32_t g_bCapInt = 0;
 uint8_t volatile g_u8PWMCount = 0;
 uint16_t g_u16Frequency;
 static uint32_t s_u32Pulse = 0;
-
-//*****************************************************************************
-//
-//! PWM Timer Callback function
-//
-//*****************************************************************************
-void PWMA_IRQHandler(void)
-{
-    if (s_u32Pulse == g_u16Frequency)
-    {
-     //
-     // Stop PWM Timer 3
-     // Set PWM Timer counter as 0, When interrupt request happen, disable PWM Timer
-     // 
-        DrvPWM_SetTimerCounter(DRVPWM_TIMER3, 0);
-		DrvPWM_SetTimerComparator(DRVPWM_TIMER3, 0);
-    }
-
-    if (s_u32Pulse == g_u16Frequency + 1)
-        g_u8PWMCount = 0;
-    s_u32Pulse++;
-}
+void PWMA_IRQHandler(void);
 
 //*****************************************************************************
 //
@@ -137,3 +116,26 @@ void PWMOutput(void)
     }
     DrvPWM_Close();
 }
+
+//*****************************************************************************
+//
+//! PWM Timer Callback function
+//
+//*****************************************************************************
+void PWMA_IRQHandler(void)
+{
+    if (s_u32Pulse == g_u16Frequency)
+    {
+     //
+     // Stop PWM Timer 3
+     // Set PWM Timer counter as 0, When interrupt request happen, disable PWM Timer
+     // 
+        DrvPWM_SetTimerCounter(DRVPWM_TIMER3, 0);
+		DrvPWM_SetTimerComparator(DRVPWM_TIMER3, 0);
+    }
+
+    if (s_u32Pulse == g_u16Frequency + 1)
+        g_u8PWMCount = 0;
+    s_u32Pulse++;
+}
+

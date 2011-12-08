@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<Component>
+  <Name>System Definitions</Name>
+  <Description>Mini51 System Definitions</Description>
+  <Category>Peripheral.NUVOTON</Category>
+  <Version>1.0.0</Version>
+  <Tags>System Definitions</Tags>
+  
+  <files>
+    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\Include\System\ModuleID.h</File>
+    <File>$REPO_ROOT$\Nuvoton\Mini51\cmsis_lib\lib\Include\System\SysInfra.h</File>
+  </files>
+  
+  <CoIDEFiles>
+    <File>$PROJECT_ROOT$cmsis_lib\include\System\ModuleID.h</File>
+    <File>$PROJECT_ROOT$cmsis_lib\include\System\SysInfra.h</File>
+  </CoIDEFiles>
+  
+  <Dependencys>
+    <Dependency>CMSIS_BOOT</Dependency>
+    <Dependency>SYS</Dependency>
+  </Dependencys>
+  
+  <SupportDevices>
+    <Device>MINI51LAN , MINI51ZAN , MINI52LAN, MINI52ZAN, MINI54LAN, MINI54ZAN</Device>
+  </SupportDevices>
+
+   
+</Component>
