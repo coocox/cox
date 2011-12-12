@@ -384,6 +384,9 @@ extern void xSysCtlPeripheralEnable2(unsigned long ulPeripheralBase);
 extern void xSysCtlPeripheralDisable2(unsigned long ulPeripheralBase);
 extern void xSysCtlPeripheralReset2(unsigned long ulPeripheralBase);
 
+extern unsigned long xSysCtlPeripheralIntNumGet(unsigned long ulPeripheralBase);
+extern unsigned long xSysCtlPeripheralIdGet(unsigned long ulPeripheralBase);
+
 extern void xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig);
 
 //*****************************************************************************

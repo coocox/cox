@@ -725,7 +725,7 @@ xSysCtlPeripheralReset2(unsigned long ulPeripheralBase)
 //
 //*****************************************************************************
 unsigned long 
-xSysCtlPeripheraIntNumGet(unsigned long ulPeripheralBase)
+xSysCtlPeripheralIntNumGet(unsigned long ulPeripheralBase)
 {
     unsigned long i;
                 
@@ -734,6 +734,32 @@ xSysCtlPeripheraIntNumGet(unsigned long ulPeripheralBase)
         if(ulPeripheralBase == g_pPeripherals[i].ulPeripheralBase)
         {
             return g_pPeripherals[i].ulPeripheralIntNum;
+        }
+    }
+    
+    return 0;
+}
+
+//*****************************************************************************
+//
+//! \brief Get the peripheral ID through peripheral base.
+//!
+//! \param ulPeripheralBase The peripheral's base  
+//!
+//!
+//! \return None.
+//
+//*****************************************************************************
+unsigned long 
+xSysCtlPeripheralIdGet(unsigned long ulPeripheralBase)
+{
+    unsigned long i;
+                
+    for(i = 0; g_pPeripherals[i].ulPeripheralBase != 0; i++)
+    {
+        if(ulPeripheralBase == g_pPeripherals[i].ulPeripheralBase)
+        {
+            return g_pPeripherals[i].ulPeripheralID;
         }
     }
     

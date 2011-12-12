@@ -56,7 +56,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup Stellaris_Register
+//! \addtogroup Stellaris_Register_SysCtl
 //! \brief Here are the detailed info of SysCtl registers. 
 //!
 //! it contains:

@@ -1640,6 +1640,12 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xdebug.h</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xgpio.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_gpio.h</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_ints.h</name>
         </file>
         <file>
@@ -1665,6 +1671,9 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xdebug.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xgpio.c</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xsysctl.c</name>
