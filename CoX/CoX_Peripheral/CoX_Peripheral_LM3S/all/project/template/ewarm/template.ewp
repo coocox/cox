@@ -1640,7 +1640,13 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xdebug.h</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xdma.h</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xgpio.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_dma.h</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_gpio.h</name>
@@ -1661,7 +1667,13 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_types.h</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_uart.h</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xsysctl.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xuart.h</name>
         </file>
       </group>
       <group>
@@ -1673,10 +1685,16 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xdebug.c</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xdma.c</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xgpio.c</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xsysctl.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xuart.c</name>
         </file>
       </group>
     </group>
