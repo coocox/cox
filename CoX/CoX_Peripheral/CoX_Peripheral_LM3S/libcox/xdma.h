@@ -74,8 +74,27 @@
 
 //*****************************************************************************
 //
-//! \addtogroup xDMA_Config
+//! \addtogroup xDMA_Config xDMA User Configuration
 //! @{
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup xDMA_Config_Stellaris xDMA User Configuration Stellaris Part
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Stellaris uDMA control table size(byte), user can change the value to reduce
+//! ram the lib used
+//
+#define UDMA_CONTROL_TABLE_SIZE 1024
+
+//*****************************************************************************
+//
+//! @}
 //
 //*****************************************************************************
 
@@ -378,21 +397,21 @@
 //! +-------------------------+----------------+-----------------+
 //! |xDMA Control Config      |       CoX      |    Stellaris    |
 //! |-------------------------|----------------|-----------------|
-//! |xDMA_DST_INC_$x$         |  Non-Mandatory | xDMA_DST_INC_8  |
-//! |                         |                | xDMA_DST_INC_16 |
-//! |                         |                | xDMA_DST_INC_32 |
+//! |xDMA_DST_INC_$x$         |  Non-Mandatory |xDMA_DST_INC_8   |
+//! |                         |                |xDMA_DST_INC_16  |
+//! |                         |                |xDMA_DST_INC_32  |
 //! |                         |                |xDMA_DST_INC_NONE|
 //! |-------------------------|----------------|-----------------|
-//! |xDMA_SRC_INC_$x$         |  Non-Mandatory | xDMA_SRC_INC_8  |
-//! |                         |                | xDMA_SRC_INC_16 |
-//! |                         |                | xDMA_SRC_INC_32 |
+//! |xDMA_SRC_INC_$x$         |  Non-Mandatory |xDMA_SRC_INC_8   |
+//! |                         |                |xDMA_SRC_INC_16  |
+//! |                         |                |xDMA_SRC_INC_32  |
 //! |                         |                |xDMA_SRC_INC_NONE|
 //! |-------------------------|----------------|-----------------|
-//! |xDMA_DST_SIZE_$x$        |  Non-Mandatory | xDMA_DST_SIZE_8 |
+//! |xDMA_DST_SIZE_$x$        |  Non-Mandatory |xDMA_DST_SIZE_8  |
 //! |                         |                |xDMA_DST_SIZE_16 |
 //! |                         |                |xDMA_DST_SIZE_32 |
 //! |-------------------------|----------------|-----------------|
-//! |xDMA_SRC_SIZE_$x$        |  Non-Mandatory | xDMA_SRC_SIZE_8 |
+//! |xDMA_SRC_SIZE_$x$        |  Non-Mandatory |xDMA_SRC_SIZE_8  |
 //! |                         |                |xDMA_SRC_SIZE_16 |
 //! |                         |                |xDMA_SRC_SIZE_32 |
 //! |-------------------------|----------------|-----------------|
@@ -411,7 +430,7 @@
 //! |xDMA_MODE_BASIC          |  Non-Mandatory |        N        |
 //! |-------------------------|----------------|-----------------|
 //! |xDMA_MODE_AUTO           |  Non-Mandatory |        N        |
-//! +-------------------------+----------------+----------------+
+//! +-------------------------+----------------+-----------------+
 //! \endverbatim
 //! @{
 //
@@ -486,7 +505,7 @@
 #define xDMA_MODE_BASIC         0x00000001
 //
 //! Perform a transfer that will always complete once started even if request
-//!is removed. This mode is suitable for software-triggered transfers.
+//! is removed. This mode is suitable for software-triggered transfers.
 //
 #define xDMA_MODE_AUTO          0x00000002
 
@@ -499,6 +518,43 @@
 //*****************************************************************************
 //
 //! \addtogroup xDMA_Exported_APIs xDMA API
+//!
+//! \section xDMA_Exported_APIs_Port CoX Port Details
+//! \verbatim
+//! +---------------------------+----------------+---------+
+//! |xDMA API                   |       CoX      |Stellaris|
+//! |---------------------------|----------------|---------|
+//! |xDMAEnable                 |    Mandatory   |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMADisable                |    Mandatory   |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMAChannelDynamicAssign   |    Mandatory   |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMAChannelAssignmentGet   |    Mandatory   |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMAChannelDeAssign        |    Mandatory   |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMAChannelAttributeSet    |    Mandatory   |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMAChannelAttributeGet    |    Mandatory   |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMAChannelControlSet      |    Mandatory   |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMAChannelTransferSet     |    Mandatory   |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMAChannelIntCallbackInit |    Mandatory   |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMAChannelIntCallbackGet  |  Non-Mandatory |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMAChannelIntEnable       |    Mandatory   |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMAChannelIntDisable      |    Mandatory   |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMAIntEnable              |  Non-Mandatory |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMAIntDisable             |  Non-Mandatory |    Y    |
+//! +---------------------------+----------------+---------+
+//! \endverbatim
 //! @{
 //
 //*****************************************************************************
@@ -643,20 +699,6 @@ extern xtEventCallback xDMAChannelIntCallbackGet(unsigned long ulChannelID);
 //
 //! \addtogroup Stellaris_DMA
 //! @{
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup Stellaris_DMA_Config DMA User Configuration
-//! @{
-//
-//*****************************************************************************
-#define UDMA_CONTROL_TABLE_SIZE 1024
-
-//*****************************************************************************
-//
-//! @}
 //
 //*****************************************************************************
 
@@ -1072,7 +1114,7 @@ tDMAControlTable;
 
 //*****************************************************************************
 //
-//! \addtogroup Stellaris_DMA_Exported_APIs
+//! \addtogroup Stellaris_DMA_Exported_APIs Stellaris DMA API
 //! @{
 //
 //*****************************************************************************

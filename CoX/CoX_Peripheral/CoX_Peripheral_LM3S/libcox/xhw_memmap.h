@@ -77,6 +77,7 @@
 
 #define xFLASH_BASE             FLASH_BASE
 #define xSRAM_BASE              SRAM_BASE
+#define xACMP_BASE              COMP_BASE   // Analog comparators
 #define xGPIO_PORTA_BASE        GPIO_PORTA_BASE
 #define xGPIO_PORTB_BASE        GPIO_PORTB_BASE
 #define xGPIO_PORTC_BASE        GPIO_PORTC_BASE

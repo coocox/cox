@@ -80,6 +80,7 @@
 //*****************************************************************************
 
 #define xUART_CONFIG_DMA_INT    0
+
 //*****************************************************************************
 //
 //! @}
@@ -97,7 +98,7 @@
 //! \section xUART_Ints_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Interrupts        |       CoX      |         NUC1xx         |
+//! |xUART Interrupts        |       CoX      |        Stellaris       |
 //! |------------------------|----------------|------------------------|
 //! |xUART_INT_ERROR         |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -186,7 +187,7 @@
 //! \section xUART_Event_Flag_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Events            |       CoX      |         NUC1xx         |
+//! |xUART Events            |       CoX      |        Stellaris       |
 //! |------------------------|----------------|------------------------|
 //! |xUART_EVENT_TX          |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -286,7 +287,7 @@
 //! \section xUART_Event_Flag_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Error             |       CoX      |         NUC1xx         |
+//! |xUART Error             |       CoX      |        Stellaris       |
 //! |------------------------|----------------|------------------------|
 //! |xUART_RXERROR_OVERRUN   |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -324,7 +325,7 @@
 //! \section xUART_Frame_Configs_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Frame Config      |       CoX      |         NUC1xx         |
+//! |xUART Frame Config      |       CoX      |        Stellaris       |
 //! |------------------------|----------------|------------------------|
 //! |xUART_CONFIG_WLEN_MASK  |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -344,9 +345,9 @@
 //! |------------------------|----------------|------------------------|
 //! |xUART_CONFIG_PAR_ODD    |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
-//! |xUART_CONFIG_PAR_ONE    |  Non-Mandatory |            N           |
+//! |xUART_CONFIG_PAR_ONE    |  Non-Mandatory |            Y           |
 //! |------------------------|----------------|------------------------|
-//! |xUART_CONFIG_PAR_ZERO   |  Non-Mandatory |            N           |
+//! |xUART_CONFIG_PAR_ZERO   |  Non-Mandatory |            Y           |
 //! |------------------------|----------------|------------------------|
 //! |xUART_CONFIG_STOP_MASK  |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -454,7 +455,7 @@
 //! \section xUART_IrDA_Mode_CoX 2. CoX Port Details 
 //! \verbatim
 //! +-------------------------+----------------+------------------------+
-//! |xUART IrDA Mode          |       CoX      |         NUC1xx         |
+//! |xUART IrDA Mode          |       CoX      |        Stellaris       |
 //! |-------------------------|----------------|------------------------|
 //! |xUART_IRDA_MODE_MASK     |  Non-Mandatory |            Y           |
 //! |-------------------------|----------------|------------------------|
@@ -501,7 +502,7 @@
 //! \section xUART_Enable_Blocks_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Enable Block      |       CoX      |         NUC1xx         |
+//! |xUART Enable Block      |       CoX      |        Stellaris       |
 //! |------------------------|----------------|------------------------|
 //! |xUART_BLOCK_UART        |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -546,7 +547,7 @@
 //! \section xUART_FIFO_Rx_Tiggle_Level_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |FIFO Tx Tiggle Level    |       CoX      |         NUC1xx         |
+//! |FIFO Tx Tiggle Level    |       CoX      |        Stellaris       |
 //! |------------------------|----------------|------------------------|
 //! |xUART_FIFO_TX_n         |    Mandatory   |     xUART_FIFO_TX_0    |
 //! |                        |                |------------------------|
@@ -612,7 +613,7 @@
 //! \section xUART_FIFO_Rx_Tiggle_Level_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |FIFO Rx Tiggle Level    |       CoX      |         NUC1xx         |
+//! |FIFO Rx Tiggle Level    |       CoX      |        Stellaris       |
 //! |------------------------|----------------|------------------------|
 //! |xUART_FIFO_RX_n         |    Mandatory   |     xUART_FIFO_RX_1    |
 //! |                        |                |------------------------|
@@ -671,7 +672,7 @@
 //! \section xUART_Modem_Output_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Modem Output      |       CoX      |         NUC1xx         |
+//! |xUART Modem Output      |       CoX      |        Stellaris       |
 //! |------------------------|----------------|------------------------|
 //! |xUART_OUTPUT_RTS        |  Non-Mandatory |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -702,7 +703,7 @@
 //! \section xUART_Modem_Intput_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Modem Input       |       CoX      |         NUC1xx         |
+//! |xUART Modem Input       |       CoX      |        Stellaris       |
 //! |------------------------|----------------|------------------------|
 //! |xUART_INPUT_CTS         |  Non-Mandatory |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -739,7 +740,7 @@
 //! \section xUART_Flow_Control_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Flow Control      |       CoX      |         NUC1xx         |
+//! |xUART Flow Control      |       CoX      |        Stellaris       |
 //! |------------------------|----------------|------------------------|
 //! |xUART_FLOWCONTROL_TX    |  Non-Mandatory |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -789,7 +790,7 @@
 //! |                             |                |xUART_LIN_SYNC_BREAK_LEN_15|
 //! |                             |                |---------------------------|
 //! |                             |                |xUART_LIN_SYNC_BREAK_LEN_16|
-//! +-----------------------------+----------------+-------------------+
+//! +-----------------------------+----------------+---------------------------+
 //! \endverbatim
 //! @{
 //
@@ -821,7 +822,74 @@
 
 //*****************************************************************************
 //
-//! \addtogroup xUART_Exported_APIs
+//! \addtogroup xUART_Exported_APIs xUART API
+//!
+//! \section xUART_Exported_APIs_Port CoX Port Details
+//! \verbatim
+//! +------------------------+----------------+---------+
+//! |xUART API               |       CoX      |Stellaris|
+//! |------------------------|----------------|---------|
+//! |xUARTConfigSet          |    Mandatory   |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTEnable             |    Mandatory   |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTDisable            |    Mandatory   |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTFIFOEnable         |  Non-Mandatory |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTFIFODisable        |  Non-Mandatory |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTFIFORxLevelSet     |  Non-Mandatory |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTCharsAvail         |  Non-Mandatory |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTSpaceAvail         |  Non-Mandatory |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTCharGetNonBlocking |    Mandatory   |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTCharGet            |    Mandatory   |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTCharPutNonBlocking |    Mandatory   |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTCharPut            |    Mandatory   |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTBusy               |  Non-Mandatory |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTIntEnable          |    Mandatory   |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTIntCallbackInit    |    Mandatory   |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTIntDisable         |    Mandatory   |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTRxErrorGet         |    Mandatory   |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTRxErrorClear       |    Mandatory   |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTModemControlSet    |  Non-Mandatory |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTModemControlClear  |  Non-Mandatory |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTModemControlGet    |  Non-Mandatory |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTModemStatusGet     |  Non-Mandatory |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTFlowControlSet     |  Non-Mandatory |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTFlowControlGet     |  Non-Mandatory |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTIrDAConfig         |  Non-Mandatory |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTIrDAEnable         |  Non-Mandatory |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTIrDADisable        |  Non-Mandatory |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTLINConfig          |  Non-Mandatory |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTLINEnable          |  Non-Mandatory |    Y    |
+//! |------------------------|----------------|---------|
+//! |xUARTLINDisable         |  Non-Mandatory |    Y    |
+//! |------------------------|----------------|---------|
+//! \endverbatim
 //! @{
 //
 //*****************************************************************************
@@ -1822,7 +1890,6 @@ extern void xUARTIntCallbackInit(unsigned long ulBase,
 //
 //*****************************************************************************
 
-
 //*****************************************************************************
 //
 //! \addtogroup Stellaris_UART_DMA_Control UART DMA Control
@@ -1952,7 +2019,6 @@ extern void xUARTIntCallbackInit(unsigned long ulBase,
 //
 //*****************************************************************************
 
-
 //*****************************************************************************
 //
 //! \addtogroup Stellaris_UART_LIN_Config UART LIN Configuration
@@ -1992,6 +2058,7 @@ extern void xUARTIntCallbackInit(unsigned long ulBase,
 //! @{
 //
 //*****************************************************************************
+
 extern void UARTParityModeSet(unsigned long ulBase, unsigned long ulParity);
 extern unsigned long UARTParityModeGet(unsigned long ulBase);
 extern void UARTFIFOLevelSet(unsigned long ulBase, unsigned long ulTxLevel,

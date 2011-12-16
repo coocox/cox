@@ -56,14 +56,14 @@
 
 //*****************************************************************************
 //
-//! \addtogroup Stellaris_UART_Register
+//! \addtogroup Stellaris_UART_Register Stellaris UART Register
 //! @{
 //
 //*****************************************************************************
 
 //*****************************************************************************
 //
-//! \addtogroup Stellaris_UART_Register_Offsets
+//! \addtogroup Stellaris_UART_Register_Offsets Stellaris UART Register Map(Offset)
 //! @{
 //
 //*****************************************************************************

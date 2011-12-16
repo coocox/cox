@@ -1634,6 +1634,9 @@
       <group>
         <name>inc</name>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xacmp.h</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xcore.h</name>
         </file>
         <file>
@@ -1644,6 +1647,9 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xgpio.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_acmp.h</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_dma.h</name>
@@ -1678,6 +1684,9 @@
       </group>
       <group>
         <name>src</name>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xacmp.c</name>
+        </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xcore.c</name>
         </file>
