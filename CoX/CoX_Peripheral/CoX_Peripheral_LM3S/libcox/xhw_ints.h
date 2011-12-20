@@ -82,6 +82,11 @@
 #define xFAULT_DEBUG            FAULT_DEBUG
 #define xFAULT_PENDSV           FAULT_PENDSV
 #define xFAULT_SYSTICK          FAULT_SYSTICK
+
+#define xINT_ACMP0              (NUM_INTERRUPTS + 1)
+#define xINT_ADC0               INT_ADC0SS0
+#define xINT_ADC1               INT_ADC1SS0
+#define xINT_DMA                (NUM_INTERRUPTS + 2)
 #define xINT_GPIOA              INT_GPIOA
 #define xINT_GPIOB              INT_GPIOB
 #define xINT_GPIOC              INT_GPIOC

@@ -332,13 +332,13 @@ ComparatorIntDisable(unsigned long ulBase, unsigned long ulComp)
 //! \brief Comparator 0 Interrupt Handler.
 //!
 //! If users want to user the COMP0 Interrupt Callback feature, Users should 
-//! promise that the COMP0 Handle in the vector table is COMP0IntHandler.
+//! promise that the COMP0 Handle in the vector table is ACMP1IntHandler.
 //!
 //! \return None.
 //
 //*****************************************************************************
 void
-Comp0IntHander(void)    
+ACMP0IntHandler(void)    
 {
     unsigned long ulBase = COMP_BASE;
     unsigned long ulComp = 0;
@@ -369,13 +369,13 @@ Comp0IntHander(void)
 //! \brief Comparator 1 Interrupt Handler.
 //!
 //! If users want to user the COMP1 Interrupt Callback feature, Users should 
-//! promise that the COMP1 Handle in the vector table is COMP1IntHandler.
+//! promise that the COMP1 Handle in the vector table is ACMP1IntHandler.
 //!
 //! \return None.
 //
 //*****************************************************************************
 void
-Comp1IntHander(void)    
+ACMP1IntHandler(void)    
 {
     unsigned long ulBase = COMP_BASE;
     unsigned long ulComp = 1;
@@ -405,14 +405,14 @@ Comp1IntHander(void)
 //
 //! \brief Comparator 2 Interrupt Handler.
 //!
-//! If users want to user the COMP0 Interrupt Callback feature, Users should 
-//! promise that the COMP0 Handle in the vector table is COMP2IntHandler.
+//! If users want to user the COMP2 Interrupt Callback feature, Users should 
+//! promise that the COMP2 Handle in the vector table is ACMP2IntHandler.
 //!
 //! \return None.
 //
 //*****************************************************************************
 void
-Comp2IntHander(void)    
+ACMP2IntHandler(void)    
 {
     unsigned long ulBase = COMP_BASE;
     unsigned long ulComp = 2;

@@ -549,10 +549,6 @@
 //! |xDMAChannelIntEnable       |    Mandatory   |    Y    |
 //! |---------------------------|----------------|---------|
 //! |xDMAChannelIntDisable      |    Mandatory   |    Y    |
-//! |---------------------------|----------------|---------|
-//! |xDMAIntEnable              |  Non-Mandatory |    Y    |
-//! |---------------------------|----------------|---------|
-//! |xDMAIntDisable             |  Non-Mandatory |    Y    |
 //! +---------------------------+----------------+---------+
 //! \endverbatim
 //! @{
@@ -642,46 +638,6 @@ extern xtEventCallback xDMAChannelIntCallbackGet(unsigned long ulChannelID);
 //*****************************************************************************
 #define xDMAChannelIntDisable(ulChannelID, ulIntFlags)                        \
         {}
-
-//*****************************************************************************
-//
-//! \brief Enables the DMA interrupt through NVIC.
-//!
-//! Enable the DMA interrupt.
-//!
-//! \note In the stellaris implement, this function enables 
-//! the DMA Software Transfer, and DMA Error interrupt.
-//!
-//! \return None.
-//
-//*****************************************************************************
-#define xDMAIntEnable()                                                       \
-        do                                                                    \
-        {                                                                     \
-            xIntEnable(INT_UDMA);                                             \
-            xIntEnable(INT_UDMAERR);                                          \
-        }                                                                     \
-        while(0)
-
-//*****************************************************************************
-//
-//! \brief Disables the DMA interrupt through NVIC.
-//!
-//! Disables the DMA interrupt.
-//!
-//! \note In the stellaris implement, this function disables 
-//! the uDMA Software Transfer, and uDMA Error interrupt.
-//!
-//! \return None.
-//
-//*****************************************************************************
-#define xDMAIntDisable()                                                      \
-        do                                                                    \
-        {                                                                     \
-            xIntDisable(INT_UDMA);                                            \
-            xIntDisable(INT_UDMAERR);                                         \
-        }                                                                     \
-        while(0)        
 
 //*****************************************************************************
 //

@@ -1633,8 +1633,44 @@
       <name>CoX_Peripheral</name>
       <group>
         <name>inc</name>
+        <group>
+          <name>lowlayer</name>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_acmp.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_adc.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_dma.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_gpio.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_ints.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_memmap.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_nvic.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_sysctl.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_types.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_uart.h</name>
+          </file>
+        </group>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xacmp.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xadc.h</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xcore.h</name>
@@ -1649,33 +1685,6 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xgpio.h</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_acmp.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_dma.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_gpio.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_ints.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_memmap.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_nvic.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_sysctl.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_types.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_uart.h</name>
-        </file>
-        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xsysctl.h</name>
         </file>
         <file>
@@ -1686,6 +1695,9 @@
         <name>src</name>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xacmp.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xadc.c</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xcore.c</name>

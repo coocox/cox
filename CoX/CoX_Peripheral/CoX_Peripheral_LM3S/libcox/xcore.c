@@ -724,15 +724,64 @@ xIntPrioritySet(unsigned long ulInterrupt, unsigned char ucPriority)
     //
     // Check the arguments.
     //
-    xASSERT((ulInterrupt >= 4) && (ulInterrupt < NUM_INTERRUPTS));
+    xASSERT(((ulInterrupt >= 4) && (ulInterrupt < NUM_INTERRUPTS)) ||
+            (ulInterrupt == xINT_ACMP0) || 
+            (ulInterrupt == xINT_DMA));
 
-    //
-    // Set the interrupt priority.
-    //
-    ulTemp = xHWREG(g_pulRegs[ulInterrupt >> 2]);
-    ulTemp &= ~(0xFF << (8 * (ulInterrupt & 3)));
-    ulTemp |= ucPriority << (8 * (ulInterrupt & 3));
-    xHWREG(g_pulRegs[ulInterrupt >> 2]) = ulTemp;
+    if(ulInterrupt == xINT_ACMP0)
+    {
+        //
+        // Set the interrupt priority of INT_COMP0
+        //
+        ulTemp = xHWREG(g_pulRegs[INT_COMP0 >> 2]);
+        ulTemp &= ~(0xFF << (8 * (INT_COMP0 & 3)));
+        ulTemp |= ucPriority << (8 * (INT_COMP0 & 3));
+        xHWREG(g_pulRegs[INT_COMP0 >> 2]) = ulTemp;   
+
+        //
+        // Set the interrupt priority of INT_COMP1
+        //
+        ulTemp = xHWREG(g_pulRegs[INT_COMP1 >> 2]);
+        ulTemp &= ~(0xFF << (8 * (INT_COMP1 & 3)));
+        ulTemp |= ucPriority << (8 * (INT_COMP1 & 3));
+        xHWREG(g_pulRegs[INT_COMP1 >> 2]) = ulTemp;          
+        
+        //
+        // Set the interrupt priority of INT_COMP2
+        //
+        ulTemp = xHWREG(g_pulRegs[INT_COMP2 >> 2]);
+        ulTemp &= ~(0xFF << (8 * (INT_COMP2 & 3)));
+        ulTemp |= ucPriority << (8 * (INT_COMP2 & 3));
+        xHWREG(g_pulRegs[INT_COMP2 >> 2]) = ulTemp;          
+    }
+    else if(ulInterrupt == xINT_DMA)
+    {
+        //
+        // Set the interrupt priority of INT_UDMA
+        //
+        ulTemp = xHWREG(g_pulRegs[INT_UDMA >> 2]);
+        ulTemp &= ~(0xFF << (8 * (INT_UDMA & 3)));
+        ulTemp |= ucPriority << (8 * (INT_UDMA & 3));
+        xHWREG(g_pulRegs[INT_UDMA >> 2]) = ulTemp; 
+        
+        //
+        // Set the interrupt priority of INT_UDMAERR
+        //
+        ulTemp = xHWREG(g_pulRegs[INT_UDMAERR >> 2]);
+        ulTemp &= ~(0xFF << (8 * (INT_UDMAERR & 3)));
+        ulTemp |= ucPriority << (8 * (INT_UDMAERR & 3));
+        xHWREG(g_pulRegs[INT_UDMAERR >> 2]) = ulTemp;         
+    }
+    else
+    {
+        //
+        // Set the interrupt priority.
+        //
+        ulTemp = xHWREG(g_pulRegs[ulInterrupt >> 2]);
+        ulTemp &= ~(0xFF << (8 * (ulInterrupt & 3)));
+        ulTemp |= ucPriority << (8 * (ulInterrupt & 3));
+        xHWREG(g_pulRegs[ulInterrupt >> 2]) = ulTemp;
+    }
 }
 
 //*****************************************************************************
@@ -754,8 +803,22 @@ xIntPriorityGet(unsigned long ulInterrupt)
     //
     // Check the arguments.
     //
-    xASSERT((ulInterrupt >= 4) && (ulInterrupt < NUM_INTERRUPTS));
+    xASSERT(((ulInterrupt >= 4) && (ulInterrupt < NUM_INTERRUPTS)) ||
+            (ulInterrupt == xINT_ACMP0) || 
+            (ulInterrupt == xINT_DMA));
 
+    //
+    // xINT_ACMP0, xINT_DMA only a flag
+    //
+    if(ulInterrupt == xINT_ACMP0)
+    {
+        ulInterrupt = INT_COMP0;   
+    }
+    else if(ulInterrupt == xINT_DMA)
+    {
+        ulInterrupt = INT_UDMA;   
+    }
+    
     //
     // Return the interrupt priority.
     //
@@ -782,7 +845,9 @@ xIntEnable(unsigned long ulInterrupt)
     //
     // Check the arguments.
     //
-    xASSERT(ulInterrupt < NUM_INTERRUPTS);
+    xASSERT((ulInterrupt < NUM_INTERRUPTS) || 
+            (ulInterrupt == xINT_ACMP0) || 
+            (ulInterrupt == xINT_DMA));
 
     //
     // Determine the interrupt to enable.
@@ -822,12 +887,30 @@ xIntEnable(unsigned long ulInterrupt)
         //
         xHWREG(NVIC_EN0) = 1 << (ulInterrupt - 16);
     }
-    else if(ulInterrupt >= 48)
+    else if((ulInterrupt >= 48) && (ulInterrupt < NUM_INTERRUPTS))
     {
         //
         // Enable the general interrupt.
         //
         xHWREG(NVIC_EN1) = 1 << (ulInterrupt - 48);
+    }
+    else if(ulInterrupt == xINT_ACMP0)
+    {
+        //
+        // Enable the COMP0, COMP1, COMP2 interrupt
+        //
+        xHWREG(NVIC_EN0) = 1 << (INT_COMP0 - 16);
+        xHWREG(NVIC_EN0) = 1 << (INT_COMP1 - 16);        
+        xHWREG(NVIC_EN0) = 1 << (INT_COMP2 - 16);        
+        
+    }
+    else if(ulInterrupt == xINT_DMA)
+    {
+        //
+        // Enable the DMA software, error interrupt
+        //
+        xHWREG(NVIC_EN1) = 1 << (INT_UDMA - 48);
+        xHWREG(NVIC_EN1) = 1 << (INT_UDMAERR - 48);
     }
 }
 
@@ -850,7 +933,9 @@ xIntDisable(unsigned long ulInterrupt)
     //
     // Check the arguments.
     //
-    xASSERT(ulInterrupt < NUM_INTERRUPTS);
+    xASSERT((ulInterrupt < NUM_INTERRUPTS) || 
+            (ulInterrupt == xINT_ACMP0) || 
+            (ulInterrupt == xINT_DMA));
 
     //
     // Determine the interrupt to disable.
@@ -890,13 +975,31 @@ xIntDisable(unsigned long ulInterrupt)
         //
         xHWREG(NVIC_DIS0) = 1 << (ulInterrupt - 16);
     }
-    else if(ulInterrupt >= 48)
+    else if((ulInterrupt >= 48) && (ulInterrupt < NUM_INTERRUPTS))
     {
         //
         // Disable the general interrupt.
         //
         xHWREG(NVIC_DIS1) = 1 << (ulInterrupt - 48);
     }
+    else if(ulInterrupt == xINT_ACMP0)
+    {
+        //
+        // Disable the COMP0, COMP1, COMP2 interrupt
+        //
+        xHWREG(NVIC_DIS0) = 1 << (INT_COMP0 - 16);
+        xHWREG(NVIC_DIS0) = 1 << (INT_COMP1 - 16);        
+        xHWREG(NVIC_DIS0) = 1 << (INT_COMP2 - 16);        
+        
+    }
+    else if(ulInterrupt == xINT_DMA)
+    {
+        //
+        // Disable the DMA software, error interrupt
+        //
+        xHWREG(NVIC_DIS1) = 1 << (INT_UDMA - 48);
+        xHWREG(NVIC_DIS1) = 1 << (INT_UDMAERR - 48);
+    }    
 }
 
 //*****************************************************************************
@@ -922,7 +1025,9 @@ xIntPendSet(unsigned long ulInterrupt)
     //
     // Check the arguments.
     //
-    xASSERT(ulInterrupt < NUM_INTERRUPTS);
+    xASSERT((ulInterrupt < NUM_INTERRUPTS) || 
+            (ulInterrupt == xINT_ACMP0) || 
+            (ulInterrupt == xINT_DMA));
 
     //
     // Determine the interrupt to pend.
@@ -955,13 +1060,25 @@ xIntPendSet(unsigned long ulInterrupt)
         //
         xHWREG(NVIC_PEND0) = 1 << (ulInterrupt - 16);
     }
-    else if(ulInterrupt >= 48)
+    else if((ulInterrupt >= 48) && (ulInterrupt < NUM_INTERRUPTS))
     {
         //
         // Pend the general interrupt.
         //
         xHWREG(NVIC_PEND1) = 1 << (ulInterrupt - 48);
     }
+    else if(ulInterrupt == xINT_ACMP0)
+    {
+        //
+        // Do nothing
+        // 
+    }
+    else if(ulInterrupt == xINT_DMA)
+    {
+        //
+        // Do nothing
+        //
+    }    
 }
 
 //*****************************************************************************
@@ -984,7 +1101,9 @@ xIntPendClear(unsigned long ulInterrupt)
     //
     // Check the arguments.
     //
-    xASSERT(ulInterrupt < NUM_INTERRUPTS);
+    xASSERT((ulInterrupt < NUM_INTERRUPTS) || 
+            (ulInterrupt == xINT_ACMP0) || 
+            (ulInterrupt == xINT_DMA));
 
     //
     // Determine the interrupt to unpend.
@@ -1010,13 +1129,25 @@ xIntPendClear(unsigned long ulInterrupt)
         //
         xHWREG(NVIC_UNPEND0) = 1 << (ulInterrupt - 16);
     }
-    else if(ulInterrupt >= 48)
+    else if((ulInterrupt >= 48) && (ulInterrupt < NUM_INTERRUPTS))
     {
         //
         // Unpend the general interrupt.
         //
         xHWREG(NVIC_UNPEND1) = 1 << (ulInterrupt - 48);
     }
+    else if(ulInterrupt == xINT_ACMP0)
+    {
+        //
+        // Do nothing
+        // 
+    }
+    else if(ulInterrupt == xINT_DMA)
+    {
+        //
+        // Do nothing
+        //
+    } 
 }
 
 //*****************************************************************************
