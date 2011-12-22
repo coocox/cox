@@ -1,0 +1,288 @@
+//********************************************************************************
+//
+//! \defgroup NUC122_SysCtl NUC122 SysCtl
+//!
+//! \brief NUC22 SysCtl Peripheral Driver
+//! 
+//! The CoX Peripheral Library also provide APIs for function full functions of
+//! Nuvoton NUC122 SysCtl.This module supports the whole NUC122 Series.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref NUC122_SysCtl_Block
+//! - \ref NUC122_SysCtl_Function_Desc
+//! - \ref NUC122_SysCtl_API_Group
+//!   - \ref NUC122_API_Group_Peripharal_Control
+//!   - \ref NUC122_API_Group_Clock_Control
+//!   - \ref NUC122_API_Group_Power_Control
+//!   .
+//! - \ref NUC122_SysCtl_Usage
+//! .
+//!
+//! <br />
+//! \section NUC122_SysCtl_Block 1. SysCtl Physical Block
+//! <img src="NUC122_sysctl_block.png" />
+//!
+//! <br />
+//! \section NUC122_SysCtl_Function_Desc 2. Functional Description
+//! The system control block has the following functions:
+//! - The perpheral can be individual enable,disable and reset by software
+//! - The clock controller generates the clocks for the whole chip, including system 
+//!   clocks and all peripheral clocks.The clock generator consists of 5 clock sources
+//!   which are listed below: One external 32.768 kHz low speed crystal;One external
+//!   4~24 MHz high speed crystal;One programmable PLL FOUT One internal 22.1184 MHz
+//!   high speed oscillator;One internal 10 kHz low speed oscillator. 
+//! - When chip enters into power down mode, system clocks, some clock sources, and some 
+//!   peripheral clocks will be disabled. Some clock sources and peripherals clock are 
+//!   still active in power down mode.
+//! .
+//!
+//! <br />
+//! \subsection NUC122_SysCtl_API_Group 2. API Groups
+//!
+//! The SysCtl API is broken into three groups of functions:
+//! - those that deal with Clock control,
+//! - those that deal with Peripheral control,
+//! - those that deal with Power control.
+//! .
+//! <br />
+//! \subsection NUC122_API_Group_Clock_Control 2.1 SysCtl clock control APIs
+//!
+//! The SysCtl clock control are dealed with :
+//! - SysCtlPeripheralClockSourceSet(),
+//! - SysCtlHClockSourceSet(),
+//! - SysCtlSysTickSourceSet(),
+//! - SysCtlIPClockDividerSet(),
+//! - SysCtlHClockGet(),
+//! - SysCtlHClockSet(),
+//! .
+//! 
+//! <br />
+//! \subsection NUC122_API_Group_Peripharal_Control 2.2 SysCtl Peripharal Control APIs
+//! The SysCtl clock control are dealed with :
+//! - SysCtlCPUReset(),
+//! - SysCtlChipReset(),
+//! - SysCtlPeripheralDisable(),
+//! - SysCtlPeripheralEnable(),
+//! - SysCtlPeripheralReset(),
+//! - SysCtlResetSrcGet(),
+//! - SysCtlResetSrcClear().
+//! .
+//!
+//! <br />
+//! \subsection NUC122_API_Group_Power_Control 2.3 SysCtl power control
+//! 
+//! The SysCtl power control are dealed with : 
+//! - SysCtlPowerDownEnable(),
+//! - SysCtlPWRWUIntEnable(),
+//! - SysCtlPowerDownWaitCPUSet(),
+//! - SysCtlBODEnable(),
+//! - SysCtlBODVoltSelect(),
+//! - SysCtlBODLowPowerModeEnable(),
+//! - SysCtlLowVoltRstEnable(),
+//! - SysCtlBODRstEnable().
+//!
+//! <br />
+//! \section NUC122_SysCtl_Usage
+//! The following example shows how to use the SysCtl API to configure the
+//! system clock,enable the relative peripheral,put the processor into sleep
+//! mode,and then wake up by Extern Interrupt 0;
+//! \code
+//! #include "xhw_types.h"
+//! #include "xhw_memmap.h"
+//! #include "xcore.h"
+//! #include "xhw_sysctl.h"
+//! #include "xsysctl.h"
+//! #include "xhw_ints.h"
+//! #include "xgpio.h"
+//! #include "xhw_nvic.h"
+//! #include "xhw_gpio.h"
+//!
+//! //*****************************************************************************
+//! //
+//! // Enter Sleep Mode function.
+//! // This function will force the processor enter sleep mode.
+//! //
+//! //*****************************************************************************
+//! void PWRCtl_Standby(void)
+//! {
+//!     //
+//!     // Enter Puts the processor into deep-sleep mode.
+//!     //
+//!     SysCtlDeepSleep();
+//!    
+//! }
+//! //*****************************************************************************
+//! //
+//! // brief Init uart to print.
+//! //
+//! // details uart config as (115200, 8 data bit, 1 stop bit , no partiy)
+//! //
+//! //*****************************************************************************
+//! 
+//! void TestIOInit(void)
+//! {
+//!     //
+//!     // Set system clock
+//!     //
+//!     xSysCtlClockSet(50000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_12MHZ);
+//!
+//!     xSPinTypeUART(UART0RX,PB0);
+//!     xSPinTypeUART(UART0TX,PB1);
+//!
+//!     xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART0);
+//!     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART0);
+//!     xSysCtlPeripheralClockSourceSet(xSYSCTL_PERIPH_UART_S_EXT12M,1);
+//!
+//!
+//!     xUARTConfigSet(UART0_BASE,115200,xUART_CONFIG_WLEN_8 | xUART_CONFIG_STOP_1
+//!                                                          | xUART_CONFIG_PAR_NONE));
+//!     xSysCtlDelay(10000);
+//! }
+//! //*****************************************************************************
+//! //
+//! // brief print a char.
+//! //
+//! // param A char
+//! //
+//! // return None.
+//! //
+//! //*****************************************************************************
+//! void TestIOPut(char ch)
+//! {
+//!     uint8_t c;
+//!     c = ch;
+//!     while((xHWREG(UART_BASE + UART_FSR) & (0x400000))!=0x400000);
+//!     //
+//!     // Write this character to the transmit FIFO.
+//!     //
+//!     xHWREG(UART_BASE + UART_THR) = c;
+//! }
+//! 
+//! //*****************************************************************************
+//! //
+//! // Wake up mcu from sleep mode function using extern interrupt.
+//! //
+//! // This function use extern interrupt to wake up mcu from sleep mode 
+//! //
+//! // return None
+//! //*****************************************************************************
+//! void PWR_WKUP_Init(void)
+//! {	 
+//!     xIntEnable(INT_EINT1);
+//!     xIntPrioritySet(INT_EINT1, 1);
+//!     GPIODirModeSet(GPIO_PORTB_BASE, GPIO_PIN_15,GPIO_DIR_MODE_IN);
+//!     GPIOPinIntEnable(GPIO_PORTB_BASE, GPIO_PIN_15,GPIO_FALLING_EDGE);
+//! }
+//! //*****************************************************************************
+//! //
+//! // The main function of the PWR_WKUP 
+//! //
+//! // 
+//! //
+//! //*****************************************************************************
+//! int main(void)
+//! {
+//!     //
+//!     //UART initialize
+//!     //          
+//!     TestIOInit();
+//!     PWR_WKUP_Init();
+//!
+//!     while(1)
+//!     {
+//!        PWRCtl_Standby();
+//!        TestIOPut('O');
+//!        TestIOPut('K');	
+//!     }  
+//! }
+//! \endcode
+//! \note 
+//!
+//********************************************************************************
+
+//********************************************************************************
+//
+//! \defgroup NUC122_SysCtl_Peripheral_ID SysCtl_Peripheral_ID
+//!
+//! \brief Values that can be passed to the
+//! xSysCtlPeripheralPresent(), xSysCtlPeripheralEnable(),
+//! xSysCtlPeripheralDisable(), and xSysCtlPeripheralReset() APIs as the
+//! ulPeripheral parameter.  
+//! 
+//
+//********************************************************************************
+
+//********************************************************************************
+//
+//! \defgroup NUC122_SysCtl_Peripheral_Src_Clk NUC122 SysCtl Peripheral clock source
+//! 
+//! \brief The following are values that can be passed to the
+//! SysCtlPeripheralClockSourceSet()  API as the ulPeripheralsrc parameter.   
+//! 
+//
+//********************************************************************************
+
+//********************************************************************************
+//
+//! \defgroup NUC122_SysCtl_Hclk_Src  NUC122 SysCtl Hclk source
+//! \brief The following are values that can be passed to the
+//! SysCtlHClockSourceSet()\ SysCtlHClockSet API as the
+//! ulhclkSrcSel parameter.   
+//! 
+//
+//*******************************************************************************
+
+//*******************************************************************************
+//
+//! \defgroup NUC122_SysCtl_Peripheral_Src_Clk NUC122 SysCtl SysTick clock source
+//! \brief The following are values that can be passed to the
+//! SysCtlSysTickSourceSet()  API as the ulstclkSrcSel parameter.    
+//! 
+//
+//*******************************************************************************
+
+//*******************************************************************************
+//
+//! \defgroup NUC122_SysCtl_Reset_Src  NUC122 SysCtl Reset source
+//! \brief The following are values that can be returned in the bit mask
+//! by the SysCtlResetSrcGet() API.   
+//! 
+//
+//*******************************************************************************
+
+//*******************************************************************************
+//
+//! \defgroup NUC122_SysCtl_Bod_level NUC122 SysCtl Bod level
+//! \brief The following are values that can be passed to the
+//! SysCtlSelectBODVolt()  API as the ulVoltage parameter. 
+//! 
+//
+//*******************************************************************************
+
+//*******************************************************************************
+//
+//! \defgroup NUC122_SysCtl_Peripheral_ClkDiv NUC122 SysCtl Peripheral clock
+//! divder
+//! \brief The following are values that can be passed to the
+//! SysCtlIPClockDividerSet()  API as the ulConfig parameter.  
+//! 
+//
+//*******************************************************************************
+
+//*******************************************************************************
+//
+//! \defgroup NUC122_SysCtl_Clock_Config  NUC122 SysCtl Clock configure
+//! \brief The following are values that can be passed to the SysCtlClockSet() API 
+//! as the ulConfig parameter.
+//! 
+//
+//*******************************************************************************
+
+//*******************************************************************************
+//
+//! \defgroup NUC122_SysCtl_Exported_APIs NUC122 SysCtl Exported APIS
+//!
+//! \brief The whole SysCtl Exported APIS
+//
+//*******************************************************************************

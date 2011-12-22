@@ -1,0 +1,232 @@
+//*****************************************************************************
+//
+//! \defgroup NUC122_PWM NUC122 PWM
+//! 
+//! \brief Nuvoton NUC122 PWM Peripheral Driver.
+//!
+//! The CoX Peripheral Library also provides APIs for full functions of Nuvoton
+//! NUC122 PWM. This module supports the whole NUC122 Series.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref NUC122_PWM_Blcok
+//! - \ref NUC122_PWM_Function_Desc
+//! - \ref NUC122_PWM_API_Group
+//!   - \ref NUC122_PWM_API_Group_Config
+//!   - \ref NUC122_PWM_API_Group_Function
+//!     - \ref NUC122_PWM_API_Group_Output
+//!     - \ref NUC122_PWM_API_Group_Capture
+//!     - \ref NUC122_PWM_API_Group_Interrupt
+//!   .
+//! - \ref NUC122_PWM_Usage
+//! .
+//!
+//! <br />
+//! \section NUC122_PWM_Blcok 1. PWM Physical Block
+//! <img src="NUC122_pwm_block.png" />
+//! 
+//! <br />
+//! \section NUC122_PWM_Function_Desc 2. Functional Description
+//! PWM includes the following functions:
+//! - Interrupt
+//! - Output
+//! - Capture
+//! .
+//! 
+//! <br />
+//! \section NUC122_PWM_API_Group 3. API Groups
+//! 
+//! The PWM API is broken into two groups of functions : 
+//! - those that deal with configuring the PWM
+//! - those that deal with functions
+//! .
+//!
+//! <br />
+//! \subsection NUC122_PWM_API_Group_Config 3.1 PWM Configuration APIs 
+//! 
+//! The PWM are configured with :
+//! - PWMInitConfigure()
+//! - PWMFrequencySet()
+//! - PWMFrequencyConfig()
+//! - PWMDutySet()
+//! .
+//! 
+//! <br />
+//! \subsection NUC122_PWM_API_Group_Function 3.2 PWM Function APIs
+//! 
+//! <br />
+//! \subsubsection NUC122_PWM_API_Group_Output 3.2.1 PWM Output APIs
+//!
+//! The PWM Output are set with : 
+//! - PWMOutputEnable()
+//! - PWMOutputDisable() 
+//! .
+//!
+//! <br />
+//! \subsubsection NUC122_PWM_API_Group_Capture 3.2.2 PWM Capture APIs
+//!
+//! The PWM Capture are set with : 
+//! - PWMOutputEnable()
+//! - PWMOutputDisable() 
+//! .
+//!
+//! <br />
+//! \subsubsection NUC122_PWM_API_Group_Interrupt 3.2.3 PWM Interrupt APIs
+//!
+//! The PWM Interrupt are set with : 
+//! - PWMIntEnable()
+//! - PWMIntDisable()
+//! - PWMIntFlagClear()
+//! .
+//!
+//! <br />
+//! \section NUC122_PWM_Usage 4. Usage & Program Examples
+//! The following example shows how to use the PWM APIs to initialize 
+//! the PWM and to achieve the PWM interrupt function.
+//! 
+//! \code
+//!
+//! unsigned long ulBase = PWMA_BASE;
+//! unsigned long ulChannel = PWM_CHANNEL2;
+//! unsigned long ulConfig = PWM_TOGGLE_MODE | PWM_OUTPUT_INVERTER_DIS | PWM_DEAD_ZONE_DIS;
+//!                                         
+//! //
+//! // Set invert, dead zone and mode.
+//! //
+//! PWMInitConfigure(ulBase, ulChannel, ulConfig);
+//!                   
+//! //
+//! // Set CNR, Prescale and Divider.
+//! //
+//! PWMFrequencyConfig(ulBase, ulChannel, 0x3FF1111);
+//!
+//! //
+//! // Set CMR.
+//! //
+//! PWMDutySet(ulBase, ulChannel, 40);
+//!
+//! //
+//! // Clear interrupt falg.
+//! //
+//! PWMIntFlagClear(ulBase, ulChannel, PWM_INT_PWM);
+//!
+//! //
+//! // Set interrupt call back.
+//! //
+//! PWMIntCallbackInit(ulBase, user_Callback1);
+//!
+//! //
+//! // PWM output interrupt enable.
+//! //
+//! PWMIntEnable(ulBase, ulChannel, PWM_INT_PWM);
+//!
+//! // 
+//! // NVIC interrupt enable.
+//! //
+//! xIntEnable(INT_PWMA);
+//!
+//! //
+//! // Set GPIO Pin as PWM.
+//! //
+//! xSPinTypePWM(PWM2, PA14);
+//!
+//! //
+//! // Set output enable and capture disable.
+//! //
+//! PWMOutputEnable(ulBase, ulChannel);
+//!
+//! //
+//! // Start PWM.
+//! //
+//! PWMStart(ulBase, ulChannel);
+//!
+//! \endcode
+//! 
+//! \note 
+//! 
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup NUC122_PWM_Exported_APIs PWM Exported APIs Refrence
+//!
+//! \brief Nuvoton NUC122 PWM Driver Exported APIs.
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup NUC122_PWM_Int_Type PWM Interrupt Type
+//! 
+//! \brief Values that can be passed to \b PWMIntEnable(), \b PWMIntDisable().
+//!
+//! All the four macros:
+//! -\ref PWM_INT_PWM
+//! -\ref PWM_INT_CAP_FALL
+//! -\ref PWM_INT_CAP_RISE
+//! -\ref PWM_INT_CAP_BOTH
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup NUC122_PWM_Event_Type PWM Event Type
+//! 
+//!
+//! \brief Values that can be passed to \b PWMIntEnable(), \b PWMIntDisable(). 
+//! 
+//! All the two macros:
+//! -\ref PWM_EVENT_PWM
+//! -\ref PWM_EVENT_CAP
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup NUC122_PWM_Channel PWM Channel
+//! 
+//!
+//! \brief Values that can be passed to all the function. 
+//! 
+//! All the eight macros:
+//! -\ref PWM_CHANNEL0
+//! -\ref PWM_CHANNEL1
+//! -\ref PWM_CHANNEL2
+//! -\ref PWM_CHANNEL3
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup NUC122_PWM_Clock_div PWM Clock Divider
+//! 
+//!
+//! \brief Values that can be passed to all the function. 
+//! 
+//! All the eight macros:
+//! -\ref PWM_CLOCK_DIV_1
+//! -\ref PWM_CLOCK_DIV_2
+//! -\ref PWM_CLOCK_DIV_4
+//! -\ref PWM_CLOCK_DIV_8
+//! -\ref PWM_CLOCK_DIV_16
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup NUC122_PWM_Config PWM Clock Configure
+//! 
+//!
+//! \brief Values that can be passed to \b PWMInitConfigure().. 
+//! 
+//! All the eight macros:
+//! -\ref PWM_ONE_SHOT_MODE
+//! -\ref PWM_TOGGLE_MODE
+//! -\ref PWM_OUTPUT_INVERTER_EN
+//! -\ref PWM_OUTPUT_INVERTER_DIS
+//! -\ref PWM_DEAD_ZONE_EN
+//! -\ref PWM_DEAD_ZONE_DIS 
+//
+//*****************************************************************************
