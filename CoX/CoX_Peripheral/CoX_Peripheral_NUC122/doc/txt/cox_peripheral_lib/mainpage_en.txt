@@ -232,10 +232,10 @@
 //!         <td><a href="http://www.coocox.org/Cox.html#mcu">Download</a></td>
 //!     </tr>
 //!     <tr>
-//!         <td>NUC122</td>
+//!         <td><a href="http://www.coocox.org/cox/manual/nuc122/">NUC122</a></td>
 //!         <td><img src="adds.png" /></td>
-//!         <td>11/2011</td>
-//!         <td>NA</td>
+//!         <td>12/2011</td>
+//!         <td><a href="http://www.coocox.org/Cox.html#mcu">Download</a></td>
 //!     </tr>
 //!     <tr>
 //!         <td>M051</td>
