@@ -1632,6 +1632,48 @@
       <name>CoX_Peripheral</name>
       <group>
         <name>inc</name>
+        <group>
+          <name>lowlayer</name>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_gpio.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_i2c.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_ints.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_memmap.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_nvic.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_pwm.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_rtc.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_spi.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_sysctl.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_timer.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_types.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_uart.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_wdt.h</name>
+          </file>
+        </group>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xcore.h</name>
         </file>
@@ -1640,45 +1682,6 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xgpio.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_gpio.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_i2c.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_ints.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_memmap.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_nvic.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_pwm.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_rtc.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_spi.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_sysctl.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_timer.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_types.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_uart.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_wdt.h</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xi2c.h</name>
