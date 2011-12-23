@@ -44,6 +44,7 @@
       <includepath path="test/testcase"/>
       <includepath path="test/testframe"/>
       <includepath path="CoX/CoX_Peripheral/inc"/>
+      <includepath path="CoX/CoX_Peripheral/inc/lowlayer"/>
       
       <!-- arm-none-eabi-gcc compiler arguments -->
       <compilerarg value="-mcpu=cortex-m0"/>
