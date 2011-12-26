@@ -149,30 +149,45 @@ extern "C"
 //*****************************************************************************
 
 #define xSYSCTL_PERIPH_ACMP0    0
-#define xSYSCTL_PERIPH_ADC0     0
-#define xSYSCTL_PERIPH_DMA      0
-#define xSYSCTL_PERIPH_GPIOA    0
-#define xSYSCTL_PERIPH_GPIOB    0
-#define xSYSCTL_PERIPH_GPIOC    0
-#define xSYSCTL_PERIPH_GPIOD    0
-#define xSYSCTL_PERIPH_GPIOE    0
-#define xSYSCTL_PERIPH_I2C0     0
-#define xSYSCTL_PERIPH_I2C1     0
+#define xSYSCTL_PERIPH_ADC1     SYSCTL_PERIPH_ADC1
+#define xSYSCTL_PERIPH_ADC2     SYSCTL_PERIPH_ADC2
+#define xSYSCTL_PERIPH_DMA1     SYSCTL_PERIPH_DMA1
+#define xSYSCTL_PERIPH_DMA2     SYSCTL_PERIPH_DMA2
+#define xSYSCTL_PERIPH_GPIOA    SYSCTL_PERIPH_IOPA
+#define xSYSCTL_PERIPH_GPIOB    SYSCTL_PERIPH_IOPB
+#define xSYSCTL_PERIPH_GPIOC    SYSCTL_PERIPH_IOPC
+#define xSYSCTL_PERIPH_GPIOD    SYSCTL_PERIPH_IOPD
+#define xSYSCTL_PERIPH_GPIOE    SYSCTL_PERIPH_IOPE
+#define xSYSCTL_PERIPH_GPIOF    SYSCTL_PERIPH_IOPF
+#define xSYSCTL_PERIPH_GPIOG    SYSCTL_PERIPH_IOPG
+#define xSYSCTL_PERIPH_I2C1     SYSCTL_PERIPH_I2C1
+#define xSYSCTL_PERIPH_I2C2     SYSCTL_PERIPH_I2C2
 #define xSYSCTL_PERIPH_PWMA     0
 #define xSYSCTL_PERIPH_PWMB     0
-#define xSYSCTL_PERIPH_RTC      0
-#define xSYSCTL_PERIPH_SPI0     0
-#define xSYSCTL_PERIPH_SPI1     0
-#define xSYSCTL_PERIPH_SPI2     0
-#define xSYSCTL_PERIPH_SPI3     0
-#define xSYSCTL_PERIPH_TIMER0   0
-#define xSYSCTL_PERIPH_TIMER1   0
-#define xSYSCTL_PERIPH_TIMER2   0
-#define xSYSCTL_PERIPH_TIMER3   0
-#define xSYSCTL_PERIPH_UART0    0
-#define xSYSCTL_PERIPH_UART1    0
-#define xSYSCTL_PERIPH_UART2    0
-#define xSYSCTL_PERIPH_WDOG     0
+#define xSYSCTL_PERIPH_RTC      SYSCTL_PERIPH_RTC
+#define xSYSCTL_PERIPH_SPI1     SYSCTL_PERIPH_SPI1
+#define xSYSCTL_PERIPH_SPI2     SYSCTL_PERIPH_SPI2
+#define xSYSCTL_PERIPH_SPI3     SYSCTL_PERIPH_SPI3
+#define xSYSCTL_PERIPH_TIMER1   SYSCTL_PERIPH_TIM1
+#define xSYSCTL_PERIPH_TIMER2   SYSCTL_PERIPH_TIM2
+#define xSYSCTL_PERIPH_TIMER3   SYSCTL_PERIPH_TIM3
+#define xSYSCTL_PERIPH_TIMER4   SYSCTL_PERIPH_TIM4
+#define xSYSCTL_PERIPH_TIMER5   SYSCTL_PERIPH_TIM5
+#define xSYSCTL_PERIPH_TIMER6   SYSCTL_PERIPH_TIM6
+#define xSYSCTL_PERIPH_TIMER7   SYSCTL_PERIPH_TIM7
+#define xSYSCTL_PERIPH_TIMER8   SYSCTL_PERIPH_TIM8
+#define xSYSCTL_PERIPH_TIMER9   SYSCTL_PERIPH_TIM9
+#define xSYSCTL_PERIPH_TIMER10  SYSCTL_PERIPH_TIM10
+#define xSYSCTL_PERIPH_TIMER11  SYSCTL_PERIPH_TIM11
+#define xSYSCTL_PERIPH_TIMER12  SYSCTL_PERIPH_TIM12
+#define xSYSCTL_PERIPH_TIMER13  SYSCTL_PERIPH_TIM13
+#define xSYSCTL_PERIPH_TIMER14  SYSCTL_PERIPH_TIM14
+#define xSYSCTL_PERIPH_UART1    SYSCTL_PERIPH_USART1
+#define xSYSCTL_PERIPH_UART2    SYSCTL_PERIPH_USART2
+#define xSYSCTL_PERIPH_UART3    SYSCTL_PERIPH_USART3
+#define xSYSCTL_PERIPH_UART4    SYSCTL_PERIPH_UART4
+#define xSYSCTL_PERIPH_UART5    SYSCTL_PERIPH_UART5
+#define xSYSCTL_PERIPH_WDOG     SYSCTL_PERIPH_WWDG
 
 //*****************************************************************************
 //
@@ -239,65 +254,56 @@ extern "C"
 //
 //*****************************************************************************
 
-#define xSYSCTL_OSC_MAIN        0
-#define xSYSCTL_OSC_INT         0
-#define xSYSCTL_OSC_INTSL       0
-#define xSYSCTL_OSC_EXTSL       0
+#define xSYSCTL_OSC_MAIN        SYSCTL_OSC_MAIN
+#define xSYSCTL_OSC_INT         SYSCTL_OSC_INT
 
 //
 //! \brief XTAL Select
 //
-#define xSYSCTL_XTAL_4MHZ       0
-#define xSYSCTL_XTAL_5MHZ       0
-#define xSYSCTL_XTAL_6MHZ       0
-#define xSYSCTL_XTAL_7MHZ       0
-#define xSYSCTL_XTAL_8MHZ       0
-#define xSYSCTL_XTAL_9MHZ       0
-#define xSYSCTL_XTAL_10MHZ      0
-#define xSYSCTL_XTAL_11MHZ      0
-#define xSYSCTL_XTAL_12MHZ      0
-#define xSYSCTL_XTAL_13MHZ      0
-#define xSYSCTL_XTAL_14MHZ      0
-#define xSYSCTL_XTAL_15MHZ      0
-#define xSYSCTL_XTAL_16MHZ      0
-#define xSYSCTL_XTAL_17MHZ      0
-#define xSYSCTL_XTAL_18MHZ      0
-#define xSYSCTL_XTAL_19MHZ      0
-#define xSYSCTL_XTAL_20MHZ      0
-#define xSYSCTL_XTAL_21MHZ      0
-#define xSYSCTL_XTAL_22MHZ      0
-#define xSYSCTL_XTAL_23MHZ      0
-#define xSYSCTL_XTAL_24MHZ      0
+#define xSYSCTL_XTAL_4MHZ       SYSCTL_XTAL_4MHZ
+#define xSYSCTL_XTAL_5MHZ       SYSCTL_XTAL_5MHZ
+#define xSYSCTL_XTAL_6MHZ       SYSCTL_XTAL_6MHZ
+#define xSYSCTL_XTAL_7MHZ       SYSCTL_XTAL_7MHZ
+#define xSYSCTL_XTAL_8MHZ       SYSCTL_XTAL_8MHZ
+#define xSYSCTL_XTAL_9MHZ       SYSCTL_XTAL_9MHZ
+#define xSYSCTL_XTAL_10MHZ      SYSCTL_XTAL_10MHZ
+#define xSYSCTL_XTAL_11MHZ      SYSCTL_XTAL_11MHZ
+#define xSYSCTL_XTAL_12MHZ      SYSCTL_XTAL_12MHZ
+#define xSYSCTL_XTAL_13MHZ      SYSCTL_XTAL_13MHZ
+#define xSYSCTL_XTAL_14MHZ      SYSCTL_XTAL_14MHZ
+#define xSYSCTL_XTAL_15MHZ      SYSCTL_XTAL_15MHZ
+#define xSYSCTL_XTAL_16MHZ      SYSCTL_XTAL_16MHZ
+
 
 //
-//! Internal main clock is 22MHz
+//! Internal main clock is 8MHz
 //
-#define xSYSCTL_INT_22MHZ       0  
+#define xSYSCTL_INT_8MHZ        0  
 
 //
-//! Internal slow clock  is 10KHz.
+//! Internal slow clock  is 40KHz.
 //
-#define xSYSCTL_INTSL_10KHZ     0  
+#define xSYSCTL_INTSL_40KHZ     0  
 
 //
-//! External slow clock crystal is 32KHz.
+//! External slow clock crystal is 32.768KHz.
 //
 #define xSYSCTL_XTALSL_32768HZ  0  
 
 //
 //! Disable internal oscillator
 //
-#define xSYSCTL_INT_OSC_DIS     0  
+#define xSYSCTL_INT_OSC_DIS     SYSCTL_INT_OSC_DIS  
 
 //
 //! Disable main oscillator
 //
-#define xSYSCTL_MAIN_OSC_DIS    0  
+#define xSYSCTL_MAIN_OSC_DIS    SYSCTL_MAIN_OSC_DIS  
 
 //
 //! Disable PLL
 //
-#define xSYSCTL_PLL_PWRDN       0  
+#define xSYSCTL_PLL_PWRDN       SYSCTL_PLL_PWRDN  
 
 //*****************************************************************************
 //
@@ -348,274 +354,79 @@ extern "C"
 //*****************************************************************************
 
 //
-//! Watch dog clock source is external xxkHz crystal clock
+//! LSE oscillator clock used as RTC clock
 //
-#define xSYSCTL_WDT0_EXTSL      0x00000301  
-                                
+#define xSYSCTL_RTC_LSE         SYSCTL_RTC_LSE
+
 //
-//! Watch dog clock source is HCLK/x clock
+//! LSI oscillator clock used as RTC clock
 //
-#define xSYSCTL_WDT0_HCLK_2048  0x00000302     
-                                
+#define xSYSCTL_RTC_LSI         SYSCTL_RTC_LSI
+
 //
-//! Watch dog clock source is internal 10 kHz oscillator clock
+//! HSE oscillator clock divided by 128 used as RTC clock
 //
-#define xSYSCTL_WDT0_INTSL      0x00000303  
-                                
+#define xSYSCTL_RTC_LSE_128     SYSCTL_RTC_LSE_128
+
 //
-//! ADC clock source is external 12 MHz crystal clock
+//! Microcontroller clock output System clock (SYSCLK) selected
 //
-#define xSYSCTL_ADC0_MAIN       0x01021000  
-                                
+#define xSYSCTL_MCO_SYSCLK      SYSCTL_MCO_SYSCLK
+
 //
-//! ADC clock source is PLL clock
+//! Microcontroller clock output HSI clock selected
 //
-#define xSYSCTL_ADC0_PLL        0x01021001   
-                                
+#define xSYSCTL_MCO_HSI         SYSCTL_MCO_HSI
+
 //
-//! ADC clock source is internal 22 MHz oscillator clock
+//! Microcontroller clock output HSE clock selected
 //
-#define xSYSCTL_ADC0_INT        0x01021003  
-                                
+#define xSYSCTL_MCO_HSE         SYSCTL_MCO_HSE
+
 //
-//! Timer0 clock source is external 12 MHz crystal clock
+//! Microcontroller clock output PLL clock divided by 2 selected
 //
-#define xSYSCTL_TIMER0_MAIN     0x00080700  
-                                
+#define xSYSCTL_MCO_PLL_2       SYSCTL_MCO_PLL_2
+
 //
-//! Timer0 clock source is external 32 KHz crystal clock
+//! Microcontroller clock output PLL2 clock selected
 //
-#define xSYSCTL_TIMER0_EXTSL    0x00080701   
-                                
+#define xSYSCTL_MCO_PLL2        SYSCTL_MCO_PLL2
+
 //
-//! Timer0 clock source is HCLK
+//! Microcontroller clock output PLL3 clock selected
 //
-#define xSYSCTL_TIMER0_HCLK     0x00080702   
-                                
+#define xSYSCTL_MCO_PLL3_2      SYSCTL_MCO_PLL3_2
+
 //
-//! Timer0 clock source is external trigger
+//! XT1 external 3-25 MHz oscillator clock selected (for Ethernet)
 //
-#define xSYSCTL_TIMER0_EXTTRG   0x00080703  
-                                
+#define xSYSCTL_MCO_XT1         SYSCTL_MCO_XT1
+
 //
-//! Timer0 clock source is internal 22 MHz oscillator clock
+//! Microcontroller clock output PLL3 clock selected (for Ethernet)
 //
-#define xSYSCTL_TIMER0_INT      0x00080704  
-                                
+#define xSYSCTL_MCO_PLL3        SYSCTL_MCO_PLL3
+
 //
-//! Timer1 clock source is external 12 MHz crystal clock
+//! System clock (SYSCLK) selected as I2S3 clock entry
 //
-#define xSYSCTL_TIMER1_MAIN     0x000C0700  
-                                
+#define xSYSCTL_I2S3_SYSCLK     SYSCTL_I2S3_SYSCLK
+
 //
-//! Timer1 clock source is external 32kHz crystal clock
+//! PLL3 VCO clock selected as I2S3 clock entry
 //
-#define xSYSCTL_TIMER1_EXTSL    0x000C0701  
-                                
+#define xSYSCTL_I2S3_PLL3       SYSCTL_I2S3_PLL3
+
 //
-//! Timer1 clock source is HCLK
+//! System clock (SYSCLK) selected as I2S2 clock entry
 //
-#define xSYSCTL_TIMER1_HCLK     0x000C0702    
-                                
+#define xSYSCTL_I2S2_SYSCLK     SYSCTL_I2S2_SYSCLK
+
 //
-//! Timer1 clock source is external trigger
+//! PLL3 VCO clock selected as I2S2 clock entry
 //
-#define xSYSCTL_TIMER1_EXTTRG   0x000C0703  
-                                
-//
-//! Timer1 clock source is internal 22 MHz oscillator clock
-//
-#define xSYSCTL_TIMER1_INT      0x000C0707  
-                                
-//
-//! Timer2 clock source is external 12 MHz crystal clock
-//
-#define xSYSCTL_TIMER2_MAIN     0x00100700  
-                                
-//
-//! Timer2 clock source is external 32kHz crystal clock
-//
-#define xSYSCTL_TIMER2_EXTSL    0x00100701   
-                                
-//
-//! Timer2 clock source is HCLK
-//
-#define xSYSCTL_TIMER2_HCLK     0x00100702  
-                                
-//
-//! Timer2 clock source is external trigger
-//
-#define xSYSCTL_TIMER2_EXTTRG   0x00100703  
-                                
-//
-//! Timer2 clock source is internal 22 MHz oscillator clock
-//
-#define xSYSCTL_TIMER2_INT      0x00100707
-                                
-//
-//! Timer3 clock source is external 12 MHz crystal clock
-//
-#define xSYSCTL_TIMER3_MAIN     0x00140700  
-                                
-//
-//! Timer3 clock source is external 32 KHz crystal clock
-//
-#define xSYSCTL_TIMER3_EXTSL    0x00140701   
-                                
-//
-//! Timer3 clock source is HCLK
-//
-#define xSYSCTL_TIMER3_HCLK     0x00140702    
-                                
-//
-//! Timer3 clock source is external trigger
-//
-#define xSYSCTL_TIMER3_EXTTRG   0x00140703  
-                                
-//
-//! Timer3 clock source is internal 22 MHz oscillator clock
-//
-#define xSYSCTL_TIMER3_INT      0x00140707  
-                                
-//
-//! UART clock source is external 12 MHz crystal clock
-//
-#define xSYSCTL_UART0_MAIN      0x01180800  
-                                
-//
-//! UART clock source is PLL clock
-//
-#define xSYSCTL_UART0_PLL       0x01180801  
-                                
-//
-//! UART clock source is internal 22 MHz oscillator clock
-//
-#define xSYSCTL_UART0_INT       0x01180803  
-                                
-//
-//! UART clock source is external 12 MHz crystal clock
-//
-#define xSYSCTL_UART1_MAIN      0x01180800  
-                                
-//
-//! UART clock source is PLL clock
-//
-#define xSYSCTL_UART1_PLL       0x01180801  
-                                
-//
-//! UART clock source is internal 22 MHz oscillator clock
-//
-#define xSYSCTL_UART1_INT       0x01180803 
-                                
-//
-//! UART clock source is external 12 MHz crystal clock
-//
-#define xSYSCTL_UART2_MAIN      0x01180800  
-                                
-//
-//! UART clock source is PLL clock
-//
-#define xSYSCTL_UART2_PLL       0x01180801  
-                                
-//
-//! UART clock source is internal 22 MHz oscillator clock
-//
-#define xSYSCTL_UART2_INT       0x01180803 
-                                
-//
-//! CAN clock source is external 12 MHz crystal clock
-//
-#define xSYSCTL_CAN0_MAIN       0x011A0C00  
-                                
-//
-//! CAN clock source is PLL clock 
-//
-#define xSYSCTL_CAN0_PLL        0x011A0C01   
-                                
-//
-//! CAN clock source is internal 22 MHz oscillator clock
-//
-#define xSYSCTL_CAN0_INT        0x011A0C02  
-                                
-//
-//! PWMA clock source is external 12 MHz crystal clock
-//
-#define xSYSCTL_PWMA_MAIN       0x001C0300 
-                                
-//
-//! PWMA clock source is external 32kHz crystal clock
-//
-#define xSYSCTL_PWMA_EXTSL      0x001C0301   
-                                
-//
-//! PWMA clock source is HCLK
-//
-#define xSYSCTL_PWMA_HCLK       0x001C0302   
-                                
-//
-//! PWM0 and PWM1 clock source is internal 22 MHz oscillator clock
-//
-#define xSYSCTL_PWMA_INT        0x001C0303  
-                                
-//
-//! I2S clock source is external 12 MHz crystal clock
-//
-#define xSYSCTL_I2S0_MAIN       0x10000300  
-                                
-//
-//! I2S clock source is PLL
-//
-#define xSYSCTL_I2S0_PLL        0x10000301   
-                                
-//
-//! I2S clock source is HCLK
-//
-#define xSYSCTL_I2S0_HCLK       0x10000302     
-                                
-//
-//! I2S clock source is internal 22 MHz oscillator clock
-//
-#define xSYSCTL_I2S0_INT        0x10000303  
-                                
-//
-//! frequency divide source is external 12 MHz crystal clock
-//
-#define xSYSCTL_FRQDIV_MAIN     0x10020300  
-                                
-//
-//! frequency divide source is external 32kHz crystal clock
-//
-#define xSYSCTL_FRQDIV_EXTSL    0x10020301  
-                                
-//
-//! frequency divide source is HCLK
-//
-#define xSYSCTL_FRQDIV_HCLK     0x10020302          
-                                
-//
-//! frequency divide source is internal 22 MHz oscillator clock
-//
-#define xSYSCTL_FRQDIV_INT      0x10020303  
-                                
-//
-//! PWMB clock source is external 12 MHz crystal clock
-//
-#define xSYSCTL_PWMB_MAIN       0x10040300  
-                                
-//
-//! PWMB clock source is external 32 KHz crystal clock
-//
-#define xSYSCTL_PWMB_EXTSL      0x10040301  
-                                
-// 
-//! PWMB clock source is HCLK
-//
-#define xSYSCTL_PWMB_HCLK       0x10040302       
-                                
-//
-//! PWMB clock source is internal 22 MHz oscillator clock
-//
-#define xSYSCTL_PWMB_INT        0x10040303  
+#define xSYSCTL_I2S2_PLL3       SYSCTL_I2S2_PLL3
 
 //*****************************************************************************
 //
@@ -698,20 +509,12 @@ extern "C"
 //! @{
 //
 //*****************************************************************************
-#define ADC0                    ADC0
-#define PWMB                    PWMB
-#define PWMA                    PWMA
-#define FRQDIV                  FRQDIV
-#define I2S0                    I2S0
-#define TIMER0                  TIMER0
-#define TIMER1                  TIMER1
-#define TIMER2                  TIMER2
-#define TIMER3                  TIMER3
-#define UART0                   UART0
-#define UART1                   UART1
-#define UART2                   UART2
-#define CAN0                    CAN0
-#define WDT0                    WDT0
+
+#define MCO                     MCO
+#define I2S2                    I2S2
+#define I2S3                    I2S3
+#define RTC                     RTC
+
 
 //
 //! internal high speed oscillator
@@ -826,7 +629,8 @@ extern "C"
 //! \return None.
 //
 //*****************************************************************************       
-extern void xSysCtlPeripheralReset(unsigned long ulPeripheralID);
+#define xSysCtlPeripheralReset(ulPeripheralID)                                \
+        SysCtlPeripheralReset(ulPeripheralID)
         
 //*****************************************************************************
 //
@@ -851,7 +655,8 @@ extern void xSysCtlPeripheralReset(unsigned long ulPeripheralID);
 //! \return None.
 //
 //*****************************************************************************
-extern void xSysCtlPeripheralEnable(unsigned long ulPeripheralID);
+#define xSysCtlPeripheralEnable(ulPeripheralID)                               \
+        SysCtlPeripheralEnable(ulPeripheralID)
 
 //*****************************************************************************
 //
@@ -869,7 +674,8 @@ extern void xSysCtlPeripheralEnable(unsigned long ulPeripheralID);
 //! \return None.
 //
 //*****************************************************************************
-extern void xSysCtlPeripheralDisable(unsigned long ulPeripheralID);
+#define xSysCtlPeripheralDisable(ulPeripheralID)                              \
+        SysCtlPeripheralDisable(ulPeripheralID)
         
 //*****************************************************************************
 //
@@ -984,7 +790,8 @@ extern unsigned long xSysCtlPeripheraIntNumGet(unsigned long ulPeripheralBase);
 //! \return None.
 //
 //*****************************************************************************
-extern void xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig);
+#define xSysCtlClockSet(ulSysClk, ulConfig)                                   \
+        SysCtlClockSet(ulSysClk, ulConfig)
 
 //*****************************************************************************
 //
@@ -1003,7 +810,8 @@ extern void xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig);
 //! \return The processor clock rate.
 //
 //*****************************************************************************
-extern unsigned long xSysCtlClockGet(void);
+#define xSysCtlClockGet()                                                     \
+        SysCtlHClockGet()
 
 //*****************************************************************************
 //
@@ -1020,7 +828,8 @@ extern unsigned long xSysCtlClockGet(void);
 //! \return None.
 //
 //*****************************************************************************
-extern void xSysCtlDelay(unsigned long ulCount);
+#define xSysCtlDelay(ulCount)                                                 \
+        SysCtlDelay(ulCount)
 
 //*****************************************************************************
 //
@@ -1035,7 +844,8 @@ extern void xSysCtlDelay(unsigned long ulCount);
 //! \return This function does not return.
 //
 //*****************************************************************************
-extern void xSysCtlReset(void);
+#define xSysCtlReset()                                                        \
+        SysCtlReset()
 
 //*****************************************************************************
 //
@@ -1051,70 +861,8 @@ extern void xSysCtlReset(void);
 //! \return None.
 //
 //*****************************************************************************
-extern void xSysCtlSleep(void);
-        
-//*****************************************************************************
-//
-//! \brief Enable a peripheral.
-//!
-//! \param ulPeripheralBase a Peripheral base indicate which peripheral to be 
-//! enabled.Details please Refer to \ref xLowLayer_Peripheral_Memmap.
-//!
-//! Peripherals are enabled with this function.  At power-up, all peripherals
-//! are disabled; they must be enabled in order to operate or respond to
-//! register reads/writes.
-//!
-//! The \e ulPeripheral parameter must be only one of the following values:
-//! Details please Refer to \ref xLowLayer_Peripheral_Memmap.
-//!
-//! \note None.
-//!
-//! \return None.
-//
-//*****************************************************************************
-extern void xSysCtlPeripheralEnable2(unsigned long ulPeripheralBase);
-        
-//*****************************************************************************
-//
-//! \brief Disable a peripheral.
-//!
-//! \param ulPeripheralBase a Peripheral base indicate which peripheral to be 
-//! enabled.Details please Refer to \ref xLowLayer_Peripheral_Memmap.
-//!
-//! Peripherals are disabled with this function.  At power-up, all peripherals
-//! are disabled; they must be enabled in order to operate or respond to
-//! register reads/writes.
-//!
-//! The \e ulPeripheral parameter must be only one of the following values:
-//! Details please Refer to \ref xLowLayer_Peripheral_Memmap.
-//!
-//! \note None.
-//!
-//! \return None.
-//
-//*****************************************************************************
-extern void xSysCtlPeripheralDisable2(unsigned long ulPeripheralBase);
-        
-//*****************************************************************************
-//
-//! \brief Reset a peripheral.
-//!
-//! \param ulPeripheralBase a Peripheral base indicate which peripheral to be 
-//! Reset.Details please Refer to \ref xLowLayer_Peripheral_Memmap.
-//!
-//! Peripherals are Reset with this function.  At power-up, all peripherals
-//! are disabled; they must be enabled in order to operate or respond to
-//! register reads/writes.
-//!
-//! The \e ulPeripheral parameter must be only one of the following values:
-//! Details please Refer to \ref xLowLayer_Peripheral_Memmap.
-//!
-//! \note None.
-//!
-//! \return None.
-//
-//*****************************************************************************
-extern void xSysCtlPeripheralReset2(unsigned long ulPeripheralBase);
+#define xSysCtlSleep()                                                        \
+        SysCtlSleep()
 
 //*****************************************************************************
 //
@@ -1133,8 +881,8 @@ extern void xSysCtlPeripheralReset2(unsigned long ulPeripheralBase);
 //! \return None.
 //
 //*****************************************************************************
-extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
-                                            unsigned long ulDivide);
+#define xSysCtlPeripheralClockSourceSet(ulPeripheralSrc, ulDivide)            \
+        SysCtlPeripheralClockSourceSet(ulPeripheralSrc, ulDivide)
 											
 //*****************************************************************************
 //
@@ -1184,7 +932,8 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 //! \return None.
 //
 //*****************************************************************************                                          unsigned long ulDivide);
-#define xSysCtlPeripheralClockSourceSet2(ePeripheral, eSrc, ulDivide)
+#define xSysCtlPeripheralClockSourceSet2(ePeripheral, eSrc, ulDivide)         \
+        SysCtlIPClockSourceSetConvert(ePeripheral, eSrc, ulDivide)
 
 
 //*****************************************************************************
@@ -1252,7 +1001,7 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 //
 //! ETHMACTX (Enable Only)
 //
-#define SYSCTL_PERIPH_ETHMACRX  0x00008000
+#define SYSCTL_PERIPH_ETHMACTX  0x00008000
 
 //
 //! SDIO (Enable Only)
@@ -1287,7 +1036,12 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 //
 //! DMA1 (Enable Only)
 //
-#define SYSCTL_PERIPH_DMA2      0x00000001
+#define SYSCTL_PERIPH_DMA1      0x00000001
+
+//
+//! RTC (Enable Only)
+//
+#define SYSCTL_PERIPH_RTC       0x30008000
 
 
 //
@@ -1298,7 +1052,7 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 //
 //! USB OTG FS
 //
-#define SYSCTL_PERIPH_USB       0x00001000 
+#define SYSCTL_PERIPH_USBOTG    0x00001000 
 
 //
 //! TIM11
@@ -1413,7 +1167,7 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 //
 //! CAN1
 //
-#define SYSCTL_PERIPH_CAN2      0x20100200
+#define SYSCTL_PERIPH_CAN1      0x20100200
 
 //
 //! USB
@@ -1509,7 +1263,6 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 //! TIM2
 //
 #define SYSCTL_PERIPH_TIM2      0x20000001
-  
 
 //*****************************************************************************
 //
@@ -1734,17 +1487,17 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 //
 //! LSE oscillator clock used as RTC clock
 //
-#define SYSCTL_RTC_LSE          0x00080001
+#define SYSCTL_RTC_LSE          0x10080001
 
 //
 //! LSI oscillator clock used as RTC clock
 //
-#define SYSCTL_RTC_LSI          0x00080002
+#define SYSCTL_RTC_LSI          0x10080002
 
 //
 //! HSE oscillator clock divided by 128 used as RTC clock
 //
-#define SYSCTL_RTC_LSE_128      0x00080003
+#define SYSCTL_RTC_LSE_128      0x10080003
 
 //
 //! Microcontroller clock output System clock (SYSCLK) selected
@@ -1789,22 +1542,22 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 //
 //! System clock (SYSCLK) selected as I2S3 clock entry
 //
-#define SYSCTL_I2S3_SYSCLK      0x00120000
+#define SYSCTL_I2S3_SYSCLK      0x20120000
 
 //
 //! PLL3 VCO clock selected as I2S3 clock entry
 //
-#define SYSCTL_I2S3_PLL3        0x00120001
+#define SYSCTL_I2S3_PLL3        0x20120001
 
 //
 //! System clock (SYSCLK) selected as I2S2 clock entry
 //
-#define SYSCTL_I2S2_SYSCLK      0x00110000
+#define SYSCTL_I2S2_SYSCLK      0x20110000
 
 //
 //! PLL3 VCO clock selected as I2S2 clock entry
 //
-#define SYSCTL_I2S2_PLL3        0x00110001
+#define SYSCTL_I2S2_PLL3        0x20110001
 
 //*****************************************************************************
 //
@@ -2038,7 +1791,7 @@ extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 //
 //*****************************************************************************
 #define SysCtlIPClockSourceSetConvert(ulPeripheral, ulSrc, ulDivide)          \
-        xSysCtlPeripheralClockSourceSet(xSYSCTL_##ulPeripheral##_##ulSrc,     \
+        SysCtlPeripheralClockSourceSet(xSYSCTL_##ulPeripheral##_##ulSrc,      \
         ulDivide);
         
 extern void SysCtlDelay(unsigned long ulCount);
@@ -2046,39 +1799,22 @@ extern void SysCtlDelay(unsigned long ulCount);
 extern void SysCtlPeripheralReset(unsigned long ulPeripheral);
 extern void SysCtlPeripheralEnable(unsigned long ulPeripheral);
 extern void SysCtlPeripheralDisable(unsigned long ulPeripheral);
+extern void SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig);
+extern void SysCtlIntEnable(unsigned long ulIntFlags);
+extern void SysCtlIntDisable(unsigned long ulIntFlags);
+extern void SysCtlIntFlagClear(unsigned long ulIntFlags);
+extern unsigned long SysCtlIntFlagGet(void);
+extern void SysCtlLSIConfig(unsigned long ulLSIConfig);
+extern void SysCtlLSEConfig(unsigned long ulLSEConfig);
+extern unsigned long SysCtlResetFlagGet(void);
+extern unsigned long SysCtlResetFlagClear(void);
 extern void SysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc);
-extern void SysCtlHClockSourceSet(unsigned long ulHclkSrcSel);
-extern void SysCtlSysTickSourceSet(unsigned long ulStclkSrcSel);
-
-extern void SysCtlCPUReset(void);
-extern void SysCtlChipReset(void);
-extern void SysCtlSleep(void);
 extern void SysCtlReset(void);
-extern void SysCtlDeepSleep(void);
-
-extern xtBoolean  SysCtlKeyAddrUnlock(void);
-extern xtBoolean  SysCtlKeyAddrLock(void);
-
-extern unsigned long SysCtlResetSrcGet(void);
-extern void SysCtlResetSrcClear(unsigned long ulSrc);
-
-extern void SysCtlBODEnable(xtBoolean bEnable);
-extern void SysCtlBODVoltSelect(unsigned char ulVoltage);
-extern void SysCtlBODLowPowerModeEnable(xtBoolean bEnable);
-extern void SysCtlLowVoltRstEnable(xtBoolean bEnable);
-extern void SysCtlTempatureSensorEnable(xtBoolean bEnable);
-
-extern xtBoolean SysCtlBODStateGet(void);
-extern void SysCtlBODRstEnable(xtBoolean bEnable);
-extern void SysCtlRCAdjValueSet(unsigned long ulAdjValue);
-
-extern void SysCtlIPClockDividerSet(unsigned long ulConfig);
-extern void SysCtlFreqDividerOutputEnable(xtBoolean bEnable, unsigned char u8Divider);
-extern void SysCtlPWRWUIntEnable(xtBoolean bEnable, xtBoolean bDelay);
-extern void SysCtlPowerDownEnable(xtBoolean bEnable);
-extern void SysCtlPowerDownWaitCPUSet(xtBoolean bEnable);
+extern void SysCtlSleep(void);
+extern void SysCtlBackupDomainReset(void);
 extern unsigned long SysCtlHClockGet(void);
-extern void SysCtlHClockSet(unsigned long ulConfig);
+extern unsigned long SysCtlAPB1ClockGet(void);
+extern unsigned long SysCtlAPB2ClockGet(void);
 
 //*****************************************************************************
 //

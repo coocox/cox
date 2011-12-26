@@ -61,6 +61,21 @@ static unsigned long s_ulExtClockMHz = 12;
 //*****************************************************************************
 #define SYSCTL_PERIPH_MASK(a)   (((a) & 0xffff) << (((a) & 0x001f0000) >> 16))
 
+//*****************************************************************************
+//
+// This macro extracts the array index out of the peripheral clock source.
+//
+//*****************************************************************************
+#define SYSCTL_PERIPH_INDEX_CLK(a)                                            \
+                                (((a) >> 28) & 0xf)
+
+//*****************************************************************************
+//
+// This macro constructs the peripheral bit mask from the peripheral clock source.
+//
+//*****************************************************************************
+#define SYSCTL_PERIPH_ENUM_CLK(a)                                             \
+                                (((a) & 0xff) << (((a) & 0x1f0000) >> 16))
 
 //*****************************************************************************
 //
@@ -87,8 +102,27 @@ static const unsigned long g_pulAXBCLKRegs[] =
 {
     RCC_AHBENR,
     RCC_APB2ENR,
-    RCC_APB1ENR
+    RCC_APB1ENR,
+    RCC_BDCR
 };
+
+//*****************************************************************************
+//
+// An array that maps the "peripheral clock source set" number (which is stored
+// in the upper nibble of the SYSCTL_PERIPH_* defines) to the SYSCLK_? 
+// register that set the Clock source for that peripheral.
+//
+//*****************************************************************************
+static const unsigned long g_pulCLKSELRegs[] =
+{
+    RCC_CFGR,
+    RCC_BDCR,
+    RCC_CFGR2
+};
+
+static volatile const unsigned char g_APBAHBPrescTable[16] = 
+       {0, 0, 0, 0, 1, 2, 3, 4, 1, 2, 3, 4, 6, 7, 8, 9};
+static volatile const unsigned char g_ADCPrescTable[4] = {2, 4, 6, 8};
 
 //*****************************************************************************
 //
@@ -175,7 +209,50 @@ SysCtlDelay(unsigned long ulCount)
 static xtBoolean
 SysCtlPeripheralValid(unsigned long ulPeripheral)
 {
-    return((ulPeripheral == SYSCTL_PERIPH_ADC1) ||
+    return((ulPeripheral == SYSCTL_PERIPH_ETHMAC) ||
+           (ulPeripheral == SYSCTL_PERIPH_USBOTG) ||
+           (ulPeripheral == SYSCTL_PERIPH_TIM11) ||
+           (ulPeripheral == SYSCTL_PERIPH_TIM10) ||
+           (ulPeripheral == SYSCTL_PERIPH_TIM9) ||
+           (ulPeripheral == SYSCTL_PERIPH_ADC3) ||
+           (ulPeripheral == SYSCTL_PERIPH_USART1) ||
+           (ulPeripheral == SYSCTL_PERIPH_TIM8) ||
+           (ulPeripheral == SYSCTL_PERIPH_SPI1) ||
+           (ulPeripheral == SYSCTL_PERIPH_TIM1) ||
+           (ulPeripheral == SYSCTL_PERIPH_ADC2) ||
+           (ulPeripheral == SYSCTL_PERIPH_ADC1) ||
+           (ulPeripheral == SYSCTL_PERIPH_IOPG) ||
+           (ulPeripheral == SYSCTL_PERIPH_IOPF) ||
+           (ulPeripheral == SYSCTL_PERIPH_IOPE) ||
+           (ulPeripheral == SYSCTL_PERIPH_IOPD) ||
+           (ulPeripheral == SYSCTL_PERIPH_IOPC) ||
+           (ulPeripheral == SYSCTL_PERIPH_IOPB) ||
+           (ulPeripheral == SYSCTL_PERIPH_IOPA) ||
+           (ulPeripheral == SYSCTL_PERIPH_AFIO) ||
+           (ulPeripheral == SYSCTL_PERIPH_DAC) ||
+           (ulPeripheral == SYSCTL_PERIPH_PWR) ||
+           (ulPeripheral == SYSCTL_PERIPH_BKP) ||
+           (ulPeripheral == SYSCTL_PERIPH_CAN2) ||
+           (ulPeripheral == SYSCTL_PERIPH_CAN1) ||
+           (ulPeripheral == SYSCTL_PERIPH_USB) ||
+           (ulPeripheral == SYSCTL_PERIPH_I2C2) ||
+           (ulPeripheral == SYSCTL_PERIPH_I2C1) ||
+           (ulPeripheral == SYSCTL_PERIPH_UART5) ||
+           (ulPeripheral == SYSCTL_PERIPH_UART4) ||
+           (ulPeripheral == SYSCTL_PERIPH_USART3) ||
+           (ulPeripheral == SYSCTL_PERIPH_USART2) ||
+           (ulPeripheral == SYSCTL_PERIPH_SPI3) ||
+           (ulPeripheral == SYSCTL_PERIPH_SPI2) ||
+           (ulPeripheral == SYSCTL_PERIPH_WWDG) ||
+           (ulPeripheral == SYSCTL_PERIPH_TIM14) ||
+           (ulPeripheral == SYSCTL_PERIPH_TIM13) ||
+           (ulPeripheral == SYSCTL_PERIPH_TIM12) ||
+           (ulPeripheral == SYSCTL_PERIPH_TIM7) ||
+           (ulPeripheral == SYSCTL_PERIPH_TIM6) ||
+           (ulPeripheral == SYSCTL_PERIPH_TIM5) ||
+           (ulPeripheral == SYSCTL_PERIPH_TIM4) ||
+           (ulPeripheral == SYSCTL_PERIPH_TIM3) ||
+           (ulPeripheral == SYSCTL_PERIPH_TIM2) ||
            (ulPeripheral == SYSCTL_PERIPH_ADC1));
 }
 #endif
@@ -251,7 +328,18 @@ SysCtlPeripheralEnable(unsigned long ulPeripheral)
     //
     // Check the arguments.
     //
-    xASSERT(SysCtlPeripheralValid(ulPeripheral));
+    xASSERT(SysCtlPeripheralValid(ulPeripheral) ||
+            (ulPeripheral == SYSCTL_PERIPH_ETHMACRX) ||
+            (ulPeripheral == SYSCTL_PERIPH_ETHMACTX) ||
+            (ulPeripheral == SYSCTL_PERIPH_SDIO) ||
+            (ulPeripheral == SYSCTL_PERIPH_FSMC) ||
+            (ulPeripheral == SYSCTL_PERIPH_CRC) ||
+            (ulPeripheral == SYSCTL_PERIPH_FLITF) ||
+            (ulPeripheral == SYSCTL_PERIPH_SRAM) ||
+            (ulPeripheral == SYSCTL_PERIPH_DMA2) ||
+            (ulPeripheral == SYSCTL_PERIPH_DMA1) ||
+            (ulPeripheral == SYSCTL_PERIPH_RTC)
+            );
 
     //
     // Enable this peripheral.
@@ -826,7 +914,7 @@ SysCtlResetFlagGet(void)
 //
 //*****************************************************************************
 void
-SysCtlResetFlagGet(void)
+SysCtlResetFlagClear(void)
 { 
     //
     // Clear the system control reset flag.
@@ -887,5 +975,342 @@ SysCtlLSEConfig(unsigned long ulLSEConfig)
     xHWREG(RCC_BDCR) &= ~RCC_BDCR_LSEON;
     xHWREG(RCC_BDCR) |= ulLSEConfig;
     while(!(xHWREG(RCC_BDCR) & RCC_BDCR_LSERDY));
+}
+
+//*****************************************************************************
+//
+//! \brief Set a peripheral clock source and peripheral divide.
+//!
+//! \param ulPeripheralSrc is the peripheral clock source to set.
+//!
+//! Peripherals clock source are seted with this function.  At power-up, all 
+//! Peripherals clock source are Peripherals clock source; they must be set in 
+//! order to operate or respond to register reads/writes.
+//!
+//! The \e ulPeripheralSrc parameter must be only one of the following values:
+//! \ref STM32F1xx_SysCtl_Stclk_Src.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+SysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc)
+{
+ //
+    // Check the arguments.
+    //
+    xASSERT((ulPeripheralSrc==SYSCTL_RTC_LSE)||
+            (ulPeripheralSrc==SYSCTL_RTC_LSI)||
+            (ulPeripheralSrc==SYSCTL_RTC_LSE_128)||
+            (ulPeripheralSrc==SYSCTL_MCO_SYSCLK)||
+            (ulPeripheralSrc==SYSCTL_MCO_HSI)||
+            (ulPeripheralSrc==SYSCTL_MCO_HSE)||
+            (ulPeripheralSrc==SYSCTL_MCO_PLL_2)||
+            (ulPeripheralSrc==SYSCTL_MCO_PLL3_2)||
+            (ulPeripheralSrc==SYSCTL_MCO_XT1)||
+            (ulPeripheralSrc==SYSCTL_MCO_PLL3)||
+            (ulPeripheralSrc==SYSCTL_I2S3_SYSCLK)||
+            (ulPeripheralSrc==SYSCTL_I2S3_PLL3)||
+            (ulPeripheralSrc==SYSCTL_I2S2_SYSCLK)||
+            (ulPeripheralSrc==SYSCTL_I2S2_PLL3)|||
+            (ulPeripheralSrc==SYSCTL_MCO_PLL2)         
+           );
+    if(SYSCTL_PERIPH_INDEX_CLK(ulPeripheralSrc) == 0)
+    {
+        xHWREG(RCC_BDCR) &= ~(RCC_BDCR_RTCSEL_M);
+    }
+    else if(SYSCTL_PERIPH_INDEX_CLK(ulPeripheralSrc) == 1)
+    {
+        xHWREG(RCC_CFGR) &= ~(RCC_CFGR_MCO_M);
+    }
+    else if(SYSCTL_PERIPH_INDEX_CLK(ulPeripheralSrc) == 1)
+    {
+        xHWREG(RCC_CFGR2) &= ~(SYSCTL_PERIPH_ENUM_CLK(ulPeripheralSrc | 1));
+    }
+    xHWREG(g_pulCLKSELRegs[SYSCTL_PERIPH_INDEX_CLK(ulPeripheralSrc)]) |=
+        SYSCTL_PERIPH_ENUM_CLK(ulPeripheralSrc);
+}
+
+//*****************************************************************************
+//
+//! \brief Resets the device.
+//!
+//! This function will perform a software reset of the entire device.  The
+//! processor and all peripherals will be reset and all device registers will
+//! return to their default values (with the exception of the reset cause
+//! register, which will maintain its current value but have the software reset
+//! bit set as well).
+//!
+//! \return This function does not return.
+//
+//*****************************************************************************
+void
+SysCtlReset(void)
+{
+    //
+    // Perform a software reset request.  This will cause the device to reset,
+    // no further code will be executed.
+    //
+    xHWREG(NVIC_APINT) = NVIC_APINT_VECTKEY | NVIC_APINT_SYSRESETREQ;
+
+    //
+    // The device should have reset, so this should never be reached.  Just in
+    // case, loop forever.
+    //
+    while(1)
+    {
+    }
+}
+
+//*****************************************************************************
+//
+//! \brief Puts the processor into sleep mode.
+//!
+//! This function places the processor into sleep mode; it will not return
+//! until the processor returns to run mode.  The peripherals that are enabled
+//! via SysCtlPeripheralSleepEnable() continue to operate and can wake up the
+//! processor (if automatic clock gating is enabled with
+//! SysCtlPeripheralClockGating(), otherwise all peripherals continue to
+//! operate).
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+SysCtlSleep(void)
+{
+    //
+    // Wait for an interrupt.
+    //
+    xCPUwfi();
+}
+
+//*****************************************************************************
+//
+//! \brief The function is used to Reset Backup domain 
+//!
+//! \param None.
+//!
+//! The function is used to Reset Backup domain 
+//!
+//! \return None.
+//
+//*****************************************************************************
+void 
+SysCtlBackupDomainReset(void)
+{
+    xHWREG(RCC_BDCR) |= RCC_BDCR_BDRST;
+}
+
+//*****************************************************************************
+//
+//! \brief The function is used to Get HCLK clock and the UNIT is in Hz
+//!
+//! \param None.
+//!
+//! The function is used to Get HCLK clock and the UNIT is in Hz
+//!
+//! \return HCLK clock frequency in Hz 
+//
+//*****************************************************************************
+unsigned long 
+SysCtlHClockGet(void)
+{
+    unsigned long ulTemp = 0, ulPllMull = 0, ulPllSource = 0, ulPresc = 0;
+    unsigned long ulHclk;
+
+    //
+    // STM32F10X_CL
+    //
+#ifdef  STM32F10X_CL
+    unsigned long ulPrediv1Source = 0, ulPrediv1Factor = 0, ulPrediv2Factor = 0, 
+                  ulPll2Mull = 0;
+#endif 
+
+#if defined (STM32F10X_LD_VL) || defined (STM32F10X_MD_VL) || defined (STM32F10X_HD_VL)
+    unsigned long ulPrediv1Factor = 0;
+#endif
+    
+    //
+    // Get SYSCLK source
+    //
+    ulTemp = xHWREG(RCC_CFGR) & RCC_CFGR_SWS_M;
+    switch (ulTemp)
+    {
+        //
+        // HSI used as system clock
+        //
+        case 0x00: 
+        {
+            ulHclk = (unsigned long)8000000;
+            break;
+        }
+        //
+        // HSE used as system clock
+        //
+        case 0x04: 
+        {
+            ulHclk = s_ulExtClockMHz*1000000;
+            break;
+        }
+        //
+        // PLL used as system clock
+        //
+        case 0x08: 
+        {
+            //
+            // Get PLL clock source and multiplication factor
+            //
+            ulPllMull = xHWREG(RCC_CFGR) & RCC_CFGR_PLLMUL_M;
+            ulPllSource = xHWREG(RCC_CFGR) & RCC_CFGR_PLLSRC;
+                  
+#ifndef STM32F10X_CL      
+            ulPllMull = ( ulPllMull >> 18) + 2;
+      
+            if (ulPllSource == 0x00)
+            {
+                //
+                // HSI oscillator clock divided by 2 selected as PLL clock entry 
+                //
+                ulHclk = (8000000 >> 1) * ulPllMull;
+            }
+            else
+            {
+ #if defined (STM32F10X_LD_VL) || defined (STM32F10X_MD_VL) || defined (STM32F10X_HD_VL)
+                ulPrediv1Factor = (xHWREG(RCC_CFGR2) & RCC_CFGR2_PREDIV1_M) + 1;
+                //
+                // HSE oscillator clock selected as PREDIV1 clock entry 
+                //
+                ulHclk = (s_ulExtClockMHz*1000000 / ulPrediv1Factor) * ulPllMull; 
+ #else
+                //
+                // HSE selected as PLL clock entry 
+                //
+                if ((xHWREG(RCC_CFGR) & RCC_CFGR_PLLXTPRE) != 0)
+                {
+                    //
+                    // HSE oscillator clock divided by 2 
+                    //
+                    ulHclk = ((s_ulExtClockMHz*1000000) >> 1) * ulPllMull;
+                }
+                else
+                {
+                    ulHclk = s_ulExtClockMHz*1000000 * ulPllMull;
+                }
+ #endif
+            }
+#else
+            ulPllMull = ulPllMull >> 18;
+          
+            if (ulPllMull != 0x0D)
+            {
+                ulPllMull += 2;
+            }
+            else
+            { 
+                //
+                // PLL multiplication factor = PLL input clock * 6.5 
+                //
+                ulPllMull = 13 / 2; 
+            }
+                  
+            if (ulPllSource == 0x00)
+            {
+                //
+                // HSI oscillator clock divided by 2 selected as PLL clock entry 
+                //
+                ulHclk = (8000000 >> 1) * ulPllMull;
+            }
+            else
+            {
+                //
+                // PREDIV1 selected as PLL clock entry 
+                //
+                
+                //
+                // Get PREDIV1 clock source and division factor
+                //
+                ulPrediv1Source = (xHWREG(RCC_CFGR2) & RCC_CFGR2_PREDIV1SRC);
+                ulPrediv1Factor = (xHWREG(RCC_CFGR2) & RCC_CFGR2_PREDIV1_M) + 1;
+              
+                if (ulPrediv1Source == 0)
+                { 
+                    //
+                    // HSE oscillator clock selected as PREDIV1 clock entry 
+                    //
+                    ulHclk = (s_ulExtClockMHz*1000000 / ulPrediv1Factor) * ulPllMull;          
+                }
+                else
+                {
+                    //
+                    // PLL2 clock selected as PREDIV1 clock entry 
+                    //
+        
+                    //
+                    // Get PREDIV2 division factor and PLL2 multiplication factor 
+                    //
+                    ulPrediv2Factor = ((xHWREG(RCC_CFGR2) & RCC_CFGR2_PREDIV2_M)
+                                        >> RCC_CFGR2_PREDIV2_S) + 1;
+                    ulPll2Mull = ((xHWREG(RCC_CFGR2) & RCC_CFGR2_PLL2MUL_M) >> 8 ) + 2; 
+                    ulHclk = (((s_ulExtClockMHz*1000000 / ulPrediv2Factor) * 
+                             ulPll2Mull) / ulPrediv1Factor) * ulPllMull;                         
+                }
+            }
+#endif 
+        break;
+        }
+        case 0x08: 
+        {
+            ulHclk = 8000000;
+        }
+    }
+    ulTemp = (xHWREG(RCC_CFGR) & RCC_CFGR_HPRE_M) >> RCC_CFGR_HPRE_S;
+    ulPresc = g_APBAHBPrescTable[ulTemp];
+    ulHclk = ulHclk >> ulPresc;
+    return ulHclk;
+}
+
+//*****************************************************************************
+//
+//! \brief The function is used to Get APB1 clock and the UNIT is in Hz
+//!
+//! \param None.
+//!
+//! The function is used to Get APB1 clock and the UNIT is in Hz
+//!
+//! \return APB1 clock frequency in Hz 
+//
+//*****************************************************************************
+unsigned long 
+SysCtlAPB1ClockGet(void)
+{
+    unsigned long ulTemp,ulAPB1Clock;
+    ulAPB1Clock = SysCtlHClockGet();
+    ulTemp = (xHWREG(RCC_CFGR) & RCC_CFGR_PPRE1_M) >> RCC_CFGR_PPRE1_S;
+    ulTemp = (unsigned long)g_APBAHBPrescTable[ulTemp];
+    ulAPB1Clock = ulAPB1Clock >> ulTemp;
+    return ulAPB1Clock;
+}
+
+//*****************************************************************************
+//
+//! \brief The function is used to Get APB2 clock and the UNIT is in Hz
+//!
+//! \param None.
+//!
+//! The function is used to Get APB2 clock and the UNIT is in Hz
+//!
+//! \return APB2 clock frequency in Hz 
+//
+//*****************************************************************************
+unsigned long 
+SysCtlAPB2ClockGet(void)
+{
+    unsigned long ulTemp,ulAPB2Clock;
+    ulAPB2Clock = SysCtlHClockGet();
+    ulTemp = (xHWREG(RCC_CFGR) & RCC_CFGR_PPRE2_M) >> RCC_CFGR_PPRE2_S;
+    ulTemp = (unsigned long)g_APBAHBPrescTable[ulTemp];
+    ulAPB2Clock = ulAPB2Clock >> ulTemp;
+    return ulAPB2Clock;
 }
 

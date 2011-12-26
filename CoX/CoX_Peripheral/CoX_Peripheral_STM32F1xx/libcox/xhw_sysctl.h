@@ -1186,42 +1186,42 @@
 //
 //! PLL3 Multiplication Factor mask
 //
-#define RCC_CFGR2_PLL3MUL       0x0000F000
+#define RCC_CFGR2_PLL3MUL_M     0x0000F000
 
 //
 //! PLL3 Multiplication Factor shift
 //
-#define RCC_CFGR2_PLL3MUL       12
+#define RCC_CFGR2_PLL3MUL_S     12
 
 //
 //! PLL2 Multiplication Factor mask
 //
-#define RCC_CFGR2_PLL2MUL       0x00000F00
+#define RCC_CFGR2_PLL2MUL_M     0x00000F00
 
 //
 //! PLL2 Multiplication Factor shift
 //
-#define RCC_CFGR2_PLL2MUL       8
+#define RCC_CFGR2_PLL2MUL_S     8
 
 //
 //! PREDIV2 division factor mask
 //
-#define RCC_CFGR2_PREDIV2       0x000000F0
+#define RCC_CFGR2_PREDIV2_M     0x000000F0
 
 //
 //! PREDIV2 division factor shift
 //
-#define RCC_CFGR2_PREDIV2       4
+#define RCC_CFGR2_PREDIV2_S     4
 
 //
 //! PREDIV1 division factor mask
 //
-#define RCC_CFGR2_PREDIV1       0x0000000F
+#define RCC_CFGR2_PREDIV1_M     0x0000000F
 
 //
 //! PREDIV1 division factor shift
 //
-#define RCC_CFGR2_PREDIV1       0
+#define RCC_CFGR2_PREDIV1_S     0
 
 //*****************************************************************************
 //

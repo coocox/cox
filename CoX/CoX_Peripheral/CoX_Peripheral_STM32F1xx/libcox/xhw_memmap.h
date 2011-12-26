@@ -186,7 +186,7 @@
 
 #define AFIO_BASE               0x40010000  // AFIO
 #define EXTI_BASE               0x40010400  // EXTI
-#define GPIOA_BASE              0x40010800  // GPIO Port A
+#define GPIOA_BASE              0x40010800  //4 GPIO Port A
 #define GPIOB_BASE              0x40010C00  // GPIO Port B
 #define GPIOC_BASE              0x40011000  // GPIO Port C
 #define GPIOD_BASE              0x40011400  // GPIO Port D
