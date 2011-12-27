@@ -74,11 +74,15 @@
 
 //*****************************************************************************
 //
-//! \addtogroup xUART_Config
+//! \addtogroup xUART_User_Config xUART User Config
 //! @{
 //
 //*****************************************************************************
 
+//
+//! If the UART Using the DMA feather and interrupt enable, please set the config
+//! to 1, else 0
+//
 #define xUART_CONFIG_DMA_INT    0
 
 //*****************************************************************************

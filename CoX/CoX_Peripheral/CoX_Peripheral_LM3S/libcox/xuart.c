@@ -52,7 +52,9 @@
 #include "xdma.h"
 #endif
 
+#if !xUART_CONFIG_DMA_INT
 static xtEventCallback g_pfnUARTHandlerCallbacks[3] = {0};
+#endif
 
 //*****************************************************************************
 //
@@ -1575,7 +1577,8 @@ xUARTIntCallbackInit(unsigned long ulBase,
     // Check the arguments.
     //
     xASSERT(UARTBaseValid(ulBase));
-
+    
+#if !xUART_CONFIG_DMA_INT
     switch(ulBase)
     {
         case UART0_BASE:
@@ -1595,6 +1598,7 @@ xUARTIntCallbackInit(unsigned long ulBase,
         }         
             
     }
+#endif    
 
 }
 
@@ -1638,6 +1642,7 @@ UART0IntHandler(void)
     //
     xHWREG(ulBase + UART_ECR) = 0;
     
+#if !(xUART_CONFIG_DMA_INT)
     //
     // Call Callback function
     //
@@ -1646,7 +1651,8 @@ UART0IntHandler(void)
         g_pfnUARTHandlerCallbacks[0](0, ulEventFlags, 0, 0);
     }
 
-#if xUART_CONFIG_DMA_INT
+#else
+    
     //
     // Get the base address of the control table.
     //
@@ -1769,16 +1775,18 @@ UART1IntHandler(void)
     // Clear Error flag
     //
     xHWREG(ulBase + UART_ECR) = 0;
-    
+ 
+#if !(xUART_CONFIG_DMA_INT)
     //
     // Call Callback function
     //
     if(g_pfnUARTHandlerCallbacks[0])
     {
-        g_pfnUARTHandlerCallbacks[0](0, 0, ulEventFlags, 0);
+        g_pfnUARTHandlerCallbacks[0](0, ulEventFlags, 0, 0);
     }
 
-#if xUART_CONFIG_DMA_INT
+#else
+    
     //
     // Get the base address of the control table.
     //
@@ -1963,6 +1971,7 @@ UART2IntHandler(void)
     //
     xHWREG(ulBase + UART_ICR) = ulEventFlags;
 
+#if !(xUART_CONFIG_DMA_INT)    
     //
     // Clear Error flag
     //
@@ -1973,10 +1982,11 @@ UART2IntHandler(void)
     //
     if(ulEventFlags && g_pfnUARTHandlerCallbacks[0])
     {
-        g_pfnUARTHandlerCallbacks[0](0, 0, ulEventFlags, 0);
+        g_pfnUARTHandlerCallbacks[0](0, ulEventFlags, 0, 0);
     }
 
-#if xUART_CONFIG_DMA_INT  
+#else
+    
     //
     // Get the base address of the control table.
     //

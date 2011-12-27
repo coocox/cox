@@ -1657,6 +1657,9 @@
             <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_nvic.h</name>
           </file>
           <file>
+            <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_spi.h</name>
+          </file>
+          <file>
             <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_sysctl.h</name>
           </file>
           <file>
@@ -1685,6 +1688,9 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xgpio.h</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xspi.h</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xsysctl.h</name>
         </file>
         <file>
@@ -1710,6 +1716,9 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xgpio.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xspi.c</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xsysctl.c</name>
