@@ -76,53 +76,90 @@ __vector_table
         DCD     ResetHandler                ; Reset Handler
         DCD     NMIIntHandler               ; NMI Handler
         DCD     HardFaultIntHandler         ; Hard Fault Handler
-        DCD     0                           ; Reserved
-        DCD     0                           ; Reserved
-        DCD     0                           ; Reserved
+        DCD     MemManageIntHandler         ; The MPU fault handler
+        DCD     BusFaultIntHandler          ; The bus fault handler
+        DCD     UsageFaultIntHandler        ; The usage fault handler
         DCD     0                           ; Reserved
         DCD     0                           ; Reserved
         DCD     0                           ; Reserved
         DCD     0                           ; Reserved
         DCD     SVCIntHandler               ; SVCall Handler
-        DCD     0                           ; Reserved
+        DCD     DebugMonIntHandler          ; Debug monitor handler
         DCD     0                           ; Reserved
         DCD     PendSVIntHandler            ; PendSV Handler
         DCD     SysTickIntHandler           ; SysTick Handler
         
                                             ; External Interrupts
 
-        DCD     BODIntHandler               ; Brownout low voltage detected interrupt                 
-        DCD     WDTIntHandler               ; Watch Dog Timer interrupt                              
-        DCD     EINT0IntHandler             ; External signal interrupt from PB.14 pin                
-        DCD     EINT1IntHandler             ; External signal interrupt from PB.15 pin                
-        DCD     GPABIntHandler              ; External signal interrupt from PA[15:0] / PB[13:0]     
-        DCD     GPCDEIntHandler             ; External interrupt from PC[15:0]/PD[15:0]/PE[15:0]     
-        DCD     PWMAIntHandler              ; PWM0 or PWM2 interrupt                                 
-        DCD     PWMBIntHandler              ; PWM1 or PWM3 interrupt                                 
-        DCD     TIMER0IntHandler            ; Timer 0 interrupt                                      
-        DCD     TIMER1IntHandler            ; Timer 1 interrupt                                      
-        DCD     TIMER2IntHandler            ; Timer 2 interrupt                                      
-        DCD     TIMER3IntHandler            ; Timer 3 interrupt                                      
-        DCD     UART02IntHandler            ; UART0 interrupt                                        
-        DCD     UART1IntHandler             ; UART1 interrupt                                        
-        DCD     SPI0IntHandler              ; SPI0 interrupt                                         
-        DCD     SPI1IntHandler              ; SPI1 interrupt                                         
-        DCD     SPI2IntHandler              ; SPI2 interrupt                                         
-        DCD     SPI3IntHandler              ; SPI3 interrupt                                         
-        DCD     I2C0IntHandler              ; I2C0 interrupt                                         
-        DCD     I2C1IntHandler              ; I2C1 interrupt                                         
-        DCD     CAN0IntHandler              ; CAN0 interrupt                                         
-        DCD     DefaultIntHandler           ; Reserved                                         
-        DCD     DefaultIntHandler           ; Reserved
-        DCD     USBDIntHandler              ; USB FS Device interrupt                                
-        DCD     PS2IntHandler               ; PS2 interrupt                                          
-        DCD     ACMPIntHandler              ; Analog Comparator-0 or Comaprator-1 interrupt          
-        DCD     PDMAIntHandler              ; PDMA interrupt  
-        DCD     I2SIntHandler               ; I2S interrupt
-        DCD     PWRWUIntHandler             ; Clock controller interrupt for chip wake up from power-
-        DCD     ADCIntHandler               ; ADC interrupt                                          
-        DCD     DefaultIntHandler           ; Reserved
-        DCD     RTCIntHandler               ; Real time clock interrupt                              
+        DCD     WWDGIntHandler              ; 0 Window Watchdog interrupt                 
+        DCD     PVDIntHandler               ; 1 PVD through EXTI Line detection  
+        DCD     TAMPERIntHandler            ; 2 Tamper interrupt 
+        DCD     RTCIntHandler               ; 3 RTC global interrupt
+        DCD     FLASHIntHandler             ; 4 Flash global interrupt
+        DCD     RCCIntHandler               ; 5 RCC global interrupt
+        DCD     EXTI0IntHandler             ; 6 EXTI Line0 interrupt
+        DCD     EXTI1IntHandler             ; 7 EXTI Line1 interrupt 
+        DCD     EXTI2IntHandler             ; 8 EXTI Line2 interrupt
+        DCD     EXTI3IntHandler             ; 9 EXTI Line3 interrupt
+        DCD     EXTI4IntHandler             ; 10 EXTI Line4 interrupt
+        DCD     DMA1Channel1IntHandler      ; 11 DMA1 Channel1 global interrupt
+        DCD     DMA1Channel2IntHandler      ; 12 DMA1 Channel2 global interrupt
+        DCD     DMA1Channel3IntHandler      ; 13 DMA1 Channel3 global interrupt
+        DCD     DMA1Channel4IntHandler      ; 14 DMA1 Channel4 global interrupt
+        DCD     DMA1Channel5IntHandler      ; 15 DMA1 Channel5 global interrupt
+        DCD     DMA1Channel6IntHandler      ; 16 DMA1 Channel6 global interrupt
+        DCD     DMA1Channel7IntHandler      ; 17 DMA1 Channel7 global interrupt
+        DCD     ADC12IntHandler             ; 18 ADC1 and ADC2 global interrupt
+        DCD     CAN1TXIntHandler            ; 19 CAN1 TX interrupts
+        DCD     CAN1RX0IntHandler           ; 20 CAN1 RX0 interrupts
+        DCD     CAN1RX1IntHandler           ; 21 CAN1 RX1 interrupt
+        DCD     CAN1SCEIntHandler           ; 22 CAN1 SCE interrupt 
+        DCD     EXTI95IntHandler            ; 23 EXTI Line[9:5] interrupts 
+        DCD     TIM1BRKIntHandler           ; 24 TIM1 Break interrupt
+        DCD     TIM1UPIntHandler            ; 25 TIM1 Update interrupt
+        DCD     TIM1TRGCOMIntHandler        ; 26 TIM1 Trigger and Commutation
+        DCD     TIM1CCIntHandler            ; 27 TIM1 Capture Compare interrupt
+        DCD     TIM2IntHandler              ; 28 TIM2 global interrupt
+        DCD     TIM3IntHandler              ; 29 TIM3 global interrupt
+        DCD     TIM4IntHandler              ; 30 TIM4 global interrupt
+        DCD     I2C1EVIntHandler            ; 31 I2C1 event interrupt
+        DCD     I2C1ERIntHandler            ; 32 I2C1 error interrupt
+        DCD     I2C2EVIntHandler            ; 33 I2C2 event interrupt
+        DCD     I2C2ERIntHandler            ; 34 I2C2 error interrupt
+        DCD     SPI1IntHandler              ; 35 SPI1 global interrupt
+        DCD     SPI2IntHandler              ; 36 SPI2 global interrupt
+        DCD     USART1IntHandler            ; 37 USART1 global interrupt
+        DCD     USART2IntHandler            ; 38 USART2 global interrupt
+        DCD     USART3IntHandler            ; 39 USART3 global interrupt
+        DCD     EXTI1510IntHandler          ; 40 EXTI Line[15:10] interrupts
+        DCD     RTCAlarmIntHandler          ; 41 RTC alarm through EXTI line
+        DCD     OTGFSWKUPIntHandler         ; 42 USB On-The-Go FS Wakeup
+        DCD     0
+		DCD     0
+		DCD     0
+		DCD     0
+		DCD     0
+		DCD     0
+		DCD     0
+        DCD     TIM5IntHandler              ; 50 TIM5 global interrupt
+        DCD     SPI3IntHandler              ; 51 SPI3 global interrupt
+        DCD     UART4IntHandler             ; 52 UART4 global interrupt
+        DCD     UART5IntHandler             ; 53 UART5 global interrupt
+        DCD     TIM6IntHandler              ; 54 TIM6 global interrupt
+        DCD     TIM7IntHandler              ; 55 TIM7 global interrupt
+        DCD     DMA2Channel1IntHandler      ; 56 DMA2 Channel1 global interrupt
+        DCD     DMA2Channel2IntHandler      ; 57 DMA2 Channel2 global interrupt
+        DCD     DMA2Channel3IntHandler      ; 58 DMA2 Channel3 global interrupt
+        DCD     DMA2Channel4IntHandler      ; 59 DMA2 Channel4 global interrupt
+        DCD     DMA2Channel5IntHandler      ; 60 DMA2 Channel5 global interrupt
+        DCD     ETHIntHandler               ; 61 Ethernet global interrupt
+        DCD     ETHWKUPIntHandler           ; 62 Ethernet Wakeup through EXTI line
+        DCD     CAN2TXIntHandler            ; 63 CAN2 TX interrupts
+        DCD     CAN2RX0IntHandler           ; 64 CAN2 RX0 interrupts
+        DCD     CAN2RX1IntHandler           ; 65 CAN2 RX1 interrupt
+        DCD     CAN2SCEIntHandler           ; 66 CAN2 SCE interrupt
+        DCD     OTGFSIntHandler             ; 67 USB On The Go FS global interrupt
+        DCD     0xF108F85F                  ; Boot in RAM mode                           
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -131,38 +168,74 @@ __vector_table
       PUBWEAK ResetHandler
       PUBWEAK NMIIntHandler       
       PUBWEAK HardFaultIntHandler 
-      PUBWEAK SVCIntHandler       
-      PUBWEAK PendSVIntHandler    
-      PUBWEAK SysTickIntHandler   
-      PUBWEAK BODIntHandler   
-      PUBWEAK WDTIntHandler   
-      PUBWEAK EINT0IntHandler 
-      PUBWEAK EINT1IntHandler 
-      PUBWEAK GPABIntHandler  
-      PUBWEAK GPCDEIntHandler 
-      PUBWEAK PWMAIntHandler  
-      PUBWEAK PWMBIntHandler  
-      PUBWEAK TIMER0IntHandler  
-      PUBWEAK TIMER1IntHandler  
-      PUBWEAK TIMER2IntHandler  
-      PUBWEAK TIMER3IntHandler  
-      PUBWEAK UART02IntHandler 
-      PUBWEAK UART1IntHandler 
-      PUBWEAK SPI0IntHandler  
-      PUBWEAK SPI1IntHandler  
-      PUBWEAK SPI2IntHandler  
-      PUBWEAK SPI3IntHandler  
-      PUBWEAK I2C0IntHandler  
-      PUBWEAK I2C1IntHandler  
-      PUBWEAK CAN0IntHandler   
-      PUBWEAK USBDIntHandler   
-      PUBWEAK PS2IntHandler   
-      PUBWEAK ACMPIntHandler  
-      PUBWEAK PDMAIntHandler 
-      PUBWEAK I2SIntHandler
-      PUBWEAK PWRWUIntHandler  
-      PUBWEAK ADCIntHandler    
-      PUBWEAK RTCIntHandler    
+      PUBWEAK MemManageIntHandler
+      PUBWEAK BusFaultIntHandler
+      PUBWEAK UsageFaultIntHandler
+      PUBWEAK SVCIntHandler
+      PUBWEAK DebugMonIntHandler
+      PUBWEAK PendSVIntHandler
+      PUBWEAK SysTickIntHandler
+      PUBWEAK WWDGIntHandler  
+      PUBWEAK PVDIntHandler  
+      PUBWEAK TAMPERIntHandler
+      PUBWEAK RTCIntHandler
+      PUBWEAK FLASHIntHandler 
+      PUBWEAK RCCIntHandler
+      PUBWEAK EXTI0IntHandler 
+      PUBWEAK EXTI1IntHandler 
+      PUBWEAK EXTI2IntHandler 
+      PUBWEAK EXTI3IntHandler 
+      PUBWEAK EXTI4IntHandler 
+      PUBWEAK DMA1Channel1IntHandler 
+      PUBWEAK DMA1Channel2IntHandler
+      PUBWEAK DMA1Channel3IntHandler
+      PUBWEAK DMA1Channel4IntHandler 
+      PUBWEAK DMA1Channel5IntHandler 
+      PUBWEAK DMA1Channel6IntHandler 
+      PUBWEAK DMA1Channel7IntHandler 
+      PUBWEAK ADC12IntHandler 
+      PUBWEAK CAN1TXIntHandler 
+      PUBWEAK CAN1RX0IntHandler 
+      PUBWEAK CAN1RX1IntHandler  
+      PUBWEAK CAN1SCEIntHandler  
+      PUBWEAK EXTI95IntHandler 
+      PUBWEAK TIM1BRKIntHandler
+      PUBWEAK TIM1UPIntHandler
+      PUBWEAK TIM1TRGCOMIntHandler
+      PUBWEAK TIM1CCIntHandler
+      PUBWEAK TIM2IntHandler  
+      PUBWEAK TIM3IntHandler 
+      PUBWEAK TIM4IntHandler 
+      PUBWEAK I2C1EVIntHandler 
+      PUBWEAK I2C1ERIntHandler 
+      PUBWEAK I2C2EVIntHandler 
+      PUBWEAK I2C2ERIntHandler 
+      PUBWEAK SPI1IntHandler 
+      PUBWEAK SPI2IntHandler 
+      PUBWEAK USART1IntHandler 
+      PUBWEAK USART2IntHandler 
+      PUBWEAK USART3IntHandler 
+      PUBWEAK EXTI1510IntHandler 
+      PUBWEAK RTCAlarmIntHandler 
+      PUBWEAK OTGFSWKUPIntHandler 
+      PUBWEAK TIM5IntHandler 
+      PUBWEAK SPI3IntHandler 
+      PUBWEAK UART4IntHandler 
+      PUBWEAK UART5IntHandler 
+      PUBWEAK TIM6IntHandler 
+      PUBWEAK TIM7IntHandler 
+      PUBWEAK DMA2Channel1IntHandler 
+      PUBWEAK DMA2Channel2IntHandler 
+      PUBWEAK DMA2Channel3IntHandler 
+      PUBWEAK DMA2Channel4IntHandler 
+      PUBWEAK DMA2Channel5IntHandler 
+      PUBWEAK ETHIntHandler 
+      PUBWEAK ETHWKUPIntHandler 
+      PUBWEAK CAN2TXIntHandler 
+      PUBWEAK CAN2RX0IntHandler 
+      PUBWEAK CAN2RX1IntHandler 
+      PUBWEAK CAN2SCEIntHandler 
+      PUBWEAK OTGFSIntHandler     
 
         THUMB
         SECTION .text:CODE:REORDER(2)
@@ -187,38 +260,74 @@ HardFaultIntHandler
 HardFaultIntHandler_Ret
         B      .
 
-SVCIntHandler       
-PendSVIntHandler    
-SysTickIntHandler   
-BODIntHandler   
-WDTIntHandler   
-EINT0IntHandler 
-EINT1IntHandler 
-GPABIntHandler  
-GPCDEIntHandler 
-PWMAIntHandler  
-PWMBIntHandler  
-TIMER0IntHandler  
-TIMER1IntHandler  
-TIMER2IntHandler  
-TIMER3IntHandler  
-UART02IntHandler 
-UART1IntHandler 
-SPI0IntHandler  
-SPI1IntHandler  
-SPI2IntHandler  
-SPI3IntHandler  
-I2C0IntHandler  
-I2C1IntHandler  
-CAN0IntHandler  
-USBDIntHandler   
-PS2IntHandler   
-ACMPIntHandler  
-PDMAIntHandler  
-I2SIntHandler
-PWRWUIntHandler
-ADCIntHandler    
-RTCIntHandler    
+MemManageIntHandler
+BusFaultIntHandler
+UsageFaultIntHandler
+SVCIntHandler
+DebugMonIntHandler
+PendSVIntHandler
+SysTickIntHandler
+WWDGIntHandler  
+PVDIntHandler  
+TAMPERIntHandler
+RTCIntHandler
+FLASHIntHandler 
+RCCIntHandler
+EXTI0IntHandler 
+EXTI1IntHandler 
+EXTI2IntHandler 
+EXTI3IntHandler 
+EXTI4IntHandler 
+DMA1Channel1IntHandler 
+DMA1Channel2IntHandler
+DMA1Channel3IntHandler
+DMA1Channel4IntHandler 
+DMA1Channel5IntHandler 
+DMA1Channel6IntHandler 
+DMA1Channel7IntHandler 
+ADC12IntHandler 
+CAN1TXIntHandler 
+CAN1RX0IntHandler 
+CAN1RX1IntHandler  
+CAN1SCEIntHandler  
+EXTI95IntHandler 
+TIM1BRKIntHandler
+TIM1UPIntHandler
+TIM1TRGCOMIntHandler
+TIM1CCIntHandler
+TIM2IntHandler  
+TIM3IntHandler 
+TIM4IntHandler 
+I2C1EVIntHandler 
+I2C1ERIntHandler 
+I2C2EVIntHandler 
+I2C2ERIntHandler 
+SPI1IntHandler 
+SPI2IntHandler 
+USART1IntHandler 
+USART2IntHandler 
+USART3IntHandler 
+EXTI1510IntHandler 
+RTCAlarmIntHandler 
+OTGFSWKUPIntHandler 
+TIM5IntHandler 
+SPI3IntHandler 
+UART4IntHandler 
+UART5IntHandler 
+TIM6IntHandler 
+TIM7IntHandler 
+DMA2Channel1IntHandler 
+DMA2Channel2IntHandler 
+DMA2Channel3IntHandler 
+DMA2Channel4IntHandler 
+DMA2Channel5IntHandler 
+ETHIntHandler 
+ETHWKUPIntHandler 
+CAN2TXIntHandler 
+CAN2RX0IntHandler 
+CAN2RX1IntHandler 
+CAN2SCEIntHandler 
+OTGFSIntHandler     
 DefaultIntHandler          
         B DefaultIntHandler 
         

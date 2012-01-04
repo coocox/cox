@@ -239,7 +239,7 @@
 //
 //!  Port 1 configuration bits shift
 //
-#define GPIO_CRL_CNF0_S         6 
+#define GPIO_CRL_CNF1_S         6 
 
 //
 //!  Port 2 mode bits mask

@@ -2133,11 +2133,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 #define xSPinTypeUART(ePeripheralPin, eShortPin)                              \
         do                                                                    \
         {                                                                     \
-         (((eShortPin == UART1RX) || (eShortPin == UART2RX) ||                \
-         (eShortPin == UART3RX) || (eShortPin == UART4RX) ||                  \
-         (eShortPin == UART5RX)) ?                                            \
-         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_IN) :                      \
-         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_HWSTD));                   \
+         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_HWSTD);                    \
          GPIOSPinConfigure(ePeripheralPin, eShortPin);                        \
         }                                                                     \
         while(0)
@@ -3563,14 +3559,14 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
         GPIOPinConfigure(GPIO_##eShortPin##_##ePeripheralPin)
 
 extern void GPIODirModeSet(unsigned long ulPort, unsigned long ulBit,
-                           unsigned long ulPinIO);
+                           unsigned long ulPinType, unsigned long ulPinSpeed);
 extern unsigned long GPIODirModeGet(unsigned long ulPort, unsigned long ulBit);
 extern void GPIOPinIntEnable(unsigned long ulPort, unsigned long ulPins,
                              unsigned long ulIntType);
 extern void GPIOPinIntDisable(unsigned long ulPort, unsigned long ulPins);
 extern void GPIOPinIntCallbackInit(unsigned long ulPort, unsigned long ulPin, 
                                    xtEventCallback xtPortCallback);
-extern unsigned long GPIOPinIntStatus(unsigned long ulPort);
+extern unsigned long GPIOPinIntStatus(void);
 extern void GPIOPinIntClear(unsigned long ulPort, unsigned long ulPins);
 extern long GPIOPinRead(unsigned long ulPort, unsigned long ulPins);
 extern void GPIOPinWrite(unsigned long ulPort, unsigned long ulPins,

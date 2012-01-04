@@ -2,7 +2,7 @@
 //
 //! \file xuart.h
 //! \brief Prototypes for the UART Driver.
-//! \version V2.1.1.0
+//! \version V2.1.1.1
 //! \date 11/14/2011
 //! \author CooCox
 //! \copy
@@ -84,7 +84,7 @@ extern "C"
 //! \section xUART_Ints_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Interrupts        |       CoX      |         NUC1xx         |
+//! |xUART Interrupts        |       CoX      |         STM32F1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xUART_INT_ERROR         |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -112,22 +112,22 @@ extern "C"
 //
 //! All Error Interrupt Mask
 //
-#define xUART_INT_ERROR         0        
+#define xUART_INT_ERROR         UART_INT_RLS        
 
 //
 //! Receive Timeout Interrupt Mask
 //
-#define xUART_INT_RT            0       
+#define xUART_INT_RT            UART_INT_RTO       
 
 //
 //! Transmit Interrupt Mask
 //
-#define xUART_INT_TX            0       
+#define xUART_INT_TX            UART_INT_THRE       
 
 //
 //! Receive Interrupt Mask
 //
-#define xUART_INT_RX            0   
+#define xUART_INT_RX            UART_INT_RDA   
 
 //
 //! DSR Modem Interrupt Mask
@@ -174,7 +174,7 @@ extern "C"
 //! \section xUART_Event_Flag_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Events            |       CoX      |         NUC1xx         |
+//! |xUART Events            |       CoX      |         STM32F1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xUART_EVENT_TX          |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -206,32 +206,32 @@ extern "C"
 //
 //! Transmit Event Mask
 //
-#define xUART_EVENT_TX          0       
+#define xUART_EVENT_TX          UART_INT_THRE       
 
 //
 //! Receive Event Mask
 //
-#define xUART_EVENT_RX          0   
+#define xUART_EVENT_RX          UART_INT_RDA   
 
 //
 //! Overrun Error Event Mask
 //
-#define xUART_EVENT_OE          0       
+#define xUART_EVENT_OE          UART_INT_RLS       
 
 //
 //! Parity Error Event Mask
 //
-#define xUART_EVENT_PE          0       
+#define xUART_EVENT_PE          UART_INT_RLS       
 
 //
 //! Framing Error Event Mask
 //
-#define xUART_EVENT_FE          0       
+#define xUART_EVENT_FE          UART_INT_RLS       
 
 //
 //! Receive Timeout Event Mask
 //
-#define xUART_EVENT_RT          0       
+#define xUART_EVENT_RT          UART_INT_RTO       
 
 //
 //! DSR Modem Event Mask
@@ -275,7 +275,7 @@ extern "C"
 //! \section xUART_Event_Flag_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Error             |       CoX      |         NUC1xx         |
+//! |xUART Error             |       CoX      |         STM32F1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xUART_RXERROR_OVERRUN   |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -290,10 +290,10 @@ extern "C"
 //
 //*****************************************************************************
 
-#define xUART_RXERROR_OVERRUN   0
-#define xUART_RXERROR_BREAK     0
-#define xUART_RXERROR_PARITY    0
-#define xUART_RXERROR_FRAMING   0
+#define xUART_RXERROR_OVERRUN   UART_RXERROR_OVERRUN
+#define xUART_RXERROR_BREAK     UART_RXERROR_BREAK
+#define xUART_RXERROR_PARITY    UART_RXERROR_PARITY
+#define xUART_RXERROR_FRAMING   UART_RXERROR_FRAMING
 
 //*****************************************************************************
 //
@@ -317,7 +317,7 @@ extern "C"
 //! \section xUART_Frame_Configs_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Frame Config      |       CoX      |         NUC1xx         |
+//! |xUART Frame Config      |       CoX      |         STM32F1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xUART_CONFIG_WLEN_MASK  |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -358,42 +358,42 @@ extern "C"
 //
 // Mask for extracting word length
 //
-#define xUART_CONFIG_WLEN_MASK  0  
+#define xUART_CONFIG_WLEN_MASK  UART_CONFIG_WLEN_MASK  
 
 //
 //! 8 bit data
 //
-#define xUART_CONFIG_WLEN_8     0  
+#define xUART_CONFIG_WLEN_8     UART_CONFIG_WLEN_8  
 
 //
 //! 7 bit data
 //
-#define xUART_CONFIG_WLEN_7     0  
+#define xUART_CONFIG_WLEN_7     UART_CONFIG_WLEN_7  
 
 //
 //! 6 bit data
 //
-#define xUART_CONFIG_WLEN_6     0
+#define xUART_CONFIG_WLEN_6     UART_CONFIG_WLEN_6
 
 //
 //! 5 bit data
 //
-#define xUART_CONFIG_WLEN_5     0
+#define xUART_CONFIG_WLEN_5     UART_CONFIG_WLEN_5
 
 //
 //! Mask for extracting stop bits
 //
-#define xUART_CONFIG_STOP_MASK  0
+#define xUART_CONFIG_STOP_MASK  UART_CONFIG_STOP_MASK
 
 //
 //! One stop bit
 //
-#define xUART_CONFIG_STOP_1     0  
+#define xUART_CONFIG_STOP_1     UART_CONFIG_STOP_ONE  
 
 //
 //! Two stop bits
 //
-#define xUART_CONFIG_STOP_2     0
+#define xUART_CONFIG_STOP_2     UART_CONFIG_STOP_TWO
 
 #define xUART_CONFIG_STOP_0_5   0  
 #define xUART_CONFIG_STOP_1_5   0  
@@ -401,32 +401,32 @@ extern "C"
 //
 //! Mask for extracting parity
 //
-#define xUART_CONFIG_PAR_MASK   0
+#define xUART_CONFIG_PAR_MASK   UART_CONFIG_PAR_MASK
 
 //
 //! No parity
 //
-#define xUART_CONFIG_PAR_NONE   0  
+#define xUART_CONFIG_PAR_NONE   UART_CONFIG_PAR_NONE  
 
 //
 //! Even parity
 //
-#define xUART_CONFIG_PAR_EVEN   0  
+#define xUART_CONFIG_PAR_EVEN   UART_CONFIG_PAR_EVEN  
 
 //
 //! Odd parity
 //
-#define xUART_CONFIG_PAR_ODD    0  
+#define xUART_CONFIG_PAR_ODD    UART_CONFIG_PAR_ODD  
 
 //
 //! Parity bit is one / marked
 //
-#define xUART_CONFIG_PAR_ONE    0 
+#define xUART_CONFIG_PAR_ONE    UART_CONFIG_PAR_ONE 
 
 //
 //! Parity bit is zero / space
 //
-#define xUART_CONFIG_PAR_ZERO   0 
+#define xUART_CONFIG_PAR_ZERO   UART_CONFIG_PAR_ZERO 
 
 //*****************************************************************************
 //
@@ -446,7 +446,7 @@ extern "C"
 //! \section xUART_IrDA_Mode_CoX 2. CoX Port Details 
 //! \verbatim
 //! +-------------------------+----------------+------------------------+
-//! |xUART IrDA Mode          |       CoX      |         NUC1xx         |
+//! |xUART IrDA Mode          |       CoX      |         STM32F1xx         |
 //! |-------------------------|----------------|------------------------|
 //! |xUART_IRDA_MODE_NORMAL   |  Non-Mandatory |            Y           |
 //! |-------------------------|----------------|------------------------|
@@ -460,7 +460,7 @@ extern "C"
 //
 //! IrDA Normal Mode
 //
-#define xUART_IRDA_MODE_NORMAL  0
+#define xUART_IRDA_MODE_NORMAL  0x00000000
 
 //
 //! IrDA Low-Power Mode
@@ -486,7 +486,7 @@ extern "C"
 //! \section xUART_Enable_Blocks_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Enable Block      |       CoX      |         NUC1xx         |
+//! |xUART Enable Block      |       CoX      |         STM32F1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xUART_BLOCK_UART        |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -531,7 +531,7 @@ extern "C"
 //! \section xUART_FIFO_Rx_Tiggle_Level_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |FIFO Rx Tiggle Level    |       CoX      |         NUC1xx         |
+//! |FIFO Rx Tiggle Level    |       CoX      |         STM32F1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xUART_FIFO_RX_n         |    Mandatory   |     xUART_FIFO_RX_1    |
 //! |                        |                |------------------------|
@@ -555,37 +555,37 @@ extern "C"
 //
 //! (1 character)
 //
-#define xUART_FIFO_RX_1         0  
+#define xUART_FIFO_RX_1         UART_FIFO_1BYTES  
 
 //
 //! (4 character)
 //
-#define xUART_FIFO_RX_4         0  
+#define xUART_FIFO_RX_4         UART_FIFO_4BYTES  
 
 //
 //! (8 character)
 //
-#define xUART_FIFO_RX_8         0  
+#define xUART_FIFO_RX_8         UART_FIFO_8BYTES  
 
 //
 //! (14 character)
 //
-#define xUART_FIFO_RX_14        0  
+#define xUART_FIFO_RX_14        UART_FIFO_14BYTES  
 
 //
 //! (30 character)
 //
-#define xUART_FIFO_RX_30        0 
+#define xUART_FIFO_RX_30        UART_FIFO_30BYTES 
 
 //
 //! (46 character)
 //
-#define xUART_FIFO_RX_46        0 
+#define xUART_FIFO_RX_46        UART_FIFO_46BYTES 
 
 //
 //! (62 character)
 //
-#define xUART_FIFO_RX_62        0 
+#define xUART_FIFO_RX_62        UART_FIFO_62BYTES 
 
 //*****************************************************************************
 //
@@ -605,7 +605,7 @@ extern "C"
 //! \section xUART_Modem_Output_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Modem Output      |       CoX      |         NUC1xx         |
+//! |xUART Modem Output      |       CoX      |         STM32F1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xUART_OUTPUT_RTS        |  Non-Mandatory |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -616,7 +616,7 @@ extern "C"
 //
 //*****************************************************************************
 
-#define xUART_OUTPUT_RTS        0
+#define xUART_OUTPUT_RTS        UART_OUTPUT_RTS_SET
 
 //*****************************************************************************
 //
@@ -635,7 +635,7 @@ extern "C"
 //! \section xUART_Modem_Intput_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Modem Input       |       CoX      |         NUC1xx         |
+//! |xUART Modem Input       |       CoX      |         STM32F1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xUART_INPUT_CTS         |  Non-Mandatory |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -650,7 +650,7 @@ extern "C"
 //
 //*****************************************************************************
 
-#define xUART_INPUT_CTS         0
+#define xUART_INPUT_CTS         UART_INPUT_CTS_L
 
 //*****************************************************************************
 //
@@ -671,7 +671,7 @@ extern "C"
 //! \section xUART_Flow_Control_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Flow Control      |       CoX      |         NUC1xx         |
+//! |xUART Flow Control      |       CoX      |         STM32F1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xUART_FLOWCONTROL_TX    |  Non-Mandatory |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -684,9 +684,9 @@ extern "C"
 //
 //*****************************************************************************
 
-#define xUART_FLOWCONTROL_TX    0
-#define xUART_FLOWCONTROL_RX    0
-#define xUART_FLOWCONTROL_NONE  0
+#define xUART_FLOWCONTROL_TX    UART_FLOWCONTROL_TX
+#define xUART_FLOWCONTROL_RX    UART_FLOWCONTROL_RX
+#define xUART_FLOWCONTROL_NONE  UART_FLOWCONTROL_NONE
 
 //*****************************************************************************
 //
@@ -705,7 +705,7 @@ extern "C"
 //! \section xUART_LIN_Config_CoX 2. CoX Port Details 
 //! \verbatim
 //! +-----------------------------+----------------+-------------------+
-//! |xUART LIN Configuration      |       CoX      |      NUC1xx       |
+//! |xUART LIN Configuration      |       CoX      |      STM32F1xx       |
 //! |-----------------------------|----------------|-------------------|
 //! |xUART_LIN_MODE_MASK          |  Non-Mandatory |         N         |
 //! |-----------------------------|----------------|-------------------|
@@ -729,19 +729,19 @@ extern "C"
 //*****************************************************************************
 
 #define xUART_LIN_SYNC_BREAK_LEN_MASK                                         \
-                                0
+                                UART_CONFIG_BKFL_MASK
                                 
 #define xUART_LIN_SYNC_BREAK_LEN_13                                           \
-                                0
+                                13
 
 #define xUART_LIN_SYNC_BREAK_LEN_14                                           \
-                                0
+                                14
 
 #define xUART_LIN_SYNC_BREAK_LEN_15                                           \
-                                0
+                                15
 
 #define xUART_LIN_SYNC_BREAK_LEN_16                                           \
-                                0
+                                16
 
 //*****************************************************************************
 //
@@ -756,7 +756,7 @@ extern "C"
 //! \section xUART_Exported_APIs_Port CoX Port Details
 //! \verbatim
 //! +------------------------+----------------+--------+
-//! |xUART API               |       CoX      | NUC1xx |
+//! |xUART API               |       CoX      | STM32F1xx |
 //! |------------------------|----------------|--------|
 //! |xUARTConfigSet          |    Mandatory   |    Y   |
 //! |------------------------|----------------|--------|
@@ -852,8 +852,8 @@ extern "C"
 //
 //*****************************************************************************
 
-extern void xUARTConfigSet(unsigned long ulBase, unsigned long ulBaud, 
-                           unsigned long ulConfig);
+#define xUARTConfigSet(ulBase, ulBaud, ulConfig)                               \
+        UARTConfigSet(ulBase, ulBaud, ulConfig)
 
 
 //*****************************************************************************
@@ -871,7 +871,8 @@ extern void xUARTConfigSet(unsigned long ulBase, unsigned long ulBaud,
 //! \return None.
 //
 //*****************************************************************************      
-extern void xUARTEnable(unsigned long ulBase, unsigned long ulBlock);                                
+#define xUARTEnable(ulBase, ulBlock)                                           \
+        UARTEnable(ulBase, ulBlock)
 
 //*****************************************************************************
 //
@@ -889,7 +890,7 @@ extern void xUARTEnable(unsigned long ulBase, unsigned long ulBlock);
 //! \return None.
 //
 //*****************************************************************************
-extern void xUARTDisable(unsigned long ulBase, unsigned long ulBlock); 
+#define xUARTDisable(ulBase, ulBlock) 
 
 //*****************************************************************************
 //
@@ -904,7 +905,7 @@ extern void xUARTDisable(unsigned long ulBase, unsigned long ulBlock);
 //! \return None.
 //
 //*****************************************************************************
-extern void xUARTFIFOEnable(unsigned long ulBase); 
+#define xUARTFIFOEnable(ulBase) 
 
 //*****************************************************************************
 //
@@ -919,7 +920,7 @@ extern void xUARTFIFOEnable(unsigned long ulBase);
 //! \return None.
 //
 //*****************************************************************************
-extern void xUARTFIFODisable(unsigned long ulBase); 
+#define xUARTFIFODisable(ulBase) 
 
 //*****************************************************************************
 //
@@ -937,7 +938,8 @@ extern void xUARTFIFODisable(unsigned long ulBase);
 //! \return None.
 //
 //*****************************************************************************
-extern void xUARTFIFORxLevelSet(unsigned long ulBase, unsigned long ulRxLevel);
+#define xUARTFIFORxLevelSet(ulBase, ulRxLevel)                                \                                      \
+        UARTFIFOTriggerLevelSet(ulBase, ulRxLevel)
 
 //*****************************************************************************
 //
@@ -952,7 +954,8 @@ extern void xUARTFIFORxLevelSet(unsigned long ulBase, unsigned long ulRxLevel);
 //! if there is no data in the receive FIFO.
 //
 //*****************************************************************************
-extern void xUARTCharsAvail(unsigned long ulBase);
+#define xUARTCharsAvail(ulBase)                                               \
+        UARTFIFORxIsEmpty(ulBase)
 
 //*****************************************************************************
 //
@@ -967,7 +970,8 @@ extern void xUARTCharsAvail(unsigned long ulBase);
 //! or \b false if there is no space available in the transmit FIFO.
 //
 //*****************************************************************************
-extern void xUARTSpaceAvail(unsigned long ulBase);
+#define xUARTSpaceAvail(ulBase)                                               \
+        UARTFIFOTxIsEmpty(ulBase)
 
 
 //*****************************************************************************
@@ -988,7 +992,8 @@ extern void xUARTSpaceAvail(unsigned long ulBase);
 //! attempting to call this function.
 //
 //*****************************************************************************
-extern void xUARTCharGetNonBlocking(unsigned long ulBase);
+#define xUARTCharGetNonBlocking(ulBase)                                       \
+        UARTCharGetNonBlocking(ulBase)
 
 //*****************************************************************************
 //
@@ -1004,7 +1009,8 @@ extern void xUARTCharGetNonBlocking(unsigned long ulBase);
 //! \e long.
 //
 //*****************************************************************************
-extern void xUARTCharGet(unsigned long ulBase);
+#define xUARTCharGet(ulBase)                                                  \
+        UARTCharGet(ulBase)
 
 //*****************************************************************************
 //
@@ -1026,7 +1032,8 @@ extern void xUARTCharGet(unsigned long ulBase);
 //! FIFO.
 //
 //*****************************************************************************
-extern void xUARTCharPutNonBlocking(unsigned long ulBase, unsigned char ucData);
+#define xUARTCharPutNonBlocking(ulBase, ucData)                               \
+        UARTCharPutNonBlocking(ulBase, ucData)
 
 //*****************************************************************************
 //
@@ -1042,7 +1049,8 @@ extern void xUARTCharPutNonBlocking(unsigned long ulBase, unsigned char ucData);
 //! \return None.
 //
 //*****************************************************************************
-extern void xUARTCharPut(unsigned long ulBase, unsigned char ucData);
+#define xUARTCharPut(ulBase, ucData)                                          \
+        UARTCharPut(ulBase, ucData)
 
 //*****************************************************************************
 //
@@ -1059,7 +1067,7 @@ extern void xUARTCharPut(unsigned long ulBase, unsigned char ucData);
 //! transmissions are complete.
 //
 //*****************************************************************************
-extern void xUARTBusy(unsigned long ulBase);
+#define xUARTBusy(ulBase) 
 
 //*****************************************************************************
 //
@@ -1082,7 +1090,8 @@ extern void xUARTBusy(unsigned long ulBase);
 //! \return None.
 //
 //*****************************************************************************
-extern void xUARTIntEnable(unsigned long ulBase, unsigned long ulIntFlags);
+#define xUARTIntEnable(ulBase, ulIntFlags)                                    \
+        UARTIntEnable(ulBase, ulIntFlags)
 
 //*****************************************************************************
 //
@@ -1096,8 +1105,8 @@ extern void xUARTIntEnable(unsigned long ulBase, unsigned long ulIntFlags);
 //! \return None.
 //
 //*****************************************************************************
-extern void xUARTIntCallbackInit(unsigned long ulBase, 
-                                 xtEventCallback xtUARTCallback);
+#define xUARTIntCallbackInit(ulBase, xtUARTCallback)                          \
+        UARTIntCallbackInit(ulBase, xtUARTCallback)
         
 //*****************************************************************************
 //
@@ -1121,7 +1130,8 @@ extern void xUARTIntCallbackInit(unsigned long ulBase,
 //! \return None.
 //
 //*****************************************************************************
-extern void xUARTIntDisable(unsigned long ulBase, unsigned long ulIntFlags);
+#define xUARTIntDisable(ulBase, ulIntFlags)                                   \
+        UARTIntDisable(ulBase, ulIntFlags)    
 
 //*****************************************************************************
 //
@@ -1140,7 +1150,8 @@ extern void xUARTIntDisable(unsigned long ulBase, unsigned long ulIntFlags);
 //! and \b xUART_RXERROR_OVERRUN.
 //
 //*****************************************************************************
-extern void xUARTRxErrorGet(unsigned long ulBase);
+#define xUARTRxErrorGet(ulBase)                                               \
+        UARTRxErrorGet(ulBase)
 
 //*****************************************************************************
 //
@@ -1156,7 +1167,8 @@ extern void xUARTRxErrorGet(unsigned long ulBase);
 //! \return None.
 //
 //*****************************************************************************
-extern void xUARTRxErrorClear(unsigned long ulBase);
+#define xUARTRxErrorClear(ulBase)                                             \
+        UARTRxErrorClear(ulBase) 
 
 //*****************************************************************************
 //
@@ -1177,8 +1189,9 @@ extern void xUARTRxErrorClear(unsigned long ulBase);
 //! \return None.
 //
 //*****************************************************************************
-extern void xUARTModemControlSet(unsigned long ulBase, 
-                                 unsigned long ulControl);
+
+#define xUARTModemControlSet(ulBase, ulControl)                               \
+        UARTModemControlSet(ulBase, ulControl)
 
 //*****************************************************************************
 //
@@ -1199,8 +1212,8 @@ extern void xUARTModemControlSet(unsigned long ulBase,
 //! \return None.
 //
 //*****************************************************************************
-extern void xUARTModemControlClear(unsigned long ulBase, 
-                                   unsigned long ulControl);
+#define xUARTModemControlClear(ulBase, ulControl)                             \
+        UARTModemControlClear(ulBase, ulControl)
 
 //*****************************************************************************
 //
@@ -1219,7 +1232,8 @@ extern void xUARTModemControlClear(unsigned long ulBase,
 //! associated signal is asserted.
 //
 //*****************************************************************************
-extern void xUARTModemControlGet(unsigned long ulBase, unsigned long ulControl);
+#define xUARTModemControlGet(ulBase, ulControl)                               \
+        UARTModemControlGet(ulBase, ulControl)
 
 //*****************************************************************************
 //
@@ -1237,7 +1251,8 @@ extern void xUARTModemControlGet(unsigned long ulBase, unsigned long ulControl);
 //! presence of each flag indicates that the associated signal is asserted.
 //
 //*****************************************************************************
-extern void xUARTModemStatusGet(unsigned long ulBase);
+#define xUARTModemStatusGet(ulBase)                                           \
+        UARTModemStatusGet(ulBase)
 
 //*****************************************************************************
 //
@@ -1256,14 +1271,15 @@ extern void xUARTModemStatusGet(unsigned long ulBase);
 //! there is space available in the receive FIFO.  If no hardware flow control
 //! is required, xUART_FLOWCONTROL_NONE should be passed.
 //!
-//! \note The availability of hardware flow control varies with the Stellaris
+//! \note The availability of hardware flow control varies with the STM32F1xx
 //! part and UART in use.  Please consult the datasheet for the part you are
 //! using to determine whether this support is available.
 //!
 //! \return None.
 //
 //*****************************************************************************
-extern void xUARTFlowControlSet(unsigned long ulBase, unsigned long ulMode);
+#define xUARTFlowControlSet(ulBase, ulMode)                                   \
+        UARTFlowControlSet(ulBase, ulMode)
 
 //*****************************************************************************
 //
@@ -1273,7 +1289,7 @@ extern void xUARTFlowControlSet(unsigned long ulBase, unsigned long ulMode);
 //!
 //! Returns the current hardware flow control mode.
 //!
-//! \note The availability of hardware flow control varies with the Stellaris
+//! \note The availability of hardware flow control varies with the STM32F1xx
 //! part and UART in use.  Please consult the datasheet for the part you are
 //! using to determine whether this support is available.
 //!
@@ -1284,7 +1300,8 @@ extern void xUARTFlowControlSet(unsigned long ulBase, unsigned long ulMode);
 //! xUART_FLOWCONTROL_NONE will be returned.
 //
 //*****************************************************************************
-extern void xUARTFlowControlGet(unsigned long ulBase);
+#define xUARTFlowControlGet(ulBase)                                           \
+        UARTFlowControlGet(ulBase)
         
 //*****************************************************************************
 //
@@ -1321,7 +1338,7 @@ extern void xUARTFlowControlGet(unsigned long ulBase);
 //
 //*****************************************************************************
 extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud, 
-                            unsigned long ulConfig, unsigned long ulMode);                     
+                             unsigned long ulConfig, unsigned long ulMode);                     
 
 //*****************************************************************************
 //
@@ -1334,7 +1351,8 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 //! \return None.
 //
 //*****************************************************************************
-extern void xUARTIrDAEnable(ulBase);
+#define xUARTIrDAEnable(ulBase)                                               \
+        UARTEnableIrDA(ulBase)
 
 //*****************************************************************************
 //
@@ -1347,7 +1365,8 @@ extern void xUARTIrDAEnable(ulBase);
 //! \return None.
 //
 //*****************************************************************************
-extern void xUARTIrDADisable(unsigned long ulBase);
+#define xUARTIrDADisable(ulBase)                                              \
+        UARTDisableIrDA(ulBase)
 
 //*****************************************************************************
 //
@@ -1364,8 +1383,8 @@ extern void xUARTIrDADisable(unsigned long ulBase);
 //! \return None.
 //
 //*****************************************************************************
-extern void xUARTLINConfig(unsigned long ulBase, unsigned long ulBaud, 
-                           unsigned long ulConfig);
+#define xUARTLINConfig(ulBase, ulBaud, ulConfig)                              \
+        UARTLINConfig(ulBase, ulBaud, ulConfig)
         
 //*****************************************************************************
 //
@@ -1378,7 +1397,8 @@ extern void xUARTLINConfig(unsigned long ulBase, unsigned long ulBaud,
 //! \return None.
 //
 //*****************************************************************************    
-extern void xUARTLINEnable(unsigned long ulBase);
+#define xUARTLINEnable(ulBase)                                                \
+        UARTEnableLIN(ulBase)
 
 //*****************************************************************************
 //
@@ -1391,8 +1411,477 @@ extern void xUARTLINEnable(unsigned long ulBase);
 //! \return None.
 //
 //*****************************************************************************    
-extern void xUARTLINDisable(unsigned long ulBase);
+#define xUARTLINDisable(ulBase)                                               \
+        UARTDisableLIN(ulBase)
     
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_UART
+//! @{
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_UART_INT_Type STM32F1xx UART Interrupt Type
+//! \brief Values that show STM32F1xx UART Interrupt Type
+//! Values that can be passed to UARTIntEnable, UARTIntDisable, and UARTIntClear
+//! as the ulIntFlags parameter, and returned from UARTIntStatus.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! PE interrupt
+//
+#define UART_INT_PE             0x00010100
+
+//
+//! TXE interrupt
+//
+#define UART_INT_TXE            0x00800080
+
+//
+//! Transmission complete interrupt
+//
+#define UART_INT_TC             0x00400040
+
+//
+//! RXNE interrupt
+//
+#define UART_INT_RXNE           0x00200020
+
+//
+//! IDLE interrupt
+//
+#define UART_INT_IDLE           0x00100010
+
+//
+//! LIN break detection interrupt
+//
+#define UART_INT_LIN            0x01001020
+
+//
+//! Error interrupt
+//
+#define UART_INT_ERR            0x000E2001
+
+//
+//! CTS interrupt
+//
+#define UART_INT_CTS            0x02002400
+
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_UART_Line_Config STM32F1xx UART Line Configuration
+//! \brief Values that show STM32F1xx UART Line Configuration
+//! Values that can be passed to UARTConfigSetExpClk as the ulConfig parameter
+//! and returned by UARTConfigGetExpClk in the pulConfig parameter.
+//! Additionally, the UART_CONFIG_PAR_* subset can be passed to
+//! UARTParityModeSet as the ulParity parameter, and are returned by
+//! UARTParityModeGet.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Mask for extracting word length
+//
+#define UART_CONFIG_WLEN_MASK   0x00001000
+
+//
+//! 8 bit data
+//
+#define UART_CONFIG_WLEN_8      0x00000000
+
+//
+//! 7 bit data
+//
+#define UART_CONFIG_WLEN_9      0x00001000
+
+//
+//! Mask for extracting stop bits
+//
+#define UART_CONFIG_STOP_MASK   0x00003000
+
+//
+//! One stop bit
+//
+#define UART_CONFIG_STOP_ONE    0x00000000
+
+//
+//! Two stop bits
+//
+#define UART_CONFIG_STOP_TWO    0x00002000
+
+//
+//! 0.5 stop bits
+//
+#define UART_CONFIG_STOP_0P5    0x00001000
+
+//
+//! 1.5 stop bits
+//
+#define UART_CONFIG_STOP_1P5    0x00003000
+
+//
+//! Mask for extracting parity
+//
+#define UART_CONFIG_PAR_MASK    0x00000600
+
+//
+//! No parity
+//
+#define UART_CONFIG_PAR_NONE    0x00000000
+
+//
+//! Even parity
+//
+#define UART_CONFIG_PAR_EVEN    0x00000400
+
+//
+//! Odd parity
+//
+#define UART_CONFIG_PAR_ODD     0x00000600
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_UART_Enable_Blocks STM32F1xx UART Enable Blocks
+//! \brief Values that show STM32F1xx UART Enable Blocks
+//! Uart logic blocks  that can be passed to UARTEnable or UARTDisable as 
+//! the ulBlock parameter.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Uart block
+//
+#define UART_BLOCK_UART         0x00002000
+
+//
+//! Uart transmit block
+//
+#define UART_BLOCK_TX           0x00000008
+
+//
+//! uart receive block
+//
+#define UART_BLOCK_RX           0x00000004
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_UART_Clock_Config STM32F1xx UART clock Configuration
+//! \brief Values that show STM32F1xx UART clock Configuration
+//! Values that can be passed to UARTClockConfig as the ulClkConfig parameter.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Clock pin enable
+//
+#define UART_CLK_EN             0x00000800
+
+//
+//! Clock pin disabled
+//
+#define UART_CLK_DIS            0x00000000
+
+//
+//! Steady low value on CK pin outside transmission window.
+//
+#define UART_CPOL_LOW           0x00000800
+
+//
+//! Steady high value on CK pin outside transmission window.
+//
+#define UART_CPOL_HIGH          0x00000400
+
+//
+//! The first clock transition is the first data capture edge.
+//
+#define UART_CPHA_1EDHGE        0x00000000
+
+//
+//! The second clock transition is the first data capture edge.
+//
+#define UART_CPHA_2EDHGE        0x00000200
+
+//
+//! The clock pulse of the last data bit is output to the CK pin
+//
+#define UART_LASTBIT_EN         0x00000100
+
+//
+//! The clock pulse of the last data bit is not output to the CK pin
+//
+#define UART_LASTBIT_DIS        0x00000000
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_UART_DMA_Flag STM32F1xx UART DMA Flag
+//! \brief Values that show STM32F1xx UART DMA Flag
+//! Values that can be passed to UARTDMAEnable() and UARTDMADisable().
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Enable DMA for transmit
+//
+#define UART_DMA_TX             0x00000080
+
+//
+//! Enable DMA for receive
+//
+#define UART_DMA_RX             0x00000040
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_UART_Wake_Up STM32F1xx UART Wake Up
+//! \brief Values that show STM32F1xx UART Wake Up method.
+//! Values that can be passed to UARTWakeUpConfig().
+//! @{
+//
+//*****************************************************************************
+
+//
+//! WakeUp by an idle line detection
+//
+#define UART_WAKEUP_IDLE        0x00000000
+
+//
+//! WakeUp by an address mark
+//
+#define UART_WAKEUP_ADDRESS     0x00000800
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_UART_Flow_Control STM32F1xx UART Flow Control
+//! \brief Values that show STM32F1xx UART Flow Control
+//! Values that can be passed to UARTFlowControlSet() or returned from
+//! UARTFlowControlGet().
+//! @{
+//
+//*****************************************************************************
+
+//
+//! RTS enable
+//
+#define UART_FLOWCONTROL_TX     0x00000100
+
+//
+//! CTS enable
+//
+#define UART_FLOWCONTROL_RX     0x00000200
+
+//
+//! RTS CTS disable
+//
+#define UART_FLOWCONTROL_NONE   0x00000000
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_UART_Error STM32F1xx UART Error
+//! \brief Values that show STM32F1xx UART Error
+//! Values returned from UARTRxErrorGet().
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Overrun error
+//
+#define UART_RXERROR_OVERRUN    0x00000008
+
+//
+//! Noise error flag
+//
+#define UART_RXERROR_NE         0x00000004
+
+//
+//! Parity error
+//
+#define UART_RXERROR_PARITY     0x00000001
+
+//
+//! Framing error
+//
+#define UART_RXERROR_FRAMING    0x00000002
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_UART_LIN_Config STM32F1xx UART LIN Configuration
+//! \brief Values that show STM32F1xx UART LIN Configuration
+//! Values that can be passed to UARTLINConfig as the ulConfig parameter
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Mask for LIN Break Field Length
+//
+#define UART_CONFIG_BKFL_MASK   0x00000020
+
+//
+//! LIN Break Field Length 10
+//
+#define UART_CONFIG_BKFL_10     0x00000000
+
+//
+//! LIN Break Field Length 11
+//
+#define UART_CONFIG_BKFL_11     0x00000020
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_UART_IrDA_Mode STM32F1xx UART IrDA mode Configuration
+//! \brief Values that show STM32F1xx UART IrDA mode Configuration
+//! Values that can be passed to UARTIrDAConfig as the ulMode parameter
+//! @{
+//
+//*****************************************************************************
+
+//
+// IrDA Mode Mask
+//
+#define UART_IRDA_MODE_MASK     0x80000000
+
+//
+//! IrDA low-power mode
+//
+#define UART_IRDA_MODE_LPM      0x80000000
+
+//
+//! Normal mode
+//
+#define UART_IRDA_MODE_NORMAL   0x00000000
+
+//
+// IrDA Mode Prescaler value Mask
+//
+#define UART_IRDA_PRES_MASK     0x000000FF
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_UART_Exported_APIs STM32F1xx UART API
+//! \brief STM32F1xx UART API Reference.
+//! @{
+//
+//*****************************************************************************
+extern void UARTParityModeSet(unsigned long ulBase, unsigned long ulParity);
+extern unsigned long UARTParityModeGet(unsigned long ulBase);
+extern void UARTConfigSet(unsigned long ulBase, unsigned long ulBaud, 
+                          unsigned long ulConfig);
+extern void UARTEnable(unsigned long ulBase, unsigned long ulBlock);
+extern void UARTDisable(unsigned long ulBase, unsigned long ulBlock);
+extern void UARTEnableIrDA(unsigned long ulBase);
+extern void UARTDisableIrDA(unsigned long ulBase);
+extern void UARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud, 
+                           unsigned long ulConfig, unsigned long ulMode);
+extern void UARTEnableLIN(unsigned long ulBase);
+extern void UARTDisableLIN(unsigned long ulBase);
+extern void UARTLINConfig(unsigned long ulBase, unsigned long ulBaud, 
+                          unsigned long ulConfig);
+extern long UARTCharGetNonBlocking(unsigned long ulBase);
+extern long UARTCharGet(unsigned long ulBase);
+extern xtBoolean UARTCharPutNonBlocking(unsigned long ulBase, 
+                                        unsigned char ucData);
+extern void UARTCharPut(unsigned long ulBase, unsigned char ucData);
+extern void UARTBreakCtl(unsigned long ulBase);
+extern void UARTIntEnable(unsigned long ulBase, unsigned long ulIntFlags);
+extern void UARTIntDisable(unsigned long ulBase, unsigned long ulIntFlags);
+extern void UARTIntCallbackInit(unsigned long ulBase, 
+                                xtEventCallback xtUARTCallback);
+extern unsigned long UARTIntStatus(unsigned long ulBase);
+extern void UARTIntClear(unsigned long ulBase, unsigned long ulIntFlags);
+extern void UARTDMAEnable(unsigned long ulBase, unsigned long ulDMAFlags);
+extern void UARTDMADisable(unsigned long ulBase, unsigned long ulDMAFlags);
+extern void UARTAddressSet(unsigned long ulBase, unsigned long ulAddress);
+extern void UARTWakeUpConfig(unsigned long ulBase, unsigned long ulWakeup);
+extern void UARTClockConfig(unsigned long ulBase, unsigned long ulClockConfig);
+extern void UARTGuardTimeSet(unsigned long ulBase, unsigned long ulGuardTime);
+extern void UARTHalfDuplexEnable(unsigned long ulBase);
+extern void UARTHalfDuplexDisable(unsigned long ulBase);
+extern void UARTSmartCardEnable(unsigned long ulBase);
+extern void UARTSmartCardDisable(unsigned long ulBase);
 
 //*****************************************************************************
 //

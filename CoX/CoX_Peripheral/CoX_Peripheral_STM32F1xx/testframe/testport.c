@@ -15,24 +15,26 @@
 void 
 TestIOInit(void)
 {
-    SysCtlKeyAddrUnlock();
-    xHWREG(SYSCLK_PWRCON) |= SYSCLK_PWRCON_XTL12M_EN;
+    xSysCtlClockSet(40000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
 
     SysCtlDelay(10000);
 
-    xSPinTypeUART(UART0RX,PB0);
-    xSPinTypeUART(UART0TX,PB1);
+    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOA);
+    xSysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);
+
+    xSPinTypeUART(UART1RX,PA10);
+    xSPinTypeUART(UART1TX,PA9);
     
 
-    xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART0);
-    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART0);
-    SysCtlPeripheralClockSourceSet(SYSCTL_PERIPH_UART_S_EXT12M);
+    xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART1);
+    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART1);
+    //SysCtlPeripheralClockSourceSet(SYSCTL_PERIPH_UART_S_EXT12M);
 
-    UARTConfigSetExpClk(UART0_BASE, 115200, (UART_CONFIG_WLEN_8 | 
-                                             UART_CONFIG_STOP_ONE | 
-                                               UART_CONFIG_PAR_NONE));
+    xUARTConfigSet(USART1_BASE, 115200, (UART_CONFIG_WLEN_8 |
+                                        UART_CONFIG_STOP_ONE | 
+                                        UART_CONFIG_PAR_NONE));
 
-    UARTEnable(UART0_BASE, (UART_BLOCK_UART | UART_BLOCK_TX | UART_BLOCK_RX));
+    xUARTEnable(USART1_BASE, (UART_BLOCK_UART | UART_BLOCK_TX | UART_BLOCK_RX));
 }
 
 //*****************************************************************************
@@ -49,11 +51,14 @@ TestIOPut(char ch)
 {
     uint8_t c;
     c = ch;
-    while((xHWREG(UART0_BASE + UART_FSR) & (0x800000))==0x800000);
+    while((xHWREG(USART1_BASE + USART_SR) & (0x40))==0x00);
+    SysCtlDelay(1);
+
     //
     // Write this character to the transmit FIFO.
     //
-    xHWREG(UART0_BASE + UART_THR) = c;
+    xHWREG(USART1_BASE + USART_DR) = c;
+
 }
 
 //*****************************************************************************

@@ -254,8 +254,8 @@ extern "C"
 //
 //*****************************************************************************
 
-#define xSYSCTL_OSC_MAIN        SYSCTL_OSC_MAIN
-#define xSYSCTL_OSC_INT         SYSCTL_OSC_INT
+#define xSYSCTL_OSC_MAIN        SYSCTL_OSC_MAIN | SYSCTL_PLL_MAIN
+#define xSYSCTL_OSC_INT         SYSCTL_OSC_INT | SYSCTL_PLL_INT
 
 //
 //! \brief XTAL Select
@@ -1364,12 +1364,12 @@ extern unsigned long xSysCtlPeripheraIntNumGet(unsigned long ulPeripheralBase);
 //
 //! PLL2 ready Event Flag Mask
 //
-#define SYSCTL_EVENT_LSI        0x20
+#define SYSCTL_EVENT_PLL2       0x20
 
 //
 //! PLL3 ready Event Flag Mask
 //
-#define SYSCTL_EVENT_LSI        0x40
+#define SYSCTL_EVENT_PLL3       0x40
 
 //
 //! Clock security system Event Flag Mask
@@ -1807,7 +1807,7 @@ extern unsigned long SysCtlIntFlagGet(void);
 extern void SysCtlLSIConfig(unsigned long ulLSIConfig);
 extern void SysCtlLSEConfig(unsigned long ulLSEConfig);
 extern unsigned long SysCtlResetFlagGet(void);
-extern unsigned long SysCtlResetFlagClear(void);
+extern void SysCtlResetFlagClear(void);
 extern void SysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc);
 extern void SysCtlReset(void);
 extern void SysCtlSleep(void);

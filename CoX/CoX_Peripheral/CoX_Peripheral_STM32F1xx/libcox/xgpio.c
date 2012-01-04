@@ -41,6 +41,7 @@
 #include "xhw_memmap.h"
 #include "xhw_nvic.h"
 #include "xhw_sysctl.h"
+#include "xhw_gpio.h"
 #include "xdebug.h"
 #include "xsysctl.h"
 #include "xcore.h"
@@ -280,10 +281,10 @@ GPIODirModeSet(unsigned long ulPort, unsigned long ulBit,
     else
     {
         xHWREG(ulPort + GPIO_CRH) = (xHWREG(ulPort + GPIO_CRH) &                \
-                                   (~(GPIO_CRH_MODE8_M << (ulBit * 4))));
+        (~((GPIO_CRH_MODE8_M | GPIO_CRH_CNF8_M) << ((ulBit -8) * 4))));
     
         xHWREG(ulPort + GPIO_CRH) = (xHWREG(ulPort + GPIO_CRH) |                \
-        (((ulPinSpeed | ulPinType) & GPIO_CRH_MODE8_M) << (ulBit * 4)));
+        (((ulPinSpeed | ulPinType)) << ((ulBit -8) * 4)));
     }
 }
 
@@ -821,7 +822,7 @@ GPIOPinConfigure(unsigned long ulPinConfig)
     // Extract the base address index from the input value.
     //
 
-    ulBase = g_pulIPRSTRegs[(ulPinConfig >> 28) & 0xf];
+    ulBase = g_pulRemapRegs[(ulPinConfig >> 28) & 0xf];
 
 
     //

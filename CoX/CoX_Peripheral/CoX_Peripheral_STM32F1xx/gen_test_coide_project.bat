@@ -3,8 +3,8 @@ echo off
 set v_repo_root_self=..\..\..
 if defined v_repo_root set v_repo_root_self=%v_repo_root%
 
-set v_gen_root=%v_repo_root_self%\CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx
-set v_cox_peripheral=%v_repo_root_self%\CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx
+set v_gen_root=%v_repo_root_self%\CoX\CoX_Peripheral\CoX_Peripheral_STM32F1xx
+set v_cox_peripheral=%v_repo_root_self%\CoX\CoX_Peripheral\CoX_Peripheral_STM32F1xx
 ::echo %v_repo_root_self%
 set v_iar2coide=%v_repo_root_self%\resource\tools\iar2coide\iar2coide.exe
 ::echo %v_iar2coide%
@@ -35,7 +35,7 @@ echo update \startup\src\startup_coide.c to \resource\cox_coide_test_project
 copy %v_cox_peripheral%\startup\src\startup_coide.c %v_cox_peripheral%\resource\cox_coide_test_project >>nul
 echo completed
 
-echo gen coide project: CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx\all\project
+echo gen coide project: CoX\CoX_Peripheral\CoX_Peripheral_STM32F1xx\sysctl\test
 %v_iar2coide% -w "%v_gen_root%" -t %v_cox_peripheral%\resource\cox_coide_test_project  >>nul
 echo completed
 

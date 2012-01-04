@@ -916,6 +916,7 @@ xIntPriorityGet(unsigned long ulInterrupt)
     {
         return ((xHWREG(NVIC_PRI14)) &0xFF);
     }
+    return -1;
 }
 
 //*****************************************************************************

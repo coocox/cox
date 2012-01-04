@@ -219,12 +219,12 @@
 //
 //! Internal high-speed clock trimming mask
 //
-#define RCC_CR_HSICAL_M         0x000000F8
+#define RCC_CR_HSITRIM_M        0x000000F8
 
 //
 //! Internal high-speed clock trimming shift
 //
-#define RCC_CR_HSICAL_S         3
+#define RCC_CR_HSITRIM_S        3
 
 //
 //! Internal high-speed clock ready flag

@@ -168,7 +168,7 @@ static const tPeripheralTable g_pPeripherals[] =
 void __attribute__((naked))
 SysCtlDelay(unsigned long ulCount)
 {
-    __asm("    sub     r0, #1\n"
+    __asm("    subs    r0, #1\n"
           "    bne     SysCtlDelay\n"
           "    bx      lr");
 }
@@ -550,7 +550,7 @@ SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
 {
     volatile unsigned long ulStartUpCounter;
     xtBoolean xtStatus;
-    unsigned long ulOscFreq, ulSysDiv;
+    unsigned long ulOscFreq;
     xASSERT((ulSysClk > 0 && ulSysClk <= 72000000));
 
     //
@@ -600,6 +600,7 @@ SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
     switch(ulConfig & SYSCTL_OSCSRC_M)
     {
         case SYSCTL_OSC_MAIN:
+        case xSYSCTL_OSC_MAIN:
         {
             xASSERT(!(ulConfig & SYSCTL_MAIN_OSC_DIS));
 
@@ -698,7 +699,7 @@ SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
         xASSERT(((ulConfig & SYSCTL_OSCSRC_M) == xSYSCTL_OSC_MAIN) ||
                 ((ulConfig & SYSCTL_OSCSRC_M) == xSYSCTL_OSC_INT));
         
-        if((ulConfig & SYSCTL_PLL_MAIN) == 1)
+        if((ulConfig & SYSCTL_PLL_MAIN) == SYSCTL_PLL_MAIN)
         {
             if((ulSysClk % ulOscFreq) == 0)
             {
@@ -741,6 +742,7 @@ SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
         xHWREG(RCC_CFGR) &= ~RCC_CFGR_SW_M;
         xHWREG(RCC_CFGR) |= 2;
         while((xHWREG(RCC_CFGR) & RCC_CFGR_SWS_M) != 0x08);
+        return;
     }
 }
 
@@ -1259,9 +1261,10 @@ SysCtlHClockGet(void)
 #endif 
         break;
         }
-        case 0x08: 
+        default: 
         {
             ulHclk = 8000000;
+            break;
         }
     }
     ulTemp = (xHWREG(RCC_CFGR) & RCC_CFGR_HPRE_M) >> RCC_CFGR_HPRE_S;
