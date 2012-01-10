@@ -20,9 +20,9 @@ TestIOInit(void)
     SysCtlDelay(10000);
 
     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOA);
-    xSysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);
+    //xSysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);
 
-    xSPinTypeUART(UART1RX,PA10);
+    //xSPinTypeUART(UART1RX,PA10);
     xSPinTypeUART(UART1TX,PA9);
     
 
@@ -31,8 +31,8 @@ TestIOInit(void)
     //SysCtlPeripheralClockSourceSet(SYSCTL_PERIPH_UART_S_EXT12M);
 
     xUARTConfigSet(USART1_BASE, 115200, (UART_CONFIG_WLEN_8 |
-                                        UART_CONFIG_STOP_ONE | 
-                                        UART_CONFIG_PAR_NONE));
+                                         UART_CONFIG_STOP_ONE | 
+                                         UART_CONFIG_PAR_NONE));
 
     xUARTEnable(USART1_BASE, (UART_BLOCK_UART | UART_BLOCK_TX | UART_BLOCK_RX));
 }
@@ -51,11 +51,10 @@ TestIOPut(char ch)
 {
     uint8_t c;
     c = ch;
-    while((xHWREG(USART1_BASE + USART_SR) & (0x40))==0x00);
-    SysCtlDelay(1);
-
+    while((xHWREG(USART1_BASE + USART_SR) & (0x80))==0x00);
+    
     //
-    // Write this character to the transmit FIFO.
+    // Write this character to the transmit data register.
     //
     xHWREG(USART1_BASE + USART_DR) = c;
 

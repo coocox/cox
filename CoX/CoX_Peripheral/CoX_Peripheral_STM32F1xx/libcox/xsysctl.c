@@ -145,8 +145,43 @@ tPeripheralTable;
 //*****************************************************************************
 static const tPeripheralTable g_pPeripherals[] =
 {
-    {xGPIO_PORTA_BASE, xSYSCTL_PERIPH_GPIOA, xINT_GPIOA},
-    {0,                0,                   0},
+    {ADC1_BASE,        xSYSCTL_PERIPH_ADC1,    xINT_ADC0},
+    {ADC2_BASE,        xSYSCTL_PERIPH_ADC2,    xINT_ADC0},
+    {DMA1_BASE,        xSYSCTL_PERIPH_DMA1,    xINT_DMA1},
+    {DMA2_BASE,        xSYSCTL_PERIPH_DMA2,    xINT_DMA1},
+    {GPIOA_BASE,       xSYSCTL_PERIPH_GPIOA,   xINT_GPIOA},
+    {GPIOB_BASE,       xSYSCTL_PERIPH_GPIOB,   xINT_GPIOA},
+    {GPIOC_BASE,       xSYSCTL_PERIPH_GPIOC,   xINT_GPIOA},
+    {GPIOD_BASE,       xSYSCTL_PERIPH_GPIOD,   xINT_GPIOA},
+    {GPIOE_BASE,       xSYSCTL_PERIPH_GPIOE,   xINT_GPIOA},
+    {GPIOF_BASE,       xSYSCTL_PERIPH_GPIOF,   xINT_GPIOA},
+    {GPIOG_BASE,       xSYSCTL_PERIPH_GPIOG,   xINT_GPIOA},
+    {I2C1_BASE,        xSYSCTL_PERIPH_I2C1,    xINT_I2C1},
+    {I2C2_BASE,        xSYSCTL_PERIPH_I2C2,    xINT_I2C2},
+    {RTC_BASE,         xSYSCTL_PERIPH_RTC,     xINT_RTC},
+    {SPI1_BASE,        xSYSCTL_PERIPH_SPI1,    xINT_SPI1},
+    {SPI2_BASE,        xSYSCTL_PERIPH_SPI2,    xINT_SPI2},
+    {SPI3_BASE,        xSYSCTL_PERIPH_SPI3,    xINT_SPI3},
+    {TIM1_BASE,        xSYSCTL_PERIPH_TIMER1,  xINT_TIMER1},
+    {TIM2_BASE,        xSYSCTL_PERIPH_TIMER2,  xINT_TIMER2},
+    {TIM3_BASE,        xSYSCTL_PERIPH_TIMER3,  xINT_TIMER3},
+    {TIM4_BASE,        xSYSCTL_PERIPH_TIMER4,  xINT_TIMER4},
+    {TIM5_BASE,        xSYSCTL_PERIPH_TIMER5,  xINT_TIMER5},
+    {TIM6_BASE,        xSYSCTL_PERIPH_TIMER6,  xINT_TIMER6},
+    {TIM7_BASE,        xSYSCTL_PERIPH_TIMER7,  xINT_TIMER7},
+    {TIM8_BASE,        xSYSCTL_PERIPH_TIMER8,  0},
+    {TIM9_BASE,        xSYSCTL_PERIPH_TIMER9,  0},
+    {TIM10_BASE,       xSYSCTL_PERIPH_TIMER10, 0},
+    {TIM11_BASE,       xSYSCTL_PERIPH_TIMER11, 0},
+    {TIM12_BASE,       xSYSCTL_PERIPH_TIMER12, 0},
+    {TIM13_BASE,       xSYSCTL_PERIPH_TIMER13, 0},
+    {TIM14_BASE,       xSYSCTL_PERIPH_TIMER14, 0},
+    {USART1_BASE,      xSYSCTL_PERIPH_UART1,   xINT_UART1},
+    {USART2_BASE,      xSYSCTL_PERIPH_UART2,   xINT_UART2},
+    {USART3_BASE,      xSYSCTL_PERIPH_UART3,   xINT_UART3},
+    {USART4_BASE,      xSYSCTL_PERIPH_UART4,   xINT_UART4},
+    {USART5_BASE,      xSYSCTL_PERIPH_UART5,   xINT_UART5},
+    {WWDG_BASE,        xSYSCTL_PERIPH_WDOG,    xINT_WDT},
 };
 
 //*****************************************************************************
@@ -705,14 +740,14 @@ SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
             {
                 xHWREG(RCC_CFGR) |= RCC_CFGR_PLLSRC;
                 xHWREG(RCC_CFGR) &= ~(RCC_CFGR_PLLXTPRE | RCC_CFGR_PLLMUL_M);
-                xHWREG(RCC_CFGR) |= ((ulSysClk / ulOscFreq) << 
+                xHWREG(RCC_CFGR) |= ((ulSysClk / ulOscFreq -2) << 
                                      RCC_CFGR_PLLMUL_S) & RCC_CFGR_PLLMUL_M;
             }
             else if(((ulSysClk*2) % ulOscFreq) == 0)
             {
                 xHWREG(RCC_CFGR) |= RCC_CFGR_PLLXTPRE | RCC_CFGR_PLLSRC;
                 xHWREG(RCC_CFGR) &= ~(RCC_CFGR_PLLMUL_M);
-                xHWREG(RCC_CFGR) |= ((ulSysClk * 2 / ulOscFreq) << 
+                xHWREG(RCC_CFGR) |= ((ulSysClk * 2 / ulOscFreq -2) << 
                                      RCC_CFGR_PLLMUL_S) & RCC_CFGR_PLLMUL_M;
             }
             else
@@ -1017,15 +1052,15 @@ SysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc)
             (ulPeripheralSrc==SYSCTL_I2S2_PLL3)|||
             (ulPeripheralSrc==SYSCTL_MCO_PLL2)         
            );
-    if(SYSCTL_PERIPH_INDEX_CLK(ulPeripheralSrc) == 0)
+    if(SYSCTL_PERIPH_INDEX_CLK(ulPeripheralSrc) == 1)
     {
         xHWREG(RCC_BDCR) &= ~(RCC_BDCR_RTCSEL_M);
     }
-    else if(SYSCTL_PERIPH_INDEX_CLK(ulPeripheralSrc) == 1)
+    else if(SYSCTL_PERIPH_INDEX_CLK(ulPeripheralSrc) == 0)
     {
         xHWREG(RCC_CFGR) &= ~(RCC_CFGR_MCO_M);
     }
-    else if(SYSCTL_PERIPH_INDEX_CLK(ulPeripheralSrc) == 1)
+    else if(SYSCTL_PERIPH_INDEX_CLK(ulPeripheralSrc) == 2)
     {
         xHWREG(RCC_CFGR2) &= ~(SYSCTL_PERIPH_ENUM_CLK(ulPeripheralSrc | 1));
     }
@@ -1315,5 +1350,200 @@ SysCtlAPB2ClockGet(void)
     ulTemp = (unsigned long)g_APBAHBPrescTable[ulTemp];
     ulAPB2Clock = ulAPB2Clock >> ulTemp;
     return ulAPB2Clock;
+}
+
+//*****************************************************************************
+//
+//! \brief Enables access to the RTC and backup registers.
+//!
+//! \param None.
+//!
+//! The function is used to enable access to the RTC and backup registers.
+//!
+//! \return None 
+//
+//*****************************************************************************
+void 
+SysCtlBackupAccessEnable(void)
+{
+    xHWREG(PWR_CR) |= PWR_CR_DBP;
+}
+
+//*****************************************************************************
+//
+//! \brief Disables access to the RTC and backup registers.
+//!
+//! \param None.
+//!
+//! The function is used to disable access to the RTC and backup registers.
+//!
+//! \return None 
+//
+//*****************************************************************************
+void 
+SysCtlBackupAccessDisable(void)
+{
+    xHWREG(PWR_CR) &= ~PWR_CR_DBP;
+}
+
+//*****************************************************************************
+//
+//! \brief Configures the voltage threshold detected by the Power Voltage 
+//! Detector(PVD).
+//!
+//! \param ulConfig specifies the PVD detection level configurations
+//!
+//! The \e ulConfig parameter is the logical OR of two different values,
+//! many of which are grouped into sets where only one can be chosen.
+//!
+//! The enable or disable PVD is chosen with one of the following values:
+//! \ref SYSCTL_PVD_EN, \ref SYSCTL_PVD_DIS.
+//!
+//! The PVD detection level is chosen with one of the following values:
+//! \ref SYSCTL_PVDLEVEL_2V2, \ref SYSCTL_PVDLEVEL_2V3 \ref SYSCTL_PVDLEVEL_2V4,
+//! \ref SYSCTL_PVDLEVEL_2V5, \ref SYSCTL_PVDLEVEL_2V6, \ref SYSCTL_PVDLEVEL_2V7,
+//! \ref SYSCTL_PVDLEVEL_2V8, \ref SYSCTL_PVDLEVEL_2V9.
+//!
+//! The function is used to configures the voltage threshold detected by the 
+//! Power Voltage Detector(PVD).
+//!
+//! \return None 
+//
+//*****************************************************************************
+void
+SysCtlPVDLevelConfig(unsigned long ulConfig)
+{
+    xHWREG(PWR_CR) &= ~(PWR_CR_PVDE | PWR_CR_PLS_M);
+    xHWREG(PWR_CR) |= ulConfig;
+}
+
+//*****************************************************************************
+//
+//! \brief Enables the WakeUp Pin functionality.
+//!
+//! \param None.
+//!
+//! The function is used to enable the WakeUp Pin functionality.
+//!
+//! \return None 
+//
+//*****************************************************************************
+void 
+SysCtlWakeUpPinEnable(void)
+{
+    xHWREG(PWR_CSR) |= PWR_CSR_EWUP;
+}
+
+//*****************************************************************************
+//
+//! \brief Disables the WakeUp Pin functionality.
+//!
+//! \param None.
+//!
+//! The function is used to disable the WakeUp Pin functionality.
+//!
+//! \return None 
+//
+//*****************************************************************************
+void 
+SysCtlWakeUpPinDisable(void)
+{
+    xHWREG(PWR_CSR) &= ~PWR_CSR_EWUP;
+}
+
+//*****************************************************************************
+//
+//! \brief Enters STOP mode.
+//!
+//! \param ulConfig specifies the STOP mode configurations.
+//!
+//! The \e ulConfig parameter is the logical OR of two different values,
+//! many of which are grouped into sets where only one can be chosen.
+//!
+//! The Voltage regulator is chosen with one of the following values:
+//! \ref SYSCTL_REGULATOR_ON, \ref SYSCTL_REGULATOR_LP.
+//!
+//! The WFI or WFE instruction is chosen with one of the following values:
+//! \ref SYSCTL_STOP_WFI, \ref SYSCTL_STOP_WFE.
+//!
+//! The function is used to disable the WakeUp Pin functionality.
+//!
+//! \return None 
+//
+//*****************************************************************************
+void 
+SysCtlStopModeConfig(unsigned long ulConfig)
+{
+    xHWREG(PWR_CR) &= ~(PWR_CR_PDDS | PWR_CR_LPDS);
+    xHWREG(PWR_CR) |= (ulConfig & PWR_CR_LPDS);
+    xHWREG(NVIC_SYS_CTRL) |= NVIC_SYS_CTRL_SLEEPDEEP;
+    if(ulConfig & SYSCTL_STOP_WFI)
+    {
+        xCPUwfi();
+    }
+    else
+    {
+        xCPUwfe();
+    }
+}
+
+//*****************************************************************************
+//
+//! \brief Enters STANDBY mode.
+//!
+//! \param None.
+//!
+//! The function is used to enters STANDBY mode.
+//!
+//! \return None 
+//
+//*****************************************************************************
+void 
+SysCtlWakeUpPinDisable(void)
+{
+    xHWREG(PWR_CR) |= PWR_CR_CWUF;
+    xHWREG(PWR_CR) |= PWR_CR_PDDS;
+    xHWREG(NVIC_SYS_CTRL) |= NVIC_SYS_CTRL_SLEEPDEEP;
+    xCPUwfi();
+}
+
+//*****************************************************************************
+//
+//! \brief Get all the PWR flag is set or not.
+//!
+//! \param None.
+//!
+//! The function is used to check whether the specified PWR flag is set or not.
+//!
+//! \return Flag status 
+//! Flag status can be "OR" value of the following values:
+//! \ref SYSCTL_WAKEUP_FLAG, \ref SYSCTL_STANDBY_FLAG, \ref SYSCTL_PVD_FLAG.
+//
+//*****************************************************************************
+unsigned long 
+SysCtlFlagStatusGet(void)
+{
+    return (xHWREG(PWR_CSR) & (PWR_CSR_WUF | PWR_CSR_SBF | PWR_CSR_PVDO));
+}
+
+//*****************************************************************************
+//
+//! \brief Clears the PWR's pending flags.
+//!
+//! \param None.
+//! This parameter can be "OR" value of the following values:
+//! \ref SYSCTL_WAKEUP_FLAG, \ref SYSCTL_STANDBY_FLAG, \ref SYSCTL_PVD_FLAG.
+//!
+//! The function is used to check whether the specified PWR flag is set or not.
+//!
+//! \return Flag status 
+//! Flag status can be "OR" value of the following values:
+//! \ref SYSCTL_WAKEUP_FLAG, \ref SYSCTL_STANDBY_FLAG, \ref SYSCTL_PVD_FLAG.
+//
+//*****************************************************************************
+void
+SysCtlFlagStatusGet(unsigned long ulFlag)
+{
+    xHWREG(PWR_CR) |= (ulFlag & (PWR_CR_CWUF | PWR_CR_CSBF)) << 2;
 }
 

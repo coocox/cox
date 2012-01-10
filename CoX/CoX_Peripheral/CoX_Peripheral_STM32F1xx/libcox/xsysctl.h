@@ -969,9 +969,9 @@ extern unsigned long xSysCtlPeripheraIntNumGet(unsigned long ulPeripheralBase);
 //
 //! STM32F1xx SysCtl config
 //
-#define SYSCTL_APB1CLOCK_DIV    2
+#define SYSCTL_APB1CLOCK_DIV    4
 
-#define SYSCTL_APB2CLOCK_DIV    1
+#define SYSCTL_APB2CLOCK_DIV    0
 
 
 //*****************************************************************************
@@ -1440,51 +1440,6 @@ extern unsigned long xSysCtlPeripheraIntNumGet(unsigned long ulPeripheralBase);
 //*****************************************************************************
 
 //
-//! Watch dog clock source is external 32kHz crystal clock
-//
-#define SYSCTL_PERIPH_WDG_S_EXT32K                                            \
-                                0x00000301  
- 
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup STM32F1xx_SysCtl_Hclk_Src STM32F1xx SysCtl Hclk Source
-//! brief Values that show STM32F1xx SysCtl Hclk Source
-//! The following are values that can be passed to the
-//! SysCtlHClockSourceSet()\ SysCtlHClockSet API as the
-//! ulhclkSrcSel parameter.   
-//! @{
-//
-//*****************************************************************************
-
-//
-//! Systick Clock source is internal 22 MHz oscillator clock
-//
-#define SYSCTL_HLCK_S_INT22M    0x00000007  
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup STM32F1xx_SysCtl_Stclk_Src STM32F1xx SysCtl Stclk Source
-//! \brief Values that show STM32F1xx SysCtl Stclk Source
-//! The following are values that can be passed to the
-//! SysCtlSysTickSourceSet()  API as the
-//! ulstclkSrcSel parameter.   
-//! @{
-//
-//*****************************************************************************
-
-//
 //! LSE oscillator clock used as RTC clock
 //
 #define SYSCTL_RTC_LSE          0x10080001
@@ -1567,57 +1522,6 @@ extern unsigned long xSysCtlPeripheraIntNumGet(unsigned long ulPeripheralBase);
 
 //*****************************************************************************
 //
-//! \addtogroup STM32F1xx_SysCtl_Reset_Src STM32F1xx SysCtl Reset Source
-//! \brief Values that show STM32F1xx SysCtl Reset Source
-//! The following are values that can be returned in the bit mask
-//! by the SysCtlResetSrcGet() API.   
-//! @{
-//
-//*****************************************************************************
-
-//
-//! "reset signal" from Power-On Reset
-//
-#define SYSCTL_RSTSRC_POR       0x00000001  
-
-//
-//! "reset signal" from the /RESET pin
-//
-#define SYSCTL_RSTSRC_PAD       0x00000002 
-
-//
-//! "reset signal" from the Watch-Dog
-//
-#define SYSCTL_RSTSRC_WDG       0x00000004  
-
-//
-//! "reset signal" from Low-Voltage-Reset
-//
-#define SYSCTL_RSTSRC_LVR       0x00000008  
-
-//
-//! "reset signal" from Brown-Out-Detected
-//
-#define SYSCTL_RSTSRC_BOD       0x00000010  
-
-//
-//! "reset signal" from MCU Cortex_M0 kernel
-//
-#define SYSCTL_RSTSRC_SYS       0x00000020  
-
-//
-//! "reset signal" from CPU_RST (IPRSTCR1[1])
-//
-#define SYSCTL_RSTSRC_CPU       0x00000080  
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
 //! \addtogroup STM32F1xx_SysCtl_low_Clock STM32F1xx SysCtl low clock config
 //! \brief Values that show STM32F1xx SysCtl low clock config
 //! The following are values that can be passed to 
@@ -1645,6 +1549,141 @@ extern unsigned long xSysCtlPeripheraIntNumGet(unsigned long ulPeripheralBase);
 //! Enable Low Speed External oscillator
 //
 #define SYSCTL_LSE_OSC_EN       0x00000001
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_SysCtl_Stop_Mode STM32F1xx SysCtl Stop Mode config
+//! \brief Values that show STM32F1xx SysCtl Stop Mode config
+//! The following are values that can be passed to 
+//! the SysCtlStopModeConfig() API.   
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Voltage regulator on during Stop mode
+//
+#define SYSCTL_REGULATOR_ON     0x00000000
+
+//
+//! Voltage regulator in low-power mode during Stop mode
+//
+#define SYSCTL_REGULATOR_LP     0x00000001
+
+//
+//! Enter STOP mode with WFI instruction
+//
+#define SYSCTL_STOP_WFI         0x10000000
+
+//
+//! Enter STOP mode with WFE instruction
+//
+#define SYSCTL_STOP_WFE         0x00000000
+
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_SysCtl_Power_Flag STM32F1xx SysCtl Power Flag
+//! \brief Values that show STM32F1xx SysCtl Power Flag config
+//! The following are values that can be passed to 
+//! the SysCtlPowerFlagGet() and SysCtlPowerFlagClear() API.   
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Wakeup flag
+//
+#define SYSCTL_WAKEUP_FLAG      0x00000001
+
+//
+//! Standby flag
+//
+#define SYSCTL_STANDBY_FLAG     0x00000002
+
+//
+//! PVD output
+//
+#define SYSCTL_PVD_FLAG         0x00000004
+
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_SysCtl_PVDLevel STM32F1xx SysCtl PVD Level
+//! \brief Values that show STM32F1xx SysCtl PVD Level
+//! The following are values that can be passed to 
+//! the SysCtlPVDLevelConfig() API.   
+//! @{
+//
+//*****************************************************************************
+
+//
+//! PVD enable
+//
+#define SYSCTL_PVD_EN           0x00000010
+
+//
+//! PVD disble
+//
+#define SYSCTL_PVD_DIS          0x00000000
+
+//
+//! PVD Level is 2.2V
+//
+#define SYSCTL_PVDLEVEL_2V2     0x00000000
+
+//
+//! PVD Level is 2.3V
+//
+#define SYSCTL_PVDLEVEL_2V3     0x00000020
+
+//
+//! PVD Level is 2.4V
+//
+#define SYSCTL_PVDLEVEL_2V4     0x00000040
+
+//
+//! PVD Level is 2.5V
+//
+#define SYSCTL_PVDLEVEL_2V5     0x00000060
+
+//
+//! PVD Level is 2.6V
+//
+#define SYSCTL_PVDLEVEL_2V6     0x00000080
+
+//
+//! PVD Level is 2.7V
+//
+#define SYSCTL_PVDLEVEL_2V7     0x000000A0
+
+//
+//! PVD Level is 2.8V
+//
+#define SYSCTL_PVDLEVEL_2V8     0x000000C0
+
+//
+//! PVD Level is 2.9V
+//
+#define SYSCTL_PVDLEVEL_2V9     0x000000E0
 
 //*****************************************************************************
 //

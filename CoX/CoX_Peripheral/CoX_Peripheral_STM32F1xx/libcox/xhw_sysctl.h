@@ -140,6 +140,241 @@
 //
 #define RCC_CFGR2               0x4002102C
 
+//
+//! Power control register
+//
+#define PWR_CR                  0x40007000
+
+//
+//! Power control/status register
+//
+#define PWR_CSR                 0x40007004
+
+//
+//! Backup data register 1
+//
+#define BKP_DR1                 0x40006C04
+
+//
+//! Backup data register 2
+//
+#define BKP_DR2                 0x40006C08
+
+//
+//! Backup data register 3
+//
+#define BKP_DR3                 0x40006C0C
+
+//
+//! Backup data register 4
+//
+#define BKP_DR4                 0x40006C10
+
+//
+//! Backup data register 5
+//
+#define BKP_DR5                 0x40006C14
+
+//
+//! Backup data register 6
+//
+#define BKP_DR6                 0x40006C18
+
+//
+//! Backup data register 7
+//
+#define BKP_DR7                 0x40006C1C
+
+//
+//! Backup data register 8
+//
+#define BKP_DR8                 0x40006C20
+
+//
+//! Backup data register 9
+//
+#define BKP_DR9                 0x40006C24
+
+//
+//! Backup data register 10
+//
+#define BKP_DR10                0x40006C28
+
+//
+//! RTC clock calibration register
+//
+#define BKP_RTCCR               0x40006C2C
+
+//
+//! Backup control register
+//
+#define BKP_CR                  0x40006C30
+
+//
+//! Backup control/status register
+//
+#define BKP_CSR                 0x40006C34
+
+//
+//! Backup data register 11
+//
+#define BKP_DR11                0x40006C40
+
+//
+//! Backup data register 12
+//
+#define BKP_DR12                0x40006C44
+
+//
+//! Backup data register 13
+//
+#define BKP_DR13                0x40006C48
+
+//
+//! Backup data register 14
+//
+#define BKP_DR14                0x40006C4C
+
+//
+//! Backup data register 15
+//
+#define BKP_DR15                0x40006C50
+
+//
+//! Backup data register 16
+//
+#define BKP_DR16                0x40006C54
+
+//
+//! Backup data register 17
+//
+#define BKP_DR17                0x40006C58
+
+//
+//! Backup data register 18
+//
+#define BKP_DR18                0x40006C5C
+
+//
+//! Backup data register 19
+//
+#define BKP_DR19                0x40006C60
+
+//
+//! Backup data register 20
+//
+#define BKP_DR20                0x40006C64
+
+//
+//! Backup data register 21
+//
+#define BKP_DR21                0x40006C68
+
+//
+//! Backup data register 22
+//
+#define BKP_DR22                0x40006C6C
+
+//
+//! Backup data register 23
+//
+#define BKP_DR23                0x40006C70
+
+//
+//! Backup data register 24
+//
+#define BKP_DR24                0x40006C74
+
+//
+//! Backup data register 25
+//
+#define BKP_DR25                0x40006C78
+
+//
+//! Backup data register 26
+//
+#define BKP_DR26                0x40006C7C
+
+//
+//! Backup data register 27
+//
+#define BKP_DR27                0x40006C80
+
+//
+//! Backup data register 28
+//
+#define BKP_DR28                0x40006C84
+
+//
+//! Backup data register 29
+//
+#define BKP_DR29                0x40006C88
+
+//
+//! Backup data register 30
+//
+#define BKP_DR30                0x40006C8C
+
+//
+//! Backup data register 31
+//
+#define BKP_DR31                0x40006C90
+
+//
+//! Backup data register 32
+//
+#define BKP_DR32                0x40006C94
+
+//
+//! Backup data register 33
+//
+#define BKP_DR33                0x40006C98
+
+//
+//! Backup data register 34
+//
+#define BKP_DR34                0x40006C9C
+
+//
+//! Backup data register 35
+//
+#define BKP_DR35                0x40006CA0
+
+//
+//! Backup data register 36
+//
+#define BKP_DR36                0x40006CA4
+
+//
+//! Backup data register 37
+//
+#define BKP_DR37                0x40006CA8
+
+//
+//! Backup data register 38
+//
+#define BKP_DR38                0x40006CAC
+
+//
+//! Backup data register 39
+//
+#define BKP_DR39                0x40006CB0
+
+//
+//! Backup data register 40
+//
+#define BKP_DR40                0x40006CB4
+
+//
+//! Backup data register 41
+//
+#define BKP_DR41                0x40006CB8
+
+//
+//! Backup data register 42
+//
+#define BKP_DR42                0x40006CBC
+
 
 
 //*****************************************************************************
@@ -1222,6 +1457,196 @@
 //! PREDIV1 division factor shift
 //
 #define RCC_CFGR2_PREDIV1_S     0
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_SysCtl_Register_PWR_CR SysCtl Register PWR_CR
+//! \brief Defines for the bit fields in the PWR_CR register.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Disable backup domain write protection.
+//
+#define PWR_CR_DBP              0x00000100
+
+//
+//! PVD level selection mask
+//
+#define PWR_CR_PLS_M            0x000000E0
+
+//
+//! PVD level selection shift
+//
+#define PWR_CR_PLS_S            5
+
+//
+//! Power voltage detector enable.
+//
+#define PWR_CR_PVDE             0x00000010
+
+//
+//! Clear standby flag.
+//
+#define PWR_CR_CSBF             0x00000008
+
+//
+//! Clear wakeup flag.
+//
+#define PWR_CR_CWUF             0x00000004
+
+//
+//! Power down deepsleep.
+//
+#define PWR_CR_PDDS             0x00000002
+
+//
+//! Low-power deepsleep.
+//
+#define PWR_CR_LPDS             0x00000001
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_SysCtl_Register_PWR_CSR SysCtl Register PWR_CSR
+//! \brief Defines for the bit fields in the PWR_CSR register.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Enable WKUP pin
+//
+#define PWR_CSR_EWUP            0x00000100
+
+//
+//! PVD output
+//
+#define PWR_CSR_PVDO            0x00000004
+
+//
+//! Standby flag
+//
+#define PWR_CSR_SBF             0x00000002
+
+//
+//! Wakeup flag
+//
+#define PWR_CSR_WUF             0x00000001
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_SysCtl_Register_BKP_RTCCR SysCtl Register BKP_RTCCR
+//! \brief Defines for the bit fields in the BKP_RTCCR register.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Alarm or second output selection
+//
+#define BKP_RTCCR_ASOS          0x00000200
+
+//
+//! Alarm or second output enable
+//
+#define BKP_RTCCR_ASOE          0x00000100
+
+//
+//! Calibration clock output
+//
+#define BKP_RTCCR_CCO           0x00000080
+
+//
+//! Calibration value mask
+//
+#define BKP_RTCCR_CAL_M         0x0000007F
+
+//
+//! Calibration value shift
+//
+#define BKP_RTCCR_CAL_S         0
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_SysCtl_Register_BKP_CR SysCtl Register BKP_CR
+//! \brief Defines for the bit fields in the BKP_CR register.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! TAMPER pin active level
+//
+#define BKP_CR_TPAL             0x00000002
+
+//
+//! TAMPER pin enable
+//
+#define BKP_CR_TPE              0x00000001
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_SysCtl_Register_BKP_CSR SysCtl Register BKP_CSR
+//! \brief Defines for the bit fields in the BKP_CSR register.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Tamper interrupt flag
+//
+#define BKP_CSR_TIF             0x00000200
+
+//
+//! Tamper event flag
+//
+#define BKP_CR_TPE              0x00000100
+
+//
+//! TAMPER pin interrupt enable
+//
+#define BKP_CR_TPIE             0x00000004
+
+//
+//! Clear tamper interrupt
+//
+#define BKP_CR_CTI              0x00000002
+
+//
+//! Clear tamper event
+//
+#define BKP_CR_CTE              0x00000001
 
 //*****************************************************************************
 //

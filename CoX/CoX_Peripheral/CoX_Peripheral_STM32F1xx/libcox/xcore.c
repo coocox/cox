@@ -316,6 +316,43 @@ xCPUwfi(void)
 }
 #endif
 
+//*****************************************************************************
+//
+// Wrapper function for the WFE instruction.
+//
+//*****************************************************************************
+#if defined(codered) || defined(gcc) || defined(sourcerygxx)
+void __attribute__((naked))
+xCPUwfe(void)
+{
+    //
+    // Wait for the next interrupt.
+    //
+    __asm("    wfe\n"
+          "    bx      lr\n");
+}
+#endif
+#if defined(ewarm)
+void
+xCPUwfe(void)
+{
+    //
+    // Wait for the next interrupt.
+    //
+    __asm("    wfe\n");
+}
+#endif
+#if defined(rvmdk) || defined(__ARMCC_VERSION)
+__asm void
+xCPUwfe(void)
+{
+    //
+    // Wait for the next interrupt.
+    //
+    wfe;
+    bx      lr
+}
+#endif
 
 //*****************************************************************************
 //

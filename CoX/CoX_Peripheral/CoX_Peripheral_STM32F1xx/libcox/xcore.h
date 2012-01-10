@@ -106,6 +106,7 @@ extern unsigned long xCPUcpsid(void);
 extern unsigned long xCPUcpsie(void);
 extern unsigned long xCPUprimask(void);
 extern void xCPUwfi(void);
+extern void xCPUwfie(void);
 extern unsigned long xCPUbasepriGet(void);
 extern void xCPUbasepriSet(unsigned long ulNewBasepri);
 extern void xCPUpspSet(unsigned long ulNewPspStack);

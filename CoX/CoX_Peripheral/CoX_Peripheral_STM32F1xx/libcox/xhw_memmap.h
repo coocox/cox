@@ -121,6 +121,8 @@
 #define xPWMA_BASE              0           // PWMA
 #define xPWMB_BASE              0           // PWMB
 
+#define xDMA1_BASE              DMA1_BASE   // DMA
+
 //*****************************************************************************
 //
 //! @}
