@@ -1,0 +1,7 @@
+
+Debug_Flash/
+Debug_Ram/
+settings/
+*.dep
+
+
