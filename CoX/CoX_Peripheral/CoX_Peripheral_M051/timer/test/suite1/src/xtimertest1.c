@@ -225,7 +225,7 @@ static void xTimer001Execute(void)
         {
             xTimerCaptureModeSet(ulBase, i, ulCaptureMode[j]);
             ulTemp = xHWREG(ulBase + TIMER_O_TEXCON) & TIMER_CAP_MODE_RST;
-            TestAssert(16 == ulTemp,
+            TestAssert(ulCaptureMode[j] == ulTemp,
                        "xtiemr API \"TimerCaptureModeSet\" error!");  
         }
        
@@ -272,7 +272,7 @@ static void xTimer001Execute(void)
                    "xtiemr API \"TimerIntDisable\" error!");
         TimerIntDisable(ulBase, TIMER_INT_CAP);
         ulTemp = xHWREG(ulBase + TIMER_O_TEXCON) & TIMER_INT_CAP;
-        TestAssert(TIMER_INT_CAP == ulTemp,
+        TestAssert(0x00000000 == ulTemp,
                    "xtiemr API \"TimerIntDisable\" error!");
         
         //
@@ -282,7 +282,7 @@ static void xTimer001Execute(void)
         ulTemp = xHWREG(ulBase + TIMER_O_TISR) & TIMER_TISR_TIF;
         TestAssert(0x00000000 == ulTemp,
                    "xtiemr API \"TimerIntClear\" error!");
-/*        
+        
         //
         // Counter detect phase set
         //
@@ -304,7 +304,7 @@ static void xTimer001Execute(void)
             TestAssert(ulCaptureEdge[j] == ulTemp,
                        "xtiemr API \"TimerCaptureEdgeSelect\" error!");     
         }
-*/        
+        
         //
         // Counter de-bounce set test
         //

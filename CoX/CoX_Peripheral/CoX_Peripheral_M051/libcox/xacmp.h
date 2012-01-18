@@ -285,7 +285,7 @@ extern "C"
 //!
 //! This function disables a comparator. 
 //!
-//! \return None.
+//! \return None.   
 //
 //*****************************************************************************
 #define xACMPDisable(ulBase, ulCompID)                                        \

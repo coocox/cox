@@ -92,7 +92,7 @@ extern "C"
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_MODE_CONTINUOUS  |  Non-Mandatory |            Y           |
 //! |------------------------|----------------|------------------------|
-//! |xTIMER_MODE_CAPTURE     |  Non-Mandatory |            N           |
+//! |xTIMER_MODE_CAPTURE     |  Non-Mandatory |            Y           |
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_MODE_PWM         |  Non-Mandatory |            N           |
 //! +------------------------+----------------+------------------------+
@@ -132,7 +132,7 @@ extern "C"
 //! \addtogroup xTIMER_INT_Type xTIMER Interrupt
 //! \n
 //! \section xTIMER_INT_Type_Section 1. Where to use this group
-//! Values that can be passed to xTimerIntEnable(), xTimerIntDisable() ,
+//! Values that can be passed to xTimerIntEnable(), xTimerIntDisable(),
 //! xTimerStatusGet() as ulIntFlags . 
 //! \n
 //! \section xTIMER_INT_Type_CoX 2. CoX Port Details 
@@ -594,7 +594,7 @@ extern "C"
 //!
 //! This function is to get The Timer counter Prescale Value.
 //!
-//! \return the Prescale Value will be get.
+//! \return the Prescale Value will be got.
 //
 //*****************************************************************************
 #define xTimerPrescaleGet(ulBase, ulChannel)                                  \
@@ -644,7 +644,7 @@ extern "C"
 //! This function is to get The Timer counter current up timer or up event
 //! counter value.
 //!
-//! \return current up timer or up event counter value will be set.
+//! \return current up timer or up event counter value.
 //
 //*****************************************************************************
 #define xTimerValueGet(ulBase, ulChannel)                                     \
@@ -677,7 +677,7 @@ extern "C"
 //!
 //! This function is to get The Timer counter Compare Match Value.
 //!
-//! \return the Prescale Value will be set.
+//! \return the Prescale Value.
 //
 //*****************************************************************************
 #define xTimerMatchGet(ulBase, ulChannel)                                     \
@@ -736,8 +736,6 @@ extern "C"
 //! \b xTIMER_INT_MATCH, \b xTIMER_INT_CAP_EVENT.
 //! Details please refer to \ref xTIMER_INT_Type_CoX.
 //!
-//! \note None
-//!
 //! \return None.
 //
 //*****************************************************************************
@@ -782,8 +780,6 @@ extern "C"
 //! \b xTIMER_COUNTER_RISING, \b xTIMER_COUNTER_FALLING.
 //! Details please refer to \ref xTIMER_Counter_Pase_Type_CoX.
 //!
-//! \note None
-//!
 //! \return None.
 //
 //*****************************************************************************
@@ -803,8 +799,6 @@ extern "C"
 //! The \e ulPhase parameter can be one of the values:
 //! \b xTIMER_CAP_RISING, \b xTIMER_CAP_FALLING, \b xTIMER_CAP_BOTH.
 //! Details please refer to \ref xTIMER_Capture_Edge_Type_CoX.
-//!
-//! \note None
 //!
 //! \return None.
 //

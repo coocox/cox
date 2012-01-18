@@ -270,9 +270,8 @@ UARTParityModeGet(unsigned long ulBase)
 //! \b UART_FIFO_1BYTES, \b UART_FIFO_4BYTES, \b UART_FIFO_8BYTES,
 //! \b UART_FIFO_14BYTES
 //!
-//! This function sets the FIFO level at which  receive interrupts
-//! are generated.
-//!
+//! This function sets the FIFO level at which receive interrupts are generated.
+//!  
 //! \return None.
 //
 //*****************************************************************************
@@ -337,9 +336,9 @@ UARTFIFOTriggerLevelGet(unsigned long ulBase, unsigned long *pulRxLevel)
 //! \param ulConfig is the data format for the port (number of data bits,
 //! number of stop bits, and parity).
 //!
-//! This function configures the UART for operation in the specified data
-//! format.  The baud rate is provided in the \e ulBaud parameter and the data
-//! format in the \e ulConfig parameter.
+//! This function configures the UART for operation in the specified data format.
+//! The baud rate is provided in the \e ulBaud parameter and the data format in
+//! the \e ulConfig parameter.
 //!
 //! The \e ulConfig parameter is the logical OR of three values: the number of
 //! data bits, the number of stop bits, and the parity.  \b UART_CONFIG_WLEN_8,
@@ -722,11 +721,11 @@ UARTLINConfig(unsigned long ulBase, unsigned long ulBaud,
 
 //*****************************************************************************
 //
-//! \brief Get to know the Tx FIFO is Empty or not from the specified port.
+//! \brief Determines Tx FIFO is Empty or not from the specified port.
 //!
 //! \param ulBase is the base address of the UART port.
 //!
-//! Get to know the Tx FIFO is Empty or not from the specified port.
+//! Determines Tx FIFO is Empty or not from the specified port.
 //!
 //! \return Returns the xtrue if Tx FIFO is Empty or returns xfalse
 //! \e xtBoolean.
@@ -749,11 +748,11 @@ UARTFIFOTxIsEmpty(unsigned long ulBase)
 
 //*****************************************************************************
 //
-//! \brief Get to know the Tx FIFO is full or not from the specified port.
+//! \brief Determines Tx FIFO is full or not from the specified port.
 //!
 //! \param ulBase is the base address of the UART port.
 //!
-//! Get to know the Tx FIFO is full or not from the specified port.
+//! Determines Tx FIFO is full or not from the specified port.
 //!
 //! \return Returns the xtrue if Tx FIFO is full or returns xfalse
 //! \e xtBoolean.
@@ -802,11 +801,11 @@ UARTFIFOTxLength(unsigned long ulBase)
 
 //*****************************************************************************
 //
-//! \brief Get to know the Rx FIFO is Empty or not from the specified port.
+//! \brief Determines the Rx FIFO is Empty or not from the specified port.
 //!
 //! \param ulBase is the base address of the UART port.
 //!
-//! Get to know the Rx FIFO is Empty or not from the specified port.
+//! Determines the Rx FIFO is Empty or not from the specified port.
 //!
 //! \return Returns the xtrue if Rx FIFO is Empty or returns xfalse
 //! \e xtBoolean.
@@ -828,11 +827,11 @@ UARTFIFORxIsEmpty(unsigned long ulBase)
 
 //*****************************************************************************
 //
-//! \brief Get to know the Rx FIFO is full or not from the specified port.
+//! \brief Determines the Rx FIFO is full or not from the specified port.
 //!
 //! \param ulBase is the base address of the UART port.
 //!
-//! Get to know the Rx FIFO is full or not from the specified port.
+//! Determines the Rx FIFO is full or not from the specified port.
 //!
 //! \return Returns the xtrue if Rx FIFO is full or returns xfalse
 //! \e xtBoolean.
@@ -926,9 +925,9 @@ UARTCharGetNonBlocking(unsigned long ulBase)
 //!
 //! \param ulBase is the base address of the UART port.
 //!
-//! Gets a character from the receive FIFO for the specified port.  If there
-//! are no characters available, this function waits until a character is
-//! received before returning.
+//! Gets a character from the receive FIFO for the specified port.If there are
+//! no characters available, this function waits until a character is received
+//! before returning.
 //!
 //! \return Returns the character read from the specified port, cast as a
 //! \e long.
@@ -963,9 +962,9 @@ UARTCharGet(unsigned long ulBase)
 //! \param ucBuffer is the point of read buffer.
 //! \param ulBase is the length of read buffer.
 //!
-//! Read some character from the receive FIFO for the specified port.  If there
-//! are no characters available, this function waits until a character is
-//! received before returning.
+//! Read some character from  receive FIFO for the specified port.If there are
+//! no characters available, this function waits until a character is received
+//! before returning.
 //!
 //! \return xtrue
 //

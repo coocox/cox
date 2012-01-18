@@ -35,7 +35,7 @@ static xtEventCallback g_pfnACMPHandlerCallbacks[2] = {0};
 //! Refrence \ref xACMP_Comparator_IDs.
 //! \param pfnCallback is the callback function.
 //!
-//! When there is any ADC intrrupt occrus, Interrupt Handler will 
+//! When there is any ADC interrupt occrus, Interrupt Handler will 
 //! call the callback function. 
 //! 
 //! param of pfnCallback
@@ -75,7 +75,7 @@ xACMPIntCallbackInit(unsigned long ulBase, unsigned long ulCompID,
 
 //*****************************************************************************
 //
-//! \brief Comparator 0 Interrupt Handler.
+//! \brief Comparator Interrupt Handler.
 //!
 //! If users want to user the ACMP Interrupt Callback feature, Users should 
 //! promise that the ACMP Handle in the vector table is ACMPIntHandler.
@@ -120,7 +120,7 @@ ACMPIntHandler(void)
 //! \param ulBase is the base address of the comparator module.
 //! \param ulComp is the index(0 - 1) of the comparator to configure.
 //! \param ulSource is the source of Comp- input. 
-//! Refrence \ref NUC1xx_ACMP_Analog_Src_negative.
+//! Refrence \ref M051_ACMP_Analog_Src_negative.
 //!
 //! This function configures the Comp- input source of a comparator.  
 //!

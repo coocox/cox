@@ -82,14 +82,12 @@ SPI0IntHandler(void)
 
     ulEventFlags |= xHWREG(ulBase + SPI_CNTRL2) & SPI_CNTRL2_SLV_START_INTSTS;
     
-
     //
     // Clear Int flag
     //
     xHWREG(ulBase + SPI_CNTRL) |= SPI_CNTRL_IF;
     xHWREG(ulBase + SPI_CNTRL2) |= SPI_CNTRL2_SLV_START_INTSTS;
-    
-    
+     
     //
     // Call Callback function
     //
@@ -129,14 +127,12 @@ SPI1IntHandler(void)
 
     ulEventFlags |= xHWREG(ulBase + SPI_CNTRL2) & SPI_CNTRL2_SLV_START_INTSTS;
     
-
     //
     // Clear Int flag
     //
     xHWREG(ulBase + SPI_CNTRL) |= SPI_CNTRL_IF;
     xHWREG(ulBase + SPI_CNTRL2) |= SPI_CNTRL2_SLV_START_INTSTS;
-    
-    
+        
     //
     // Call Callback function
     //
@@ -388,7 +384,7 @@ SPIBitLengthGet(unsigned long ulBase)
 //!
 //! \note Only the lower N bits of the value written to \e pulData contain
 //! valid data, where N is the data width as configured by
-//! SSIConfigSetExpClk().  For example, if the interface is configured for
+//! SPIConfig().  For example, if the interface is configured for
 //! 8-bit data width, only the lower 8 bits of the value written to \e pulData
 //! contain valid data.
 //!
@@ -439,7 +435,7 @@ SPIDataRead(unsigned long ulBase, void *pulRData, unsigned long ulLen)
 //!
 //! \note Only the lower N bits of the value written to \e pulData contain
 //! valid data, where N is the data width as configured by
-//! SSIConfig(). For example, if the interface is configured for
+//! SPIConfig(). For example, if the interface is configured for
 //! 8-bit data width, only the lower 8 bits of the value written to \e pulData
 //! contain valid data.
 //!
@@ -489,7 +485,7 @@ SPIBurstDataRead(unsigned long ulBase, unsigned long *pulData)
 //!
 //! \note Only the lower N bits of the value written to \e pulData contain
 //! valid data, where N is the data width as configured by
-//! SSIConfig().  For example, if the interface is configured for
+//! SPIConfig().  For example, if the interface is configured for
 //! 8-bit data width, only the lower 8 bits of the value written to \e pulData
 //! contain valid data.
 //!
@@ -536,7 +532,7 @@ SPIRxRegisterGet(unsigned long ulBase, unsigned long *pulData,
 //!
 //! \note Only the lower N bits of the value written to \e pulData contain
 //! valid data, where N is the data width as configured by
-//! SSIConfigSetExpClk().  For example, if the interface is configured for
+//! SPIConfig().  For example, if the interface is configured for
 //! 8-bit data width, only the lower 8 bits of the value written to \e pulData
 //! contain valid data.
 //!
@@ -583,7 +579,7 @@ SPIDataWrite(unsigned long ulBase, void *pulWData, unsigned long ulLen)
 //!
 //! \note Only the lower N bits of the value written to \e pulData contain
 //! valid data, where N is the data width as configured by
-//! SSIConfig().  For example, if the interface is configured for
+//! SPIConfig().  For example, if the interface is configured for
 //! 8-bit data width, only the lower 8 bits of the value written to \e pulData
 //! contain valid data.
 //!
@@ -627,7 +623,7 @@ SPIBurstDataWrite(unsigned long ulBase, unsigned long *pulData)
 //!
 //! \note Only the lower N bits of the value written to \e pulData contain
 //! valid data, where N is the data width as configured by
-//! SSIConfig().  For example, if the interface is configured for
+//! SPIConfig().  For example, if the interface is configured for
 //! 8-bit data width, only the lower 8 bits of the value written to \e pulData
 //! contain valid data.
 //!
@@ -1064,9 +1060,6 @@ SPIIsBusy(unsigned long ulBase)
 //!
 //! This function Check the Rx buffer status of the specified SPI module.
 //!
-//! \note Only the chips with the part number NUC1x0xxxCx, ex: NUC140VE3CN, 
-//! can support this function..
-//!
 //! \return Returns the Rx buffer status of the specified SPI port.
 //! \b xtrue The Rx buffer is empty,or \b xfalse The Rx buffer is not empty.
 //
@@ -1088,9 +1081,6 @@ SPIIsRxEmpty(unsigned long ulBase)
 //! \param ulBase specifies the SPI module base address.
 //!
 //! This function Check the Rx buffer status of the specified SPI module.
-//!
-//! \note Only the chips with the part number NUC1x0xxxCx, ex: NUC140VE3CN, 
-//! can support this function..
 //!
 //! \return Returns the Rx buffer status of the specified SPI port.
 //! \b xtrue The Rx buffer is full,or \b xfalse The Rx buffer is not full.
@@ -1114,9 +1104,6 @@ SPIIsRxFull(unsigned long ulBase)
 //!
 //! This function Check the Tx buffer status of the specified SPI module.
 //!
-//! \note Only the chips with the part number NUC1x0xxxCx, ex: NUC140VE3CN, 
-//! can support this function..
-//!
 //! \return Returns the Tx buffer status of the specified SPI port.
 //! \b xtrue The Tx buffer is in empty,or \b xfalse The Tx buffer is not empty.
 //
@@ -1139,9 +1126,6 @@ SPIIsTxEmpty(unsigned long ulBase)
 //!
 //! This function Check the Tx buffer status of the specified SPI module.
 //!
-//! \note Only the chips with the part number NUC1x0xxxCx, ex: NUC140VE3CN, 
-//! can support this function..
-//!
 //! \return Returns the Tx buffer status of the specified SPI port.
 //! \b xtrue The Tx buffer is in full,or \b xfalse The Tx buffer is not full.
 //
@@ -1163,9 +1147,6 @@ SPIIsTxFull(unsigned long ulBase)
 //! \param ulBase specifies the SPI module base address.
 //!
 //! This function Check the FIFO buffer status of the specified SPI module.
-//!
-//! \note Only the chips with the part number NUC1x0xxxCx, ex: NUC140VE3CN, 
-//! can support this function..
 //!
 //! \return Returns the FIFO buffer status of the specified SPI port.
 //! the return can be the OR of the following values:

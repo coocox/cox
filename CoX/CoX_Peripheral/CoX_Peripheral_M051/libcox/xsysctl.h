@@ -183,7 +183,7 @@ extern "C"
 //! \section xSysCtl_Clock_Set_Config_CoX 3.CoX Port Details
 //! \verbatim
 //! +--------------------------+----------------+--------------------------+
-//! |SysCtl Clock Set Configs  |       CoX      |          M051          |
+//! |SysCtl Clock Set Configs  |       CoX      |          M051            |
 //! |--------------------------|----------------|--------------------------|
 //! |xSYSCTL_OSC_MAIN          |    Mandatory   |             Y            |
 //! |--------------------------|----------------|--------------------------|
@@ -297,7 +297,7 @@ extern "C"
 //! \section xSysCtl_Peripheral_Src_Clk_CoX CoX Port Details
 //! \verbatim
 //! +-------------------------- +----------------+--------------------------+
-//! |Peripheral Source Clock Set|       CoX      |          M051          |
+//! |Peripheral Source Clock Set|       CoX      |            M051          |
 //! |---------------------------|----------------|--------------------------|
 //! |Those are all Non-Mandatory|  Non-Mandatory |             Y            |
 //! | parameter,the Mandatory   |                |                          |
@@ -467,7 +467,7 @@ extern "C"
 //
 //! frequency divide source is HCLK
 //
-#define xSYSCTL_FRQDIV_HCLK     0x10020302          
+#define xSYSCTL_FRQDIV_HCLK     0x10020302
                                 
 //
 //! frequency divide source is internal 22 MHz oscillator clock
@@ -477,17 +477,17 @@ extern "C"
 //
 //! PWMB clock source is external 12 MHz crystal clock
 //
-#define xSYSCTL_PWMB_MAIN       0x10040300  
+#define xSYSCTL_PWMB_MAIN       0x10040300
                                 
 // 
 //! PWMB clock source is HCLK
 //
-#define xSYSCTL_PWMB_HCLK       0x10040302       
+#define xSYSCTL_PWMB_HCLK       0x10040302
                                 
 //
 //! PWMB clock source is internal 22 MHz oscillator clock
 //
-#define xSYSCTL_PWMB_INT        0x10040303  
+#define xSYSCTL_PWMB_INT        0x10040303
 
 
 //*****************************************************************************
@@ -544,7 +544,7 @@ extern "C"
 //! |---------------------------|----------------|--------------------------|
 //! |HCLK_n                     |  Non-Mandatory |         HCLK_2048        |
 //! |---------------------------|----------------|--------------------------|
-//! |EXTSL                      |    Mandatory   |             Y            |
+//! |EXTSL                      |  Non-Mandatory |             N            |
 //! |---------------------------|----------------|--------------------------|
 //! |INTSL                      |    Mandatory   |             Y            |
 //! |---------------------------|----------------|--------------------------|
@@ -784,7 +784,7 @@ extern void xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig);
 //
 //! \brief Gets the processor clock rate.
 //!
-//! This function determines the clock rate of the processor clock.  This is
+//! This function can get the clock rate of the processor clock.  This is
 //! also the clock rate of all the peripheral modules (with the exception of
 //! PWM, which has its own clock divider).
 //!
@@ -1002,7 +1002,7 @@ extern void xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig);
 #define SYSCTL_PERIPH_WDG_S_INT10K                                            \
                                 0x00000303
                                 
-                                //
+//
 //! ADC clock source is external 12 MHz crystal clock
 //
 #define SYSCTL_PERIPH_ADC_S_EXT12M                                            \

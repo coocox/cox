@@ -624,7 +624,7 @@ TimerPrescaleGet(unsigned long ulBase)
 //!
 //! This function is to get The Timer counter Compare Match Value.
 //!
-//! \return the Prescale Value will be set.
+//! \return the Prescale Value.
 //
 //*****************************************************************************
 unsigned long 
@@ -649,7 +649,7 @@ TimerMatchGet(unsigned long ulBase)
 //! This function is to get The Timer counter current up timer or up event
 //! counter value.
 //!
-//! \return current up timer or up event counter value will be set.
+//! \return current up timer or up event counter value.
 //
 //*****************************************************************************
 unsigned long 

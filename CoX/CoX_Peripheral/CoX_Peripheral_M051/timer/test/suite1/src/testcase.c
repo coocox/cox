@@ -21,8 +21,8 @@
 //*****************************************************************************
 const tTestCase * const* g_psPatterns[] =  {
   
-//    psPatternXtimer001,
-//    psPatternXtimer002,
+    psPatternXtimer001,
+    psPatternXtimer002,
     psPatternXtimer003,
     //
     // end

@@ -527,7 +527,7 @@ extern "C"
 //!
 //! \note Only the lower N bits of the value written to \e pulData contain
 //! valid data, where N is the data width as configured by
-//! SPIConfigSetExpClk().  For example, if the interface is configured for
+//! SPIConfig().  For example, if the interface is configured for
 //! 8-bit data width, only the lower 8 bits of the value written to \e pulData
 //! contain valid data.
 //!
@@ -621,9 +621,6 @@ extern "C"
 //!
 //! This function Check the Rx buffer status of the specified SPI module.
 //!
-//! \note Only the chips with the part number NUC1x0xxxCx, ex: NUC140VE3CN, 
-//! can support this function..
-//!
 //! \return Returns the Rx buffer status of the specified SPI port.
 //! \b xtrue The Rx buffer is empty,or \b xfalse The Rx buffer is not empty.
 //
@@ -638,9 +635,6 @@ extern "C"
 //! \param ulBase specifies the SPI module base address.
 //!
 //! This function Check the Tx buffer status of the specified SPI module.
-//!
-//! \note Only the chips with the part number NUC1x0xxxCx, ex: NUC140VE3CN, 
-//! can support this function..
 //!
 //! \return Returns the Tx buffer status of the specified SPI port.
 //! \b xtrue The Tx buffer is in empty,or \b xfalse The Tx buffer is not empty.
@@ -657,9 +651,6 @@ extern "C"
 //!
 //! This function Check the Rx buffer status of the specified SPI module.
 //!
-//! \note Only the chips with the part number NUC1x0xxxCx, ex: NUC140VE3CN, 
-//! can support this function..
-//!
 //! \return Returns the Rx buffer status of the specified SPI port.
 //! \b xtrue The Rx buffer is full,or \b xfalse The Rx buffer is not full.
 //
@@ -674,9 +665,6 @@ extern "C"
 //! \param ulBase specifies the SPI module base address.
 //!
 //! This function Check the Tx buffer status of the specified SPI module.
-//!
-//! \note Only the chips with the part number NUC1x0xxxCx, ex: NUC140VE3CN, 
-//! can support this function..
 //!
 //! \return Returns the Tx buffer status of the specified SPI port.
 //! \b xtrue The Tx buffer is in full,or \b xfalse The Tx buffer is not full.
@@ -742,7 +730,6 @@ extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
 //*****************************************************************************
 //
 //! \addtogroup xSPI_Ints xSPI Interrupts
-//! \brief Values show that xSPI Interrupts
 //! Values that can be passed to SPIIntEnable, SPIIntDisable, and SPIIntFlagClear
 //! as the ulIntFlags parameter, and returned from SPIIntFlagGet.
 //! @{
@@ -764,7 +751,6 @@ extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
 //*****************************************************************************
 //
 //! \addtogroup M051_SPI_Config M051 SPI Configure
-//! \brief Values show that M051 SPI Configure
 //! Values that can be passed to SPIConfig.
 //! @{
 //
@@ -1015,7 +1001,6 @@ extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
 //*****************************************************************************
 //
 //! \addtogroup M051_SPI_SlaveSel_Config M051 SPI Slave Select Configure
-//! \brief Values that show M051 SPI Slave Select Configure
 //! Values that can be passed to SPIAutoSSEnable() SPISSSet()  SPISSClear()
 //! SPISSConfig().
 //! @{
@@ -1066,7 +1051,6 @@ extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
 //*****************************************************************************
 //
 //! \addtogroup M051_SPI_FIFOStatus M051 SPI FIFO Status
-//! \brief Values that show M051 SPI FIFO Status
 //! Values that can be passed to SPIFIFOStatusGet().
 //! @{
 //
@@ -1101,7 +1085,6 @@ extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
 //*****************************************************************************
 //
 //! \addtogroup M051_SPI_ByteReorder M051 SPI Byte Reorder
-//! \brief Values that show M051 SPI Byte Reorder
 //! Values that can be passed to SPIByteReorderSet().
 //! @{
 //

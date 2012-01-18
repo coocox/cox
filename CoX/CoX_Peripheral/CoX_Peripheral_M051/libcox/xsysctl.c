@@ -776,7 +776,7 @@ SysCtlPeripheralReset(unsigned long ulPeripheral)
 //
 //! \brief Enables a peripheral.
 //!
-//! \param ulPeripheral is the peripheral base address to be enabled.
+//! \param ulPeripheral is the peripheral identifier to be enable.
 //!
 //! Peripherals are enabled with this function.  At power-up, all peripherals
 //! are disabled; they must be enabled in order to operate or respond to
@@ -814,7 +814,7 @@ SysCtlPeripheralEnable(unsigned long ulPeripheral)
 //
 //! \brief Disable a peripheral.
 //!
-//! \param ulPeripheral is the peripheral base address to be Disabled.
+//! \param ulPeripheral is the peripheral identifier to be disabled.
 //!
 //! Peripherals are disabled with this function.  Once disabled, they will not
 //! operate or respond to register reads/writes.

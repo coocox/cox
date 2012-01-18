@@ -313,7 +313,7 @@ extern "C"
 //! \section xUART_Frame_Configs_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Frame Config      |       CoX      |         M051         |
+//! |xUART Frame Config      |       CoX      |         M051           |
 //! |------------------------|----------------|------------------------|
 //! |xUART_CONFIG_WLEN_MASK  |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -470,7 +470,7 @@ extern "C"
 //! \addtogroup xUART_Enable_Blocks xUART Enable Blocks
 //! \n
 //! \section xUART_Enable_Blocks_Section 1. Where to use this group
-//! Uart logic blocks  that can be passed to UARTEnable() or UARTDisable() as 
+//! Uart logic blocks  that can be passed to UARTEnable() or UARTDisable() as
 //! the ulBlock parameter.
 //! \n
 //! \section xUART_Enable_Blocks_CoX 2. CoX Port Details 
@@ -791,8 +791,8 @@ extern "C"
 //!
 //! \param ulBase is the base address of the UART port.
 //! \param ulBaud is the desired baud rate.
-//! \param ulConfig is the data format for the port (number of data bits,
-//! number of stop bits, and parity).
+//! \param ulConfig is the data format for the port(number of data bits,number
+//!  of stop bits, and parity).
 //!
 //! This function configures the UART for operation in the specified data
 //! format.  The baud rate is provided in the \e ulBaud parameter and the data
@@ -808,7 +808,6 @@ extern "C"
 //! \b xUART_CONFIG_PAR_ZERO select the parity mode (no parity bit, 
 //! even parity bit, odd parity bit, parity bit always one, and parity bit 
 //! always zero, respectively).
-//!
 //!
 //! \return None.
 //
@@ -832,7 +831,7 @@ extern "C"
 //!
 //! \return None.
 //
-//*****************************************************************************      
+//*****************************************************************************
 #define xUARTEnable(ulBase, ulBlock)                                          \
         UARTEnable(ulBase, ulBlock)                                
 
@@ -905,7 +904,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \brief Determines if there are any characters in the receive FIFO.
+//! \brief Check if there are any characters in the receive FIFO.
 //!
 //! \param ulBase is the base address of the UART port.
 //!
@@ -921,7 +920,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \brief Determines if there is any space in the transmit FIFO.
+//! \brief Check if there is any space in the transmit FIFO.
 //!
 //! \param ulBase is the base address of the UART port.
 //!
@@ -963,9 +962,9 @@ extern "C"
 //!
 //! \param ulBase is the base address of the UART port.
 //!
-//! Gets a character from the receive FIFO for the specified port.  If there
-//! are no characters available, this function waits until a character is
-//! received before returning.
+//! Gets a character from the receive FIFO for the specified port. If there are
+//! no characters available, this function waits until a character is received
+//! before returning.
 //!
 //! \return Returns the character read from the specified port, cast as a
 //! \e long.
@@ -1204,8 +1203,6 @@ extern "C"
 //! Returns the current states of each of the four UART modem status signals,
 //! RI, DCD, DSR and CTS.
 //!
-//! \note It is not available on UART2
-//!
 //! \return Returns the states of the handshake output signals.  This will be a
 //! logical logical OR combination of values \b xUART_INPUT_CTS,  where the
 //! presence of each flag indicates that the associated signal is asserted.
@@ -1219,10 +1216,10 @@ extern "C"
 //! \brief Sets the UART hardware flow control mode to be used.
 //!
 //! \param ulBase is the base address of the UART port.
-//! \param ulMode indicates the flow control modes to be used.  This is a
-//! logical OR combination of values \b xUART_FLOWCONTROL_TX and \b
-//! xUART_FLOWCONTROL_RX to enable hardware transmit (CTS) and receive (RTS)
-//! flow control or \b xUART_FLOWCONTROL_NONE to disable hardware flow control.
+//! \param ulMode indicates the flow control modes to be used. This is a logical
+//! OR combination of values \b xUART_FLOWCONTROL_TX and \b xUART_FLOWCONTROL_RX
+//! to enable hardware transmit(CTS) and receive(RTS) flow control or
+//! \b xUART_FLOWCONTROL_NONE to disable hardware flow control.
 //!
 //! Sets the required hardware flow control modes.  If \e ulMode contains
 //! flag \b xUART_FLOWCONTROL_TX, data is only transmitted if the incoming CTS
@@ -1243,7 +1240,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \brief Returns the UART hardware flow control mode currently in use.
+//! \brief Get the UART hardware flow control mode currently in use.
 //!
 //! \param ulBase is the base address of the UART port.
 //!
@@ -1269,8 +1266,8 @@ extern "C"
 //!
 //! \param ulBase is the base address of the UART port.
 //! \param ulBaud is the desired baud rate.
-//! \param ulConfig is the data format for the port (number of data bits,
-//! number of stop bits, and parity).
+//! \param ulConfig is the data format for the port (number of data bits,number
+//!  of stop bits, and parity).
 //! \param ulMode is the IrDA mode. 
 //!
 //! This function configures the UART IrDA for operation in the specified data
@@ -1453,9 +1450,8 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 //! \addtogroup M051_UART_Line_Config M051 UART Line Configuration
 //! Values that can be passed to UARTConfigSetExpClk as the ulConfig parameter
 //! and returned by UARTConfigGetExpClk in the pulConfig parameter.
-//! Additionally, the UART_CONFIG_PAR_* subset can be passed to
-//! UARTParityModeSet as the ulParity parameter, and are returned by
-//! UARTParityModeGet.
+//! Additionally,the UART_CONFIG_PAR_* subset can be passed to UARTParityModeSet
+//! as the ulParity parameter, and are returned by UARTParityModeGet.
 //! @{
 //
 //*****************************************************************************
@@ -1538,8 +1534,8 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 //*****************************************************************************
 //
 //! \addtogroup M051_UART_Enable_Blocks M051 UART Enable Blocks
-//! Uart logic blocks  that can be passed to UARTEnable or UARTDisable as 
-//! the ulBlock parameter.
+//! Uart logic blocks  that can be passed to UARTEnable or UARTDisable as the
+//! ulBlock parameter.
 //! @{
 //
 //*****************************************************************************
@@ -1712,7 +1708,7 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 //*****************************************************************************
 //
 //! \addtogroup M051_UART_IrDA_Config M051 UART IrDA Configuration
-//! Values that can be passed to UARTIrDAConfig as the ulConfig parameter
+//! Values that can be passed to UARTIrDAConfig() as the ulConfig parameter
 //! @{
 //
 //*****************************************************************************

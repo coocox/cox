@@ -83,7 +83,7 @@ extern "C"
 //! \section xGPIO_Config_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xGPIO General Pin ID    |       CoX      |         M051           |
+//! |xGPIO INT Number        |       CoX      |         M051           |
 //! |------------------------|----------------|------------------------|
 //! |xGPIO_INT_NUMBER        |    Mandatory   |   xGPIO_INT_NUMBER     |
 //! +------------------------+----------------+------------------------+
@@ -547,6 +547,7 @@ extern "C"
 //! |TIMCCPn                 |    Mandatory   |   TIMCCP0 ... TIMCCP3  |
 //! +------------------------+----------------+------------------------+
 //! \endverbatim
+//!
 //!  
 //! @{
 //
@@ -737,8 +738,8 @@ extern "C"
 //! a software controlled input, \b xGPIO_DIR_MODE_OUT specifies that the pin
 //! will be programmed as a software controlled output, \b GPIO_DIR_MODE_OD 
 //! specifies that the pin will be programmed as a open drain mode, 
-//! \b GPIO_DIR_MODE_QB specifies that the pin will be programmed as a open 
-//! drain mode. 
+//! \b GPIO_DIR_MODE_QB specifies that the pin will be programmed as a Quasi
+//!  bidirectional mode. 
 //!
 //! The pin(s) are specified using a bit-packed byte, where each bit that is
 //! set identifies the pin to be accessed, and where bit 0 of the byte
@@ -1533,6 +1534,10 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! |                    |    TIMCCP1             |    PD5                 |
 //! |                    |    TIMCCP2             |    PB0                 |
 //! |                    |    TIMCCP3             |    PB1                 |
+//! |                    |    T0EX                |    PD2                 |
+//! |                    |    T1EX                |    PD3                 |
+//! |                    |    T2EX                |    PE0                 |
+//! |                    |    T3EX                |    PE1                 |
 //! |--------------------|------------------------|------------------------|
 //! \endverbatim
 //!

@@ -72,7 +72,7 @@
 //*****************************************************************************
 //
 //! \addtogroup M051_TIMER_Register_Address_Offset TIMER Register Offset(Map)
-//! \brief Here is the TIMER register offset, users can get the register address
+//! \brief Here is the TIMER register offset,users can get the register address
 //! through <b>TIMER_BASE + offset</b>.
 //! @{
 //

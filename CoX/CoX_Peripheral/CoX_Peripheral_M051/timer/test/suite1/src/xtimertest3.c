@@ -86,6 +86,7 @@ static unsigned long Timer0Callback(void *pvCBData,  unsigned long ulEvent,
                                        void *pvMsgData)
 {
      TestEmitToken('b'); 
+     xIntDisable(xINT_TIMER0);
      return 0;
 }
 static unsigned long Timer1Callback(void *pvCBData,  unsigned long ulEvent,
@@ -93,6 +94,7 @@ static unsigned long Timer1Callback(void *pvCBData,  unsigned long ulEvent,
                                        void *pvMsgData)
 {
      TestEmitToken('b'); 
+     xIntDisable(xINT_TIMER1);
      return 0;
 }
 static unsigned long Timer2Callback(void *pvCBData,  unsigned long ulEvent,
@@ -100,13 +102,15 @@ static unsigned long Timer2Callback(void *pvCBData,  unsigned long ulEvent,
                                        void *pvMsgData)
 {
      TestEmitToken('b');
+     xIntDisable(xINT_TIMER2);
      return 0;
 }
 static unsigned long Timer3Callback(void *pvCBData,  unsigned long ulEvent,
                                        unsigned long ulMsgParam,
                                        void *pvMsgData)
 {
-     TestEmitToken('b'); 
+     TestEmitToken('b');
+     xIntDisable(xINT_TIMER3);
      return 0;
 }
 
@@ -194,6 +198,10 @@ static void xTimer001Setup(void)
     //
     xSysCtlClockSet(12000000, xSYSCTL_XTAL_12MHZ | xSYSCTL_OSC_MAIN);
     
+    SysCtlPeripheralReset(SYSCTL_PERIPH_TMR0);
+    SysCtlPeripheralReset(SYSCTL_PERIPH_TMR1);
+    SysCtlPeripheralReset(SYSCTL_PERIPH_TMR2);
+    SysCtlPeripheralReset(SYSCTL_PERIPH_TMR3);
     //
     // Set the timer clock, in event counting mode, the timer source clock should
     // be HCLK.
@@ -209,6 +217,7 @@ static void xTimer001Setup(void)
     xSPinTypeTimer(TIMCCP0, PD4);
     xSPinTypeTimer(TIMCCP1, PD5);
     xSPinTypeTimer(TIMCCP2, PB0);
+    xSPinTypeTimer(TIMCCP3, PB1);
     
     GPIOInit();
     
@@ -255,11 +264,11 @@ static void xTimer001Execute(void)
     unsigned long ulBase;
     int i;
     xtBoolean xbTimerIntStatus;
-    
     //
     // Test the event count function test. You should connect the PE2 to the
     // corresponding TM pin as the count source.
-    //   
+    //  
+
     for(i = 0; i < 4; i++)
     {
         ulBase = ulTimerBase[i];
@@ -299,14 +308,18 @@ static void xTimer001Execute(void)
         TimerIntClear(ulBase, TIMER_INT_MATCH);
         
         TimerCounterDisable(ulBase);
-    }   
-  
+    }
+      
+    xSPinTypeTimer(T0EX, PD2);
+    xSPinTypeTimer(T1EX, PD3);
+    xSPinTypeTimer(T2EX, PE0);
+    xSPinTypeTimer(T3EX, PE1);
     //
     // Input capture function test
     //    
     for (i = 0; i< 4; i++)
     {
-        ulBase = ulTimerBase[i];
+        ulBase = ulTimerBase[i];     
         ulTimerIntFlag[0] = 0;
         ulTimerIntFlag[1] = 0;
         ulTimerIntFlag[2] = 0;
@@ -320,12 +333,12 @@ static void xTimer001Execute(void)
         //
         // Timer capture function 
         //
-        xTimerCaptureModeSet(ulBase, i, TIMER_CAP_MODE_RST);
+        xTimerCaptureModeSet(ulBase, i, TIMER_CAP_MODE_CAP);
         
         //
         // Capture detect edge set both
         //
-        xTimerCaptureEdgeSelect(ulBase, i, TIMER_CAP_BOTH);
+        xTimerCaptureEdgeSelect(ulBase, i, TIMER_CAP_FALLING);
         
         //
         // Enable the capture Int
@@ -339,12 +352,11 @@ static void xTimer001Execute(void)
         //
         TimerCaptureEnable(ulBase);
         xTimerStart(ulBase, i);
-     
-        
+             
         //
         // wait until the timer data register reach equel to compare register
         //
-        TestAssertQBreak("b","One shot mode Intterrupt test fail", 0);
+        TestAssertQBreak("b","One shot mode Intterrupt test fail", 0xffffffff);
         
         xbTimerIntStatus = TimerIntStatus(ulBase, TIMER_INT_CAP);
         TimerIntClear(ulBase, TIMER_INT_CAP);
