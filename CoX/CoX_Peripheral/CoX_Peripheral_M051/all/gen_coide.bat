@@ -44,7 +44,7 @@ echo completed
 echo rename coide_gen to template
 md %v_gen_root%\template\coide >>nul
 move %v_gen_root%\template\coide_gen %v_gen_root%\template\coide\template >>nul
-move %v_gen_root%\template\coide\template\coide_gen.cob %v_gen_root%\template\coide\template\template.cob >>nul
+move %v_gen_root%\template\coide\template\cox_coide_empty_project.cob %v_gen_root%\template\coide\template\template.cob >>nul
 echo completed
 ::echo --------------------------------------------
 

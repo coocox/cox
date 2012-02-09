@@ -6,7 +6,7 @@
 //!           - Set the initial SP
 //!           - Set the vector table entries with the exceptions ISR address
 //!           - Initialize data and bss
-//!           - Setup the microcontroller system. 			
+//!           - Setup the microcontroller system.
 //!           - Call the application's entry point.
 //!           .
 //! \version V2.1.1.0
@@ -284,7 +284,7 @@ static void DefaultIntHandler(void)
     //
     // Go into an infinite loop.
     //
-    while (1) 
+    while(1)
     {
     }
 }
