@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>Timer_Clock</Name>
+  <Description>This example is to configure the TIEMR0 as periodic mode, enable
+  the interrupt, when the counter reach to the compare register,the TIMER match 
+  interrupt will happen.
+  </Description>
+  <Version>1.0.0</Version>
+  <Tags>TIMER</Tags>
+  <EVKit>Nu-LB-Mini_V001 Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\CoX\CoX_Peripheral\CoX_Peripheral_Mini51\timer\example\Timer_Clock\src\OneSecondClock.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>COX.Peripheral.Mini51.xStartup</Dependency>
+    <Dependency>COX.Peripheral.Mini51.xLowLayer</Dependency>
+	<Dependency>COX.Peripheral.Mini51.xCORE</Dependency>
+	<Dependency>COX.Peripheral.Mini51.xSysCtl</Dependency>
+	<Dependency>COX.Peripheral.Mini51.xGPIO</Dependency>
+  </Dependencys>
+  
+   
+</Example>

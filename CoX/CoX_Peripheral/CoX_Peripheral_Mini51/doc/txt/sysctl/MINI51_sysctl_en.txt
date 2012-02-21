@@ -1,0 +1,196 @@
+//********************************************************************************
+//
+//! \defgroup MINI51_SysCtl MINI51 SysCtl
+//!
+//! \brief MINI51 SysCtl Peripheral Driver
+//! 
+//! The CoX Peripheral Library also provide APIs for function full functions of
+//! Nuvoton MINI51 SysCtl.This module supports the whole MINI51 Series.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref MINI51_SysCtl_Block
+//! - \ref MINI51_SysCtl_Function_Desc
+//! - \ref MINI51_SysCtl_API_Group
+//!   - \ref MINI51_API_Group_Peripharal_Control
+//!   - \ref MINI51_API_Group_Clock_Control
+//!   - \ref MINI51_API_Group_Power_Control
+//!   .
+//! - \ref MINI51_SysCtl_Usage
+//! .
+//!
+//! <br />
+//! \section MINI51_SysCtl_Block 1. SysCtl Physical Block
+//! <img src="MINI51_sysctl_block.png" />
+//!
+//! <br />
+//! \section MINI51_SysCtl_Function_Desc 2. Functional Description
+//! The system control block has the following functions:
+//! - The perpheral can be individual enable,disable and reset by software
+//! - The clock controller generates the clocks for the whole chip, including 
+//!   system clocks and all peripheral clocks.The clock generator consists of
+//!   4 clock sources which are listed below:One external 4~24 MHz high speed
+//!   crystal; One internal 22.1184 MHz high speed oscillator ;One internal 10 
+//!   kHz low speed oscillator. 
+//! - When chip enters into power down mode, system clocks, some clock sources, 
+//!   and some peripheral clocks will be disabled. Some clock sources,peripherals 
+//!   clock are still active in power down mode.
+//! .
+//!
+//! <br />
+//! \subsection MINI51_SysCtl_API_Group 2. API Groups
+//!
+//! The SysCtl API is broken into three groups of functions:
+//! - those that deal with Clock control,
+//! - those that deal with Peripheral control,
+//! - those that deal with Power control.
+//! .
+//! <br />
+//! \subsection MINI51_API_Group_Clock_Control 2.1 SysCtl clock control APIs
+//!
+//! The SysCtl clock control are dealed with :
+//! - SysCtlPeripheralClockSourceSet(),
+//! - SysCtlHClockSourceSet(),
+//! - SysCtlSysTickSourceSet(),
+//! - SysCtlIPClockDividerSet(),
+//! - SysCtlFreqDividerOutputEnable(),
+//! - SysCtlHClockGet(),
+//! - SysCtlHClockSet(),
+//! .
+//! 
+//! <br />
+//! \subsection MINI51_API_Group_Peripharal_Control 2.2 SysCtl Peripheral Control APIs
+//! The SysCtl clock control are dealed with :
+//! - SysCtlCPUReset(),
+//! - SysCtlChipReset(),
+//! - SysCtlPeripheralDisable(),
+//! - SysCtlPeripheralEnable(),
+//! - SysCtlPeripheralReset(),
+//! - SysCtlResetSrcGet(),
+//! - SysCtlResetSrcClear().
+//! .
+//!
+//! <br />
+//! \subsection MINI51_API_Group_Power_Control 2.3 SysCtl power control
+//! 
+//! The SysCtl power control are dealed with : 
+//! - SysCtlPowerDownEnable(),
+//! - SysCtlPWRWUIntEnable(),
+//! - SysCtlBODEnable(),
+//! - SysCtlBODVoltSelect(),
+//! - SysCtlBODRstEnable().
+//!
+//! <br />
+//! \section MINI51_SysCtl_Usage
+//! The following example shows how to use the SysCtl API to configure the
+//! system clock,enable the relative peripheral,put the processor into sleep
+//! mode,and then wake up by Extern Interrupt 0;
+//! \code
+//! #include "xhw_types.h"
+//! #include "xhw_memmap.h"
+//! #include "xcore.h
+//! #include "xsysctl.h"
+//! #include "xhw_ints.h"
+//! #include "xgpio.h"
+//! #include "xhw_nvic.h"
+//!
+//! //*****************************************************************************
+//! //
+//! // Enter Sleep Mode function.
+//! // This function will force the processor enter sleep mode.
+//! //
+//! //*****************************************************************************
+//! void PWRCtl_Standby(void)
+//! {
+//!     //
+//!     // Enter Puts the processor into deep-sleep mode.
+//!     //
+//!     SysCtlDeepSleep();
+//!    
+//! }
+//! //*****************************************************************************
+//! //
+//! // brief Init uart to print.
+//! //
+//! // details uart config as (115200, 8 data bit, 1 stop bit , no partiy)
+//! //
+//! //*****************************************************************************
+//! 
+//! void TestIOInit(void)
+//! {
+//!     //
+//!     // Set system clock
+//!     //
+//!     xSysCtlClockSet(12000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_12MHZ);
+//!
+//!     xSPinTypeUART(UART0RX,PA1);
+//!     xSPinTypeUART(UART0TX,PA0);
+//!
+//!     xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART0);
+//!     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART0);
+//!     xSysCtlPeripheralClockSourceSet(xSYSCTL_PERIPH_UART_S_EXT12M,1);
+//!
+//!
+//!     xUARTConfigSet(UART0_BASE,115200,xUART_CONFIG_WLEN_8 | xUART_CONFIG_STOP_1
+//!                                                          | xUART_CONFIG_PAR_NONE));
+//!     xSysCtlDelay(10000);
+//! }
+//! //*****************************************************************************
+//! //
+//! // brief print a char.
+//! //
+//! // param A char
+//! //
+//! // return None.
+//! //
+//! //*****************************************************************************
+//! void TestIOPut(char ch)
+//! {
+//!     uint8_t c;
+//!     c = ch;
+//!     while((xHWREG(UART_BASE + UART_FSR) & (0x400000))!=0x400000);
+//!     //
+//!     // Write this character to the transmit FIFO.
+//!     //
+//!     xHWREG(UART_BASE + UART_THR) = c;
+//! }
+//! 
+//! //*****************************************************************************
+//! //
+//! // Wake up mcu from sleep mode function using extern interrupt.
+//! //
+//! // This function use extern interrupt to wake up mcu from sleep mode 
+//! //
+//! // return None
+//! //*****************************************************************************
+//! void PWR_WKUP_Init(void)
+//! {	 
+//!     xIntEnable(INT_EINT1);
+//!     xIntPrioritySet(INT_EINT1, 1);
+//!     GPIODirModeSet(GPIO_PORTB_BASE, GPIO_PIN_0,GPIO_DIR_MODE_IN);
+//!     GPIOPinIntEnable(GPIO_PORTB_BASE, GPIO_PIN_0,GPIO_FALLING_EDGE);
+//! }
+//! //*****************************************************************************
+//! //
+//! // The main function of the PWR_WKUP 
+//! //
+//! //*****************************************************************************
+//! int main(void)
+//! {
+//!     //
+//!     //UART initialize
+//!     //          
+//!     TestIOInit();
+//!     PWR_WKUP_Init();
+//!
+//!     while(1)
+//!     {
+//!        PWRCtl_Standby();
+//!        TestIOPut('O');
+//!        TestIOPut('K');	
+//!     }  
+//! }
+//! \endcode
+//! \note 
+//!
+//********************************************************************************

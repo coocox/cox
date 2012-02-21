@@ -1,0 +1,215 @@
+//*****************************************************************************
+//
+//! \defgroup Mini51_TIMER Mini51 TIMER
+//! 
+//! \brief Nuvoton Mini51 TIMER Peripheral Driver.
+//!
+//! The CoX Peripheral Library also provides APIs for full functions of Nuvoton
+//! Mini51 TIMER. This module supports the whole Mini51 Series.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref Mini51_TIMER_Blcok
+//! - \ref Mini51_TIMER_Function_Desc
+//! - \ref Mini51_TIMER_API_Group
+//!   - \ref TIMER_API_Mode_Config
+//!   - \ref TIMER_API_Start_Stop
+//!   - \ref TIMER_API_Event_Counting
+//!   - \ref TIMER_API_Capture
+//!   - \ref TIMER_API_Value_Set
+//!   - \ref TIMER_API_Inerrupt
+//!   .
+//! - \ref Mini51_TIMER_Usage
+//! .
+//!
+//! <br />
+//! \section Mini51_TIMER_Blcok 1. TIMER Physical Block
+//! <img src="Mini51_Timer_Controller_Block.png" />
+//! 
+//! <br />
+//! \section Mini51_TIMER_Function_Desc 2. Functional Description
+//! 
+//! There are six mode that the timer can be configured:
+//! 
+//! - One shot mode:
+//!
+//! If timer is operated at one-shot mode,Once the timer counter value reaches timer
+//! compare register (TCMPR) value, if IE (TCSR[29] interrupt enable bit) is set to 1,
+//! then the timer interrupt flag is set and the interrupt signal is generated and 
+//! sent to NVIC to inform CPU.Timer counting operation stops.
+//!
+//! - Periodic Mode:
+//!
+//! If timer is operated at period mode, Once the timer counter value reaches timer
+//! compare register (TCMPR) value, if IE (TCSR[29] interrupt enable bit) is set to 1,
+//! then the timer interrupt flag is set and the interrupt signal is generated and
+//! sent to NVIC to inform CPU. the timer counter value goes back to counting initial
+//! value and CEN is kept at 1 (counting enable continuously). The timer counter 
+//! operates up counting again.
+//!
+//! - Toggle Mode:
+//!
+//! If timer is operated at toggle mode, Once the timer counter value reaches timer
+//! compare register,value, if IE (TCSR[29] interrupt enable bit) is set to 1, then
+//! the timer interrupt flag is set and the interrupt signal is generated and sent 
+//! to NVIC to inform CPU. The associated toggle output (tout) signal is set to 1.
+//! the timer counter value goes back to counting initial value and CEN is kept at
+//! 1 (counting enable continuously). The timer counter operates up counting again.
+//! The associated toggle output (tout) signal is set to 0.
+//!
+//! - Continuous Counting Mode:
+//!
+//! If the timer is operated at continuous counting mode, the associated interrupt
+//! signal is generated depending on TDR = TCMPR if IE (TCSR[29] interrupt enable 
+//! bit) is enabled. User can change different TCMPR value immediately without
+//! disabling timer counting and restarting timer counting.
+//!
+//! - Event Counting Function:
+//!
+//! It also provide a application that to count the event form TM0~TM3 pins. It is
+//! called as event counting mode.
+//! 
+//! - Input Capture Function:
+//!
+//! It also provide input capture function to capture or reset timer count value. 
+//!
+//! <br />
+//! \section Mini51_TIMER_API_Group 3. Mini51 TIMER API Group
+//!
+//! <br />
+//! \subsection TIMER_API_Mode_Config 3.1 TIMER API Mode Config
+//! 
+//! The TIMER mode are configured with:
+//! - TimerInitConfig()
+//! .
+//! 
+//! <br />
+//! \subsection TIMER_API_Start_Stop 3.2 TIMER API Start Stop
+//! 
+//! The TIMER start or stop handled with: 
+//! - TimerStart(),
+//! - TimerStop()
+//! .
+//!
+//! <br />
+//! \subsection TIMER_API_Event_Counting 3.3 TIMER API Event Counting
+//! 
+//! The TIMER event counting is accessed with:
+//! - TimerCounterEnable(),
+//! - TimerCounterDisable()
+//! .
+//! 
+//! <br />
+//! \subsection TIMER_API_Capture 3.4 TIMER API Capture
+//!
+//! The TIMER capture is accessed with:
+//! - TimerCaptureEnable(),
+//! - TimerCaptureModeSet(),
+//! - TimerCaptureEdgeSelect(),
+//! - TimerCaptureDebounceEnable(),
+//! - TimerCaptureDebounceDisable()
+//! .
+//!
+//! <br />
+//! \subsection TIMER_API_Value_Set 3.5 TIMER API Value Set
+//!
+//! Some value register are accessed with:
+//! - TimerPrescaleSet(),
+//! - TimerPrescaleGet(),
+//! - TimerLoadSet(),
+//! - TimerLoadGet(),
+//! - TimerValueGet(),
+//! - TimerMatchSet(),
+//! - TimerMatchGet()
+//! .
+//!
+//! <br />
+//! \subsection TIMER_API_Inerrupt 3.6 TIMER API Inerrupt
+//!
+//! Timer interrupt are handed with:
+//! - TimerIntCallbackInit(),
+//! - TimerIntEnable(),
+//! - TimerIntDisable(),
+//! - TimerIntStatus(),
+//! - TimerIntClear(), 
+//! .
+//! 
+//! <br />
+//! \section Mini51_TIMER_Usage 4. Usage & Program Examples
+//!
+//! \code
+//!
+//! //*****************************************************************************
+//! //
+//! // \file one_second_clock.c
+//! // \brief Use the timer to make a one second clock.
+//! // \date 1/10/2012
+//! // \author CooCox
+//! //
+//! // The timer source select external 12M hz crystal oscillator, the TCMP register
+//! // set to oxffff, the prescale register value is 12M/0x1ffff = 92
+//! // 
+//! // \copy
+//! //
+//! //*****************************************************************************
+//! #include "xhw_types.h"
+//! #include "xcore.h"
+//! #include "xhw_ints.h"
+//! #include "xhw_memmap.h"
+//! #include "xhw_nvic.h"
+//! #include "xgpio.h"
+//! #include "xsysctl.h"
+//! #include "xtimer.h"
+//!
+//! //*****************************************************************************
+//! //
+//! // \biref The main example function
+//! //
+//! // \return  none
+//! //
+//! //*****************************************************************************
+//! void OneSecondClock(void)
+//! {    
+//!     SysCtlHClockSet(SYSCTL_XTAL_12MHZ | SYSCTL_OSC_MAIN);
+//!     //
+//!     // Set the timer clock
+//!     //
+//!     SysCtlPeripheralClockSourceSet(SYSCTL_PERIPH_TMR0_S_EXT12M);
+//!     
+//!     // 
+//!     // Enable tiemr0
+//!     // 
+//!     SysCtlPeripheralEnable(SYSCTL_PERIPH_TMR0);
+//!     
+//!     //
+//!     // Clear the flag first
+//!     //
+//!     TimerIntClear(TIMER0_BASE, TIMER_INT_MATCH);
+//!     
+//!     // 
+//!     // Configure Timer0 as periodic mode
+//!     //        
+//!     TimerInitConfig(TIMER0_BASE, TIMER_MODE_PERIODIC, 1000);
+//!     TimerPrescaleSet(TIMER0_BASE, 91);
+//!     TimerMatchSet(TIMER0_BASE, 0x1ffff);
+//!     TimerIntEnable(TIMER0_BASE, TIMER_INT_MATCH);
+//!     
+//!     //
+//!     // Start the timer
+//!     //
+//!     TimerStart(TIMER0_BASE);
+//!
+//!     while(1)
+//!     {
+//!         //
+//!         // wait until the timer data register reach equel to compare register
+//!         //
+//!         while(!TimerIntStatus(TIMER0_BASE, TIMER_INT_MATCH));
+//!         TimerIntClear(TIMER0_BASE, TIMER_INT_MATCH);
+//!     }  
+//! }
+//!
+//! \endcode
+//!
+//
+//*****************************************************************************

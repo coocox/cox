@@ -1,0 +1,881 @@
+/* The standard CSS for doxygen */
+
+body, table, div, p, dl {
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 12px;
+}
+ table{/**/border-collapse:collapse; empty-cells: show;  }
+/* @group Heading Levels */
+
+h1 {
+	font-size: 150%;
+	font-family: Arial;
+	
+}
+
+.title {
+	font-size: 150%;
+	font-weight: bold;
+	margin: 10px 2px;
+	color:#3A9457;
+}
+
+h2 {
+	font-size: 130%;
+	color:#140b7a;
+	font-family: Arial;
+}
+
+h3 {
+	font-size: 110%;
+}
+
+
+dt {
+	font-weight: bold;
+}
+
+div.multicol {
+	-moz-column-gap: 1em;
+	-webkit-column-gap: 1em;
+	-moz-column-count: 3;
+	-webkit-column-count: 3;
+}
+
+p.startli, p.startdd, p.starttd {
+	margin-top: 2px;
+}
+
+p.endli {
+	margin-bottom: 0px;
+}
+
+p.enddd {
+	margin-bottom: 4px;
+}
+
+p.endtd {
+	margin-bottom: 2px;
+}
+
+/* @end */
+
+caption {
+	font-weight: bold;
+}
+
+span.legend {
+        font-size: 70%;
+        text-align: center;
+}
+
+h3.version {
+        font-size: 90%;
+        text-align: center;
+}
+div.qindex, div.navtab{
+	background-color: #f9f8f8;
+	border: 1px solid #AA9C9E;
+	text-align: center;
+	margin: 2px;
+	padding: 2px;
+}
+
+div.qindex, div.navpath {
+	width: 100%;
+	line-height: 140%;
+}
+div.qindex{ display:none;}
+div.navtab {
+	margin-right: 15px;
+}
+
+/* @group Link Styling */
+
+a {
+	color: #443A3C;
+	font-weight: normal;
+	text-decoration: none;
+}
+
+.contents a:visited {
+/*	color: #810081;
+*/}
+
+a:hover {
+	text-decoration: underline;
+}
+a.qindex {
+	font-weight: bold;
+}
+
+a.qindexHL {
+	font-weight: bold;
+	background-color: #A49597;
+	color: #ffffff;
+	border: 1px double #927F82;
+}
+
+.contents a.qindexHL:visited {
+/*        color: #ffffff;
+*/}
+
+a.el {
+/*	font-weight: bold;
+*/	color:#0000FF;
+}
+
+a.elRef {
+}
+
+a.code {
+	color: #55484A;
+}
+
+a.codeRef {
+	color: #55484A;
+}
+
+/* @end */
+
+dl.el {
+	margin-left: -1cm;
+}
+
+.fragment {
+	font-family: monospace, fixed;
+	font-size: 105%;
+}
+
+pre.fragment {
+	border: 1px dotted #C7BEBF;
+	background-color: #f4f9ff;
+	padding: 4px 6px;
+	margin: 4px 8px 4px 2px;
+	overflow: auto;
+	word-wrap: break-word;
+	font-size:  9pt;
+	line-height: 125%;
+	color:#800000;
+	/* font-family:Arial; */
+}
+pre.fragment a{
+	color:#800000;
+}
+pre.fragment a:hover{
+	color:#800000;
+	text-decoration:underline;
+}
+
+
+div.ah {
+	background-color: #2468ac;
+	font-weight: bold;
+	color: #fff;
+	margin-bottom: 3px;
+	margin-top: 3px;
+	padding: 0.2em;
+	border: solid thin #e7e7e7;
+	border-radius: 0.5em;
+/*	-webkit-border-radius: .5em;
+	-moz-border-radius: .5em;
+*/	box-shadow: 2px 2px 3px #999;
+	-webkit-box-shadow: 2px 2px 3px #999;
+/*	-moz-box-shadow: rgba(0, 0, 0, 0.15) 2px 2px 2px;
+*/	background-image: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#000),color-stop(0.3, #444));
+/*	background-image: -moz-linear-gradient(center top, #eee 0%, #444 40%, #000);
+*/}
+
+div.groupHeader {
+	margin-left: 16px;
+	margin-top: 12px;
+	font-weight: bold;
+}
+
+div.groupText {
+	margin-left: 16px;
+	font-style: italic;
+}
+
+body {
+	background: white;
+	color: black;
+        margin: 0;
+}
+
+div.contents {
+	margin-top: 10px;
+	margin-left: 10px;
+	margin-right: 5px;
+	line-height:20px;
+
+}
+div.contents h3 {
+	font-size: 110%;
+	padding-left:5px;
+}
+
+div.contents h4 {
+	font-size: 95%;
+	padding-left:8px;
+}
+div.contents p{ margin-left:12px; }
+td.indexkey {
+	background-color: #f9f8f8;
+	font-weight: bold;
+	border: 1px solid #C7BEBF;
+	margin: 2px 0px 2px 0;
+	padding: 2px 10px;
+}
+
+td.indexvalue {
+	background-color: #f9f8f8;
+	border: 1px solid #C7BEBF;
+	padding: 2px 10px;
+	margin: 2px 0px;
+}
+
+tr.memlist {
+	background-color: #EEEBEC;
+}
+
+p.formulaDsp {
+	text-align: center;
+}
+
+img.formulaDsp {
+	
+}
+
+img.formulaInl {
+	vertical-align: middle;
+}
+
+div.center {
+	text-align: center;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        padding: 0px;
+}
+div.textblock{line-height:20px; margin-bottom:8px;}
+div.center img {
+	border: 0px;
+}
+
+address.footer {
+	text-align: right;
+	padding-right: 12px;
+}
+
+img.footer {
+	border: 0px;
+	vertical-align: middle;
+}
+
+/* @group Code Colorization */
+
+span.keyword {
+	color: #008000
+}
+
+span.keywordtype {
+	color: #604020
+}
+
+span.keywordflow {
+	color: #e08000
+}
+
+span.comment {
+	color: #006C00;
+}
+
+span.preprocessor {
+	color: #806020
+}
+
+span.stringliteral {
+	color: #002080
+}
+
+span.charliteral {
+	color: #008080
+}
+
+span.vhdldigit { 
+	color: #ff00ff 
+}
+
+span.vhdlchar { 
+	color: #000000 
+}
+
+span.vhdlkeyword { 
+	color: #700070 
+}
+
+span.vhdllogic { 
+	color: #ff0000 
+}
+
+/* @end */
+
+/*
+.search {
+	color: #003399;
+	font-weight: bold;
+}
+
+form.search {
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+input.search {
+	font-size: 75%;
+	color: #000080;
+	font-weight: normal;
+	background-color: #e8eef2;
+}
+*/
+
+td.tiny {
+	font-size: 75%;
+}
+
+.dirtab {
+	padding: 4px;
+	border-collapse: collapse;
+	border: 1px solid #AA9C9E;
+}
+
+th.dirtab {
+	background: #f9f8f8;
+	font-weight: bold;
+}
+
+hr { display:none;
+	height: 0px;
+	border: none;
+/*	border-top: 1px solid #5B4E50;
+border-top: 1px solid silver;*/	
+}
+
+hr.footer {
+	height: 1px;
+}
+
+/* @group Member Descriptions */
+
+table.memberdecls {
+	border-spacing: 0px;
+	padding: 0px;
+	
+	
+}
+
+.mdescLeft, .mdescRight,
+.memItemLeft, .memItemRight,
+.memTemplItemLeft, .memTemplItemRight, .memTemplParams {
+	background-color: #D9ECFF;
+/*background-color: #FFFFFF;*/	border: none;
+	margin: 4px;
+	padding: 0px 0 0 8px;
+}
+
+.mdescLeft, .mdescRight {
+	padding: 3px 8px 3px 8px;
+	color: #333;
+}
+
+.memItemLeft, .memItemRight, .memTemplParams {
+	border-top: 2px solid #ffffff;
+}
+
+.memItemLeft, .memTemplItemLeft {
+        white-space: nowrap;
+}
+.memItemRight{border-left: 2px solid #ffffff;}
+.memItemRight {
+	width: 100%;
+}
+.mdescRight{border-left: 2px solid #ffffff;}
+.memTemplParams {
+	color: #55484A;
+        white-space: nowrap;
+}
+.memItemRight a{ color:#800000}
+.memItemRight a.el{ color:#0000FF}
+/* @end */
+
+/* @group Member Details */
+
+/* Styles for detailed member documentation */
+
+.memtemplate {
+	font-size: 80%;
+	color: #55484A;
+	font-weight: normal;
+	margin-left: 9px;
+}
+.memnav {
+	background-color: #f9f8f8;
+	border: 1px solid #AA9C9E;
+	text-align: center;
+	margin: 2px;
+	margin-right: 15px;
+	padding: 2px;
+}
+
+.mempage {
+	width: 100%;
+}
+
+.memitem {
+	padding: 0;
+	margin-bottom: 10px;
+	margin-right: 5px;
+}
+
+.memname {
+        white-space: nowrap;
+        font-weight: bold;
+        margin-left: 6px;
+}
+
+.memproto {
+        border-top: 1px solid #c4dcf3;
+        border-left: 1px solid #c4dcf3;
+        border-right: 1px solid #c4dcf3;
+		 border-bottom: 1px solid #c4dcf3;
+        padding: 4px 0px 4px 4px;
+        color: #201B1C;
+        font-weight: bold;
+        text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);
+        /* opera specific markup */
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+        border-top-right-radius: 8px;
+        border-top-left-radius: 8px;
+        /* firefox specific markup */
+        -moz-box-shadow: rgba(0, 0, 0, 0.15) 5px 5px 5px;
+        -moz-border-radius-topright: 8px;
+        -moz-border-radius-topleft: 8px;
+        /* webkit specific markup */
+        -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+        -webkit-border-top-right-radius: 8px;
+        -webkit-border-top-left-radius: 8px;
+/*        background-image:url('nav_f.png');
+*/        background-repeat:repeat-x;
+        background-color: #bdd8f3;
+ /*       background-color: #f7f7f7;*/
+
+}
+
+.memdoc {
+        border-bottom: 1px solid #c4dcf3;      
+        border-left: 1px solid #c4dcf3;      
+        border-right: 1px solid #c4dcf3; 
+        padding: 2px 5px;
+        background-color: #D9ECFF;
+/*        background-color: #FBFBFB;
+*/        border-top-width: 0;
+        /* opera specific markup */
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+        /* firefox specific markup */
+        -moz-border-radius-bottomleft: 8px;
+        -moz-border-radius-bottomright: 8px;
+        -moz-box-shadow: rgba(0, 0, 0, 0.15) 5px 5px 5px;
+        background-image: -moz-linear-gradient(center top, #FFFFFF 0%, #FFFFFF 60%, #F7F5F6 95%, #EEEBEC);
+        /* webkit specific markup */
+        -webkit-border-bottom-left-radius: 8px;
+        -webkit-border-bottom-right-radius: 8px;
+        -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+        background-image: -webkit-gradient(linear,center top,center bottom,from(#FFFFFF), color-stop(0.6,#FFFFFF), color-stop(0.60,#FFFFFF), color-stop(0.95,#F7F5F6), to(#EEEBEC));
+}
+
+.paramkey {
+	text-align: right;
+}
+
+.paramtype {
+	white-space: nowrap;
+}
+
+.paramname {
+	color: #003399;
+	white-space: nowrap;
+}
+.paramname em {
+	font-style: normal;
+}
+
+.params, .retval, .exception, .tparams {
+        border-spacing: 6px 2px;
+}       
+
+.params .paramname, .retval .paramname {
+        font-weight: bold;
+        vertical-align: top;
+}
+        
+.params .paramtype {
+        font-style: italic;
+        vertical-align: top;
+}       
+        
+.params .paramdir {
+        font-family: "courier new",courier,monospace;
+        vertical-align: top;
+}
+
+
+
+
+/* @end */
+
+/* @group Directory (tree) */
+
+/* for the tree view */
+
+.ftvtree {
+	font-family: sans-serif;
+	margin: 0px;
+}
+
+/* these are for tree view when used as main index */
+
+.directory {
+	font-size: 9pt;
+	font-weight: bold;
+	margin: 5px;
+}
+
+.directory h3 {
+	margin: 0px;
+	margin-top: 1em;
+	font-size: 11pt;
+}
+
+/*
+The following two styles can be used to replace the root node title
+with an image of your choice.  Simply uncomment the next two styles,
+specify the name of your image and be sure to set 'height' to the
+proper pixel height of your image.
+*/
+
+/*
+.directory h3.swap {
+	height: 61px;
+	background-repeat: no-repeat;
+	background-image: url("yourimage.gif");
+}
+.directory h3.swap span {
+	display: none;
+}
+*/
+
+.directory > h3 {
+	margin-top: 0;
+}
+
+.directory p {
+	margin: 0px;
+	white-space: nowrap;
+}
+
+.directory div {
+	display: none;
+	margin: 0px;
+}
+
+.directory img {
+	vertical-align: -30%;
+}
+
+/* these are for tree view when not used as main index */
+
+.directory-alt {
+	font-size: 100%;
+	font-weight: bold;
+}
+
+.directory-alt h3 {
+	margin: 0px;
+	margin-top: 1em;
+	font-size: 11pt;
+}
+
+.directory-alt > h3 {
+	margin-top: 0;
+}
+
+.directory-alt p {
+	margin: 0px;
+	white-space: nowrap;
+}
+
+.directory-alt div {
+	display: none;
+	margin: 0px;
+}
+
+.directory-alt img {
+	vertical-align: -30%;
+}
+
+/* @end */
+
+div.dynheader {
+        margin-top: 8px;
+		margin-left: 12px;
+}
+
+address {
+	font-style: normal;
+	color: #272223;
+}
+
+table.doxtable {
+	border-collapse:collapse;
+	font-size: 100%;
+}
+
+table.doxtable td, table.doxtable th {
+	border: 1px solid #CCCCCC;
+	padding: 2px 7px 2px;
+}
+
+table.doxtable th {
+	background-color: #464646;
+	color: #fff;
+	font-size: 100%;
+	padding-bottom: 2px;
+	padding-top: 2px;
+	text-align:left;
+}
+table.doxtable a{ color:#0000FF;}
+table.doxtable a.el{ color:#0000FF;}
+.tabsearch {
+	top: 0px;
+	left: 10px;
+	height: 36px;
+/*	background-image: url('tab_b.png');
+*/	z-index: 101;
+	overflow: hidden;
+	font-size: 13px;
+}
+
+.navpath ul
+{
+	font-size: 11px;
+/*	background-image:url('tab_b.png');
+*/	background-repeat:repeat-x;
+	height:30px;
+	line-height:30px;
+	color:#958386;
+	border:solid 1px #999;
+	overflow:hidden;
+	margin:0px;
+	padding:0px;
+}
+
+.navpath li
+{
+	list-style-type:none;
+	float:left;
+	padding-left:10px;
+	padding-right:15px;
+/*	background-image:url('bc_s.png');
+*/	background-repeat:no-repeat;
+	background-position:right;
+	color:#393032;
+}
+
+.navpath li.navelem a
+{
+	height:32px;
+	display:block;
+	text-decoration: none;
+	outline: none;
+}
+
+.navpath li.navelem a:hover
+{
+	color:#786669;
+}
+
+.navpath li.footer
+{
+        list-style-type:none;
+        float:right;
+        padding-left:10px;
+        padding-right:15px;
+        background-image:none;
+        background-repeat:no-repeat;
+        background-position:right;
+        color:#393032;
+        font-size: 8pt;
+}
+
+
+div.summary
+{ display:none;
+	float: right;
+	font-size: 8pt;
+	padding-right: 5px;
+	width: 50%;
+	text-align: right;
+}       
+
+div.summary a
+{
+	white-space: nowrap;
+}
+
+div.ingroups
+{
+	padding-left: 15px;
+	width: 50%;
+	text-align: left;
+	padding-bottom:5px;
+	background-image:url(UpLevel.gif);
+	background-repeat:no-repeat;
+	background-position:10px 0px;
+}
+
+div.ingroups a
+{
+	white-space: nowrap;
+	text-indent:10px;
+	margin-left:12px;
+}
+
+div.header
+{
+/*        background-image:url('nav_h.png');
+*/        background-repeat:repeat-x;
+/*	background-color: #F9F8F8;
+*/	margin:  0px;
+	border-bottom: 1px solid #C7BEBF;
+background-color: #FFFFFF;}
+
+div.headertitle
+{
+	padding: 5px 5px 5px 10px;
+}
+
+dl
+{
+        padding: 0 0 0 10px;
+}
+
+dl.note, dl.warning, dl.attention, dl.pre, dl.post, dl.invariant, dl.deprecated, dl.todo, dl.test, dl.bug
+{
+        border: dotted 1px ;
+        padding: 0 0 0 6px;
+}
+
+dl.note
+{
+        border-color: #D0C000;
+		background-color:#fdfcf3;
+}
+
+dl.warning, dl.attention
+{
+        border-color: #FF0000;
+}
+
+dl.pre, dl.post, dl.invariant
+{
+        border-color: #00D000;
+}
+
+dl.deprecated
+{
+        border-color: #505050;
+}
+
+dl.todo
+{
+        border-color: #00C0E0;
+}
+
+dl.test
+{
+        border-color: #3030E0;
+}
+
+dl.bug
+{
+        border-color: #C08050;
+}
+
+#projectlogo
+{
+	text-align: center;
+	vertical-align: bottom;
+	border-collapse: separate;
+}
+ 
+#projectlogo img
+{ 
+	border: 0px none;
+}
+ 
+#projectname
+{ 
+	font: 190% Arial;
+	font-weight:bold;
+	margin: 0px;
+	margin-bottom:-18px;
+	padding: 2px 20px;
+}
+    
+#projectbrief
+{	display:none;
+	font: 120% Tahoma, Arial,sans-serif;
+	font-weight:bold;
+	margin: 0px;
+	padding: 0px;
+}
+
+#projectnumber
+{
+	font: 60% Tahoma, Arial,sans-serif;
+	margin: 0px;
+	padding: 0px;
+}
+
+#titlearea
+{
+	padding: 0px;
+	margin: 0px;
+	width: 100%;
+/*	border-bottom: 1px solid #66575A;
+*/
+border-bottom:solid 1px #999;
+	padding-bottom:9px;
+}
+
+.image
+{
+        text-align: center;
+}
+
+.dotgraph
+{
+        text-align: center;
+}
+
+.mscgraph
+{
+        text-align: center;
+}
+
+.caption
+{
+	font-weight: bold;
+}
