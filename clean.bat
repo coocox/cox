@@ -30,10 +30,51 @@ echo -----------------------------------
 
 
 echo -----------------------------------
+set clean_target=CoX\CoX_Peripheral\CoX_Peripheral_NUC122\all\project\template\coide
+echo clean %clean_target%(genernate)
+if exist %clean_target% rd /s /q %clean_target% >>nul
+echo completed
+echo -----------------------------------
+
+echo -----------------------------------
+set clean_target=CoX\CoX_Peripheral\CoX_Peripheral_M051\all\project\template\coide
+echo clean %clean_target%(genernate)
+if exist %clean_target% rd /s /q %clean_target% >>nul
+echo completed
+echo -----------------------------------
+
+echo -----------------------------------
 echo clean CoX.Peripheral.NUC1xx.doxygen(html/rtf)
 set clean_target=CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx\doc\gen\doxy.log
 if exist %clean_target% del /q %clean_target% >>nul 
 set clean_target="CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx\doc\en"
+if exist %clean_target% rd /s /q %clean_target% >>nul
+echo completed
+echo -----------------------------------
+
+echo -----------------------------------
+echo clean CoX.Peripheral.NUC122.doxygen(html/rtf)
+set clean_target=CoX\CoX_Peripheral\CoX_Peripheral_NUC122\doc\gen\doxy.log
+if exist %clean_target% del /q %clean_target% >>nul 
+set clean_target="CoX\CoX_Peripheral\CoX_Peripheral_NUC122\doc\en"
+if exist %clean_target% rd /s /q %clean_target% >>nul
+echo completed
+echo -----------------------------------
+
+echo -----------------------------------
+echo clean CoX.Peripheral.M051.doxygen(html/rtf)
+set clean_target=CoX\CoX_Peripheral\CoX_Peripheral_M051\doc\gen\doxy.log
+if exist %clean_target% del /q %clean_target% >>nul 
+set clean_target="CoX\CoX_Peripheral\CoX_Peripheral_M051\doc\en"
+if exist %clean_target% rd /s /q %clean_target% >>nul
+echo completed
+echo -----------------------------------
+
+echo -----------------------------------
+echo clean CoX.Peripheral.Mini51.doxygen(html/rtf)
+set clean_target=CoX\CoX_Peripheral\CoX_Peripheral_Mini51\doc\gen\doxy.log
+if exist %clean_target% del /q %clean_target% >>nul 
+set clean_target="CoX\CoX_Peripheral\CoX_Peripheral_Mini51\doc\en"
 if exist %clean_target% rd /s /q %clean_target% >>nul
 echo completed
 echo -----------------------------------
