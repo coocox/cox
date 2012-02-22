@@ -45,21 +45,14 @@
 //! .
 //!
 //! \n
-//! \subsection Power_Control 1.3 Power Control
-//! An integrated LDO regulator that may be used to provide power to the 
-//! majority of the controller's internal logic
-//!
-//! \n
-//! Power Architecture:
-//! <img src="Power_Architecture.png" />
 //! 
 //! \n
-//! \subsection Clock_Control 1.4 Clock Control
+//! \subsection Clock_Control 1.3 Clock Control
 //!
-//! \subsubsection Clock_Tree 1.4.1 Main clock tree:
+//! \subsubsection Clock_Tree 1.3.1 Main clock tree:
 //! <img src="Clock_Tree.png" />
 //!
-//! \subsubsection Clock_Sources 1.4.2 Clock Sources
+//! \subsubsection Clock_Sources 1.3.2 Clock Sources
 //!
 //! There are multiple clock sources for use in the device:
 //! - Internal Oscillator (IOSC).
@@ -68,7 +61,7 @@
 //! - External Real-Time Oscillator.
 //! .
 //!
-//! \subsubsection Clock_Configuration 1.4.3 Clock Configuration
+//! \subsubsection Clock_Configuration 1.3.3 Clock Configuration
 //!
 //! - Source of clocks in sleep and deep-sleep modes
 //! - System clock derived from PLL or other clock source
