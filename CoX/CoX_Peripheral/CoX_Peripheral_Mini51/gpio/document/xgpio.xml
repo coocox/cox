@@ -1,7 +1,7 @@
-<?xml version="2.0" ?>
+<?xml version="1.0" ?>
 <Component>
     <Name>CoX.Peripheral.MINI51.xGPIO</Name>
-    <Description>MINI51 GPIO Driver</Description>
+    <Description>CoX MINI51 GPIO Driver</Description>
     <Category>Peripheral.CoX</Category>
     <Version>2.0.0</Version>
     <Tags>CoX, xGPIO, GPIO, IO</Tags>
