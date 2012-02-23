@@ -88,7 +88,7 @@
 //! \code
 //! #include "xhw_types.h"
 //! #include "xhw_memmap.h"
-//! #include "xcore.h
+//! #include "xcore.h"
 //! #include "xsysctl.h"
 //! #include "xhw_ints.h"
 //! #include "xgpio.h"

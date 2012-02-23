@@ -70,11 +70,9 @@
 //! <h1>Contents</h1>
 //! - \ref CoX_TIMER_How_Define
 //! - \ref xTIMER_API_Group
-//!   - \ref xTIMER_API_Mode_Config
-//!   - \ref xTIMER_API_Start_Stop
+//!   - \ref xTIMER_API_Config_Control
 //!   - \ref xTIMER_API_Event_Counting
 //!   - \ref xTIMER_API_Capture
-//!   - \ref xTIMER_API_Value_Set
 //!   - \ref xTIMER_API_Interrupt
 //!   .
 //! - \ref xTIMER_Usage 
@@ -122,22 +120,21 @@
 //! .
 //!
 //! <br />
-//! \subsection xTIMER_API_Mode_Config 2.1 xTIMER API Mode Config
+//! \subsection xTIMER_API_Config_Control 2.1 xTIMER API Configuration and Control
 //! 
 //! The TIMER Mode are configured with:
-//! - xTimerInitConfig() 
-//! .
-//!
-//! <br />
-//! \subsection xTIMER_API_Start_Stop 2.2 xTIMER API Start Stop
-//! 
-//! The timer srart and stop are configured with:
+//! - xTimerInitConfig()
 //! - xTimerStart()
 //! - xTimerStop()
+//! - xTimerPrescaleSet()
+//! - xTimerPrescaleGet()
+//! - xTimerValueGet()
+//! - xTimerMatchSet()
+//! - xTimerMatchGet()
 //! .
 //! 
 //! <br />
-//! \subsection xTIMER_API_Event_Counting 2.3 xTIMER API Event Counting
+//! \subsection xTIMER_API_Event_Counting 2.2 xTIMER API Event Counting
 //! 
 //! The TIMER event counting are handled with:
 //! - xTimerCounterEnable()
@@ -145,7 +142,7 @@
 //! .
 //! 
 //! <br />
-//! \subsection xTIMER_API_Capture 2.4 xTIMER API Capture
+//! \subsection xTIMER_API_Capture 2.3 xTIMER API Capture
 //! 
 //! The capture function are handled with:
 //! - xTimerCaptureModeSet()
@@ -153,17 +150,7 @@
 //! .
 //!
 //! <br />
-//! \subsection xTIMER_API_Value_Set 2.5 xTIMER API Value Set
-//! The value set function are configured with:
-//! - xTimerPrescaleSet()
-//! - xTimerPrescaleGet()
-//! - xTimerValueGet()
-//! - xTimerMatchSet()
-//! - xTimerMatchGet()
-//! .
-//!
-//! <br />
-//! \subsection xTIMER_API_Interrupt 2.6 xTIMER API Interrupt
+//! \subsection xTIMER_API_Interrupt 2.4 xTIMER API Interrupt
 //! The Interrupt are handled with:
 //! - xTimerIntCallbackInit()
 //! - xTimerIntEnable()
@@ -181,7 +168,7 @@
 //! //
 //! // \file one_second_clock.c
 //! // \brief Use the timer to make a one second clock.
-//! // \date 1/9/2012
+//! // \date 2/17/2012
 //! // \author CooCox
 //! // 
 //! // The timer source select external 12M hz crystal oscillator, the TCMP register

@@ -12,11 +12,9 @@
 //! - \ref Mini51_TIMER_Blcok
 //! - \ref Mini51_TIMER_Function_Desc
 //! - \ref Mini51_TIMER_API_Group
-//!   - \ref TIMER_API_Mode_Config
-//!   - \ref TIMER_API_Start_Stop
+//!   - \ref TIMER_API_Config_Control
 //!   - \ref TIMER_API_Event_Counting
 //!   - \ref TIMER_API_Capture
-//!   - \ref TIMER_API_Value_Set
 //!   - \ref TIMER_API_Inerrupt
 //!   .
 //! - \ref Mini51_TIMER_Usage
@@ -77,43 +75,12 @@
 //! \section Mini51_TIMER_API_Group 3. Mini51 TIMER API Group
 //!
 //! <br />
-//! \subsection TIMER_API_Mode_Config 3.1 TIMER API Mode Config
+//! \subsection TIMER_API_Config_Control 3.1 TIMER API Configuration and Control
 //! 
 //! The TIMER mode are configured with:
-//! - TimerInitConfig()
-//! .
-//! 
-//! <br />
-//! \subsection TIMER_API_Start_Stop 3.2 TIMER API Start Stop
-//! 
-//! The TIMER start or stop handled with: 
+//! - TimerInitConfig(),
 //! - TimerStart(),
-//! - TimerStop()
-//! .
-//!
-//! <br />
-//! \subsection TIMER_API_Event_Counting 3.3 TIMER API Event Counting
-//! 
-//! The TIMER event counting is accessed with:
-//! - TimerCounterEnable(),
-//! - TimerCounterDisable()
-//! .
-//! 
-//! <br />
-//! \subsection TIMER_API_Capture 3.4 TIMER API Capture
-//!
-//! The TIMER capture is accessed with:
-//! - TimerCaptureEnable(),
-//! - TimerCaptureModeSet(),
-//! - TimerCaptureEdgeSelect(),
-//! - TimerCaptureDebounceEnable(),
-//! - TimerCaptureDebounceDisable()
-//! .
-//!
-//! <br />
-//! \subsection TIMER_API_Value_Set 3.5 TIMER API Value Set
-//!
-//! Some value register are accessed with:
+//! - TimerStop(),
 //! - TimerPrescaleSet(),
 //! - TimerPrescaleGet(),
 //! - TimerLoadSet(),
@@ -124,7 +91,26 @@
 //! .
 //!
 //! <br />
-//! \subsection TIMER_API_Inerrupt 3.6 TIMER API Inerrupt
+//! \subsection TIMER_API_Event_Counting 3.2 TIMER API Event Counting
+//! 
+//! The TIMER event counting is accessed with:
+//! - TimerCounterEnable(),
+//! - TimerCounterDisable()
+//! .
+//! 
+//! <br />
+//! \subsection TIMER_API_Capture 3.3 TIMER API Capture
+//!
+//! The TIMER capture is accessed with:
+//! - TimerCaptureEnable(),
+//! - TimerCaptureModeSet(),
+//! - TimerCaptureEdgeSelect(),
+//! - TimerCaptureDebounceEnable(),
+//! - TimerCaptureDebounceDisable().
+//! .
+//!
+//! <br />
+//! \subsection TIMER_API_Inerrupt 3.4 TIMER API Inerrupt
 //!
 //! Timer interrupt are handed with:
 //! - TimerIntCallbackInit(),
@@ -143,7 +129,7 @@
 //! //
 //! // \file one_second_clock.c
 //! // \brief Use the timer to make a one second clock.
-//! // \date 1/10/2012
+//! // \date 2/17/2012
 //! // \author CooCox
 //! //
 //! // The timer source select external 12M hz crystal oscillator, the TCMP register

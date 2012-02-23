@@ -39,7 +39,6 @@
 //! \n
 //! \section Mini51_UART_Function_Desc 2. Functional Description
 //! 
-//!
 //! \n
 //! \subsection Mini51_UART_Data_Transmission 2.1 UART Data Transmission
 //!
@@ -95,7 +94,7 @@
 //! RTS flow control trigger level.
 //!
 //! \n
-//! \subsection Mini51_UART_RS485 2.5 UART RS-485 Support
+//! \subsection Mini51_UART_RS485 2.4 UART RS-485 Support
 //! Support RS-485 function mode.
 //! <ul>
 //! <li>Support RS-485 9bit mode</li>
@@ -109,7 +108,7 @@
 //! the RX and TX are same as UART.
 //!
 //! \n
-//! \subsection Mini51_UART_Interrupt 2.6 UART Interrupt
+//! \subsection Mini51_UART_Interrupt 2.5 UART Interrupt
 //!
 //! The UART can generate interrupts when the following conditions are observed:
 //! Overrun Error
@@ -181,7 +180,7 @@
 //! .
 //!
 //! \n
-//! \subsection Mini51_UART_API_Group_Interrupt 3.7 UART Interrupt APIs
+//! \subsection Mini51_UART_API_Group_Interrupt 3.6 UART Interrupt APIs
 //!
 //! -  UARTIntEnable()
 //! -  UARTIntDisable()

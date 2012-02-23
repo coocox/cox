@@ -68,7 +68,7 @@
 //! -  xUARTFlowControlGet()
 //! .
 //! \n
-//! \subsection xUART_API_Group_Int 2.5 UART Interrupt APIs
+//! \subsection xUART_API_Group_Int 2.4 UART Interrupt APIs
 //! -  xUARTIntEnable()
 //! -  xUARTIntDisable()
 //! -  xUARTIntCallbackInit()

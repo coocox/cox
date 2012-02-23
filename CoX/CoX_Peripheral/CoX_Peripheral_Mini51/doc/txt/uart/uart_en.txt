@@ -29,8 +29,7 @@
 //! \n
 //! \section UART_Blcok 1. UART Physical Block
 //! <img src="Mini51_UART_block.png" />
-//!
-//!
+//!     
 //! \n
 //! \section UART_Function_Desc 2. UART Functional Description
 //!
@@ -63,7 +62,7 @@
 //! RTS flow control trigger level(UART0 and UART1 support).
 //! 
 //! \n
-//! \subsection UART_RS485 2.5 UART RS-485 Support(Low Density only)
+//! \subsection UART_RS485 2.4 UART RS-485 Support(Low Density only)
 //!
 //! Support RS-485 function mode.
 //! <ul>
@@ -72,7 +71,7 @@
 //! </ul>
 //!
 //! \n
-//! \subsection UART_Interrupt 2.6 UART Interrupt
+//! \subsection UART_Interrupt 2.5 UART Interrupt
 //!
 //! The UART can generate interrupts when the following conditions are observed:
 //! - Overrun Error
