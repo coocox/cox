@@ -22,20 +22,23 @@
       <arg line="/C &quot;${gcc.home}\arm-none-eabi-size&quot; &quot;${project.name}.elf&quot;"/>
     </exec>
   </target>
-  
+
   <taskdef resource="cpptasks.tasks"/>
   <target name="compile">
     <mkdir dir="${project.bin}"/>
     <mkdir dir="${project.obj}"/>
     <cc debug="true" objdir="${project.obj}" outfile="${project.bin}/${project.name}.elf" outtype="executable" subsystem="console">
       <!-- compile all the c source file in the project -->
-      <fileset dir="." includes="**/*.c"/>
-      <fileset dir="." includes="**/*.s"/>
+      
+      <fileset dir=".">
+        <include name="**/*.c"/>
+        <include name="**/*.s"/>
+      </fileset>
       <project outfile="${project.name}.elf" overwrite="true" type="xcode"/>
       
       <!-- defines -->
       <defineset>
-        <define name="gcc"/>
+        <define name="M0516LBN"/>
       </defineset>
       
       <!-- include compile path -->
