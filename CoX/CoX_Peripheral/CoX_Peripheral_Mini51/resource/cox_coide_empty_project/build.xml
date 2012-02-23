@@ -38,7 +38,7 @@
       
       <!-- defines -->
       <defineset>
-        <define name="gcc"/>
+        <define name="Mini54LAN"/>
       </defineset>
       
       <!-- include compile path -->

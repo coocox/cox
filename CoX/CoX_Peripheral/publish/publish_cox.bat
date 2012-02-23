@@ -67,8 +67,8 @@ echo gen example\project\template\coide
 call %v_cox_peripheral%\all\gen_coide.bat
 
 echo copy example\project\template
-md %v_publish_root%\%_publish_dir%\example >>nul
-xcopy /s /e %v_cox_peripheral%\all\project %v_publish_root%\%_publish_dir%\example >>nul
+md %v_publish_root%\%_publish_dir%\example\project >>nul
+xcopy /s /e %v_cox_peripheral%\all\project %v_publish_root%\%_publish_dir%\example\project >>nul
 echo completed
 
 :: Doxygen need to run in the configure file directory
