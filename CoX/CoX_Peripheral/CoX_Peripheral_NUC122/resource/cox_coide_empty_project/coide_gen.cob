@@ -2,7 +2,8 @@
 <Project>
   <Device>
     <Manufacturer id="Nuvoton" name="Nuvoton"/>
-    <Chip id="NUC100VE3AN" name="NUC100VE3AN"/>
+    <Chip id="NUC122LD2AN" name="NUC122LD2AN"/>
   </Device>
   <Components/>
+  <ExcludedFiles/>
 </Project>
