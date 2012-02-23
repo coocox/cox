@@ -16,10 +16,7 @@
 						<entry flags="" kind="includePath" name="C:\CooCox\CoIDE\gcc\arm-none-eabi\include"/>
 						<entry flags="" kind="includePath" name="C:\CooCox\CoIDE\gcc\lib\gcc\arm-none-eabi\4.5.2\include"/>
 						<entry flags="" kind="includePath" name="C:\CooCox\CoIDE\gcc\lib\gcc\arm-none-eabi\4.5.2\include-fixed"/>
-						<entry flags="" kind="includePath" name="."/>
-						<entry flags="" kind="includePath" name="CoX/CoX_Peripheral/inc"/>
 						<entry flags="" kind="macro" name="__GNUC__" value=""/>
-						<entry flags="" kind="macro" name="gcc" value=""/>
 					</externalSetting>
 				</externalSettings>
 			</storageModule>
@@ -27,13 +24,7 @@
 			<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 			<storageModule moduleId="org.eclipse.cdt.core.pathentry">
 				<pathentry kind="src" path=""/>
-				<pathentry include="C:/CooCox/CoIDE/gcc/arm-none-eabi/include" kind="inc" path="" system="true"/>
-				<pathentry include="C:/CooCox/CoIDE/gcc/lib/gcc/arm-none-eabi/4.5.2/include" kind="inc" path="" system="true"/>
-				<pathentry include="C:/CooCox/CoIDE/gcc/lib/gcc/arm-none-eabi/4.5.2/include-fixed" kind="inc" path="" system="true"/>
-				<pathentry include="D:/Mini51.CoX/cox/CoX/CoX_Peripheral/CoX_Peripheral_Mini51/resource/cox_coide_empty_project" kind="inc" path="" system="true"/>
-				<pathentry include="D:/Mini51.CoX/cox/CoX/CoX_Peripheral/CoX_Peripheral_Mini51/resource/cox_coide_empty_project/CoX/CoX_Peripheral/inc" kind="inc" path="" system="true"/>
 				<pathentry kind="mac" name="__GNUC__" path="" value=""/>
-				<pathentry kind="mac" name="gcc" path="" value=""/>
 				<pathentry kind="out" path=""/>
 			</storageModule>
 		</cconfiguration>

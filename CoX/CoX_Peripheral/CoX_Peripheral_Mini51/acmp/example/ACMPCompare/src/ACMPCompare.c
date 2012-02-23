@@ -18,25 +18,8 @@
 #include "xcore.h"
 #include "xacmp.h"
 
-//*****************************************************************************
-//
-//! \brief ACMP callback interrupt
-//!
-//! \param None
-//!
-//! \return none
-//
-//*****************************************************************************
 unsigned long AcmpCallback(void *pvCBData,  unsigned long ulEvent,
-                                       unsigned long ulMsgParam,void *pvMsgData)
-{
-    //
-    // add your own code
-    //
-    //...
-  
-    return 0;
-}
+                                       unsigned long ulMsgParam,void *pvMsgData);
 
 //*****************************************************************************
 //
@@ -84,4 +67,25 @@ void ACMPCompare(void)
     // Enable ACMP
     //
     xACMPEnable(xACMP0_BASE, 0);    
+}
+
+
+//*****************************************************************************
+//
+//! \brief ACMP callback interrupt
+//!
+//! \param None
+//!
+//! \return none
+//
+//*****************************************************************************
+unsigned long AcmpCallback(void *pvCBData,  unsigned long ulEvent,
+                                       unsigned long ulMsgParam,void *pvMsgData)
+{
+    //
+    // add your own code
+    //
+    //...
+  
+    return 0;
 }

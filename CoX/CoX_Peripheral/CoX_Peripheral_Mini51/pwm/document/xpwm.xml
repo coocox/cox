@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <Component>
     <Name>CoX.Peripheral.Mini51.xPWM</Name>
-    <Description>Mini51 PWM Driver</Description>
+    <Description>CoX Mini51 PWM Driver</Description>
     <Category>Peripheral.CoX</Category>
     <Version>2.0.0</Version>
     <Tags>CoX, xPWM, PWM, Timer</Tags>

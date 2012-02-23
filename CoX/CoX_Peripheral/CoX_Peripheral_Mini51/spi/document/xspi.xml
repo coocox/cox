@@ -1,7 +1,7 @@
-<?xml version="2.0" ?>
+<?xml version="1.0" ?>
 <Component>
-    <Name>CoX.Peripheral.M051.xSPI</Name>
-    <Description>M051 SPI Driver</Description>
+    <Name>CoX.Peripheral.Mini51.xSPI</Name>
+    <Description>CoX Mini51 SPI Driver</Description>
     <Category>Peripheral.CoX</Category>
     <Version>2.0.0</Version>
     <Tags>CoX, xSPI, SPI, SSI</Tags>
@@ -17,15 +17,15 @@
     </FilesCoIDE>
 
     <Dependencys>
-        <Dependency>CoX.Peripheral.M051.xStartup</Dependency>
-        <Dependency>CoX.Peripheral.M051.xLowLayer</Dependency>
-        <Dependency>CoX.Peripheral.M051.xSysCtl</Dependency>
-	<Dependency>CoX.Peripheral.M051.xGPIO</Dependency>
+        <Dependency>CoX.Peripheral.Mini51.xStartup</Dependency>
+        <Dependency>CoX.Peripheral.Mini51.xLowLayer</Dependency>
+        <Dependency>CoX.Peripheral.Mini51.xSysCtl</Dependency>
+	<Dependency>CoX.Peripheral.Mini51.xGPIO</Dependency>
     </Dependencys>
 
     <SupportDevices>
         <Series>
-            <Serie exclude="">M051</Serie>
+            <Serie exclude="">Mini51</Serie>
         </Series>
         <Devices>
             <Device></Device>
