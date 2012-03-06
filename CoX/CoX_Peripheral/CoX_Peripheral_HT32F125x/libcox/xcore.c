@@ -300,6 +300,45 @@ xCPUwfi(void)
 }
 #endif
 
+
+//*****************************************************************************
+//
+// Wrapper function for the WFE instruction.
+//
+//*****************************************************************************
+#if defined(gcc) || defined(__GNUC__)
+void __attribute__((naked))
+xCPUwfe(void)
+{
+    //
+    // Wait for the next event.
+    //
+    __asm("    wfe\n"
+          "    bx      lr\n");
+}
+#endif
+#if defined(ewarm) || defined(__ICCARM__)
+void
+xCPUwfe(void)
+{
+    //
+    // Wait for the next event.
+    //
+    __asm("    wfe\n");
+}
+#endif
+#if defined(rvmdk) || defined(__CC_ARM)
+__asm void
+xCPUwfe(void)
+{
+    //
+    // Wait for the next evenr.
+    //
+    wfe;
+    bx      lr
+}
+#endif
+
 //*****************************************************************************
 //
 // Wrapper function for writing the BASEPRI register.

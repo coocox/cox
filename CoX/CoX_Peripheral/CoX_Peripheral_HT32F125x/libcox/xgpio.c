@@ -123,8 +123,6 @@ GPIOBaseValid(unsigned long ulPort)
 //*****************************************************************************
 void EVWUPIntHandler(void)
 {
-    unsigned long i;
-    
     //
     // Clear the interrupt flag.
     //
@@ -198,30 +196,6 @@ void EINT1IntHandler(void)
 
 //*****************************************************************************
 //
-//! \brief Get the GPIO Peripheral Id from a short Pin.
-//!
-//! \param eShortPin is the base address of the GPIO port
-//!
-//! \note For NUC1xx,all GPIO port use the some Peripheral clock.
-//! 
-//! \return GPIO port code which is used by \ref xSysCtlPeripheralEnable,
-//! \ref xSysCtlPeripheralDisable, \ref xSysCtlPeripheralReset.
-//
-//*****************************************************************************
-unsigned long 
-GPIOPinToPeripheralId(unsigned long ulPort, unsigned long ulPin)
-{
-        
-    //
-    // Check the arguments.
-    //
-    xASSERT(GPIOBaseValid(ulPort));
-
-    return ulPort;
-}
-
-//*****************************************************************************
-//
 //! \brief Get the GPIO port from a short Pin.
 //!
 //! \param eShortPin is the base address of the GPIO port
@@ -268,70 +242,11 @@ GPIOPinToPin(unsigned long ulPort, unsigned long ulPin)
 
 //*****************************************************************************
 //
-//! \brief Sets the direction and mode of the specified pin(s).
-//!
-//! \param ulPort is the base address of the GPIO port
-//! \param ulPins is the bit-packed representation of the pin(s).
-//! \param ulPinIO is the pin direction and/or mode.
-//!
-//! This function will set the specified pin(s) on the selected GPIO port
-//! as either an input or output under software control, or it will set the
-//! pin to be under hardware control.
-//!
-//! The parameter \e ulPinIO is an enumerated data type that can be one of
-//! the following values:
-//!
-//! - \b xGPIO_DIR_MODE_IN
-//! - \b xGPIO_DIR_MODE_OUT
-//! - \b xGPIO_DIR_MODE_HW
-//! - \b xGPIO_DIR_MODE_OD
-//!
-//! where \b xGPIO_DIR_MODE_IN specifies that the pin will be programmed as
-//! a software controlled input, \b xGPIO_DIR_MODE_OUT specifies that the pin
-//! will be programmed as a software controlled output.\b GPIO_DIR_MODE_OD 
-//! specifies that the pin will be programmed as a Open-Drain.
-//! \b xGPIO_DIR_MODE_HW specifies that the pin will be placed under
-//! hardware control.  
-//!
-//! The pin(s) are specified using a bit-packed byte, where each bit that is
-//! set identifies the pin to be accessed, and where bit 0 of the byte
-//! represents GPIO port pin 0, bit 1 represents GPIO port pin 1, and so on.
-//!
-//! \return None.
-//
-//*****************************************************************************
-void
-xGPIODirModeSet(unsigned long ulPort, unsigned long ulPins,
-               unsigned long ulPinIO)
-{
-    unsigned long ulBit;
-        
-    //
-    // Check the arguments.
-    //
-    xASSERT(GPIOBaseValid(ulPort));
-    xASSERT((ulPinIO == xGPIO_DIR_MODE_IN) || (ulPinIO == xGPIO_DIR_MODE_OUT) ||
-            (ulPinIO == xGPIO_DIR_MODE_OD) || (ulPinIO == xGPIO_DIR_MODE_HW));
-
-    //
-    // Set the pin direction and mode.
-    //
-    for(ulBit=0; ulBit<16; ulBit++)
-    {
-        if(ulPins & (1 << ulBit))
-        {
-            GPIODirModeSet(ulPort, ulBit, ulPinIO);
-        } 
-    }                              
-}
-
-//*****************************************************************************
-//
 //! \brief Sets the direction and mode of the specified pin.
 //!
 //! \param ulPort is the base address of the GPIO port
-//! \param ulBit is the bit number of a port.
-//! \param ulPinIO is the pin direction and/or mode.
+//! \param ulPins is the bit-packed representation of the pin.
+//! \param ulPinIO is the pin direction and/or hardware contorl mode.
 //!
 //! This function will set the specified pin(Only 1 pin) on the selected GPIO 
 //! port as either an input or output under software control, or it will set 
@@ -342,44 +257,39 @@ xGPIODirModeSet(unsigned long ulPort, unsigned long ulPins,
 //!
 //! - \b GPIO_DIR_MODE_IN
 //! - \b GPIO_DIR_MODE_OUT
-//! - \b GPIO_DIR_MODE_OD
+//! - \b GPIO_DIR_MODE_HW
 //!
 //! where \b GPIO_DIR_MODE_IN specifies that the pin will be programmed as
 //! a software controlled input, \b GPIO_DIR_MODE_OUT specifies that the pin
-//! will be programmed as a software controlled output.\b GPIO_DIR_MODE_OD 
-//! specifies that the pin will be programmed as a Open-Drain.
+//! will be programmed as a software controlled output.\b GPIO_DIR_MODE_HW 
+//! specifies that the pin will controled by hardware.
 //!
 //! \return None.
 //
 //*****************************************************************************
 void
-GPIODirModeSet(unsigned long ulPort, unsigned long ulBit,
-               unsigned long ulPinIO)
+GPIODirModeSet(unsigned long ulPort, unsigned long ulPins, unsigned long ulPinIO)
 {
     //
     // Check the arguments.
     //
     xASSERT(GPIOBaseValid(ulPort));
     xASSERT((ulPinIO == GPIO_DIR_MODE_IN) || (ulPinIO == GPIO_DIR_MODE_OUT) ||
-           (ulPinIO == GPIO_DIR_MODE_OD));
+           (ulPinIO == GPIO_DIR_MODE_HW));
 
     //
     // Set the pin direction and mode.
     //
     if(ulPinIO == GPIO_DIR_MODE_IN)
     {
-        xHWREG(ulPort + GPIO_DIRCR) &= ~(1 << ulBit);
-        GPIOInputConfigure(ulPort, ulBit, xtrue);
+        xHWREG(ulPort + GPIO_DIRCR) &= ~ulPins;
+        GPIOInputConfigure(ulPort, ulPins, xtrue);
     }
     else if(ulPinIO == GPIO_DIR_MODE_OUT)
     {
-        xHWREG(ulPort + GPIO_DIRCR) |= 1 << ulBit;
+        xHWREG(ulPort + GPIO_DIRCR) |= ulPins;
     }
-    else if(ulPinIO == GPIO_DIR_MODE_OD)
-    {
-        GPIOOpenDrainConfigure(ulPort, ulBit, xtrue);
-    }
-    else
+    else if(ulPinIO == GPIO_DIR_MODE_HW)
     {
           
     }
@@ -417,7 +327,7 @@ xGPIODirModeGet(unsigned long ulPort, unsigned long ulPin)
             break;
         }
     }
-    GPIODirModeGet(ulPort, ulBit);
+    return GPIODirModeGet(ulPort, ulBit);
 }
 
 //*****************************************************************************
@@ -466,7 +376,11 @@ GPIODirModeGet(unsigned long ulPort, unsigned long ulBit)
 //!
 //! \param ulPort is the base address of the GPIO port.
 //! \param ulPins is the bit-packed representation of the pin(s).
-//! \param cmd is to enable(1) or disable(0) the input control .
+//! \param ulEnable is to enable or disable the input control. it can be selected
+//! from the following value:
+//!
+//! - \ref GPIO_INPUT_ENABLE
+//! - \ref GPIO_INPUT_DISABLE
 //!
 //! The pin(s) are specified using a bit-packed byte, where each bit that is
 //! set identifies the pin to be accessed, and where bit 0 of the byte
@@ -476,18 +390,18 @@ GPIODirModeGet(unsigned long ulPort, unsigned long ulBit)
 //
 //*****************************************************************************
 void 
-GPIOInputConfigure(unsigned long ulPort, unsigned long ulPins, xtBoolean cmd)
+GPIOInputConfigure(unsigned long ulPort, unsigned long ulPins, unsigned long ulEnable)
 {
     //
     // Check the arguments.
     //
     xASSERT(GPIOBaseValid(ulPort));
     
-    if(cmd == 1)
+    if(ulEnable == GPIO_INPUT_ENABLE)
     {
         xHWREG(ulPort + GPIO_INER) |= ulPins;   
     }
-    else if(cmd == 0)
+    else if(ulEnable == GPIO_INPUT_DISABLE)
     {
         xHWREG(ulPort + GPIO_INER) &= ~ulPins;  
     }
@@ -553,20 +467,34 @@ GPIOPinIntEnable(unsigned long ulPort, unsigned long ulPins,
              //
              // Set the EXTI line source
              //
-             if(i < 8)
+             if(ulPort == GPIO_PORTA_BASE)
              {
-                 xHWREG(ulPort + AFIO_ESSR0) |= (1 << (i * 4));  
+                 if(i < 8)
+                 {
+                     xHWREG(GPIO_AFIO_BASE + AFIO_ESSRO) &= ~(1 << (i * 4));  
+                 }
+                 else
+                 {
+                     xHWREG(GPIO_AFIO_BASE + AFIO_ESSR1) &= ~(1 << ((i - 8) * 4)); 
+                 }
              }
              else
              {
-                 xHWREG(ulPort + AFIO_ESSR1) |= (1 << ((i - 8) * 4)); 
+                 if(i < 8)
+                 {
+                     xHWREG(GPIO_AFIO_BASE + AFIO_ESSRO) |= (1 << (i * 4));  
+                 }
+                 else
+                 {
+                     xHWREG(GPIO_AFIO_BASE + AFIO_ESSR1) |= (1 << ((i - 8) * 4)); 
+                 }
              }
-                  
+      
              //
              // Set the EXTI INT trigger type
              //
-             xHWREG(ulPort + EXTI_CFGR0 + i * 4) &= ~EXTI_CFGR0_SRCTYPE_M;
-             xHWREG(ulPort + EXTI_CFGR0 + i * 4) |= ulIntType;
+             xHWREG(GPIO_EXTI_BASE + EXTI_CFGR0 + i * 4) &= ~EXTI_CFGR0_SRCTYPE_M;
+             xHWREG(GPIO_EXTI_BASE + EXTI_CFGR0 + i * 4) |= ulIntType;
         }   
     }
     
@@ -848,49 +776,27 @@ GPIOPinPortDoutGet(unsigned long ulPort)
 
 //*****************************************************************************
 //
-//! \brief Enables or Disables the open drain function of specified GPIO pin(s).
+//! \brief Selects the driving current of specified GPIO pin(s).
 //!
 //! \param ulPort is the base address of the GPIO port.
 //! \param ulPins is the bit-packed representation of the pin(s).
-//! \param cmd is to enable(1) or disable(0) the open drain function .
-//!
-//! The pin(s) are specified using a bit-packed byte, where each bit that is
-//! set identifies the pin to be accessed, and where bit 0 of the byte
-//! represents GPIO port pin 0, bit 1 represents GPIO port pin 1, and so on.
-//!
-//! \return None.
-//
-//*****************************************************************************
-void 
-GPIOOpenDrainConfigure(unsigned long ulPort, unsigned long ulBit, xtBoolean cmd)
-{
-    //
-    // Check the arguments.
-    //
-    xASSERT(GPIOBaseValid(ulPort));
-    
-    if(cmd == 1)
-    {
-        xHWREG(ulPort + GPIO_ODR) |= ulPins;   
-    }
-    else if(cmd == 0)
-    {
-        xHWREG(ulPort + GPIO_ODR) &= ~ulPins;  
-    }
-}
-
-//*****************************************************************************
-//
-//! \brief Configures the pull resistor of specified GPIO pin(s).
-//!
-//! \param ulPort is the base address of the GPIO port.
-//! \param ulPins is the bit-packed representation of the pin(s).
-//! \param ulPullResistorCfg is Selection of Pull resistor.it can be selected one
+//! \param ulDrive is Selection of output driving current.it can be selected one
 //! of the following values:
 //! 
-//! - \b GPIO_PR_UP
-//! - \b GPIO_PR_DOWN
-//! - \b GPIO_PR_DISABLE
+//! - \ref GPIO_DV_4MA
+//! - \ref GPIO_DV_8MA
+//!
+//! \param ulPadType is the logical OR of several different values, many of 
+//!  which are grouped into sets where only one can be chosen.
+//!
+//£¡The open drain mode is chosen with one of the following values:
+//! - \ref GPIO_DIR_MODE_OD_EN
+//! - \ref GPIO_DIR_MODE_OD_DIS
+//!
+//! The pull resistor configure is chosen with one of the following values:
+//! - \ref GPIO_PIN_TYPE_STD_WPU
+//! - \ref GPIO_PIN_TYPE_STD_WPD
+//! - \ref GPIO_PR_DISABLE
 //!
 //! The pin(s) are specified using a bit-packed byte, where each bit that is
 //! set identifies the pin to be accessed, and where bit 0 of the byte
@@ -900,23 +806,54 @@ GPIOOpenDrainConfigure(unsigned long ulPort, unsigned long ulBit, xtBoolean cmd)
 //
 //*****************************************************************************
 void 
-GPIOPullResistorConfigure(unsigned long ulPort, unsigned long ulPins, 
-                               unsigned long ulPullResistorCfg)
+GPIOPadConfigSet(unsigned long ulPort, unsigned long ulPins, 
+                             unsigned long ulStrength, unsigned long ulPadType)
 {
     //
     // Check the arguments.
     //
     xASSERT(GPIOBaseValid(ulPort));
-    xASSERT((ulPullResistorCfg == GPIO_PR_UP) ||
-            (ulPullResistorCfg == GPIO_PR_DOWN) ||
-            (ulPullResistorCfg == GPIO_PR_DISABLE));
+    xASSERT((ulStrength == GPIO_STRENGTH_4MA) ||
+            (ulStrength == GPIO_STRENGTH_8MA));
+    xASSERT((GPIO_DIR_MODE_OD_EN == (ulPadType & 0x00000010)) ||
+            (GPIO_DIR_MODE_OD_DIS == (ulPadType & 0x00000010)) ||
+            (GPIO_PIN_TYPE_STD_WPU == (ulPadType & 0x00000003)) ||
+            (GPIO_PIN_TYPE_STD_WPD == (ulPadType & 0x00000003)) || 
+            (GPIO_PR_DISABLE == (ulPadType & 0x00000003)));
     
-    if(ulPullResistorCfg == GPIO_PR_UP)
+    //
+    // Pad strength configure
+    //
+    if(ulStrength != GPIO_STRENGTH_4MA)
+    {
+        xHWREG(ulPort + GPIO_DRVR) &= ~ulPins;
+    }   
+    else
+    {
+        xHWREG(ulPort + GPIO_DRVR) |= ulPins;
+    }   
+    
+    //
+    // Pad open drain configure
+    //
+    if(GPIO_DIR_MODE_OD_EN == (ulPadType & 0x00000010))
+    {
+        xHWREG(ulPort + GPIO_ODR) |= ulPins;
+    }
+    else
+    {
+         xHWREG(ulPort + GPIO_ODR) &= ~ulPins;
+    }
+        
+    //
+    // Pad pull resistor configure
+    //
+    if(GPIO_PIN_TYPE_STD_WPU == (ulPadType & 0x00000003))
     {
         xHWREG(ulPort + GPIO_PUR) |= ulPins;
         xHWREG(ulPort + GPIO_PDR) &= ~ulPins;            
     }
-    else if(ulPullResistorCfg == GPIO_PR_DOWN)
+    else if(GPIO_PIN_TYPE_STD_WPD == (ulPadType & 0x00000003))
     {
         xHWREG(ulPort + GPIO_PUR) &= ~ulPins;
         xHWREG(ulPort + GPIO_PDR) |= ulPins;     
@@ -926,43 +863,6 @@ GPIOPullResistorConfigure(unsigned long ulPort, unsigned long ulPins,
         xHWREG(ulPort + GPIO_PUR) &= ~ulPins;
         xHWREG(ulPort + GPIO_PDR) &= ~ulPins;     
     }
-}
-
-//*****************************************************************************
-//
-//! \brief Selects the driving current of specified GPIO pin(s).
-//!
-//! \param ulPort is the base address of the GPIO port.
-//! \param ulPins is the bit-packed representation of the pin(s).
-//! \param ulDrive is Selection of output driving current.it can be selected one
-//! of the following values:
-//! 
-//! - \b GPIO_DV_4MA
-//! - \b GPIO_DV_8MA
-//!
-//! The pin(s) are specified using a bit-packed byte, where each bit that is
-//! set identifies the pin to be accessed, and where bit 0 of the byte
-//! represents GPIO port pin 0, bit 1 represents GPIO port pin 1, and so on.
-//!
-//! \return None.
-//
-//*****************************************************************************
-void 
-GPIODriveConfigure(unsigned long ulPort, unsigned long ulPins, unsigned long ulDrive)
-{
-    //
-    // Check the arguments.
-    //
-    xASSERT(GPIOBaseValid(ulPort));
-    
-    if(ulDrive != GPIO_DV_4MA)
-    {
-        xHWREG(ulPort + GPIO_DRVR) &= ~ulPins;
-    }   
-    else
-    {
-        xHWREG(ulPort + GPIO_DRVR) |= ulPins;
-    }      
 }
 
 //*****************************************************************************
@@ -980,7 +880,7 @@ GPIODriveConfigure(unsigned long ulPort, unsigned long ulPins, unsigned long ulD
 //
 //*****************************************************************************
 void 
-GPIOPinLock(unsigned long ulPort, unsigned long ulPins)
+GPIOPinLockSet(unsigned long ulPort, unsigned long ulPins)
 {
     //
     // Check the arguments.
@@ -996,9 +896,9 @@ GPIOPinLock(unsigned long ulPort, unsigned long ulPins)
 //! \brief Gets the lock state of specified GPIO port pin..
 //!
 //! \param ulPort is the base address of the GPIO port.
-//! \param ulPins is the bit-packed representation of the pin(s).
+//! \param ulPin is the bit-packed representation of the pin.
 //!
-//! The pin(s) are specified using a bit-packed byte, where each bit that is
+//! The pin are specified using a bit-packed byte, where each bit that is
 //! set identifies the pin to be accessed, and where bit 0 of the byte
 //! represents GPIO port pin 0, bit 1 represents GPIO port pin 1, and so on.
 //!
@@ -1033,9 +933,27 @@ GPIOPinLockGet(unsigned long ulPort, unsigned long ulPin)
 
 //*****************************************************************************
 //
-//! \brief Activate the specified EXTI line(s) by software.
+//! \brief Activate the specified EXTI line by software.
 //!
-//! \param ulEXTILines is the logical or of extern interrupt line number.
+//! \param ulEXTILine is the corresponding EXTI line which should be trigger.
+//!
+//! Enable the corresponding bit debounce function to EXTI line specified by
+//! \e ulEXTILines, pleasure reference to /ref HT32F125x_EXTI_LINES.  
+//!
+//! \return None.
+//
+//*****************************************************************************
+void 
+EXTILineSoftwareTrigger(unsigned long ulEXTILine)
+{
+    xHWREG(GPIO_EXTI_BASE + EXTI_SSCR) |= ulEXTILine;
+}
+
+//*****************************************************************************
+//
+//! \brief Clear the specified EXTI line(s) by software.
+//!
+//! \param ulEXTILine is the corresponding EXTI line which should be clear.
 //!
 //! Enable the corresponding bit debounce function to EXTI line(s) specified by
 //! \e ulEXTILines, pleasure reference to /ref HT32F125x_EXTI_LINES.  
@@ -1044,9 +962,9 @@ GPIOPinLockGet(unsigned long ulPort, unsigned long ulPin)
 //
 //*****************************************************************************
 void 
-EXTILineSoftwareTrigger(unsigned long ulEXTILines)
+EXTILineSoftwareClear(unsigned long ulEXTILine)
 {
-    xHWREG(GPIO_EXTI_BASE + EXTI_SSCR) |= ulEXTILines;
+    xHWREG(GPIO_EXTI_BASE + EXTI_SSCR) &= ~ulEXTILine;
 }
 
 //*****************************************************************************
@@ -1100,7 +1018,7 @@ EXTIWakeUpIntConfigure(unsigned long ulWakeUpInt)
 //
 //*****************************************************************************
 void 
-EXTILineWakeUpConfigure(unsigned long ulEXTILines, unsigned long ulLevel
+EXTILineWakeUpConfigure(unsigned long ulEXTILines, unsigned long ulLevel,
                                     unsigned long ulEnable)
 {
     unsigned long ulBits;  
@@ -1209,7 +1127,7 @@ EXTILineDebounceEnable(unsigned long ulEXTILines)
     {
          if((ulEXTILines >> i) & 0x1)
          {
-             xHWREG(GPIO_EXTI_BASE + EXTI_CFGR0 + i * 4) |=  0x80000000;
+             xHWREG(GPIO_EXTI_BASE + EXTI_CFGR0 + i * 4) |=  EXTI_CFGR0_DBEN;
          }
     }
 }
@@ -1236,7 +1154,7 @@ EXTILineDebounceDisable(unsigned long ulEXTILines)
     {
          if((ulEXTILines >> i) & 0x1)
          {
-             xHWREG(GPIO_EXTI_BASE + EXTI_CFGR0 + i * 4) &=  ~0x80000000;
+             xHWREG(GPIO_EXTI_BASE + EXTI_CFGR0 + i * 4) &=  ~EXTI_CFGR0_DBEN;
          }
     }
 }
@@ -1261,13 +1179,14 @@ EXTIDebounceTimeSet(unsigned long ulEXTILines, unsigned long ulDebounceClk)
 {
     int i;
     
-    xASSERT(ulDebounceClk < 0x0fffffff);
+    xASSERT(ulDebounceClk < EXTI_CFGR0_DBCNT_M);
     for(i = 0; i < 16; i++)
     {
          if((ulEXTILines >> i) & 0x1)
          {
-             xHWREG(GPIO_EXTI_BASE + EXTI_CFGR0 + i * 4) &=  ~0x0fffffff;
-             xHWREG(GPIO_EXTI_BASE + EXTI_CFGR0 + i * 4) |= (ulDebounceClk & 0x0fffffff);
+             xHWREG(GPIO_EXTI_BASE + EXTI_CFGR0 + i * 4) &=  ~EXTI_CFGR0_DBCNT_M;
+             xHWREG(GPIO_EXTI_BASE + EXTI_CFGR0 + i * 4) |= 
+                           (ulDebounceClk & EXTI_CFGR0_DBCNT_M);
          }
     }              
 }
@@ -1287,11 +1206,12 @@ EXTIDebounceTimeGet(unsigned long ulEXTILine)
     int i; 
     for(i = 0; i < 16; i++)
     {
-        if((ulEXTILines >> i) & 0x1)
+        if((ulEXTILine >> i) & 0x1)
         {
-           return xHWREG(GPIO_EXTI_BASE + EXTI_CFGR0 + i * 4) & 0x0fffffff);
+           break;
         }
     }
+     return (xHWREG(GPIO_EXTI_BASE + EXTI_CFGR0 + i * 4) & EXTI_CFGR0_DBCNT_M);
 }
 
 //*****************************************************************************
@@ -1333,7 +1253,7 @@ GPIOPinConfigure(unsigned long ulPinConfig)
     // Extract the shift from the input value.
     //
     ulShift = (ulPinConfig >> 8) & 0xf;
-    ulType = ulPinConfig & 0xf
+    ulType = ulPinConfig & 0xf;
     
     //
     // Write the requested pin muxing value for this GPIO pin.
@@ -1365,7 +1285,6 @@ GPIOPinFunctionSet(unsigned long ulFunction, unsigned long ulPort,
                    unsigned long ulPins)
 {
   
-    int i;
     //
     // Check the arguments.
     //
@@ -1378,8 +1297,7 @@ GPIOPinFunctionSet(unsigned long ulFunction, unsigned long ulPort,
             (ulFunction == GPIO_FUNCTION_PWM) ||
             (ulFunction == GPIO_FUNCTION_TIM) ||
             (ulFunction == GPIO_FUNCTION_UART) ||
-            (ulFunction == GPIO_FUNCTION_GPIO) ||
-            (ulFunction == GPIO_FUNCTION_CLKO)
+            (ulFunction == GPIO_FUNCTION_GPIO)
            );
 
     //
@@ -1594,7 +1512,7 @@ GPIOPinFunctionSet(unsigned long ulFunction, unsigned long ulPort,
                 if((ulPins & GPIO_PIN_10))
                 {
                     xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) &= 
-                      ~(AFIO_GPBCFGR_FUN3 << AFIO_GPBACFGR_BIT10_S);
+                      ~(AFIO_GPBCFGR_FUN3 << AFIO_GPBCFGR_BIT10_S);
                 }
                 if((ulPins & GPIO_PIN_11))
                 {
@@ -1649,7 +1567,7 @@ GPIOPinFunctionSet(unsigned long ulFunction, unsigned long ulPort,
                       (AFIO_GPBCFGR_FUN1 << AFIO_GPBCFGR_BIT15_S);  
                 }       
             }
-        }break
+        }break;
     }
 }
 

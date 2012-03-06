@@ -73,6 +73,16 @@ extern "C"
 //
 #define xINT_PRIORITY_MASK       ((0xFF << (8 - NUM_PRIORITY_BITS)) & 0xFF)
 
+//
+//! System control register base address
+//
+#define xSYSCTL_BASE            0xE000ED10
+
+//
+//! \brief DEEPSLEEP singal which can force Cortex-M3 enter sleep mode.
+//
+#define xSYSCTL_SLEEPDEEP       0x00000004
+
 //*****************************************************************************
 //
 //! \addtogroup xCORE_Exported_APIs xCORE API
@@ -117,6 +127,15 @@ extern unsigned long xCPUprimask(void);
 //
 //*****************************************************************************
 extern void xCPUwfi(void);
+
+//*****************************************************************************
+//
+//! \brief Wrapper function for the wfe instruction.
+//!
+//! \return None.
+//
+//*****************************************************************************
+extern void xCPUwfe(void);
 
 //*****************************************************************************
 //

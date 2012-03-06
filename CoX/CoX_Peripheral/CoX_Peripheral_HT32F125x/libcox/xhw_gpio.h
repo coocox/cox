@@ -928,7 +928,7 @@
 //
 //! EXTI0 Interrupt Both-edge Sensitive
 //
-#define EXTI_CFGR0_SRCTYPE_PEDGE                                              \
+#define EXTI_CFGR0_SRCTYPE_BEDGE                                              \
                                 0x40000000
 
 //
@@ -996,7 +996,7 @@
 //
 //! EXTI1 Interrupt Both-edge Sensitive
 //
-#define EXTI_CFGR1_SRCTYPE_PEDGE                                              \
+#define EXTI_CFGR1_SRCTYPE_BEDGE                                              \
                                 0x40000000
 
 //
@@ -1064,7 +1064,7 @@
 //
 //! EXTI2 Interrupt Both-edge Sensitive
 //
-#define EXTI_CFGR2_SRCTYPE_PEDGE                                              \
+#define EXTI_CFGR2_SRCTYPE_BEDGE                                              \
                                 0x40000000
 
 //
@@ -1132,7 +1132,7 @@
 //
 //! EXTI3 Interrupt Both-edge Sensitive
 //
-#define EXTI_CFGR3_SRCTYPE_PEDGE                                              \
+#define EXTI_CFGR3_SRCTYPE_BEDGE                                              \
                                 0x40000000
 
 //
@@ -1200,7 +1200,7 @@
 //
 //! EXTI4 Interrupt Both-edge Sensitive
 //
-#define EXTI_CFGR4_SRCTYPE_PEDGE                                              \
+#define EXTI_CFGR4_SRCTYPE_BEDGE                                              \
                                 0x40000000
 
 //
@@ -1268,7 +1268,7 @@
 //
 //! EXTI5 Interrupt Both-edge Sensitive
 //
-#define EXTI_CFGR5_SRCTYPE_PEDGE                                              \
+#define EXTI_CFGR5_SRCTYPE_BEDGE                                              \
                                 0x40000000
 
 //
@@ -1336,7 +1336,7 @@
 //
 //! EXTI6 Interrupt Both-edge Sensitive
 //
-#define EXTI_CFGR6_SRCTYPE_PEDGE                                              \
+#define EXTI_CFGR6_SRCTYPE_BEDGE                                              \
                                 0x40000000
 
 //
@@ -1404,7 +1404,7 @@
 //
 //! EXTI7 Interrupt Both-edge Sensitive
 //
-#define EXTI_CFGR7_SRCTYPE_PEDGE                                              \
+#define EXTI_CFGR7_SRCTYPE_BEDGE                                              \
                                 0x40000000
 
 //
@@ -1472,7 +1472,7 @@
 //
 //! EXTI8 Interrupt Both-edge Sensitive
 //
-#define EXTI_CFGR8_SRCTYPE_PEDGE                                              \
+#define EXTI_CFGR8_SRCTYPE_BEDGE                                              \
                                 0x40000000
 
 //
@@ -1540,7 +1540,7 @@
 //
 //! EXTI9 Interrupt Both-edge Sensitive
 //
-#define EXTI_CFGR9_SRCTYPE_PEDGE                                              \
+#define EXTI_CFGR9_SRCTYPE_BEDGE                                              \
                                 0x40000000
 
 //
@@ -1609,7 +1609,7 @@
 //
 //! EXTI10 Interrupt Both-edge Sensitive
 //
-#define EXTI_CFGR10_SRCTYPE_PEDGE                                              \
+#define EXTI_CFGR10_SRCTYPE_BEDGE                                              \
                                 0x40000000
 
 //
@@ -1678,7 +1678,7 @@
 //
 //! EXTI11 Interrupt Both-edge Sensitive
 //
-#define EXTI_CFGR11_SRCTYPE_PEDGE                                              \
+#define EXTI_CFGR11_SRCTYPE_BEDGE                                              \
                                 0x40000000
 
 //
@@ -1747,7 +1747,7 @@
 //
 //! EXTI12 Interrupt Both-edge Sensitive
 //
-#define EXTI_CFGR12_SRCTYPE_PEDGE                                              \
+#define EXTI_CFGR12_SRCTYPE_BEDGE                                              \
                                 0x40000000
 
 //
@@ -1816,7 +1816,7 @@
 //
 //! EXTI13 Interrupt Both-edge Sensitive
 //
-#define EXTI_CFGR13_SRCTYPE_PEDGE                                              \
+#define EXTI_CFGR13_SRCTYPE_BEDGE                                              \
                                 0x40000000
 
 //
@@ -1885,7 +1885,7 @@
 //
 //! EXTI14 Interrupt Both-edge Sensitive
 //
-#define EXTI_CFGR14_SRCTYPE_PEDGE                                              \
+#define EXTI_CFGR14_SRCTYPE_BEDGE                                              \
                                 0x40000000
 
 //
@@ -1954,7 +1954,7 @@
 //
 //! EXTI15 Interrupt Both-edge Sensitive
 //
-#define EXTI_CFGR15_SRCTYPE_PEDGE                                              \
+#define EXTI_CFGR15_SRCTYPE_BEDGE                                              \
                                 0x40000000
 
 //
@@ -2030,7 +2030,7 @@
 //
 //! EXTI8 Interrupt Enable
 //
-#define EXTI_ICR_EXTI4EN        0x00000100
+#define EXTI_ICR_EXTI8EN        0x00000100
 
 //
 //! EXTI9 Interrupt Enable

@@ -264,7 +264,7 @@ extern "C"
 //
 // Pin is a peripheral function
 //
-#define xGPIO_DIR_MODE_HW       0  
+#define xGPIO_DIR_MODE_HW       GPIO_DIR_MODE_HW  
 
 //
 // Pin is in Quasi-bidirectional mode
@@ -368,8 +368,12 @@ extern "C"
 //
 //! Output Current Drive (4mA source/sink current)
 //
-#define xGPIO_STRENGTH_4MA      0x00000000
-#define xGPIO_STRENGTH_8MA      0x00000001   
+#define xGPIO_STRENGTH_4MA      GPIO_STRENGTH_4MA
+  
+//
+//! Output Current Drive (8mA source/sink current)
+//  
+#define xGPIO_STRENGTH_8MA      GPIO_STRENGTH_8MA   
   
 
 //*****************************************************************************
@@ -393,9 +397,9 @@ extern "C"
 //! |------------------------|----------------|------------------------|
 //! |xGPIO_PIN_TYPE_STD      |  Non-Mandatory |            N           |
 //! |------------------------|----------------|------------------------|
-//! |xGPIO_PIN_TYPE_STD_WPU  |  Non-Mandatory |            N           |
+//! |xGPIO_PIN_TYPE_STD_WPU  |  Non-Mandatory |            Y           |
 //! |------------------------|----------------|------------------------|
-//! |xGPIO_PIN_TYPE_OD       |  Non-Mandatory |            N           |
+//! |xGPIO_PIN_TYPE_OD       |  Non-Mandatory |            Y           |
 //! |------------------------|----------------|------------------------|
 //! |xGPIO_PIN_TYPE_OD_WPU   |  Non-Mandatory |            N           |
 //! |------------------------|----------------|------------------------|
@@ -403,12 +407,28 @@ extern "C"
 //! |------------------------|----------------|------------------------|
 //! |xGPIO_PIN_TYPE_ANALOG   |  Non-Mandatory |            N           |
 //! |------------------------|----------------|------------------------|
-//! |xGPIO_PIN_TYPE_STD_WPD  |  Non-Mandatory |            N           |
+//! |xGPIO_PIN_TYPE_STD_WPD  |  Non-Mandatory |            Y           |
 //! +------------------------+----------------+------------------------+
 //! \endverbatim
 //! @{
 //
 //*****************************************************************************
+
+//
+//! Push-pull with weak pull-up
+//
+#define XGPIO_PIN_TYPE_STD_WPU  GPIO_PIN_TYPE_STD_WPU  
+
+//
+//! Push-pull with weak pull-down
+//
+#define XGPIO_PIN_TYPE_STD_WPD  GPIO_PIN_TYPE_STD_WPD 
+
+//
+//! Open-drain
+//
+#define XGPIO_PIN_TYPE_OD       GPIO_PIN_TYPE_OD
+  
 
 //*****************************************************************************
 //
@@ -565,7 +585,7 @@ extern "C"
 //! |------------------------|----------------|------------------------|
 //! |PWMn                    |    Mandatory   |      PWM0 ... PWM7     |
 //! |------------------------|----------------|------------------------|
-//! |TIMCCPn                 |    Mandatory   |   TIMCCP0 ... TIMCCP3  |
+//! |TIMCCPn                 |    Mandatory   |   TIMCCP0 ... TIMCCP7  |
 //! +------------------------+----------------+------------------------+
 //! \endverbatim
 //!
@@ -618,7 +638,13 @@ extern "C"
 #define TIMCCP1                 TIMCCP1
 #define TIMCCP2                 TIMCCP2
 #define TIMCCP3                 TIMCCP3
-
+#define TIMCCP4                 TIMCCP4
+#define TIMCCP5                 TIMCCP5
+#define TIMCCP6                 TIMCCP6
+#define TIMCCP7                 TIMCCP7  
+#define T0EX                    T0EX
+#define T1EX                    T1EX  
+  
 //*****************************************************************************
 //
 //! @}
@@ -697,6 +723,8 @@ extern "C"
 //! |--------------------------|----------------|------------------------|
 //! |xGPIOSPinTypeGPIOOutputQB |  Non-Mandatory |            N           |
 //! |--------------------------|----------------|------------------------|
+//! |xGPIOPadConfigSet         |  Non-Mandatory |            Y           |
+//! |--------------------------|----------------|------------------------|  
 //! |xSPinTypeADC              |    Mandatory   |            Y           |
 //! |--------------------------|----------------|------------------------|
 //! |xSPinTypeI2C              |    Mandatory   |            Y           |
@@ -756,8 +784,8 @@ extern "C"
 //! \return None.
 //
 //*****************************************************************************
-extern void xGPIODirModeSet(unsigned long ulPort, unsigned long ulPins,
-                            unsigned long ulPinIO);   
+#define xGPIODirModeSet(ulPort, ulPins, ulPinIO)                              \
+        GPIODirModeSet(ulPort, ulPins, ulPinIO) 
 
 //*****************************************************************************
 //
@@ -1273,6 +1301,39 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
         }                                                                      \
         while(0)
 
+//*****************************************************************************
+//
+//! \brief Selects the driving current of specified GPIO pin(s).
+//!
+//! \param ulPort is the base address of the GPIO port.
+//! \param ulPins is the bit-packed representation of the pin(s).
+//! \param ulDrive is Selection of output driving current.it can be selected one
+//! of the following values:
+//! 
+//! - \ref xGPIO_DV_4MA
+//! - \ref xGPIO_DV_8MA
+//!
+//! \param ulPadType is the logical OR of several different values, many of 
+//!  which are grouped into sets where only one can be chosen.
+//!
+//£¡The open drain mode is chosen with one of the following values:
+//! - \ref xGPIO_DIR_MODE_OD_EN
+//! - \ref xGPIO_DIR_MODE_OD_DIS
+//!
+//! The pull resistor configure is chosen with one of the following values:
+//! - \ref xGPIO_PIN_TYPE_STD_WPU
+//! - \ref xGPIO_PIN_TYPE_STD_WPD
+//! - \ref xGPIO_PR_DISABLE
+//!
+//! The pin(s) are specified using a bit-packed byte, where each bit that is
+//! set identifies the pin to be accessed, and where bit 0 of the byte
+//! represents GPIO port pin 0, bit 1 represents GPIO port pin 1, and so on.
+//!
+//! \return None.
+//
+//*****************************************************************************
+#define XGPIOPadConfigSet(ulPort, ulPins, ulStrength, ulPadType)               \
+        GPIOPadConfigSet(ulPort, (unsigned char)ulPins, ulStrength, ulPadType)
 
 //*****************************************************************************
 //
@@ -1627,7 +1688,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 #define xSPinTypeACMP(ePeripheralPin, eShortPin)                              \
         do                                                                    \
         {                                                                     \
-         GPIOSPinConfigure(ePeripheralPin, eShortPin);                        \        
+         GPIOSPinConfigure(ePeripheralPin, eShortPin);                        \
         }                                                                     \
         while(0)
 
@@ -1881,17 +1942,46 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! Pin is a GPIO output
 //
 #define GPIO_DIR_MODE_OUT       0x00000001 
-
+          
 //
-//! Pin is in Open-Drain mode.
+//! Pin is in hardware control mode
+//          
+#define GPIO_DIR_MODE_HW        0x00000003
+          
 //
-#define GPIO_DIR_MODE_OD        0x00000002
-
+//! Pin is in open drain mode (use in GPIODirModeGet function only)
+//
+#define GPIO_DIR_MODE_OD        0x00000004               
+          
 //*****************************************************************************
 //
 //! @}
 //
 //*****************************************************************************
+          
+//*****************************************************************************
+//
+//! \addtogroup HT32F125x_GPIO_IN_ENABLE HT32F125x GPIO Input Enable.
+//! \brief Values that can be passed to GPIOInputConfigure as the ulPinIO ulEnable.
+//! @{
+//
+//*****************************************************************************
+   
+//
+//! Input function is enable
+//          
+#define GPIO_INPUT_ENABLE       0x00000001
+
+//
+//! Input function is disable
+//          
+#define GPIO_INPUT_DISABLE      0x00000000        
+          
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************          
 
 //*****************************************************************************
 //
@@ -1936,8 +2026,8 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //*****************************************************************************
 //
 //! \addtogroup HT32F125x_PULLRESISTOR_CONFIG HT32F125x Pull Resistor Configure
-//! \brief Values that can be passed to GPIOPullResistorConfigure as the 
-//! ulPullResistorCfg parameter.
+//! \brief Values that can be passed to XGPIOPadConfigSet  as the ulPadType  
+//!  parameter.
 //! @{
 //
 //***************************************************************************** 
@@ -1945,12 +2035,12 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //! weak pull-up resistor Enable
 //         
-#define GPIO_PR_UP              0x00000000
+#define GPIO_PIN_TYPE_STD_WPU   0x00000000
           
 //
 //! weak pull-down resistor Enable
 //          
-#define GPIO_PR_DOWN            0x00000001
+#define GPIO_PIN_TYPE_STD_WPD   0x00000001
           
 //
 //! Tri-state
@@ -1961,12 +2051,36 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //! @}
 //
-//***************************************************************************** 
+//*****************************************************************************
+          
+//*****************************************************************************
+//
+//! \addtogroup HT32F125x_OPEN_DRAIN_CFG HT32F125x Open Drain Mode Configure.
+//! \brief Values that can be passed to XGPIOPadConfigSet as the ulPadType parameter.
+//! @{
+//
+//*****************************************************************************
+          
+//
+//! Pin Open-Drain mode enable.
+//
+#define GPIO_DIR_MODE_OD_EN      0x00000010
+          
+//
+//! Pin Open-Drain mode disable 
+//  
+#define GPIO_DIR_MODE_OD_DIS     0x00000000          
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************   
           
 //*****************************************************************************
 //
 //! \addtogroup HT32F125x_OUTPUT_DRIVING HT32F125x output driving current.
-//! \brief Values that can be passed to GPIODriveConfigure as the ulDrive parameter.
+//! \brief Values that can be passed to XGPIOPadConfigSet as the ulStrength parameter.
 //! @{
 //
 //*****************************************************************************
@@ -1974,8 +2088,8 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //! Output driving current as 4 mA
 //
-#define GPIO_DV_4MA             0x00000000
-#define GPIO_DV_8MA             0x00000001          
+#define GPIO_STRENGTH_4MA       0x00000000
+#define GPIO_STRENGTH_8MA       0x00000001          
           
 //*****************************************************************************
 //
@@ -2351,23 +2465,19 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 #define GPIOSPinConfigure(ePeripheralPin, eShortPin)                          \
         GPIOPinConfigure(GPIO_##eShortPin##_##ePeripheralPin)
 
-extern void GPIODirModeSet(unsigned long ulPort, unsigned long ulBit,
+extern void GPIODirModeSet(unsigned long ulPort, unsigned long ulPins, 
                            unsigned long ulPinIO);
 extern unsigned long GPIODirModeGet(unsigned long ulPort, unsigned long ulBit);
 extern void GPIOInputConfigure(unsigned long ulPort, unsigned long ulPins, 
-                               xtBoolean cmd);
+                               unsigned long ulEnable);
 extern long GPIOPinRead(unsigned long ulPort, unsigned long ulPins);
 extern void GPIOPinWrite(unsigned long ulPort, unsigned long ulPins,
 		                 unsigned char ucVal);
 extern void GPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 extern long GPIOPinPortDoutGet(unsigned long ulPort);
 
-extern void GPIOOpenDrainConfigure(unsigned long ulPort, unsigned long ulBit,
-                               xtBoolean cmd);
-extern void GPIOPullResistorConfigure(unsigned long ulPort, unsigned long ulPins, 
-                               unsigned long ulPullResistorCfg);
-extern void GPIODriveConfigure(unsigned long ulPort, unsigned long ulPins,
-                               unsigned long ulDrive);
+extern void GPIOPadConfigSet(unsigned long ulPort, unsigned long ulPins, 
+                             unsigned long ulStrength, unsigned long ulPadType);
 
 extern void GPIOPinFunctionSet(unsigned long ulFunction, unsigned long ulPort, 
                                unsigned long ulPins);
@@ -2382,9 +2492,11 @@ extern unsigned long EXTIIntEdgeFlagGet(void);
 extern void EXTIIntEdgeClear(unsigned long ulEXTILines);
 extern void EXTIIntEdgeClear2(unsigned long ulBase, unsigned long ulEXTILines);
 
-extern void EXTILineSoftwareTrigger(unsigned long ulEXTILines);
+extern void EXTILineSofwareTrigger(unsigned long ulEXTILine);
+extern void EXTILineSoftwareClear(unsigned long ulEXTILine);
+
 extern void EXTIWakeUpIntConfigure(unsigned long ulWakeUpInt);
-extern void EXTILineWakeUpConfigure(unsigned long ulEXTILines, unsigned long ulLevel
+extern void EXTILineWakeUpConfigure(unsigned long ulEXTILines, unsigned long ulLevel,
                                     unsigned long ulEnable);
 extern unsigned long EXTIWakeUpStatusGet(void);
 extern void EXTIWakeUpStatusClear(unsigned long ulEXTILines);
@@ -2395,10 +2507,8 @@ extern void EXTIDebounceTimeSet(unsigned long ulEXTILines, unsigned long ulDebou
 extern long EXTIDebounceTimeGet(unsigned long ulEXTILines);
 
 extern void GPIOPinLockSet(unsigned long ulPort, unsigned long ulPins);
-extern void GPIOPinLockGet(unsigned long ulPort, unsigned long ulPins);
+extern xtBoolean GPIOPinLockGet(unsigned long ulPort, unsigned long ulPin);
 
-extern unsigned long  GPIOPinToPeripheralId(unsigned long ulPort, 
-                                            unsigned long ulPin);
 extern unsigned long  GPIOPinToPort(unsigned long ulPort, 
                                     unsigned long ulPin);
 extern unsigned long  GPIOPinToPin(unsigned long ulPort, 

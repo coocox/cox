@@ -1660,7 +1660,13 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_nvic.h</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_sysctl.h</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_types.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xsysctl.h</name>
         </file>
       </group>
       <group>
@@ -1673,6 +1679,9 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xgpio.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xsysctl.c</name>
         </file>
       </group>
     </group>
