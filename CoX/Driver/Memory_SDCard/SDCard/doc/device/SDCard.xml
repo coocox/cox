@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <Device>
-    <Name>SDCard</Name>
+    <Name>SDCard(SDSC, SDHC, SDXC)</Name>
     <Description>
         SD Memory Card is a memory card that is specifically designed to meet the security, capacity, performance, and environment requirements inherent in newly emerging audio and video consumer electronic devices.
     </Description>

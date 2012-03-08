@@ -1,19 +1,20 @@
 <?xml version="1.0" ?> 
   <Component>
-    <Name>DS18B20_Driver</Name> 
-    <Description>DS18B20 Temperature Driver using 1-wire interface</Description> 
-    <Category>Driver</Category> 
-    <Version>1.0.0</Version> 
-    <KeyWord>DS18B20, Temperature, Sensor, 1-wire, Driver, COX, Maxim</KeyWord> 
+    <Name>DS18B20 Temperature Driver using 1-wire</Name>
+    <Version>2.1.1.0</Version>
+    <KeyWord>DS18B20, Temperature, Sensor, 1-wire, Driver, CoX, Maxim</KeyWord> 
     <Filter>
-      <Interface>1-wire</Interface> 
-      <COXBased>true</COXBased> 
-      <Layer>Driver</Layer> 
+        <Interface>1-wire</Interface>
+        <CoXBased>true</CoXBased>
     </Filter>
+
+    <Categorys>
+        <Layer name="Driver">
+            <Cate name="Driver" />
+        </Layer>
+    </Categorys> 
     <SupportDevices>
-      <Device>DS18B20</Device> 
-	  <Device>DS18B20U</Device>
-	  <Device>DS18B20Z</Device>
+      <Device>DS18B20, DS18B20U, DS18B20Z</Device>
     </SupportDevices>
     <Files>
       <File>$Driver_ROOT$\lib\*</File> 

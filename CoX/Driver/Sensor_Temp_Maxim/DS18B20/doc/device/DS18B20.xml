@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <Device>
-    <Name>DS18B20</Name>
+    <Name>DS18B20, DS18B20U, DS18B20Z</Name>
     <Description>DS18B20 Programmable Resolution 1-Wire Digital Thermometer</Description>
     <Manufacturer>Maxim</Manufacturer>
     
