@@ -1,21 +1,20 @@
 <?xml version="1.0" ?> 
   <Component>
-    <Name>STLM75_Driver</Name> 
-    <Description>STLM75 Temperature Driver using I2C interface</Description> 
-    <Category>Driver</Category> 
+    <Name>STLM75 Temperature Driver using I2C interface</Name> 
     <Version>1.0.0</Version> 
-    <KeyWord>STLM75, Temperature, Sensor, 2-wire, Driver, COX, ST, I2C,STxx75</KeyWord> 
+    <KeyWord>STLM75, Temperature, Sensor, 2-wire, Driver, CoX, ST, I2C,STxx75</KeyWord> 
     <Filter>
-      <Interface>2-wire</Interface> 
-	  <Interface>I2C</Interface> 
-      <COXBased>true</COXBased> 
-      <Layer>Driver</Layer> 
+        <Interface>I2C</Interface>
+        <CoXBased>true</CoXBased>
     </Filter>
+
+    <Categorys>
+        <Layer name="Driver">
+            <Cate name="Driver" />
+        </Layer>
+    </Categorys> 
     <SupportDevices>
-      <Device>STLM75</Device> 
-	  <Device>STCN75</Device>
-	  <Device>STDS75</Device>
-	  <Device>STTS75</Device>
+      <Device>STLM75, STCN75, STDS75, STTS75</Device> 
     </SupportDevices>
     <Files>
       <File>$Driver_ROOT$\lib\*</File> 

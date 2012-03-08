@@ -22,7 +22,7 @@
 //!   - \ref CoX_W25X_API_Group_Initialization
 //!   - \ref CoX_W25X_API_Group_ReadandWrite
 //!   - \ref CoX_W25X_API_Group_Control
-//!   - \ref CoX_W25X_API_Group_PowerDown
+//!   - \ref CoX_W25X_API_Group_PowerManagement 
 //!   - \ref CoX_W25X_API_Group_Attribute
 //! - \ref W25X_Usage
 //! .
@@ -45,7 +45,7 @@
 //! 
 //! <br />
 //! \section CoX_W25X_Driver_Desc 3. Driver Desrction
-//! The COX W25Xxx driver has the following functions:
+//! The CoX W25Xxx driver has the following functions:
 //! - Write data to W25Xxx 
 //! - PowerDown mode can be used to reduce supply current for power sensitive
 //!   applications. 
@@ -92,7 +92,7 @@
 //! .
 //!
 //! <br />
-//! \subsection CoX_W25X_API_Group_PowerDown 4.4 W25X enter powerdown status and wake up
+//! \subsection CoX_W25X_API_Group_PowerManagement  4.4 W25X Power Management
 //! - W25XPowerDown(),
 //! - W25XWakeUp().
 //! .
