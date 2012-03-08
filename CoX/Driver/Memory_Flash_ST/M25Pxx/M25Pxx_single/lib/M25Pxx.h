@@ -4,10 +4,10 @@
 //! \brief Prototypes for the M25Pxx Driver.
 //! \version V2.1.1.0
 //! \date 9/22/2011
-//! \author CooCox
+//! \author CooCoX
 //! \copy
 //!
-//! Copyright (c)  2011, CooCox 
+//! Copyright (c)  2011, CooCoX 
 //! All rights reserved.
 //! 
 //! Redistribution and use in source and binary forms, with or without 
@@ -51,7 +51,7 @@ extern "C"
 #endif
 //*****************************************************************************
 //
-//! \addtogroup COX_Driver_Lib
+//! \addtogroup CoX_Driver_Lib
 //! @{
 //
 //*****************************************************************************
@@ -159,7 +159,7 @@ extern "C"
   
 //*****************************************************************************
 //
-//! \addtogroup COX_M25Pxx_Exported_APIs
+//! \addtogroup CoX_M25Pxx_Exported_APIs
 //! @{
 //
 //*****************************************************************************

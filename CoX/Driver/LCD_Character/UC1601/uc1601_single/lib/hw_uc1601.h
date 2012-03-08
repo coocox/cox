@@ -4,10 +4,10 @@
 //! \brief header file of Driver for uc1601
 //! \version V2.1.1.0
 //! \date 9/6/2011
-//! \author CooCox
+//! \author CooCoX
 //! \copy
 //!
-//! Copyright (c)  2011, CooCox All rights reserved.
+//! Copyright (c)  2011, CooCoX All rights reserved.
 //! 
 //! Redistribution and use in source and binary forms, with or without 
 //! modification, are permitted provided that the following conditions 
@@ -43,7 +43,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Driver_Lib 
+//! \addtogroup CoX_Driver_Lib 
 //! @{
 //! \addtogroup Displays
 //! @{
@@ -58,7 +58,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup UC1601_REG
+//! \addtogroup UC1601_REG UC1601 Register
 //! uc1601 Register Command.
 //! @{
 //
@@ -273,7 +273,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup uc1601_Attribute
+//! \addtogroup uc1601_Attribute uc1601 Attribute
 //! uc1601 LCD attribute.
 //! @{
 //
