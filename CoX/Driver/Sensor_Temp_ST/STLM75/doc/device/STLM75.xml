@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <Device>
-    <Name>STLM75</Name>
+    <Name>STLM75, STCN75, STDS75, STTS75</Name>
     <Description>STLM75 Digital temperature sensor and thermal watchdog</Description>
     <Manufacturer>ST</Manufacturer>
     

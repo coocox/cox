@@ -1,9 +1,8 @@
 <?xml version="1.0" ?>
 <Device>
-    <Name>W25X16_W25X16A_W25X32_W25X64</Name>
+    <Name>W25X16, W25X16A, W25X32, W25X64</Name>
     <Description>
-    	  W25Xxx Serial Memories provide a storage solution for systems with limited space,pins,power.The W25X series offers flexibility 
-        and performance well beyond ordinary Serial devices.They are ideal for code download applicatins as well as storing voice,test and data.
+    	  W25Xxx Serial Memories with SPI interface provide a storage solution for systems with limited space,pins,power.
     </Description>
     <Manufacturer>Winbond</Manufacturer>
     
