@@ -43,13 +43,13 @@
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Driver_Lib  COX Driver Lib
+//! \addtogroup CoX_Driver_Lib
 //! @{
 //! \addtogroup Sensor 
 //! @{
-//! \addtogroup Temperature_Sensor  Temperature Sensor
+//! \addtogroup Temperature_Sensor  
 //! @{
-//! \addtogroup MCP9800_TempSensor MCP9800_3 TempSensor 
+//! \addtogroup MCP9800_TempSensor 
 //! @{
 //
 //*****************************************************************************

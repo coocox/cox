@@ -28,10 +28,8 @@ copy %v_repo_root_self%\CoX\Driver\Sensor_Temp_Microchip\TC77\TC77_SPI_Driver\do
 copy %v_repo_root_self%\CoX\Driver\Sensor_Temp_Microchip\TCN75\TCN75_I2C_Driver\doc\images\* ..\en\html >>nul
 copy %v_repo_root_self%\CoX\Driver\Sensor_Temp_ST\STLM75\STLM75_Driver\doc\images\* ..\en\html >>nul
 
-
 copy %v_cox_peripheral_manual%\doc\images\* ..\en\html >>nul
 copy %v_repo_root_self%\resource\doxygen\css\* ..\en\html >>nul
-
 echo completed.
 echo --------------------------------------------
 

@@ -45,7 +45,7 @@
 //
 //! \addtogroup CoX_Driver_Lib 
 //! @{
-//! \addtogroup Memmory
+//! \addtogroup Memory
 //! @{
 //! \addtogroup SPI_Flash
 //! @{
