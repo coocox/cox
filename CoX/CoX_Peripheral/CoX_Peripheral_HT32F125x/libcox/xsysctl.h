@@ -93,14 +93,6 @@ extern "C"
 //! |--------------------------|----------------|--------------------------|
 //! |xSYSCTL_PERIPH_I2Cn       |  Non-Mandatory |    xSYSCTL_PERIPH_I2C0   |
 //! |--------------------------|----------------|--------------------------|
-//! |xSYSCTL_PERIPH_PWMn       |  Non-Mandatory |    xSYSCTL_PERIPH_PWM0   |
-//! |                          |                |--------------------------|
-//! |                          |                |    xSYSCTL_PERIPH_PWM1   |
-//! |                          |                |--------------------------|
-//! |                          |                |    xSYSCTL_PERIPH_PWM2   |
-//! |                          |                |--------------------------|
-//! |                          |                |    xSYSCTL_PERIPH_PWM3   |
-//! |--------------------------|----------------|--------------------------|
 //! |xSYSCTL_PERIPH_RTC        |    Mandatory   |    xSYSCTL_PERIPH_RTC    |
 //! |--------------------------|----------------|--------------------------|
 //! |xSYSCTL_PERIPH_SPIn       |    Mandatory   |    xSYSCTL_PERIPH_SPI0   |
@@ -180,11 +172,11 @@ extern "C"
 //! |--------------------------|----------------|--------------------------|
 //! |xSYSCTL_INTSL_nKHZ/HZ     |  Non-Mandatory |    xSYSCTL_INTSL_32KHZ   |
 //! |--------------------------|----------------|--------------------------|
-//! |xSYSCTL_INT_OSC_DIS       |  Non-Mandatory |             Y            |
+//! |xSYSCTL_INT_OSC_DIS       |  Non-Mandatory |             N            |
 //! |--------------------------|----------------|--------------------------|
-//! |xSYSCTL_MAIN_OSC_DIS      |  Non-Mandatory |             Y            |
+//! |xSYSCTL_MAIN_OSC_DIS      |  Non-Mandatory |             N            |
 //! |--------------------------|----------------|--------------------------|
-//! |xSYSCTL_PLL_PWRDN         |  Non-Mandatory |             Y            |
+//! |xSYSCTL_PLL_PWRDN         |  Non-Mandatory |             N            |
 //! +--------------------------+----------------+--------------------------+
 //! \endverbatim
 //! @{
@@ -268,6 +260,10 @@ extern "C"
 //! |---------------------------|----------------|--------------------------|
 //! |xSYSCTL_WDT0_INTSL         |  Non-Mandatory |             Y            |
 //! |-------------------------- |----------------|--------------------------|
+//! |......                     |  Non-Mandatory |             Y            |
+//! |-------------------------- |----------------|--------------------------|
+//! |xSYSCTL_ADC_KCLK_n         |  Non-Mandatory |             Y            |
+//! |-------------------------- |----------------|--------------------------|
 //! \endverbatim
 //! @{
 //
@@ -282,97 +278,64 @@ extern "C"
 //! Watch dog clock source is internal 32 kHz oscillator clock
 //
 #define xSYSCTL_WDT0_INTSL      0x00000000
-//*****************************************************************************
 //
-//! @}
+//! ADC clock source is HCLK
 //
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup xSysCtl_Peripheral_Short xSysCtl Peripheral Short Name
-//! The following are values that can be passed to the
-//! xSysCtlPeripheralClockSourceSet2()  API as the
-//! ulPeripheral parameter.
-//!
-//! \section xSysCtl_Peripheral_Short_Def SysCtl Peripheral Short Name define
-//! The macros of General Peripheral Short Name always like:
-//! <b> ModuleName + n </b>, such as SPI0, UART0.
-//!
-//! \section xSysCtl_Peripheral_Short_CoX CoX Port Details
-//! \verbatim
-//!
-//! +-------------------------- +----------------+--------------------------+
-//! |Peripheral Clock source    |       CoX      |          HT32F125x       |
-//! |---------------------------|----------------|--------------------------|
-//! |INT                        |    Mandatory   |             Y            |
-//! |---------------------------|----------------|--------------------------|
-//! |HCLK                       |    Mandatory   |             Y            |
-//! |---------------------------|----------------|--------------------------|
-//! |HCLK_n                     |  Non-Mandatory |         HCLK_2048        |
-//! |---------------------------|----------------|--------------------------|
-//! |EXTSL                      |    Mandatory   |             Y            |
-//! |---------------------------|----------------|--------------------------|
-//! |INTSL                      |    Mandatory   |             Y            |
-//! |---------------------------|----------------|--------------------------|
-//! |MAIN                       |    Mandatory   |             Y            |
-//! |---------------------------|----------------|--------------------------|
-//! |PLL                        |    Mandatory   |             Y            |
-//! |---------------------------|----------------|--------------------------|
-//! |PLL_n                      |  Non-Mandatory |           PLL_2          |
-//! |---------------------------|----------------|--------------------------|
-//! |EXTTRG                     |  Non-Mandatory |             Y            |
-//! |---------------------------|----------------|--------------------------|
-//! \endverbatim
-//! @{
-//
-//*****************************************************************************
-#define PWMA                    PWMA
-#define TIMER0                  TIMER0
-#define TIMER1                  TIMER1
-#define UART0                   UART0
-#define WDT0                    WDT0
+#define xSYSCTL_PERIPH_ADC_S_HCLK                                              \
+                                0x00000000
 
 //
-//! internal high speed oscillator
+//! ADC clock source is HCLK/2
 //
-#define INT                     INT
+#define xSYSCTL_PERIPH_ADC_S_HCLK_2                                            \
+                                0x00010000
 
 //
-//! The system clock
+//! ADC clock source is internal 22 MHz oscillator clock
 //
-#define HCLK                    HCLK
+#define xSYSCTL_PERIPH_ADC_S_HCLK_4                                            \
+                                0x00020000
 
 //
-//! external low speed crystal
+//! ADC clock source is HCLK/6
 //
-#define EXTSL                   EXTSL
+#define xSYSCTL_PERIPH_ADC_S_HCLK_6                                            \
+                                0x00070000
 
 //
-//! internal low speed oscillator
+//! ADC clock source is HCLK/8
 //
-#define INTSL                   INTSL
+#define xSYSCTL_PERIPH_ADC_S_HCLK_8                                            \
+                                0x00030000
 
 //
-//! external high speed oscillator
+//! ADC clock source is HCLK/16
 //
-#define MAIN                    MAIN
+#define xSYSCTL_PERIPH_ADC_S_HCLK_16                                           \
+                                0x00040000
 
 //
-//! PLL output
+//! ADC clock source is HCLK/32
 //
-#define PLL                     PLL
+#define xSYSCTL_PERIPH_ADC_S_HCLK_32                                           \
+                                0x00050000
 
 //
-//! PLL output divide by 2
+//! ADC clock source is HCLK/64
 //
-#define PLL_2                   PLL_2
+#define xSYSCTL_PERIPH_ADC_S_HCLK_64                                           \
+                                0x00060000
+//
+//! UART clock source is HCLK
+//
+#define xSYSCTL_PERIPH_UART_S_HCLK                                             \
+                                0x00000000
 
 //
-//! external clock input
+//! UART clock source is HCLK/2
 //
-#define EXTTRG                  EXTTRG
- 
+#define xSYSCTL_PERIPH_UART_S_HCLK_2                                           \
+                                0x00200000
 //*****************************************************************************
 //
 //! @}
@@ -462,12 +425,11 @@ extern "C"
 //*****************************************************************************
 #define xSysCtlPeripheralEnable(ulPeripheralID)                               \
         SysCtlPeripheralEnable(ulPeripheralID)
-        
+
 extern void xSysCtlPeripheralEnable2(unsigned long ulPeripheralBase);
 extern void xSysCtlPeripheralDisable2(unsigned long ulPeripheralBase);
 extern void xSysCtlPeripheralReset2(unsigned long ulPeripheralBase);
-extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
-                                            unsigned long ulDivide);
+
 extern unsigned long xSysCtlPeripheralIntNumGet(unsigned long ulPeripheralBase);
 
 //*****************************************************************************
@@ -712,31 +674,6 @@ extern void xSysCtlSleep(void);
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_SysCtl_Peripheral_Src_Clk SysCtl Peripheral Clock Source
-//! \brief The following are values that can be passed to the
-//! SysCtlPeripheralClockSourceSet()  API as the ulPeripheralsrc parameter.
-//! @{
-//
-//*****************************************************************************
-
-//
-//! Watch dog clock source from external crystal clock.(32.768kHz)
-//
-#define SYSCTL_PERIPH_WDG_EXTSL 0x00000001
-
-//
-//! Watch dog clock source is internal 32 kHz oscillator clock
-//
-#define SYSCTL_PERIPH_WDG_S_INT32K                                            \
-                                0x00000000
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
 //! \addtogroup HT32F125x_SysCtl_Clock_Config HT32F125x SysCtl Clock Configuration
 //! \brief The following are values that can be passed to the SysCtlClockSet() 
 //! API as the ulConfig parameter.
@@ -852,9 +789,94 @@ extern void xSysCtlSleep(void);
 
 //*****************************************************************************
 //
+//! \addtogroup HT32F125x_SysCtl_Peripheral_Src_Clk SysCtl Peripheral Clock Source
+//! \brief The following are values that can be passed to the
+//! SysCtlPeripheralClockSourceSet()  API as the ulPeripheralsrc parameter.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Watch dog 00 = Clock source from external crystal clock.(32.768KHz)
+//
+#define SYSCTL_PERIPH_WDG_S_EXTSL                                             \
+                                0x00000008
+
+//
+//! Watch dog clock source is internal 32 kHz oscillator clock
+//
+#define SYSCTL_PERIPH_WDG_S_INTER                                             \
+                                0x00000000
+
+//
+//! ADC clock source is HCLK
+//
+#define SYSCTL_PERIPH_ADC_S_HCLK                                              \
+                                0x00000000
+
+//
+//! ADC clock source is HCLK/2
+//
+#define SYSCTL_PERIPH_ADC_S_HCLK_2                                            \
+                                0x00010000
+
+//
+//! ADC clock source is internal 22 MHz oscillator clock
+//
+#define SYSCTL_PERIPH_ADC_S_HCLK_4                                            \
+                                0x00020000
+
+//
+//! ADC clock source is HCLK/6
+//
+#define SYSCTL_PERIPH_ADC_S_HCLK_6                                            \
+                                0x00070000
+
+//
+//! ADC clock source is HCLK/8
+//
+#define SYSCTL_PERIPH_ADC_S_HCLK_8                                            \
+                                0x00030000
+
+//
+//! ADC clock source is HCLK/16
+//
+#define SYSCTL_PERIPH_ADC_S_HCLK_16                                           \
+                                0x00040000
+
+//
+//! ADC clock source is HCLK/32
+//
+#define SYSCTL_PERIPH_ADC_S_HCLK_32                                           \
+                                0x00050000
+
+//
+//! ADC clock source is HCLK/64
+//
+#define SYSCTL_PERIPH_ADC_S_HCLK_64                                           \
+                                0x00060000
+//
+//! UART clock source is HCLK
+//
+#define SYSCTL_PERIPH_UART_S_HCLK                                             \
+                                0x00000000
+
+//
+//! UART clock source is HCLK/2
+//
+#define SYSCTL_PERIPH_UART_S_HCLK_2                                           \
+                                0x00200000
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
 //! \addtogroup HT32F125x_SysCtl_Enter_Sleep_Mode HT32F125x SysCtl Enter Sleep Mode
 //! \brief The following are values that can be passed to the SysCtlSleep() and
-//! SysCtlDeepSleep1(), SysCtlDeepSleep1(), SysCtlPowerDown()API as the ulConfig
+//! SysCtlDeepSleep1(), SysCtlDeepSleep2(), SysCtlPowerDown()API as the ulConfig
 //! parameter. 
 //! @{
 //
@@ -925,10 +947,7 @@ extern unsigned long SysCtlLowerPowerModeGet(void);
 extern unsigned long SysCtlResetSrcGet(void);
 extern void SysCtlResetSrcClear(unsigned long ulSrc);
 
-extern void SysCtlUSARTClockPrescalerSelection(unsigned long ulPresSel);
-extern void SysCtlADCClockPrescalerSelection(unsigned long ulPresSel);
-
-extern void SysCtlWDTClkSrcSet(unsigned long ulWDTClkSrc);
+extern void SysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc);
 extern void SysCtlClkOututSrcSet(unsigned long ulClkOutSrc);
 
 extern void SysCtlBODEnable(xtBoolean bEnable);

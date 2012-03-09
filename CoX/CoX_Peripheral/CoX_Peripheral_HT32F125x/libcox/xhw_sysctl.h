@@ -202,12 +202,12 @@
 //
 //! APB Clock Control Register 0
 //
-#define SYSCLK_APBCLK0          0x4008802C
+#define SYSCLK_APBCCR0          0x4008802C
 
 //
 //! APB Clock Control Register 1
 //
-#define SYSCLK_APBCLK1          0x40088030
+#define SYSCLK_APBCCR1          0x40088030
 
 //
 //! Clock Source Status Register
@@ -239,6 +239,10 @@
 //
 #define RSTCU_APBPRSTR1         0x4008810C
 
+//
+//! Flash Cache and Pre-fetch Control Register 
+//
+#define FLASH_CFCR              0x40080200
 //*****************************************************************************
 //
 //! @}
@@ -688,27 +692,27 @@
 //
 //! PLL Clock Ready Flag
 //
-#define SYSCLK_GCSR_PLLRDY      0x00000001
+#define SYSCLK_GCSR_PLLRDY      0x00000002
 
 //
 //! HSE High Speed External Clock Ready Flag
 //
-#define SYSCLK_GCSR_HSERDY      0x00000002
+#define SYSCLK_GCSR_HSERDY      0x00000004
 
 //
 //! HSI High Speed Internal Oscillator Ready Flag
 //
-#define SYSCLK_GCSR_HSIRDY      0x00000004
+#define SYSCLK_GCSR_HSIRDY      0x00000008
 
 //
 //! LSE External Low Speed Oscillator Ready Flag
 //
-#define SYSCLK_GCSR_LSERDY      0x00000008
+#define SYSCLK_GCSR_LSERDY      0x00000010
 
 //
 //! LSI Internal Low Speed Oscillator Ready Flag
 //
-#define SYSCLK_GCSR_LSIRDY      0x00000010
+#define SYSCLK_GCSR_LSIRDY      0x00000020
 
 //*****************************************************************************
 //
@@ -804,7 +808,7 @@
 //
 //! PLL Output Clock Divider Shift
 //
-#define SYSCLK_PLLCFGR_POTD_S   19
+#define SYSCLK_PLLCFGR_POTD_S   21
 
 //
 //! PLL VCO Output Clock Feedback Divider Mask
