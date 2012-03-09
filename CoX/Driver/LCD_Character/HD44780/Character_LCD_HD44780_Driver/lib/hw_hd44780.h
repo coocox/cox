@@ -2,12 +2,12 @@
 //
 //! \file hw_hd44780.h
 //! \brief Character LCD HD44780 Command definition.
-//! \version 1.0.0
+//! \version 2.1.1.0
 //! \date 10/18/2011
-//! \author CooCox
+//! \author CooCoX
 //! \copy
 //!
-//! Copyright (c)  2011, CooCox 
+//! Copyright (c)  2011, CooCoX 
 //! All rights reserved.
 //! 
 //! Redistribution and use in source and binary forms, with or without 
@@ -42,7 +42,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Driver_Lib
+//! \addtogroup CoX_Driver_Lib
 //! @{
 //
 //*****************************************************************************
