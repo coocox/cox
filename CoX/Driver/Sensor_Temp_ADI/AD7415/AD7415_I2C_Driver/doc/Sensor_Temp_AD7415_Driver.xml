@@ -1,7 +1,7 @@
 <?xml version="1.0" ?> 
   <Component>
     <Name>AD7415 series Temperature Driver using I2C interface</Name> 
-    <Version>1.0.0</Version> 
+    <Version>2.1.1.0</Version> 
     <KeyWord>AD7415, Temperature, Sensor, I2C, IIC, Driver, CoX</KeyWord> 
     <Filter>
       <Interface>I2C</Interface> 
