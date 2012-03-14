@@ -185,8 +185,8 @@ extern "C"
 
 #define xSYSCTL_OSC_MAIN        (SYSCTL_PLL_MAIN | SYSCTL_OSC_PLL)
 #define xSYSCTL_OSC_INT         (SYSCTL_PLL_INT | SYSCTL_OSC_PLL)
-#define xSYSCTL_OSC_INTSL       SYSCTL_OSC_INT
-#define xSYSCTL_OSC_EXTSL       SYSCTL_OSC_MAIN
+#define xSYSCTL_OSC_INTSL       0
+#define xSYSCTL_OSC_EXTSL       0
 
 //
 //! XTAL Select

@@ -39,7 +39,7 @@
 ;//! SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
 ;//! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
 ;//! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-;//! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+;//! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 ;//! THE POSSIBILITY OF SUCH DAMAGE.
 ;//
 ;//*****************************************************************************
@@ -47,7 +47,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-Stack_Size      EQU     0x00000200
+Stack_Size      EQU     512
 
                 AREA    STACK, NOINIT, READWRITE, ALIGN=3
 Stack_Mem       SPACE   Stack_Size
@@ -155,8 +155,8 @@ __Vectors       DCD     __initial_sp                ; Top of Stack
                 
                 ENTRY
                 
-ResetHandler   PROC
-                EXPORT  ResetHandler             [WEAK]
+ResetHandler    PROC
+                EXPORT  ResetHandler                [WEAK]
                 IMPORT  __main               
 
                 LDR     R0, =__main
@@ -166,7 +166,7 @@ ResetHandler   PROC
                 
 ; Dummy Exception Handlers (infinite loops which can be modified)
                 
-NMIIntHandler     PROC
+NMIIntHandler   PROC
                 EXPORT  NMIIntHandler               [WEAK]
                 B       .
                 ENDP
@@ -190,7 +190,12 @@ UsageFaultIntHandler\
                 EXPORT  UsageFaultIntHandler        [WEAK]
                 B       .
                 ENDP
-SVCIntHandler     PROC
+DebugMonIntHandler\
+                PROC
+                EXPORT  DebugMonIntHandler          [WEAK]
+                B       .
+                ENDP
+SVCIntHandler   PROC
                 EXPORT  SVCIntHandler               [WEAK]
                 B       .
                 ENDP
@@ -237,6 +242,7 @@ DefaultIntHandler PROC
                 EXPORT SPI0IntHandler            [WEAK]
                 EXPORT UART0IntHandler           [WEAK]
 
+CKRDYIntHandler
 LVDIntHandler
 BODIntHandler
 WDTIntHandler
@@ -244,7 +250,7 @@ RTCIntHandler
 FMCIntHandler
 EVWUPIntHandler
 LPWUPIntHandler
-EINT0IntHandler
+EINT0IntHandler		   
 EINT1IntHandler
 EINT2IntHandler
 EINT3IntHandler

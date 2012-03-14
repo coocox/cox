@@ -500,5 +500,3 @@ TestMain(void)
 
     return g_bGlobalFail;
 }
-
-

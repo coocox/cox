@@ -617,6 +617,7 @@ extern "C"
 #define UART0DCD                UART0DCD
 #define UART0DSR                UART0DSR
 #define UART0DTR                UART0DTR
+#define UART0RI                 UART0RI
 
 #define CMP0N                   CMP0N
 #define CMP0P                   CMP0P
@@ -1362,7 +1363,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! |                    |should be: ADCn         |should be: PXn          |
 //! |                    |n indicate the pin      |XX indicate the GPIO    |
 //! |                    |number such as          |PORT,Such as            |
-//! |                    |0 1 2 3 ....            |A B C D E ...           |
+//! |                    |0 1 2 3 ....            |A B ...                 |
 //! |                    |                        |n indicate the pin      |
 //! |                    |                        |number such as          |
 //! |                    |                        |0 1 2 3 ....            |
@@ -1415,7 +1416,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! |                    |should be: I2CnSCK      |should be: PXn          |
 //! |                    |or I2CnSDA              |XX indicate the GPIO    |
 //! |                    |n indicate the pin      |PORT,Such as            |
-//! |                    |number such as          |A B C D E ...           |
+//! |                    |number such as          |A B ...                 |
 //! |                    |0 1 2 3 ....            |n indicate the pin      |
 //! |                    |                        |number such as          |
 //! |                    |                        |0 1 2 3 ....            |
@@ -1462,7 +1463,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! |                    |should be: PWMn,        |should be: PXn          |
 //! |                    |n indicate the pin      |XX indicate the GPIO    |
 //! |                    |number such as          |PORT,Such as            |
-//! |                    |0 1 2 3 ....            |A B C D E ...           |
+//! |                    |0 1 2 3 ....            |A B ...                 |
 //! |                    |                        |n indicate the pin      |
 //! |                    |                        |number such as          |
 //! |                    |                        |0 1 2 3 ....            |
@@ -1515,13 +1516,13 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! |                    |should be: SPInCLK,     |should be: PXn          |
 //! |                    |SPInMISO, SPInMOSI,     |XX indicate the GPIO    |
 //! |                    |or SPInCS,              |PORT,Such as            |
-//! |                    |n indicate the pin      |A B C D E ...           |
+//! |                    |n indicate the pin      |A B ...                 |
 //! |                    |number such as          |n indicate the pin      |
 //! |                    |0 1 2 3 ....            |number such as          |
 //! |                    |                        |0 1 2 3 ....            |
 //! |--------------------|------------------------|------------------------|
 //! |       HT32F125x    |    SPI0CLK             |    PA6,PB13            |
-//! |                    |    SPI0MOSI            |    PA4,PB15             |
+//! |                    |    SPI0MOSI            |    PA4,PB15            |
 //! |                    |    SPI0MISO            |    PA5,PB14            |
 //! |                    |    SPI0CS              |    PA7,PB12            |
 //! |--------------------|------------------------|------------------------|
@@ -1564,7 +1565,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! |                    |should be: TIMCCPn,     |should be: PXn          |
 //! |                    |n indicate the pin      |XX indicate the GPIO    |
 //! |                    |number such as          |PORT,Such as            |
-//! |                    |0 1 2 3 ....            |A B C D E ...           |
+//! |                    |0 1 2 3 ....            |A B ...                 |
 //! |                    |                        |n indicate the pin      |
 //! |                    |                        |number such as          |
 //! |                    |                        |0 1 2 3 ....            |
@@ -1619,7 +1620,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! |                    |should be: UARTnRX,     |should be: PXn          |
 //! |                    |UARTnTX, UARTnCTS,      |XX indicate the GPIO    |
 //! |                    |......,                 |PORT,Such as            |
-//! |                    |n indicate the pin      |A B C D E ...           |
+//! |                    |n indicate the pin      |A B ...                 |
 //! |                    |number such as          |n indicate the pin      |
 //! |                    |0 1 2 3 ....            |number such as          |
 //! |                    |                        |0 1 2 3 ....            |
@@ -1668,7 +1669,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! |                    |should be: CMPnN,       |should be: PXn          |
 //! |                    |CMPnO or CMPnP          |XX indicate the GPIO    |
 //! |                    |n indicate the pin      |PORT,Such as            |
-//! |                    |number such as          |A B C D E ...           |
+//! |                    |number such as          |A B ...                 |
 //! |                    |0 1 2 3 ....            |n indicate the pin      |
 //! |                    |                        |number such as          |
 //! |                    |                        |0 1 2 3 ....            |
@@ -2401,7 +2402,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 #define GPIO_PB13_SPI0CLK       0x00001D01
 #define GPIO_PB13_UART0DSR      0x00001D02
-#define GPIO_PB13_TIMCCP6       0x00001D02
+#define GPIO_PB13_TIMCCP6       0x00001D03
 
 //
 //! GPIO pin B14
@@ -2492,10 +2493,10 @@ extern unsigned long EXTIIntEdgeFlagGet(void);
 extern void EXTIIntEdgeClear(unsigned long ulEXTILines);
 extern void EXTIIntEdgeClear2(unsigned long ulBase, unsigned long ulEXTILines);
 
-extern void EXTILineSofwareTrigger(unsigned long ulEXTILine);
+extern void EXTILineSoftwareTrigger(unsigned long ulEXTILine);
 extern void EXTILineSoftwareClear(unsigned long ulEXTILine);
 
-extern void EXTIWakeUpIntConfigure(unsigned long ulWakeUpInt);
+extern void EXTIWakeUpIntConfigure(unsigned long ulEnable);
 extern void EXTILineWakeUpConfigure(unsigned long ulEXTILines, unsigned long ulLevel,
                                     unsigned long ulEnable);
 extern unsigned long EXTIWakeUpStatusGet(void);

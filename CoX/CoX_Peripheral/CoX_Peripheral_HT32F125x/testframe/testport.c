@@ -1,5 +1,5 @@
 #include "test.h"
-
+#include "ht32f125x.h"
 //*****************************************************************************
 //
 //! \brief Init uart to print.
@@ -15,9 +15,7 @@
 void 
 TestIOInit(void)
 {
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_SRAM);
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_FMC);
-    xSysCtlClockSet(72000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
+    xSysCtlClockSet(8000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
     SysCtlDelay(10000);
 
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
@@ -51,7 +49,7 @@ TestIOPut(char ch)
 {
     uint8_t c;
     c = ch;
-    while(!((xHWREG(UART0_BASE + USART_LSR) & 0x20)==0x20));
+    while(!((xHWREG(UART0_BASE + USART_LSR) & 0x40)==0x40));
     //
     // Write this character to the transmit FIFO.
     //

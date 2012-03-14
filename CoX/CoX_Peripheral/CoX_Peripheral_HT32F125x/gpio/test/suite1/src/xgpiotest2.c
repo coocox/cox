@@ -1,12 +1,12 @@
 //*****************************************************************************
 //
-//! @page xgpio_testcase xgpio interrupt test
+//! @page xgpio_testcase xgpio EXTI interrupt test
 //!
 //! File: @ref xgpiotest.c
 //!
 //! <h2>Description</h2>
 //! This module implements the test sequence for the xgpio sub component.<br><br>
-//! - \p Board: NuTiny-LB-Mini51 v2.0 <br><br>
+//! - \p Board: HT32F125x Development Board <br><br>
 //! - \p Last-Time(about): 0.5s <br><br>
 //! - \p Phenomenon: Success or failure information will be printed on the UART. <br><br>
 //! .
@@ -25,7 +25,7 @@
 //!
 //! <h2>Test Cases</h2>
 //! The module contain those sub tests:<br><br>
-//! - \subpage test_xgpio_interrupt
+//! - \subpage test_xgpio_EXTI_interrupt
 //! .
 //! \file xgpiotest2.c
 //! \brief xgpio test source file
@@ -59,43 +59,6 @@ unsigned long user_Callback0(void *pvCBData, unsigned long ulEvent,
     return 0;
 }
 
-unsigned long user_Callback1(void *pvCBData, unsigned long ulEvent, 
-                                     unsigned long ulMsgParam, void *pvMsgData)                                        
-{
-    TestEmitToken('a');
-    xIntDisable(xINT_GPIOB);    
-    return 0;
-}
-unsigned long user_Callback2(void *pvCBData, unsigned long ulEvent, 
-                                     unsigned long ulMsgParam, void *pvMsgData)                                        
-{
-    TestEmitToken('a');
-    xIntDisable(xINT_GPIOC);
-    return 0;
-}
-unsigned long user_Callback3(void *pvCBData, unsigned long ulEvent, 
-                                     unsigned long ulMsgParam, void *pvMsgData)                                        
-{
-    TestEmitToken('a');
-    xIntDisable(xINT_GPIOD);
-    return 0;
-}
-unsigned long user_Callback4(void *pvCBData, unsigned long ulEvent, 
-                                     unsigned long ulMsgParam, void *pvMsgData)
-{
-    TestEmitToken('a');
-    xIntDisable(xINT_GPIOE);
-    return 0;
-}
-unsigned long user_Callback5(void *pvCBData, unsigned long ulEvent, 
-                                     unsigned long ulMsgParam, void *pvMsgData)
-{
-    TestEmitToken('a');
-    xIntDisable(xINT_GPIOF);
-    return 0;
-}
-
-
 //*****************************************************************************
 //
 //! \brief Get the Test description of xgpio002 interrupt test.
@@ -105,7 +68,7 @@ unsigned long user_Callback5(void *pvCBData, unsigned long ulEvent,
 //*****************************************************************************
 static char* xgpio002GetTest(void)
 {
-    return "xgpio, 002, xgpio interrupt test";
+    return "xgpio, 002, xgpio EXTI line interrupt test";
 }
 
 //*****************************************************************************
@@ -117,7 +80,11 @@ static char* xgpio002GetTest(void)
 //*****************************************************************************
 static void xgpio002Setup(void)
 {
-    xSysCtlClockSet(12000000, xSYSCTL_XTAL_12MHZ | xSYSCTL_OSC_MAIN);
+    xSysCtlClockSet(8000000, xSYSCTL_XTAL_8MHZ | xSYSCTL_OSC_MAIN);
+	xSysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
+	xSysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
+	xSysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);
+	xSysCtlPeripheralEnable(SYSCTL_PERIPH_EXTI);
 }
 
 //*****************************************************************************
@@ -129,7 +96,7 @@ static void xgpio002Setup(void)
 //*****************************************************************************
 static void xgpio002TearDown(void)
 {
-    xSysCtlPeripheralReset(SYSCTL_PERIPH_GPIO);  
+    xSysCtlPeripheralReset(SYSCTL_PERIPH_EXTI);  
 }
 
 //*****************************************************************************
@@ -142,121 +109,28 @@ static void xgpio002TearDown(void)
 static void xgpio002Execute(void)
 {    
     //
+	// Set as gpio function
+	//
+	GPIOPinFunctionSet(GPIO_FUNCTION_GPIO, GPIO_PORTA_BASE, xGPIO_PIN_0);    
+
+	//
     // Set PA.0 as mode in
     //
-    xGPIODirModeSet(xGPIO_PORTA_BASE, xGPIO_PIN_1, xGPIO_DIR_MODE_IN);
+    xGPIODirModeSet(xGPIO_PORTA_BASE, xGPIO_PIN_0, xGPIO_DIR_MODE_IN);
     
     //
     // Set GPIO pin interrupt callback.
     //
-    xGPIOPinIntCallbackInit(xGPIO_PORTA_BASE, xGPIO_PIN_1, user_Callback0);
+    xGPIOPinIntCallbackInit(xGPIO_PORTA_BASE, xGPIO_PIN_0, user_Callback0);
     
     //
     // Enable GPIO pin interrupt.
     //
-    xGPIOPinIntEnable(xGPIO_PORTA_BASE, xGPIO_PIN_1, xGPIO_FALLING_EDGE);
+    xGPIOPinIntEnable(xGPIO_PORTA_BASE, xGPIO_PIN_0, GPIO_FALLING_EDGE);
     
     xIntEnable(xINT_GPIOA);
     TestAssertQBreak("a", "gpio interrupt test fail", 0xffffffff);    
-    //---------------------------------------------------------------------
-    
-    //
-    // Set PB.0 as mode in
-    //
-    xGPIODirModeSet(xGPIO_PORTB_BASE, xGPIO_PIN_2, xGPIO_DIR_MODE_IN);
-    
-    //
-    // Set GPIO pin interrupt callback.
-    //
-    xGPIOPinIntCallbackInit(xGPIO_PORTB_BASE, xGPIO_PIN_2, user_Callback1);
-    
-    //
-    // Enable GPIO pin interrupt.
-    //
-    xGPIOPinIntEnable(xGPIO_PORTB_BASE, xGPIO_PIN_2, xGPIO_FALLING_EDGE);
-    
-    xIntEnable(xINT_GPIOB);
-    TestAssertQBreak("a", "gpio interrupt test fail", 0xffffffff);      
-    //---------------------------------------------------------------------
-    
-    //
-    // Set PC.2 mode in.
-    //
-    xGPIODirModeSet(xGPIO_PORTC_BASE, xGPIO_PIN_2, xGPIO_DIR_MODE_IN);
-    
-    //
-    // Set GPIO pin interrupt callback.
-    //
-    xGPIOPinIntCallbackInit(xGPIO_PORTC_BASE, xGPIO_PIN_2, user_Callback2);
-    
-    //
-    // Enable GPIO pin interrupt.
-    //
-    xGPIOPinIntEnable(xGPIO_PORTC_BASE, xGPIO_PIN_2, xGPIO_BOTH_EDGES);
-    
-    xIntEnable(xINT_GPIOC);
-    TestAssertQBreak("a", "gpio interrupt test fail", 0xffffffff);       
-    //---------------------------------------------------------------------
-        
-    //
-    // Set PD.0 mode in.
-    //  
-    xGPIODirModeSet(xGPIO_PORTD_BASE, xGPIO_PIN_1, xGPIO_DIR_MODE_IN);
-    
-    //
-    // Set GPIO pin interrupt callback.
-    //
-    xGPIOPinIntCallbackInit(xGPIO_PORTD_BASE, xGPIO_PIN_1, user_Callback3);
-    
-    //
-    // Enable GPIO pin interrupt.
-    //
-    xGPIOPinIntEnable(xGPIO_PORTD_BASE, xGPIO_PIN_1, xGPIO_FALLING_EDGE);
-    
-    xIntEnable(xINT_GPIOD);
-    TestAssertQBreak("a", "gpio interrupt test fail", 0xffffffff);  
-    
-    //--------------------------------------------------------------------
-
-/*  // PE.6/7 are ICE pins  
-    //
-    // Set PE.0 mode in.
-    //  
-    xGPIODirModeSet(xGPIO_PORTE_BASE, xGPIO_PIN_6, xGPIO_DIR_MODE_IN);
-    
-    //
-    // Set GPIO pin interrupt callback.
-    //
-    xGPIOPinIntCallbackInit(xGPIO_PORTE_BASE, xGPIO_PIN_6, user_Callback4);
-    
-    //
-    // Enable GPIO pin interrupt.
-    //
-    xGPIOPinIntEnable(xGPIO_PORTE_BASE, xGPIO_PIN_6, xGPIO_FALLING_EDGE);
-    
-    xIntEnable(xINT_GPIOE);
-    TestAssertQBreak("a", "gpio interrupt test fail", 0xffffffff); 
-    //-------------------------------------------------------------------
-*/    
-    //
-    // Set PF.0 mode in
-    //
-    xGPIODirModeSet(xGPIO_PORTF_BASE, xGPIO_PIN_5, xGPIO_DIR_MODE_IN);
-    
-    //
-    // Set GPIO pin interrupt callback.
-    //
-    xGPIOPinIntCallbackInit(xGPIO_PORTF_BASE, xGPIO_PIN_5, user_Callback5);
-    
-    //
-    // Enable GPIO pin interrupt.
-    //
-    xGPIOPinIntEnable(xGPIO_PORTF_BASE, xGPIO_PIN_5, xGPIO_FALLING_EDGE);
-    
-    xIntEnable(xINT_GPIOF);
-    TestAssertQBreak("a", "gpio interrupt test fail", 0xffffffff);    
-    
-        
+ 
 }   
 
 //

@@ -6,7 +6,7 @@
 //!
 //! <h2>Description</h2>
 //! This module implements the test sequence for the xgpio sub component.<br><br>
-//! - \p Board: NuTiny-LB-Mini51 v2.0 <br><br>
+//! - \p Board: HT32F125x Development Board<br><br>
 //! - \p Last-Time(about): 0.5s <br><br>
 //! - \p Phenomenon: Success or failure information will be printed on the UART. <br><br>
 //! .
@@ -45,52 +45,76 @@
 //
 //*****************************************************************************
 
+
 //
 // GPIO base value
 //
-static unsigned long ulGPIO[6] = {xGPIO_PORTA_BASE,xGPIO_PORTB_BASE,
-                                  xGPIO_PORTC_BASE,xGPIO_PORTD_BASE,
-                                  xGPIO_PORTE_BASE,xGPIO_PORTF_BASE};
+static unsigned long ulGPIO[2] = {xGPIO_PORTA_BASE,xGPIO_PORTB_BASE};
 
 //
 // GPIO bit packed pin
 //
-static unsigned long ulPackedPin[8] = {xGPIO_PIN_0, xGPIO_PIN_1, xGPIO_PIN_2,
+static unsigned long ulPackedPin[16] = {xGPIO_PIN_0, xGPIO_PIN_1, xGPIO_PIN_2,
                                        xGPIO_PIN_3, xGPIO_PIN_4, xGPIO_PIN_5,
-                                       xGPIO_PIN_6, xGPIO_PIN_7};
+                                       xGPIO_PIN_6, xGPIO_PIN_7, xGPIO_PIN_8,
+									   xGPIO_PIN_9, xGPIO_PIN_10, xGPIO_PIN_11,
+                                       xGPIO_PIN_12, xGPIO_PIN_13, xGPIO_PIN_14,
+                                       xGPIO_PIN_15};
 
 //
 // GPIO Pin Mode
 //
 static unsigned long ulPinMode[4] = {xGPIO_DIR_MODE_IN, xGPIO_DIR_MODE_OUT, 
-                                     xGPIO_DIR_MODE_QB, xGPIO_DIR_MODE_OD};
+                                     xGPIO_DIR_MODE_OD};
 
 //
 // GPIO interrupt type 
 //
-static unsigned long ulIntType[6] = {xGPIO_FALLING_EDGE, xGPIO_RISING_EDGE,
-                                     xGPIO_BOTH_EDGES,   xGPIO_BOTH_LEVEL,
-                                     xGPIO_LOW_LEVEL,    xGPIO_HIGH_LEVEL};
+static unsigned long ulIntTypes[6] = {xGPIO_FALLING_EDGE, xGPIO_RISING_EDGE,
+                                     xGPIO_BOTH_EDGES,   xGPIO_LOW_LEVEL, 
+									 xGPIO_HIGH_LEVEL};
 
 //
-// De-bounce delay source
+// EXTI lines 
 //
-static unsigned long ulDelay[2] = {GPIO_DBCLKSRC_HCLK, GPIO_DBCLKSRC_10K};
+static unsigned long ulEXTILines[3] = {EXTI_LINE_0, EXTI_LINE_8, EXTI_LINE_15};
+static unsigned long ulEXTILineShift[3] = {0, 8, 15};
+static unsigned long ulDeBounceTime[3] = {1, 1000, 1000000};
 
 //
-// De-bounce delay cycle
+// EXTI wake up INT configure 
 //
-static unsigned long ulDelayCycle[3] = {0, 10, 15};
+static unsigned long ulEXTIWakeUpInt[2] = {EXTI_WAKEUP_INT_ENABLE, 
+                                           EXTI_WAKEUP_INT_DISABLE};
 
 //
-// Peripheral ID
+// EXTI lines wake up enable
 //
-static unsigned long ulPeripheralID[1] = {SYSCTL_PERIPH_GPIO};
+static unsigned long ulEXTIWakeUp[2] = {EXTI_LINES_WAKEUP_ENABLE,
+                                        EXTI_LINES_WAKEUP_DISABLE};
+
+//
+// EXTI wake up level
+//
+static unsigned long ulEXTIWakeUpLevel[2] = {EXTI_LINE_WAKEUP_LOW, 
+                                             EXTI_LINE_WAKEUP_HIGH};
 
 //
 // GPIO pin
 //
 static unsigned long ulPinValue[3] = {GPIO_PIN_0, GPIO_PIN_1, GPIO_PIN_2};
+
+//
+// GPIO Pad configure
+//
+static unsigned long ulOpenDrain[2] = {GPIO_DIR_MODE_OD_EN, 
+                                       GPIO_DIR_MODE_OD_DIS};
+static unsigned long ulPullResistor[3] = {GPIO_PIN_TYPE_STD_WPU, 
+                                          GPIO_PIN_TYPE_STD_WPD, 
+										  GPIO_PR_DISABLE}; 
+static unsigned long ulStrengthValue[2] = {GPIO_STRENGTH_4MA, 
+                                           GPIO_STRENGTH_8MA};
+
 
 //*****************************************************************************
 //
@@ -101,7 +125,7 @@ static unsigned long ulPinValue[3] = {GPIO_PIN_0, GPIO_PIN_1, GPIO_PIN_2};
 //*****************************************************************************
 static char* xgpio001GetTest(void)
 {
-    return "xgpio, 001, xgpio register test";
+    return "xgpio, 001, gpio register test";
 }
 
 //*****************************************************************************
@@ -113,7 +137,11 @@ static char* xgpio001GetTest(void)
 //*****************************************************************************
 static void xgpio001Setup(void)
 {
-    
+    xSysCtlClockSet(8000000, xSYSCTL_XTAL_8MHZ | xSYSCTL_OSC_MAIN);
+    xSysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
+	xSysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
+	xSysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);
+	xSysCtlPeripheralEnable(SYSCTL_PERIPH_EXTI);
 }
 
 //*****************************************************************************
@@ -125,7 +153,7 @@ static void xgpio001Setup(void)
 //*****************************************************************************
 static void xgpio001TearDown(void)
 {
-    xSysCtlPeripheralReset(SYSCTL_PERIPH_GPIO);
+    xSysCtlPeripheralReset(SYSCTL_PERIPH_EXTI);
 }
 
 //*****************************************************************************
@@ -139,7 +167,7 @@ static void xgpio001Execute(void)
 {
    
     unsigned long ulPin, ulPort;
-    unsigned long ulvalue, ulTemp, ulTemp1;  
+    unsigned long ulvalue, ulTemp;  
     int i, j;
 
     //
@@ -183,481 +211,221 @@ static void xgpio001Execute(void)
     TestAssert((ulvalue == xGPIO_DIR_MODE_OUT), 
                "xgpioA, \" GPIODirModeSet or GPIODirModeGet()\" error");   
     
-    //
-    // GPIOC pin mode test
-    //
-    xGPIODirModeSet(xGPIO_PORTC_BASE, xGPIO_PIN_4, xGPIO_DIR_MODE_IN);
-    ulvalue = xGPIODirModeGet(xGPIO_PORTC_BASE, xGPIO_PIN_4) ;  
-    TestAssert((ulvalue == xGPIO_DIR_MODE_IN), 
-                "xgpioA, \" GPIODirModeSet or GPIODirModeGet()\" error");
-    xGPIODirModeSet(xGPIO_PORTC_BASE, xGPIO_PIN_4, xGPIO_DIR_MODE_OUT);
-    ulvalue = xGPIODirModeGet(xGPIO_PORTC_BASE, xGPIO_PIN_4) ;    
-    TestAssert((ulvalue == xGPIO_DIR_MODE_OUT), 
-               "xgpioA, \" GPIODirModeSet or GPIODirModeGet()\" error");     
-    xGPIODirModeSet(xGPIO_PORTC_BASE, xGPIO_PIN_2, xGPIO_DIR_MODE_IN);
-    ulvalue = xGPIODirModeGet(xGPIO_PORTC_BASE, xGPIO_PIN_2) ;  
-    TestAssert((ulvalue == xGPIO_DIR_MODE_IN), 
-                "xgpioA, \" GPIODirModeSet or GPIODirModeGet()\" error");
-    xGPIODirModeSet(xGPIO_PORTC_BASE, xGPIO_PIN_2, xGPIO_DIR_MODE_OUT);
-    ulvalue = xGPIODirModeGet(xGPIO_PORTC_BASE, xGPIO_PIN_2) ;    
-    TestAssert((ulvalue == xGPIO_DIR_MODE_OUT), 
-               "xgpioA, \" GPIODirModeSet or GPIODirModeGet()\" error");
-    
-    //
-    // GPIOD pin mode test
-    //
-    xGPIODirModeSet(xGPIO_PORTD_BASE, xGPIO_PIN_0, xGPIO_DIR_MODE_IN);
-    ulvalue = xGPIODirModeGet(xGPIO_PORTD_BASE, xGPIO_PIN_0) ;  
-    TestAssert((ulvalue == xGPIO_DIR_MODE_IN), 
-                "xgpioA, \" GPIODirModeSet or GPIODirModeGet()\" error");      
-    xGPIODirModeSet(xGPIO_PORTD_BASE, xGPIO_PIN_0, xGPIO_DIR_MODE_OUT);
-    ulvalue = xGPIODirModeGet(xGPIO_PORTD_BASE, xGPIO_PIN_0) ;    
-    TestAssert((ulvalue == xGPIO_DIR_MODE_OUT), 
-               "xgpioA, \" GPIODirModeSet or GPIODirModeGet()\" error"); 
-    
-    xGPIODirModeSet(xGPIO_PORTD_BASE, xGPIO_PIN_4, xGPIO_DIR_MODE_IN);
-    ulvalue = xGPIODirModeGet(xGPIO_PORTD_BASE, xGPIO_PIN_4) ;  
-    TestAssert((ulvalue == xGPIO_DIR_MODE_IN), 
-                "xgpioA, \" GPIODirModeSet or GPIODirModeGet()\" error");
-    xGPIODirModeSet(xGPIO_PORTD_BASE, xGPIO_PIN_4, xGPIO_DIR_MODE_OUT);
-    ulvalue = xGPIODirModeGet(xGPIO_PORTD_BASE, xGPIO_PIN_4) ;    
-    TestAssert((ulvalue == xGPIO_DIR_MODE_OUT), 
-               "xgpioA, \" GPIODirModeSet or GPIODirModeGet()\" error");     
-    
-    //
-    // GPIOE pin mode test
-    //
-    xGPIODirModeSet(xGPIO_PORTE_BASE, xGPIO_PIN_6, xGPIO_DIR_MODE_IN);
-    ulvalue = xGPIODirModeGet(xGPIO_PORTE_BASE, xGPIO_PIN_6) ;  
-    TestAssert((ulvalue == xGPIO_DIR_MODE_IN), 
-                "xgpioA, \" GPIODirModeSet or GPIODirModeGet()\" error");      
-    xGPIODirModeSet(xGPIO_PORTE_BASE, xGPIO_PIN_6, xGPIO_DIR_MODE_OUT);
-    ulvalue = xGPIODirModeGet(xGPIO_PORTE_BASE, xGPIO_PIN_6) ;    
-    TestAssert((ulvalue == xGPIO_DIR_MODE_OUT), 
-               "xgpioA, \" GPIODirModeSet or GPIODirModeGet()\" error"); 
-    
-    xGPIODirModeSet(xGPIO_PORTE_BASE, xGPIO_PIN_7, xGPIO_DIR_MODE_IN);
-    ulvalue = xGPIODirModeGet(xGPIO_PORTE_BASE, xGPIO_PIN_7) ;  
-    TestAssert((ulvalue == xGPIO_DIR_MODE_IN), 
-                "xgpioA, \" GPIODirModeSet or GPIODirModeGet()\" error");
-    xGPIODirModeSet(xGPIO_PORTE_BASE, xGPIO_PIN_7, xGPIO_DIR_MODE_OUT);
-    ulvalue = xGPIODirModeGet(xGPIO_PORTE_BASE, xGPIO_PIN_7) ;    
-    TestAssert((ulvalue == xGPIO_DIR_MODE_OUT), 
-               "xgpioA, \" GPIODirModeSet or GPIODirModeGet()\" error");
-    
-    //
-    // GPIOF pin mode test
-    //
-    xGPIODirModeSet(xGPIO_PORTF_BASE, xGPIO_PIN_0, xGPIO_DIR_MODE_IN);
-    ulvalue = xGPIODirModeGet(xGPIO_PORTF_BASE, xGPIO_PIN_0) ;  
-    TestAssert((ulvalue == xGPIO_DIR_MODE_IN), 
-                "xgpioA, \" GPIODirModeSet or GPIODirModeGet()\" error"); 
-    
-    xGPIODirModeSet(xGPIO_PORTF_BASE, xGPIO_PIN_4, xGPIO_DIR_MODE_IN);
-    ulvalue = xGPIODirModeGet(xGPIO_PORTF_BASE, xGPIO_PIN_4) ;  
-    TestAssert((ulvalue == xGPIO_DIR_MODE_IN), 
-                "xgpioA, \" GPIODirModeSet or GPIODirModeGet()\" error");
-    xGPIODirModeSet(xGPIO_PORTF_BASE, xGPIO_PIN_4, xGPIO_DIR_MODE_OUT);
-    ulvalue = xGPIODirModeGet(xGPIO_PORTF_BASE, xGPIO_PIN_4) ;    
-    TestAssert((ulvalue == xGPIO_DIR_MODE_OUT), 
-               "xgpioA, \" GPIODirModeSet or GPIODirModeGet()\" error");  
        
     xIntDisable(xINT_GPIOA);
     xIntDisable(xINT_GPIOB);
-    xIntDisable(xINT_GPIOC);
-    xIntDisable(xINT_GPIOD);
-    xIntDisable(xINT_GPIOE);
     
     //
     // GPIOA int enable test
     //
-    for(i = 0; i < 6; i++)
+    for(i = 0; i < 5; i++)
     {
-        xGPIOPinIntEnable(xGPIO_PORTA_BASE, xGPIO_PIN_0, ulIntType[i]);
-        if(ulIntType[i] & 0x10)
-        { 
-            ulTemp = xHWREG(xGPIO_PORTA_BASE + GPIO_IMD) & xGPIO_PIN_0;
-            TestAssert(ulTemp == xGPIO_PIN_0,
-                       "xgpio, \"Level INT type enable \" error");
-        }
-        else
-        {
-            ulTemp = xHWREG(xGPIO_PORTA_BASE + GPIO_IMD) & xGPIO_PIN_0;
-            TestAssert(ulTemp == 0,
-                       "xgpio, \"Edge INT type enable \" error");
-        }
-        if(ulIntType[i] & 2)
-        {
-            ulTemp = xHWREG(xGPIO_PORTA_BASE + GPIO_IEN) & (xGPIO_PIN_0 << 16);
-            TestAssert(ulTemp == (xGPIO_PIN_0 << 16),
-                       "xgpio, \"Rising or high level Int \" error");                    
-        }
-        if(ulIntType[i] & 1)
-        {
-            ulTemp = xHWREG(xGPIO_PORTA_BASE + GPIO_IEN) & xGPIO_PIN_0;
-            TestAssert(ulTemp ==xGPIO_PIN_0,
-                       "xgpio, \"Falling or low level Int \" error");  
-        }    
+        xGPIOPinIntEnable(xGPIO_PORTA_BASE, xGPIO_PIN_0, ulIntTypes[i]);
+        ulTemp = xHWREG(GPIO_EXTI_BASE + EXTI_CFGR0) & EXTI_CFGR0_SRCTYPE_M;
+        TestAssert(ulTemp == ulIntTypes[i],
+                   "xgpio, \"xGPIOPinIntEnable \" error");
+        ulTemp =  xHWREG(GPIO_AFIO_BASE + AFIO_ESSRO) & AFIO_ESSR1_EXTINPIN_B;
+        TestAssert(ulTemp == 0,
+                   "xgpio, \"xGPIOPinIntEnable \" error");
+	    ulTemp = xHWREG(GPIO_EXTI_BASE + EXTI_ICR) & 0x00000001;
+        TestAssert(ulTemp == 0x00000001,
+                   "xgpio, \"xGPIOPinIntEnable \" error");
     }
     
     //
     // GPIOB int enable test
     //
-    for(i = 0; i < 6; i++)
+    for(i = 0; i < 5; i++)
     {
-        xGPIOPinIntEnable(xGPIO_PORTB_BASE, xGPIO_PIN_0, ulIntType[i]);
-        if(ulIntType[i] & 0x10)
-        { 
-            ulTemp = xHWREG(xGPIO_PORTB_BASE + GPIO_IMD) & xGPIO_PIN_0;
-            TestAssert(ulTemp == xGPIO_PIN_0,
-                       "xgpio, \"Level INT type enable \" error");
-        }
-        else
-        {
-            ulTemp = xHWREG(xGPIO_PORTB_BASE + GPIO_IMD) & xGPIO_PIN_0;
-            TestAssert(ulTemp == 0,
-                       "xgpio, \"Edge INT type enable \" error");
-        }
-        if(ulIntType[i] & 2)
-        {
-            ulTemp = xHWREG(xGPIO_PORTB_BASE + GPIO_IEN) & (xGPIO_PIN_0 << 16);
-            TestAssert(ulTemp == (xGPIO_PIN_0 << 16),
-                       "xgpio, \"Rising or high level Int \" error");                    
-        }
-        if(ulIntType[i] & 1)
-        {
-            ulTemp = xHWREG(xGPIO_PORTB_BASE + GPIO_IEN) & xGPIO_PIN_0;
-            TestAssert(ulTemp ==xGPIO_PIN_0,
-                       "xgpio, \"Falling or low level Int \" error");  
-        }    
+        xGPIOPinIntEnable(xGPIO_PORTB_BASE, xGPIO_PIN_9, ulIntTypes[i]);
+        ulTemp = xHWREG(GPIO_EXTI_BASE + EXTI_CFGR0 + 9*4) & EXTI_CFGR0_SRCTYPE_M;
+        TestAssert(ulTemp == ulIntTypes[i],
+                   "xgpio, \"xGPIOPinIntEnable \" error");  
+        ulTemp =  xHWREG(GPIO_AFIO_BASE + AFIO_ESSR1) & (AFIO_ESSR1_EXTINPIN_B << 4);
+        TestAssert(ulTemp == (AFIO_ESSR1_EXTINPIN_B << 4),
+                   "xgpio, \"xGPIOPinIntEnable \" error");
+	    ulTemp = xHWREG(GPIO_EXTI_BASE + EXTI_ICR) & (0x00000001 << 9);
+        TestAssert(ulTemp == (0x00000001 << 9),
+                   "xgpio, \"xGPIOPinIntEnable \" error");
+
     }    
     
     //
-    // GPIOC int enable test
-    //
-    for(i = 0; i < 6; i++)
+	// Int Disable test
+	//
+    for(ulPin = 0; ulPin < 16; ulPin++)
     {
-        xGPIOPinIntEnable(xGPIO_PORTC_BASE, xGPIO_PIN_2, ulIntType[i]);
-        if(ulIntType[i] & 0x10)
-        { 
-            ulTemp = xHWREG(xGPIO_PORTC_BASE + GPIO_IMD) & xGPIO_PIN_2;
-            TestAssert(ulTemp == xGPIO_PIN_2,
-                       "xgpio, \"Level INT type enable \" error");
-        }
-        else
-        {
-            ulTemp = xHWREG(xGPIO_PORTC_BASE + GPIO_IMD) & xGPIO_PIN_2;
-            TestAssert(ulTemp == 0,
-                       "xgpio, \"Edge INT type enable \" error");
-        }
-        if(ulIntType[i] & 2)
-        {
-            ulTemp = xHWREG(xGPIO_PORTC_BASE + GPIO_IEN) & (xGPIO_PIN_2 << 16);
-            TestAssert(ulTemp == (xGPIO_PIN_2 << 16),
-                       "xgpio, \"Rising or high level Int \" error");                    
-        }
-        if(ulIntType[i] & 1)
-        {
-            ulTemp = xHWREG(xGPIO_PORTC_BASE + GPIO_IEN) & xGPIO_PIN_2;
-            TestAssert(ulTemp ==xGPIO_PIN_2,
-                       "xgpio, \"Falling or low level Int \" error");  
-        }    
-    }   
-    
-    //
-    // GPIOD int enable test
-    //
-    for(i = 0; i < 6; i++)
-    {
-        xGPIOPinIntEnable(xGPIO_PORTD_BASE, xGPIO_PIN_6, ulIntType[i]);
-        if(ulIntType[i] & 0x10)
-        { 
-            ulTemp = xHWREG(xGPIO_PORTD_BASE + GPIO_IMD) & xGPIO_PIN_6;
-            TestAssert(ulTemp == xGPIO_PIN_6,
-                       "xgpio, \"Level INT type enable \" error");
-        }
-        else
-        {
-            ulTemp = xHWREG(xGPIO_PORTD_BASE + GPIO_IMD) & xGPIO_PIN_6;
-            TestAssert(ulTemp == 0,
-                       "xgpio, \"Edge INT type enable \" error");
-        }
-        if(ulIntType[i] & 2)
-        {
-            ulTemp = xHWREG(xGPIO_PORTD_BASE + GPIO_IEN) & (xGPIO_PIN_6 << 16);
-            TestAssert(ulTemp == (xGPIO_PIN_6 << 16),
-                       "xgpio, \"Rising or high level Int \" error");                    
-        }
-        if(ulIntType[i] & 1)
-        {
-            ulTemp = xHWREG(xGPIO_PORTD_BASE + GPIO_IEN) & xGPIO_PIN_6;
-            TestAssert(ulTemp ==xGPIO_PIN_6,
-                       "xgpio, \"Falling or low level Int \" error");  
-        }    
-    }  
-    
-    //
-    // GPIOE int enable test
-    //
-    for(i = 0; i < 6; i++)
-    {
-        xGPIOPinIntEnable(xGPIO_PORTE_BASE, xGPIO_PIN_6, ulIntType[i]);
-        if(ulIntType[i] & 0x10)
-        { 
-            ulTemp = xHWREG(xGPIO_PORTE_BASE + GPIO_IMD) & xGPIO_PIN_6;
-            TestAssert(ulTemp == xGPIO_PIN_6,
-                       "xgpio, \"Level INT type enable \" error");
-        }
-        else
-        {
-            ulTemp = xHWREG(xGPIO_PORTE_BASE + GPIO_IMD) & xGPIO_PIN_6;
-            TestAssert(ulTemp == 0,
-                       "xgpio, \"Edge INT type enable \" error");
-        }
-        if(ulIntType[i] & 2)
-        {
-            ulTemp = xHWREG(xGPIO_PORTE_BASE + GPIO_IEN) & (xGPIO_PIN_6 << 16);
-            TestAssert(ulTemp == (xGPIO_PIN_6 << 16),
-                       "xgpio, \"Rising or high level Int \" error");                    
-        }
-        if(ulIntType[i] & 1)
-        {
-            ulTemp = xHWREG(xGPIO_PORTE_BASE + GPIO_IEN) & xGPIO_PIN_6;
-            TestAssert(ulTemp ==xGPIO_PIN_6,
-                       "xgpio, \"Falling or low level Int \" error");  
-        }    
-    }     
-    
-    //
-    // GPIOF int enable test
-    //
-    for(i = 0; i < 6; i++)
-    {
-        xGPIOPinIntEnable(xGPIO_PORTF_BASE, xGPIO_PIN_5, ulIntType[i]);
-        if(ulIntType[i] & 0x10)
-        { 
-            ulTemp = xHWREG(xGPIO_PORTF_BASE + GPIO_IMD) & xGPIO_PIN_5;
-            TestAssert(ulTemp == xGPIO_PIN_5,
-                       "xgpio, \"Level INT type enable \" error");
-        }
-        else
-        {
-            ulTemp = xHWREG(xGPIO_PORTF_BASE + GPIO_IMD) & xGPIO_PIN_5;
-            TestAssert(ulTemp == 0,
-                       "xgpio, \"Edge INT type enable \" error");
-        }
-        if(ulIntType[i] & 2)
-        {
-            ulTemp = xHWREG(xGPIO_PORTF_BASE + GPIO_IEN) & (xGPIO_PIN_5 << 16);
-            TestAssert(ulTemp == (xGPIO_PIN_5 << 16),
-                       "xgpio, \"Rising or high level Int \" error");                    
-        }
-        if(ulIntType[i] & 1)
-        {
-            ulTemp = xHWREG(xGPIO_PORTF_BASE + GPIO_IEN) & xGPIO_PIN_5;
-            TestAssert(ulTemp ==xGPIO_PIN_5,
-                       "xgpio, \"Falling or low level Int \" error");  
-        }    
-    }  
-    
-    //
-    // Interrupt disable test
-    //
-    for(ulPort = 0; ulPort < 6; ulPort++)
-    {
-        for(ulPin = 0; ulPin < 8; ulPin++)
-        {
-            xGPIOPinIntDisable(ulGPIO[ulPort], ulPackedPin[ulPin]);
-            ulTemp = xHWREG(ulGPIO[ulPort] + GPIO_IEN) & (ulPackedPin[ulPin] << 16);
-            ulTemp1 = xHWREG(ulGPIO[ulPort] + GPIO_IEN) & ulPackedPin[ulPin];
-            ulTemp |= ulTemp1;
-            TestAssert(ulTemp == 0,
-                       "xgpio, \"Interrupt disable test \" error"); 
-        }
+        xGPIOPinIntDisable(GPIO_AFIO_BASE, ulPackedPin[ulPin]);
+	    ulTemp = xHWREG(GPIO_EXTI_BASE + EXTI_ICR) & (0x00000001 << ulPin);
+        TestAssert(ulTemp == 0,
+                   "xgpio, \"Interrupt disable test \" error"); 
     }
-    
+ 
     //
     // GPIOA out/in test
     //
     xGPIODirModeSet( xGPIO_PORTA_BASE, xGPIO_PIN_0, GPIO_DIR_MODE_OUT );
     xGPIOPinWrite(xGPIO_PORTA_BASE, xGPIO_PIN_0, 1);
-    ulTemp = xHWREG(xGPIO_PORTA_BASE + GPIO_DOUT) & xGPIO_PIN_0;
+    ulTemp = GPIOPinPortDoutGet(xGPIO_PORTA_BASE);
     TestAssert(ulTemp == xGPIO_PIN_0,
                "xgpio, \"Output pin value set \" error");   
+
+    xGPIOPinWrite(xGPIO_PORTA_BASE, xGPIO_PIN_0, 0);
+    ulTemp = GPIOPinPortDoutGet(xGPIO_PORTA_BASE);
+    TestAssert(ulTemp == 0,
+               "xgpio, \"Output pin value set \" error");  
     
     //
     // GPIOB out/in test
     //
-    xGPIODirModeSet( xGPIO_PORTB_BASE, xGPIO_PIN_0, GPIO_DIR_MODE_OUT );
-    xGPIOPinWrite(xGPIO_PORTB_BASE, xGPIO_PIN_0, 1);
-    ulTemp = xHWREG(xGPIO_PORTB_BASE + GPIO_DOUT) & xGPIO_PIN_0;
-    TestAssert(ulTemp == xGPIO_PIN_0,
-               "xgpio, \"Output pin value set \" error");
-    
-    //
-    // GPIOC out/in test
-    //
-    xGPIODirModeSet( xGPIO_PORTC_BASE, xGPIO_PIN_2, GPIO_DIR_MODE_OUT );
-    xGPIOPinWrite(xGPIO_PORTC_BASE, xGPIO_PIN_2, 1);
-    ulTemp = xHWREG(xGPIO_PORTC_BASE + GPIO_DOUT) & xGPIO_PIN_2;
+    xGPIODirModeSet( xGPIO_PORTB_BASE, xGPIO_PIN_2, GPIO_DIR_MODE_OUT );
+    xGPIOPinWrite(xGPIO_PORTB_BASE, xGPIO_PIN_2, 1);
+    ulTemp = GPIOPinPortDoutGet(xGPIO_PORTB_BASE) & xGPIO_PIN_2;
     TestAssert(ulTemp == xGPIO_PIN_2,
                "xgpio, \"Output pin value set \" error");
-    
-    //
-    // GPIOD out/in test
-    //
-    xGPIODirModeSet( xGPIO_PORTD_BASE, xGPIO_PIN_2, GPIO_DIR_MODE_OUT );
-    xGPIOPinWrite(xGPIO_PORTD_BASE, xGPIO_PIN_2, 1);
-    ulTemp = xHWREG(xGPIO_PORTD_BASE + GPIO_DOUT) & xGPIO_PIN_2;
-    TestAssert(ulTemp == xGPIO_PIN_2,
+
+    xGPIOPinWrite(xGPIO_PORTB_BASE, xGPIO_PIN_2, 0);
+    ulTemp = GPIOPinPortDoutGet(xGPIO_PORTB_BASE) & xGPIO_PIN_2;
+    TestAssert(ulTemp == 0,
                "xgpio, \"Output pin value set \" error");
-    
+
+    GPIOPortWrite(xGPIO_PORTB_BASE, 0x00000004);
+	ulTemp = GPIOPinPortDoutGet(xGPIO_PORTB_BASE) & xGPIO_PIN_2;
+    TestAssert(ulTemp == 0x00000004,
+               "xgpio, \"Output port value set \" error");
+	GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_2, 0);
+	ulTemp = GPIOPinPortDoutGet(xGPIO_PORTB_BASE) & xGPIO_PIN_2;
+    TestAssert(ulTemp == 0,
+               "xgpio, \"Output port value set2 \" error");
+	    
     //
-    // GPIOE out/in test
+    // EXTI line De-bounce enable test
     //
-    xGPIODirModeSet( xGPIO_PORTE_BASE, xGPIO_PIN_6, GPIO_DIR_MODE_OUT );
-    xGPIOPinWrite(xGPIO_PORTE_BASE, xGPIO_PIN_6, 1);
-    ulTemp = xHWREG(xGPIO_PORTE_BASE + GPIO_DOUT) & xGPIO_PIN_6;
-    TestAssert(ulTemp == xGPIO_PIN_6,
-               "xgpio, \"Output pin value set \" error"); 
-    
-    //
-    // GPIOF out/in test
-    //
-    xGPIODirModeSet( xGPIO_PORTF_BASE, xGPIO_PIN_2, GPIO_DIR_MODE_OUT );
-    xGPIOPinWrite(xGPIO_PORTF_BASE, xGPIO_PIN_2, 1);
-    ulTemp = xHWREG(xGPIO_PORTF_BASE + GPIO_DOUT) & xGPIO_PIN_2;
-    TestAssert(ulTemp == xGPIO_PIN_2,
-               "xgpio, \"Output pin value set \" error"); 
-      
-    //
-    // GPIOA De-bounce enable test
-    //
-    GPIOPinDebounceEnable(xGPIO_PORTA_BASE, xGPIO_PIN_0);
-    ulTemp = xHWREG(xGPIO_PORTA_BASE + GPIO_DBEN) & xGPIO_PIN_0;
-    TestAssert(ulTemp == xGPIO_PIN_0,
+    EXTILineDebounceEnable(xGPIO_PIN_0);
+    ulTemp = xHWREG(GPIO_EXTI_BASE + EXTI_CFGR0) & EXTI_CFGR0_DBEN;
+    TestAssert(ulTemp == EXTI_CFGR0_DBEN,
                "xgpio, \"De-bounce enable test \" error");  
-    
-    //
-    // GPIOB De-bounce enable test
-    //
-    GPIOPinDebounceEnable(xGPIO_PORTB_BASE, xGPIO_PIN_0);
-    ulTemp = xHWREG(xGPIO_PORTB_BASE + GPIO_DBEN) & xGPIO_PIN_0;
-    TestAssert(ulTemp == xGPIO_PIN_0,
-               "xgpio, \"De-bounce enable test \" error");  
-    
-    //
-    // GPIOC De-bounce enable test
-    //
-    GPIOPinDebounceEnable(xGPIO_PORTC_BASE, xGPIO_PIN_2);
-    ulTemp = xHWREG(xGPIO_PORTC_BASE + GPIO_DBEN) & xGPIO_PIN_2;
-    TestAssert(ulTemp == xGPIO_PIN_2,
-               "xgpio, \"De-bounce enable test \" error");
-    
-    //
-    // GPIOD De-bounce enable test
-    //
-    GPIOPinDebounceEnable(xGPIO_PORTD_BASE, xGPIO_PIN_6);
-    ulTemp = xHWREG(xGPIO_PORTD_BASE + GPIO_DBEN) & xGPIO_PIN_6;
-    TestAssert(ulTemp == xGPIO_PIN_6,
-               "xgpio, \"De-bounce enable test \" error");
-    
-    //
-    // GPIOE De-bounce enable test
-    //
-    GPIOPinDebounceEnable(xGPIO_PORTE_BASE, xGPIO_PIN_6);
-    ulTemp = xHWREG(xGPIO_PORTE_BASE + GPIO_DBEN) & xGPIO_PIN_6;
-    TestAssert(ulTemp == xGPIO_PIN_6,
-               "xgpio, \"De-bounce enable test \" error");
-    
-    //
-    // GPIOE De-bounce enable test
-    //
-    GPIOPinDebounceEnable(xGPIO_PORTF_BASE, xGPIO_PIN_0);
-    ulTemp = xHWREG(xGPIO_PORTF_BASE + GPIO_DBEN) & xGPIO_PIN_0;
-    TestAssert(ulTemp == xGPIO_PIN_0,
-               "xgpio, \"De-bounce enable test \" error");  
-    
-    //
-    // GPIOA mask set/get test
-    //
-    GPIOPinMaskSet(xGPIO_PORTA_BASE, xGPIO_PIN_0);
-    ulTemp = GPIOPortMaskGet(xGPIO_PORTA_BASE) & xGPIO_PIN_0;     
-    TestAssert(ulTemp == xGPIO_PIN_0,
-               "xgpio, \" Mask set/get test \" error"); 
-    
-    //
-    // GPIOB mask set/get test
-    //    
-    GPIOPinMaskSet(xGPIO_PORTB_BASE, xGPIO_PIN_0);
-    ulTemp = GPIOPortMaskGet(xGPIO_PORTB_BASE) & xGPIO_PIN_0;     
-    TestAssert(ulTemp == xGPIO_PIN_0,
-               "xgpio, \" Mask set/get test \" error"); 
-    
-    //
-    // GPIOC mask set/get test
-    //
-    GPIOPinMaskSet(xGPIO_PORTC_BASE, xGPIO_PIN_2);
-    ulTemp = GPIOPortMaskGet(xGPIO_PORTC_BASE) & xGPIO_PIN_2;     
-    TestAssert(ulTemp == xGPIO_PIN_2,
-               "xgpio, \" Mask set/get test \" error"); 
-    
-    //
-    // GPIOD mask set/get test
-    //
-    GPIOPinMaskSet(xGPIO_PORTD_BASE, xGPIO_PIN_2);
-    ulTemp = GPIOPortMaskGet(xGPIO_PORTD_BASE) & xGPIO_PIN_2;     
-    TestAssert(ulTemp == xGPIO_PIN_2,
-               "xgpio, \" Mask set/get test \" error"); 
-    
-    //
-    // GPIOE mask set/get test
-    //
-    GPIOPinMaskSet(xGPIO_PORTE_BASE, xGPIO_PIN_6);
-    ulTemp = GPIOPortMaskGet(xGPIO_PORTE_BASE) & xGPIO_PIN_6;     
-    TestAssert(ulTemp == xGPIO_PIN_6,
-               "xgpio, \" Mask set/get test \" error"); 
-    
-    
-    //
-    // GPIOF mask set/get test
-    //
-    GPIOPinMaskSet(xGPIO_PORTF_BASE, xGPIO_PIN_2);
-    ulTemp = GPIOPortMaskGet(xGPIO_PORTF_BASE) & xGPIO_PIN_2;     
-    TestAssert(ulTemp == xGPIO_PIN_2,
-               "xgpio, \" Mask set/get test \" error");     
-    
-    //
-    // De-bounce time set and get test
-    //
-    for(i = 0; i < 2; i++)
-    {
-        for(j = 0; j < 3; j++)
-        {
-            GPIODebounceTimeSet(ulDelay[i], ulDelayCycle[j]);
-            ulTemp = xHWREG(GPIO_DBNCECON) & 0x10;
-            if(i == 0)
-            {
-                TestAssert(ulTemp == 0,
-                           "xgpio, \" De-bounce source set \" error");  
-            }
-            else
-            {  
-                TestAssert(ulTemp == 0x10,
-                           "xgpio, \" De-bounce source set \" error");  
-            }
-            ulTemp1 = GPIODebounceTimeGet();
-            TestAssert(ulTemp1 == ulDelayCycle[j],
-                       "xgpio, \" De-bounce cycle test \" error");  
-        }
+
+	//
+	// EXTI line De-bounce disable test
+	//
+    EXTILineDebounceDisable(xGPIO_PIN_0);
+    ulTemp = xHWREG(GPIO_EXTI_BASE + EXTI_CFGR0) & EXTI_CFGR0_DBEN;
+    TestAssert(ulTemp == 0,
+               "xgpio, \"De-bounce disable test \" error"); 
+	
+	//
+	// EXTI line De-bounce time set test
+	//
+	for(i = 0; i < 3; i++)
+	{
+	    for(j = 0; j < 3; j++)
+		{
+		    EXTIDebounceTimeSet(ulEXTILines[i], ulDeBounceTime[j]);
+			ulTemp = EXTIDebounceTimeGet(ulEXTILines[i]);   
+			TestAssert(ulTemp == ulDeBounceTime[j], 
+			           "xgpio, \"De-bounce disable test \" error");  
+		}  
+	}	
+	
+	//
+	// EXTI Wake Up Int configure test
+	//
+    EXTIWakeUpIntConfigure(ulEXTIWakeUpInt[0]);
+	ulTemp = xHWREG(GPIO_EXTI_BASE + EXTI_WAKUPCR) & EXTI_WAKUPCR_EVWUPIEN;
+    TestAssert(ulTemp == EXTI_WAKUPCR_EVWUPIEN,
+               "xgpio, \"EXTI Wake Up Int Enable \" error");
+	EXTIWakeUpIntConfigure(ulEXTIWakeUpInt[1]);
+	ulTemp = xHWREG(GPIO_EXTI_BASE + EXTI_WAKUPCR) & EXTI_WAKUPCR_EVWUPIEN;
+    TestAssert(ulTemp == 0,
+               "xgpio, \"EXTI Wake Up Int Enable \" error");	   
+
+	//
+	// EXTI Wake up Configure test
+	//
+	for(i = 0; i < 3; i++)
+	{	
+		EXTILineWakeUpConfigure(ulEXTILines[i], ulEXTIWakeUpLevel[0],
+			                    ulEXTIWakeUp[0]);
+		ulTemp = xHWREG(GPIO_EXTI_BASE + EXTI_WAKUPPOLR) & 
+		               (1 << ulEXTILineShift[i]);
+		TestAssert(ulTemp == (1 << ulEXTILineShift[i]),
+                   "xgpio, \"EXTI Wake Up Level \" error");
+
+		EXTILineWakeUpConfigure(ulEXTILines[i], ulEXTIWakeUpLevel[1],
+			                    ulEXTIWakeUp[0]);
+		ulTemp = xHWREG(GPIO_EXTI_BASE + EXTI_WAKUPPOLR) & 
+		               (1 << ulEXTILineShift[i]);
+		TestAssert(ulTemp == 0,
+                   "xgpio, \"EXTI Wake Up Level \" error");
+
+		ulTemp = xHWREG(GPIO_EXTI_BASE + EXTI_WAKUPCR) & 
+		               (1 << ulEXTILineShift[i]);
+		TestAssert(ulTemp == (1 << ulEXTILineShift[i]),
+                   "xgpio, \"EXTI Wake Up Enable \" error");
+
+		EXTILineWakeUpConfigure(ulEXTILines[i], ulEXTIWakeUpLevel[0],
+			                    ulEXTIWakeUp[1]);
+		ulTemp = xHWREG(GPIO_EXTI_BASE + EXTI_WAKUPCR) & 
+		               (1 << ulEXTILineShift[i]);
+		TestAssert(ulTemp == 0,
+                   "xgpio, \"EXTI Wake Up Disable \" error");
+	}	   	   
+	
+	//
+	// GPIO Pad configure
+	//
+    GPIOPadConfigSet(GPIO_PORTA_BASE, xGPIO_PIN_3, 
+                     ulStrengthValue[0], ulOpenDrain[0] | ulPullResistor[0]);
+    ulTemp =  xHWREG(GPIO_PORTA_BASE + GPIO_DRVR) & xGPIO_PIN_3;
+    TestAssert(ulTemp ==0,
+               "xgpio, \"Current drain Configure\" error");
+    ulTemp = xHWREG(GPIO_PORTA_BASE + GPIO_PUR) & xGPIO_PIN_3;
+    TestAssert(ulTemp == xGPIO_PIN_3,
+               "xgpio, \"Pull up resistor Enable \" error");
+    ulTemp = xHWREG(GPIO_PORTA_BASE + GPIO_PDR) & xGPIO_PIN_3;
+    TestAssert(ulTemp == 0,
+               "xgpio, \"Pull up resistor Enable \" error");
+    ulTemp = xHWREG(ulPort + GPIO_ODR) & xGPIO_PIN_3;
+    TestAssert(ulTemp == xGPIO_PIN_3,
+               "xgpio, \"Open drain enable \" error");
+
+    GPIOPadConfigSet(GPIO_PORTA_BASE, xGPIO_PIN_3, 
+                     ulStrengthValue[1], ulOpenDrain[1] | ulPullResistor[1]);
+    ulTemp =  xHWREG(GPIO_PORTA_BASE + GPIO_DRVR) & xGPIO_PIN_3;
+    TestAssert(ulTemp == xGPIO_PIN_3,
+               "xgpio, \"Current drain Configure\" error");
+    ulTemp = xHWREG(GPIO_PORTA_BASE + GPIO_PUR) & xGPIO_PIN_3;
+    TestAssert(ulTemp == 0,
+               "xgpio, \"Pull up resistor Enable \" error");
+    ulTemp = xHWREG(GPIO_PORTA_BASE + GPIO_PDR) & xGPIO_PIN_3;
+    TestAssert(ulTemp == xGPIO_PIN_3,
+               "xgpio, \"Pull up resistor Enable \" error");
+    ulTemp = xHWREG(GPIO_PORTA_BASE + GPIO_ODR) & xGPIO_PIN_3;
+    TestAssert(ulTemp == 0,
+               "xgpio, \"Open drain disable \" error");	
+			   
+	//
+	// Software Trigger test
+	//
+	for(i = 0; i < 3; i++)
+	{		   		   			   	
+	    EXTILineSoftwareTrigger(ulEXTILines[i]);
+		ulTemp = xHWREG(GPIO_EXTI_BASE + EXTI_SSCR) &  ulEXTILines[i];
+		TestAssert(ulTemp == ulEXTILines[i],
+                   "xgpio, \"Software Trigger Set \" error");	
     }
-    
-    //
-    // Pin to peripheral ID test
-    //
-    ulTemp = xGPIOSPinToPeripheralId(PA0);
-    TestAssert(ulTemp == ulPeripheralID[0],
-               "xgpio, \" Pin to peripheral ID test \" error");  
+	
+	//
+	// Software Trigger clear
+	//	  
+	for(i = 0; i < 3; i++)
+	{
+	    EXTILineSoftwareClear(ulEXTILines[i]);
+		ulTemp = xHWREG(GPIO_EXTI_BASE + EXTI_SSCR) &  ulEXTILines[i];
+		TestAssert(ulTemp == 0,
+                   "xgpio, \"Software Trigger Clear \" error");
+    }
     
     //
     // Short pin to pin test
@@ -672,133 +440,72 @@ static void xgpio001Execute(void)
     TestAssert(ulTemp == ulPinValue[2],
                "xgpio, \" Short pin to pin test \" error");   
     
-    //
-    // Short pin dir mode set test
-    //
-    for(i = 0; i < 4; i++)
-    {
-        xGPIOSPinDirModeSet(PA0, ulPinMode[i]);
-        ulTemp = xGPIODirModeGet(xGPIO_PORTA_BASE, GPIO_PIN_0);
-        TestAssert(ulTemp == ulPinMode[i],
-                   "xgpio, \" Short pin dir mode set test \" error");       
-    }
-    
-    //
-    // Short pin interrupt enable
-    //
-    for(i = 0; i < 6; i++)
-    {
-        xGPIOSPinIntEnable(PA0, ulIntType[i]);
-        if(ulIntType[i] & 0x10)
-        { 
-            ulTemp = xHWREG(xGPIO_PORTA_BASE + GPIO_IMD) & GPIO_PIN_0;
-            TestAssert(ulTemp == GPIO_PIN_0,
-                       "xgpio, \"ShortPin INT type enable \" error");
-        }
-        else
-        {
-            ulTemp = xHWREG(xGPIO_PORTA_BASE + GPIO_IMD) & GPIO_PIN_0;
-            TestAssert(ulTemp == 0,
-                       "xgpio, \"ShortPin INT type enable \" error");
-        }
-        if(ulIntType[i] & 2)
-        {
-            ulTemp = xHWREG(xGPIO_PORTA_BASE + GPIO_IEN) & (GPIO_PIN_0 << 16);
-            TestAssert(ulTemp == (GPIO_PIN_0 << 16),
-                       "xgpio, \"ShortPin INT type enable \" error");                    
-        }
-        if(ulIntType[i] & 1)
-        {
-            ulTemp = xHWREG(xGPIO_PORTA_BASE + GPIO_IEN) & GPIO_PIN_0;
-            TestAssert(ulTemp == GPIO_PIN_0,
-                       "xgpio, \"ShortPin INT type enable \" error");  
-        }
-    }
-    
-    //
-    // Short pin interrupt disable
-    // 
-    xGPIOSPinIntDisable(PA0);
-    ulTemp = xHWREG(xGPIO_PORTA_BASE + GPIO_IEN) & (GPIO_PIN_0 << 16);
-    ulTemp1 = xHWREG(xGPIO_PORTA_BASE + GPIO_IEN) & GPIO_PIN_0;
-    ulTemp |= ulTemp1;
-    TestAssert(ulTemp == 0,
-               "xgpio, \"Short pin interrupt disable \" error"); 
     
     //
     // Short pin write test
     //
     xGPIOSPinWrite(PA0, 1);
-    ulTemp = xHWREG(xGPIO_PORTA_BASE + GPIO_DOUT) & GPIO_PIN_0;
+    ulTemp = GPIOSPinRead(PA0) & GPIO_PIN_0;
     TestAssert(ulTemp == GPIO_PIN_0,
                "xgpio, \"Short pin write test \" error"); 
-    
+   
     //
     // Ture pin to ADC function
     //    
-    xSPinTypeADC(ADC0, PF3);
-    ulTemp = xHWREG(GCR_GPFMFP) & GCR_GPFMFP_MFP3;
-    ulTemp1 = xHWREG(GCR_GPFMFP) & GCR_GPFMFP_ALT3;
-    TestAssert((ulTemp == GCR_GPFMFP_MFP3) && (ulTemp1 == 0),
+    xSPinTypeADC(ADC0, PA0);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 0);
+    TestAssert((ulTemp == (1 << 0 )),
                "xgpio, \"Turn pin to ADC AIN0 \" error");      
     
-    xSPinTypeADC(ADC1, PB0);
-    ulTemp = xHWREG(GCR_GPBMFP) & GCR_GPBMFP_MFP0;
-    ulTemp1 = xHWREG(GCR_GPBMFP) & GCR_GPBMFP_ALT0;
-    TestAssert((ulTemp == GCR_GPBMFP_MFP0) && (ulTemp1 == 0),
+    xSPinTypeADC(ADC1, PA1);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 2);
+    TestAssert((ulTemp == (1 << 2 )),
                "xgpio, \"Turn pin to ADC AIN1 \" error");  
     
-    xSPinTypeADC(ADC2, PB2);
-    ulTemp = xHWREG(GCR_GPBMFP) & GCR_GPBMFP_MFP2;
-    ulTemp1 = xHWREG(GCR_GPBMFP) & GCR_GPBMFP_ALT2;
-    TestAssert((ulTemp == GCR_GPBMFP_MFP2) && (ulTemp1 == 0),
+    xSPinTypeADC(ADC2, PA2);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 4);
+    TestAssert((ulTemp == (1 << 4 )),
                "xgpio, \"Turn pin to ADC AIN2 \" error");     
 
-    xSPinTypeADC(ADC3, PB3);
-    ulTemp = xHWREG(GCR_GPBMFP) & GCR_GPBMFP_MFP3;
-    ulTemp1 = xHWREG(GCR_GPBMFP) & GCR_GPBMFP_ALT3;
-    TestAssert((ulTemp == GCR_GPBMFP_MFP3) && (ulTemp1 == 0),
+    xSPinTypeADC(ADC3, PA3);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 6);
+    TestAssert((ulTemp == (1 << 6 )),
                "xgpio, \"Turn pin to ADC AIN3 \" error"); 
     
-    xSPinTypeADC(ADC4, PB4);
-    ulTemp = xHWREG(GCR_GPBMFP) & GCR_GPBMFP_MFP4;
-    ulTemp1 = xHWREG(GCR_GPBMFP) & GCR_GPBMFP_ALT4;
-    TestAssert((ulTemp == GCR_GPBMFP_MFP4) && (ulTemp1 == 0),
+    xSPinTypeADC(ADC4, PA4);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 8);
+    TestAssert((ulTemp == (1 << 8 )),
                "xgpio, \"Turn pin to ADC AIN4 \" error");  
     
-    xSPinTypeADC(ADC5, PB5);
-    ulTemp = xHWREG(GCR_GPBMFP) & GCR_GPBMFP_MFP5;
-    ulTemp1 = xHWREG(GCR_GPBMFP) & GCR_GPBMFP_ALT5;
-    TestAssert((ulTemp == GCR_GPBMFP_MFP5) && (ulTemp1 == 0),
+    xSPinTypeADC(ADC5, PA5);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 10);
+    TestAssert((ulTemp == (1 << 10 )),
                "xgpio, \"Turn pin to ADC AIN5 \" error"); 
     
-    xSPinTypeADC(ADC6, PD0);
-    ulTemp = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_MFP0;
-    ulTemp1 = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_ALT0;
-    TestAssert((ulTemp == GCR_GPDMFP_MFP0) && (ulTemp1 == GCR_GPDMFP_ALT0),
+    xSPinTypeADC(ADC6, PA6);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 12);
+    TestAssert((ulTemp == (1 << 12 )),
                "xgpio, \"Turn pin to ADC AIN6 \" error");    
     
-    xSPinTypeADC(ADC7, PD1);
-    ulTemp = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_MFP1;
-    ulTemp1 = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_ALT1;
-    TestAssert((ulTemp == GCR_GPDMFP_MFP1) && (ulTemp1 == GCR_GPDMFP_ALT1),
+    xSPinTypeADC(ADC7, PA7);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 14);
+    TestAssert((ulTemp == (1 << 14 )),
                "xgpio, \"Turn pin to ADC AIN7 \" error"); 
+
     
     //
     // Ture pin to I2C function
     //    
-    xSPinTypeI2C(I2C0SDA, PD4);
-    ulTemp = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_MFP4;
-    ulTemp1 = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_ALT4;
-    TestAssert((ulTemp == 0) && (ulTemp1 == GCR_GPDMFP_ALT4),
-               "xgpio, \"Turn pin to I2C SCK \" error");      
+    xSPinTypeI2C(I2C0SDA, PA12);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 24);
+    TestAssert((ulTemp == (1 << 24 )),
+               "xgpio, \"Turn pin to I2C SDA \" error");      
     
-    xSPinTypeI2C(I2C0SCK, PD5);
-    ulTemp = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_MFP5;
-    ulTemp1 = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_ALT5;
-    TestAssert((ulTemp == 0) && (ulTemp1 == GCR_GPDMFP_ALT5),
-               "xgpio, \"Turn pin to I2C SDA \" error");           
-    
+    xSPinTypeI2C(I2C0SCK, PA11);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 22);
+    TestAssert((ulTemp == (1 << 22 )),
+               "xgpio, \"Turn pin to I2C SCK \" error");   
+/*			               
     //
     // Turn pin to pwm mode
     //
@@ -836,169 +543,249 @@ static void xgpio001Execute(void)
     ulTemp = xHWREG(GCR_GPCMFP) & GCR_GPCMFP_MFP5;
     ulTemp1 = xHWREG(GCR_GPCMFP) & GCR_GPCMFP_ALT5;
     TestAssert((ulTemp == 0) && (ulTemp1 == GCR_GPCMFP_ALT5),
-               "xgpio, \"Turn pin to PWM function \" error");       
+               "xgpio, \"Turn pin to PWM function \" error"); 
+*/			         
 
+ 
     //
     // Turn pin to spi function test
     //
-    xSPinTypeSPI(SPI0CLK, PA7);
-    ulTemp = xHWREG(GCR_GPAMFP) & GCR_GPAMFP_MFP7;
-    ulTemp1 = xHWREG(GCR_GPAMFP) & GCR_GPAMFP_ALT7;    
-    TestAssert((ulTemp == 0) && (ulTemp1 == GCR_GPAMFP_ALT7),
-               "xgpio, \"Turn pin to SPI function \" error");      
+    xSPinTypeSPI(SPI0CLK, PA6);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 12);
+    TestAssert((ulTemp == (3 << 12)),
+               "xgpio, \"Turn pin to SPI function \" error");   
+    xSPinTypeSPI(SPI0CLK, PB13);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 26);
+    TestAssert((ulTemp == (1 << 26)),
+               "xgpio, \"Turn pin to SPI function \" error"); 			      
 
-    xSPinTypeSPI(SPI0MOSI, PA5);
-    ulTemp = xHWREG(GCR_GPAMFP) & GCR_GPAMFP_MFP5;
-    ulTemp1 = xHWREG(GCR_GPAMFP) & GCR_GPAMFP_ALT5;    
-    TestAssert((ulTemp == 0) && (ulTemp1 == GCR_GPAMFP_ALT5),
-               "xgpio, \"Turn pin to SPI function \" error");    
+    xSPinTypeSPI(SPI0MOSI, PA4);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 8);
+    TestAssert((ulTemp == (3 << 8 )),
+               "xgpio, \"Turn pin to SPI function \" error");   
+    xSPinTypeSPI(SPI0MOSI, PB15);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 30);
+    TestAssert((ulTemp == (1 << 30 )),
+               "xgpio, \"Turn pin to SPI function \" error"); 			    
 
-    xSPinTypeSPI(SPI0MISO, PA6);
-    ulTemp = xHWREG(GCR_GPAMFP) & GCR_GPAMFP_MFP6;
-    ulTemp1 = xHWREG(GCR_GPAMFP) & GCR_GPAMFP_ALT6;    
-    TestAssert((ulTemp == 0) && (ulTemp1 == GCR_GPAMFP_ALT6),
+    xSPinTypeSPI(SPI0MISO, PA5);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 10);
+    TestAssert((ulTemp == (3 << 10 )),
+               "xgpio, \"Turn pin to SPI function \" error"); 
+    xSPinTypeSPI(SPI0MISO, PB14);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 28);
+    TestAssert((ulTemp == (1 << 28 )),
                "xgpio, \"Turn pin to SPI function \" error"); 
     
-    xSPinTypeSPI(SPI0CS, PA4);
-    ulTemp = xHWREG(GCR_GPAMFP) & GCR_GPAMFP_MFP4;
-    ulTemp1 = xHWREG(GCR_GPAMFP) & GCR_GPAMFP_ALT4;    
-    TestAssert((ulTemp == 0) && (ulTemp1 == GCR_GPAMFP_ALT4),
-               "xgpio, \"Turn pin to SPI function \" error");     
-    
-    xSPinTypeSPI(SPI0CS, PA1);
-    ulTemp = xHWREG(GCR_GPAMFP) & GCR_GPAMFP_MFP1;
-    ulTemp1 = xHWREG(GCR_GPAMFP) & GCR_GPAMFP_ALT1;    
-    TestAssert((ulTemp == GCR_GPAMFP_MFP1) && (ulTemp1 == 0),
+    xSPinTypeSPI(SPI0CS, PA7);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 14);
+    TestAssert((ulTemp == (3 << 14 )),
+               "xgpio, \"Turn pin to SPI function \" error");        
+    xSPinTypeSPI(SPI0CS, PB12);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 24);
+    TestAssert((ulTemp == (1 << 24)),
                "xgpio, \"Turn pin to SPI function \" error"); 
+
     
     //
     // Turn pin to timer function test
     //
-    xSPinTypeTimer(TIMCCP0, PD4);   
-    ulTemp = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_MFP4;
-    ulTemp1 = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_ALT4;    
-    TestAssert((ulTemp == GCR_GPDMFP_MFP4) && (ulTemp1 == 0),
-               "xgpio, \"Turn pin to TIMER function \" error");    
+    xSPinTypeTimer(TIMCCP0, PA3);   
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 6);
+    TestAssert((ulTemp == (3 << 6)),
+               "xgpio, \"Turn pin to TIMER function \" error"); 
+/*
+    xSPinTypeTimer(TIMCCP0, PA15);   
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 30);
+    TestAssert((ulTemp == (3 << 30)),
+               "xgpio, \"Turn pin to TIMER function \" error"); 
+*/			     
 
-    xSPinTypeTimer(TIMCCP1, PD5);   
-    ulTemp = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_MFP5;
-    ulTemp1 = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_ALT5;    
-    TestAssert((ulTemp == GCR_GPDMFP_MFP5) && (ulTemp1 == 0),
-               "xgpio, \"Turn pin to TIMER function \" error");      
+    xSPinTypeTimer(TIMCCP1, PA2);   
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 6);
+    TestAssert((ulTemp == (3 << 6)),
+               "xgpio, \"Turn pin to TIMER function \" error");
+/*			      
+    xSPinTypeTimer(TIMCCP1, PA14);   
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 28);
+    TestAssert((ulTemp == (3 << 28)),
+               "xgpio, \"Turn pin to TIMER function \" error");
+*/			    	
+			   
+    xSPinTypeTimer(TIMCCP2, PA1);   
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 2);
+    TestAssert((ulTemp == (3 << 2)),
+               "xgpio, \"Turn pin to TIMER function \" error"); 
+/*			     
+    xSPinTypeTimer(TIMCCP2, PA13);   
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 26);
+    TestAssert((ulTemp == (3 << 26)),
+               "xgpio, \"Turn pin to TIMER function \" error"); 
+*/			   
+    xSPinTypeTimer(TIMCCP3, PA0);   
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 0);
+    TestAssert((ulTemp == (3 << 0)),
+               "xgpio, \"Turn pin to TIMER function \" error");   
+    xSPinTypeTimer(TIMCCP3, PB11);   
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 22);
+    TestAssert((ulTemp == (3 << 22)),
+               "xgpio, \"Turn pin to TIMER function \" error");
+			   
+    xSPinTypeTimer(TIMCCP4, PB2);   
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 4);
+    TestAssert((ulTemp == (3 << 4)),
+               "xgpio, \"Turn pin to TIMER function \" error");   
+    xSPinTypeTimer(TIMCCP4, PB15);   
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 30);
+    TestAssert((ulTemp == (3 << 30)),
+               "xgpio, \"Turn pin to TIMER function \" error"); 	
+			 
+    xSPinTypeTimer(TIMCCP5, PB3);   
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 6);
+    TestAssert((ulTemp == (3 << 6)),
+               "xgpio, \"Turn pin to TIMER function \" error");   
+    xSPinTypeTimer(TIMCCP5, PB14);   
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 28);
+    TestAssert((ulTemp == (3 << 28)),
+               "xgpio, \"Turn pin to TIMER function \" error");	
+			   
+    xSPinTypeTimer(TIMCCP6, PB4);   
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 8);
+    TestAssert((ulTemp == (3 << 8)),
+               "xgpio, \"Turn pin to TIMER function \" error");   
+    xSPinTypeTimer(TIMCCP6, PB13);   
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 26);
+    TestAssert((ulTemp == (3 << 26)),
+               "xgpio, \"Turn pin to TIMER function \" error");	
+			   
+    xSPinTypeTimer(TIMCCP7, PB5);   
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 10);
+    TestAssert((ulTemp == (3 << 10)),
+               "xgpio, \"Turn pin to TIMER function \" error");   
+    xSPinTypeTimer(TIMCCP7, PB12);   
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 30);
+    TestAssert((ulTemp == (3 << 30)),
+               "xgpio, \"Turn pin to TIMER function \" error");			   		   		   		    			   			   		     
     
-    xSPinTypeTimer(T0EX, PD2);   
-    ulTemp = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_MFP2;
-    ulTemp1 = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_ALT2;    
-    TestAssert((ulTemp == 0) && (ulTemp1 == GCR_GPDMFP_ALT2),
+    xSPinTypeTimer(T0EX, PB10);   
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 20);
+    TestAssert((ulTemp == (3 << 20)),
+               "xgpio, \"Turn pin to TIMER function \" error");  
+    xSPinTypeTimer(T0EX, PB7);   
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 14);
+    TestAssert((ulTemp == (3 << 14)),
                "xgpio, \"Turn pin to TIMER function \" error");  
     
-    xSPinTypeTimer(T1EX, PD6);   
-    ulTemp = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_MFP6;
-    ulTemp1 = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_ALT6;    
-    TestAssert((ulTemp == GCR_GPDMFP_MFP6) && (ulTemp1 == 0),
-               "xgpio, \"Turn pin to TIMER function \" error");  
+    xSPinTypeTimer(T1EX, PA0);   
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 0);
+    TestAssert((ulTemp == (2 << 0)),
+               "xgpio, \"Turn pin to TIMER function \" error"); 
+    xSPinTypeTimer(T1EX, PB6);   
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 12);
+    TestAssert((ulTemp == (3 << 12)),
+               "xgpio, \"Turn pin to TIMER function \" error"); 
+			   			    
     
     // 
     // Turn pin to uart function test
     //
-    xSPinTypeUART(UART0RX, PB2);
-    ulTemp = xHWREG(GCR_GPBMFP) & GCR_GPBMFP_MFP2;
-    ulTemp1 = xHWREG(GCR_GPBMFP) & GCR_GPBMFP_ALT2;    
-    TestAssert((ulTemp == 0) && (ulTemp1 == GCR_GPBMFP_ALT2),
+    xSPinTypeUART(UART0RX, PA8);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 16);
+    TestAssert((ulTemp == (2 << 16)),
                "xgpio, \"Turn pin to UART function \" error");  
 
-    xSPinTypeUART(UART0TX, PB3);
-    ulTemp = xHWREG(GCR_GPBMFP) & GCR_GPBMFP_MFP3;
-    ulTemp1 = xHWREG(GCR_GPBMFP) & GCR_GPBMFP_ALT3;    
-    TestAssert((ulTemp == 0) && (ulTemp1 == GCR_GPBMFP_ALT3),
+    xSPinTypeUART(UART0TX, PA9);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 18);
+    TestAssert((ulTemp == (2 << 18)),
                "xgpio, \"Turn pin to UART function \" error");          
     
-    xSPinTypeUART(UART0RX, PA1);
-    ulTemp = xHWREG(GCR_GPAMFP) & GCR_GPAMFP_MFP1;
-    ulTemp1 = xHWREG(GCR_GPAMFP) & GCR_GPAMFP_ALT1;    
-    TestAssert((ulTemp == GCR_GPAMFP_MFP1) && (ulTemp1 == GCR_GPAMFP_ALT1),
+    xSPinTypeUART(UART0RTS, PA6);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 12);
+    TestAssert((ulTemp == (2 << 12)),
+               "xgpio, \"Turn pin to UART function \" error");  
+    xSPinTypeUART(UART0RTS, PB4);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 8);
+    TestAssert((ulTemp == (2 << 8)),
+               "xgpio, \"Turn pin to UART function \" error");  
+    
+    xSPinTypeUART(UART0CTS, PA7);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 14);
+    TestAssert((ulTemp == (2 << 14)),
+               "xgpio, \"Turn pin to UART function \" error");  
+    xSPinTypeUART(UART0CTS, PB7);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 14);
+    TestAssert((ulTemp == (2 << 14)),
+               "xgpio, \"Turn pin to UART function \" error");  
+
+    xSPinTypeUART(UART0DCD, PA2);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 4);
+    TestAssert((ulTemp == (2 << 4)),
+               "xgpio, \"Turn pin to UART function \" error");  
+    xSPinTypeUART(UART0DCD, PB12);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 24);
+    TestAssert((ulTemp == (2 << 24)),
                "xgpio, \"Turn pin to UART function \" error");
-  
-    xSPinTypeUART(UART0TX, PA0);
-    ulTemp = xHWREG(GCR_GPAMFP) & GCR_GPAMFP_MFP0;
-    ulTemp1 = xHWREG(GCR_GPAMFP) & GCR_GPAMFP_ALT0;    
-    TestAssert((ulTemp == GCR_GPAMFP_MFP0) && (ulTemp1 == GCR_GPAMFP_ALT0),
-               "xgpio, \"Turn pin to UART function \" error");    
-    
-    xSPinTypeUART(UART0RTS, PA1);
-    ulTemp = xHWREG(GCR_GPAMFP) & GCR_GPAMFP_MFP1;
-    ulTemp1 = xHWREG(GCR_GPAMFP) & GCR_GPAMFP_ALT1;    
-    TestAssert((ulTemp == 0) && (ulTemp1 == GCR_GPAMFP_ALT1),
+			   
+    xSPinTypeUART(UART0DSR, PA3);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 6);
+    TestAssert((ulTemp == (2 << 6)),
                "xgpio, \"Turn pin to UART function \" error");  
-    
-    xSPinTypeUART(UART0CTS, PA0);
-    ulTemp = xHWREG(GCR_GPAMFP) & GCR_GPAMFP_MFP0;
-    ulTemp1 = xHWREG(GCR_GPAMFP) & GCR_GPAMFP_ALT0;    
-    TestAssert((ulTemp == 0) && (ulTemp1 == GCR_GPAMFP_ALT0),
+    xSPinTypeUART(UART0DSR, PB13);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 26);
+    TestAssert((ulTemp == (2 << 26)),
+               "xgpio, \"Turn pin to UART function \" error"); 			   
+	
+    xSPinTypeUART(UART0DTR, PA4);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 8);
+    TestAssert((ulTemp == (2 << 8)),
                "xgpio, \"Turn pin to UART function \" error");  
-    
+    xSPinTypeUART(UART0DTR, PB14);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 28);
+    TestAssert((ulTemp == (2 << 28)),
+               "xgpio, \"Turn pin to UART function \" error"); 	
+			   
+    xSPinTypeUART(UART0RI, PA5);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPACFGR) & (3 << 10);
+    TestAssert((ulTemp == (2 << 10)),
+               "xgpio, \"Turn pin to UART function \" error");  
+    xSPinTypeUART(UART0RI, PB15);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 30);
+    TestAssert((ulTemp == (2 << 30)),
+               "xgpio, \"Turn pin to UART function \" error"); 			   		    
+   
     //
     // Turn the pin to ACMP function
     //
-    xSPinTypeACMP(CMP0P, PB5);
-    ulTemp = xHWREG(GCR_GPBMFP) & GCR_GPBMFP_MFP5;
-    ulTemp1 = xHWREG(GCR_GPBMFP) & GCR_GPBMFP_ALT5;    
-    TestAssert((ulTemp == GCR_GPBMFP_MFP5) && (ulTemp1 == GCR_GPBMFP_ALT5),
+    xSPinTypeACMP(CMP0P, PB3);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 6);
+    TestAssert((ulTemp == (1 << 6)),
                "xgpio, \"Turn pin to ACMP function \" error");  
     
-    xSPinTypeACMP(CMP0N, PB4);
-    ulTemp = xHWREG(GCR_GPBMFP) & GCR_GPBMFP_MFP4;
-    ulTemp1 = xHWREG(GCR_GPBMFP) & GCR_GPBMFP_ALT4;    
-    TestAssert((ulTemp == GCR_GPBMFP_MFP4) && (ulTemp1 == GCR_GPBMFP_ALT4),
+    xSPinTypeACMP(CMP0N, PB2);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 4);
+    TestAssert((ulTemp == (1 << 4)),
                "xgpio, \"Turn pin to ACMP function \" error");       
 
-    xSPinTypeACMP(CMP0O, PD6);
-    ulTemp = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_MFP6;
-    ulTemp1 = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_ALT6;    
-    TestAssert((ulTemp == GCR_GPDMFP_MFP6) && (ulTemp1 == GCR_GPDMFP_ALT6),
+    xSPinTypeACMP(CMP0O, PB4);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 8);
+    TestAssert((ulTemp == (1 << 8)),
                "xgpio, \"Turn pin to ACMP function \" error");     
 
-    xSPinTypeACMP(CMP1P, PD1);
-    ulTemp = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_MFP1;
-    ulTemp1 = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_ALT1;    
-    TestAssert((ulTemp == 0) && (ulTemp1 == GCR_GPDMFP_ALT1),
+    xSPinTypeACMP(CMP1P, PB6);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 12);
+    TestAssert((ulTemp == (1 << 12)),
                "xgpio, \"Turn pin to ACMP function \" error"); 
 
-    xSPinTypeACMP(CMP1N, PD0);
-    ulTemp = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_MFP0;
-    ulTemp1 = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_ALT0;    
-    TestAssert((ulTemp == 0) && (ulTemp1 == GCR_GPDMFP_ALT0),
+    xSPinTypeACMP(CMP1N, PB5);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 10);
+    TestAssert((ulTemp == (1 << 10)),
                "xgpio, \"Turn pin to ACMP function \" error"); 
 
-    xSPinTypeACMP(CMP1O, PC6);
-    ulTemp = xHWREG(GCR_GPCMFP) & GCR_GPCMFP_MFP6;
-    ulTemp1 = xHWREG(GCR_GPCMFP) & GCR_GPCMFP_ALT6;    
-    TestAssert((ulTemp == GCR_GPCMFP_MFP6) && (ulTemp1 == GCR_GPCMFP_ALT6),
-               "xgpio, \"Turn pin to ACMP function \" error"); 
+    xSPinTypeACMP(CMP1O, PB7);
+    ulTemp = xHWREG(GPIO_AFIO_BASE + AFIO_GPBCFGR) & (3 << 14);
+    TestAssert((ulTemp == (1 << 14)),
+               "xgpio, \"Turn pin to ACMP function \" error");
     
-    //
-    // Turn pin to INT function
-    //
-    xSPinTypeEXTINT(NINT0, PD2);
-    ulTemp = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_MFP2;
-    ulTemp1 = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_ALT2;    
-    TestAssert((ulTemp == GCR_GPDMFP_MFP2) && (ulTemp1 == 0),
-               "xgpio, \"Turn pin to INT function \" error");     
-    
-    xSPinTypeEXTINT(NINT1, PF2);
-    ulTemp = xHWREG(GCR_GPFMFP) & GCR_GPFMFP_MFP2;
-    ulTemp1 = xHWREG(GCR_GPFMFP) & GCR_GPFMFP_ALT2;    
-    TestAssert((ulTemp == GCR_GPFMFP_MFP2) && (ulTemp1 == 0),
-               "xgpio, \"Turn pin to INT function \" error");    
-    
-    //
-    // Turn pin to CLKO function
-    //
-    xSPinTypeCLKO(CLK0, PD6);
-    ulTemp = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_MFP6;
-    ulTemp1 = xHWREG(GCR_GPDMFP) & GCR_GPDMFP_ALT6;    
-    TestAssert((ulTemp == 0) && (ulTemp1 == GCR_GPDMFP_ALT6),
-               "xgpio, \"Turn pin to CLKO function \" error");    
 }   
 
 //

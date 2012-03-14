@@ -151,8 +151,7 @@ void EINT0IntHandler(void)
    
     for(i=0; i<xGPIO_INT_NUMBER; i++)
     {
-        if((g_psGPIOPinIntAssignTable[i].ulpinID) == 
-           (((GPIO_PORTB_BASE & 0x0000FFFF) << 16) | GPIO_PIN_0))
+        if((g_psGPIOPinIntAssignTable[i].ulpinID) ==  GPIO_PIN_0)
         {
             if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
             {
@@ -183,8 +182,7 @@ void EINT1IntHandler(void)
     
     for(i=0; i<xGPIO_INT_NUMBER; i++)
     {
-        if((g_psGPIOPinIntAssignTable[i].ulpinID) == 
-           (((GPIO_PORTB_BASE & 0x0000FFFF) << 16) | GPIO_PIN_1))
+        if((g_psGPIOPinIntAssignTable[i].ulpinID) == GPIO_PIN_1)
         {
             if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
             {
@@ -283,7 +281,7 @@ GPIODirModeSet(unsigned long ulPort, unsigned long ulPins, unsigned long ulPinIO
     if(ulPinIO == GPIO_DIR_MODE_IN)
     {
         xHWREG(ulPort + GPIO_DIRCR) &= ~ulPins;
-        GPIOInputConfigure(ulPort, ulPins, xtrue);
+        GPIOInputConfigure(ulPort, ulPins, GPIO_INPUT_ENABLE);
     }
     else if(ulPinIO == GPIO_DIR_MODE_OUT)
     {
@@ -320,7 +318,7 @@ xGPIODirModeGet(unsigned long ulPort, unsigned long ulPin)
     //
     xASSERT(GPIOBaseValid(ulPort));
 
-    for(ulBit=0; ulBit<16; ulPort++)
+    for(ulBit=0; ulBit<16; ulBit++)
     {
         if(ulPin & (1 << ulBit))
         {
@@ -559,7 +557,7 @@ GPIOPinIntCallbackInit(unsigned long ulPort, unsigned long ulPin,
     // changed ?? (ulPort  << 16) | i ?? to ?? (ulPort  << 16) | ulPin ?? by 
     // niuyj 09/09/2011
     //
-    ulPinID = (ulPort  << 16) | ulPin;
+    ulPinID = ulPin;
 
     //
     // Init the interrupts callback.
@@ -824,7 +822,7 @@ GPIOPadConfigSet(unsigned long ulPort, unsigned long ulPins,
     //
     // Pad strength configure
     //
-    if(ulStrength != GPIO_STRENGTH_4MA)
+    if(ulStrength == GPIO_STRENGTH_4MA)
     {
         xHWREG(ulPort + GPIO_DRVR) &= ~ulPins;
     }   
@@ -971,7 +969,7 @@ EXTILineSoftwareClear(unsigned long ulEXTILine)
 //
 //! \brief Enable the EXTI wakeup interrupt function.
 //! 
-//! \param ulWakeUpInt is to enable or disable EXTI wakeup interrupt, it can be
+//! \param ulEnable is to enable or disable EXTI wakeup interrupt, it can be
 //! selected from the following values:
 //!
 //! - \ref EXTI_WAKEUP_INT_ENABLE
@@ -981,14 +979,14 @@ EXTILineSoftwareClear(unsigned long ulEXTILine)
 //
 //*****************************************************************************
 void 
-EXTIWakeUpIntConfigure(unsigned long ulWakeUpInt)
+EXTIWakeUpIntConfigure(unsigned long ulEnable)
 {
     //
     // Check the arguments.
     //
-    xASSERT((ulWakeUpInt == EXTI_WAKEUP_INT_ENABLE) ||
-            (ulWakeUpInt == EXTI_WAKEUP_INT_DISABLE)); 
-    if(ulWakeUpInt == EXTI_WAKEUP_INT_ENABLE)
+    xASSERT((ulEnable == EXTI_WAKEUP_INT_ENABLE) ||
+            (ulEnable == EXTI_WAKEUP_INT_DISABLE)); 
+    if(ulEnable == EXTI_WAKEUP_INT_ENABLE)
     {
         xHWREG(GPIO_EXTI_BASE + EXTI_WAKUPCR) |= EXTI_WAKUPCR_EVWUPIEN;
     }

@@ -360,7 +360,7 @@ xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
 {
     unsigned long ulOscFreq = 0;
     unsigned long ulNF2, ulNO2, i;
-	unsigned long ulCount = 0xFF;
+
 	unsigned long ulTemp;
     xASSERT((ulSysClk > 0 && ulSysClk <= 72000000));
 
@@ -371,172 +371,59 @@ xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
 
     switch(ulConfig & SYSCTL_OSCSRC_M)
     {
-        case xSYSCTL_OSC_EXTSL:
+        case xSYSCTL_OSC_INT:
         {
-            xASSERT(ulConfig & SYSCLK_GCCR_HSEEN);
-            
-            xHWREG(SYSCLK_GCCR) &= ~SYSCLK_GCCR_HSIEN;
-            xHWREG(SYSCLK_GCCR) &= ~SYSCLK_GCCR_PLLEN;
-            xHWREG(SYSCLK_GCCR) |= SYSCLK_GCCR_HSEEN;
 
-			//
-			// System clock source is HSE
-			//
-            xHWREG(SYSCLK_GCCR) |= SYSCLK_GCCR_SYSSRC_HSE;
-			//
-            // Wait until system clock takes effect or time-out occurred
-			//
-            while(ulCount--)
-            {
-                if((xHWREG(SYSCLK_GCCR) & SYSCLK_GCCR_SYSSRC_HSE)
-				                        == SYSCLK_GCCR_SYSSRC_HSE)
-                {
-                    break;
-                }  
-            }
-
-            //
-            // Wait for the external 4~16 MHz high speed crystal clock source is stable
-            //
-            while(!(xHWREG(SYSCLK_GCSR) & SYSCLK_GCSR_HSERDY));
-
-            //
-            // Enable HSE Clock Monitor.
-            //
-            xHWREG(SYSCLK_GCCR) |= SYSCLK_GCCR_CKMEN;
-            ulOscFreq = s_ulExtClockMHz * 1000000;
-            break;
-        }
-        case xSYSCTL_OSC_INTSL:
-        {
-            xASSERT(ulConfig & SYSCLK_GCCR_HSIEN);
-            xHWREG(SYSCLK_GCCR) &= ~SYSCLK_GCCR_PLLEN;
-            xHWREG(SYSCLK_GCCR) &= ~SYSCLK_GCCR_HSEEN;
-            //
-            // Disable HSE Clock Monitor
-            //
-            xHWREG(SYSCLK_GCCR) &= ~SYSCLK_GCCR_CKMEN;
             xHWREG(SYSCLK_GCCR) |= SYSCLK_GCCR_HSIEN;
-			//
-			// System clock source is HSI
-			//
-            xHWREG(SYSCLK_GCCR) |= SYSCLK_GCCR_SYSSRC_HSI;
-			//
-            // Wait until system clock takes effect or time-out occurred
-			//
-            while (ulCount--)
-            {
-                if ((xHWREG(SYSCLK_GCCR) & SYSCLK_GCCR_SYSSRC_HSI)
-				                        == SYSCLK_GCCR_SYSSRC_HSI)
-                {
-                    break;
-                }  
-            }
             //
-            // Wait for the internal 8 MHz high speed crystal clock source is stable
+            // Wait for Internal 8 MHz High Speed Oscillator Clock Source is stable.
             //
             while(!(xHWREG(SYSCLK_GCSR) & SYSCLK_GCSR_HSIRDY));
             ulOscFreq = 8000000;
-            break;
-        }
-        case xSYSCTL_OSC_INT:
-        {
-            xASSERT(!(ulConfig & SYSCLK_GCCR_PLLEN));
-
-            xHWREG(SYSCLK_GCCR) &= ~SYSCLK_GCCR_HSEEN;
-            //
-            // Disable HSE Clock Monitor
-            //
-            xHWREG(SYSCLK_GCCR) &= ~SYSCLK_GCCR_CKMEN;
-            xHWREG(SYSCLK_GCCR) |= SYSCLK_GCCR_HSIEN;
-            xHWREG(SYSCLK_GCCR) |= SYSCLK_GCCR_PLLEN;
-            //
-            // Wait for Internal 8 MHz High Speed Oscillator Clock Source is stable
-            //
-            while(!(xHWREG(SYSCLK_GCSR) & SYSCLK_GCSR_HSIRDY));
 		    //
-			// PLL clock source is HSI
-			//
-            xHWREG(SYSCLK_GCFGR) |= SYSCTL_PLL_INT;
+		    // System clock source is HSI
 		    //
-			// System clock source is PLL
-			//
-            xHWREG(SYSCLK_GCCR) |= SYSCLK_GCCR_SYSSRC_PLL;
-			//
+            xHWREG(SYSCLK_GCCR) |= SYSCLK_GCCR_SYSSRC_HSI;
+		    //
             // Wait until system clock takes effect or time-out occurred
-			//
-            while (ulCount--)
+		    //
+            while(1)
             {
-                if ((xHWREG(SYSCLK_GCCR) & SYSCLK_GCCR_SYSSRC_PLL)
-				                        == SYSCLK_GCCR_SYSSRC_PLL)
+                if ((xHWREG(SYSCLK_GCCR) & SYSCLK_GCCR_SW_M)
+				                    == SYSCLK_GCCR_SYSSRC_HSI)
                 {
                     break;
                 }  
             }
-            //
-            // Wait for PLL is stable
-            //
-            while(!(xHWREG(SYSCLK_GCSR) & SYSCLK_GCSR_PLLRDY));
-            ulNO2 = 1;
-            ulNF2 = ulSysClk / 8000000;
-            xHWREG(SYSCLK_PLLCFGR) |= (ulNO2 << SYSCLK_PLLCFGR_POTD_S) |
-                                      (ulNF2 << SYSCLK_PLLCFGR_PFBD_S);
-            xHWREG(SYSCLK_AHBCFGR) &= 0x00000000;
+
             break;
         }
 
         case xSYSCTL_OSC_MAIN:
         {
-			xHWREG(SYSCLK_GCCR) &= 0xFFFFFFFC;
-            xHWREG(SYSCLK_GCCR) |= SYSCLK_GCCR_PLLEN;
-            //
-            // Wait for PLL is stable
-            //
-            while(!(xHWREG(SYSCLK_GCSR) & SYSCLK_GCSR_PLLRDY));
-
-            xHWREG(SYSCLK_GCCR) |= SYSCLK_GCCR_HSIEN;
             xHWREG(SYSCLK_GCCR) |= SYSCLK_GCCR_HSEEN;
             //
-            // Wait for Internal 4~16 MHz High Speed Oscillator Clock Source is stable.
+            // Wait for external 4~16 MHz High Speed Oscillator Clock Source is stable.
             //
             while(!(xHWREG(SYSCLK_GCSR) & SYSCLK_GCSR_HSERDY));
-            xHWREG(SYSCLK_AHBCFGR) &= 0x00000000;
-
-            //
-            // Enable HSE Clock Monitor.
-            //
-            xHWREG(SYSCLK_GCCR) |= SYSCLK_GCCR_CKMEN;
-
-
-            ulNO2 = 1;
-            ulNF2 = ulSysClk / (s_ulExtClockMHz*1000000) ;
-            xHWREG(SYSCLK_PLLCFGR) |= (ulNO2 << SYSCLK_PLLCFGR_POTD_S) |
-                                      (ulNF2 << SYSCLK_PLLCFGR_PFBD_S);
-
+            xHWREG(SYSCLK_GCCR) &= ~SYSCLK_GCCR_HSIEN;
+            ulOscFreq = s_ulExtClockMHz * 1000000;
 		    //
-			// PLL clock source is HSE
-			//
-            xHWREG(SYSCLK_GCFGR) |= SYSCTL_PLL_MAIN;
-
-			//
-			// System clock source is PLL
-			//
-            xHWREG(SYSCLK_GCCR) |= SYSCLK_GCCR_SYSSRC_PLL;
-
-            xHWREG(SYSCLK_AHBCFGR) &= 0x00000000;
-			xHWREG(FLASH_CFCR) |= 0x03; 
-			//
+		    // System clock source is HSE
+		    //
+            ulTemp = xHWREG(SYSCLK_GCCR) & 0xFFFFFFF2;
+            xHWREG(SYSCLK_GCCR) &= ulTemp;
+		    //
             // Wait until system clock takes effect or time-out occurred
-			//
+		    //
             while(1)
             {
-                if ((xHWREG(SYSCLK_GCCR) & SYSCLK_GCCR_SYSSRC_PLL)
-				                        == SYSCLK_GCCR_SYSSRC_PLL)
+                if ((xHWREG(SYSCLK_GCCR) & SYSCLK_GCCR_SW_M)
+				                    == SYSCLK_GCCR_SYSSRC_HSE)
                 {
                     break;
                 }  
             }
-
             break;
         }
         default:
@@ -545,14 +432,29 @@ xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
             break;
         }
     }
-    if(ulOscFreq > ulSysClk)
+
+    if(ulOscFreq >= ulSysClk)
     {
         unsigned long ulSysDiv[4] = {SYSCLK_AHBCFGR_AHBPRE_CKSYS_1,
                                      SYSCLK_AHBCFGR_AHBPRE_CKSYS_2,
                                      SYSCLK_AHBCFGR_AHBPRE_CKSYS_4,
                                      SYSCLK_AHBCFGR_AHBPRE_CKSYS_8,
                                     };
-        for(i=1; i<4; i++)
+
+        if(ulSysClk > 48000000)
+		{
+            xHWREG(FLASH_CFCR) |= 0x03;
+		}
+		else if(ulSysClk > 24000000)
+		{
+            xHWREG(FLASH_CFCR) |= 0x02;
+		}
+		else
+		{
+            xHWREG(FLASH_CFCR) |= 0x01;
+		}
+
+        for(i=0; i<4; i++)
         {
             if((ulOscFreq / ulSysDiv[i]) <= ulSysClk)
             {
@@ -562,6 +464,71 @@ xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
         xASSERT(ulSysDiv[i] < 9);
         xHWREG(SYSCLK_AHBCFGR) |= ulSysDiv[i];
     }
+
+	if(ulOscFreq < ulSysClk)
+	{
+        ulNO2 = 0;
+		if((ulConfig & SYSCTL_OSCSRC_M)==xSYSCTL_OSC_INT)
+		{
+            ulNF2 = ulSysClk / 8000000;
+            //
+	        // PLL clock source is HSI
+	        //
+            xHWREG(SYSCLK_GCFGR) |= SYSCLK_GCFGR_PLLSRC_HSI;
+		}
+		else
+		{
+            //
+	        // PLL clock source is HSE
+	        //
+            xHWREG(SYSCLK_GCFGR) &= 0xFFFFFEFF;
+            ulNF2 = ulSysClk / (s_ulExtClockMHz*1000000);
+            //
+            // Enable HSE Clock Monitor.
+            //
+            xHWREG(SYSCLK_GCCR) |= SYSCLK_GCCR_CKMEN;
+		}
+		xHWREG(SYSCLK_PLLCFGR) &= ~SYSCLK_PLLCFGR_POTD_M;
+		xHWREG(SYSCLK_PLLCFGR) &= ~SYSCLK_PLLCFGR_PFBD_M;
+        xHWREG(SYSCLK_PLLCFGR) |= (ulNO2 << SYSCLK_PLLCFGR_POTD_S) |
+                                  (ulNF2 << SYSCLK_PLLCFGR_PFBD_S);
+
+        xHWREG(SYSCLK_GCCR) |= SYSCLK_GCCR_PLLEN;
+        //
+        // Wait for PLL is stable
+        //
+        while(!(xHWREG(SYSCLK_GCSR) & SYSCLK_GCSR_PLLRDY));
+        xHWREG(SYSCLK_AHBCFGR) &= ~0xFFFFFFFF;
+	    if(ulSysClk > 48000000)
+		{
+            xHWREG(FLASH_CFCR) |= 0x03;
+		}
+		else if(ulSysClk > 24000000)
+		{
+            xHWREG(FLASH_CFCR) |= 0x02;
+		}
+		else
+		{
+            xHWREG(FLASH_CFCR) |= 0x01;
+		}
+
+		//
+		// System clock source is PLL
+		//
+        ulTemp = xHWREG(SYSCLK_GCCR) & 0xFFFFFFF1;
+        xHWREG(SYSCLK_GCCR) &= ulTemp;
+		//
+        // Wait until system clock takes effect or time-out occurred
+		//
+        while(1)
+        {
+            if ((xHWREG(SYSCLK_GCCR) & SYSCLK_GCCR_SW_M)
+				                    == SYSCLK_GCCR_SYSSRC_PLL)
+            {
+                break;
+            }  
+        }  
+	}
 }
 
 //*****************************************************************************
@@ -581,12 +548,12 @@ xSysCtlClockGet(void)
     unsigned long  ulFreqout = 0, ulNF2, ulNO2, ulSysDiv, ulPLLSrc, ulClkSrc;
 
     ulPLLSrc = xHWREG(SYSCLK_GCFGR) & SYSCLK_GCFGR_PLLSRC_M;
-    ulClkSrc = (xHWREG(SYSCLK_GCCR) & SYSCLK_GCCR_SW_M) | ulPLLSrc;
+    ulClkSrc = (xHWREG(SYSCLK_GCCR) & SYSCLK_GCCR_SW_M);
     
     //
     // HSE.
     //
-    if(ulClkSrc == xSYSCTL_OSC_EXTSL)
+    if(ulClkSrc == SYSCTL_OSC_MAIN)
     {
         ulSysDiv = xHWREG(SYSCLK_AHBCFGR) & SYSCLK_AHBCFGR_AHBPRE_M;
         ulFreqout = (s_ulExtClockMHz*1000000)/(1<<ulSysDiv);
@@ -594,7 +561,7 @@ xSysCtlClockGet(void)
     //
     // HSI.
     //
-    else if (ulClkSrc == xSYSCTL_OSC_INTSL)
+    else if (ulClkSrc == SYSCTL_OSC_INT)
     {
         ulSysDiv = xHWREG(SYSCLK_AHBCFGR) & SYSCLK_AHBCFGR_AHBPRE_M;
         ulFreqout = (8000000)/(1<<ulSysDiv);
@@ -602,7 +569,7 @@ xSysCtlClockGet(void)
     //
     // HSI+PLL.
     //
-    else if(ulClkSrc == xSYSCTL_OSC_INT)
+    else if((ulClkSrc | ulPLLSrc)== xSYSCTL_OSC_INT)
     {
         ulNO2 = 1;
         ulNF2 = (xHWREG(SYSCLK_PLLCFGR) & SYSCLK_PLLCFGR_PFBD_M) >>           \
@@ -764,6 +731,7 @@ xSysCtlPeripheralIntNumGet(unsigned long ulPeripheralBase)
 //! \return None.
 //
 //*****************************************************************************
+
 void
 xSysCtlSleep(void)
 {
@@ -773,7 +741,6 @@ xSysCtlSleep(void)
     xHWREG(xSYSCTL_BASE) &= ~xSYSCTL_SLEEPDEEP;
     xCPUwfi();
 }
-
 
 //*****************************************************************************
 //
@@ -809,6 +776,7 @@ xSysCtlSleep(void)
 //! \return None.
 //
 //*****************************************************************************
+
 void
 SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
 {
@@ -949,6 +917,7 @@ SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
 //! \return System clock(HCLK) frequency in Hz
 //
 //*****************************************************************************
+
 unsigned long 
 SysCtlClockGet(void)
 {
@@ -1020,6 +989,7 @@ SysCtlClockGet(void)
 //! \return None.
 //
 //*****************************************************************************
+
 void
 SysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc)
 {
@@ -1157,6 +1127,7 @@ SysCtlPeripheralReset(unsigned long ulPeripheral)
 //! \return None.
 //
 //*****************************************************************************
+
 void
 SysCtlPeripheralEnable(unsigned long ulPeripheral)
 {
@@ -1189,6 +1160,7 @@ SysCtlPeripheralEnable(unsigned long ulPeripheral)
 //! \return None.
 //
 //*****************************************************************************
+
 void
 SysCtlPeripheralDisable(unsigned long ulPeripheral)
 {
@@ -1216,6 +1188,7 @@ SysCtlPeripheralDisable(unsigned long ulPeripheral)
 //! \return None.
 //
 //*****************************************************************************
+
 void
 SysCtlSleep(unsigned long ulEnterMode)
 {
@@ -1238,6 +1211,7 @@ SysCtlSleep(unsigned long ulEnterMode)
         xCPUwfe();
     }
 }
+
 //*****************************************************************************
 //
 //! \brief Puts the processor into deep-sleep mode 1.
@@ -1250,6 +1224,7 @@ SysCtlSleep(unsigned long ulEnterMode)
 //! \return None.
 //
 //*****************************************************************************
+
 void
 SysCtlDeepSleep1(unsigned long ulEnterMode)
 {

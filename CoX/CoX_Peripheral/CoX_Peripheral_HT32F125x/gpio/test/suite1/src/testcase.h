@@ -33,17 +33,17 @@ extern "C"
 //
 //! \brief Test component libray name
 //
-#define TEST_COMPONENTS_NAME    "NOVOTON MINI51 CoX Packet"
+#define TEST_COMPONENTS_NAME    "Holtek xgpio"
 
 //
 //! \brief Test component version
 //
-#define TEST_COMPONENTS_VERSION "V1.2.0"
+#define TEST_COMPONENTS_VERSION "V2.1.1.0"
 
 //
 //! \brief Evkit name
 //
-#define TEST_BOARD_NAME         "NuTiny-LB-Mini51 v2.0"
+#define TEST_BOARD_NAME         "Holtek HT32F125x CoX Packet"
 
 
 //
@@ -57,9 +57,10 @@ extern const tTestCase * const* g_psPatterns[];
 // testcases(extern the testcases)
 //
 //*****************************************************************************
-//extern const tTestCase * const psPatternxgpio1[];
-//extern const tTestCase * const psPatternxgpio2[];
-extern const tTestCase * const psPatternxgpio3[];
+extern const tTestCase * const psPatternxgpio1[];
+extern const tTestCase * const psPatternxgpio2[];
+
+
 
 //*****************************************************************************
 //
