@@ -27,6 +27,7 @@
 #include "xgpio.h"
 #include "xhw_uart.h"
 #include "xuart.h"
+#include "xi2c.h"
 
 //*****************************************************************************
 //

@@ -1849,8 +1849,8 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
  #define xSPinTypeI2C(ePeripheralPin, eShortPin)                              \
         do                                                                    \
         {                                                                     \
-         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_HWOD);                     \
          GPIOSPinConfigure(ePeripheralPin, eShortPin);                        \
+         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_HWOD);                     \
         }                                                                     \
         while(0)
 

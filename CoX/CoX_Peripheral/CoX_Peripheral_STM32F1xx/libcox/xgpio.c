@@ -276,7 +276,7 @@ GPIODirModeSet(unsigned long ulPort, unsigned long ulBit,
                                    (~(GPIO_CRL_MODE0_M << (ulBit * 4))));
     
         xHWREG(ulPort + GPIO_CRL) = (xHWREG(ulPort + GPIO_CRL) |                \
-        (((ulPinSpeed | ulPinType) & GPIO_CRL_MODE0_M) << (ulBit * 4)));  
+        (((ulPinSpeed | ulPinType)) << (ulBit * 4)));  
     }
     else
     {

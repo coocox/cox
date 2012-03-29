@@ -2,7 +2,7 @@
 //
 //! \file xspi.h
 //! \brief Prototypes for the UART Driver.
-//! \version V2.1.1.0
+//! \version V2.1.1.1
 //! \date 11/14/2011
 //! \author CooCox
 //! \copy
@@ -84,7 +84,7 @@ extern "C"
 //! \section xSPI_Ints_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xSPI Interrupts         |       CoX      |         NUC1xx         |
+//! |xSPI Interrupts         |       CoX      |         STM32F1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xSPI_INT_EOT            |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -102,7 +102,7 @@ extern "C"
 //
 //! End of transfer
 //
-#define xSPI_INT_EOT            0
+#define xSPI_INT_EOT            SPI_INT_EOT
 
 //*****************************************************************************
 //
@@ -122,7 +122,7 @@ extern "C"
 //! \section xSPI_Ints_Event_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xSPI Interrupts         |       CoX      |         NUC1xx         |
+//! |xSPI Interrupts         |       CoX      |         STM32F1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xSPI_EVENT_EOT          |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -140,7 +140,7 @@ extern "C"
 //
 //! End of transfer
 //
-#define xSPI_EVENT_EOT          0
+#define xSPI_EVENT_EOT          SPI_INT_EOT
 
 //*****************************************************************************
 //
@@ -160,7 +160,7 @@ extern "C"
 //! \section xSPI_Config_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xSPI Configs            |       CoX      |         NUC1xx         |
+//! |xSPI Configs            |       CoX      |         STM32F1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xSPI_MOTO_FORMAT_MODE_0 |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -206,22 +206,22 @@ extern "C"
 //
 //! Moto Format, polarity 0, phase 0
 //
-#define xSPI_MOTO_FORMAT_MODE_0 0
+#define xSPI_MOTO_FORMAT_MODE_0 SPI_FORMAT_MODE_1
 
 //
 //! Moto Format, polarity 0, phase 1
 //  
-#define xSPI_MOTO_FORMAT_MODE_1 0  
+#define xSPI_MOTO_FORMAT_MODE_1 SPI_FORMAT_MODE_2  
                                              
 //
 //! Moto Format, polarity 1, phase 0
 //  
-#define xSPI_MOTO_FORMAT_MODE_2 0  
+#define xSPI_MOTO_FORMAT_MODE_2 SPI_FORMAT_MODE_6  
                                            
 //
 //! Moto Format, polarity 1, phase 1
 //
-#define xSPI_MOTO_FORMAT_MODE_3 0
+#define xSPI_MOTO_FORMAT_MODE_3 SPI_FORMAT_MODE_5
                                             
 //
 //!  TI frame format
@@ -233,44 +233,44 @@ extern "C"
 //
 #define xSPI_NMW_FORMAT_MODE    0
 
-#define xSPI_MODE_MASTER        0  
-#define xSPI_MODE_SLAVE         0  
+#define xSPI_MODE_MASTER        SPI_MODE_MASTER  
+#define xSPI_MODE_SLAVE         SPI_MODE_SLAVE  
 
-#define xSPI_MSB_FIRST          0 
-#define xSPI_LSB_FIRST          0  
+#define xSPI_MSB_FIRST          SPI_MSB_FIRST 
+#define xSPI_LSB_FIRST          SPI_LSB_FIRST  
 
-#define xSPI_DATA_WIDTH1        0
-#define xSPI_DATA_WIDTH2        0 
-#define xSPI_DATA_WIDTH3        0 
-#define xSPI_DATA_WIDTH4        0 
-#define xSPI_DATA_WIDTH5        0 
-#define xSPI_DATA_WIDTH6        0 
-#define xSPI_DATA_WIDTH7        0 
-#define xSPI_DATA_WIDTH8        0 
-#define xSPI_DATA_WIDTH9        0 
-#define xSPI_DATA_WIDTH10       0 
-#define xSPI_DATA_WIDTH11       0 
-#define xSPI_DATA_WIDTH12       0 
-#define xSPI_DATA_WIDTH13       0 
-#define xSPI_DATA_WIDTH14       0 
-#define xSPI_DATA_WIDTH15       0 
-#define xSPI_DATA_WIDTH16       0 
-#define xSPI_DATA_WIDTH17       0 
-#define xSPI_DATA_WIDTH18       0 
-#define xSPI_DATA_WIDTH19       0 
-#define xSPI_DATA_WIDTH20       0 
-#define xSPI_DATA_WIDTH21       0 
-#define xSPI_DATA_WIDTH22       0 
-#define xSPI_DATA_WIDTH23       0 
-#define xSPI_DATA_WIDTH24       0 
-#define xSPI_DATA_WIDTH25       0 
-#define xSPI_DATA_WIDTH26       0 
-#define xSPI_DATA_WIDTH27       0 
-#define xSPI_DATA_WIDTH28       0 
-#define xSPI_DATA_WIDTH29       0 
-#define xSPI_DATA_WIDTH30       0 
-#define xSPI_DATA_WIDTH31       0 
-#define xSPI_DATA_WIDTH32       0 
+#define xSPI_DATA_WIDTH1        SPI_DATA_WIDTH1
+#define xSPI_DATA_WIDTH2        SPI_DATA_WIDTH2 
+#define xSPI_DATA_WIDTH3        SPI_DATA_WIDTH3 
+#define xSPI_DATA_WIDTH4        SPI_DATA_WIDTH4 
+#define xSPI_DATA_WIDTH5        SPI_DATA_WIDTH5 
+#define xSPI_DATA_WIDTH6        SPI_DATA_WIDTH6 
+#define xSPI_DATA_WIDTH7        SPI_DATA_WIDTH7 
+#define xSPI_DATA_WIDTH8        SPI_DATA_WIDTH8 
+#define xSPI_DATA_WIDTH9        SPI_DATA_WIDTH9 
+#define xSPI_DATA_WIDTH10       SPI_DATA_WIDTH10 
+#define xSPI_DATA_WIDTH11       SPI_DATA_WIDTH11 
+#define xSPI_DATA_WIDTH12       SPI_DATA_WIDTH12 
+#define xSPI_DATA_WIDTH13       SPI_DATA_WIDTH13 
+#define xSPI_DATA_WIDTH14       SPI_DATA_WIDTH14 
+#define xSPI_DATA_WIDTH15       SPI_DATA_WIDTH15 
+#define xSPI_DATA_WIDTH16       SPI_DATA_WIDTH16 
+#define xSPI_DATA_WIDTH17       SPI_DATA_WIDTH17 
+#define xSPI_DATA_WIDTH18       SPI_DATA_WIDTH18 
+#define xSPI_DATA_WIDTH19       SPI_DATA_WIDTH19 
+#define xSPI_DATA_WIDTH20       SPI_DATA_WIDTH20 
+#define xSPI_DATA_WIDTH21       SPI_DATA_WIDTH21 
+#define xSPI_DATA_WIDTH22       SPI_DATA_WIDTH22 
+#define xSPI_DATA_WIDTH23       SPI_DATA_WIDTH23 
+#define xSPI_DATA_WIDTH24       SPI_DATA_WIDTH24 
+#define xSPI_DATA_WIDTH25       SPI_DATA_WIDTH25 
+#define xSPI_DATA_WIDTH26       SPI_DATA_WIDTH26 
+#define xSPI_DATA_WIDTH27       SPI_DATA_WIDTH27 
+#define xSPI_DATA_WIDTH28       SPI_DATA_WIDTH28 
+#define xSPI_DATA_WIDTH29       SPI_DATA_WIDTH29 
+#define xSPI_DATA_WIDTH30       SPI_DATA_WIDTH30 
+#define xSPI_DATA_WIDTH31       SPI_DATA_WIDTH31 
+#define xSPI_DATA_WIDTH32       SPI_DATA_WIDTH32 
 
 //*****************************************************************************
 //
@@ -290,7 +290,7 @@ extern "C"
 //! \section xSPI_DMA_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xSPI DMA                |       CoX      |         NUC1xx         |
+//! |xSPI DMA                |       CoX      |         STM32F1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xSPI_DMA_TX             |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -306,17 +306,17 @@ extern "C"
 //
 //! Enable DMA for transmit
 //
-#define xSPI_DMA_TX             0
+#define xSPI_DMA_TX             SPI_DMA_TX
   
 //
 //! Enable DMA for receive
 //
-#define xSPI_DMA_RX             0
+#define xSPI_DMA_RX             SPI_DMA_RX
   
 //
 //! Enable DMA for transfer and receive
 //
-#define xSPI_DMA_BOTH           0  
+#define xSPI_DMA_BOTH           SPI_DMA_BOTH  
 
 //*****************************************************************************
 //
@@ -336,7 +336,7 @@ extern "C"
 //! \section xSPI_SlaveSelMode_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xSPI Slave Select Mode  |       CoX      |         NUC1xx         |
+//! |xSPI Slave Select Mode  |       CoX      |         STM32F1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xSPI_SS_HARDWARE        |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -347,8 +347,8 @@ extern "C"
 //
 //*****************************************************************************
 
-#define xSPI_SS_HARDWARE        0  
-#define xSPI_SS_SOFTWARE        0  
+#define xSPI_SS_HARDWARE        SPI_SS_HARDWARE  
+#define xSPI_SS_SOFTWARE        SPI_SS_SOFTWARE  
 
 //*****************************************************************************
 //
@@ -368,7 +368,7 @@ extern "C"
 //! \section xSPI_SlaveSel_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xSPI Slave Select       |       CoX      |         NUC1xx         |
+//! |xSPI Slave Select       |       CoX      |         STM32F1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xSPI_SS_NONE            |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -383,10 +383,10 @@ extern "C"
 //
 //*****************************************************************************
 
-#define xSPI_SS_NONE            0   
-#define xSPI_SS0                0  
-#define xSPI_SS1                0 
-#define xSPI_SS01               0
+#define xSPI_SS_NONE            SPI_SS_NONE   
+#define xSPI_SS0                SPI_SS0  
+#define xSPI_SS1                SPI_SS1 
+#define xSPI_SS01               SPI_SS0_SS1
 
 //*****************************************************************************
 //
@@ -402,7 +402,7 @@ extern "C"
 //! \section xSPI_Exported_APIs_Port CoX Port Details
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xSPI API                |       CoX      |         NUC1xx         |
+//! |xSPI API                |       CoX      |         STM32F1xx         |
 //! |------------------------|----------------|------------------------|
 //! |xSPIConfigSet           |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -508,8 +508,13 @@ extern "C"
 //! \return None.
 //
 //*****************************************************************************
-extern void xSPIConfigSet(unsigned long ulBase, unsigned long ulBitRate, 
-                          unsigned long ulConfig);
+#define xSPIConfigSet(ulBase, ulBitRate, ulConfig)                            \
+        do                                                                    \
+        {                                                                     \
+         SPIConfig(ulBase, ulBitRate, ulConfig);                              \
+         SPISSConfig(ulBase, SPI_SS_LEVEL_TRIGGER, SPI_SS_ACTIVE_LOW_FALLING);\
+        }                                                                     \
+        while(0)
 
 //*****************************************************************************
 //
@@ -531,8 +536,8 @@ extern void xSPIConfigSet(unsigned long ulBase, unsigned long ulBitRate,
 //! \return the data that was received over the SPI interface.
 //
 //*****************************************************************************
-extern unsigned long xSPISingleDataReadWrite(unsigned long ulBase, 
-                                             unsigned long ulWData);
+#define xSPISingleDataReadWrite(ulBase, ulWData)                              \
+        SPISingleDataReadWrite(ulBase, ulWData) 
 
 //*****************************************************************************
 //
@@ -547,7 +552,8 @@ extern unsigned long xSPISingleDataReadWrite(unsigned long ulBase,
 //! \return the number of bits transferred per frame.
 //
 //*****************************************************************************
-extern unsigned long xSPIBitLengthGet(unsigned long ulBase);
+#define xSPIBitLengthGet(ulBase)                                              \
+        SPIBitLengthGet(ulBase)
 
 //*****************************************************************************
 //
@@ -571,8 +577,8 @@ extern unsigned long xSPIBitLengthGet(unsigned long ulBase);
 //! \return None.
 //
 //*****************************************************************************        
-extern void xSPIDataRead(unsigned long ulBase, unsigned long *pulRData, 
-                         unsigned long ulLen);
+#define xSPIDataRead(ulBase, pulRData, ulLen)                                 \
+        SPIDataRead(ulBase, pulRData, ulLen)
 
 //*****************************************************************************
 //
@@ -595,8 +601,8 @@ extern void xSPIDataRead(unsigned long ulBase, unsigned long *pulRData,
 //! \return None.
 //
 //*****************************************************************************        
-extern void xSPIDataWrite(unsigned long ulBase, unsigned long *pulWData, 
-                          unsigned long ulLen);
+#define xSPIDataWrite(ulBase, pulWData, ulLen)                                \
+        SPIDataWrite(ulBase, pulWData, ulLen)
 
 //*****************************************************************************
 //
@@ -611,7 +617,8 @@ extern void xSPIDataWrite(unsigned long ulBase, unsigned long *pulWData,
 //! \return None.
 //
 //*****************************************************************************        
-extern void xSPIIntEnable(unsigned long ulBase, unsigned long ulIntFlags);
+#define xSPIIntEnable(ulBase, ulIntFlags)                                     \
+        SPIIntEnable(ulBase, ulIntFlags)
 
 //*****************************************************************************
 //
@@ -625,8 +632,8 @@ extern void xSPIIntEnable(unsigned long ulBase, unsigned long ulIntFlags);
 //! \return None.
 //
 //*****************************************************************************
-extern void xSPIIntCallbackInit(unsigned long ulBase, 
-                                xtEventCallback xtSPICallback);
+#define xSPIIntCallbackInit(ulBase, xtSPICallback)                            \
+        SPIIntCallbackInit(ulBase, xtSPICallback)
 
 //*****************************************************************************
 //
@@ -639,7 +646,8 @@ extern void xSPIIntCallbackInit(unsigned long ulBase,
 //! \return None.
 //
 //*****************************************************************************        
-extern void xSPIIntDisable(unsigned long ulBase, unsigned long ulIntFlags); 
+#define xSPIIntDisable(ulBase, ulIntFlags)                                    \
+        SPIIntDisable(ulBase) 
 
 //*****************************************************************************
 //
@@ -657,7 +665,8 @@ extern void xSPIIntDisable(unsigned long ulBase, unsigned long ulIntFlags);
 //! \b .
 //
 //*****************************************************************************        
-extern unsigned long xSPIStatusGet(unsigned long ulBase, xtBoolean xbMasked); 
+#define xSPIStatusGet(ulBase, xbMasked)                                      \
+        SPIIntFlagGet(ulBase, xbMasked) 
 
 //*****************************************************************************
 //
@@ -671,7 +680,8 @@ extern unsigned long xSPIStatusGet(unsigned long ulBase, xtBoolean xbMasked);
 //! \b xtrue The SPI port is in busy,or \b xfalse The SPI port is not in busy.
 //
 //*****************************************************************************        
-extern xtBoolean xSPIIsBusy(unsigned long ulBase);
+#define xSPIIsBusy(ulBase)                                                    \
+        SPIIsBusy(ulBase)
 
 //*****************************************************************************
 //
@@ -688,7 +698,8 @@ extern xtBoolean xSPIIsBusy(unsigned long ulBase);
 //! \b xtrue The Rx buffer is empty,or \b xfalse The Rx buffer is not empty.
 //
 //*****************************************************************************        
-extern xtBoolean xSPIIsRxEmpty(unsigned long ulBase); 
+#define xSPIIsRxEmpty(ulBase)                                                 \
+        SPIIsRxEmpty(ulBase)  
 
 //*****************************************************************************
 //
@@ -705,7 +716,8 @@ extern xtBoolean xSPIIsRxEmpty(unsigned long ulBase);
 //! \b xtrue The Tx buffer is in empty,or \b xfalse The Tx buffer is not empty.
 //
 //*****************************************************************************        
-extern xtBoolean xSPIIsTxEmpty(unsigned long ulBase);
+#define xSPIIsTxEmpty(ulBase)                                                 \
+        SPIIsTxEmpty(ulBase)
 
 //*****************************************************************************
 //
@@ -722,7 +734,8 @@ extern xtBoolean xSPIIsTxEmpty(unsigned long ulBase);
 //! \b xtrue The Rx buffer is full,or \b xfalse The Rx buffer is not full.
 //
 //*****************************************************************************        
-extern xtBoolean xSPIIsRxFull(unsigned long ulBase);
+#define xSPIIsRxFull(ulBase)                                                  \
+        SPIIsRxFull(ulBase)
 
 //*****************************************************************************
 //
@@ -739,7 +752,8 @@ extern xtBoolean xSPIIsRxFull(unsigned long ulBase);
 //! \b xtrue The Tx buffer is in full,or \b xfalse The Tx buffer is not full.
 //
 //*****************************************************************************        
-extern xtBoolean xSPIIsTxFull(unsigned long ulBase);   
+#define xSPIIsTxFull(ulBase)                                                  \
+        SPIIsTxFull(ulBase)   
 
 //*****************************************************************************
 //
@@ -758,7 +772,8 @@ extern xtBoolean xSPIIsTxFull(unsigned long ulBase);
 //! \return None.
 //
 //*****************************************************************************        
-extern void xSPIDMAEnable(unsigned long ulBase, unsigned long ulDmaMode);
+#define xSPIDMAEnable(ulBase, ulDmaMode)                                      \
+        SPI3PDMAEnable(ulBase, ulDmaMode)
 
 //*****************************************************************************
 //
@@ -777,7 +792,8 @@ extern void xSPIDMAEnable(unsigned long ulBase, unsigned long ulDmaMode);
 //! \return None.
 //
 //*****************************************************************************        
-extern void xSPIDMADisable(unsigned long ulBase, unsigned long ulDmaMode);
+#define xSPIDMADisable(ulBase, ulDmaMode)                                     \
+        SPI3PDMADisable(ulBase, ulDmaMode)
 
 //*****************************************************************************
 //
@@ -787,12 +803,12 @@ extern void xSPIDMADisable(unsigned long ulBase, unsigned long ulDmaMode);
 //!
 //! This function enable the specified SPI port.
 //!
-//! \note do nothing for NUC1xx.
+//! \note do nothing for STM32F1xx.
 //!
 //! \return None.
 //
 //*****************************************************************************         
-extern void xSPIEnable(unsigned long ulBase);
+#define xSPIEnable(ulBase)
 
 //*****************************************************************************
 //
@@ -802,42 +818,315 @@ extern void xSPIEnable(unsigned long ulBase);
 //!
 //! This function disable the specified SPI port.
 //!
-//! \note do nothing for NUC1xx.
+//! \note do nothing for STM32F1xx.
 //!
 //! \return None.
 //
 //*****************************************************************************
-extern void xSPIDisable(unsigned long ulBase);
+#define xSPIDisable(ulBase)
 
-
-//*****************************************************************************
-//
-//! \brief Set the slave select pins of the specified SPI port.
-//!
-//! \param ulBase specifies the SPI module base address.
-//! \param ulSSMode specifies the SS is hardware control or software control.
-//! Details please Refer to \ref xSPI_SlaveSelMode.
-//! \param ulSlaveSel specifies the slave select pins which will be used.
-//! Details please Refer to \ref xSPI_SlaveSel.
-//!
-//! This function is to Set the slave select pins of the 
-//! specified SPI port.
-//!
-//! The \e ulSSMode can be one of the following values:
-//! \b xSPI_SS_HARDWARE, \b xSPI_SS_SOFTWARE.
-//! Details please Refer to \ref xSPI_SlaveSelMode_CoX.
-//!
-//! The \e ulSlaveSel can be one of the following values:
-//! \b xSPI_SS_NONE, \b xSPI_SS0,\b xSPI_SS1, or \b xSPI_SS0_SS1.
-//! Details please Refer to \ref xSPI_SlaveSel_CoX.
-//!
-//! \note this is only for master
-//!
-//! \return None.
-//
-//*****************************************************************************       
+        
 extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode, 
                       unsigned long ulSlaveSel);
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_SPI
+//! @{
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_Ints STM32F1xx SPI Interrupts
+//! \brief Values show that xSPI Interrupts
+//! Values that can be passed to SPIIntEnable, SPIIntDisable, and SPIIntClear
+//! as the ulIntFlags parameter, and returned from SPIIntStatus.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! All Error Interrupt Mask
+//
+#define SPI_INT_EOT             0x00000000
+#define SPI_INT_RX              0x00000040
+#define SPI_INT_TX              0x00000080
+#define SPI_INT_ERRE            0x00000020
+ 
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_SPI_Config STM32F1xx SPI Configure
+//! \brief Values show that STM32F1xx SPI Configure
+//! Values that can be passed to SPIConfig.
+//! @{
+//
+//***************************************************************************** 
+
+//
+//! Moto Format, polarity 0, phase 0  M0
+//! Tx changed at falling edge
+//! Rx latched at rising edge
+//
+#define SPI_FORMAT_MODE_0       0x00000000  
+
+//
+//! Moto Format, polarity 0, phase 1  M1
+//! Tx changed at rising edge
+//! Rx latched at falling edge
+//
+#define SPI_FORMAT_MODE_1       0x00000001  
+
+//
+//! Moto Format, polarity 1, phase 1  M4
+//! Tx changed at falling edge
+//! Rx latched at rising edge
+//
+#define SPI_FORMAT_MODE_4       0x00000003  
+
+//
+//! Moto Format, polarity 1, phase 0  M3
+//! Tx changed at rising edge
+//! Rx latched at falling edge
+//
+#define SPI_FORMAT_MODE_3       0x00000002  
+
+//
+//£¡ SPI master
+//
+#define SPI_MODE_MASTER         0x00000004  
+
+//
+//! SPI slave
+//
+#define SPI_MODE_SLAVE          0x00000000
+
+//
+//! SPI MSB First
+//
+#define SPI_MSB_FIRST           0x00000000  
+
+//
+//! SPI LSB First
+//
+#define SPI_LSB_FIRST           0x00000080  
+
+//
+//! data width 8 bit
+//
+#define SPI_DATA_WIDTH8         0x00000000   
+
+//
+//! data width 16 bit
+//
+#define SPI_DATA_WIDTH16        0x00000800  
+
+//
+//! 2-line unidirectional data Full duplex (Transmit and receive)
+//
+#define SPI_2LINE_FULL          0x00000000 
+
+//
+//! 2-line unidirectional data Receive-only mode
+//
+#define SPI_2LINE_RX            0x00000400 
+
+//
+//! 1-line bidirectional data receive-only mode
+//
+#define SPI_1LINE_RX            0x00008000 
+
+//
+//! 1-line bidirectional data transmit-only mode
+//
+#define SPI_1LINE_TX            0x0000C000
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_SPI_DMA STM32F1xx SPI DMA
+//! \brief Values that show STM32F1xx SPI DMA
+//! Values that can be passed to SPIDMAEnable() and SPIDMADisable().
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Enable DMA for transmit
+//
+#define SPI_DMA_TX              0x00000002
+
+//
+//! Enable DMA for receive
+//
+#define SPI_DMA_RX              0x00000001  
+
+//
+//! Enable DMA for receive and transmit
+//
+#define SPI_DMA_BOTH            0x00000003  
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup NUC1xx_SPI_SlaveSel_Config NUC1xx SPI Slave Select Configure
+//! \brief Values that show NUC1xx SPI Slave Select Configure
+//! Values that can be passed to SPIAutoSSEnable() SPISSSet()  SPISSClear()
+//! SPISSConfig().
+//! @{
+//
+//*****************************************************************************
+
+#define SPI_SS_HARDWARE         0x00000000
+#define SPI_SS_SOFTWARE         0x00000200 
+
+//
+//! SPISSx0
+//
+#define SPI_SS0                 0x00000100 
+#define SPI_SSSET               0x00000100
+#define SPI_SSRESET             0x00000000
+ 
+//
+//! SS output enable
+//
+#define SPI_SSOE                0x00000004
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_SPI_FIFOStatus STM32F1xx SPI FIFO Status
+//! \brief Values that show STM32F1xx SPI FIFO Status
+//! Values that can be passed to SPIFIFOStatusGet().
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Received FIFO_NOT_EMPTY STATUS
+//
+#define SPI_RX_NOT_EMPTY        0x00000001  
+
+//
+//! Transmitted FIFO_EMPTY STATUS
+//
+#define SPI_TX_EMPTY            0x00000002    
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_SPI_Error_flag STM32F1xx SPI Error flag
+//! \brief Values that show STM32F1xx SPI Error flag
+//! Values that can be passed to SPIErrorFlagGet().
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Overrun flag.
+//
+#define SPI_ERR_OVERRUN         0x00000040
+
+//
+//! Mode fault.
+//
+#define SPI_ERR_MODEFAULT       0x00000020
+
+//
+//! CRC error flag.
+//
+#define SPI_ERR_CRCE            0x00000010
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_SPI_Exported_APIs  STM32F1xx SPI API
+//! \brief STM32F1xx SPI API Reference
+//! @{
+//
+//*****************************************************************************
+
+extern void SPIConfig(unsigned long ulBase, unsigned long ulBitRate,
+                      unsigned long ulConfig);
+extern unsigned long SPISingleDataReadWrite(unsigned long ulBase, 
+                                            unsigned long ulWData);
+
+extern void SPIDataRead(unsigned long ulBase, void *pulRData, 
+                        unsigned long ulLen);
+extern void SPIDataWrite(unsigned long ulBase, void *pulWData, 
+                         unsigned long ulLen);
+extern void SPIDataPut(unsigned long ulBase, unsigned long ulData);
+extern long SPIDataPutNonBlocking(unsigned long ulBase, unsigned long ulData);
+extern void SPIDataGet(unsigned long ulBase, unsigned long *pulData);
+extern long SSIDataGetNonBlocking(unsigned long ulBase, unsigned long *pulData);
+extern void SPIIntEnable(unsigned long ulBase, unsigned long ulIntFlags);
+extern void SPIIntCallbackInit(unsigned long ulBase, 
+                               xtEventCallback xtSPICallback);
+extern void SPIIntDisable(unsigned long ulBase);
+extern unsigned long SPIIntFlagGet(unsigned long ulBase);
+extern void SPIIntFlagClear(unsigned long ulBase);
+
+extern xtBoolean SPIIsBusy(unsigned long ulBase);
+extern void SPIDMAEnable(unsigned long ulBase, unsigned long ulDmaMode);
+extern void SPIDMADisable(unsigned long ulBase, unsigned long ulDmaMode);
+extern void SPIEnble(unsigned long ulBase);
+extern void SPIDisble(unsigned long ulBase);
+extern void SPISSSet(unsigned long ulBase, unsigned long ulSSMode, 
+                     unsigned long ulSlaveSel);
+extern void SPISSConfig(unsigned long ulBase, unsigned long ulSSValue);
+extern xtBoolean SPIIsTxEmpty(unsigned long ulBase);
+extern xtBoolean SPIIsRxNotEmpty(unsigned long ulBase);
+extern void SPICRCPolSet(unsigned long ulBase, unsigned long ulCRCPol);
+extern unsigned long SPICRCPolGet(unsigned long ulBase);
+extern unsigned long SPICRCPolGet(unsigned long ulBase);
+extern unsigned long SPIRxCRCGet(unsigned long ulBase);
+extern void SPICRCEnble(unsigned long ulBase);
+extern void SPICRCDisble(unsigned long ulBase);
+
 
 //*****************************************************************************
 //

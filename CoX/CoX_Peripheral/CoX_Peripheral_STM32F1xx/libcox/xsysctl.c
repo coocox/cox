@@ -1499,7 +1499,7 @@ SysCtlStopModeConfig(unsigned long ulConfig)
 //
 //*****************************************************************************
 void 
-SysCtlWakeUpPinDisable(void)
+SysCtlEnterStandbyMode(void)
 {
     xHWREG(PWR_CR) |= PWR_CR_CWUF;
     xHWREG(PWR_CR) |= PWR_CR_PDDS;
@@ -1542,7 +1542,7 @@ SysCtlFlagStatusGet(void)
 //
 //*****************************************************************************
 void
-SysCtlFlagStatusGet(unsigned long ulFlag)
+SysCtlFlagStatusClear(unsigned long ulFlag)
 {
     xHWREG(PWR_CR) |= (ulFlag & (PWR_CR_CWUF | PWR_CR_CSBF)) << 2;
 }

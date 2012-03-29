@@ -1631,22 +1631,22 @@
 //
 //! Tamper event flag
 //
-#define BKP_CR_TPE              0x00000100
+#define BKP_CSR_TPE             0x00000100
 
 //
 //! TAMPER pin interrupt enable
 //
-#define BKP_CR_TPIE             0x00000004
+#define BKP_CSR_TPIE            0x00000004
 
 //
 //! Clear tamper interrupt
 //
-#define BKP_CR_CTI              0x00000002
+#define BKP_CSR_CTI             0x00000002
 
 //
 //! Clear tamper event
 //
-#define BKP_CR_CTE              0x00000001
+#define BKP_CSR_CTE             0x00000001
 
 //*****************************************************************************
 //
