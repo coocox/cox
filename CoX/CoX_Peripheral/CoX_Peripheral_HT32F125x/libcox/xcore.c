@@ -5,7 +5,7 @@
 //! Driver for the NVIC Interrupt Controller.
 //! Driver for the SysTick driver.
 //! \version V2.1.1.0
-//! \date 2/22/2012
+//! \date 11/20/2011
 //! \author CooCox
 //! \copy
 //!
@@ -48,6 +48,19 @@
 
 //*****************************************************************************
 //
+// This is a mapping between priority grouping encodings and the number of
+// preemption priority bits.
+//
+//*****************************************************************************
+static const unsigned long g_pulPriority[] =
+{
+    NVIC_APINT_PRIGROUP_0_8, NVIC_APINT_PRIGROUP_1_7, NVIC_APINT_PRIGROUP_2_6,
+    NVIC_APINT_PRIGROUP_3_5, NVIC_APINT_PRIGROUP_4_4, NVIC_APINT_PRIGROUP_5_3,
+    NVIC_APINT_PRIGROUP_6_2, NVIC_APINT_PRIGROUP_7_1
+};
+
+//*****************************************************************************
+//
 // This is a mapping between interrupt number and the register that contains
 // the priority encoding for that interrupt.
 //
@@ -61,7 +74,8 @@ static const unsigned long g_pulRegs[] =
 
 //*****************************************************************************
 //
-//! \brief The default interrupt handler.
+//! \internal
+//! The default interrupt handler.
 //!
 //! This is the default interrupt handler for all interrupts.  It simply loops
 //! forever so that the system state is preserved for observation by a
@@ -71,7 +85,7 @@ static const unsigned long g_pulRegs[] =
 //! \return None.
 //
 //*****************************************************************************
-void
+static void
 IntDefaultHandler(void)
 {
     //
@@ -82,13 +96,14 @@ IntDefaultHandler(void)
     }
 }
 
+
 //*****************************************************************************
 //
-// Wrapper function for the CPSID instruction. Returns the state of 
-// PRIMASK on entry. 
+// Wrapper function for the CPSID instruction.  Returns the state of PRIMASK
+// on entry.
 //
 //*****************************************************************************
-#if defined(gcc) || defined(__GNUC__)
+#if defined(codered) || defined(gcc) || defined(sourcerygxx)
 unsigned long __attribute__((naked))
 xCPUcpsid(void)
 {
@@ -111,7 +126,7 @@ xCPUcpsid(void)
     return(ulRet);
 }
 #endif
-#if defined(ewarm) || defined(__ICCARM__)
+#if defined(ewarm)
 unsigned long
 xCPUcpsid(void)
 {
@@ -130,7 +145,7 @@ xCPUcpsid(void)
 }
 #pragma diag_default=Pe940
 #endif
-#if defined(rvmdk) || defined(__CC_ARM)
+#if defined(rvmdk) || defined(__ARMCC_VERSION)
 __asm unsigned long
 xCPUcpsid(void)
 {
@@ -149,7 +164,7 @@ xCPUcpsid(void)
 // interrupts are enabled or disabled).
 //
 //*****************************************************************************
-#if defined(gcc) || defined(__GNUC__)
+#if defined(codered) || defined(gcc) || defined(sourcerygxx)
 unsigned long __attribute__((naked))
 xCPUprimask(void)
 {
@@ -171,7 +186,7 @@ xCPUprimask(void)
     return(ulRet);
 }
 #endif
-#if defined(ewarm) || defined(__ICCARM__)
+#if defined(ewarm)
 unsigned long
 xCPUprimask(void)
 {
@@ -189,7 +204,7 @@ xCPUprimask(void)
 }
 #pragma diag_default=Pe940
 #endif
-#if defined(rvmdk) || defined(__CC_ARM)
+#if defined(rvmdk) || defined(__ARMCC_VERSION)
 __asm unsigned long
 xCPUprimask(void)
 {
@@ -207,7 +222,7 @@ xCPUprimask(void)
 // on entry.
 //
 //*****************************************************************************
-#if defined(gcc) || defined(__GNUC__)
+#if defined(codered) || defined(gcc) || defined(sourcerygxx)
 unsigned long __attribute__((naked))
 xCPUcpsie(void)
 {
@@ -230,7 +245,7 @@ xCPUcpsie(void)
     return(ulRet);
 }
 #endif
-#if defined(ewarm) || defined(__ICCARM__)
+#if defined(ewarm)
 unsigned long
 xCPUcpsie(void)
 {
@@ -249,7 +264,7 @@ xCPUcpsie(void)
 }
 #pragma diag_default=Pe940
 #endif
-#if defined(rvmdk) || defined(__CC_ARM)
+#if defined(rvmdk) || defined(__ARMCC_VERSION)
 __asm unsigned long
 xCPUcpsie(void)
 {
@@ -267,7 +282,7 @@ xCPUcpsie(void)
 // Wrapper function for the WFI instruction.
 //
 //*****************************************************************************
-#if defined(gcc) || defined(__GNUC__)
+#if defined(codered) || defined(gcc) || defined(sourcerygxx)
 void __attribute__((naked))
 xCPUwfi(void)
 {
@@ -278,7 +293,7 @@ xCPUwfi(void)
           "    bx      lr\n");
 }
 #endif
-#if defined(ewarm) || defined(__ICCARM__)
+#if defined(ewarm)
 void
 xCPUwfi(void)
 {
@@ -288,7 +303,7 @@ xCPUwfi(void)
     __asm("    wfi\n");
 }
 #endif
-#if defined(rvmdk) || defined(__CC_ARM)
+#if defined(rvmdk) || defined(__ARMCC_VERSION)
 __asm void
 xCPUwfi(void)
 {
@@ -300,39 +315,38 @@ xCPUwfi(void)
 }
 #endif
 
-
 //*****************************************************************************
 //
 // Wrapper function for the WFE instruction.
 //
 //*****************************************************************************
-#if defined(gcc) || defined(__GNUC__)
+#if defined(codered) || defined(gcc) || defined(sourcerygxx)
 void __attribute__((naked))
 xCPUwfe(void)
 {
     //
-    // Wait for the next event.
+    // Wait for the next interrupt.
     //
     __asm("    wfe\n"
           "    bx      lr\n");
 }
 #endif
-#if defined(ewarm) || defined(__ICCARM__)
+#if defined(ewarm)
 void
 xCPUwfe(void)
 {
     //
-    // Wait for the next event.
+    // Wait for the next interrupt.
     //
     __asm("    wfe\n");
 }
 #endif
-#if defined(rvmdk) || defined(__CC_ARM)
+#if defined(rvmdk) || defined(__ARMCC_VERSION)
 __asm void
 xCPUwfe(void)
 {
     //
-    // Wait for the next evenr.
+    // Wait for the next interrupt.
     //
     wfe;
     bx      lr
@@ -344,7 +358,7 @@ xCPUwfe(void)
 // Wrapper function for writing the BASEPRI register.
 //
 //*****************************************************************************
-#if defined(gcc) || defined(__GNUC__)
+#if defined(codered) || defined(gcc) || defined(sourcerygxx)
 void __attribute__((naked))
 xCPUbasepriSet(unsigned long ulNewBasepri)
 {
@@ -356,25 +370,25 @@ xCPUbasepriSet(unsigned long ulNewBasepri)
           "    bx      lr\n");
 }
 #endif
-#if defined(ewarm) || defined(__ICCARM__)
+#if defined(ewarm)
 void
 xCPUbasepriSet(unsigned long ulNewBasepri)
 {
     //
     // Set the BASEPRI register
     //
-//    __asm("    msr     BASEPRI, r0\n");
+    __asm("    msr     BASEPRI, r0\n");
 }
 #endif
-#if defined(rvmdk) || defined(__CC_ARM)
+#if defined(rvmdk) || defined(__ARMCC_VERSION)
 __asm void
 xCPUbasepriSet(unsigned long ulNewBasepri)
 {
     //
     // Set the BASEPRI register
     //
-//    msr     BASEPRI, r0;
-//    bx      lr
+    msr     BASEPRI, r0;
+    bx      lr
 }
 #endif
 
@@ -383,7 +397,7 @@ xCPUbasepriSet(unsigned long ulNewBasepri)
 // Wrapper function for reading the BASEPRI register.
 //
 //*****************************************************************************
-#if defined(gcc) || defined(__GNUC__)
+#if defined(codered) || defined(gcc) || defined(sourcerygxx)
 unsigned long __attribute__((naked))
 xCPUbasepriGet(void)
 {
@@ -405,14 +419,14 @@ xCPUbasepriGet(void)
     return(ulRet);
 }
 #endif
-#if defined(ewarm) || defined(__ICCARM__)
+#if defined(ewarm)
 unsigned long
 xCPUbasepriGet(void)
 {
     //
     // Read BASEPRI
     //
- //   __asm("    mrs     r0, BASEPRI\n");
+    __asm("    mrs     r0, BASEPRI\n");
 
     //
     // "Warning[Pe940]: missing return statement at end of non-void function"
@@ -423,15 +437,15 @@ xCPUbasepriGet(void)
 }
 #pragma diag_default=Pe940
 #endif
-#if defined(rvmdk) || defined(__CC_ARM)
+#if defined(rvmdk) || defined(__ARMCC_VERSION)
 __asm unsigned long
 xCPUbasepriGet(void)
 {
     //
     // Read BASEPRI
     //
-//    mrs     r0, BASEPRI;
-//    bx      lr
+    mrs     r0, BASEPRI;
+    bx      lr
 }
 #endif
 
@@ -440,7 +454,7 @@ xCPUbasepriGet(void)
 // Wrapper function for writing the PSP register.
 //
 //*****************************************************************************
-#if defined(gcc) || defined(__GNUC__)
+#if defined(codered) || defined(gcc) || defined(sourcerygxx)
 void __attribute__((naked))
 xCPUpspSet(unsigned long ulNewPspStack)
 {
@@ -452,7 +466,7 @@ xCPUpspSet(unsigned long ulNewPspStack)
           "    bx      lr\n");
 }
 #endif
-#if defined(ewarm) || defined(__ICCARM__)
+#if defined(ewarm)
 void
 xCPUpspSet(unsigned long ulNewPspStack)
 {
@@ -462,7 +476,7 @@ xCPUpspSet(unsigned long ulNewPspStack)
     __asm("    msr     psp, r0\n");
 }
 #endif
-#if defined(rvmdk) || defined(__CC_ARM)
+#if defined(rvmdk) || defined(__ARMCC_VERSION)
 __asm void
 xCPUpspSet(unsigned long ulNewPspStack)
 {
@@ -479,7 +493,7 @@ xCPUpspSet(unsigned long ulNewPspStack)
 // Wrapper function for reading the psp register.
 //
 //*****************************************************************************
-#if defined(gcc) || defined(__GNUC__)
+#if defined(codered) || defined(gcc) || defined(sourcerygxx)
 unsigned long __attribute__((naked))
 xCPUpspGet(void)
 {
@@ -501,7 +515,7 @@ xCPUpspGet(void)
     return(ulRet);
 }
 #endif
-#if defined(ewarm) || defined(__ICCARM__)
+#if defined(ewarm)
 unsigned long
 xCPUpspGet(void)
 {
@@ -519,7 +533,7 @@ xCPUpspGet(void)
 }
 #pragma diag_default=Pe940
 #endif
-#if defined(rvmdk) || defined(__CC_ARM)
+#if defined(rvmdk) || defined(__ARMCC_VERSION)
 __asm unsigned long
 xCPUpspGet(void)
 {
@@ -530,13 +544,33 @@ xCPUpspGet(void)
     bx      lr
 }
 #endif
+#if defined(ccs)
+unsigned long
+xCPUpspGet(void)
+{
+    //
+    // Read psp
+    //
+    __asm("    mrs     r0, psp\n"
+          "    bx      lr\n");
+
+    //
+    // The following keeps the compiler happy, because it wants to see a
+    // return value from this function.  It will generate code to return
+    // a zero.  However, the real return is the "bx lr" above, so the
+    // return(0) is never executed and the function returns with the value
+    // you expect in R0.
+    //
+    return(0);
+}
+#endif
 
 //*****************************************************************************
 //
 // Wrapper function for writing the msp register.
 //
 //*****************************************************************************
-#if defined(gcc) || defined(__GNUC__)
+#if defined(codered) || defined(gcc) || defined(sourcerygxx)
 void __attribute__((naked))
 xCPUmspSet(unsigned long ulNewmspStack)
 {
@@ -548,7 +582,7 @@ xCPUmspSet(unsigned long ulNewmspStack)
           "    bx      lr\n");
 }
 #endif
-#if defined(ewarm) || defined(__ICCARM__)
+#if defined(ewarm)
 void
 xCPUmspSet(unsigned long ulNewmspStack)
 {
@@ -558,7 +592,7 @@ xCPUmspSet(unsigned long ulNewmspStack)
     __asm("    msr     msp, r0\n");
 }
 #endif
-#if defined(rvmdk) || defined(__CC_ARM)
+#if defined(rvmdk) || defined(__ARMCC_VERSION)
 __asm void
 xCPUmspSet(unsigned long ulNewmspStack)
 {
@@ -569,13 +603,24 @@ xCPUmspSet(unsigned long ulNewmspStack)
     bx lr
 }
 #endif
+#if defined(ccs)
+void
+xCPUmspSet(unsigned long ulNewmspStack)
+{
+    //
+    // Set the msp register
+    //
+    __asm("    msr     msp, r0\n");
+}
+#endif
+
 
 //*****************************************************************************
 //
 // Wrapper function for reading the msp register.
 //
 //*****************************************************************************
-#if defined(gcc) || defined(__GNUC__)
+#if defined(codered) || defined(gcc) || defined(sourcerygxx)
 unsigned long __attribute__((naked))
 xCPUmspGet(void)
 {
@@ -597,7 +642,7 @@ xCPUmspGet(void)
     return(ulRet);
 }
 #endif
-#if defined(ewarm) || defined(__ICCARM__)
+#if defined(ewarm)
 unsigned long
 xCPUmspGet(void)
 {
@@ -615,7 +660,7 @@ xCPUmspGet(void)
 }
 #pragma diag_default=Pe940
 #endif
-#if defined(rvmdk) || defined(__CC_ARM)
+#if defined(rvmdk) || defined(__ARMCC_VERSION)
 __asm unsigned long
 xCPUmspGet(void)
 {
@@ -626,11 +671,30 @@ xCPUmspGet(void)
     bx      lr
 }
 #endif
+#if defined(ccs)
+unsigned long
+xCPUmspGet(void)
+{
+    //
+    // Read msp
+    //
+    __asm("    mrs     r0, msp\n"
+          "    bx      lr\n");
 
+    //
+    // The following keeps the compiler happy, because it wants to see a
+    // return value from this function.  It will generate code to return
+    // a zero.  However, the real return is the "bx lr" above, so the
+    // return(0) is never executed and the function returns with the value
+    // you expect in R0.
+    //
+    return(0);
+}
+#endif
 
 //*****************************************************************************
 //
-//! \brief Enables the processor interrupt.
+//! Enables the processor interrupt.
 //!
 //! Allows the processor to respond to interrupts.  This does not affect the
 //! set of interrupts enabled in the interrupt controller; it just gates the
@@ -651,7 +715,7 @@ xIntMasterEnable(void)
 
 //*****************************************************************************
 //
-//! \brief Disables the processor interrupt.
+//! Disables the processor interrupt.
 //!
 //! Prevents the processor from receiving interrupts.  This does not affect the
 //! set of interrupts enabled in the interrupt controller; it just gates the
@@ -672,7 +736,77 @@ xIntMasterDisable(void)
 
 //*****************************************************************************
 //
-//! \brief Sets the priority of an interrupt.
+//! Sets the priority grouping of the interrupt controller.
+//!
+//! \param ulBits specifies the number of bits of preemptable priority.
+//!
+//! This function specifies the split between preemptable priority levels and
+//! subpriority levels in the interrupt priority specification.  The range of
+//! the grouping values are dependent upon the hardware implementation; on
+//! the Stellaris family, three bits are available for hardware interrupt
+//! prioritization and therefore priority grouping values of three through
+//! seven have the same effect.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+xIntPriorityGroupingSet(unsigned long ulBits)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT(ulBits < NUM_PRIORITY);
+
+    //
+    // Set the priority grouping.
+    //
+    xHWREG(NVIC_APINT) = NVIC_APINT_VECTKEY | g_pulPriority[ulBits];
+}
+
+//*****************************************************************************
+//
+//! Gets the priority grouping of the interrupt controller.
+//!
+//! This function returns the split between preemptable priority levels and
+//! subpriority levels in the interrupt priority specification.
+//!
+//! \return The number of bits of preemptable priority.
+//
+//*****************************************************************************
+unsigned long
+xIntPriorityGroupingGet(void)
+{
+    unsigned long ulLoop, ulValue;
+
+    //
+    // Read the priority grouping.
+    //
+    ulValue = xHWREG(NVIC_APINT) & NVIC_APINT_PRIGROUP_M;
+
+    //
+    // Loop through the priority grouping values.
+    //
+    for(ulLoop = 0; ulLoop < NUM_PRIORITY; ulLoop++)
+    {
+        //
+        // Stop looping if this value matches.
+        //
+        if(ulValue == g_pulPriority[ulLoop])
+        {
+            break;
+        }
+    }
+
+    //
+    // Return the number of priority bits.
+    //
+    return(ulLoop);
+}
+
+//*****************************************************************************
+//
+//! Sets the priority of an interrupt.
 //!
 //! \param ulInterrupt specifies the interrupt in question.
 //! \param ucPriority specifies the priority of the interrupt.
@@ -684,7 +818,7 @@ xIntMasterDisable(void)
 //! interrupt priority.
 //!
 //! The hardware priority mechanism will only look at the upper N bits of the
-//! priority level (where N is 2 for the NUC1xx family), so any
+//! priority level (where N is 4 for the HT32F125x family), so any
 //! prioritization must be performed in those bits.  The remaining bits can be
 //! used to sub-prioritize the interrupt sources, and may be used by the
 //! hardware priority mechanism on a future part.  This arrangement allows
@@ -698,7 +832,7 @@ void
 xIntPrioritySet(unsigned long ulInterrupt, unsigned char ucPriority)
 {
     unsigned long ulTemp;
-    unsigned long ulPriority = ucPriority;
+    unsigned long ulPriority = ucPriority << (8 - NUM_PRIORITY_BITS);
     int i;
     
     //
@@ -714,7 +848,7 @@ xIntPrioritySet(unsigned long ulInterrupt, unsigned char ucPriority)
         //
         ulTemp = xHWREG(g_pulRegs[(ulInterrupt & 0xFF) >> 2]);
         ulTemp &= ~(0xFF << (8 * ((ulInterrupt & 0xFF) & 3)));
-        ulTemp |= ucPriority << (8 * ((ulInterrupt & 0xFF) & 3));
+        ulTemp |= ulPriority << (8 * ((ulInterrupt & 0xFF) & 3));
         xHWREG(g_pulRegs[(ulInterrupt & 0xFF) >> 2]) = ulTemp;
     }
     else if(ulInterrupt == xINT_GPIOA)
@@ -724,7 +858,12 @@ xIntPrioritySet(unsigned long ulInterrupt, unsigned char ucPriority)
         //
         for (i = 10; i < 14; i++)
         {  
-            ulPriority |= ((ulPriority << 8) | (ulPriority << 16) | (ulPriority << 24));   
+            ulPriority |= ((ulPriority << 8) | (ulPriority << 16) | (ulPriority << 24));
+			
+			//
+			// Clear first
+			//   
+			xHWREG(g_pulRegs[i]) &= ~0xFFFFFFFF;
             xHWREG(g_pulRegs[i]) = ulPriority;   
         }
     }
@@ -735,20 +874,21 @@ xIntPrioritySet(unsigned long ulInterrupt, unsigned char ucPriority)
         //
         for (i = 10; i < 14; i++)
         {  
-            ulPriority |= ((ulPriority << 8) | (ulPriority << 16) | (ulPriority << 24));   
+            ulPriority |= ((ulPriority << 8) | (ulPriority << 16) | (ulPriority << 24));
+		    xHWREG(g_pulRegs[i]) &= ~0xFFFFFFFF;   
             xHWREG(g_pulRegs[i]) = ulPriority;   
         }
     }    
 }
 
+
 //*****************************************************************************
 //
-
-//! \brief Gets the priority of an interrupt.
+//! Gets the priority of an interrupt.
 //!
 //! \param ulInterrupt specifies the interrupt in question.
 //!
-//! This function gets the priority of an interrupt.  See xIntPrioritySet() for
+//! This function gets the priority of an interrupt.  See XIntPrioritySet() for
 //! a definition of the priority value.
 //!
 //! \return Returns the interrupt priority, or -1 if an invalid interrupt was
@@ -769,16 +909,16 @@ xIntPriorityGet(unsigned long ulInterrupt)
         //
         // Return the interrupt priority.
         //
-        return((xHWREG(g_pulRegs[ulInterrupt >> 2]) >> (8 * (ulInterrupt & 3))) &
-               0xFF);
+        return(((xHWREG(g_pulRegs[ulInterrupt >> 2]) >> (8 * (ulInterrupt & 3)) >> 
+		        (8 - NUM_PRIORITY_BITS))) &  0xFF);
     }
     else if(ulInterrupt == xINT_GPIOA)
     {
-        return (xHWREG(NVIC_PRI6) & 0xFF);
+        return ((xHWREG(NVIC_PRI6) & 0xFF) >> (8 - NUM_PRIORITY_BITS));
     }
     else if(ulInterrupt == xINT_GPIOB)
     {
-        return (xHWREG(NVIC_PRI6) & 0xFF);
+        return ((xHWREG(NVIC_PRI6) & 0xFF) >> (8 - NUM_PRIORITY_BITS));
     }
     
     return -1;
@@ -786,7 +926,7 @@ xIntPriorityGet(unsigned long ulInterrupt)
 
 //*****************************************************************************
 //
-//! \brief Enables an interrupt.
+//! Enables an interrupt.
 //!
 //! \param ulInterrupt specifies the interrupt to be enabled.
 //!
@@ -803,7 +943,7 @@ xIntEnable(unsigned long ulInterrupt)
     //
     // Check the arguments.
     //
-    xASSERT((ulInterrupt & 0xFF) < NUM_INTERRUPTS);
+    xASSERT((ulInterrupt & 0xFF) <= NUM_INTERRUPTS);
 
     //
     // Determine the interrupt to enable.
@@ -837,7 +977,7 @@ xIntEnable(unsigned long ulInterrupt)
         xHWREG(NVIC_ST_CTRL) |= NVIC_ST_CTRL_INTEN;
     }
     else if(((ulInterrupt & 0xFF) >= 16) && 
-            ((ulInterrupt & 0xFF) < xNUM_INTERRUPTS))
+            ((ulInterrupt & 0xFF) <= xNUM_INTERRUPTS))
     {
         //
         // Enable the general interrupt.
@@ -865,7 +1005,7 @@ xIntEnable(unsigned long ulInterrupt)
 
 //*****************************************************************************
 //
-//! \brief Disables an interrupt.
+//! Disables an interrupt.
 //!
 //! \param ulInterrupt specifies the interrupt to be disabled.
 //!
@@ -882,7 +1022,7 @@ xIntDisable(unsigned long ulInterrupt)
     //
     // Check the arguments.
     //
-    xASSERT(ulInterrupt < NUM_INTERRUPTS);
+    xASSERT(ulInterrupt <= NUM_INTERRUPTS);
 
     //
     // Determine the interrupt to disable.
@@ -916,13 +1056,13 @@ xIntDisable(unsigned long ulInterrupt)
         xHWREG(NVIC_ST_CTRL) &= ~(NVIC_ST_CTRL_INTEN);
     }
     else if(((ulInterrupt & 0xFF) >= 16) && 
-            ((ulInterrupt & 0xFF) < xNUM_INTERRUPTS))
+            ((ulInterrupt & 0xFF) <= xNUM_INTERRUPTS))
     {
         //
         // Enable the general interrupt.
         //
-        xHWREG(NVIC_DIS0 + ((ulInterrupt & 0xFF)/32)*4) 
-        = 1 << ((ulInterrupt & 0xFF)%32);
+        xHWREG(NVIC_DIS0 + (((ulInterrupt & 0xFF) - 16)/32)*4) 
+        = 1 << (((ulInterrupt & 0xFF) - 16)%32);
     }
     else if(ulInterrupt == xINT_GPIOA)
     {
@@ -943,7 +1083,7 @@ xIntDisable(unsigned long ulInterrupt)
 
 //*****************************************************************************
 //
-//! \brief Pends an interrupt.
+//! Pends an interrupt.
 //!
 //! \param ulInterrupt specifies the interrupt to be pended.
 //!
@@ -996,8 +1136,8 @@ xIntPendSet(unsigned long ulInterrupt)
         //
         // Enable the general interrupt.
         //
-        xHWREG(NVIC_PEND0 + ((ulInterrupt & 0xFF)/32)*4) 
-        = 1 << ((ulInterrupt & 0xFF)%32);
+        xHWREG(NVIC_PEND0 + (((ulInterrupt & 0xFF) - 16)/32)*4) 
+        = 1 << (((ulInterrupt & 0xFF) - 16)%32);
     }
     else if(ulInterrupt == xINT_GPIOA)
     {
@@ -1018,7 +1158,7 @@ xIntPendSet(unsigned long ulInterrupt)
 
 //*****************************************************************************
 //
-//! \brief Unpends an interrupt.
+//! Unpends an interrupt.
 //!
 //! \param ulInterrupt specifies the interrupt to be unpended.
 //!
@@ -1061,8 +1201,8 @@ xIntPendClear(unsigned long ulInterrupt)
         //
         // Enable the general interrupt.
         //
-        xHWREG(NVIC_UNPEND0 + ((ulInterrupt & 0xFF)/32)*4) 
-        = 1 << ((ulInterrupt & 0xFF)%32);
+        xHWREG(NVIC_UNPEND0 + (((ulInterrupt & 0xFF) -16)/32)*4) 
+        = 1 << (((ulInterrupt & 0xFF) -16)%32);
     }
     else if(ulInterrupt == xINT_GPIOA)
     {
@@ -1083,7 +1223,7 @@ xIntPendClear(unsigned long ulInterrupt)
 
 //*****************************************************************************
 //
-//! \brief Sets the priority masking level
+//! Sets the priority masking level
 //!
 //! \param ulPriorityMask is the priority level that will be masked.
 //!
@@ -1098,7 +1238,7 @@ xIntPendClear(unsigned long ulInterrupt)
 //! and interrupts with a numerical priority of 4 and greater will be blocked.
 //!
 //! The hardware priority mechanism will only look at the upper N bits of the
-//! priority level (where N is 2 for the NUC1xx family), so any
+//! priority level (where N is 3 for the Stellaris family), so any
 //! prioritization must be performed in those bits.
 //!
 //! \return None.
@@ -1112,7 +1252,7 @@ xIntPriorityMaskSet(unsigned long ulPriorityMask)
 
 //*****************************************************************************
 //
-//! \brief Gets the priority masking level
+//! Gets the priority masking level
 //!
 //! This function gets the current setting of the interrupt priority masking
 //! level.  The value returned is the priority level such that all interrupts
@@ -1124,7 +1264,7 @@ xIntPriorityMaskSet(unsigned long ulPriorityMask)
 //! and interrupts with a numerical priority of 4 and greater will be blocked.
 //!
 //! The hardware priority mechanism will only look at the upper N bits of the
-//! priority level (where N is 2 for the NUC1xx family), so any
+//! priority level (where N is 3 for the Stellaris family), so any
 //! prioritization must be performed in those bits.
 //!
 //! \return Returns the value of the interrupt priority level mask.
@@ -1138,14 +1278,14 @@ xIntPriorityMaskGet(void)
 
 //*****************************************************************************
 //
-//! \brief Enables the SysTick counter.
+//! Enables the SysTick counter.
 //!
 //! This will start the SysTick counter.  If an interrupt handler has been
 //! registered, it will be called when the SysTick counter rolls over.
 //!
 //! \note Calling this function will cause the SysTick counter to (re)commence
 //! counting from its current value.  The counter is not automatically reloaded
-//! with the period as specified in a previous call to xSysTickPeriodSet().  If
+//! with the period as specified in a previous call to XSysTickPeriodSet().  If
 //! an immediate reload is required, the \b NVIC_ST_CURRENT register must be
 //! written to force this.  Any write to this register clears the SysTick
 //! counter to 0 and will cause a reload with the supplied period on the next
@@ -1165,7 +1305,7 @@ xSysTickEnable(void)
 
 //*****************************************************************************
 //
-//! \brief Disables the SysTick counter.
+//! Disables the SysTick counter.
 //!
 //! This will stop the SysTick counter.  If an interrupt handler has been
 //! registered, it will no longer be called until SysTick is restarted.
@@ -1182,9 +1322,10 @@ xSysTickDisable(void)
     xHWREG(NVIC_ST_CTRL) &= ~(NVIC_ST_CTRL_ENABLE);
 }
 
+
 //*****************************************************************************
 //
-//! \brief Enables the SysTick interrupt.
+//! Enables the SysTick interrupt.
 //!
 //! This function will enable the SysTick interrupt, allowing it to be
 //! reflected to the processor.
@@ -1207,7 +1348,7 @@ xSysTickIntEnable(void)
 
 //*****************************************************************************
 //
-//! \brief Disables the SysTick interrupt.
+//! Disables the SysTick interrupt.
 //!
 //! This function will disable the SysTick interrupt, preventing it from being
 //! reflected to the processor.
@@ -1226,7 +1367,7 @@ xSysTickIntDisable(void)
 
 //*****************************************************************************
 //
-//! \brief Sets the period of the SysTick counter.
+//! Sets the period of the SysTick counter.
 //!
 //! \param ulPeriod is the number of clock ticks in each period of the SysTick
 //! counter; must be between 1 and 16,777,216, inclusive.
@@ -1259,7 +1400,7 @@ xSysTickPeriodSet(unsigned long ulPeriod)
 
 //*****************************************************************************
 //
-//! \brief Gets the period of the SysTick counter.
+//! Gets the period of the SysTick counter.
 //!
 //! This function returns the rate at which the SysTick counter wraps; this
 //! equates to the number of processor clocks between interrupts.
@@ -1278,7 +1419,7 @@ xSysTickPeriodGet(void)
 
 //*****************************************************************************
 //
-//! \brief Gets the current value of the SysTick counter.
+//! Gets the current value of the SysTick counter.
 //!
 //! This function returns the current value of the SysTick counter; this will
 //! be a value between the period - 1 and zero, inclusive.
@@ -1293,77 +1434,5 @@ xSysTickValueGet(void)
     // Return the current value of the SysTick counter.
     //
     return(xHWREG(NVIC_ST_CURRENT));
-}
-
-//*****************************************************************************
-//
-//! \brief Set the SysTick pending.
-//!
-//! This function will Set the SysTick pending.
-//!
-//! \return None.
-//
-//*****************************************************************************
-void
-xSysTickPendSet(void)
-{
-    //
-    // Set the SysTick pending.
-    //
-    xHWREG(NVIC_INT_CTRL) |= NVIC_INT_CTRL_PENDSTSET;
-}
-
-//*****************************************************************************
-//
-//! \brief Clear the SysTick pending.
-//!
-//! This function will Clear the SysTick pending.
-//!
-//! \return None.
-//
-//*****************************************************************************
-void
-xSysTickPendClr(void)
-{
-    //
-    // Clear the SysTick pending.
-    //
-    xHWREG(NVIC_INT_CTRL) |= NVIC_INT_CTRL_PENDSTCLR;
-}
-
-//*****************************************************************************
-//
-//! \brief Set the PendSV pending.
-//!
-//! This function will Set the PendSV pending.
-//!
-//! \return None.
-//
-//*****************************************************************************
-void
-xPendSVPendSet(void)
-{
-    //
-    // Set the PendSV pending.
-    //
-    xHWREG(NVIC_INT_CTRL) |= NVIC_INT_CTRL_PEND_SV;
-}
-
-//*****************************************************************************
-//
-//! \brief Clear the PendSV pending.
-//!
-//! This function will Clear the PendSV pending.
-//!
-//! \return None.
-//
-//*****************************************************************************
-void
-xPendSVPendClr(void)
-{
-    //
-    // Clear the PendSV pending.
-    //
-    xHWREG(NVIC_INT_CTRL) |= NVIC_INT_CTRL_UNPEND_SV;
 }
 

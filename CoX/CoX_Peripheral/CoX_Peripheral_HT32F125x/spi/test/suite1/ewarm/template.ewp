@@ -30,7 +30,7 @@
         <option>
           <name>Variant</name>
           <version>16</version>
-          <state>34</state>
+          <state>37</state>
         </option>
         <option>
           <name>GEndianMode</name>
@@ -65,7 +65,7 @@
         </option>
         <option>
           <name>OGCoreOrChip</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>GRuntimeLibSelect</name>
@@ -91,7 +91,7 @@
         </option>
         <option>
           <name>OGLastSavedByProductVersion</name>
-          <state>5.50.6.52043</state>
+          <state>5.50.0.51907</state>
         </option>
         <option>
           <name>GeneralEnableMisra</name>
@@ -1669,10 +1669,16 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_types.h</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_uart.h</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xspi.h</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xsysctl.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xuart.h</name>
         </file>
       </group>
       <group>
@@ -1689,6 +1695,9 @@
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xsysctl.c</name>
         </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xuart.c</name>
+        </file>
       </group>
     </group>
   </group>
@@ -1696,6 +1705,39 @@
     <name>ewarm</name>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\startup\src\startup_ewarm.s</name>
+    </file>
+  </group>
+  <group>
+    <name>testcase</name>
+    <file>
+      <name>$PROJ_DIR$\..\src\spitest00.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\spitest01.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\spitest02.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\testcase.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\testcase.h</name>
+    </file>
+  </group>
+  <group>
+    <name>testframe</name>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\testframe\main.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\testframe\test.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\testframe\test.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\testframe\testport.c</name>
     </file>
   </group>
 </project>

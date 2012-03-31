@@ -72,25 +72,26 @@ static xtEventCallback g_pfnSPIHandlerCallbacks[1]={0};
 void 
 SPI0IntHandler(void)
 {
-    unsigned long ulEventFlags;
+    unsigned long ulFIFOFlags, ulFlags;
     unsigned long ulBase = SPI0_BASE;
     
     //
     // Gets interrupt status
     //
-    ulEventFlags = xHWREG(ulBase + SPI_FSR);   
-
+    ulFIFOFlags = xHWREG(ulBase + SPI_FSR);   
+	ulFlags = xHWREG(ulBase + SPI_SR);
     //
     // Clear Int flag
     //
-    xHWREG(ulBase + SPI_FSR) &= ~ulEventFlags;
+    xHWREG(ulBase + SPI_FSR) &= ~ulFIFOFlags;
+	xHWREG(ulBase + SPI_SR)	|= 0x78;
     
     //
     // Call Callback function
     //
     if(g_pfnSPIHandlerCallbacks[0])
     {
-        g_pfnSPIHandlerCallbacks[0](0, 0, ulEventFlags, 0);
+        g_pfnSPIHandlerCallbacks[0](0, 0, (ulFIFOFlags << 16) | ulFlags, 0);
     }
 }
 
@@ -174,10 +175,14 @@ xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
     //
     if(ulSSMode == xSPI_SS_SOFTWARE)
     {
-        xHWREG(ulBase + SPI_CNTRL0) &= ~SPI_CNTRL0_SELOEN;
+        xHWREG(ulBase + SPI_CNTRL0) = SPI_CNTRL0_SELOEN;
         xHWREG(ulBase + SPI_CNTRL0) |= SPI_CNTRL0_SSELC;
     }
- 
+	else if(ulSSMode == xSPI_SS_HARDWARE)
+	{
+	    xHWREG(ulBase + SPI_CNTRL0) = SPI_CNTRL0_SELOEN;
+	}
+
 }
 
 //*****************************************************************************
@@ -225,13 +230,7 @@ xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
 //! \b SPI_DATA_WIDTH3,\b SPI_DATA_WIDTH4,\b SPI_DATA_WIDTH5,\b SPI_DATA_WIDTH6,
 //! \b SPI_DATA_WIDTH7,\b SPI_DATA_WIDTH8,\b SPI_DATA_WIDTH9,\b SPI_DATA_WIDTH10,
 //! \b SPI_DATA_WIDTH11,\b SPI_DATA_WIDTH12,\b SPI_DATA_WIDTH13,
-//! \b SPI_DATA_WIDTH11,\b SPI_DATA_WIDTH15,\b SPI_DATA_WIDTH16,
-//! \b SPI_DATA_WIDTH17,\b SPI_DATA_WIDTH18,\b SPI_DATA_WIDTH19,
-//! \b SPI_DATA_WIDTH20,\b SPI_DATA_WIDTH21,\b SPI_DATA_WIDTH22,
-//! \b SPI_DATA_WIDTH23,\b SPI_DATA_WIDTH24,\b SPI_DATA_WIDTH25,
-//! \b SPI_DATA_WIDTH26,\b SPI_DATA_WIDTH27,\b SPI_DATA_WIDTH28,
-//! \b SPI_DATA_WIDTH29,\b SPI_DATA_WIDTH30,\b SPI_DATA_WIDTH31,
-//! \b SPI_DATA_WIDTH32,
+//! \b SPI_DATA_WIDTH11,\b SPI_DATA_WIDTH15,\b SPI_DATA_WIDTH16
 //! 
 //! The first bit of the data transfers, can be one of the following values:
 //! \b SPI_MSB_FIRST, or \b SPI_LSB_FIRST.
@@ -256,9 +255,15 @@ SPIConfig(unsigned long ulBase, unsigned long ulBitRate,
             ((ulConfig & 0x00000700) == SPI_FORMAT_MODE_6));
     xASSERT(((ulConfig & 0x00004000) == SPI_MODE_MASTER) ||
             ((ulConfig & 0x00004000) == SPI_MODE_SLAVE));
-    xASSERT((((ulConfig & 0x0000000F) >> 3) >= 0) && 
-            (((ulConfig & 0x0000000F) >> 3) <= 16));
+    xASSERT(((ulConfig & 0x0000000F) >= 0) && 
+            ((ulConfig & 0x0000000F) <= 16));
     xASSERT((ulBitRate != 0));
+
+	//
+	// Clear the mode first
+	//
+    xHWREG(ulBase + SPI_CNTRL1) &= ~(SPI_CNTRL1_FORMAT_M | SPI_CNTRL1_MODE |
+	                                 SPI_CNTRL1_FIRSTBIT);
 
     //
     // Set the mode.
@@ -305,28 +310,42 @@ SPIConfig(unsigned long ulBase, unsigned long ulBitRate,
 unsigned long
 SPISingleDataReadWrite(unsigned long ulBase, unsigned long ulWData)
 {
-    unsigned long ulReadTemp;
+    unsigned long ulFlag, ulReadTemp;
+
     //
     // Check the arguments.
     //
     xASSERT(ulBase == SPI0_BASE);
 
+	//
+	// Wether in FIFO mode
+	//
+	ulFlag = xHWREG(ulBase + SPI_FCR) & SPI_FCR_FIFOEN;
+
     //
-    // Wait until SPI is not busy,data to be write.
+    // Wait Transmission Register or Transmit Buffer Empty flag is set.
     //
-    while((xHWREG(ulBase + SPI_SR) & SPI_SR_BUSY))
-    {
-    }
+	if(ulFlag != SPI_FCR_FIFOEN)
+	{
+	    while(!(xHWREG(ulBase + SPI_SR) & SPI_SR_TXE))
+        {
+        }
+	}
+	else
+	{
+	    while(!(xHWREG(ulBase + SPI_SR) & SPI_SR_TXBE))
+        {
+        }
+	}
+
     xHWREG(ulBase + SPI_DR) = ulWData;
     
     //
     // Wait until there is data to be read.
-    //
-    
-    while((xHWREG(ulBase + SPI_SR) & SPI_SR_BUSY))
+    // 
+    while(!(xHWREG(ulBase + SPI_SR) & SPI_SR_RXBNE))
     {
     }
-    
     //
     // write data to SPI.
     //
@@ -391,7 +410,7 @@ SPIDataRead(unsigned long ulBase, void *pulRData, unsigned long ulLen)
 
     for (i=0; i<ulLen; i++)
     {
-        if (ucBitLength <= 8)
+        if (ucBitLength <= 8 && ucBitLength != 0)
         {
             ((unsigned char*)pulRData)[i] = 
             SPISingleDataReadWrite(ulBase, 0xFF);
@@ -437,10 +456,6 @@ SPIRxRegisterGet(unsigned long ulBase)
     xASSERT(ulBase == SPI0_BASE);
 
     //
-    // Wait until there is data to be read.
-    //
-
-    //
     // Read data from SPI Rx Register.
     //
     return (xHWREG(ulBase + SPI_DR));
@@ -449,9 +464,9 @@ SPIRxRegisterGet(unsigned long ulBase)
 
 //*****************************************************************************
 //
-//! \brief Write  datas element to the SPI interface.
+//! \brief Write datas element to the SPI interface.
 //!
-//! \param ulBase specifies the SSI module base address.
+//! \param ulBase specifies the SPI module base address.
 //! \param pulWData is a pointer to a storage location for data that was
 //! transmitted over the SSI interface.
 //! \param ulLen specifies the length of data will be write.
@@ -480,7 +495,7 @@ SPIDataWrite(unsigned long ulBase, void *pulWData, unsigned long ulLen)
 
     for (i=0; i<ulLen; i++)
     {
-        if (ucBitLength <= 8)
+        if (ucBitLength <= 8 && ucBitLength != 0)
         {
             SPISingleDataReadWrite(ulBase, ((unsigned char*)pulWData)[i]);
         }
@@ -489,6 +504,231 @@ SPIDataWrite(unsigned long ulBase, void *pulWData, unsigned long ulLen)
             SPISingleDataReadWrite(ulBase, ((unsigned short*)pulWData)[i]);
         }   
     }
+}
+
+//*****************************************************************************
+//
+//! \brief Write data element to the SPI interface with block.
+//!
+//! \param ulBase specifies the SPI module base address.
+//! \param pulWData is data that was transmitted over the SPI interface.
+//!
+//! This function transmitted data to the interface of the specified
+//! SPI module with block. when the TX and TX shift are both empty or in FIFO
+//! mode the TX FIFO depth is equal to or less than the trigger level, the 
+//! data element can be transmitted, otherwise the data element will be blocked
+//! until can be transmitted. 
+//!
+//! \note Only the lower N bits of the value written to \e pulData contain
+//! valid data, where N is the data width as configured by
+//! SPIConfig().  For example, if the interface is configured for
+//! 8-bit data width, only the lower 8 bits of the value written to \e pulData
+//! contain valid data.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void 
+xSPIDataPut(unsigned long ulBase, unsigned long ulData)
+{
+    unsigned char ucBitLength = SPIBitLengthGet(ulBase);
+	unsigned long ulFlag;
+    //
+    // Check the arguments.
+    //
+    xASSERT(ulBase == SPI0_BASE);
+
+	//
+	// Wether in FIFO mode
+	//
+	ulFlag = xHWREG(ulBase + SPI_FCR) & SPI_FCR_FIFOEN;
+
+    //
+    // Wait Transmission Register or Transmit Buffer Empty flag is set.
+    //
+	if(ulFlag != SPI_FCR_FIFOEN)
+	{
+	    while(!(xHWREG(ulBase + SPI_SR) & SPI_SR_TXE))
+        {
+        }
+	}
+	else
+	{
+	    while(!(xHWREG(ulBase + SPI_SR) & SPI_SR_TXBE))
+        {
+        }
+	}
+	if(ucBitLength <= 8 && ucBitLength != 0)
+	{
+	    xHWREG(ulBase + SPI_DR) = ulData & 0xFF;
+	}
+	else
+	{
+	    xHWREG(ulBase + SPI_DR) = ulData & 0xFFFF;
+	}
+}
+
+//*****************************************************************************
+//
+//! \brief Write data element to the SPI interface with Noblock.
+//!
+//! \param ulBase specifies the SPI module base address.
+//! \param pulWData is data that was transmitted over the SPI interface.
+//!
+//! This function transmitted data to the interface of the specified
+//! SPI module with Noblock. 
+//!
+//! \note Only the lower N bits of the value written to \e pulData contain
+//! valid data, where N is the data width as configured by
+//! SPIConfig().  For example, if the interface is configured for
+//! 8-bit data width, only the lower 8 bits of the value written to \e pulData
+//! contain valid data.
+//!
+//! \return the number of data that has been transfered.
+//
+//*****************************************************************************
+long 
+xSPIDataPutNonBlocking(unsigned long ulBase, unsigned long ulData)
+{
+    unsigned char ucBitLength = SPIBitLengthGet(ulBase);
+	unsigned long ulFlag;
+    //
+    // Check the arguments.
+    //
+    xASSERT(ulBase == SPI0_BASE);
+
+	//
+	// Wether in FIFO mode
+	//
+	ulFlag = xHWREG(ulBase + SPI_FCR) & SPI_FCR_FIFOEN;
+
+    //
+    // Wait Transmission Register or Transmit Buffer Empty flag is set.
+    //
+	if(ulFlag != SPI_FCR_FIFOEN)
+	{
+	    if(!(xHWREG(ulBase + SPI_SR) & SPI_SR_TXE))
+        {
+		    return 0;
+        }
+	}
+	else
+	{
+	    if(!(xHWREG(ulBase + SPI_SR) & SPI_SR_TXBE))
+        {	return 0;
+        }
+	}  
+
+	if(ucBitLength <= 8 && ucBitLength != 0)
+	{
+	    xHWREG(ulBase + SPI_DR) = ulData & 0xFF;
+	}
+	else
+	{
+	    xHWREG(ulBase + SPI_DR) = ulData & 0xFFFF;
+	}
+
+	return 1;
+}
+
+//*****************************************************************************
+//
+//! \brief Gets a data element from the SPI interface with block.
+//!
+//! \param ulBase specifies the SPI module base address.
+//! \param pulData is a pointer to a storage location for data that was
+//! received over the SPI interface.
+//!
+//! This function gets received data from the interface of the specified
+//! SPI module with block. when the RX not empty flag is set, the data element 
+//! can be transmitted, otherwise the data element will be blocked until can be
+//! transmitted. 
+//!
+//! \note Only the lower N bits of the value written to \e pulData contain
+//! valid data, where N is the data width as configured by
+//! SPIConfig().  For example, if the interface is configured for
+//! 8-bit data width, only the lower 8 bits of the value written to \e pulData
+//! contain valid data.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void 
+xSPIDataGet(unsigned long ulBase, unsigned long *pulData)
+{
+    unsigned char ucBitLength = SPIBitLengthGet(ulBase);
+
+    //
+    // Check the arguments.
+    //
+    xASSERT(ulBase == SPI0_BASE);
+
+    //
+    // Wait until there is data to be read.
+    // 
+    while(!((xHWREG(ulBase + SPI_SR) & SPI_SR_RXBNE)))
+    {
+    }
+
+    //
+    // write data to SPI.
+    //
+    if (ucBitLength <= 8 && ucBitLength != 0 )
+    {
+        *pulData = xHWREG(ulBase + SPI_DR) & 0xFF;
+    }
+    else
+    {
+        *pulData = xHWREG(ulBase + SPI_DR) & 0xFFFF;
+    } 
+}
+
+//*****************************************************************************
+//
+//! \brief Gets a data element from the SPI interface with Noblock.
+//!
+//! \param ulBase specifies the SPI module base address.
+//! \param pulData is a pointer to a storage location for data that was
+//! received over the SPI interface.
+//!
+//! This function gets received data from the interface of the specified
+//! SPI module with Noblock.
+//!
+//! \note Only the lower N bits of the value written to \e pulData contain
+//! valid data, where N is the data width as configured by
+//! SPIConfig().  For example, if the interface is configured for
+//! 8-bit data width, only the lower 8 bits of the value written to \e pulData
+//! contain valid data.
+//!
+//! \return the number of data that has been received.
+//
+//*****************************************************************************
+long 
+xSPIDataGetNonBlocking(unsigned long ulBase, unsigned long *pulData)
+{
+    unsigned long ulTemp;
+    unsigned char ucBitLength = SPIBitLengthGet(ulBase);
+
+    //
+    // Check the arguments.
+    //
+    xASSERT(ulBase == SPI0_BASE);
+    ulTemp = xHWREG(ulBase + SPI_SR) & SPI_SR_RXBNE;
+	if(!ulTemp)
+	{
+	    return 0;
+	}
+
+	if(ucBitLength <= 8 && ucBitLength != 0)
+	{
+	    *pulData = xHWREG(ulBase + SPI_DR);
+	}
+	else
+	{
+	    *pulData = xHWREG(ulBase + SPI_DR);
+	}
+
+	return 1;
 }
 
 //*****************************************************************************
@@ -567,7 +807,6 @@ SPIIntCallbackInit(unsigned long ulBase, xtEventCallback xtSPICallback)
     xASSERT(ulBase == SPI0_BASE);
     
     g_pfnSPIHandlerCallbacks[0] = xtSPICallback;
-
 }
  
 
@@ -656,7 +895,7 @@ SPISSSet(unsigned long ulBase)
     //
     xASSERT(ulBase == SPI0_BASE);
 
-    xHWREG(ulBase + SPI_CNTRL0) &= ~SPI_CNTRL0_SELOEN;
+    xHWREG(ulBase + SPI_CNTRL0) |= SPI_CNTRL0_SELOEN;
     xHWREG(ulBase + SPI_CNTRL0) |= SPI_CNTRL0_SSELC;
 }
 
@@ -943,7 +1182,9 @@ SPIFIFOClear(unsigned long ulBase, unsigned long ulRxTx)
 //! \brief Enable/disable the FIFO mode of the specified SPI port.
 //!
 //! \param ulBase specifies the SPI module base address.
-//! \param xtEnable enable the FIFO mode or not.
+//! \param ulEnable enable the FIFO mode or not. It can be selected form
+//! \b SPI_FIFO_ENABLE, 
+//! \b SPI_FIFO_DISABLE
 //!
 //! This function enable/disable the FIFO mode of the specified SPI module.
 //! If the caller enables FIFO mode.
@@ -952,14 +1193,15 @@ SPIFIFOClear(unsigned long ulBase, unsigned long ulRxTx)
 //
 //*****************************************************************************
 void
-SPIFIFOModeSet(unsigned long ulBase, xtBoolean xtEnable, 
-               unsigned long ulInterval)
+SPIFIFOModeSet(unsigned long ulBase, unsigned long ulEnable)
 {
     //
     // Check the arguments.
     //
     xASSERT(ulBase == SPI0_BASE);
-    if (xtEnable)
+	xASSERT((ulEnable == SPI_FIFO_ENABLE) || (ulEnable == SPI_FIFO_DISABLE));
+
+    if (ulEnable == SPI_FIFO_ENABLE)
     {
         xHWREG(ulBase + SPI_FCR) |= SPI_FCR_FIFOEN;
 
@@ -991,10 +1233,29 @@ SPIFIFOLevelSet(unsigned long ulBase, unsigned long ulRxTx,
     
     if(ulRxTx == SPI_FSR_RX)
     {
+	    xHWREG(ulBase + SPI_FCR) &= ~((ulLength << SPI_FCR_RXFTLS_S) & SPI_FCR_RXFTLS_M);
         xHWREG(ulBase + SPI_FCR) |= (ulLength << SPI_FCR_RXFTLS_S) & SPI_FCR_RXFTLS_M;
     }
     else
-    {
+    {	xHWREG(ulBase + SPI_FCR) &= ~((ulLength << SPI_FCR_TXFTLS_S) & SPI_FCR_TXFTLS_M);
         xHWREG(ulBase + SPI_FCR) |= (ulLength << SPI_FCR_TXFTLS_S) & SPI_FCR_TXFTLS_M;
     } 
+}
+
+//*****************************************************************************
+//
+//! \brief Check the status of the FIFO buffer of the specified SPI port.
+//!
+//! \param ulBase specifies the SPI module base address.
+//! \param ulRxTx specifies the FIFO buffer is Rx buffer or Tx buffer.
+//! \param ulLength is the level of the TX or RX FIFO.
+//!
+//! \return None
+//
+//*****************************************************************************
+void 
+SPITimeOutValSet(unsigned long ulBase, unsigned long ulTimeOutVal)
+{
+    xASSERT(ulBase == SPI0_BASE);
+    xHWREG(ulBase + SPI_FTOCR) = ulTimeOutVal;
 }

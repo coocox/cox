@@ -370,7 +370,7 @@ static void xgpio001Execute(void)
 		               (1 << ulEXTILineShift[i]);
 		TestAssert(ulTemp == 0,
                    "xgpio, \"EXTI Wake Up Disable \" error");
-	}	   	   
+	}	  	   
 	
 	//
 	// GPIO Pad configure
@@ -786,6 +786,12 @@ static void xgpio001Execute(void)
     TestAssert((ulTemp == (1 << 14)),
                "xgpio, \"Turn pin to ACMP function \" error");
     
+	//
+	// 
+	//
+	//xGPIOSPinTypeGPIOInput(PA0);
+	xGPIOSPinWrite(PA0, 1);
+	xGPIOSPinDirModeSet(PA0, xGPIO_DIR_MODE_IN);
 }   
 
 //

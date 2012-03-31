@@ -311,6 +311,8 @@ SysCtlPeripheralValid(unsigned long ulPeripheral)
     return((ulPeripheral == SYSCTL_PERIPH_SRAM) ||
            (ulPeripheral == SYSCTL_PERIPH_GPIOA)||
            (ulPeripheral == SYSCTL_PERIPH_GPIOB)||
+		   (ulPeripheral == SYSCTL_PERIPH_AFIO) ||
+		   (ulPeripheral == SYSCTL_PERIPH_EXTI) ||
            (ulPeripheral == SYSCTL_PERIPH_UART0)||
            (ulPeripheral == SYSCTL_PERIPH_TMR0)||
            (ulPeripheral == SYSCTL_PERIPH_TMR1)||
@@ -344,8 +346,7 @@ SysCtlPeripheralValid(unsigned long ulPeripheral)
 //! \ref xSYSCTL_XTAL_16MHZ.
 //!
 //! The oscillator source is chosen with one of the following values:
-//! \ref xSYSCTL_OSC_MAIN, \ref xSYSCTL_OSC_INT, \ref xSYSCTL_OSC_INTSL,
-//! \ref xSYSCTL_OSC_EXTSL.
+//! \ref xSYSCTL_OSC_MAIN, \ref xSYSCTL_OSC_INT.
 //!
 //! The external oscillator must be enabled in order to use an external clock
 //! source.
@@ -744,232 +745,6 @@ xSysCtlSleep(void)
 
 //*****************************************************************************
 //
-//! \brief Set the clock of the device(Hclk).
-//!
-//! \param ulSysClk is the clock rate that you will set.
-//! \param ulConfig is the required configuration of the device clock.
-//!
-//! This function configures the clock of the device.The input crystal frequency,
-//! oscillator to be used, use of the PLL, and the system clock divider are all
-//! configured with this function.
-//!
-//! The \e ulConfig parameter is the logical OR of several different values,
-//! many of which are grouped into sets where only one can be chosen.
-//!
-//! The external crystal frequency is chosen with one of the following values:
-//! \ref SYSCTL_XTAL_4MHZ, \ref SYSCTL_XTAL_5MHZ, \ref SYSCTL_XTAL_6MHZ, ...
-//! \ref SYSCTL_XTAL_16MHZ.
-//!
-//! The oscillator source is chosen with one of the following values:
-//! \ref SYSCLK_GCCR_SYSSRC_HSE, \ref SYSCLK_GCCR_SYSSRC_HSI
-//! \ref SYSCLK_GCCR_SYSSRC_PLL.
-//!
-//! The PLL source is chosen with one of the following values:
-//! \ref SYSCLK_GCFGR_PLLSRC_HSI, \ref SYSCLK_GCFGR_PLLSRC_HSE
-//!
-//! The external oscillator must be enabled in order to use an external clock
-//! source. 
-//! <br />
-//! Details please refer to \ref SysCtl_Clock_Set_Config_CoX.
-//! 
-//!
-//! \return None.
-//
-//*****************************************************************************
-
-void
-SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
-{
-    unsigned long ulOscFreq;
-    unsigned long ulNF2, ulNO2, i;
-    xASSERT((ulSysClk > 0 && ulSysClk <= 72000000));
-
-    //
-    // Calc oscillator freq
-    //
-    s_ulExtClockMHz = ((ulConfig & SYSCTL_XTAL_MASK) >> 8);
-
-    switch(ulConfig & SYSCLK_GCCR_SW_M)
-    {
-        case SYSCLK_GCCR_SYSSRC_HSE:
-        {
-            xASSERT(ulConfig & SYSCLK_GCCR_HSEEN);
-            
-            xHWREG(SYSCLK_GCCR) &= ~SYSCLK_GCCR_HSIEN;
-            xHWREG(SYSCLK_GCCR) &= ~SYSCLK_GCCR_PLLEN;
-            xHWREG(SYSCLK_GCCR) |= SYSCLK_GCCR_HSEEN;
-
-            //
-            // Wait for the external 4~16 MHz high speed crystal clock source is stable
-            //
-            while(!(xHWREG(SYSCLK_GCSR) & SYSCLK_GCSR_HSERDY));
-
-            //
-            // Enable HSE Clock Monitor.
-            //
-            xHWREG(SYSCLK_GCCR) |= SYSCLK_GCCR_CKMEN;
-            ulOscFreq = s_ulExtClockMHz*1000000;
-            break;
-        }
-
-        case SYSCLK_GCCR_SYSSRC_HSI:
-        {
-            xASSERT(ulConfig & SYSCLK_GCCR_HSIEN);
-            xHWREG(SYSCLK_GCCR) &= ~SYSCLK_GCCR_PLLEN;
-            xHWREG(SYSCLK_GCCR) &= ~SYSCLK_GCCR_HSEEN;
-            //
-            // Disable HSE Clock Monitor
-            //
-            xHWREG(SYSCLK_GCCR) &= ~SYSCLK_GCCR_CKMEN;
-            xHWREG(SYSCLK_GCCR) |= SYSCLK_GCCR_HSIEN;
-
-            //
-            // Wait for the internal 8 MHz high speed crystal clock source is stable
-            //
-            while(!(xHWREG(SYSCLK_GCSR) & SYSCLK_GCSR_HSIRDY));
-            ulOscFreq = 8000000;
-            break;
-        }
-        
-        case SYSCLK_GCCR_SYSSRC_PLL:
-        {
-            xASSERT(!(ulConfig & SYSCLK_GCCR_PLLEN));
-            
-            if((ulConfig & SYSCLK_GCFGR_PLLSRC_HSI)==SYSCLK_GCFGR_PLLSRC_HSI)
-            {
-                xHWREG(SYSCLK_GCCR) &= ~SYSCLK_GCCR_HSEEN;
-                //
-                // Disable HSE Clock Monitor
-                //
-                xHWREG(SYSCLK_GCCR) &= ~SYSCLK_GCCR_CKMEN;
-                xHWREG(SYSCLK_GCCR) |= SYSCLK_GCCR_HSIEN;
-                xHWREG(SYSCLK_GCCR) |= SYSCLK_GCCR_PLLEN;
-                //
-                // Wait for Internal 8 MHz High Speed Oscillator Clock Source is stable
-                //
-                while(!(xHWREG(SYSCLK_GCSR) & SYSCLK_GCCR_HSIEN));
-                //
-                // Wait for PLL is stable
-                //
-                while(!(xHWREG(SYSCLK_GCSR) & SYSCLK_GCSR_PLLRDY));
-                ulNO2 = 1;
-                ulNF2 = ulSysClk / 8000000;
-                xHWREG(SYSCLK_PLLCFGR) |= (ulNO2 << SYSCLK_PLLCFGR_POTD_S) |
-                                          (ulNF2 << SYSCLK_PLLCFGR_PFBD_S);
-            }
-            else
-            {
-                xHWREG(SYSCLK_GCCR) &= ~SYSCLK_GCCR_HSIEN;
-                xHWREG(SYSCLK_GCCR) |= SYSCLK_GCCR_HSEEN;
-                xHWREG(SYSCLK_GCCR) |= SYSCLK_GCCR_PLLEN;
-                //
-                // Wait for Internal 4~16 MHz High Speed Oscillator Clock Source is stable
-                //
-                while(!(xHWREG(SYSCLK_GCSR) & SYSCLK_GCCR_HSIEN));
-                //
-                // Enable HSE Clock Monitor.
-                //
-                xHWREG(SYSCLK_GCCR) |= SYSCLK_GCCR_CKMEN;
-                //
-                // Wait for PLL is stable
-                //
-                while(!(xHWREG(SYSCLK_GCSR) & SYSCLK_GCSR_PLLRDY));
-                ulNO2 = 1;
-                ulNF2 = ulSysClk / (s_ulExtClockMHz*1000000);
-                xHWREG(SYSCLK_PLLCFGR) |= (ulNO2 << SYSCLK_PLLCFGR_POTD_S) |
-                                          (ulNF2 << SYSCLK_PLLCFGR_PFBD_S);
-            }
-            break;
-        }
-        default:
-        {
-            xASSERT(0);
-            break;
-        }
-    }
-    if(ulOscFreq > ulSysClk)
-    {
-        unsigned long ulSysDiv[4] = {SYSCLK_AHBCFGR_AHBPRE_CKSYS_1,
-                                     SYSCLK_AHBCFGR_AHBPRE_CKSYS_2,
-                                     SYSCLK_AHBCFGR_AHBPRE_CKSYS_4,
-                                     SYSCLK_AHBCFGR_AHBPRE_CKSYS_8,
-                                    };
-        for(i=1; i<4; i++)
-        {
-            if((ulOscFreq / ulSysDiv[i]) <= ulSysClk)
-            {
-                break;
-            }
-        }
-        xASSERT(ulSysDiv[i] < 9);
-        xHWREG(SYSCLK_AHBCFGR) |= ulSysDiv[i];
-    }
-}
-
-//*****************************************************************************
-//
-//! \brief The function is used to Get System clock(HCLK) and the UNIT is in Hz
-//!
-//! \param None.
-//!
-//! The function is used to Get System clock(HCLK) and the UNIT is in Hz
-//!
-//! \return System clock(HCLK) frequency in Hz
-//
-//*****************************************************************************
-
-unsigned long 
-SysCtlClockGet(void)
-{
-    unsigned long  ulFreqout = 0; 
-    unsigned long ulNF2, ulNO2, ulSysDiv, ulPLLSrc, ulClkSrc;
-
-    ulClkSrc = (xHWREG(SYSCLK_GCCR) & SYSCLK_GCCR_SW_M);
-    
-    //
-    // HSE.
-    //
-    if(ulClkSrc == SYSCLK_GCCR_SYSSRC_HSE)
-    {
-        ulSysDiv = xHWREG(SYSCLK_AHBCFGR) & SYSCLK_AHBCFGR_AHBPRE_M;
-        ulFreqout = (s_ulExtClockMHz*1000000)/(1<<ulSysDiv);
-    }
-    //
-    // HSI.
-    //
-    else if (ulClkSrc == SYSCLK_GCCR_SYSSRC_HSI)
-    {
-        ulSysDiv = xHWREG(SYSCLK_AHBCFGR) & SYSCLK_AHBCFGR_AHBPRE_M;
-        ulFreqout = (8000000)/(1<<ulSysDiv);
-    }
-
-    else
-    {
-        ulPLLSrc = xHWREG(SYSCLK_GCFGR) & SYSCLK_GCFGR_PLLSRC_M;
-        ulNO2 = (xHWREG(SYSCLK_PLLCFGR) & SYSCLK_PLLCFGR_POTD_M) >>           \
-                                          SYSCLK_PLLCFGR_POTD_S;
-        ulNF2 = (xHWREG(SYSCLK_PLLCFGR) & SYSCLK_PLLCFGR_PFBD_M) >>           \
-                                          SYSCLK_PLLCFGR_PFBD_S;
-        //
-        // HSI+PLL.
-        //
-        if(ulPLLSrc == SYSCLK_GCFGR_PLLSRC_HSI)
-        {
-            ulFreqout = (8000000*ulNF2)/ulNO2;
-        }
-        //
-        // HSI+PLL.
-        //
-        else
-        {
-            ulFreqout =  (s_ulExtClockMHz*ulNF2*1000000)/ulNO2;
-        }
-	}
-    return ulFreqout;
-}
-
-//*****************************************************************************
-//
 //! \brief Set clock source for a peripheral.
 //!
 //! \param ulPeripheralSrc is the peripheral clock source to set.
@@ -979,12 +754,12 @@ SysCtlClockGet(void)
 //! order to operate or respond to register reads/writes.
 //!
 //! The \e ulPeripheralSrc parameter must be only one of the following values:
-//! \b xSYSCTL_PERIPH_ADC_S_HCLK,   \b xSYSCTL_PERIPH_ADC_S_HCLK_2,
-//! \b xSYSCTL_PERIPH_ADC_S_HCLK_4, \b xSYSCTL_PERIPH_ADC_S_HCLK_6,
-//! \b xSYSCTL_PERIPH_ADC_S_HCLK_8, \b xSYSCTL_PERIPH_ADC_S_HCLK_16,
-//! \b xSYSCTL_PERIPH_ADC_S_HCLK_32,\b xSYSCTL_PERIPH_ADC_S_HCLK_64,
-//! \b xSYSCTL_PERIPH_WDG_S_EXTSL,  \b xSYSCTL_PERIPH_WDG_S_INTER,
-//! \b xSYSCTL_PERIPH_UART_S_HCLK,  \b xSYSCTL_PERIPH_UART_S_HCLK_2.
+//! \b SYSCTL_PERIPH_ADC_S_HCLK,   \b SYSCTL_PERIPH_ADC_S_HCLK_2,
+//! \b SYSCTL_PERIPH_ADC_S_HCLK_4, \b SYSCTL_PERIPH_ADC_S_HCLK_6,
+//! \b SYSCTL_PERIPH_ADC_S_HCLK_8, \b SYSCTL_PERIPH_ADC_S_HCLK_16,
+//! \b SYSCTL_PERIPH_ADC_S_HCLK_32,\b SYSCTL_PERIPH_ADC_S_HCLK_64,
+//! \b SYSCTL_PERIPH_WDG_S_EXTSL,  \b SYSCTL_PERIPH_WDG_S_INTER,
+//! \b SYSCTL_PERIPH_UART_S_HCLK,  \b SYSCTL_PERIPH_UART_S_HCLK_2.
 //!
 //! \return None.
 //
@@ -1029,12 +804,12 @@ SysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc)
     else if(ulPeripheralSrc == SYSCTL_PERIPH_UART_S_HCLK)
     {
         xHWREG(SYSCLK_GCFGR) &= ~SYSCLK_GCFGR_URPRE_M;
-        xHWREG(SYSCLK_GCFGR) |= SYSCTL_PERIPH_UART_S_HCLK;
+        xHWREG(SYSCLK_GCFGR) |= 0x00000000;
     }
     else if(ulPeripheralSrc == SYSCTL_PERIPH_WDG_S_INTER)
     {
         xHWREG(SYSCLK_GCFGR) &= ~SYSCLK_GCFGR_WDTSRC_M;
-        xHWREG(SYSCLK_GCFGR) |= SYSCTL_PERIPH_WDG_S_INTER;
+        xHWREG(SYSCLK_GCFGR) |= 0x00000000;
     }
     else if(ulPeripheralSrc == SYSCTL_PERIPH_UART_S_HCLK_2)
     {
@@ -1451,7 +1226,6 @@ SysCtlBODEnable(xtBoolean bEnable)
     //
     // Enable BOD function or not.
     //
-    
     if(bEnable)
     {
         xHWREG(PWRCU_LVDCSR) |= PWRCU_LVDCSR_BODEN;

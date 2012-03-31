@@ -208,7 +208,9 @@ HardFaultIntHandler
         BX     LR
 HardFaultIntHandler_Ret
         B      .
-
+MemManageIntHandler
+BusFaultIntHandler
+UsageFaultIntHandler
 SVCIntHandler
 DebugMonIntHandler
 PendSVIntHandler

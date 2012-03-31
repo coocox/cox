@@ -26,7 +26,8 @@ void Blinky(void)
     //
     // Initionalize system clock.
     //
-    xSysCtlPeripheralClockSourceSet( 12000000,  xSYSCTL_XTAL_12MHZ );
+    xSysCtlClockSet(8000000,  xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ); 
+    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOA);
 	
     //
     // Set GPIO port A pin 0 , 1 output mode.

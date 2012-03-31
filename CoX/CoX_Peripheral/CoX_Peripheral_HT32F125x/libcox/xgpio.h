@@ -879,7 +879,7 @@ extern "C"
 //
 //*****************************************************************************
 #define xGPIOSPinDirModeSet(eShortPin, ulPinIO)                               \
-        xGPIOSDirModeSet(eShortPin, ulPinIO)
+        GPIOSDirModeSet(eShortPin, ulPinIO)
 
 //*****************************************************************************
 //
@@ -2439,8 +2439,8 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 #define GPIOSPinIntEnable(eShortPin, ulIntType)                               \
         GPIOPinIntEnable(G##eShortPin, ulIntType)
 
-#define xGPIOSDirModeSet(eShortPin, ulPinIO)                                  \
-        xGPIODirModeSet(G##eShortPin, ulPinIO)
+#define GPIOSDirModeSet(eShortPin, ulPinIO)                                  \
+        GPIODirModeSet(G##eShortPin, ulPinIO)
 
 #define GPIOSPinIntDisable(eShortPin)                                         \
         GPIOPinIntDisable(G##eShortPin)
@@ -2492,15 +2492,17 @@ extern void GPIOPinIntCallbackInit(unsigned long ulPort, unsigned long ulPin,
 extern unsigned long EXTIIntEdgeFlagGet(void);
 extern void EXTIIntEdgeClear(unsigned long ulEXTILines);
 extern void EXTIIntEdgeClear2(unsigned long ulBase, unsigned long ulEXTILines);
+extern void EXTILineWakeUpConfigure(unsigned long ulEXTILines, unsigned long ulLevel,
+                                    unsigned long ulEnable);
+
+extern void EXTILineSourceSelect(unsigned long ulEXTILines, unsigned long ulPort);
+
+extern void EXTIWakeUpIntConfigure(unsigned long ulEnable);
+extern unsigned long EXTIWakeUpStatusGet(void);
+extern void EXTIWakeUpStatusClear(unsigned long ulEXTILines);
 
 extern void EXTILineSoftwareTrigger(unsigned long ulEXTILine);
 extern void EXTILineSoftwareClear(unsigned long ulEXTILine);
-
-extern void EXTIWakeUpIntConfigure(unsigned long ulEnable);
-extern void EXTILineWakeUpConfigure(unsigned long ulEXTILines, unsigned long ulLevel,
-                                    unsigned long ulEnable);
-extern unsigned long EXTIWakeUpStatusGet(void);
-extern void EXTIWakeUpStatusClear(unsigned long ulEXTILines);
 
 extern void EXTILineDebounceEnable(unsigned long ulEXTILines);
 extern void EXTILineDebounceDisable(unsigned long ulEXTILines);
