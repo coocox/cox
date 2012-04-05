@@ -1,0 +1,194 @@
+//*****************************************************************************
+//
+//! \defgroup ht32f125x_GPIO ht32f125x GPIO
+//! 
+//! \brief Nuvoton ht32f125x GPIO Peripheral Driver.
+//!
+//! The CoX Peripheral Library also provides APIs for full functions of HOLTEK
+//! ht32f125x GPIO. This module supports the whole ht32f125x Series.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref ht32f125x_GPIO_Blcok
+//! - \ref ht32f125x_GPIO_Function_Desc
+//!   - \ref ht32f125x_Function_GPIO
+//!   - \ref ht32f125x_Function_AFIO
+//!   - \ref ht32f125x_Function_EXTI
+//! - \ref ht32f125x_GPIO_API_Group
+//!   - \ref ht32f125x_GPIO_API_Group_GPIO
+//!   - \ref ht32f125x_GPIO_API_Group_AFIO
+//!   - \ref ht32f125x_GPIO_API_Group_EXTI
+//!   - \ref ht32f125x_GPIO_API_Group_Pin 
+//!   .
+//! - \ref ht32f125x_GPIO_Usage
+//! .
+//!
+//! <br />
+//! \section ht32f125x_GPIO_Blcok 1. GPIO Physical Block
+//! <img src="ht32f125x_gpio_block.png" />
+//! 
+//! <br />
+//! \section ht32f125x_GPIO_Function_Desc 2. Functional Description
+//! 
+//! <br />
+//! \subsection ht32f125x_Function_GPIO 2.1 ht32f125x GPIO function
+//! 
+//! - Can be configured as an input or an output. 
+//! - In output mode, can be set high level or low level. 
+//! - Optional open-drain operation.  .
+//! - In input mode, can generate interrupts on high level, low level, 
+//! both level, rising edge, falling edge, or both edges.
+//! .
+//!
+//! \subsection ht32f125x_Function_AFIO 2.2 ht32f125x AFIO function
+//! 
+//! <table border=0 ><tr>
+//!   <td width="50%"><img src="AFIO_IN.png" /></td>
+//!   <td width="50%"><img src="AFIO_OUT.png" /></td>
+//! </tr></table>
+//!
+//! \sunsection ht32f125x_Function_EXTI 2.3 ht32f125x EXTI function
+//! 
+//! <img src="ht32f125x_exti.png" />
+//! 
+//! <br />
+//! \section ht32f125x_GPIO_API_Group 3. API Groups
+//! 
+//! The GPIO API is broken into three groups of functions: 
+//! - those that deal with configuring the GPIO pins, 
+//! - those that deal with interrupts, 
+//! - those that access the pin value.
+//! .
+//!
+//! <br />
+//! \subsection ht32f125x_GPIO_API_Group_GPIO 3.1 ht32f125x GPIO API
+//! 
+//! The GPIO pins are configured with:
+//! - GPIODirModeSet(),
+//! - GPIOInputConfigure(),
+//! - GPIOPadConfigSet(),
+//! - GPIOPinLockSet(),
+//! - GPIODebounceTimeSet().
+//! .
+//!
+//! The configuration can be read back with:
+//! - GPIODirModeGet(),
+//! - GPIOPinLockGet().  
+//! .
+//! 
+//! There are also convenient
+//! functions for configuring the pin in the required or recommended 
+//! configuration for a particular peripheral; these are :
+//! - GPIOPinFunctionSet(GPIO_FUNCTION_ADC, eShortPin), 
+//! - GPIOPinFunctionSet(GPIO_FUNCTION_I2C, eShortPin),
+//! - GPIOPinFunctionSet(GPIO_FUNCTION_PWM, eShortPin),
+//! - GPIOPinFunctionSet(GPIO_FUNCTION_SPI, eShortPin), 
+//! - GPIOPinFunctionSet(GPIO_FUNCTION_TIM, eShortPin), 
+//! - GPIOPinFunctionSet(GPIO_FUNCTION_UART, eShortPin),
+//! - GPIOPinFunctionSet(GPIO_FUNCTION_ACMP, eShortPin).
+//! .
+//! 
+//! The GPIO interrupts are handled with: 
+//! - GPIOPinIntCallbackInit(),
+//! - GPIOPinIntEnable(),
+//! - GPIOPinIntDisable().
+//! 
+//! <br />
+//! \subsection ht32f125x_GPIO_API_Group_AFIO 3.2 ht32f125x AFIO API
+//! 
+//! - GPIOPinFunctionSet(),
+//! - GPIOPinConfigure().
+//! .
+//!
+//! <br />
+//! \subsection ht32f125x_GPIO_API_Group_EXTI 3.3 ht32f125x EXTI API
+//! 
+//! EXTI Edge interrupt flag API:
+//! - EXTIIntEdgeFlagGet(),
+//! - EXTIIntEdgeClear(),
+//! - EXTIIntEdgeClear2().
+//!
+//! EXTI Wake UP configure API:
+//! - EXTILineWakeUpConfigure(),
+//! - EXTIWakeUpIntConfigure(),
+//! - EXTIWakeUpIntConfigure(),
+//! - EXTILineWakeUpConfigure().
+//!
+//! EXTI Debounce configure API:
+//! - EXTILineDebounceEnable(),
+//! - EXTILineDebounceDisable(),
+//! - EXTIDebounceTimeSet(),
+//! - EXTIDebounceTimeGet().
+//!
+//! EXTI Software configure API:
+//! - EXTILineSoftwareTrigger(),
+//! - EXTILineSoftwareClear().
+//!
+//! <br />
+//! \subsection ht32f125x_GPIO_API_Group_Pin 3.3 GPIO Pin State APIs
+//! 
+//! The GPIO pin state is accessed with:
+//! - GPIOPinRead(),
+//! - GPIOPinWrite(),
+//! - GPIOPinPortDoutGet().
+//! .
+//!
+//! <br />
+//! \section ht32f125x_GPIO_Usage 4. Usage & Program Examples
+//! The following example shows how to use the GPIO API to initialize the 
+//! GPIO, enable interrupts, read data from pins, and write data to pins.
+//! 
+//! \code
+//! int iVal;
+//!
+//! #include "xhw_types.h"
+//! #include "xhw_memmap.h"
+//! #include "xhw_ints.h"
+//! #include "xhw_nvic.h"
+//! #include "xcore.h"
+//! #include "xsysctl.h"
+//! #include "xgpio.h"
+//!
+//! void Blinky(void)
+//! {
+//!     unsigned long i;
+//! 	
+//!     //
+//!     // Initionalize system clock.
+//!     //
+//!     xSysCtlClockSet(8000000,  xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ); 
+//!     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOA);
+//! 	
+//!     //
+//!     // Set GPIO port A pin 0 , 1 output mode.
+//!     //
+//!     xGPIODirModeSet( xGPIO_PORTA_BASE, xGPIO_PIN_0, xGPIO_DIR_MODE_OUT );
+//!     xGPIODirModeSet( xGPIO_PORTA_BASE, xGPIO_PIN_1, xGPIO_DIR_MODE_OUT );
+//! 	
+//!     while (1)
+//!     {
+//! 	    //
+//!         // Delay some time.
+//!         //  
+//!         for( i = 0; i < 0x1FFFF; i++ )
+//! 		
+//! 	    //
+//!         // Output high level.
+//!         //  
+//!         xGPIOPinWrite( xGPIO_PORTA_BASE, xGPIO_PIN_0 | xGPIO_PIN_1, 1 );
+//! 		
+//! 	   for( i = 0; i < 0x1FFFF; i++ )
+//! 	 	
+//! 	    //
+//!         // Output low level.
+//!         //  
+//!         xGPIOPinWrite( xGPIO_PORTA_BASE, xGPIO_PIN_0 | xGPIO_PIN_1, 0 );
+//! 	}
+//! 	
+//! }
+//!
+//! \endcode
+//! 
+//! 
+//
+//*****************************************************************************

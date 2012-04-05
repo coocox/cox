@@ -1,0 +1,32 @@
+//*****************************************************************************
+//
+//! \page Changelog Revisions
+//!
+//! <h3>Revision 2.1.1.1 11/14/2011</h3>
+//! - Based on CoX Peripheral Interface version V2.1.
+//! - Check wrong words and grammar for code notes and doxygen document.
+//! - Add the APIs of peripheral clock source selecting and frequency  
+//! division In the SysCtl module.
+//! - Add APIs of peripheral enable, disable and reset (Which is convenient 
+//! for drivers coding,  for it can directly pass peripherals base address for 
+//! passing parameters.)
+//! - Correct the RTC interrupt clear bug.
+//! - Improve the test framewrok.
+//! - Correct the error ACMP interrupt function name.
+//! - Correct the bug in \ref SysCtlBODLowPowerModeEnable.
+//! - Correct the bug in \ref SPIDivOneFunction.
+//! - Correct the bug in \ref I2CIntCallbackInit.
+//! - Correct the bug of I2S peripheral pin selecting and \ref GPIODebounceTimeSet 
+//! in the GPIO.
+//! - Correct the bug of UART baud setting error under different clock source.
+//! - Correct the bug in \ref PWMFrequencyConfig.
+//! - Correct the bug in \ref GPIOPinIntCallbackInit.
+//! .
+//!
+//! <h3>Revision 2.0.1.0 09/30/2011</h3>
+//! We re-write the cox, for the initial version's drawbacks.
+//!
+//! <h3>Revision 1.0.1.0 09/2010</h3>
+//! CoX Peripheral Interface initial version.
+//
+//*****************************************************************************

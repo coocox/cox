@@ -12,14 +12,14 @@
       <ToolsetName>ARM-ADS</ToolsetName>
       <TargetOption>
         <TargetCommonOption>
-          <Device>NUC140LE3AN</Device>
-          <Vendor>Nuvoton</Vendor>
-          <Cpu>IRAM(0x20000000-0x20003FFF) IROM(0-0x1FFFF) CLOCK(12000000) CPUTYPE("Cortex-M0")</Cpu>
+          <Device>HT32F1253</Device>
+          <Vendor>Holtek</Vendor>
+          <Cpu>IRAM(0x20000000-0x20001FFF) IROM(0x00000000-0x00007BFF) CLOCK(8000000) CPUTYPE("Cortex-M3")</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
-          <StartupFile>"STARTUP\Nuvoton\NUC1xx\startup_NUC1xx.s" ("Nuvoton NUC1xx Startup Code")</StartupFile>
-          <FlashDriverDll>UL2CM3(-UV0998FBE -O206 -S0 -C0 -N00("ARM CoreSight SW-DP") -D00(0BB11477) -L00(0) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC800 -FN1 -FF0NUC1xx_AP_128 -FS00 -FL020000)</FlashDriverDll>
-          <DeviceId>5164</DeviceId>
-          <RegisterFile>NUC1xx.h</RegisterFile>
+          <StartupFile>"STARTUP\Holtek\HT32F125x\startup_HT32F125x.s" ("Holtek HT32F125x Startup Code")</StartupFile>
+          <FlashDriverDll>UL2CM3(-O207 -S0 -C0 -FO7 -FD20000000 -FC800 -FN2 -FF0HT32F -FS00 -FL07C00 -FF1HT32F_OPT -FS11FF00000 -FL1400)</FlashDriverDll>
+          <DeviceId>0</DeviceId>
+          <RegisterFile>HT32F125x.h</RegisterFile>
           <MemoryEnv></MemoryEnv>
           <Cmp></Cmp>
           <Asm></Asm>
@@ -29,13 +29,13 @@
           <SLE66CMisc></SLE66CMisc>
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
-          <SFDFile></SFDFile>
+          <SFDFile>SFD\Holtek\HT32F125x\HT32F125x.SFR</SFDFile>
           <UseEnv>0</UseEnv>
           <BinPath></BinPath>
           <IncludePath></IncludePath>
           <LibPath></LibPath>
-          <RegisterFilePath>Nuvoton\NUC1xx\</RegisterFilePath>
-          <DBRegisterFilePath>Nuvoton\NUC1xx\</DBRegisterFilePath>
+          <RegisterFilePath>Holtek\HT32F125x\</RegisterFilePath>
+          <DBRegisterFilePath>Holtek\HT32F125x\</DBRegisterFilePath>
           <TargetStatus>
             <Error>0</Error>
             <ExitCodeStop>0</ExitCodeStop>
@@ -99,12 +99,12 @@
         <DllOption>
           <SimDllName>SARMCM3.DLL</SimDllName>
           <SimDllArguments></SimDllArguments>
-          <SimDlgDll>DARMCM1.DLL</SimDlgDll>
-          <SimDlgDllArguments>-pNUC140LE3AN</SimDlgDllArguments>
+          <SimDlgDll>DLM.DLL</SimDlgDll>
+          <SimDlgDllArguments>-pEMBER</SimDlgDllArguments>
           <TargetDllName>SARMCM3.DLL</TargetDllName>
           <TargetDllArguments></TargetDllArguments>
-          <TargetDlgDll>TARMCM1.DLL</TargetDlgDll>
-          <TargetDlgDllArguments>-pNUC140LE3AN</TargetDlgDllArguments>
+          <TargetDlgDll>TLM.DLL</TargetDlgDll>
+          <TargetDlgDllArguments>-pEMBER</TargetDlgDllArguments>
         </DllOption>
         <DebugOption>
           <OPTHX>
@@ -136,7 +136,7 @@
             <RestoreToolbox>1</RestoreToolbox>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>11</TargetSelection>
+          <TargetSelection>12</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -150,7 +150,7 @@
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
             <InitializationFile></InitializationFile>
-            <Driver>NULink\Nu_Link.dll</Driver>
+            <Driver>BIN\holtek-elink32.dll</Driver>
           </TargetDlls>
         </DebugOption>
         <Utilities>
@@ -162,7 +162,7 @@
             <Capability>1</Capability>
             <DriverSelection>4101</DriverSelection>
           </Flash1>
-          <Flash2>NULink\Nu_Link.dll</Flash2>
+          <Flash2>BIN\holtek-elink32.dll</Flash2>
           <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
         </Utilities>
@@ -195,7 +195,7 @@
             <AdsLsxf>1</AdsLsxf>
             <RvctClst>0</RvctClst>
             <GenPPlst>0</GenPPlst>
-            <AdsCpuType>"Cortex-M0"</AdsCpuType>
+            <AdsCpuType>"Cortex-M3"</AdsCpuType>
             <RvctDeviceName></RvctDeviceName>
             <mOS>0</mOS>
             <uocRom>0</uocRom>
@@ -264,12 +264,12 @@
               <IRAM>
                 <Type>0</Type>
                 <StartAddress>0x20000000</StartAddress>
-                <Size>0x4000</Size>
+                <Size>0x2000</Size>
               </IRAM>
               <IROM>
                 <Type>1</Type>
                 <StartAddress>0x0</StartAddress>
-                <Size>0x20000</Size>
+                <Size>0x7c00</Size>
               </IROM>
               <XRAM>
                 <Type>0</Type>
@@ -294,7 +294,7 @@
               <OCR_RVCT4>
                 <Type>1</Type>
                 <StartAddress>0x0</StartAddress>
-                <Size>0x20000</Size>
+                <Size>0x7c00</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -319,7 +319,7 @@
               <OCR_RVCT9>
                 <Type>0</Type>
                 <StartAddress>0x20000000</StartAddress>
-                <Size>0x4000</Size>
+                <Size>0x2000</Size>
               </OCR_RVCT9>
               <OCR_RVCT10>
                 <Type>0</Type>
@@ -344,9 +344,9 @@
             <uThumb>0</uThumb>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>XDEBUG</Define>
+              <Define>rvmdk</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\..\libcox;..\..\..\..\testframe;..\src;..\..\..\..\startup\src</IncludePath>
+              <IncludePath>..\..\..\..\libcox;..\..\..\..\startup\src;..\..\..\..\testframe;..\src</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -365,7 +365,7 @@
             </VariousControls>
           </Aads>
           <LDads>
-            <umfTarg>0</umfTarg>
+            <umfTarg>1</umfTarg>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
             <noStLib>0</noStLib>
@@ -389,18 +389,13 @@
             <File>
               <FileName>startup_rvmdk.s</FileName>
               <FileType>2</FileType>
-              <FilePath>.\startup_rvmdk.s</FilePath>
+              <FilePath>..\..\..\..\startup\src\startup_rvmdk.s</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
           <GroupName>libcox_inc</GroupName>
           <Files>
-            <File>
-              <FileName>xadc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xadc.h</FilePath>
-            </File>
             <File>
               <FileName>xcore.h</FileName>
               <FileType>5</FileType>
@@ -412,34 +407,9 @@
               <FilePath>..\..\..\..\libcox\xdebug.h</FilePath>
             </File>
             <File>
-              <FileName>xdma.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xdma.h</FilePath>
-            </File>
-            <File>
               <FileName>xgpio.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\..\..\libcox\xgpio.h</FilePath>
-            </File>
-            <File>
-              <FileName>xhw_adc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xhw_adc.h</FilePath>
-            </File>
-            <File>
-              <FileName>xhw_dma.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xhw_dma.h</FilePath>
-            </File>
-            <File>
-              <FileName>xhw_gpio.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xhw_gpio.h</FilePath>
-            </File>
-            <File>
-              <FileName>xhw_i2c.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xhw_i2c.h</FilePath>
             </File>
             <File>
               <FileName>xhw_ints.h</FileName>
@@ -457,59 +427,9 @@
               <FilePath>..\..\..\..\libcox\xhw_nvic.h</FilePath>
             </File>
             <File>
-              <FileName>xhw_pwm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xhw_pwm.h</FilePath>
-            </File>
-            <File>
-              <FileName>xhw_rtc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xhw_rtc.h</FilePath>
-            </File>
-            <File>
-              <FileName>xhw_spi.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xhw_spi.h</FilePath>
-            </File>
-            <File>
-              <FileName>xhw_sysctl.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xhw_sysctl.h</FilePath>
-            </File>
-            <File>
-              <FileName>xhw_timer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xhw_timer.h</FilePath>
-            </File>
-            <File>
               <FileName>xhw_types.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\..\..\libcox\xhw_types.h</FilePath>
-            </File>
-            <File>
-              <FileName>xhw_uart.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xhw_uart.h</FilePath>
-            </File>
-            <File>
-              <FileName>xhw_watchdog.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xhw_watchdog.h</FilePath>
-            </File>
-            <File>
-              <FileName>xi2c.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xi2c.h</FilePath>
-            </File>
-            <File>
-              <FileName>xpwm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xpwm.h</FilePath>
-            </File>
-            <File>
-              <FileName>xrtc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xrtc.h</FilePath>
             </File>
             <File>
               <FileName>xspi.h</FileName>
@@ -522,29 +442,29 @@
               <FilePath>..\..\..\..\libcox\xsysctl.h</FilePath>
             </File>
             <File>
-              <FileName>xtimer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xtimer.h</FilePath>
-            </File>
-            <File>
               <FileName>xuart.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\..\..\libcox\xuart.h</FilePath>
             </File>
             <File>
-              <FileName>xwatchdog.h</FileName>
+              <FileName>xhw_uart.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xwatchdog.h</FilePath>
+              <FilePath>..\..\..\..\libcox\xhw_uart.h</FilePath>
             </File>
             <File>
-              <FileName>xacmp.h</FileName>
+              <FileName>xhw_gpio.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xacmp.h</FilePath>
+              <FilePath>..\..\..\..\libcox\xhw_gpio.h</FilePath>
             </File>
             <File>
-              <FileName>xhw_acmp.h</FileName>
+              <FileName>xhw_spi.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xhw_acmp.h</FilePath>
+              <FilePath>..\..\..\..\libcox\xhw_spi.h</FilePath>
+            </File>
+            <File>
+              <FileName>xhw_sysctl.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\libcox\xhw_sysctl.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -552,39 +472,24 @@
           <GroupName>libcox_src</GroupName>
           <Files>
             <File>
-              <FileName>xadc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\libcox\xadc.c</FilePath>
-            </File>
-            <File>
               <FileName>xcore.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\libcox\xcore.c</FilePath>
             </File>
             <File>
-              <FileName>xdma.c</FileName>
+              <FileName>xdebug.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\libcox\xdma.c</FilePath>
+              <FilePath>..\..\..\..\libcox\xdebug.c</FilePath>
+            </File>
+            <File>
+              <FileName>xuart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\libcox\xuart.c</FilePath>
             </File>
             <File>
               <FileName>xgpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\libcox\xgpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>xi2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\libcox\xi2c.c</FilePath>
-            </File>
-            <File>
-              <FileName>xpwm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\libcox\xpwm.c</FilePath>
-            </File>
-            <File>
-              <FileName>xrtc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\libcox\xrtc.c</FilePath>
             </File>
             <File>
               <FileName>xspi.c</FileName>
@@ -596,36 +501,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\..\libcox\xsysctl.c</FilePath>
             </File>
-            <File>
-              <FileName>xtimer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\libcox\xtimer.c</FilePath>
-            </File>
-            <File>
-              <FileName>xuart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\libcox\xuart.c</FilePath>
-            </File>
-            <File>
-              <FileName>xacmp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\libcox\xacmp.c</FilePath>
-            </File>
-            <File>
-              <FileName>xdebug.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\libcox\xdebug.c</FilePath>
-            </File>
-            <File>
-              <FileName>xwdt.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\libcox\xwdt.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Source</GroupName>
           <Files>
+            <File>
+              <FileName>spitest00.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\spitest00.c</FilePath>
+            </File>
             <File>
               <FileName>testcase.c</FileName>
               <FileType>1</FileType>
@@ -637,14 +522,14 @@
               <FilePath>..\src\testcase.h</FilePath>
             </File>
             <File>
-              <FileName>xgpiotest1.c</FileName>
+              <FileName>spitest01.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\src\xgpiotest1.c</FilePath>
+              <FilePath>..\src\spitest01.c</FilePath>
             </File>
             <File>
-              <FileName>xgpiotest2.c</FileName>
+              <FileName>spitest02.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\src\xgpiotest2.c</FilePath>
+              <FilePath>..\src\spitest02.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1048,7 +933,7 @@
             <ScatterFile>.\nuc1xx_ram.sct</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
-            <Misc>--entry Reset_Handler</Misc>
+            <Misc>--entry ResetHandler</Misc>
             <LinkerInputFile></LinkerInputFile>
             <DisabledWarnings></DisabledWarnings>
           </LDads>
@@ -1061,18 +946,13 @@
             <File>
               <FileName>startup_rvmdk.s</FileName>
               <FileType>2</FileType>
-              <FilePath>.\startup_rvmdk.s</FilePath>
+              <FilePath>..\..\..\..\startup\src\startup_rvmdk.s</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
           <GroupName>libcox_inc</GroupName>
           <Files>
-            <File>
-              <FileName>xadc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xadc.h</FilePath>
-            </File>
             <File>
               <FileName>xcore.h</FileName>
               <FileType>5</FileType>
@@ -1084,34 +964,9 @@
               <FilePath>..\..\..\..\libcox\xdebug.h</FilePath>
             </File>
             <File>
-              <FileName>xdma.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xdma.h</FilePath>
-            </File>
-            <File>
               <FileName>xgpio.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\..\..\libcox\xgpio.h</FilePath>
-            </File>
-            <File>
-              <FileName>xhw_adc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xhw_adc.h</FilePath>
-            </File>
-            <File>
-              <FileName>xhw_dma.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xhw_dma.h</FilePath>
-            </File>
-            <File>
-              <FileName>xhw_gpio.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xhw_gpio.h</FilePath>
-            </File>
-            <File>
-              <FileName>xhw_i2c.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xhw_i2c.h</FilePath>
             </File>
             <File>
               <FileName>xhw_ints.h</FileName>
@@ -1129,59 +984,9 @@
               <FilePath>..\..\..\..\libcox\xhw_nvic.h</FilePath>
             </File>
             <File>
-              <FileName>xhw_pwm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xhw_pwm.h</FilePath>
-            </File>
-            <File>
-              <FileName>xhw_rtc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xhw_rtc.h</FilePath>
-            </File>
-            <File>
-              <FileName>xhw_spi.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xhw_spi.h</FilePath>
-            </File>
-            <File>
-              <FileName>xhw_sysctl.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xhw_sysctl.h</FilePath>
-            </File>
-            <File>
-              <FileName>xhw_timer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xhw_timer.h</FilePath>
-            </File>
-            <File>
               <FileName>xhw_types.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\..\..\libcox\xhw_types.h</FilePath>
-            </File>
-            <File>
-              <FileName>xhw_uart.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xhw_uart.h</FilePath>
-            </File>
-            <File>
-              <FileName>xhw_watchdog.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xhw_watchdog.h</FilePath>
-            </File>
-            <File>
-              <FileName>xi2c.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xi2c.h</FilePath>
-            </File>
-            <File>
-              <FileName>xpwm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xpwm.h</FilePath>
-            </File>
-            <File>
-              <FileName>xrtc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xrtc.h</FilePath>
             </File>
             <File>
               <FileName>xspi.h</FileName>
@@ -1194,29 +999,29 @@
               <FilePath>..\..\..\..\libcox\xsysctl.h</FilePath>
             </File>
             <File>
-              <FileName>xtimer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xtimer.h</FilePath>
-            </File>
-            <File>
               <FileName>xuart.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\..\..\libcox\xuart.h</FilePath>
             </File>
             <File>
-              <FileName>xwatchdog.h</FileName>
+              <FileName>xhw_uart.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xwatchdog.h</FilePath>
+              <FilePath>..\..\..\..\libcox\xhw_uart.h</FilePath>
             </File>
             <File>
-              <FileName>xacmp.h</FileName>
+              <FileName>xhw_gpio.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xacmp.h</FilePath>
+              <FilePath>..\..\..\..\libcox\xhw_gpio.h</FilePath>
             </File>
             <File>
-              <FileName>xhw_acmp.h</FileName>
+              <FileName>xhw_spi.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xhw_acmp.h</FilePath>
+              <FilePath>..\..\..\..\libcox\xhw_spi.h</FilePath>
+            </File>
+            <File>
+              <FileName>xhw_sysctl.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\libcox\xhw_sysctl.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1224,39 +1029,24 @@
           <GroupName>libcox_src</GroupName>
           <Files>
             <File>
-              <FileName>xadc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\libcox\xadc.c</FilePath>
-            </File>
-            <File>
               <FileName>xcore.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\libcox\xcore.c</FilePath>
             </File>
             <File>
-              <FileName>xdma.c</FileName>
+              <FileName>xdebug.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\libcox\xdma.c</FilePath>
+              <FilePath>..\..\..\..\libcox\xdebug.c</FilePath>
+            </File>
+            <File>
+              <FileName>xuart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\libcox\xuart.c</FilePath>
             </File>
             <File>
               <FileName>xgpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\libcox\xgpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>xi2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\libcox\xi2c.c</FilePath>
-            </File>
-            <File>
-              <FileName>xpwm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\libcox\xpwm.c</FilePath>
-            </File>
-            <File>
-              <FileName>xrtc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\libcox\xrtc.c</FilePath>
             </File>
             <File>
               <FileName>xspi.c</FileName>
@@ -1268,36 +1058,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\..\libcox\xsysctl.c</FilePath>
             </File>
-            <File>
-              <FileName>xtimer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\libcox\xtimer.c</FilePath>
-            </File>
-            <File>
-              <FileName>xuart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\libcox\xuart.c</FilePath>
-            </File>
-            <File>
-              <FileName>xacmp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\libcox\xacmp.c</FilePath>
-            </File>
-            <File>
-              <FileName>xdebug.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\libcox\xdebug.c</FilePath>
-            </File>
-            <File>
-              <FileName>xwdt.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\libcox\xwdt.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Source</GroupName>
           <Files>
+            <File>
+              <FileName>spitest00.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\spitest00.c</FilePath>
+            </File>
             <File>
               <FileName>testcase.c</FileName>
               <FileType>1</FileType>
@@ -1309,14 +1079,14 @@
               <FilePath>..\src\testcase.h</FilePath>
             </File>
             <File>
-              <FileName>xgpiotest1.c</FileName>
+              <FileName>spitest01.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\src\xgpiotest1.c</FilePath>
+              <FilePath>..\src\spitest01.c</FilePath>
             </File>
             <File>
-              <FileName>xgpiotest2.c</FileName>
+              <FileName>spitest02.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\src\xgpiotest2.c</FilePath>
+              <FilePath>..\src\spitest02.c</FilePath>
             </File>
           </Files>
         </Group>
