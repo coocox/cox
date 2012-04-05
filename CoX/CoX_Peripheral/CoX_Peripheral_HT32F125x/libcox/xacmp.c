@@ -164,10 +164,11 @@ ACMPConfigure(unsigned long ulBase, unsigned long ulCompID,
 void
 ACMPCancellation(unsigned long ulBase,  unsigned long ulCompID,
                  unsigned long ulInputRef)
-{
+{	
+    unsigned long i=0,ulTemp=0,ulTemp1=0;
     xASSERT(ulBase == ACMP_BASE);
     xASSERT((ulCompID >= 0) && (ulCompID < 2));
-    unsigned long i=0,ulTemp=0,ulTemp1=0;
+    
     ulTemp1 = xHWREG(ulBase + ACMP_OPACR + ulCompID*0x100);
     xHWREG(ulBase + ACMP_IER + ulCompID*0x100) = 0;
     xHWREG(ulBase + ACMP_ICLR + ulCompID*0x100) = 3;
