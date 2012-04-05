@@ -1,0 +1,161 @@
+//*****************************************************************************
+//
+//! \defgroup HT32F125x_I2C HT32F125x I2C
+//! 
+//! \brief HT32F125x I2C Peripheral Driver.
+//!
+//! The CoX Peripheral Library also provide APIs for full functions of 
+//! HT32F125x I2C. This module supports the whole HT32F125x.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref HT32F125x_I2C_Function_Desc
+//! - \ref HT32F125x_I2C_API_Group
+//!   - \ref HT32F125x_I2C_API_Group_Init 
+//!   - \ref HT32F125x_I2C_API_Group_Transfer 
+//!   - \ref HT32F125x_I2C_API_Group_Interrupt 
+//!   - \ref HT32F125x_I2C_API_Group_Timeout
+//! - \ref HT32F125x_I2C_Usage
+//! .
+//! 
+//! <br />
+//! \section HT32F125x_I2C_Function_Desc 1. HT32F125x I2C Functional Description
+//! The I2C Module is an internal circuit allowing communication with an external I2C interface which 
+//! is an industry standard two line serial interface used for connection to external hardware. These
+//! two serial lines are known as a serial data line, SDA, and a serial clock line, SCL. The I2C module
+//! provides two data transfer rates: (1) 100 kHz in the Standard mode or (2) 400 kHz in the Fast mode.
+//! The SCL period generation register is used to setup different kinds of duty cycle implementation
+//! for the SCL pulse.
+//! 
+//! The SDA line which is connected to the whole I2C bus is a bi-directional data line between the
+//! master and slave devices used for the transmission and reception of data. The I2C module also
+//! has an arbitration detect function to prevent the situation where more than one master attempts to
+//! transmit data to the I2C bus at the same time.
+//!
+//! I2c can be configure as master mode or slave mode. Master mode provide the 
+//! clock and start/stop signal. Arbitration exist between simultaneously transmitting
+//! masters.
+//!
+//! Arbitration among simultaneously transmitting masters without corruption of serial data on the
+//! bus.
+//!
+//! Allow devices with different bit rates to communicate via one serial bus.
+//! 
+//! Supports 7-bit and 10-bit addressing mode and general call addressing
+//! 
+//! <br />
+//! \section HT32F125x_I2C_API_Group 2. HT32F125x I2C API Group
+//! 
+//! The I2C API is broken into three groups of functions: 
+//! - those that deal with init the i2c, 
+//! - those that deal with data transfer, 
+//! - those that deal with the interrupt handler,
+//! .
+//!
+//! <br />
+//! \subsection HT32F125x_I2C_API_Group_Init  2.1 I2C Init APIs
+//! 
+//! I2C Enable or Disable :
+//! - I2CDisable()
+//! - I2CEnable()
+//! .
+//!
+//! The I2C master init functions are:
+//! - I2CMasterInit()
+//! .  
+//! 
+//! The I2C slave init functions are: 
+//! - I2CSlaveInit() 
+//! .
+//! 
+//! <br />
+//! \subsection HT32F125x_I2C_API_Group_Transfer 2.2 xI2C Transfer APIs
+//! 
+//! Get the i2c status
+//! - I2CStatusGet()
+//! .
+//!
+//! Master transfer API includes:
+//! - I2CMasterErr()
+//! - I2CMasterWriteRequestS1()
+//! - I2CMasterWriteRequestS2()
+//! - I2CMasterWriteS1()
+//! - I2CMasterWriteS2()
+//! - I2CMasterWriteBufS1()
+//! - I2CMasterWriteBufS2()
+//! - I2CMasterReadRequestS1()
+//! - I2CMasterReadRequestS2()
+//! - I2CMasterReadLastRequestS2()
+//! - I2CMasterReadS1()
+//! - I2CMasterReadS2()
+//! - I2CMasterReadBufS1()
+//! - I2CMasterReadBufS2()
+//! .
+//! 
+//! Slave transfer API includes:
+//! - I2CDataPut()
+//! - I2CDataPut()
+//! .
+//! 
+//! <br />
+//! \subsection HT32F125x_I2C_API_Group_Interrupt  2.3 I2C interrupt handler functions
+//! 
+//! The Callback functions
+//! - I2CIntCallbackInit()
+//! - I2CFlagStatusClear()
+//! - I2CStatusGet()
+//! - I2CIntDisable()
+//! - I2CIntEnable()
+//! .
+//!
+//!
+//! <br />
+//! \section HT32F125x_I2C_Usage 3. Usage & Program Examples
+//! The following example shows how to use the I2C API to initialize the 
+//! I2C, and how to transfer data to slave as master.
+//! 
+//! \code
+//!                                                                               
+//!//*****************************************************************************
+//!//                                                                             
+//!//!  \brief The example of the function of Dispaly.                             
+//!//!                                                                            
+//!//!  \param None                                                                
+//!//!                                                                            
+//!//!  \details The example of the function of Dispaly.                           
+//!//!  \return None.                                                              
+//!//                                                                             
+//!//*****************************************************************************
+//!void I2CExample(void)                                                          
+//!{                                                                              
+//!    //                                                                         
+//!    // Set SysClk 72MHz using Extern 8M oscillator                             
+//!    //                                                                         
+//!	   xSysCtlClockSet(72000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);              
+//!	                                                                              
+//!    xSysCtlPeripheralEnable2(ulMaster);                                        
+//!    xSysCtlPeripheralReset2(ulMaster);                                         
+//!                                                                               
+//!    xSysCtlPeripheralEnable2(xGPIO_PORTB_BASE);                                
+//!    xSysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);                               
+//!                                                                               
+//!    xSPinTypeI2C(I2C0SCK, PA11);                                               
+//!    xSPinTypeI2C(I2C0SDA, PA12);                                               
+//!	                                                                              
+//!    I2CMasterInit(ulMaster, 400000);                                              
+//!    I2CEnable(ulMaster);                                                       
+//!                                                                               
+//!    I2CMasterWriteS1(ulMaster, 0x12, 'a', xfalse);                             
+//!    I2CMasterWriteS2(ulMaster, 'b', xfalse);                                   
+//!    I2CMasterWriteS2(ulMaster, 'c', xfalse);                                   
+//!    I2CMasterWriteS2(ulMaster, 'd', xfalse);                                   
+//!                                                                               
+//!    I2CMasterReadBufS1(ulMaster, 0x12, ucTemp, 5, xtrue);                      
+//!} 
+//!
+//! \endcode
+//! 
+//! \note 
+//! 
+//
+//*****************************************************************************
