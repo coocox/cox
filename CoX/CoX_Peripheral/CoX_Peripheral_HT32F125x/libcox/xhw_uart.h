@@ -3,7 +3,7 @@
 //! \file xhw_UART.h
 //! \brief Macros used when accessing the UART hardware.
 //! \version V2.1.1.0
-//! \date 2/3/2012
+//! \date 3/2/2012
 //! \author CooCox
 //! \copy
 //!
@@ -50,7 +50,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup USART
+//! \addtogroup UART
 //! @{
 //
 //*****************************************************************************

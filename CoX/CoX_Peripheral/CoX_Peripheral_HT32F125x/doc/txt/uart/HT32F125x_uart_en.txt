@@ -232,7 +232,7 @@
 
 //*****************************************************************************
 //
-//! \defgroup HT32F125x_UART_LINE_Config HT32F125x UART line Config
+//! \defgroup HT32F125x_UART_Line_Config HT32F125x UART Line Config
 //! 
 //!
 //! \brief HT32F125x UART line Config

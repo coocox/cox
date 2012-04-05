@@ -3,7 +3,7 @@
 //! \file xuart.c
 //! \brief Driver for the UART
 //! \version V2.1.1.0
-//! \date 5/3/2012
+//! \date 3/5/2012
 //! \author CooCox
 //! \copy
 //!
@@ -91,7 +91,7 @@ UART0IntHandler(void)
     ulUART0IntStatus = xHWREG(UART0_BASE + USART_IIR);
 
     if(g_pfnUARTHandlerCallbacks[0] != 0)
-	{
+    {
         g_pfnUARTHandlerCallbacks[0](0, 0, ulUART0IntStatus, 0);
     }
 }
