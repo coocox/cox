@@ -594,8 +594,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_GPIO_Register_AFIO_ESSRO EXTI Source Selection 
-//!  Register0(AFIO_ESSRO)
+//! \addtogroup HT32F125x_GPIO_Register_AFIO_ESSRO EXTI Source Selection Register0(AFIO_ESSRO)
 //! \brief Defines for the bit fields in the AFIO_ESSRO register.
 //! @{
 //
@@ -631,8 +630,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_GPIO_Register_AFIO_ESSR1 EXTI Source Selection 
-//!  Register1(AFIO_ESSR1)
+//! \addtogroup HT32F125x_GPIO_Register_AFIO_ESSR1 EXTI Source Selection Register1(AFIO_ESSR1)
 //! \brief Defines for the bit fields in the AFIO_ESSR1 register.
 //! @{
 //
@@ -668,8 +666,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_GPIO_Register_AFIO_GPACFGR alternative function Selection 
-//!  Register(AFIO_GPACFGR)
+//! \addtogroup HT32F125x_GPIO_Register_AFIO_GPACFGR alternative function Selection Register(AFIO_GPACFGR)
 //! \brief Defines for the bit fields in the AFIO_GPACFGR register.
 //! @{
 //
@@ -777,8 +774,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_GPIO_Register_AFIO_GPBCFGR alternative function Selection 
-//!  Register(AFIO_GPBCFGR)
+//! \addtogroup HT32F125x_GPIO_Register_AFIO_GPBCFGR alternative function Selection Register(AFIO_GPBCFGR)
 //! \brief Defines for the bit fields in the AFIO_GPBCFGR register.
 //! @{
 //
@@ -1022,7 +1018,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_GPIO_Register_EXTI_CFGR2 EXTI Interrupt1 Configuration 
+//! \addtogroup HT32F125x_GPIO_Register_EXTI_CFGR2 EXTI Interrupt2 Configuration 
 //!  Register(EXTI_CFGR2)
 //! \brief Defines for the bit fields in the EXTI_CFGR2 register.
 //! @{

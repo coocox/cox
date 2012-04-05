@@ -139,31 +139,3 @@
 //
 //*****************************************************************************
 
-//*****************************************************************************
-//
-//! \defgroup xUART_App_SYNC SYNC Config and Example
-//!
-//! \brief CoX UART SYNC Config and Example.
-//!
-//! Here we introduce the SYNC function of uart, and provide a small example.
-//!
-//! <br />
-//! <h1>Contents</h1>
-//! - \ref xUART_App_SYNC_config
-//! .
-//!
-//! <br />
-//! \section xUART_App_LIN_config 1.How to configure the uart to support LIN. 
-//!
-//! <ol>
-//! <li>Enale the peripheral clock of UART and GPIO</li> </ol>
-//!
-//! <br />
-//! \section xUART_App_LIN_code 2.The code of LIN example.
-//!
-//! \code
-//! int i;
-//! \endcode
-//!
-//
-//*****************************************************************************
