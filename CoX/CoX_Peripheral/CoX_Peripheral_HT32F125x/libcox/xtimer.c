@@ -276,7 +276,7 @@ xTimerInitConfig(unsigned long ulBase, unsigned long ulChannel,
     }
     
     //
-    // Set the CRR and PRSC register
+    // Set the CRR and PSCR register
     // 
     xHWREG(ulBase + TIMER_PSCR) = ulPreScale;
     TimerCRRSet(ulBase, ulTCMPRValue);
