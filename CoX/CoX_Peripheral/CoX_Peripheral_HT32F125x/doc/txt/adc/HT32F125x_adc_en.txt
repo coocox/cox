@@ -1,0 +1,156 @@
+//*****************************************************************************
+//
+//! \defgroup HT32F125x_ADC HT32F125x ADC
+//! 
+//! \brief Holtek HT32F125x ADC Peripheral Driver
+//!
+//! The CoX Peripheral Library also provide APIs for full functions of Nuvoton
+//! HT32F125x ADC.
+//! \n
+//!
+//! <h1>Contents</h1>
+//! - \ref HT32F125x_ADC_Introduction
+//! - \ref HT32F125x_ADC_Function_Desc
+//!   - \ref HT32F125x_ADC_Pin_Desc
+//!   - \ref HT32F125x_ADC_Func_Convertion
+//!     - \ref HT32F125x_ADC_Func_Channel
+//!     - \ref HT32F125x_ADC_Func_Convert_Mode
+//!     - \ref HT32F125x_ADC_Func_Convert_Tigger
+//!     .
+//!   - \ref HT32F125x_ADC_Func_Monitor
+//!   - \ref HT32F125x_ADC_Func_Int
+//!   .
+//! - \ref HT32F125x_ADC_API_Group
+//!   - \ref HT32F125x_ADC_API_Group_AD
+//!   - \ref HT32F125x_ADC_API_Group_Monitor
+//!   - \ref HT32F125x_ADC_API_Group_Int
+//!   .
+//! - \ref HT32F125x_ADC_Usage
+//! .
+//! \n
+//!
+//! \section HT32F125x_ADC_Introduction 1. HT32F125x ADC Introduction
+//! HT32F125x Series contains one 12-bit successive approximation 
+//!analog-to-digital converters (SAR A/D converter) with 8 input channels.
+//!
+//! \section HT32F125x_ADC_Function_Desc 2. HT32F125x ADC Function Description
+//!
+//! \subsection HT32F125x_ADC_Pin_Desc 2.1 HT32F125x ADC Peripheral Pin Description
+//! \verbatim
+//! +-------------------+------------------+-----------------------+
+//! |Peripheral Pin Name|GPIO Pin multiplex|Pin Description        |
+//! |-------------------|------------------|-----------------------|
+//! |ADC0               |PA0               |ADC channel 0 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC1               |PA1               |ADC channel 1 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC2               |PA2               |ADC channel 2 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC3               |PA3               |ADC channel 3 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC4               |PA4               |ADC channel 4 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC5               |PA5               |ADC channel 5 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC6               |PA6               |ADC channel 6 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC7               |PA7               |ADC channel 7 input    |
+//! |-------------------|------------------|-----------------------|
+//! \endverbatim
+//! 
+//! \subsection HT32F125x_ADC_Func_Convertion 2.2 HT32F125x ADC AD Convertion Function Description
+//! 
+//! \subsubsection HT32F125x_ADC_Func_Channel 2.2.1 HT32F125x ADC Input Channel
+//! The HT32F125x ADC have 8 analog input channel, each channel can be enabled/
+//! disabled independently, and each channel have independent storage register.
+//! In single-end mode, The contorl will first sample and convert channel 0, 
+//! then channel 1 and so on if then are enabled.
+//!
+//! \subsubsection HT32F125x_ADC_Func_Convert_Mode 2.2.2 HT32F125x ADC AD operation mode
+//!
+//! The A/D converter supports three operation modes: 
+//! - \b single - A/D conversion is performed only once on the specified single 
+//! channel.
+//! - \b single-cycle scan - A/D conversion will sample and convert the 
+//! specified channels once in the sequence from the lowest number enabled 
+//! channel to the highest number enabled channel.
+//! - \b continuous scan mode - A/D conversion is performed sequentially on the
+//! specified enabled channels. This is a continuous loop of single-cycle scan.
+//! .
+//!
+//! \subsubsection HT32F125x_ADC_Func_Convert_Tigger 2.2.3 HT32F125x ADC Trigger source
+//! There are two Trigger source:
+//! - \b Processor(software) - ADCProcessorTrigger() to send a software Trigger.
+//! - \b External EXIT       - ADCExtiEventTrigger() to send a a EXTI Event trigger.
+//! - \b a GPTM Event        - ADCGptmEventTrigger() to send a a GPTM Event trigger.
+//!   .
+//! .
+//!
+//! \subsection HT32F125x_ADC_Func_Monitor 2.3 HT32F125x ADC Watchdog monitor to monitor AD Input.
+//!  and generate an interrupt.
+//!
+//! How to configure a monitor
+//! -# ADCMonitorSet() to Configure the ADC Watchdog Monitor.
+//! -# ADCMoniEnable() to Enable the ADC Watchdog monitor.
+//! -# ADCMoniDisable() to Disable the ADC Watchdog monitor.
+//! .
+//!
+//! \subsection HT32F125x_ADC_Func_Int 2.4 HT32F125x ADC Interrupt
+//!
+//! There are 6 interrupt source:
+//! - . ADC_INT_END_CONVERSION: Interrupt after single cycle conversion.
+//! - . ADC_INT_END_SUBGROUP: Interrupt after subgroup conversion.
+//! - . ADC_INT_END_CYCLE: Interrupt after cycle conversion.
+//! - . ADC_INT_MONIL: Interrupt when the comparator lower.
+//! - . ADC_INT_MONIU: Interrupt when the comparator upper.
+//! - . ADC_INT_OVERW: Interrupt when data overwrite.
+//!
+//!
+//! \section HT32F125x_ADC_API_Group 3. HT32F125x ADC API Group
+//!
+//! \subsection HT32F125x_ADC_API_Group_AD 3.1 HT32F125x AD Convert API
+//! The AD sample convert are configured with:
+//! - ADCConfigure() to config the single-end / difference input mode and single  
+//! / single cycle / continuous operation mode and the trigger source.
+//! .
+//! .
+//! The ADC sample convertion software control API:
+//! - ADCProcessorTrigger() to start the AD convertion by software.
+//! .
+//! The AD convertion data API:
+//! - ADCDataStatus() to determine if the data is valid or overrun
+//! - ADCDataGet() to get the channel convertion data(12bit), user should mask 
+//! the data with 0x00000FFF.
+//! .
+//! \subsection HT32F125x_ADC_API_Group_Monitor 3.2 HT32F125x ADC Digital Comparator API
+//!
+//! Here is the API of comparator: 
+//! - ADCMonitorSet()
+//! - ADCMoniEnable()
+//! - ADCMoniDisable()
+//! .
+//! 
+//! \subsection HT32F125x_ADC_API_Group_Int 3.3 HT32F125x ADC Interrupt API
+//!
+//! The interrupts are enabled/disabled with:
+//! - ADCIntEnable()
+//! - ADCIntDisable()
+//! .
+//! Interrupt is managed with:
+//! - ADCIntStatus() - to get the interrupt status.
+//! - ADCIntClear() - to clear the interrupt.
+//! .
+//! \section HT32F125x_ADC_Usage 4. HT32F125x ADC Usage & Example
+//!
+//! The following show how to use the ADC APIs to initialize the ADC 
+//! sample sequence, and get the AD convertion data to the buffer.
+//! -# SysCtlPeripheralEnable() to enable to GPIO,ADC Peripheral clock.
+//! -# Configure the ADC pin in the GPIO moudle.
+//! -# ADCConfigure() to configure the operation mode and Trigger source.
+//! -# ADCChannelEnable() to enable the channels.
+//! -# ADCIntEnable(), xIntEnable() to enable the interrupt.
+//! -# ADCDataGet() get channels data in the interrupt handler.
+//! . 
+//!
+//
+//*****************************************************************************
