@@ -243,6 +243,7 @@
 //! Flash Cache and Pre-fetch Control Register 
 //
 #define FLASH_CFCR              0x40080200
+
 //*****************************************************************************
 //
 //! @}
@@ -563,6 +564,11 @@
 //! USART Clock Prescaler Mask
 //
 #define SYSCLK_GCFGR_URPRE_M    0x00300000
+
+//
+//! USART Clock Prescaler Shift
+//
+#define SYSCLK_GCFGR_URPRE_S    20
 
 //
 //! USART Clock Prescaler is CKUR

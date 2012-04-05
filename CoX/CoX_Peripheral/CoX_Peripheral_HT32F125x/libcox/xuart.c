@@ -89,7 +89,7 @@ UART0IntHandler(void)
     unsigned long ulUART0IntStatus;
 
     ulUART0IntStatus = xHWREG(UART0_BASE + USART_IIR);
-	
+
     if(g_pfnUARTHandlerCallbacks[0] != 0)
 	{
         g_pfnUARTHandlerCallbacks[0](0, 0, ulUART0IntStatus, 0);
@@ -247,8 +247,9 @@ UARTFIFOTriggerLevelSet(unsigned long ulBase, unsigned long ulRxLevel)
 //! \return None.
 //
 //*****************************************************************************
-void
-UARTFIFOTriggerLevelGet(unsigned long ulBase, unsigned long *pulRxLevel)
+
+unsigned long
+UARTFIFOTriggerLevelGet(unsigned long ulBase)
 {
     unsigned long ulTemp;
 
@@ -265,7 +266,9 @@ UARTFIFOTriggerLevelGet(unsigned long ulBase, unsigned long *pulRxLevel)
     //
     // Extract the transmit and receive FIFO levels.
     //
-    *pulRxLevel = ulTemp & USART_FCR_RFTL_M;
+    ulTemp = ulTemp & USART_FCR_RFTL_M;
+
+    return ulTemp;
 }
 
 //*****************************************************************************
@@ -1081,66 +1084,59 @@ UARTModemControlSet(unsigned long ulBase, unsigned long ulControl)
 
 //*****************************************************************************
 //
-//! \brief Sets the UART hardware flow control mode to be used.
+//! \brief Gets the states of the RTS modem control signals and trigger level.
 //!
 //! \param ulBase is the base address of the UART port.
-//! \param ulMode indicates the flow control modes to be used.  This is a
-//! logical OR combination of values \b USART_MCR_RTS and \b USART_MCR_DTR 
-//! to enable hardware transmit (RTS) and receive (DTR)flow control or
-//! \b UART_FLOWCONTROL_NONE to disable hardware flow control.
 //!
-//! Sets the required hardware flow control modes.  If \e ulMode contains
-//! flag \b USART_MCR_RTS, data is only transmitted if the incoming RTS
-//! signal is asserted. If \e ulMode contains flag \b USART_MCR_DTR,
-//! the RTS output is controlled by the hardware and is asserted only when
-//! there is space available in the receive FIFO.  If no hardware flow control
-//! is required, UART_FLOWCONTROL_NONE should be passed.
+//! Get the states of the RTS modem handshake outputs from the UART.
+//!
+//! The \e ulControl parameter is the logical OR of any of the following:
+//!
 //!
 //! \return None.
 //
 //*****************************************************************************
-void
-UARTFlowControlSet(unsigned long ulBase, unsigned long ulMode)
+unsigned long
+UARTModemControlGet(unsigned long ulBase)
 {
     //
     // Check the arguments.
     //
     xASSERT(ulBase == UART0_BASE);
-    xASSERT((ulMode & ~(USART_MCR_RTS_L | USART_MCR_DTR_L)) == 0);
 
     //
-    // Set the flow control mode as requested.
+    // Return the states of the RTS modem control signals and trigger level.
     //
-    xHWREG(ulBase + USART_MCR) = ((xHWREG(ulBase + USART_MCR) & ~(USART_MCR_RTS_L |
-                                                    USART_MCR_DTR_L)) | ulMode);
+    return(xHWREG(ulBase + USART_MCR) & (USART_MCR_DTR_L | USART_MCR_RTS_L));
 }
 
 //*****************************************************************************
 //
-//! \brief Returns the UART hardware flow control mode currently in use.
+//! \brief Get the current status of modem.
 //!
 //! \param ulBase is the base address of the UART port.
 //!
-//! Returns the current hardware flow control mode.
+//! This returns the modem.status for the specified UART.
 //!
-//! \return Returns the current flow control mode in use.  This is a
-//! logical OR combination of values \b UART_FLOWCONTROL_TX if transmit
-//! (CTS) flow control is enabled and \b UART_FLOWCONTROL_RX if receive (RTS)
-//! flow control is in use.  If hardware flow control is disabled, \b
-//! UART_FLOWCONTROL_NONE will be returned.
+//! \return Returns the current modem status.
+//! \b USART_MSR_DDTSF, \b USART_MSR_DDCTSF, \b USART_MSR_RIS, \b USART_MSR_CTSS,
+//! \b USART_MSR_DCTSF, \b USART_MSR_DSRS, \b USART_MSR_DCDS, \b USART_MSR_DRISF.
+//! 
 //
 //*****************************************************************************
 unsigned long
-UARTFlowControlGet(unsigned long ulBase)
+UARTModemStatusGet(unsigned long ulBase)
 {
     //
     // Check the arguments.
     //
-    xASSERT(ulBase == UART0_BASE);
+    xASSERT(UARTBaseValid(ulBase));
 
-    return(xHWREG(ulBase + USART_MCR) & (USART_MCR_RTS_L | USART_MCR_DTR_L));
+    //
+    // Return either the modem status.
+    //
+    return(xHWREG(ulBase + USART_MSR));
 }
-
 //*****************************************************************************
 //
 //! \brief Gets current receiver errors.
@@ -1411,7 +1407,7 @@ UARTSyncModeConfig(unsigned long ulBase, unsigned long ulBaud,
     // Enable Synchronous mode.
     //
     UARTModeSet(ulBase, USART_FUN_SEL_SYN_EN);
-    xHWREG(ulBase + USART_SYNCR) &= 0xFFFFFFF0;
+//    xHWREG(ulBase + USART_SYNCR) &= 0xFFFFFFF2;
     xHWREG(ulBase + USART_SYNCR) |= ulSYNConfig;
 
 }

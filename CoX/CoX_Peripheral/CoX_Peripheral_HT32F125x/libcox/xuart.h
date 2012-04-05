@@ -1289,7 +1289,7 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 //
 //! \addtogroup HT32F125x_UART_INT_Type HT32F125x UART Interrupt Type
 //! Values that can be passed to UARTIntEnable, UARTIntDisable, and UARTIntClear
-//! as the ulIntFlags parameter, and returned from UARTIntStatus.
+//! as the ulIntFlags parameter.
 //! @{
 //
 //*****************************************************************************
@@ -1302,17 +1302,17 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 //
 //! RModem Status Interrupt
 // 
-#define UART_INT_MOS            0x000
+#define UART_INT_MOS            0x008
 
 //
 //! Receive Line Status Interrupt
 //
-#define UART_INT_RLS            0x006
+#define UART_INT_RLS            0x004
 
 //
 //! Transmit Holding Register Empty Interrupt
 //     
-#define UART_INT_THRE           0x004
+#define UART_INT_THRE           0x002
 
 //
 //! Receive Holding Register Empty Interrupt
@@ -1494,25 +1494,6 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_UART_Flow_Control HT32F125x UART Flow Control
-//! Values that can be passed to UARTFlowControlSet() or returned from
-//! UARTFlowControlGet().
-//! @{
-//
-//*****************************************************************************
-
-#define UART_FLOWCONTROL_TX     0x00001000
-#define UART_FLOWCONTROL_RX     0x00002000
-#define UART_FLOWCONTROL_NONE   0x00000000
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
 //! \addtogroup HT32F125x_UART_Error HT32F125x UART Error
 //! Values returned from UARTRxErrorGet().
 //! @{
@@ -1608,7 +1589,7 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_USART_Synchronous_Config Synchronous Mode Config
+//! \addtogroup HT32F125x_USART_Synchronous_Config UART Synchronous Mode Config
 //! Values that can be passed to UARTSyncModeConfig() as the ulConfig parameter
 //! @{
 //
@@ -1657,8 +1638,7 @@ extern void UARTParityModeSet(unsigned long ulBase, unsigned long ulParity);
 extern unsigned long UARTParityModeGet(unsigned long ulBase);
 extern void UARTFIFOTriggerLevelSet(unsigned long ulBase, 
 		                            unsigned long ulRxLevel);
-extern void UARTFIFOTriggerLevelGet(unsigned long ulBase,
-		                            unsigned long *pulRxLevel);
+extern unsigned long UARTFIFOTriggerLevelGet(unsigned long ulBase);
 extern void UARTConfigSetExpClk(unsigned long ulBase, 
                                 unsigned long ulBaud, unsigned long ulConfig);
 extern void UARTConfigGetExpClk(unsigned long ulBase,
@@ -1694,19 +1674,15 @@ extern unsigned long UARTRxErrorGet(unsigned long ulBase);
 extern void UARTRxErrorClear(unsigned long ulBase);
 extern void UARTModemControlSet(unsigned long ulBase,
                                 unsigned long ulControl);
-extern void UARTModemControlClear(unsigned long ulBase,
-                                  unsigned long ulControl);
 extern unsigned long UARTModemControlGet(unsigned long ulBase);
-extern void UARTModemStatusSet(unsigned long ulBase, unsigned long ulCtsTirg);
 extern unsigned long UARTModemStatusGet(unsigned long ulBase);
-extern void UARTFlowControlSet(unsigned long ulBase, unsigned long ulMode);
-extern unsigned long UARTFlowControlGet(unsigned long ulBase);
 extern void UARTRxTimeOutSet(unsigned long ulBase, unsigned long ulValue);
 extern void UART485Config(unsigned long ulBase, unsigned long ulBaud,
                           unsigned long ul485Config,
                           unsigned long ulUARTConfig);
 extern void UARTModeSet(unsigned long ulBase, unsigned long ulUartMode);
-
+extern void UARTSyncModeConfig(unsigned long ulBase, unsigned long ulBaud,
+              unsigned long ulSYNConfig, unsigned long ulUARTConfig);
 
 //*****************************************************************************
 //

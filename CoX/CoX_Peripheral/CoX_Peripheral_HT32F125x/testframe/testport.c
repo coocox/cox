@@ -1,5 +1,5 @@
 #include "test.h"
-#include "ht32f125x.h"
+
 //*****************************************************************************
 //
 //! \brief Init uart to print.
@@ -15,7 +15,7 @@
 void 
 TestIOInit(void)
 {
-    xSysCtlClockSet(8000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
+    xSysCtlClockSet(72000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
     SysCtlDelay(10000);
 
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);

@@ -150,7 +150,7 @@ extern "C"
 //! |--------------------------|----------------|--------------------------|
 //! |xSYSCTL_OSC_INT           |    Mandatory   |             Y            |
 //! |--------------------------|----------------|--------------------------|
-//! |xSYSCTL_OSC_INTSL         |  Non-Mandatory |             Y            |
+//! |xSYSCTL_OSC_INTSL         |  Non-Mandatory |             N            |
 //! |--------------------------|----------------|--------------------------|
 //! |xSYSCTL_OSC_EXTSL         |  Non-Mandatory |             N            |
 //! |--------------------------|----------------|--------------------------|
@@ -262,7 +262,7 @@ extern "C"
 //! |-------------------------- |----------------|--------------------------|
 //! |......                     |  Non-Mandatory |             Y            |
 //! |-------------------------- |----------------|--------------------------|
-//! |xSYSCTL_ADC_KCLK_n         |  Non-Mandatory |             Y            |
+//! |xSYSCTL_ADC_HCLK_n         |  Non-Mandatory |             Y            |
 //! |-------------------------- |----------------|--------------------------|
 //! \endverbatim
 //! @{
@@ -272,70 +272,72 @@ extern "C"
 //
 //! Watch dog clock source is external 32.768 kHz crystal clock.
 //
-#define xSYSCTL_WDT0_EXTSL      0x00000001
+#define xSYSCTL_WDT0_EXTSL      0x00000008
 
 //
 //! Watch dog clock source is internal 32 kHz oscillator clock
 //
-#define xSYSCTL_WDT0_INTSL      0x00000000
+#define xSYSCTL_WDT0_INTSL      0x00000001
+
 //
 //! ADC clock source is HCLK
 //
-#define xSYSCTL_PERIPH_ADC_S_HCLK                                              \
-                                0x00000000
+#define xSYSCTL_ADC0_HCLK       0x00000000
 
 //
 //! ADC clock source is HCLK/2
 //
-#define xSYSCTL_PERIPH_ADC_S_HCLK_2                                            \
-                                0x00010000
+#define xSYSCTL_ADC0_HCLK_2     0x00010000
 
 //
-//! ADC clock source is internal 22 MHz oscillator clock
+//! ADC clock source is HCLK/4
 //
-#define xSYSCTL_PERIPH_ADC_S_HCLK_4                                            \
-                                0x00020000
+#define xSYSCTL_ADC0_HCLK_4     0x00020000
 
 //
 //! ADC clock source is HCLK/6
 //
-#define xSYSCTL_PERIPH_ADC_S_HCLK_6                                            \
-                                0x00070000
+#define xSYSCTL_ADC0_HCLK_6     0x00070000
 
 //
 //! ADC clock source is HCLK/8
 //
-#define xSYSCTL_PERIPH_ADC_S_HCLK_8                                            \
-                                0x00030000
+#define xSYSCTL_ADC0_HCLK_8     0x00030000
 
 //
 //! ADC clock source is HCLK/16
 //
-#define xSYSCTL_PERIPH_ADC_S_HCLK_16                                           \
-                                0x00040000
+#define xSYSCTL_ADC0_HCLK_16    0x00040000
 
 //
 //! ADC clock source is HCLK/32
 //
-#define xSYSCTL_PERIPH_ADC_S_HCLK_32                                           \
-                                0x00050000
+#define xSYSCTL_ADC0_HCLK_32    0x00050000
 
 //
 //! ADC clock source is HCLK/64
 //
-#define xSYSCTL_PERIPH_ADC_S_HCLK_64                                           \
-                                0x00060000
+#define xSYSCTL_ADC0_HCLK_64    0x00060000
+
 //
 //! UART clock source is HCLK
 //
-#define xSYSCTL_PERIPH_UART_S_HCLK                                             \
-                                0x00000000
+#define xSYSCTL_UART0_HCLK      0x00000002
 
 //
 //! UART clock source is HCLK/2
 //
-#define xSYSCTL_PERIPH_UART_S_HCLK_2                                           \
-                                0x00200000
+#define xSYSCTL_UART0_HCLK_2    0x00200000
+
+//
+//! RTC clock source is LSE
+//
+#define xSYSCTL_RTC_EXTSL       0x00000004
+
+//
+//! RTC clock source is LSI
+//
+#define xSYSCTL_RTC_INTSL       0x00000000
 //*****************************************************************************
 //
 //! @}
@@ -375,7 +377,7 @@ extern "C"
 //! |--------------------------------|----------------|---------|
 //! |xSysCtlSleep                    |    Mandatory   |    Y    |
 //! |--------------------------------|----------------|---------|
-//! |xSysCtlPeripheralClockSourceSet |    Mandatory   |    N    |
+//! |xSysCtlPeripheralClockSourceSet |    Mandatory   |    Y    |
 //! |--------------------------------|----------------|---------|
 //! |xSysCtlPeripheralClockSourceSet2|    Mandatory   |    N    |
 //! |--------------------------------|----------------|---------|
@@ -405,6 +407,28 @@ extern "C"
 //*****************************************************************************
 #define xSysCtlPeripheralReset(ulPeripheralID)                                \
         SysCtlPeripheralReset(ulPeripheralID)
+
+//*****************************************************************************
+//
+//! \brief Set clock source for a peripheral and divide.
+//!
+//! \param ulPeripheralSrc is the peripheral clock source to set.
+//!
+//! Peripherals clock source are seted with this function.  At power-up, all 
+//! Peripherals clock source are Peripherals clock source; they must be set in 
+//! order to operate or respond to register reads/writes.
+//!
+//! The \e ulPeripheralSrc parameter must be only one of the following values:
+//! \b xSYSCTL_ADC_HCLK, \b xSYSCTL_ADC_HCLK_2,	\b xSYSCTL_ADC_HCLK_4,
+//! \b xSYSCTL_ADC_HCLK_6, \b xSYSCTL_ADC_HCLK_8, \b xSYSCTL_ADC_HCLK_16,
+//! \b xSYSCTL_ADC_HCLK_32,	\b xSYSCTL_ADC_HCLK_64,	\b xSYSCTL_UART0_HCLK,
+//! \b xSYSCTL_WDT0_EXTSL, \b xSYSCTL_PERIPH_WDG_S_INTSL, \b xSYSCTL_UART0_HCLK_2.
+//!
+//! \return None.
+//
+//*****************************************************************************
+extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
+									                          unsigned long ulDivide);
 
 //*****************************************************************************
 //
@@ -589,12 +613,12 @@ extern void xSysCtlSleep(void);
 //
 //! SRAM No reset
 //
-#define SYSCTL_PERIPH_SRAM      0x00000001
+#define SYSCTL_PERIPH_SRAM      0x00000004
 
 //
 //! FMC No reset
 //
-#define SYSCTL_PERIPH_FMC       0x00000004
+#define SYSCTL_PERIPH_FMC       0x00000001
 
 //
 //! I2C0
@@ -654,17 +678,17 @@ extern void xSysCtlSleep(void);
 //
 //! OPA0
 //
-#define SYSCTL_PERIPH_OPA0      0x50408F40
+#define SYSCTL_PERIPH_OPA0      0x50409601
 
 //
 //! OPA1
 //
-#define SYSCTL_PERIPH_OPA1      0x50808F80
+#define SYSCTL_PERIPH_OPA1      0x50809602
 
 //
 //! ADC
 //
-#define SYSCTL_PERIPH_ADC       0x58019801
+#define SYSCTL_PERIPH_ADC       0x58019604
 
 //*****************************************************************************
 //
@@ -681,6 +705,9 @@ extern void xSysCtlSleep(void);
 //
 //*****************************************************************************
 
+#define SYSCTL_OSC_HSE        (SYSCTL_PLL_MAIN | SYSCTL_OSC_PLL)
+
+#define SYSCTL_OSC_HSI         (SYSCTL_PLL_INT | SYSCTL_OSC_PLL)
 //
 //! Oscillator Source
 //
@@ -806,7 +833,7 @@ extern void xSysCtlSleep(void);
 //! Watch dog clock source is internal 32 kHz oscillator clock
 //
 #define SYSCTL_PERIPH_WDG_S_INTER                                             \
-                                0x00000000
+                                0x00000001
 
 //
 //! ADC clock source is HCLK
@@ -821,7 +848,7 @@ extern void xSysCtlSleep(void);
                                 0x00010000
 
 //
-//! ADC clock source is internal 22 MHz oscillator clock
+//! ADC clock source is HCLK/4
 //
 #define SYSCTL_PERIPH_ADC_S_HCLK_4                                            \
                                 0x00020000
@@ -859,7 +886,7 @@ extern void xSysCtlSleep(void);
 //! UART clock source is HCLK
 //
 #define SYSCTL_PERIPH_UART_S_HCLK                                             \
-                                0x00000000
+                                0x00000002
 
 //
 //! UART clock source is HCLK/2
@@ -908,7 +935,7 @@ extern void xSysCtlSleep(void);
 //
 //! A constant value of 0x27 will be  read when the Backup Domain is ready.
 // 
-#define SYSCTL_Backup_Test_Value                                              \
+#define SYSCTL_BACKUP_TEST_VALUE                                              \
                                 0x00000027
 //*****************************************************************************
 //
@@ -916,12 +943,65 @@ extern void xSysCtlSleep(void);
 //
 //*****************************************************************************
 
+
 //*****************************************************************************
 //
 //! \addtogroup HT32F125x_SysCtl_Exported_APIs HT32F125x SysCtl APIs
 //! @{
 //
 //*****************************************************************************
+
+//*****************************************************************************
+//
+//! \brief Set the clock of the device(HCLK).
+//!
+//! \param ulSysClk is the clock rate that you will set.
+//! \param ulConfig is the required configuration of the device clock.
+//!
+//! This function configures the clock of the device.The input crystal frequency,
+//! oscillator to be used, use of the PLL, and the system clock divider are all
+//! configured with this function.
+//!
+//! The \e ulConfig parameter is the logical OR of several different values,
+//! many of which are grouped into sets where only one can be chosen.
+//!
+//! The external crystal frequency is chosen with one of the following values:
+//! \ref xSYSCTL_XTAL_4MHZ, \ref xSYSCTL_XTAL_5MHZ, \ref xSYSCTL_XTAL_6MHZ, ...
+//! \ref xSYSCTL_XTAL_16MHZ.
+//!
+//! The oscillator source is chosen with one of the following values:
+//! \ref SYSCTL_OSC_HSE, \ref xSYSCTL_OSC_HSI.
+//!
+//! The external oscillator must be enabled in order to use an external clock
+//! source.
+//! <br />
+//! Details please refer to \ref SysCtl_Clock_Set_Config_CoX.
+//!
+//! \return None.
+//
+//*****************************************************************************
+#define     SysCtlClockSet(ulSysClk, ulConfig)                                \
+            xSysCtlClockSet(ulSysClk, ulConfig)
+
+//*****************************************************************************
+//
+//! \brief Gets the processor clock rate.
+//!
+//! This function determines the clock rate of the processor clock.  This is
+//! also the clock rate of all the peripheral modules (with the exception of
+//! PWM, which has its own clock divider).
+//!
+//! \note This will not return accurate results if SysCtlClockSet() has not
+//! been called to configure the clock of the device, or if the device is
+//! directly clocked from a crystal (or a clock source) that is not one of the
+//! supported crystal frequencies.  In the later case, this function should be
+//! modified to directly return the correct system clock rate.
+//!
+//! \return The processor clock rate.
+//
+//*****************************************************************************
+#define SysCtlClockGet()                                                      \
+        xSysCtlClockGet()
 extern void SysCtlDelay(unsigned long ulCount);
 
 extern void SysCtlPeripheralReset(unsigned long ulPeripheral);
@@ -936,7 +1016,6 @@ extern void LVDIntCallbackInit(xtEventCallback pfnCallback);
 extern void BODIntCallbackInit(xtEventCallback pfnCallback);
 
 extern void SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig);
-extern unsigned long SysCtlClockGet(void);
 
 extern void SysCtlSleep(unsigned long ulEnterMode);
 extern void SysCtlDeepSleep1(unsigned long ulEnterMode);

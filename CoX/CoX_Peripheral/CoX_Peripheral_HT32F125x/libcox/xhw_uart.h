@@ -300,12 +300,12 @@
 //
 //! RX FIFO Threshold Level Setting Mask
 //
-#define USART_FCR_RFTL_M        0x00000030
+#define USART_FCR_RFTL_M        0x000000C0
 
 //
 //! RX FIFO Threshold Level Setting Shift
 //
-#define USART_FCR_RFTL_S        4
+#define USART_FCR_RFTL_S        6
 
 //
 //! 1 Byte

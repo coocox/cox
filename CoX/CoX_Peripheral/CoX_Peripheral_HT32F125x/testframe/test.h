@@ -67,19 +67,19 @@ extern "C" {
 #define TEST_ERROR_BUF_SIZE     512
 
 //
-// Test Port MCU platform(board), default is M051.
+// Test Port MCU platform(board), default is HT32F125x.
 //
 #ifdef TEST_IO_PORT
 //
-// Test Board is NUC1xx
+// Test Board is HT32F125x
 //
-#define TEST_IO_PORT_Mini51     1
+#define TEST_IO_PORT_HT32F125x     1
 
 //
 // Default Test Board is NUC1xx
 //
 #if !defined(TEST_IO_PORT_BOARD)    
-#define TEST_IO_PORT_BOARD      TEST_IO_PORT_Mini51
+#define TEST_IO_PORT_BOARD      TEST_IO_PORT_HT32F125x
 #endif
 
 #endif
