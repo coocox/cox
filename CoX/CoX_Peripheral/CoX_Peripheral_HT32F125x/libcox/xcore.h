@@ -5,7 +5,7 @@
 //! Prototypes for the NVIC Interrupt Controller Driver.
 //! Prototypes for the SysTick driver.
 //! \version V2.1.1.0
-//! \date 11/20/2011
+//! \date 2/22/2012
 //! \author CooCox
 //! \copy
 //!
@@ -39,8 +39,8 @@
 //
 //*****************************************************************************
 
-#ifndef __XCORE_H__
-#define __XCORE_H__
+#ifndef __xCORE_H__
+#define __xCORE_H__
 
 //*****************************************************************************
 //
@@ -55,14 +55,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Peripheral_Lib
-//! @{
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup CORE
+//! \addtogroup CoX_Peripheral_Lib
 //! @{
 //
 //*****************************************************************************
@@ -74,19 +67,10 @@ extern "C"
 //
 //*****************************************************************************
 
-//*****************************************************************************
 //
-//! \addtogroup xCORE_Exported_Macros
-//! @{
+//! \brief Macro to generate an interrupt priority mask based on the number of 
+//! bits of priority supported by the hardware.
 //
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \brief Macro to generate an interrupt priority mask based on the number of bits
-//! of priority supported by the hardware.
-//
-//*****************************************************************************
 #define xINT_PRIORITY_MASK       ((0xFF << (8 - NUM_PRIORITY_BITS)) & 0xFF)
 
 //
@@ -101,27 +85,116 @@ extern "C"
 
 //*****************************************************************************
 //
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup xCORE_Exported_APIs
+//! \addtogroup xCORE_Exported_APIs xCORE API
+//! \brief Cortex-M0/M3 Core peripheral(CPU, NVIC, Systick) API reference.
 //! @{
 //
 //*****************************************************************************
 
+//*****************************************************************************
+//
+//! \brief Wrapper function for the cpsid instruction. 
+//!
+//! \return Returns the state of primask on entry. 
+//
+//*****************************************************************************
 extern unsigned long xCPUcpsid(void);
+
+//*****************************************************************************
+//
+//! \brief Wrapper function for the cpsie instruction.  
+//!
+//! \return Returns the state of primask on entry.
+//
+//*****************************************************************************
 extern unsigned long xCPUcpsie(void);
+
+//*****************************************************************************
+//
+//! \brief Wrapper function returning the state of primask (indicating whether
+//! interrupts are enabled or disabled).
+//!
+//! \return Returns the state of primask.
+//
+//*****************************************************************************
 extern unsigned long xCPUprimask(void);
+
+//*****************************************************************************
+//
+//! \brief Wrapper function for the wfi instruction.
+//!
+//! \return None.
+//
+//*****************************************************************************
 extern void xCPUwfi(void);
+
+//*****************************************************************************
+//
+//! \brief Wrapper function for the wfe instruction.
+//!
+//! \return None.
+//
+//*****************************************************************************
 extern void xCPUwfe(void);
+
+//*****************************************************************************
+//
+//! \brief Wrapper function for reading the basepri register.
+//!
+//! \return Returns the value of basepri register.
+//
+//*****************************************************************************
 extern unsigned long xCPUbasepriGet(void);
+
+//*****************************************************************************
+//
+//! \brief Wrapper function for writing the BASEPRI register.
+//!
+//! \param ulNewBasepri is the new BASEPRI value.
+//!
+//! \return None.
+//
+//*****************************************************************************
 extern void xCPUbasepriSet(unsigned long ulNewBasepri);
+
+//*****************************************************************************
+//
+//! \brief Wrapper function for writing the psp register.
+//! 
+//! \param ulNewPspStack is the new psp register value.
+//!
+//! \return None.
+//
+//*****************************************************************************
 extern void xCPUpspSet(unsigned long ulNewPspStack);
+
+//*****************************************************************************
+//
+//! \brief Wrapper function for reading the psp register.
+//!
+//! \return Returns the value of psp register.
+//
+//*****************************************************************************
 extern unsigned long xCPUpspGet(void);
+
+//*****************************************************************************
+//
+//! \brief Wrapper function for writing the msp register.
+//!
+//! \param ulNewMspStack is the new msp value.
+//!
+//! \return None.
+//
+//*****************************************************************************
 extern void xCPUmspSet(unsigned long ulNewMspStack);
+
+//*****************************************************************************
+//
+//! \brief Wrapper function for reading the msp register.
+//!
+//! \return Returns the value of msp register.
+//
+//*****************************************************************************
 extern unsigned long xCPUmspGet(void);
 
 extern xtBoolean xIntMasterEnable(void);
@@ -129,7 +202,7 @@ extern xtBoolean xIntMasterDisable(void);
 extern void xIntPriorityGroupingSet(unsigned long ulBits);
 extern unsigned long xIntPriorityGroupingGet(void);
 extern void xIntPrioritySet(unsigned long ulInterrupt,
-                           unsigned char ucPriority);
+                            unsigned char ucPriority);
 extern long xIntPriorityGet(unsigned long ulInterrupt);
 extern void xIntEnable(unsigned long ulInterrupt);
 extern void xIntDisable(unsigned long ulInterrupt);
@@ -146,11 +219,10 @@ extern void xSysTickPeriodSet(unsigned long ulPeriod);
 extern unsigned long xSysTickPeriodGet(void);
 extern unsigned long xSysTickValueGet(void);
 
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
+extern void xSysTickPendSet(void);
+extern void xSysTickPendClr(void);
+extern void xPendSVPendSet(void);
+extern void xPendSVPendClr(void);
 
 //*****************************************************************************
 //
@@ -178,5 +250,4 @@ extern unsigned long xSysTickValueGet(void);
 #ifdef __cplusplus
 }
 #endif
-
-#endif // __XCORE_H__
+#endif // __xCORE_H__

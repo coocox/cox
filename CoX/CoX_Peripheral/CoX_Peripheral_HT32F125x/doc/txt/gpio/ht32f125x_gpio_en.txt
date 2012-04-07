@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-//! \defgroup ht32f125x_GPIO ht32f125x GPIO
+//! \defgroup HT32F125x_GPIO ht32f125x GPIO
 //! 
 //! \brief Nuvoton ht32f125x GPIO Peripheral Driver.
 //!
