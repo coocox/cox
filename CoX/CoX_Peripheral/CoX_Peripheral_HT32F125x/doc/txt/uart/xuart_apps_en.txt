@@ -25,7 +25,7 @@
 //! \section xUART_App_NormalMode_config 1.How to configure the uart to send and receive data. 
 //!
 //! <ol>
-//! <li>Enale the peripheral clock of UART and GPIO</li>
+//! <li>Enable the peripheral clock of UART and GPIO</li>
 //! <li>Configure the GPIO pins mode as UART type</li>
 //! <li>Configure the baudrate, word length, parity bit, and stop bit</li>
 //! <li>Enable the UART</li>

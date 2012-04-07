@@ -382,20 +382,20 @@ xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
 	    xHWREG(RTC_CR) |= RTC_CR_LSEEN; 
         xHWREG(SYSCLK_GCFGR) &= ~SYSCLK_GCFGR_WDTSRC_M;
         xHWREG(SYSCLK_GCFGR) |= SYSCTL_PERIPH_WDG_S_EXTSL;
-        xHWREG(WDT_PR) |= WDT_PR_PROTECT_DIS;
+        xHWREG(WDT_PR) = WDT_PR_PROTECT_DIS;
         xHWREG(WDT_MR1) &= ~WDT_MR1_WPSC_M;
         xHWREG(WDT_MR1) |= (ulDivide << WDT_MR1_WPSC_S);
-        xHWREG(WDT_PR) |= WDT_PR_PROTECT_EN;
+        xHWREG(WDT_PR) = WDT_PR_PROTECT_EN;
     }
     else if(ulPeripheralSrc == xSYSCTL_WDT0_INTSL)
     {
 	    xHWREG(RTC_CR) |= RTC_CR_LSIEN; 
         xHWREG(SYSCLK_GCFGR) &= ~SYSCLK_GCFGR_WDTSRC_M;
         xHWREG(SYSCLK_GCFGR) |= 0x00000000;
-        xHWREG(WDT_PR) |= WDT_PR_PROTECT_DIS;
+        xHWREG(WDT_PR) = WDT_PR_PROTECT_DIS;
         xHWREG(WDT_MR1) &= ~WDT_MR1_WPSC_M;
         xHWREG(WDT_MR1) |= (ulDivide << WDT_MR1_WPSC_S);
-        xHWREG(WDT_PR) |= WDT_PR_PROTECT_EN;
+        xHWREG(WDT_PR) = WDT_PR_PROTECT_EN;
     }
     else if(ulPeripheralSrc == xSYSCTL_RTC_EXTSL)
     {

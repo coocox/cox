@@ -38,8 +38,8 @@
 //*****************************************************************************
 
 
-#ifndef __XHW_USART_H__
-#define __XHW_USART_H__
+#ifndef __XHW_UART_H__
+#define __XHW_UART_H__
 
 //*****************************************************************************
 //
@@ -57,7 +57,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_USART_Register HT32F125x USART Register
+//! \addtogroup HT32F125x_UART_Register HT32F125x UART Register
 //! \brief Here are the detailed info of USART registers. 
 //!
 //! it contains:
@@ -864,4 +864,4 @@
 //! @}
 //
 //*****************************************************************************
-#endif // __XHW_USART_H__
+#endif // __XHW_UART_H__

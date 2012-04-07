@@ -162,7 +162,6 @@
 //! - \ref xADC_API_Group
 //!   - \ref xADC_API_Group_Sequence
 //!   - \ref xADC_API_Group_Trigger
-//!   - \ref xADC_API_Group_Comp
 //!   - \ref xADC_API_Group_Int
 //!   .
 //! - \ref xADC_Usage
@@ -208,8 +207,6 @@
 //!
 //! The CoX ADC API is broken into four groups of functions: 
 //! - those that deal with the ADC sample sequence, 
-//! - those that deal with the processor trigger,
-//! - those that deal with configuring the digital comparator,
 //! - those that deal with interrupts.
 //! .
 //!
@@ -235,18 +232,7 @@
 //! - xADCProcessorTrigger() - generate the processor trigger
 //! .
 //!
-//! \subsection xADC_API_Group_Comp 2.3 ADC Digital Comparator APIs
-//!
-//! The digital comparators are configured with:
-//! - xADCCompConditionConfig()
-//! - xADCCompRegionSet()
-//! .
-//! They are enabled and disabled with:
-//! - xADCCompEnable()
-//! - xADCCompDisable()
-//! .
-//!
-//! \subsection xADC_API_Group_Int 2.4 ADC Interrupt APIs
+//! \subsection xADC_API_Group_Int 2.3 ADC Interrupt APIs
 //! Event callback function init with:
 //! - xADCIntCallbackInit()
 //! .
@@ -266,8 +252,6 @@
 //! -# xADCEnable() to enable the ADC.
 //! -# xADCDataGet() get data in the interrupt callback function.
 //! . 
-//!
-//!
 //
 //*****************************************************************************
 
