@@ -93,7 +93,7 @@
 //! interrupt priority.
 //!
 //! The hardware priority mechanism will only look at the upper N bits of the
-//! priority level (where N is 2 for the NUC1xx family), so any
+//! priority level (where N is 4 for the HT32F125x family), so any
 //! prioritization must be performed in those bits.  The remaining bits can be
 //! used to sub-prioritize the interrupt sources, and may be used by the
 //! hardware priority mechanism on a future part.  This arrangement allows
@@ -103,7 +103,7 @@
 //! NVIC can also split between preemptable priority levels and
 //! subpriority levels in the interrupt priority specification.  The range of
 //! the grouping values are dependent upon the hardware implementation; on
-//! the NUC1xx family, Cortex -M0 as it is ,do not support it.
+//! the HT32F125x family, Cortex -M0 as it is ,do not support it.
 //! 
 //! \subsection CORE_xSysTick_Control 3.3 SysTick Control
 //! 
@@ -156,9 +156,7 @@
 //! - xIntPriorityMaskSet(), xIntPriorityMaskGet()
 //! .
 //! The interrupt can be pending with:
-//! - xIntPendSet(),  xIntPendClr()
-//! - xPendSVPendSet(), xPendSVPendClr()
-//! - xSysTickPendSet(), xSysTickPendClr()
+//! - xIntPendSet(),  xIntPendClear()
 //! .
 //!
 //! \subsection xCORE_API_Group_Systick 4.3 Systick API
@@ -182,5 +180,3 @@
 //!
 //
 //*****************************************************************************
-
-

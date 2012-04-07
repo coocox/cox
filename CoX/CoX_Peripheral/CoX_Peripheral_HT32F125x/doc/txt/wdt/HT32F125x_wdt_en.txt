@@ -2,7 +2,7 @@
 //
 //! \defgroup HT32F125x_WDT HT32F125x WDT
 //! 
-//! \brief Nuvoton HT32F125x WDT Peripheral Driver.
+//! \brief HOLTEK HT32F125x WDT Peripheral Driver.
 //!
 //! The CoX Peripheral Library also provides APIs for full functions of Holtek
 //! HT32F125x WDT. This module supports the whole HT32F125x Series.
@@ -27,7 +27,7 @@
 //! \section HT32F125x_WDT_Function_Desc 2. Functional Description
 //! WDT includes the following functions:
 //! - Interrupt
-//! - Restart
+//! - Reset
 //! .
 //! 
 //! <br />
