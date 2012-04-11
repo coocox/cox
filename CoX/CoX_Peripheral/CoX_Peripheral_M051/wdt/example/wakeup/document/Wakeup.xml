@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>Wakeup.c</Name>
+  <Description>This example is to enable the Watch dog timer wake up and interrupt function, in the interrupt service function restart the timer. if the restart arrive time exceed Timeout Interval, then the WDT will restart the mcu.</Description>
+  <Version>1.0.0</Version>
+  <Tags>WDT, Watch dog, CoX</Tags>
+  <EVKit>M052_TINY_EVB_V002 Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\CoX\CoX_Peripheral\CoX_Peripheral_MO51\wdt\example\wakeup\src\Wakeup.c</File>
+  </Files>
+  
+  <Dependencys>
+        <Dependency>CoX.Peripheral.MO51.xStartup</Dependency>
+        <Dependency>CoX.Peripheral.MO51.xLowLayer</Dependency>
+        <Dependency>CoX.Peripheral.MO51.xCORE</Dependency>
+        <Dependency>CoX.Peripheral.MO51.xSysCtl</Dependency>
+  </Dependencys>
+  
+   
+</Example>
