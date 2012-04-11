@@ -1450,7 +1450,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //!
 //! Table shows what the ePeripheralPin and eShortPin should be,only the 
 //! argument which are in the same line can be combined.For eaxmple(TI):<br/>
-//! xSPinTypePWM(PWM0, PD0) or xSPinTypePWM(PWM0, PJ0) is correct;<br/>
+//! xSPinTypePWM(PWM0, PA3) or xSPinTypePWM(PWM0, PA15) is correct;<br/>
 //! But xSPinTypePWM(PWM0, PD1) or xSPinTypePWM(PWM0, PD2) is error.
 //! \verbatim
 //! +--------------------+------------------------+------------------------+
@@ -1468,14 +1468,14 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! |                    |                        |number such as          |
 //! |                    |                        |0 1 2 3 ....            |
 //! |--------------------|------------------------|------------------------|
-//! |       HT32F125x    |    PWM0                |    PA12                |
-//! |                    |    PWM1                |    PA13                |
-//! |                    |    PWM2                |    PA14                |
-//! |                    |    PWM3                |    PA15                |
-//! |                    |    PWM4                |    PB11                |
-//! |                    |    PWM5                |    PE5                 |
-//! |                    |    PWM6                |    PE0                 |
-//! |                    |    PWM7                |    PE1                 |
+//! |       HT32F125x    |    TIMCCP0             |    PA3,PA15            |
+//! |                    |    TIMCCP1             |    PA2,PA14            |
+//! |                    |    TIMCCP2             |    PA1,PA13            |
+//! |                    |    TIMCCP3             |    PA0,PB11            |
+//! |                    |    TIMCCP4             |    PB2,PB15            |
+//! |                    |    TIMCCP5             |    PB3,PB14            |
+//! |                    |    TIMCCP6             |    PB4,PB13            |
+//! |                    |    TIMCCP7             |    PB5,PB12            |
 //! |--------------------|------------------------|------------------------|
 //! \endverbatim
 //!
@@ -1483,11 +1483,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //***************************************************************************** 
 #define xSPinTypePWM(ePeripheralPin, eShortPin)                               \
-        do                                                                    \
-        {                                                                     \
-         GPIOSPinConfigure(ePeripheralPin, eShortPin);                        \
-        }                                                                     \
-        while(0)
+        xSPinTypeTimer(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //

@@ -47,7 +47,7 @@
 
 //*****************************************************************************
 //
-// Define The 4 timer base address array, and Peripheral ID array.
+// Define The 2 timer base address array, and Peripheral ID array.
 //
 //*****************************************************************************
 
@@ -97,29 +97,29 @@ xtEventCallback TimerCallbackFunc[2] = {Timer0Callback,
 
 //*****************************************************************************
 //
-//! \brief Get the Test description of xtimer001 register test.
+//! \brief Get the Test description of xtimer002 int test.
 //!
-//! \return the desccription of the xtimer001 test.
+//! \return the desccription of the xtimer002 test.
 //
 //*****************************************************************************
-static char* xTimer001GetTest(void)
+static char* xTimer002GetTest(void)
 {
     return "xTimer [002]: xtimer counter interrupt test";
 }
 
 //*****************************************************************************
 //
-//! \brief something should do before the test execute of xtimer001 test.
+//! \brief something should do before the test execute of xTimer002 test.
 //!
 //! \return None.
 //
 //*****************************************************************************
-static void xTimer001Setup(void)
+static void xTimer002Setup(void)
 {
     int i;
     
     //
-    //Set the external 12MHZ clock as system clock 
+    //Set the external 8MHZ clock as system clock 
     //
     xSysCtlClockSet(8000000, xSYSCTL_XTAL_8MHZ | xSYSCTL_OSC_MAIN);
     
@@ -137,12 +137,12 @@ static void xTimer001Setup(void)
 
 //*****************************************************************************
 //
-//! \brief something should do after the test execute of xtimer001 test.
+//! \brief something should do after the test execute of xtimer002 test.
 //!
 //! \return None.
 //
 //*****************************************************************************
-static void xTimer001TearDown(void)
+static void xTimer002TearDown(void)
 {
     int i;
     //
@@ -156,12 +156,12 @@ static void xTimer001TearDown(void)
 
 //*****************************************************************************
 //
-//! \brief xtimer 001 test execute main body.
+//! \brief xtimer 002 test execute main body.
 //!
 //! \return None.
 //
 //*****************************************************************************
-static void xTimer001Execute(void)
+static void xTimer002Execute(void)
 {
     unsigned long ulTemp;
     unsigned long ulBase;
@@ -201,13 +201,13 @@ static void xTimer001Execute(void)
 }
 
 //
-// xtimer register test case struct.
+// xtimer Int test case struct.
 //
-const tTestCase sTestxTimer001Mode = {
-		xTimer001GetTest,
-		xTimer001Setup,
-		xTimer001TearDown,
-		xTimer001Execute
+const tTestCase sTestxTimer002Int = {
+		xTimer002GetTest,
+		xTimer002Setup,
+		xTimer002TearDown,
+		xTimer002Execute
 };
 
 //
@@ -215,7 +215,7 @@ const tTestCase sTestxTimer001Mode = {
 //
 const tTestCase * const psPatternXtimer002[] =
 {
-    &sTestxTimer001Mode,
+    &sTestxTimer002Int,
     0
 };
 

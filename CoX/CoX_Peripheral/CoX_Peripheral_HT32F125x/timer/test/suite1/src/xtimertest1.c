@@ -253,7 +253,7 @@ static void xTimer001Setup(void)
     int i;
     
     //
-    //Set the external 12MHZ clock as system clock 
+    //Set the external 8MHZ clock as system clock 
     //
     xSysCtlClockSet(8000000, xSYSCTL_XTAL_8MHZ | xSYSCTL_OSC_MAIN);
     
@@ -585,7 +585,7 @@ static void xTimer001Execute(void)
                    "xtimer API \"Timer stop test \" error"); 
         
         //
-        // ITI0 as the clock source tesy
+        // ITI0 as the clock source test
         //
         TimerITIExtClkConfigure(ulBase, TIMER_TRSEL_ITI0);
         ulTemp = xHWREG(ulBase + TIMER_TRCFR) & TIMER_TRCFR_TRSEL_M;
