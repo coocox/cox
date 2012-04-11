@@ -128,8 +128,8 @@ __Vectors       DCD     __initial_sp                ; Top of Stack
                 DCD     DefaultIntHandler           ; Reserved
                 DCD     DefaultIntHandler           ; Reserved
                 DCD     DefaultIntHandler           ; Reserved
-                DCD     GTTM0IntHandler             ; GPTM0 global interrupt
-                DCD     GTTM1IntHandler             ; GPTM1 global interrupt
+                DCD     TIMER0IntHandler             ; GPTM0 global interrupt
+                DCD     TIMER1IntHandler             ; GPTM1 global interrupt
                 DCD     DefaultIntHandler           ; Reserved
                 DCD     DefaultIntHandler           ; Reserved
                 DCD     DefaultIntHandler           ; Reserved
@@ -236,8 +236,8 @@ DefaultIntHandler PROC
                 EXPORT EINT15IntHandler          [WEAK]
                 EXPORT COMPIntHandler            [WEAK]
                 EXPORT ADCIntHandler             [WEAK]
-                EXPORT GTTM0IntHandler           [WEAK]
-                EXPORT GTTM1IntHandler           [WEAK]
+                EXPORT TIMER0IntHandler          [WEAK]
+                EXPORT TIMER1IntHandler          [WEAK]
                 EXPORT I2C0IntHandler            [WEAK]
                 EXPORT SPI0IntHandler            [WEAK]
                 EXPORT UART0IntHandler           [WEAK]
@@ -268,8 +268,8 @@ EINT14IntHandler
 EINT15IntHandler
 COMPIntHandler
 ADCIntHandler
-GTTM0IntHandler
-GTTM1IntHandler
+TIMER0IntHandler
+TIMER1IntHandler
 I2C0IntHandler
 SPI0IntHandler
 UART0IntHandler

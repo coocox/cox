@@ -126,8 +126,8 @@ __vector_table
         DCD     DefaultIntHandler           ; Reserved
         DCD     DefaultIntHandler           ; Reserved
         DCD     DefaultIntHandler           ; Reserved
-        DCD     GTTM0IntHandler             ; GPTM0 global interrupt
-        DCD     GTTM1IntHandler             ; GPTM1 global interrupt
+        DCD     TIMER0IntHandler            ; GPTM0 global interrupt
+        DCD     TIMER1IntHandler            ; GPTM1 global interrupt
         DCD     DefaultIntHandler           ; Reserved
         DCD     DefaultIntHandler           ; Reserved
         DCD     DefaultIntHandler           ; Reserved
@@ -180,8 +180,8 @@ __vector_table
       PUBWEAK EINT15IntHandler
       PUBWEAK COMPIntHandler
       PUBWEAK ADCIntHandler
-      PUBWEAK GTTM0IntHandler
-      PUBWEAK GTTM1IntHandler
+      PUBWEAK TIMER0IntHandler
+      PUBWEAK TIMER1IntHandler
       PUBWEAK I2C0IntHandler
       PUBWEAK SPI0IntHandler
       PUBWEAK UART0IntHandler
@@ -241,8 +241,8 @@ EINT14IntHandler
 EINT15IntHandler
 COMPIntHandler
 ADCIntHandler
-GTTM0IntHandler
-GTTM1IntHandler
+TIMER0IntHandler
+TIMER1IntHandler
 I2C0IntHandler
 SPI0IntHandler
 UART0IntHandler

@@ -698,7 +698,7 @@ void
 xIntPrioritySet(unsigned long ulInterrupt, unsigned char ucPriority)
 {
     unsigned long ulTemp;
-    unsigned long ulPriority = ucPriority;
+    unsigned long ulPriority = ucPriority << 4;
     int i;
     
     //
@@ -714,7 +714,7 @@ xIntPrioritySet(unsigned long ulInterrupt, unsigned char ucPriority)
         //
         ulTemp = xHWREG(g_pulRegs[(ulInterrupt & 0xFF) >> 2]);
         ulTemp &= ~(0xFF << (8 * ((ulInterrupt & 0xFF) & 3)));
-        ulTemp |= ucPriority << (8 * ((ulInterrupt & 0xFF) & 3));
+        ulTemp |= ulPriority << (8 * ((ulInterrupt & 0xFF) & 3));
         xHWREG(g_pulRegs[(ulInterrupt & 0xFF) >> 2]) = ulTemp;
     }
     else if(ulInterrupt == xINT_GPIOA)
@@ -769,16 +769,16 @@ xIntPriorityGet(unsigned long ulInterrupt)
         //
         // Return the interrupt priority.
         //
-        return((xHWREG(g_pulRegs[ulInterrupt >> 2]) >> (8 * (ulInterrupt & 3))) &
-               0xFF);
+        return(((xHWREG(g_pulRegs[ulInterrupt >> 2]) >> (8 * (ulInterrupt & 3))) &
+               0xFF) >> 4);
     }
     else if(ulInterrupt == xINT_GPIOA)
     {
-        return (xHWREG(NVIC_PRI6) & 0xFF);
+        return ((xHWREG(NVIC_PRI6) & 0xFF) >> 4);
     }
     else if(ulInterrupt == xINT_GPIOB)
     {
-        return (xHWREG(NVIC_PRI6) & 0xFF);
+        return ((xHWREG(NVIC_PRI6) & 0xFF) >> 4);
     }
     
     return -1;
@@ -921,8 +921,8 @@ xIntDisable(unsigned long ulInterrupt)
         //
         // Enable the general interrupt.
         //
-        xHWREG(NVIC_DIS0 + ((ulInterrupt & 0xFF)/32)*4) 
-        = 1 << ((ulInterrupt & 0xFF)%32);
+        xHWREG(NVIC_DIS0 + (((ulInterrupt & 0xFF) -16)/32)*4) 
+        = 1 << (((ulInterrupt & 0xFF) -16)%32);
     }
     else if(ulInterrupt == xINT_GPIOA)
     {
@@ -996,8 +996,8 @@ xIntPendSet(unsigned long ulInterrupt)
         //
         // Enable the general interrupt.
         //
-        xHWREG(NVIC_PEND0 + ((ulInterrupt & 0xFF)/32)*4) 
-        = 1 << ((ulInterrupt & 0xFF)%32);
+        xHWREG(NVIC_PEND0 + (((ulInterrupt & 0xFF) - 16)/32)*4) 
+        = 1 << (((ulInterrupt & 0xFF) -16)%32);
     }
     else if(ulInterrupt == xINT_GPIOA)
     {
@@ -1061,8 +1061,8 @@ xIntPendClear(unsigned long ulInterrupt)
         //
         // Enable the general interrupt.
         //
-        xHWREG(NVIC_UNPEND0 + ((ulInterrupt & 0xFF)/32)*4) 
-        = 1 << ((ulInterrupt & 0xFF)%32);
+        xHWREG(NVIC_UNPEND0 + (((ulInterrupt & 0xFF) - 16)/32)*4) 
+        = 1 << (((ulInterrupt & 0xFF) -16)%32);
     }
     else if(ulInterrupt == xINT_GPIOA)
     {

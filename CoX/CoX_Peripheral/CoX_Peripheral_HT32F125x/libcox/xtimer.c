@@ -164,9 +164,9 @@ TimerChannelConfigure(unsigned long ulBase, unsigned long ulChannel,
     //
     // Select the input and set the filter
     //
-    xHWREG(ulBase + TIMER_CH0ICFR + ulChannel * 2) &= 
+    xHWREG(ulBase + TIMER_CH0ICFR + ulChannel * 4) &= 
                              ~(TIMER_CH0ICFR_CH0CCS_M | TIMER_CH0ICFR_TI0F_M);
-    xHWREG(ulBase + TIMER_CH0ICFR + ulChannel * 2) |= (ulSelect | ucFilter);
+    xHWREG(ulBase + TIMER_CH0ICFR + ulChannel * 4) |= (ulSelect | ucFilter);
     
     //
     // Select the polarity 
@@ -201,14 +201,14 @@ TimerChannelConfigure(unsigned long ulBase, unsigned long ulChannel,
 //! Details please refer to \ref xTIMER_Mode_Type_CoX
 //!
 //! \b xTIMER_MODE_ONESHOT, \b xTIMER_MODE_PERIODIC, \b xTIMER_MODE_TOGGLE and
-//! \b xTIMER_MODE_CONTINUOUS is the Timer's mode
+//! \b xTIMER_MODE_CONTINUOUS, \b xTIMER_MODE_CAPTURE is the Timer's mode.
 //! 
 //! \b xTIMER_COUNT_UP, \b xTIMER_COUNT_DOWN is the Timer's direction.
 //!
 //! The \e ulTickFreq parameter is the the timer tick frequency.It can be any
 //! values but ulTickFreq > 0 and ulTickFreq < timer clock source.
 //!
-//! \note For HT32F125x,each timer only one channel.
+//! \note For HT32F125x, each timer only one channel.
 //!
 //! \return None.
 //
@@ -238,7 +238,7 @@ xTimerInitConfig(unsigned long ulBase, unsigned long ulChannel,
         ulTCMPRValue = ulInternalClk / (ulTickFreq * ulPreScale);
  
         //
-        //The TCMPR value must > 1 
+        // The TCMPR value must > 1 
         //
         if ((ulTCMPRValue > 1) && (ulTCMPRValue < 0x0000FFFF))
             break;
@@ -273,6 +273,21 @@ xTimerInitConfig(unsigned long ulBase, unsigned long ulChannel,
                               TIMER_CHCCS_DIRECT, TIMER_CHPSC_OFF, 0);
         break;
       }
+    }
+    
+    if(ulConfig & 0x01000000)
+    {
+        //
+        // Counter up
+        //
+        xHWREG(ulBase + TIMER_CNTCFR) &= ~TIMER_CNTCFR_CMSEL_M;
+        xHWREG(ulBase + TIMER_CNTCFR) &= ~TIMER_CNTCFR_DIR;
+        xHWREG(ulBase + TIMER_CNTCFR) |= TIMER_CNTCFR_DIR;
+    }
+    else
+    {
+        xHWREG(ulBase + TIMER_CNTCFR) &= ~TIMER_CNTCFR_CMSEL_M;
+        xHWREG(ulBase + TIMER_CNTCFR) &= ~TIMER_CNTCFR_DIR; 
     }
     
     //
@@ -318,7 +333,7 @@ void xTimerIntEnable(unsigned long ulBase, unsigned long ulChannel,
     }
     else
     {
-        xHWREG(ulBase + TIMER_ICTR) |= (TIMER_CHCTR_CH0CCIE << (ulChannel * 2));
+        xHWREG(ulBase + TIMER_ICTR) |= (TIMER_CHCTR_CH0CCIE << ulChannel);
     }
 }
 
@@ -357,7 +372,7 @@ void xTimerIntDisable(unsigned long ulBase, unsigned long ulChannel,
     }
     else
     {
-        xHWREG(ulBase + TIMER_ICTR) &= ~(TIMER_CHCTR_CH0CCIE << (ulChannel * 2));
+        xHWREG(ulBase + TIMER_ICTR) &= ~(TIMER_CHCTR_CH0CCIE << ulChannel);
     }
 }
 
@@ -501,7 +516,8 @@ void TimeBaseConfigure(unsigned long ulBase, unsigned long ulCountMode,
     //
     // To reload the Prescaler value immediatly or next update event 1 
     //
-    xHWREG(ulBase + TIMER_EVGR) |= TIMER_EVGR_UEVG;
+    xHWREG(ulBase + TIMER_EVGR) &= ~TIMER_EVGR_UEVG;
+    xHWREG(ulBase + TIMER_EVGR) |= ulReMode;
 }
 
 //*****************************************************************************
@@ -578,7 +594,7 @@ void TimerOutputConfigure(unsigned long ulBase, unsigned long ulChannel,
     //
     //  Set the Capture Compare Register value
     //
-    xHWREG(ulBase + TIMER_CH0CCR + ulChannel * 4) |= ulOutCompare;
+    xHWREG(ulBase + TIMER_CH0CCR + ulChannel * 4) = ulOutCompare;
     
     //
     // Set the channel state
@@ -965,11 +981,11 @@ TimerETIConfigure(unsigned long ulBase, unsigned long ulEXIPrescale,
     //
     // Clear the corresponding bits first
     //
-    xHWREG(ulBase + TIMER_TRCFR) &= ~(TIMER_TRCFR_ETIPOL | TIMER_TRCFR_ETIPSC_M
-                                      | TIMER_TRCFR_ETF_M);
+    xHWREG(ulBase + TIMER_TRCFR) &= ~(TIMER_TRCFR_ETIPOL | TIMER_TRCFR_ETIPSC_M |
+	                                  TIMER_TRCFR_ETF_M);
     
     //
-    // Set the prescaler, filter and polarity for ETI inpit
+    // Set the prescaler, filter and polarity for ETI input
     // 
     xHWREG(ulBase + TIMER_TRCFR) |= (ulEXIPrescale | ulEXIPolarity | 
                                      ((unsigned long)ucFilter << 8));
@@ -1081,7 +1097,7 @@ TimerCNTModeConfigure(unsigned long ulBase, unsigned long ulCountMode)
 //
 //*****************************************************************************
 void 
-TimerDecoderConfig(unsigned long ulBase, unsigned long ulDecodeMode,
+TimerDecoderConfigure(unsigned long ulBase, unsigned long ulDecodeMode,
                                unsigned long ulCH0P, unsigned long ulCH1P)
 {
     //
@@ -1474,7 +1490,7 @@ TimerUpdateIntDisable(unsigned long ulBase)
 
 //*****************************************************************************
 //
-//! \brief Disable the update event interrupt.
+//! \brief Enable or Disable the Hall interface.
 //!
 //! \param ulBase is the base address of the Timer port.
 //! \param ulConfigure is selection of Enable or Disable the Hall interface.
@@ -1550,7 +1566,9 @@ TimerOnePulseModeConfigure(unsigned long ulBase, unsigned long ulConfigure)
 //! \param ulSelect is selection of master trigger output source.
 //!
 //! The \e ulSelect parameter can be one of the values:
-//! \b TIMER_ONE_PULSE_MODE_EN, \b TIMER_ONE_PULSE_MODE_DIS.
+//! \b TIMER_MMSEL_RESET, \b TIMER_MMSEL_ENABLE, \b TIMER_MMSEL_UPDATE,
+//! \b TIMER_MMSEL_CH0CC, \b TIMER_MMSEL_CH0OREF, \b TIMER_MMSEL_CH1OREF,
+//! \b TIMER_MMSEL_CH2OREF, \b TIMER_MMSEL_CH3OREF.
 //!
 //! \note None
 //!

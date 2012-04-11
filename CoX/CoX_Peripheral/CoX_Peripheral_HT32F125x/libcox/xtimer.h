@@ -477,7 +477,7 @@ extern "C"
 //! |------------------------------|----------------|------------------|
 //! |xTimerStatusGet               |    Mandatory   |         Y        |
 //! |------------------------------|----------------|------------------|
-//! |xTimerCounterDetectPhaseSelect|    Mandatory   |         Y        |
+//! |xTimerCounterDetectPhaseSelect|    Mandatory   |         N        |
 //! |------------------------------|----------------|------------------|
 //! |xTimerCaptureEdgeSelect       |    Mandatory   |         Y        |
 //! +------------------------------+----------------+------------------+
@@ -1176,7 +1176,7 @@ extern void xTimerCaptureEdgeSelect(unsigned long ulBase, unsigned long ulChanne
 //
 //! ETIP frequency divided by 8
 //
-#define TIMER_ETIPSC_8          0x00008000   
+#define TIMER_ETIPSC_8          0x00003000   
 
 //*****************************************************************************
 //
@@ -1695,7 +1695,7 @@ extern void xTimerCaptureEdgeSelect(unsigned long ulBase, unsigned long ulChanne
 //
 //*****************************************************************************
 
-extern void TimeBaseInit(unsigned long ulBase, unsigned long ulCountMode, 
+extern void TimeBaseConfigure(unsigned long ulBase, unsigned long ulCountMode, 
          unsigned long ulCRR, unsigned long ulPrescaler, unsigned long ulReMode);
 extern void TimerOutputConfigure(unsigned long ulBase, unsigned long ulChannel, 
                      unsigned long ulOutEnable, unsigned long ulPolarity, 
@@ -1720,7 +1720,7 @@ extern void TimerETIConfigure(unsigned long ulBase, unsigned long ulEXIPrescale,
 extern void TimerPrescalerConfigure(unsigned long ulBase, unsigned long ulPrescale,
                                     unsigned long ulPSCReloadTime);
 extern void TimerCNTModeConfigure(unsigned long ulBase, unsigned long ulCountMode);
-extern void TimerDecoderConfig(unsigned long ulBase, unsigned long ulDecodeMode,
+extern void TimerDecoderConfigure(unsigned long ulBase, unsigned long ulDecodeMode,
                                unsigned long ulCH0P, unsigned long ulCH1P);
 extern void TimerForcedOREF(unsigned long ulBase, unsigned long ulChannel, 
                             unsigned long ForcedAction);
