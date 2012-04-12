@@ -515,6 +515,21 @@
               <FileType>5</FileType>
               <FilePath>..\..\..\..\libcox\xwdt.h</FilePath>
             </File>
+            <File>
+              <FileName>xhw_timer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\libcox\xhw_timer.h</FilePath>
+            </File>
+            <File>
+              <FileName>xpwm.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\libcox\xpwm.h</FilePath>
+            </File>
+            <File>
+              <FileName>xtimer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\libcox\xtimer.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -574,6 +589,16 @@
               <FileName>xwdt.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\libcox\xwdt.c</FilePath>
+            </File>
+            <File>
+              <FileName>xpwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\libcox\xpwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>xtimer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\libcox\xtimer.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1101,6 +1126,21 @@
               <FileType>5</FileType>
               <FilePath>..\..\..\..\libcox\xwdt.h</FilePath>
             </File>
+            <File>
+              <FileName>xhw_timer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\libcox\xhw_timer.h</FilePath>
+            </File>
+            <File>
+              <FileName>xpwm.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\libcox\xpwm.h</FilePath>
+            </File>
+            <File>
+              <FileName>xtimer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\libcox\xtimer.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1160,6 +1200,16 @@
               <FileName>xwdt.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\libcox\xwdt.c</FilePath>
+            </File>
+            <File>
+              <FileName>xpwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\libcox\xpwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>xtimer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\libcox\xtimer.c</FilePath>
             </File>
           </Files>
         </Group>

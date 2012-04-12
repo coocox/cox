@@ -99,8 +99,8 @@ void WEAK  EINT14IntHandler(void);
 void WEAK  EINT15IntHandler(void);
 void WEAK  COMPIntHandler(void);
 void WEAK  ADCIntHandler(void);
-void WEAK  GTTM0IntHandler(void);
-void WEAK  GTTM1IntHandler(void);
+void WEAK  TIMER0IntHandler(void);
+void WEAK  TIMER1IntHandler(void);
 void WEAK  I2C0IntHandler(void);
 void WEAK  DefaultIntHandler(void);
 void WEAK  SPI0IntHandler(void);
@@ -198,8 +198,8 @@ void (* const g_pfnVectors[])(void) =
     COMPIntHandler,                         // Comparator global interrupt
     ADCIntHandler,                          // ADC interrupt
     0,0,0,0,0,0,0,0,0,                      // Reserved
-    GTTM0IntHandler,                        // GPTM0 global interrupt
-    GTTM1IntHandler,                        // GPTM1 global interrupt
+    TIMER0IntHandler,                        // GPTM0 global interrupt
+    TIMER1IntHandler,                        // GPTM1 global interrupt
     0,0,0,0,0,0,                            // Reserved
     I2C0IntHandler,                         // I2C global interrupt
     0,                                      // Reserved
@@ -295,8 +295,8 @@ void Default_ResetHandler(void)
 #pragma weak EINT15IntHandler = DefaultIntHandler
 #pragma weak COMPIntHandler = DefaultIntHandler
 #pragma weak ADCIntHandler = DefaultIntHandler
-#pragma weak GTTM0IntHandler = DefaultIntHandler
-#pragma weak GTTM1IntHandler = DefaultIntHandler
+#pragma weak TIMER0IntHandler = DefaultIntHandler
+#pragma weak TIMER1IntHandler = DefaultIntHandler
 #pragma weak I2C0IntHandler = DefaultIntHandler
 #pragma weak SPI0IntHandler = DefaultIntHandler
 #pragma weak UART0IntHandler = DefaultIntHandler

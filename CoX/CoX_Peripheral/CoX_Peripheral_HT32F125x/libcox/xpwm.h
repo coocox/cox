@@ -782,8 +782,8 @@ extern void xPWMInitConfigure(unsigned long ulBase, unsigned long ulChannel,
   
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_PWM_Mode HT32F125x PWM Configuration
-//! \brief Values that show HT32F125x PWM Configuration
+//! \addtogroup HT32F125x_PWM_Mode HT32F125x PWM Mode Configuration
+//! \brief Values that show HT32F125x PWM Mode Configuration
 //! Values that can be passed to PWMInitConfigure().
 //! @{
 //

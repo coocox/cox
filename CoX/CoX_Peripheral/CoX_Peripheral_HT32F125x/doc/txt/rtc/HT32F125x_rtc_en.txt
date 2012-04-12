@@ -14,9 +14,7 @@
 //!   - \ref HT32F125x_RTC_API_Group_Config
 //!   - \ref HT32F125x_RTC_API_Group_Time
 //!   - \ref HT32F125x_RTC_API_Group_Interrupt
-//!   - \REF HT32F125x_RTC_API_Group_WakeUp
 //!   .
-//! - \ref HT32F125x_RTC_Usage
 //! .
 //!
 //! \n

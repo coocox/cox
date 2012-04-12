@@ -14,7 +14,6 @@
 //!   - \ref HT32F125x_I2C_API_Group_Init 
 //!   - \ref HT32F125x_I2C_API_Group_Transfer 
 //!   - \ref HT32F125x_I2C_API_Group_Interrupt 
-//!   - \ref HT32F125x_I2C_API_Group_Timeout
 //! - \ref HT32F125x_I2C_Usage
 //! .
 //! 

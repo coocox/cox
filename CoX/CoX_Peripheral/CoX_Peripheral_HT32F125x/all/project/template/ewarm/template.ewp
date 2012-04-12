@@ -1679,6 +1679,9 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_sysctl.h</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_timer.h</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_types.h</name>
         </file>
         <file>
@@ -1691,6 +1694,9 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xi2c.h</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xpwm.h</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xrtc.h</name>
         </file>
         <file>
@@ -1698,6 +1704,9 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xsysctl.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xtimer.h</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xuart.h</name>
@@ -1727,6 +1736,9 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xi2c.c</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xpwm.c</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xrtc.c</name>
         </file>
         <file>
@@ -1734,6 +1746,9 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xsysctl.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xtimer.c</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xuart.c</name>
