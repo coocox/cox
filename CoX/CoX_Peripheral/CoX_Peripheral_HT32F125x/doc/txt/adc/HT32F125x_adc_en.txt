@@ -4,7 +4,7 @@
 //! 
 //! \brief Holtek HT32F125x ADC Peripheral Driver
 //!
-//! The CoX Peripheral Library also provide APIs for full functions of Nuvoton
+//! The CoX Peripheral Library also provide APIs for full functions of HOLTEK
 //! HT32F125x ADC.
 //! \n
 //!
@@ -110,8 +110,7 @@
 //!
 //! \subsection HT32F125x_ADC_API_Group_AD 3.1 HT32F125x AD Convert API
 //! The AD sample convert are configured with:
-//! - ADCConfigure() to config the single-end / difference input mode and single  
-//! / single cycle / continuous operation mode and the trigger source.
+//! - ADCConfigure() to config the single cycle / continuous operation mode and the trigger source.
 //! .
 //! .
 //! The ADC sample convertion software control API:
@@ -152,5 +151,4 @@
 //! -# ADCDataGet() get channels data in the interrupt handler.
 //! . 
 //!
-//
 //*****************************************************************************

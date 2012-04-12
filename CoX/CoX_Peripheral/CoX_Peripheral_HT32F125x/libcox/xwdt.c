@@ -101,10 +101,10 @@ WDTimerInit(unsigned long ulConfig)
     // Check the arguments.
     //
     xASSERT((ulConfig <= WDT_MR0_WDTV_M));         
-    xHWREG(WDT_PR) |= WDT_PR_PROTECT_DIS;
+    xHWREG(WDT_PR) = WDT_PR_PROTECT_DIS;
     xHWREG(WDT_MR0) &= ~WDT_MR0_WDTV_M;
     xHWREG(WDT_MR0) |= ulConfig;
-    xHWREG(WDT_PR) |= WDT_PR_PROTECT_EN;
+    xHWREG(WDT_PR) = WDT_PR_PROTECT_EN;
 }
 
 //*****************************************************************************
@@ -125,10 +125,10 @@ WDTimerDeltaSet(unsigned long ulConfig)
     // Check the arguments.
     //
     xASSERT((ulConfig <= WDT_MR1_WDTD_M));         
-    xHWREG(WDT_PR) |= WDT_PR_PROTECT_DIS;
+    xHWREG(WDT_PR) = WDT_PR_PROTECT_DIS;
     xHWREG(WDT_MR1) &= ~WDT_MR1_WDTD_M;
     xHWREG(WDT_MR1) |= ulConfig;
-    xHWREG(WDT_PR) |= WDT_PR_PROTECT_EN;
+    xHWREG(WDT_PR) = WDT_PR_PROTECT_EN;
 }
 
 //*****************************************************************************
@@ -211,9 +211,9 @@ WDTimerFunctionEnable(unsigned long ulFunction)
     //
     xASSERT(((ulFunction & WDT_INT_FUNCTION) == WDT_INT_FUNCTION) || 
             ((ulFunction & WDT_RESET_FUNCTION) == WDT_RESET_FUNCTION));
-    xHWREG(WDT_PR) |= WDT_PR_PROTECT_DIS;
+    xHWREG(WDT_PR) = WDT_PR_PROTECT_DIS;
     xHWREG(WDT_MR0) |= ulFunction;
-    xHWREG(WDT_PR) |= WDT_PR_PROTECT_EN;
+    xHWREG(WDT_PR) = WDT_PR_PROTECT_EN;
 }
 
 
@@ -240,8 +240,8 @@ WDTimerFunctionDisable(unsigned long ulFunction)
     //
     xASSERT(((ulFunction & WDT_INT_FUNCTION) == WDT_INT_FUNCTION) || 
             ((ulFunction & WDT_RESET_FUNCTION) == WDT_RESET_FUNCTION));
-    xHWREG(WDT_PR) |= WDT_PR_PROTECT_DIS;
+    xHWREG(WDT_PR) = WDT_PR_PROTECT_DIS;
     xHWREG(WDT_MR0) &= ~ulFunction;
-    xHWREG(WDT_PR) |= WDT_PR_PROTECT_EN;
+    xHWREG(WDT_PR) = WDT_PR_PROTECT_EN;
 }
 
