@@ -102,9 +102,7 @@ void WEAK  ADCIntHandler(void);
 void WEAK  TIMER0IntHandler(void);
 void WEAK  TIMER1IntHandler(void);
 void WEAK  I2C0IntHandler(void);
-void WEAK  DefaultIntHandler(void);
 void WEAK  SPI0IntHandler(void);
-void WEAK  DefaultIntHandler(void);
 void WEAK  UART0IntHandler(void);
 //*****************************************************************************
 //
