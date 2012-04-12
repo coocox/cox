@@ -90,6 +90,8 @@
 #define xI2C0_BASE              I2C0_BASE   // I2C0 
 #define xADC0_BASE              ADC_BASE    // ADC
 #define xACMP0_BASE             ACMP_BASE   // ACMP
+#define xPWMA_BASE              PWMA_BASE   // PWMA
+#define xPWMB_BASE              PWMB_BASE   // PWMB
 
 //*****************************************************************************
 //
@@ -131,6 +133,8 @@
 #define UART0_BASE              0x40000000  // UART0
 #define TIMER0_BASE             0x4006E000  // Timer0
 #define TIMER1_BASE             0x4006F000  // Timer1
+#define PWMA_BASE               0x4006E000  // PWMA
+#define PWMB_BASE               0x4006F000  // PWMB
 #define SPI0_BASE               0x40004000  // SPI0
 #define I2C0_BASE               0x40048000  // I2C0 
 #define RTC_BASE                0x4006A000  // RTC/PWRCU

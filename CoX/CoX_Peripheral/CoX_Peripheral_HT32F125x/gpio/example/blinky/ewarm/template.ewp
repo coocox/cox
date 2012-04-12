@@ -29,8 +29,8 @@
         </option>
         <option>
           <name>Variant</name>
-          <version>17</version>
-          <state>34</state>
+          <version>16</version>
+          <state>37</state>
         </option>
         <option>
           <name>GEndianMode</name>
@@ -65,7 +65,7 @@
         </option>
         <option>
           <name>OGCoreOrChip</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>GRuntimeLibSelect</name>
@@ -91,7 +91,7 @@
         </option>
         <option>
           <name>OGLastSavedByProductVersion</name>
-          <state>5.50.6.52043</state>
+          <state>5.50.0.51907</state>
         </option>
         <option>
           <name>GeneralEnableMisra</name>
@@ -281,9 +281,10 @@
         </option>
         <option>
           <name>CCIncludePath2</name>
-          <state>$PROJ_DIR$/../../../../../../../CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx\libcox</state>
-          <state>$PROJ_DIR$/../../../../../../../CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx\testframe</state>
-          <state>$PROJ_DIR$/../../../../../../../CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx\gpio\test\suite1\src</state>
+          <state>$PROJ_DIR$/../../../../libcox</state>
+          <state>$PROJ_DIR$/../../../../testframe</state>
+          <state>$PROJ_DIR$/../../../../startup/src</state>
+          <state>$PROJ_DIR$/../src</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -845,7 +846,7 @@
         </option>
         <option>
           <name>Variant</name>
-          <version>17</version>
+          <version>16</version>
           <state>34</state>
         </option>
         <option>

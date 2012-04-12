@@ -967,6 +967,68 @@ EXTILineSoftwareClear(unsigned long ulEXTILine)
 
 //*****************************************************************************
 //
+//! \brief Select the EXTI line source singnal.
+//!	
+//! \param ulEXTILinesS is the corresponding EXTI lineS which should be configure.
+//!	\param ulPort is the Port which is set as the EXTI source singal.
+//!
+//! The corresponding port pin must be select as the EXTI line first before it
+//! can be configure as EXTI interrupt or wakeup pin.
+//! 
+//! \return None.
+//
+//*****************************************************************************
+void 
+EXTILineSourceSelect(unsigned long ulEXTILines, unsigned long ulPort)
+{
+    int i;
+    unsigned char ucFlag;
+
+    //
+    // Check the arguments.
+    //
+    xASSERT(GPIOBaseValid(ulPort));
+
+    //
+    // Set the pin interrupt type.
+    //
+    for(i = 0; i < 16; i++)
+    {
+        ucFlag = ((ulEXTILines >> i) & 0x01) ? 1 : 0;
+        if(ucFlag == 1)
+        {    
+             //
+             // Set the EXTI line source
+             //
+             if(ulPort == GPIO_PORTA_BASE)
+             {
+                 if(i < 8)
+                 {
+                     xHWREG(GPIO_AFIO_BASE + AFIO_ESSRO) &= ~(1 << (i * 4));  
+                 }
+                 else
+                 {
+                     xHWREG(GPIO_AFIO_BASE + AFIO_ESSR1) &= ~(1 << ((i - 8) * 4)); 
+                 }
+             }
+             else
+             {
+                 if(i < 8)
+                 {
+                     xHWREG(GPIO_AFIO_BASE + AFIO_ESSRO) |= (1 << (i * 4));  
+                 }
+                 else
+                 {
+                     xHWREG(GPIO_AFIO_BASE + AFIO_ESSR1) |= (1 << ((i - 8) * 4)); 
+                 }
+             }
+        }   
+    }
+ 
+}
+
+//*****************************************************************************
+//
 //! \brief Enable the EXTI wakeup interrupt function.
 //! 
 //! \param ulEnable is to enable or disable EXTI wakeup interrupt, it can be

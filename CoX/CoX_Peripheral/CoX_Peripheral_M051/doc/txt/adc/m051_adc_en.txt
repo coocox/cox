@@ -1,0 +1,198 @@
+//*****************************************************************************
+//
+//! \defgroup M051_ADC M051 ADC
+//! 
+//! \brief Nuvoton M051 ADC Peripheral Driver
+//!
+//! The CoX Peripheral Library also provide APIs for full functions of Nuvoton
+//! M051 ADC.
+//! \n
+//!
+//! <h1>Contents</h1>
+//! - \ref M051_ADC_Introduction
+//! - \ref M051_ADC_Function_Desc
+//!   - \ref M051_ADC_Pin_Desc
+//!   - \ref M051_ADC_Func_Convertion
+//!     - \ref M051_ADC_Func_Channel
+//!     - \ref M051_ADC_Func_Convert_Mode
+//!     - \ref M051_ADC_Func_Convert_Tigger
+//!     .
+//!   - \ref M051_ADC_Func_Comp
+//!   - \ref M051_ADC_Func_Int
+//!   .
+//! - \ref M051_ADC_API_Group
+//!   - \ref M051_ADC_API_Group_AD
+//!   - \ref M051_ADC_API_Group_Comp
+//!   - \ref M051_ADC_API_Group_Int
+//!   .
+//! - \ref M051_ADC_Usage
+//! .
+//! \n
+//!
+//! \section M051_ADC_Introduction 1. M051 ADC Introduction
+//! Nuvoton NUC100 Series contains one 12-bit successive approximation 
+//!analog-to-digital converters (SAR A/D converter) with 8 input channels.
+//!
+//! \section M051_ADC_Function_Desc 2. M051 ADC Function Description
+//!
+//! \subsection M051_ADC_Pin_Desc 2.1 M051 ADC Peripheral Pin Description
+//! \verbatim
+//! +-------------------+------------------+-----------------------+
+//! |Peripheral Pin Name|GPIO Pin multiplex|Pin Description        |
+//! |-------------------|------------------|-----------------------|
+//! |ADC0               |PA0               |ADC channel 0 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC1               |PA1               |ADC channel 1 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC2               |PA2               |ADC channel 2 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC3               |PA3               |ADC channel 3 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC4               |PA4               |ADC channel 4 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC5               |PA5               |ADC channel 5 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC6               |PA6               |ADC channel 6 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC7               |PA7               |ADC channel 7 input    |
+//! |-------------------|------------------|-----------------------|
+//! |STADC              |PB8               |ADC external trigger   |
+//! |                   |                  |input                  |
+//! |-------------------|------------------|-----------------------|
+//! \endverbatim
+//! 
+//! \subsection M051_ADC_Func_Convertion 2.2 M051 ADC AD Convertion Function Description
+//! 
+//! \subsubsection M051_ADC_Func_Channel 2.2.1 M051 ADC Input Channel
+//! The M051 ADC have 8 analog input channel, each channel can be enabled/
+//! disabled independently, and each channel have independent storage register.
+//! In single-end mode, The contorl will first sample and convert channel 0, 
+//! then channel 1 and so on if then are enabled.
+//!
+//! Channel 0 - 6 are all external analog input.
+//!
+//! Channel 7 supports 3 input sources: 
+//! - external analog voltage
+//! - internal voltage
+//! - internal temperature sensor output.
+//! .
+//!
+//! In difference mode, then can make up to 4 differential input paired channels.
+//! \verbatim
+//! +-------------------+------------------+------------------+
+//! |Diff paired channel|Vplus channel     |Vminus channel    |
+//! |-------------------|------------------|------------------|
+//! |Pair 0             |ADC0(channel 0)   |ADC1(channel 1)   |
+//! |-------------------|------------------|------------------|
+//! |Pair 1             |ADC2(channel 2)   |ADC3(channel 3)   |
+//! |-------------------|------------------|------------------|
+//! |Pair 2             |ADC4(channel 4)   |ADC5(channel 5)   |
+//! |-------------------|------------------|------------------|
+//! |Pair 3             |ADC6(channel 6)   |ADC7(channel 7)   |
+//! |-------------------|------------------|------------------|
+//! \endverbatim
+//! Differential input voltage:\n
+//! <b>Vdiff = Vplus - Vminus </b> or \n
+//! <b>Vdiff = Veven - Vodd</b>
+//!
+//! \subsubsection M051_ADC_Func_Convert_Mode 2.2.2 M051 ADC AD operation mode
+//!
+//! The A/D converter supports three operation modes: 
+//! - \b single - A/D conversion is performed only once on the specified single 
+//! channel.
+//! - \b single-cycle scan - A/D conversion will sample and convert the 
+//! specified channels once in the sequence from the lowest number enabled 
+//! channel to the highest number enabled channel.
+//! - \b continuous scan mode - A/D conversion is performed sequentially on the
+//! specified enabled channels. This is a continuous loop of single-cycle scan.
+//! .
+//!
+//! \subsubsection M051_ADC_Func_Convert_Tigger 2.2.3 M051 ADC Trigger source
+//! There are two Trigger source:
+//! - \b Processor(software) - ADCProcessorTrigger() to send a software Trigger.
+//! - \b External STADC Pin(PB8)
+//!   - low level
+//!   - high level
+//!   - falling edge
+//!   - rising edge
+//!   .
+//! .
+//!
+//! \subsection M051_ADC_Func_Comp 2.3 M051 ADC Digital Comparator
+//! There are \b 2 comparator, to monitor AD conversion result. and generate
+//! an interrupt if its match.
+//!
+//! How to configure a comparator:
+//! -# ADCCompConfigure() to configure the source channel and the match condition.
+//! -# ADCCompDataSet() to configure the match data.
+//! -# ADCCompEnable() to enable the comparator.
+//! .
+//!
+//! \subsection M051_ADC_Func_Int 2.4 M051 ADC Interrupt
+//!
+//! There are 3 interrupt source:
+//! - End convertion.
+//! - Digital Comparator 0 match.
+//! - Digital Comparator 1 match.
+//!
+//!
+//! \section M051_ADC_API_Group 3. M051 ADC API Group
+//!
+//! \subsection M051_ADC_API_Group_AD 3.1 M051 AD Convert API
+//! The AD sample convert are configured with:
+//! - ADCConfigure() to config the single-end / difference input mode and single  
+//! / single cycle / continuous operation mode and the trigger source.
+//! .
+//! The Channel control API:
+//! - ADCChannle7Configure() to configure the channel 7 input source
+//! - ADCChannelEnable() to enable a channel.
+//! - ADCChannelDisable() to disable a channel.
+//! .
+//! The ADC is enabled and disabled with:
+//! - ADCEnable()
+//! - ADCDisable()
+//! .
+//! The ADC sample convertion software control API:
+//! - ADCProcessorTrigger() to start the AD convertion by software.
+//! - ADCConvertStop() to stop the AD convertion by software.
+//! - ADCBusy() to see if the ADC is busy.
+//! .
+//! The AD convertion data API:
+//! - ADCDataStatus() to determine if the data is valid or overrun
+//! - ADCDataGet() to get the channel convertion data(12bit), user should mask 
+//! the data with 0x00000FFF.
+//! .
+//! \subsection M051_ADC_API_Group_Comp 3.2 M051 ADC Digital Comparator API
+//!
+//! Here is the API of comparator: 
+//! - ADCCompConfigure()
+//! - ADCCompDataSet()
+//! - ADCCompEnable()
+//! - ADCCompDisable()
+//! .
+//! 
+//! \subsection M051_ADC_API_Group_Int 3.3 M051 ADC Interrupt API
+//!
+//! The interrupts are enabled/disabled with:
+//! - ADCIntEnable()
+//! - ADCIntDisable()
+//! .
+//! Interrupt is managed with:
+//! - ADCIntStatus() - to get the interrupt status.
+//! - ADCIntClear() - to clear the interrupt.
+//! .
+//! \section M051_ADC_Usage 4. M051 ADC Usage & Example
+//!
+//! The following show how to use the ADC APIs to initialize the ADC 
+//! sample sequence, and get the AD convertion data to the buffer.
+//! -# SysCtlPeripheralEnable() to enable to GPIO,ADC Peripheral clock.
+//! -# Configure the ADC pin in the GPIO moudle.
+//! -# ADCConfigure() to configure the operation mode and Trigger source.
+//! -# ADCChannelEnable() to enable the channels.
+//! -# ADCIntEnable(), xIntEnable() to enable the interrupt.
+//! -# ADCEnable() to enable the ADC.
+//! -# ADCDataGet() get channels data in the interrupt handler.
+//! . 
+//!
+//
+//*****************************************************************************

@@ -773,7 +773,6 @@
 //*****************************************************************************
 
 //*****************************************************************************
-//
 //! \addtogroup HT32F125x_GPIO_Register_AFIO_GPBCFGR alternative function Selection Register(AFIO_GPBCFGR)
 //! \brief Defines for the bit fields in the AFIO_GPBCFGR register.
 //! @{

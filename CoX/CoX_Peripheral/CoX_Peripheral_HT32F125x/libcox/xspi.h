@@ -436,6 +436,14 @@ extern "C"
 //! |------------------------|----------------|------------------------|
 //! |xSPIDataWrite           |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
+//! |xSPIDataPut             |    Mandatory   |            Y           |
+//! |------------------------|----------------|------------------------|
+//! |xSPIDataPutNonBlocking  |    Mandatory   |            Y           |
+//! |------------------------|----------------|------------------------|
+//! |xSPIDataGet             |    Mandatory   |            Y           |
+//! |------------------------|----------------|------------------------|
+//! |xSPIDataGetNonBlocking  |    Mandatory   |            Y           |
+//! |------------------------|----------------|------------------------|
 //! |xSPIIntEnable           |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
 //! |xSPIIntCallbackInit     |    Mandatory   |            Y           |
@@ -625,6 +633,97 @@ extern "C"
 //*****************************************************************************        
 #define xSPIDataWrite(ulBase, pulWData, ulLen)                                \
         SPIDataWrite(ulBase, pulWData, ulLen)
+
+//*****************************************************************************
+//
+//! \brief Write data element to the SPI interface with block.
+//!
+//! \param ulBase specifies the SPI module base address.
+//! \param pulWData is data that was transmitted over the SPI interface.
+//!
+//! This function transmitted data to the interface of the specified
+//! SPI module with block. when the TX and TX shift are both empty or in FIFO
+//! mode the TX FIFO depth is equal to or less than the trigger level, the 
+//! data element can be transmitted, otherwise the data element will be blocked
+//! until can be transmitted. 
+//!
+//! \note Only the lower N bits of the value written to \e pulData contain
+//! valid data, where N is the data width as configured by
+//! SPIConfig().  For example, if the interface is configured for
+//! 8-bit data width, only the lower 8 bits of the value written to \e pulData
+//! contain valid data.
+//!
+//! \return None.
+//
+//*****************************************************************************
+extern void xSPIDataPut(unsigned long ulBase, unsigned long ulData);
+
+//*****************************************************************************
+//
+//! \brief Write data element to the SPI interface with Noblock.
+//!
+//! \param ulBase specifies the SPI module base address.
+//! \param pulWData is data that was transmitted over the SPI interface.
+//!
+//! This function transmitted data to the interface of the specified
+//! SPI module with Noblock. 
+//!
+//! \note Only the lower N bits of the value written to \e pulData contain
+//! valid data, where N is the data width as configured by
+//! SPIConfig().  For example, if the interface is configured for
+//! 8-bit data width, only the lower 8 bits of the value written to \e pulData
+//! contain valid data.
+//!
+//! \return the number of data that has been transfered..
+//
+//*****************************************************************************
+extern long xSPIDataPutNonBlocking(unsigned long ulBase, unsigned long ulData);
+
+//*****************************************************************************
+//
+//! \brief Gets a data element from the SPI interface with block.
+//!
+//! \param ulBase specifies the SPI module base address.
+//! \param pulData is a pointer to a storage location for data that was
+//! received over the SPI interface.
+//!
+//! This function gets received data from the interface of the specified
+//! SPI module with block. when the RX not empty flag is set, the data element 
+//! can be transmitted, otherwise the data element will be blocked until can be
+//! transmitted. 
+//!
+//! \note Only the lower N bits of the value written to \e pulData contain
+//! valid data, where N is the data width as configured by
+//! SPIConfig().  For example, if the interface is configured for
+//! 8-bit data width, only the lower 8 bits of the value written to \e pulData
+//! contain valid data.
+//!
+//! \return None.
+//
+//*****************************************************************************
+extern void xSPIDataGet(unsigned long ulBase, unsigned long *pulData);
+
+//*****************************************************************************
+//
+//! \brief Gets a data element from the SPI interface with Noblock.
+//!
+//! \param ulBase specifies the SPI module base address.
+//! \param pulData is a pointer to a storage location for data that was
+//! received over the SPI interface.
+//!
+//! This function gets received data from the interface of the specified
+//! SPI module with Noblock.
+//!
+//! \note Only the lower N bits of the value written to \e pulData contain
+//! valid data, where N is the data width as configured by
+//! SPIConfig().  For example, if the interface is configured for
+//! 8-bit data width, only the lower 8 bits of the value written to \e pulData
+//! contain valid data.
+//!
+//! \return the number of data that has been received.
+//
+//*****************************************************************************
+extern long xSPIDataGetNonBlocking(unsigned long ulBase, unsigned long *pulData);
 
 //*****************************************************************************
 //
@@ -949,7 +1048,7 @@ extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
 //! Tx changed at rising edge
 //! Rx latched at falling edge
 //
-#define SPI_FORMAT_MODE_6       0x00000400
+#define SPI_FORMAT_MODE_6       0x00000600
 
 //
 //£¡ SPI master
@@ -1114,6 +1213,30 @@ extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
 
 //*****************************************************************************
 //
+//! \addtogroup HT32F125x_SPI_FIFO_ENABLE HT32F125x SPI FIFO Enable
+//! Values that can be passed to SPIFIFOModeSet().
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Received FIFO
+//
+#define SPI_FIFO_ENABLE              0x00000001
+
+//
+//! Received FIFO_FULL STATUS
+//
+#define SPI_FIFO_DISABLE             0x00000000  
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
 //! \addtogroup HT32F125x_SPI_FIFOStatus HT32F125x SPI FIFO Status
 //! Values that can be passed to SPIFIFOStatusGet() and SPIFIFOClear().
 //! @{
@@ -1174,10 +1297,10 @@ extern xtBoolean SPIIsTxFull(unsigned long ulBase);
 
 extern unsigned long SPIFIFOStatusGet(unsigned long ulBase, unsigned long ulSelect);
 extern void SPIFIFOClear(unsigned long ulBase, unsigned long ulRxTx);
-extern void SPIFIFOModeSet(unsigned long ulBase, xtBoolean xtEnable, 
-                           unsigned long ulInterval);
+extern void SPIFIFOModeSet(unsigned long ulBase, unsigned long ulEnable);
 extern void SPIFIFOLevelSet(unsigned long ulBase, unsigned long ulRxTx,
                             unsigned long ulLength);
+extern void SPITimeOutValSet(unsigned long ulBase, unsigned long ulTimeOutVal);
 
 //*****************************************************************************
 //

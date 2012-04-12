@@ -1,0 +1,94 @@
+.tabs, .tabs2, .tabs3 {
+/*    background-image: url('tab_b.png');
+    background-image: url('menubg.gif');
+*/    width: 100%;
+    z-index: 101;
+    font-size: 13px;
+	
+}
+ .tabs2,{
+/*    background-image: url('tab_b.png');
+ */   background-image: url('menubg.gif');
+    width: 100%;
+    z-index: 101;
+    font-size: 13px;
+/*border-bottom:solid 1px #999;*/}
+.tabs3 {
+/*    background-image: url('tab_b.png');
+    background-image: url('menubg.gif');
+*/    width: 100%;
+    z-index: 101;
+    font-size: 13px;
+border-bottom:solid 1px #999;
+padding-top:2px;	padding-bottom:8px;
+}
+
+.tabs2 {
+    font-size: 12px;
+}
+.tabs3 {
+    font-size: 11px;
+}
+
+.tablist {
+    margin: 0;
+    padding: 0;
+    display: table;
+}
+
+.tablist li {
+    float: left;
+    display: table-cell;
+/*    background-image: url('tab_b.png');
+*/   
+    line-height: 28px;
+    list-style: none;
+}
+
+.tablist a {
+    display: block;
+    padding: 0 20px;
+    font-weight: bold;
+/*    background-image:url('tab_s.png');
+*/    background-repeat:no-repeat;
+    background-position:right;
+    color: #251F20;
+    text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    outline: none;
+}
+
+.tabs3 .tablist li.current a {
+margin-left:2px;
+    padding: 0 8px;
+	border: solid 1px #e7e7e7;
+	background-color: #2468ac;
+	font-weight: bold;
+	color: #fff;
+}
+.tabs3 .tablist a {
+margin-left:2px;
+    padding: 0 8px;
+	border: solid 1px #999;
+	background-color: #fff;
+	font-weight: bold;
+	color: #000;
+}
+
+.tablist a:hover {
+/*    background-image: url('tab_h.png');
+*/    background-repeat:repeat-x;
+    color: #0066cc;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 1.0);
+    text-decoration: none;
+}
+
+.tablist li.current a {
+/*    background-image: url('tab_a.png');
+background-color:#316ac5; 
+
+*/
+   background-repeat:repeat-x;
+    color:#0066cc;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 1.0);
+}

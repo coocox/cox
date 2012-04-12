@@ -8,11 +8,13 @@ echo --------------------------------------------
 :: Configure the version & MCU platform
 
 :publish_config_mcu
+
 set /p _publish_cox=Please input the MCU platform that to publish(NUC1xx,HT32F125x, Template):
 
 if "%_publish_cox%"=="" goto publish_config_mcu_error
 if %_publish_cox%==NUC1xx goto publish_config_version
 if %_publish_cox%==HT32F125x goto publish_config_version
+
 if %_publish_cox%==Template goto publish_config_version
 
 :publish_config_mcu_error
@@ -65,8 +67,8 @@ echo gen example\project\template\coide
 call %v_cox_peripheral%\all\gen_coide.bat
 
 echo copy example\project\template
-md %v_publish_root%\%_publish_dir%\example >>nul
-xcopy /s /e %v_cox_peripheral%\all\project %v_publish_root%\%_publish_dir%\example >>nul
+md %v_publish_root%\%_publish_dir%\example\project >>nul
+xcopy /s /e %v_cox_peripheral%\all\project %v_publish_root%\%_publish_dir%\example\project >>nul
 echo completed
 
 :: Doxygen need to run in the configure file directory
