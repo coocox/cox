@@ -2,8 +2,8 @@
 //
 //! \file xdebug.h
 //! \brief Drivers for assisting debug of the peripheral library.
-//! \version V2.1.1.0
-//! \date 11/14/2011
+//! \version V2.2
+//! \date 5/17/2012
 //! \author CooCox
 //! \copy
 //!

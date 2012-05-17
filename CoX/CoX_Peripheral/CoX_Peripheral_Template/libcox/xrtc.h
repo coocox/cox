@@ -2,8 +2,8 @@
 //
 //! \file xrtc.h
 //! \brief Prototypes for the RTC Driver.
-//! \version V2.1.1.0
-//! \date 11/14/2011
+//! \version V2.2
+//! \date 5/17/2012
 //! \author CooCox
 //! \copy
 //!
