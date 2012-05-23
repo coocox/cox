@@ -1,0 +1,35 @@
+//*****************************************************************************
+//
+//! \defgroup LowLayer  
+//! 
+//! \brief LowLayer Memory And Interrupt.
+//!
+//! LowLayer defines for the base address of the memories and
+//! peripherals and defines for the fault/interrupt assignments.
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup xLowLayer xLowLayer
+//! 
+//! \brief CoX LowLayer Memory And Interrupt .
+//!
+//! LowLayer defines the base addresses of the
+//! memories/peripherals and the fault/interrupt assignments.
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup HT32F175x/275x_LowLayer HT32F175x/275x LowLayer
+//! 
+//! \brief HT32F175x/275x LowLayer Memory And Interrupt
+//!
+//! HT32F175x/275x_LowLayer LowLayer defines the base addresses of the 
+//! memories/peripherals and the fault/interrupt assignments of HT32F175x/275x.
+//!
+//! \note It defines all the peripheral address and interrupt.
+//
+//*****************************************************************************
