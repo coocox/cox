@@ -108,13 +108,13 @@ UART0IntHandler(void)
 void 
 UART1IntHandler(void)
 {
-    unsigned long ulUART0IntStatus;
+    unsigned long ulUART1IntStatus;
 
-    ulUART0IntStatus = xHWREG(UART1_BASE + USART_IIR);
+    ulUART1IntStatus = xHWREG(UART1_BASE + USART_IIR);
 
-    if(g_pfnUARTHandlerCallbacks[0] != 0)
+    if(g_pfnUARTHandlerCallbacks[1] != 0)
     {
-        g_pfnUARTHandlerCallbacks[0](0, 0, ulUART0IntStatus, 0);
+        g_pfnUARTHandlerCallbacks[1](0, 0, ulUART1IntStatus, 0);
     }
 }
 
@@ -534,7 +534,7 @@ UARTIrDAConfig(unsigned long ulBase, unsigned long ulConfig)
     // Set the Mode of IrDA.
     //
     UARTModeSet(ulBase, USART_FUN_SEL_IRDA_EN);
-    
+    xHWREG(ulBase + USART_IRCR) &= 0xFFFF00C0;
     xHWREG(ulBase + USART_IRCR) |= ulConfig;
 }
 
@@ -1193,8 +1193,8 @@ UARTModemControlSet(unsigned long ulBase, unsigned long ulControl)
     //
     // Set the appropriate modem control output bits.
     //
-    xHWREG(ulBase + USART_MCR) &= ~(USART_MCR_DTR_L | USART_MCR_RTS_L);
-    xHWREG(ulBase + USART_MCR) |= (ulControl);
+    xHWREG(ulBase + USART_MCR) &= 0xFFFFFFFC;
+    xHWREG(ulBase + USART_MCR) |= ulControl;
 }
 
 //*****************************************************************************
@@ -1214,15 +1214,14 @@ UARTModemControlSet(unsigned long ulBase, unsigned long ulControl)
 unsigned long
 UARTModemControlGet(unsigned long ulBase)
 {
+    unsigned long ulRal = 0;
     //
     // Check the arguments.
     //
     xASSERT(UARTBaseValid(ulBase));
+	ulRal = xHWREG(ulBase + USART_MCR) & (~USART_MCR_HFC_EN);
 
-    //
-    // Return the states of the RTS modem control signals and trigger level.
-    //
-    return(xHWREG(ulBase + USART_MCR) & (USART_MCR_DTR_L | USART_MCR_RTS_L));
+    return ulRal;
 }
 
 //*****************************************************************************
@@ -1402,7 +1401,7 @@ UART485Config(unsigned long ulBase, unsigned long ulBaud,
     // Enable 485.
     //
     UARTModeSet(ulBase, USART_FUN_SEL_RS485_EN);
-    xHWREG(ulBase + USART_RS485CR) &= 0xFFFFFFF0;
+    xHWREG(ulBase + USART_RS485CR) &= 0xFFFF00F0;
     xHWREG(ulBase + USART_RS485CR) |= ul485Config;
 
 }
@@ -1447,7 +1446,7 @@ UARTSyncModeConfig(unsigned long ulBase, unsigned long ulBaud,
 
 //*****************************************************************************
 //
-//! \brief Set USART DMA mode.
+//! \brief Enable USART DMA mode.
 //!
 //! \param ulBase is the base address of the UART port.
 //! \param ulDMAMode is the mode of the UART DMA mode.
@@ -1458,7 +1457,7 @@ UARTSyncModeConfig(unsigned long ulBase, unsigned long ulBaud,
 //
 //*****************************************************************************
 void
-UARTDMAModeSet(unsigned long ulBase, unsigned long ulDMAMode)
+UARTDMAModeEnable(unsigned long ulBase, unsigned long ulDMAMode)
 {
     //
     // Check the arguments.
@@ -1471,6 +1470,34 @@ UARTDMAModeSet(unsigned long ulBase, unsigned long ulDMAMode)
     // Set DMA mode for USART
     //
     xHWREG(ulBase + USART_MDR) |= ulDMAMode;
+}
+
+//*****************************************************************************
+//
+//! \brief Disable USART DMA mode.
+//!
+//! \param ulBase is the base address of the UART port.
+//! \param ulDMAMode is the mode of the UART DMA mode.
+//!
+//! Disable DMA mode for the USART.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+UARTDMAModeDisable(unsigned long ulBase, unsigned long ulDMAMode)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT(UARTBaseValid(ulBase));
+    
+    xASSERT((ulDMAMode == USART_DMA_RX) || (ulDMAMode == USART_DMA_TX));
+
+    //
+    // Disable DMA mode for USART
+    //
+    xHWREG(ulBase + USART_MDR) &= ~ulDMAMode;
 }
 
 //*****************************************************************************

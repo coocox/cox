@@ -2,7 +2,7 @@
 //
 //! \file xtimer.h
 //! \brief Prototypes for the TIMER Driver.
-//! \version V2.1.1.0
+//! \version V2.2.1.0
 //! \date 5/2/2012
 //! \author CooCox
 //! \copy
@@ -515,7 +515,7 @@ extern "C"
 //! The \e ulTickFreq parameter is the the timer tick frequency.It can be any
 //! values but ulTickFreq > 0 and ulTickFreq < timer clock source.
 //!
-//! \note For HT32F125x,each timer only one channel.
+//! \note For HT32F175x_275x,each timer only one channel.
 //!
 //! \return None.
 //
@@ -860,7 +860,7 @@ extern void xTimerCaptureEdgeSelect(unsigned long ulBase, unsigned long ulChanne
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_TIMER
+//! \addtogroup HT32F175x_275x_TIMER
 //! @{
 //
 //*****************************************************************************
@@ -1757,8 +1757,8 @@ extern void xTimerCaptureEdgeSelect(unsigned long ulBase, unsigned long ulChanne
   
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_TIMER_Exported_APIs HT32F125x TIMER API
-//! \brief HT32F125x TIMER API Reference.
+//! \addtogroup HT32F175x_275x_TIMER_Exported_APIs HT32F175x_275x TIMER API
+//! \brief HT32F175x_275x TIMER API Reference.
 //! @{
 //
 //*****************************************************************************

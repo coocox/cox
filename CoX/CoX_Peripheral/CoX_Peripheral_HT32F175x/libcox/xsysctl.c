@@ -3,7 +3,7 @@
 //! \file xsysctl.c
 //! \brief Driver for the system controller
 //! \version V2.2.1.0
-//! \date 2/25/2012
+//! \date 5/7/2012
 //! \author CooCox
 //! \copy
 //!
@@ -379,7 +379,7 @@ xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
             (ulPeripheralSrc==xSYSCTL_RTC_EXTSL) ||
             (ulPeripheralSrc==xSYSCTL_RTC_INTSL)       
            );
-    xASSERT((ulDivide <= 256) && (ulDivide >= 1));
+    xASSERT((ulDivide <= 32768) && (ulDivide >= 1));
 
     while(!SysCtlBackupReadyStateGet());
 
@@ -389,26 +389,41 @@ xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
     //   
     if(ulPeripheralSrc == xSYSCTL_WDT0_EXTSL)
     {
+        for(ulTemp=0; ulTemp<8; ulTemp++)
+        {
+            if(ulDivide == (1 << ulTemp))
+                break;
+        }
         xHWREG(RTC_CR) |= RTC_CR_LSEEN; 
         xHWREG(SYSCLK_GCFGR) &= ~SYSCLK_GCFGR_WDTSRC_M;
         xHWREG(SYSCLK_GCFGR) |= SYSCTL_PERIPH_WDG_S_EXTSL;
         xHWREG(WDT_PR) = WDT_PR_PROTECT_DIS;
         xHWREG(WDT_MR1) &= ~WDT_MR1_WPSC_M;
-        xHWREG(WDT_MR1) |= (ulDivide << WDT_MR1_WPSC_S);
+        xHWREG(WDT_MR1) |= (ulTemp << WDT_MR1_WPSC_S);
         xHWREG(WDT_PR) = WDT_PR_PROTECT_EN;
     }
     else if(ulPeripheralSrc == xSYSCTL_WDT0_INTSL)
     {
+        for(ulTemp=0; ulTemp<8; ulTemp++)
+        {
+            if(ulDivide == (1 << ulTemp))
+                break;
+        }
 	    xHWREG(RTC_CR) |= RTC_CR_LSIEN; 
         xHWREG(SYSCLK_GCFGR) &= ~SYSCLK_GCFGR_WDTSRC_M;
         xHWREG(SYSCLK_GCFGR) |= 0x00000000;
         xHWREG(WDT_PR) = WDT_PR_PROTECT_DIS;
         xHWREG(WDT_MR1) &= ~WDT_MR1_WPSC_M;
-        xHWREG(WDT_MR1) |= (ulDivide << WDT_MR1_WPSC_S);
+        xHWREG(WDT_MR1) |= (ulTemp << WDT_MR1_WPSC_S);
         xHWREG(WDT_PR) = WDT_PR_PROTECT_EN;
     }
     else if(ulPeripheralSrc == xSYSCTL_RTC_EXTSL)
     {
+        for(ulTemp=0; ulTemp<16; ulTemp++)
+        {
+            if(ulDivide == (1 << ulTemp))
+                break;
+        }
         xHWREG(RTC_CR) |= RTC_CR_LSEEN; 
         xHWREG(RTC_CR) |= RTC_CR_RTCSRC_LSE;
         xHWREG(RTC_CR) &= ~RTC_CR_RPRE_M;
@@ -416,6 +431,11 @@ xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc,
     }
     else if(ulPeripheralSrc == xSYSCTL_RTC_INTSL)
     {
+        for(ulTemp=0; ulTemp<16; ulTemp++)
+        {
+            if(ulDivide == (1 << ulTemp))
+                break;
+        }
         xHWREG(RTC_CR) |= RTC_CR_LSIEN; 
         xHWREG(RTC_CR) |= RTC_CR_RTCSRC_LSI;
         xHWREG(RTC_CR) &= ~RTC_CR_RPRE_M;
@@ -1784,9 +1804,9 @@ SysCtlHSIReadyCounterBitLengthSet(unsigned long ulBitLength)
     // Check the arguments.
     //
     xASSERT((ulBitLength == PWRCU_HSIRCR_HSIRCBL_7) ||
-            (ulBitLength == PWRCU_HSIRCR_HSIRCBL_8) ||
-            (ulBitLength == PWRCU_HSIRCR_HSIRCBL_9) ||
-            (ulBitLength == PWRCU_HSIRCR_HSIRCBL_10)
+            (ulBitLength == PWRCU_HSIRCR_HSIRCBL_6) ||
+            (ulBitLength == PWRCU_HSIRCR_HSIRCBL_5) ||
+            (ulBitLength == PWRCU_HSIRCR_HSIRCBL_4)
            );
     //
     // Select ready counter bit length of HSI.

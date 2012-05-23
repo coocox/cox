@@ -1,32 +1,32 @@
 //*****************************************************************************
 //
-//! \defgroup HT32F175x/275x_TIMER HT32F175x/275x TIMER
+//! \defgroup HT32F175x_275x_TIMER HT32F175x_275x TIMER
 //! 
-//! \brief HOLTEK HT32F175x/275x TIMER Peripheral Driver.
+//! \brief HOLTEK HT32F175x_275x TIMER Peripheral Driver.
 //!
 //! The CoX Peripheral Library also provides APIs for full functions of Holtek
-//! HT32F175x/275x TIMER. This module supports the whole HT32F175x/275x Series.
+//! HT32F175x_275x TIMER. This module supports the whole HT32F175x_275x Series.
 //!
 //! <br />
 //! <h1>Contents</h1>
-//! - \ref HT32F175x/275x_TIMER_Blcok
-//! - \ref HT32F175x/275x_TIMER_Function_Desc
-//! - \ref HT32F175x/275x_TIMER_API_Group
+//! - \ref HT32F175x_275x_TIMER_Blcok
+//! - \ref HT32F175x_275x_TIMER_Function_Desc
+//! - \ref HT32F175x_275x_TIMER_API_Group
 //!   - \ref TIMER_API_Config
 //!   - \ref TIMER_API_Start_Stop
 //!   - \ref TIMER_API_Value_Set
 //!   - \ref TIMER_API_Inerrupt
 //!   - \ref TIMER_API_DMA
 //!   .
-//! - \ref HT32F175x/275x_TIMER_Usage
+//! - \ref HT32F175x_275x_TIMER_Usage
 //! .
 //!
 //! <br />
-//! \section HT32F175x/275x_TIMER_Blcok 1. TIMER Physical Block
+//! \section HT32F175x_275x_TIMER_Blcok 1. TIMER Physical Block
 //! <img src="HT32F175x275x_Timer_Controller_Block.png" />
 //! 
 //! <br />
-//! \section HT32F175x/275x_TIMER_Function_Desc 2. Functional Description
+//! \section HT32F175x_275x_TIMER_Function_Desc 2. Functional Description
 //! 
 //! - Up-Counting:
 //!
@@ -77,7 +77,7 @@
 //!  as an external clock with a directional selection.
 //!
 //! <br />
-//! \section HT32F175x/275x_TIMER_API_Group 3. HT32F175x/275x TIMER API Group
+//! \section HT32F175x_275x_TIMER_API_Group 3. HT32F175x_275x TIMER API Group
 //!
 //! <br />
 //! \subsection TIMER_API_Config 3.1 TIMER API Mode Config
@@ -156,7 +156,7 @@
 //! - TimerPDMARequestEventSet(). 
 //! .
 //! <br />
-//! \section HT32F175x/275x_TIMER_Usage 4. Usage & Program Examples
+//! \section HT32F175x_275x_TIMER_Usage 4. Usage & Program Examples
 //!
 //! \code
 //!
@@ -183,7 +183,7 @@
 //! //
 //! // \biref The main example function
 //! // Enable the timer0, and it's interrupt, the overfolw interrupt will happen 
-//! // every 1 second. It is tested on the HT32F175x/275x Development board.
+//! // every 1 second. It is tested on the HT32F175x_275x Development board.
 //! // \return  none
 //! //
 //! //*****************************************************************************

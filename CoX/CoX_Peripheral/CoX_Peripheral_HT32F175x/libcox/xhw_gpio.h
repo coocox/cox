@@ -57,7 +57,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register HT32F175x/275x GPIO Register
+//! \addtogroup HT32F175x_275x_GPIO_Register HT32F175x_275x GPIO Register
 //! \brief Here are the detailed info of GPIO registers. 
 //!
 //! it contains:
@@ -73,7 +73,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_Offsets GPIO Register Offset(Map)
+//! \addtogroup HT32F175x_275x_GPIO_Register_Offsets GPIO Register Offset(Map)
 //! \brief Here is the GPIO register offset, users can get the register address
 //! through <b>GPIO_BASE + offset</b>.
 //! @{
@@ -143,7 +143,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_AFIO_Register_Offsets AFIO Register Offset(Map)
+//! \addtogroup HT32F175x_275x_AFIO_Register_Offsets AFIO Register Offset(Map)
 //! \brief Here is the AFIO register offset, users can get the register address
 //! through <b>GPIO_AFIO_BASE + offset</b>.
 //! @{
@@ -193,7 +193,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_EXTI_Register_Offsets EXTI Register Offset(Map)
+//! \addtogroup HT32F175x_275x_EXTI_Register_Offsets EXTI Register Offset(Map)
 //! \brief Here is the EXTI register offset, users can get the register address
 //! through <b>GPIO_EXTI_BASE + offset</b>.
 //! @{
@@ -323,7 +323,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_GPIO_DIRCR GPIO DIRCR Control Register(GPIO_DIRCR) 
+//! \addtogroup HT32F175x_275x_GPIO_Register_GPIO_DIRCR GPIO DIRCR Control Register(GPIO_DIRCR) 
 //! \brief Defines for the bit fields in the GPIO_DIRCR register.
 //! @{
 //
@@ -347,7 +347,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_GPIO_INER GPIO Input Enable or Disable 
+//! \addtogroup HT32F175x_275x_GPIO_Register_GPIO_INER GPIO Input Enable or Disable 
 //!  Register(GPIO_INER)
 //! \brief Defines for the bit fields in the GPIO_INER register.
 //! @{
@@ -372,7 +372,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_GPIO_PUR GPIO Pull-up Selection Control
+//! \addtogroup HT32F175x_275x_GPIO_Register_GPIO_PUR GPIO Pull-up Selection Control
 //!  Register(GPIO_PUR)
 //! \brief Defines for the bit fields in the GPIO_PUR register.
 //! @{
@@ -397,7 +397,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_GPIO_PDR GPIO Pull-down Selection Control
+//! \addtogroup HT32F175x_275x_GPIO_Register_GPIO_PDR GPIO Pull-down Selection Control
 //!  Register(GPIO_PDR)
 //! \brief Defines for the bit fields in the GPIO_PDR register.
 //! @{
@@ -422,7 +422,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_GPIO_ODR GPIO open drain Selection Control
+//! \addtogroup HT32F175x_275x_GPIO_Register_GPIO_ODR GPIO open drain Selection Control
 //!  Register(GPIO_ODR)
 //! \brief Defines for the bit fields in the GPIO_ODR register.
 //! @{
@@ -447,7 +447,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_GPIO_DRVR GPIO Current Drive Selection Control
+//! \addtogroup HT32F175x_275x_GPIO_Register_GPIO_DRVR GPIO Current Drive Selection Control
 //!  Register(GPIO_DRVR)
 //! \brief Defines for the bit fields in the GPIO_DRVR register.
 //! @{
@@ -472,7 +472,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_GPIO_LOCKER GPIO Lock Register(GPIO_LOCKER)
+//! \addtogroup HT32F175x_275x_GPIO_Register_GPIO_LOCKER GPIO Lock Register(GPIO_LOCKER)
 //! \brief Defines for the bit fields in the GPIO_LOCKER register.
 //! @{
 //
@@ -501,7 +501,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_GPIO_INR GPIO Data Input Register(GPIO_INR)
+//! \addtogroup HT32F175x_275x_GPIO_Register_GPIO_INR GPIO Data Input Register(GPIO_INR)
 //! \brief Defines for the bit fields in the GPIO_INR register.
 //! @{
 //
@@ -525,7 +525,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_GPIO_OUTR GPIO Data Output Register(GPIO_OUTR)
+//! \addtogroup HT32F175x_275x_GPIO_Register_GPIO_OUTR GPIO Data Output Register(GPIO_OUTR)
 //! \brief Defines for the bit fields in the GPIO_OUTR register.
 //! @{
 //
@@ -549,7 +549,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_GPIO_SRR GPIO Output Set/Reset Control
+//! \addtogroup HT32F175x_275x_GPIO_Register_GPIO_SRR GPIO Output Set/Reset Control
 //!  Register(GPIO_SRR)
 //! \brief Defines for the bit fields in the GPIO_SRR register.
 //! @{
@@ -584,7 +584,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_GPIO_RR GPIO Output Reset Control
+//! \addtogroup HT32F175x_275x_GPIO_Register_GPIO_RR GPIO Output Reset Control
 //!  Register(GPIO_RR)
 //! \brief Defines for the bit fields in the GPIO_RR register.
 //! @{
@@ -609,7 +609,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_AFIO_ESSRO EXTI Source Selection0 
+//! \addtogroup HT32F175x_275x_GPIO_Register_AFIO_ESSRO EXTI Source Selection0 
 //!  Register0(AFIO_ESSRO)
 //! \brief Defines for the bit fields in the AFIO_ESSRO register.
 //! @{
@@ -666,7 +666,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_AFIO_ESSR1 EXTI Source Selection1 
+//! \addtogroup HT32F175x_275x_GPIO_Register_AFIO_ESSR1 EXTI Source Selection1 
 //!  Register1(AFIO_ESSR1)
 //! \brief Defines for the bit fields in the AFIO_ESSR1 register.
 //! @{
@@ -723,7 +723,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_AFIO_GPACFGR alternative function SelectionA 
+//! \addtogroup HT32F175x_275x_GPIO_Register_AFIO_GPACFGR alternative function SelectionA 
 //!  Register(AFIO_GPACFGR)
 //! \brief Defines for the bit fields in the AFIO_GPACFGR register.
 //! @{
@@ -832,7 +832,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_AFIO_GPBCFGR alternative function SelectionB 
+//! \addtogroup HT32F175x_275x_GPIO_Register_AFIO_GPBCFGR alternative function SelectionB 
 //!  Register(AFIO_GPBCFGR)
 //! \brief Defines for the bit fields in the AFIO_GPBCFGR register.
 //! @{
@@ -941,7 +941,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_AFIO_GPCCFGR alternative function Selection 
+//! \addtogroup HT32F175x_275x_GPIO_Register_AFIO_GPCCFGR alternative function Selection 
 //!  Register(AFIO_GPCCFGR)
 //! \brief Defines for the bit fields in the AFIO_GPCCFGR register.
 //! @{
@@ -1050,7 +1050,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_AFIO_GPDCFGR alternative function Selection 
+//! \addtogroup HT32F175x_275x_GPIO_Register_AFIO_GPDCFGR alternative function Selection 
 //!  Register(AFIO_GPDCFGR)
 //! \brief Defines for the bit fields in the AFIO_GPDCFGR register.
 //! @{
@@ -1159,7 +1159,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_AFIO_GPECFGR alternative function Selection 
+//! \addtogroup HT32F175x_275x_GPIO_Register_AFIO_GPECFGR alternative function Selection 
 //!  Register(AFIO_GPECFGR)
 //! \brief Defines for the bit fields in the AFIO_GPECFGR register.
 //! @{
@@ -1268,7 +1268,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_EXTI_CFGR0 EXTI Interrupt0 Configuration 
+//! \addtogroup HT32F175x_275x_GPIO_Register_EXTI_CFGR0 EXTI Interrupt0 Configuration 
 //!  Register(EXTI_CFGR0)
 //! \brief Defines for the bit fields in the EXTI_CFGR0 register.
 //! @{
@@ -1336,7 +1336,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_EXTI_CFGR1 EXTI Interrupt1 Configuration 
+//! \addtogroup HT32F175x_275x_GPIO_Register_EXTI_CFGR1 EXTI Interrupt1 Configuration 
 //!  Register(EXTI_CFGR1)
 //! \brief Defines for the bit fields in the EXTI_CFGR1 register.
 //! @{
@@ -1404,7 +1404,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_EXTI_CFGR2 EXTI Interrupt2 Configuration 
+//! \addtogroup HT32F175x_275x_GPIO_Register_EXTI_CFGR2 EXTI Interrupt2 Configuration 
 //!  Register(EXTI_CFGR2)
 //! \brief Defines for the bit fields in the EXTI_CFGR2 register.
 //! @{
@@ -1472,7 +1472,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_EXTI_CFGR3 EXTI Interrupt3 Configuration 
+//! \addtogroup HT32F175x_275x_GPIO_Register_EXTI_CFGR3 EXTI Interrupt3 Configuration 
 //!  Register(EXTI_CFGR3)
 //! \brief Defines for the bit fields in the EXTI_CFGR3 register.
 //! @{
@@ -1540,7 +1540,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_EXTI_CFGR4 EXTI Interrupt4 Configuration 
+//! \addtogroup HT32F175x_275x_GPIO_Register_EXTI_CFGR4 EXTI Interrupt4 Configuration 
 //!  Register(EXTI_CFGR4)
 //! \brief Defines for the bit fields in the EXTI_CFGR4 register.
 //! @{
@@ -1608,7 +1608,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_EXTI_CFGR5 EXTI Interrupt5 Configuration 
+//! \addtogroup HT32F175x_275x_GPIO_Register_EXTI_CFGR5 EXTI Interrupt5 Configuration 
 //!  Register(EXTI_CFGR5)
 //! \brief Defines for the bit fields in the EXTI_CFGR5 register.
 //! @{
@@ -1676,7 +1676,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_EXTI_CFGR6 EXTI Interrupt6 Configuration 
+//! \addtogroup HT32F175x_275x_GPIO_Register_EXTI_CFGR6 EXTI Interrupt6 Configuration 
 //!  Register(EXTI_CFGR6)
 //! \brief Defines for the bit fields in the EXTI_CFGR6 register.
 //! @{
@@ -1744,7 +1744,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_EXTI_CFGR7 EXTI Interrupt7 Configuration 
+//! \addtogroup HT32F175x_275x_GPIO_Register_EXTI_CFGR7 EXTI Interrupt7 Configuration 
 //!  Register(EXTI_CFGR7)
 //! \brief Defines for the bit fields in the EXTI_CFGR7 register.
 //! @{
@@ -1812,7 +1812,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_EXTI_CFGR8 EXTI Interrupt8 Configuration 
+//! \addtogroup HT32F175x_275x_GPIO_Register_EXTI_CFGR8 EXTI Interrupt8 Configuration 
 //!  Register(EXTI_CFGR8)
 //! \brief Defines for the bit fields in the EXTI_CFGR8 register.
 //! @{
@@ -1880,7 +1880,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_EXTI_CFGR9 EXTI Interrupt9 Configuration 
+//! \addtogroup HT32F175x_275x_GPIO_Register_EXTI_CFGR9 EXTI Interrupt9 Configuration 
 //!  Register(EXTI_CFGR9)
 //! \brief Defines for the bit fields in the EXTI_CFGR9 register.
 //! @{
@@ -1948,7 +1948,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_EXTI_CFGR10 EXTI Interrupt10 Configuration 
+//! \addtogroup HT32F175x_275x_GPIO_Register_EXTI_CFGR10 EXTI Interrupt10 Configuration 
 //!  Register(EXTI_CFGR10)
 //! \brief Defines for the bit fields in the EXTI_CFGR10 register.
 //! @{
@@ -2017,7 +2017,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_EXTI_CFGR11 EXTI Interrupt11 Configuration 
+//! \addtogroup HT32F175x_275x_GPIO_Register_EXTI_CFGR11 EXTI Interrupt11 Configuration 
 //!  Register(EXTI_CFGR11)
 //! \brief Defines for the bit fields in the EXTI_CFGR11 register.
 //! @{
@@ -2086,7 +2086,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_EXTI_CFGR12 EXTI Interrupt12 Configuration 
+//! \addtogroup HT32F175x_275x_GPIO_Register_EXTI_CFGR12 EXTI Interrupt12 Configuration 
 //!  Register(EXTI_CFGR12)
 //! \brief Defines for the bit fields in the EXTI_CFGR12 register.
 //! @{
@@ -2155,7 +2155,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_EXTI_CFGR13 EXTI Interrupt13 Configuration 
+//! \addtogroup HT32F175x_275x_GPIO_Register_EXTI_CFGR13 EXTI Interrupt13 Configuration 
 //!  Register(EXTI_CFGR13)
 //! \brief Defines for the bit fields in the EXTI_CFGR13 register.
 //! @{
@@ -2224,7 +2224,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_EXTI_CFGR14 EXTI Interrupt14 Configuration 
+//! \addtogroup HT32F175x_275x_GPIO_Register_EXTI_CFGR14 EXTI Interrupt14 Configuration 
 //!  Register(EXTI_CFGR14)
 //! \brief Defines for the bit fields in the EXTI_CFGR14 register.
 //! @{
@@ -2293,7 +2293,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_EXTI_CFGR15 EXTI Interrupt15 Configuration 
+//! \addtogroup HT32F175x_275x_GPIO_Register_EXTI_CFGR15 EXTI Interrupt15 Configuration 
 //!  Register(EXTI_CFGR15)
 //! \brief Defines for the bit fields in the EXTI_CFGR15 register.
 //! @{
@@ -2362,7 +2362,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_EXTI_ICR EXTI Interrupt Control 
+//! \addtogroup HT32F175x_275x_GPIO_Register_EXTI_ICR EXTI Interrupt Control 
 //!  Register(EXTI_ICR)
 //! \brief Defines for the bit fields in the EXTI_ICR register.
 //! @{
@@ -2457,7 +2457,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_EXTI_EDGEFLGR EXTI Edge Detection Flag 
+//! \addtogroup HT32F175x_275x_GPIO_Register_EXTI_EDGEFLGR EXTI Edge Detection Flag 
 //!  Register(EXTI_EDGEFLGR)
 //! \brief Defines for the bit fields in the EXTI_EDGEFLGR register.
 //! @{
@@ -2552,7 +2552,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_EXTI_EDGESR EXTI Edge Detection Status 
+//! \addtogroup HT32F175x_275x_GPIO_Register_EXTI_EDGESR EXTI Edge Detection Status 
 //!  Register(EXTI_EDGESR)
 //! \brief Defines for the bit fields in the EXTI_EDGESR register.
 //! @{
@@ -2647,7 +2647,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_EXTI_SSCR EXTI Software Set Command 
+//! \addtogroup HT32F175x_275x_GPIO_Register_EXTI_SSCR EXTI Software Set Command 
 //!  Register(EXTI_SSCR)
 //! \brief Defines for the bit fields in the EXTI_SSCR register.
 //! @{
@@ -2742,7 +2742,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_EXTI_SSCR EXTI Software Set Command 
+//! \addtogroup HT32F175x_275x_GPIO_Register_EXTI_SSCR EXTI Software Set Command 
 //!  Register(EXTI_SSCR)
 //! \brief Defines for the bit fields in the EXTI_SSCR register.
 //! @{
@@ -2842,7 +2842,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_EXTI_WAKUPPOLR EXTI line interrupt wakeup polarity 
+//! \addtogroup HT32F175x_275x_GPIO_Register_EXTI_WAKUPPOLR EXTI line interrupt wakeup polarity 
 //!  Register(EXTI_WAKUPPOLR)
 //! \brief Defines for the bit fields in the EXTI_WAKUPPOLR register.
 //! @{
@@ -2943,7 +2943,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Register_EXTI_WAKUPFLG EXTI Interrupt Wakeup Flag 
+//! \addtogroup HT32F175x_275x_GPIO_Register_EXTI_WAKUPFLG EXTI Interrupt Wakeup Flag 
 //!  Register(EXTI_WAKUPFLG)
 //! \brief Defines for the bit fields in the EXTI_WAKUPFLG register.
 //! @{

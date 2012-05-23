@@ -941,7 +941,7 @@ extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_SPI
+//! \addtogroup HT32F175x_275x_SPI
 //! @{
 //
 //*****************************************************************************
@@ -1008,7 +1008,7 @@ extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_SPI_Config HT32F175x/275x SPI Configure
+//! \addtogroup HT32F175x_275x_SPI_Config HT32F175x/275x SPI Configure
 //! Values that can be passed to SPIConfig.
 //! @{
 //
@@ -1150,7 +1150,7 @@ extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_SPI_SlaveSel_Config HT32F175x/275x SPI Slave Select Configure
+//! \addtogroup HT32F175x_275x_SPI_SlaveSel_Config HT32F175x/275x SPI Slave Select Configure
 //! Values that can  be passed to SPISSSet(),SPISSConfig().
 //! @{
 //
@@ -1177,7 +1177,7 @@ extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_SPI_SlaveSel_Output_Config HT32F175x/275x SPI Slave Select 
+//! \addtogroup HT32F175x_275x_SPI_SlaveSel_Output_Config HT32F175x/275x SPI Slave Select 
 //! Output Configure
 //! Values that can be passed to SPISSOutPutConfigure() as the ulEnable parameter.
 //! @{
@@ -1202,7 +1202,7 @@ extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_SPI_FIFO_ENABLE HT32F175x/275x SPI FIFO Enable
+//! \addtogroup HT32F175x_275x_SPI_FIFO_ENABLE HT32F175x/275x SPI FIFO Enable
 //! Values that can be passed to SPIFIFOModeSet().
 //! @{
 //
@@ -1226,7 +1226,7 @@ extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_SPI_FIFOStatus HT32F175x/275x SPI FIFO Status
+//! \addtogroup HT32F175x_275x_SPI_FIFOStatus HT32F175x/275x SPI FIFO Status
 //! Values that can be passed to SPIFIFOStatusGet() and SPIFIFOClear().
 //! @{
 //
@@ -1250,7 +1250,7 @@ extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SPI_DMA_Mode HT32F1755 SPI DMA Transfer Mode
+//! \addtogroup HT32F175x_275x_SPI_DMA_Mode HT32F175x_275x SPI DMA Transfer Mode
 //! Values that can be passed to SPIDMAEnable() as the ulDMAMode parameter
 //! @{
 //
@@ -1273,8 +1273,8 @@ extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_SPI_Exported_APIs  HT32F175x/275x SPI API
-//! \brief HT32F175x/275x SPI API Reference
+//! \addtogroup HT32F175x_275x_SPI_Exported_APIs  HT32F175x_275x SPI API
+//! \brief HT32F175x_275x SPI API Reference
 //! @{
 //
 //*****************************************************************************

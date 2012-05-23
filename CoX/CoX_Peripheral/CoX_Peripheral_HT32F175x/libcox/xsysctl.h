@@ -85,7 +85,7 @@ extern "C"
 //! \section xSysCtl_Peripheral_ID_CoX 2.CoX Port Details
 //! \verbatim
 //! +--------------------------+----------------+--------------------------+
-//! |SysCtl Peripheral ID      |       CoX      |          HT32F1755       |
+//! |SysCtl Peripheral ID      |       CoX      |     HT32F175x/275x       |
 //! |--------------------------|----------------|--------------------------|
 //! |xSYSCTL_PERIPH_GPIOn      |    Mandatory   |   xSYSCTL_PERIPH_GPIOA   |
 //! |                          |                |--------------------------|
@@ -142,8 +142,6 @@ extern "C"
 #define xSYSCTL_PERIPH_ACMP0    SYSCTL_PERIPH_OPA0
 #define xSYSCTL_PERIPH_TIMER0   SYSCTL_PERIPH_TMR0
 #define xSYSCTL_PERIPH_TIMER1   SYSCTL_PERIPH_TMR1
-#define xSYSCTL_PERIPH_PWMA     SYSCTL_PERIPH_PWMA
-#define xSYSCTL_PERIPH_PWMB     SYSCTL_PERIPH_PWMB
 #define xSYSCTL_PERIPH_UART0    SYSCTL_PERIPH_UART0
 #define xSYSCTL_PERIPH_UART1    SYSCTL_PERIPH_UART1
 #define xSYSCTL_PERIPH_WDOG     SYSCTL_PERIPH_WDT
@@ -172,7 +170,7 @@ extern "C"
 //! \section xSysCtl_Clock_Set_Config_CoX 3.CoX Port Details
 //! \verbatim
 //! +--------------------------+----------------+--------------------------+
-//! |SysCtl Clock Set Configs  |       CoX      |          HT32F1755       |
+//! |SysCtl Clock Set Configs  |       CoX      |     HT32F175x/275x       |
 //! |--------------------------|----------------|--------------------------|
 //! |xSYSCTL_OSC_MAIN          |    Mandatory   |             Y            |
 //! |--------------------------|----------------|--------------------------|
@@ -279,7 +277,7 @@ extern "C"
 //! \section xSysCtl_Peripheral_Src_Clk_CoX CoX Port Details
 //! \verbatim
 //! +-------------------------- +----------------+--------------------------+
-//! |Peripheral Source Clock Set|       CoX      |          HT32F1755       |
+//! |Peripheral Source Clock Set|       CoX      |     HT32F175x/275x       |
 //! |---------------------------|----------------|--------------------------|
 //! |Those are all Non-Mandatory|  Non-Mandatory |             Y            |
 //! | parameter,the Mandatory   |                |                          |
@@ -349,7 +347,7 @@ extern "C"
 //! \section xSysCtl_Peripheral_Short_CoX CoX Port Details
 //! \verbatim
 //! +-------------------------- +----------------+--------------------------+
-//! |Peripheral Short name      |       CoX      |        HT32F1755         |
+//! |Peripheral Short name      |       CoX      |      HT32F175x/275x      |
 //! |---------------------------|----------------|--------------------------|
 //! |ADCn                       |  Non-Mandatory |           ADC0           |
 //! |-------------------------- |----------------|--------------------------|
@@ -373,7 +371,7 @@ extern "C"
 //! |-------------------------- |----------------|--------------------------|
 //!
 //! +-------------------------- +----------------+--------------------------+
-//! |Peripheral Clock source    |       CoX      |         HT32F1755        |
+//! |Peripheral Clock source    |       CoX      |       HT32F175x/275x     |
 //! |---------------------------|----------------|--------------------------|
 //! |INT                        |    Mandatory   |             Y            |
 //! |---------------------------|----------------|--------------------------|
@@ -461,37 +459,37 @@ extern "C"
 //!
 //! \section xSysCtl_Exported_APIs_Port CoX Port Details
 //! \verbatim
-//! +--------------------------------+----------------+---------+
-//! |xSysCtl API                     |       CoX      |HT32F1755|
-//! |--------------------------------|----------------|---------|
-//! |xSysCtlPeripheralReset          |    Mandatory   |    Y    |
-//! |--------------------------------|----------------|---------|
-//! |xSysCtlPeripheralEnable         |    Mandatory   |    Y    |
-//! |--------------------------------|----------------|---------|
-//! |xSysCtlPeripheralDisable        |    Mandatory   |    Y    |
-//! |--------------------------------|----------------|---------|
-//! |xSysCtlPeripheralReset2         |    Mandatory   |    Y    |
-//! |--------------------------------|----------------|---------|
-//! |xSysCtlPeripheralEnable2        |    Mandatory   |    Y    |
-//! |--------------------------------|----------------|---------|
-//! |xSysCtlPeripheralDisable2       |    Mandatory   |    Y    |
-//! |--------------------------------|----------------|---------|
-//! |xSysCtlPeripheralIntNumGet      |    Mandatory   |    Y    |
-//! |--------------------------------|----------------|---------|
-//! |xSysCtlClockSet                 |    Mandatory   |    Y    |
-//! |--------------------------------|----------------|---------|
-//! |xSysCtlClockGet                 |    Mandatory   |    Y    |
-//! |--------------------------------|----------------|---------|
-//! |xSysCtlDelay                    |    Mandatory   |    Y    |
-//! |--------------------------------|----------------|---------|
-//! |xSysCtlReset                    |    Mandatory   |    Y    |
-//! |--------------------------------|----------------|---------|
-//! |xSysCtlSleep                    |    Mandatory   |    Y    |
-//! |--------------------------------|----------------|---------|
-//! |xSysCtlPeripheralClockSourceSet |    Mandatory   |    Y    |
-//! |--------------------------------|----------------|---------|
-//! |xSysCtlPeripheralClockSourceSet2|    Mandatory   |    Y    |
-//! |--------------------------------|----------------|---------|
+//! +--------------------------------+----------------+--------------+
+//! |xSysCtl API                     |       CoX      |HT32F175x/275x|
+//! |--------------------------------|----------------|--------------|
+//! |xSysCtlPeripheralReset          |    Mandatory   |       Y      |
+//! |--------------------------------|----------------|--------------|
+//! |xSysCtlPeripheralEnable         |    Mandatory   |       Y      |
+//! |--------------------------------|----------------|--------------|
+//! |xSysCtlPeripheralDisable        |    Mandatory   |       Y      |
+//! |--------------------------------|----------------|--------------|
+//! |xSysCtlPeripheralReset2         |    Mandatory   |       Y      |
+//! |--------------------------------|----------------|--------------|
+//! |xSysCtlPeripheralEnable2        |    Mandatory   |       Y      |
+//! |--------------------------------|----------------|--------------|
+//! |xSysCtlPeripheralDisable2       |    Mandatory   |       Y      |
+//! |--------------------------------|----------------|--------------|
+//! |xSysCtlPeripheralIntNumGet      |    Mandatory   |       Y      |
+//! |--------------------------------|----------------|--------------|
+//! |xSysCtlClockSet                 |    Mandatory   |       Y      |
+//! |--------------------------------|----------------|--------------|
+//! |xSysCtlClockGet                 |    Mandatory   |       Y      |
+//! |--------------------------------|----------------|--------------|
+//! |xSysCtlDelay                    |    Mandatory   |       Y      |
+//! |--------------------------------|----------------|--------------|
+//! |xSysCtlReset                    |    Mandatory   |       Y      |
+//! |--------------------------------|----------------|--------------|
+//! |xSysCtlSleep                    |    Mandatory   |       Y      |
+//! |--------------------------------|----------------|--------------|
+//! |xSysCtlPeripheralClockSourceSet |    Mandatory   |       Y      |
+//! |--------------------------------|----------------|--------------|
+//! |xSysCtlPeripheralClockSourceSet2|    Mandatory   |       Y      |
+//! |--------------------------------|----------------|--------------|
 //! \endverbatim
 //!
 //! @{
@@ -597,7 +595,7 @@ extern unsigned long xSysCtlPeripheralIntNumGet(unsigned long ulPeripheralBase);
 //! |--------------------|------------------------|---------------------------|
 //! |                    |    I2C0                |                           |
 //! |                    |    TIMER0              |             N             |
-//! |    HT32F1755       |    TIMER1              |                           | 
+//! |    HT32F175x_275x  |    TIMER1              |                           | 
 //! |                    |    UART0               |                           |
 //! |                    |    WDT0                |                           |
 //! |--------------------|------------------------|---------------------------|
@@ -707,14 +705,14 @@ extern void xSysCtlSleep(void);
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl
+//! \addtogroup HT32F175x_275x_SysCtl
 //! @{
 //
 //*****************************************************************************
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Peripheral_ID HT32F1755 SysCtl Peripheral ID
+//! \addtogroup HT32F175x_275x_SysCtl_Peripheral_ID HT32F175x_275x SysCtl Peripheral ID
 //! \brief Values that can be passed to the SysCtlPeripheralEnable(),
 //! SysCtlPeripheralDisable(), and SysCtlPeripheralReset().
 //! @{
@@ -883,14 +881,14 @@ extern void xSysCtlSleep(void);
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Clock_Config HT32F1755 SysCtl Clock Configuration
+//! \addtogroup HT32F175x_275x_SysCtl_Clock_Config HT32F175x_275x SysCtl Clock Configuration
 //! \brief The following are values that can be passed to the SysCtlClockSet() 
 //! API as the ulConfig parameter.
 //! @{
 //
 //*****************************************************************************
 
-#define SYSCTL_OSC_HSE        (SYSCTL_PLL_MAIN | SYSCTL_OSC_PLL)
+#define SYSCTL_OSC_HSE         (SYSCTL_PLL_MAIN | SYSCTL_OSC_PLL)
 
 #define SYSCTL_OSC_HSI         (SYSCTL_PLL_INT | SYSCTL_OSC_PLL)
 //
@@ -1001,7 +999,7 @@ extern void xSysCtlSleep(void);
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Peripheral_Src_Clk SysCtl Peripheral Clock Source
+//! \addtogroup HT32F175x_275x_SysCtl_Peripheral_Src_Clk SysCtl Peripheral Clock Source
 //! \brief The following are values that can be passed to the
 //! SysCtlPeripheralClockSourceSet()  API as the ulPeripheralsrc parameter.
 //! @{
@@ -1086,7 +1084,7 @@ extern void xSysCtlSleep(void);
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Enter_Sleep_Mode HT32F1755 SysCtl Enter Sleep Mode
+//! \addtogroup HT32F175x_275x_SysCtl_Enter_Sleep_Mode HT32F175x_275x SysCtl Enter Sleep Mode
 //! \brief The following are values that can be passed to the SysCtlSleep() and
 //! SysCtlDeepSleep1(), SysCtlDeepSleep2(), SysCtlPowerDown()API as the ulConfig
 //! parameter. 
@@ -1112,7 +1110,7 @@ extern void xSysCtlSleep(void);
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_USB_Prescaler USB Clock Prescaler Selection
+//! \addtogroup HT32F175x_275x_SysCtl_USB_Prescaler USB Clock Prescaler Selection
 //! \brief The following are values that can be passed to USBClockSet().
 //! @{
 //
@@ -1142,7 +1140,7 @@ extern void xSysCtlSleep(void);
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Backup_Test_Value HT32F1755 SysCtl Backup Test Value
+//! \addtogroup HT32F175x_275x_SysCtl_Backup_Test_Value HT32F175x_275x SysCtl Backup Test Value
 //! @{
 //
 //*****************************************************************************
@@ -1161,7 +1159,7 @@ extern void xSysCtlSleep(void);
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Exported_APIs HT32F1755 SysCtl APIs
+//! \addtogroup HT32F175x_275x_SysCtl_Exported_APIs HT32F175x_275x SysCtl APIs
 //! @{
 //
 //*****************************************************************************
@@ -1181,11 +1179,11 @@ extern void xSysCtlSleep(void);
 //! many of which are grouped into sets where only one can be chosen.
 //!
 //! The external crystal frequency is chosen with one of the following values:
-//! \ref xSYSCTL_XTAL_4MHZ, \ref xSYSCTL_XTAL_5MHZ, \ref xSYSCTL_XTAL_6MHZ, ...
-//! \ref xSYSCTL_XTAL_16MHZ.
+//! \ref SYSCTL_XTAL_4MHZ, \ref SYSCTL_XTAL_5MHZ, \ref SYSCTL_XTAL_6MHZ, ...
+//! \ref SYSCTL_XTAL_16MHZ.
 //!
 //! The oscillator source is chosen with one of the following values:
-//! \ref SYSCTL_OSC_HSE, \ref xSYSCTL_OSC_HSI.
+//! \ref SYSCTL_OSC_HSE, \ref SYSCTL_OSC_HSI.
 //!
 //! The external oscillator must be enabled in order to use an external clock
 //! source.

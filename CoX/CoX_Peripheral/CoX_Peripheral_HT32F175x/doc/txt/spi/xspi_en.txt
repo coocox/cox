@@ -177,8 +177,11 @@
 //!    //
 //!    xSysCtlPeripheralEnable(SYSCTL_PERIPH_SPI0);
 //!    xSysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);
-//!    xSysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA); 
-//!    xSysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
+//!    xSysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD); 
+//!    xSPinTypeSPI(SPI0CLK, PD9);
+//!    xSPinTypeSPI(SPI0MOSI, PD10);
+//!    xSPinTypeSPI(SPI0MISO, PD11);
+//!    xSPinTypeSPI(SPI0CS, PD8);
 //!  }
 //! //*****************************************************************************
 //! //

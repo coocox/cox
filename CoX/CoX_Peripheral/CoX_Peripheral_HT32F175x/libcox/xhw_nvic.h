@@ -73,7 +73,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_Address NVIC Address Register(NVIC_Address)
+//! \addtogroup HT32F175x_275x_NVIC_Register_Address NVIC Address Register(NVIC_Address)
 //! \brief Defines for the bit fields in the NVIC_Register_Address register
 //! @{
 //
@@ -375,7 +375,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_INT_TYPE NVIC Interrupt Type Register(NVIC_INT_TYPE)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_INT_TYPE NVIC Interrupt Type Register(NVIC_INT_TYPE)
 //! \brief Defines for the bit fields in the NVIC_INT_TYPE register.
 //! @{
 //
@@ -395,7 +395,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_ST_CTRL NVIC Status Control Register(NVIC_ST_CTRL)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_ST_CTRL NVIC Status Control Register(NVIC_ST_CTRL)
 //! \brief Defines for the bit fields in the NVIC_ST_CTRL register.
 //! @{
 //
@@ -429,7 +429,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_ST_RELOAD NVIC Status Reload Register(NVIC_ST_RELOAD)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_ST_RELOAD NVIC Status Reload Register(NVIC_ST_RELOAD)
 //! \brief Defines for the bit fields in the NVIC_ST_RELOAD register.
 //! @{
 //
@@ -449,7 +449,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_ST_CURRENT NVIC Status Current Register(NVIC_ST_CURRENT)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_ST_CURRENT NVIC Status Current Register(NVIC_ST_CURRENT)
 //! \brief Defines for the bit fields in the NVIC_ST_CURRENT register.
 //! @{
 //
@@ -469,7 +469,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_ST_CAL NVIC Status Cal Register(NVIC_ST_CAL)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_ST_CAL NVIC Status Cal Register(NVIC_ST_CAL)
 //! \brief Defines for the bit fields in the NVIC_ST_CAL register.
 //! @{
 //
@@ -499,7 +499,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_EN0 NVIC Enable0 Register(NVIC_EN0)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_EN0 NVIC Enable0 Register(NVIC_EN0)
 //! \brief Defines for the bit fields in the NVIC_EN0 register.
 //! @{
 //
@@ -676,7 +676,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_EN1 NVIC Enable1 Register(NVIC_EN1)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_EN1 NVIC Enable1 Register(NVIC_EN1)
 //! \brief Defines for the bit fields in the NVIC_EN1 register.
 //! @{
 //
@@ -853,7 +853,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_EN2 NVIC Enable1 Register(NVIC_EN2)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_EN2 NVIC Enable1 Register(NVIC_EN2)
 //! \brief Defines for the bit fields in the NVIC_EN2 register.
 //! @{
 //
@@ -1030,7 +1030,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_DIS0 NVIC Disable0 Register(NVIC_DIS0)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_DIS0 NVIC Disable0 Register(NVIC_DIS0)
 //! \brief Defines for the bit fields in the NVIC_DIS0 register.
 //! @{
 //
@@ -1209,7 +1209,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_DIS1 NVIC Disable1 Register(NVIC_DIS1)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_DIS1 NVIC Disable1 Register(NVIC_DIS1)
 //! \brief Defines for the bit fields in the NVIC_DIS1 register.
 //! @{
 //
@@ -1388,7 +1388,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_DIS2 NVIC Disable1 Register(NVIC_DIS2)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_DIS2 NVIC Disable1 Register(NVIC_DIS2)
 //! \brief Defines for the bit fields in the NVIC_DIS2 register.
 //! @{
 //
@@ -1567,7 +1567,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_PEND0 NVIC PEND 0 Register(NVIC_PEND0)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_PEND0 NVIC PEND 0 Register(NVIC_PEND0)
 //! \brief Defines for the bit fields in the NVIC_PEND0 register.
 //! @{
 //
@@ -1746,7 +1746,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_PEND1 NVIC PEND 1 Register(NVIC_PEND1)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_PEND1 NVIC PEND 1 Register(NVIC_PEND1)
 //! \brief Defines for the bit fields in the NVIC_PEND1 register.
 //! @{
 //
@@ -1925,7 +1925,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_PEND2 NVIC PEND 1 Register(NVIC_PEND2)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_PEND2 NVIC PEND 1 Register(NVIC_PEND2)
 //! \brief Defines for the bit fields in the NVIC_PEND2 register.
 //! @{
 //
@@ -2104,7 +2104,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_UNPEND0 NVIC UNPEND 0 Register(NVIC_UNPEND0)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_UNPEND0 NVIC UNPEND 0 Register(NVIC_UNPEND0)
 //! \brief Defines for the bit fields in the NVIC_UNPEND0 register.
 //! @{
 //
@@ -2282,7 +2282,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_UNPEND1 NVIC UNPEND 1 Register(NVIC_UNPEND1)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_UNPEND1 NVIC UNPEND 1 Register(NVIC_UNPEND1)
 //! \brief Defines for the bit fields in the NVIC_UNPEND1 register.
 //! @{
 //
@@ -2460,7 +2460,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_UNPEND2 NVIC UNPEND 1 Register(NVIC_UNPEND2)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_UNPEND2 NVIC UNPEND 1 Register(NVIC_UNPEND2)
 //! \brief Defines for the bit fields in the NVIC_UNPEND2 register.
 //! @{
 //
@@ -2638,7 +2638,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_PRI0 NVIC Priority 0 Register(NVIC_PRI0)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_PRI0 NVIC Priority 0 Register(NVIC_PRI0)
 //! \brief Defines for the bit fields in the NVIC_PRI0 register.
 //! @{
 //
@@ -2676,7 +2676,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_PRI1 NVIC Priority 1 Register(NVIC_PRI1)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_PRI1 NVIC Priority 1 Register(NVIC_PRI1)
 //! \brief Defines for the bit fields in the NVIC_PRI1 register.
 //! @{
 //
@@ -2714,7 +2714,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_PRI2 NVIC Priority 2 Register(NVIC_PRI2)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_PRI2 NVIC Priority 2 Register(NVIC_PRI2)
 //! \brief Defines for the bit fields in the NVIC_PRI2 register.
 //! @{
 //
@@ -2752,7 +2752,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_PRI3 NVIC Priority 3 Register(NVIC_PRI3)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_PRI3 NVIC Priority 3 Register(NVIC_PRI3)
 //! \brief Defines for the bit fields in the NVIC_PRI3 register.
 //! @{
 //
@@ -2790,7 +2790,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_PRI4 NVIC Priority 4 Register(NVIC_PRI4)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_PRI4 NVIC Priority 4 Register(NVIC_PRI4)
 //! \brief Defines for the bit fields in the NVIC_PRI4 register.
 //! @{
 //
@@ -2828,7 +2828,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_PRI5 NVIC Priority 5 Register(NVIC_PRI5)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_PRI5 NVIC Priority 5 Register(NVIC_PRI5)
 //! \brief Defines for the bit fields in the NVIC_PRI5 register.
 //! @{
 //
@@ -2866,7 +2866,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_PRI6 NVIC Priority 6 Register(NVIC_PRI6)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_PRI6 NVIC Priority 6 Register(NVIC_PRI6)
 //! \brief Defines for the bit fields in the NVIC_PRI6 register.
 //! @{
 //
@@ -2904,7 +2904,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_PRI7 NVIC Priority 7 Register(NVIC_PRI7)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_PRI7 NVIC Priority 7 Register(NVIC_PRI7)
 //! \brief Defines for the bit fields in the NVIC_PRI7 register.
 //! @{
 //
@@ -2942,7 +2942,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_PRI8 NVIC Priority 8 Register(NVIC_PRI8)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_PRI8 NVIC Priority 8 Register(NVIC_PRI8)
 //! \brief Defines for the bit fields in the NVIC_PRI8 register.
 //! @{
 //
@@ -2980,7 +2980,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_PRI9 NVIC Priority 9 Register(NVIC_PRI9)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_PRI9 NVIC Priority 9 Register(NVIC_PRI9)
 //! \brief Defines for the bit fields in the NVIC_PRI9 register.
 //! @{
 //
@@ -3018,7 +3018,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_PRI10 NVIC Priority 10 Register(NVIC_PRI10)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_PRI10 NVIC Priority 10 Register(NVIC_PRI10)
 //! \brief Defines for the bit fields in the NVIC_PRI10 register.
 //! @{
 //
@@ -3056,7 +3056,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_PRI11 NVIC Priority 11 Register(NVIC_PRI11)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_PRI11 NVIC Priority 11 Register(NVIC_PRI11)
 //! \brief Defines for the bit fields in the NVIC_PRI11 register.
 //! @{
 //
@@ -3094,7 +3094,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_PRI12 NVIC Priority 12 Register(NVIC_PRI12)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_PRI12 NVIC Priority 12 Register(NVIC_PRI12)
 //! \brief Defines for the bit fields in the NVIC_PRI12 register.
 //! @{
 //
@@ -3132,7 +3132,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_PRI13 NVIC Priority 13 Register(NVIC_PRI13)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_PRI13 NVIC Priority 13 Register(NVIC_PRI13)
 //! \brief Defines for the bit fields in the NVIC_PRI13 register.
 //! @{
 //
@@ -3170,7 +3170,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_PRI14 NVIC Priority 14 Register(NVIC_PRI14)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_PRI14 NVIC Priority 14 Register(NVIC_PRI14)
 //! \brief Defines for the bit fields in the NVIC_PRI14 register.
 //! @{
 //
@@ -3208,7 +3208,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_PRI15 NVIC Priority 15 Register(NVIC_PRI15)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_PRI15 NVIC Priority 15 Register(NVIC_PRI15)
 //! \brief Defines for the bit fields in the NVIC_PRI15 register.
 //! @{
 //
@@ -3246,7 +3246,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_PRI16 NVIC Priority 16 Register(NVIC_PRI16)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_PRI16 NVIC Priority 16 Register(NVIC_PRI16)
 //! \brief Defines for the bit fields in the NVIC_PRI16 register.
 //! @{
 //
@@ -3284,7 +3284,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_CPUID  NVIC CPUID Register(NVIC_CPUID)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_CPUID  NVIC CPUID Register(NVIC_CPUID)
 //! \brief Defines for the bit fields in the NVIC_CPUID register.
 //! @{
 //
@@ -3333,7 +3333,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_INT_CTRL NVIC Interrupt Control
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_INT_CTRL NVIC Interrupt Control
 //!  Register(NVIC_INT_CTRL)
 //! \brief Defines for the bit fields in the NVIC_INT_CTRL register.
 //! @{
@@ -3448,7 +3448,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_APINT NVIC APINT Register(NVIC_APINT)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_APINT NVIC APINT Register(NVIC_APINT)
 //! \brief Defines for the bit fields in the NVIC_APINT register.
 //! @{
 //
@@ -3537,7 +3537,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_SYS_CTRL NVIC System Control 
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_SYS_CTRL NVIC System Control 
 //! Register(NVIC_SYS_CTRL)
 //! \brief Defines for the bit fields in the NVIC_SYS_CTRL register.
 //! @{
@@ -3567,7 +3567,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_CFG_CTRL NVIC Cfg Control 
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_CFG_CTRL NVIC Cfg Control 
 //! Register(NVIC_CFG_CTRL)
 //! \brief Defines for the bit fields in the NVIC_CFG_CTRL register.
 //! @{
@@ -3612,7 +3612,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_SYS_PRI1 NVIC System Priority
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_SYS_PRI1 NVIC System Priority
 //!  1 Register(NVIC_SYS_PRI1)
 //! \brief Defines for the bit fields in the NVIC_SYS_PRI1 register.
 //! @{
@@ -3646,7 +3646,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_SYS_PRI2 NVIC System Priority 
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_SYS_PRI2 NVIC System Priority 
 //! 2 Register(NVIC_SYS_PRI2)
 //! \brief Defines for the bit fields in the NVIC_SYS_PRI2 register.
 //! @{
@@ -3667,7 +3667,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_SYS_PRI3 NVIC System Priority 
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_SYS_PRI3 NVIC System Priority 
 //! 3 Register(NVIC_SYS_PRI3)
 //! \brief Defines for the bit fields in the NVIC_SYS_PRI3 register.
 //! @{
@@ -3700,7 +3700,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_SYS_HND_CTRL NVIC HND Control
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_SYS_HND_CTRL NVIC HND Control
 //!  Register(NVIC_SYS_HND_CTRL)
 //! \brief Defines for the bit fields in the NVIC_SYS_HND_CTRL register.
 //! @{
@@ -3786,7 +3786,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_DEBUG_STAT NVIC Debug State 
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_DEBUG_STAT NVIC Debug State 
 //! Register(NVIC_DEBUG_STAT)
 //! \brief Defines for the bit fields in the NVIC_DEBUG_STAT register.
 //! @{
@@ -3826,7 +3826,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_DEBUG_CTRL NVIC Debug Control 
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_DEBUG_CTRL NVIC Debug Control 
 //! Register(NVIC_DBG_CTRL)
 //! \brief Defines for the bit fields in the NVIC_DBG_CTRL register.
 //! @{
@@ -3909,7 +3909,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_DBG_XFER NVIC XFER Register(NVIC_DBG_XFER)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_DBG_XFER NVIC XFER Register(NVIC_DBG_XFER)
 //! \brief Defines for the bit fields in the NVIC_DBG_XFER register.
 //! @{
 //
@@ -4038,7 +4038,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_DBG_DATA NVIC Debug Data 
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_DBG_DATA NVIC Debug Data 
 //! Register(NVIC_DBG_DATA)
 //! \brief Defines for the bit fields in the NVIC_DBG_DATA register.
 //! @{
@@ -4059,7 +4059,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_NVIC_Register_NVIC_DBG_INT NVIC Debug Intrrupt Register(NVIC_DBG_INT)
+//! \addtogroup HT32F175x_275x_NVIC_Register_NVIC_DBG_INT NVIC Debug Intrrupt Register(NVIC_DBG_INT)
 //! \brief Defines for the bit fields in the NVIC_DBG_INT register.
 //! @{
 //

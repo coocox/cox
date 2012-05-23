@@ -82,27 +82,27 @@ extern "C"
 //! \n
 //! \section xUART_Ints_CoX 2. CoX Port Details 
 //! \verbatim
-//! +------------------------+----------------+------------------------+
-//! |xUART Interrupts        |       CoX      |       HT32F1755        |
-//! |------------------------|----------------|------------------------|
-//! |xUART_INT_ERROR         |    Mandatory   |            Y           |
-//! |------------------------|----------------|------------------------|
-//! |xUART_INT_RT            |    Mandatory   |            Y           |
-//! |------------------------|----------------|------------------------|
-//! |xUART_INT_TX            |    Mandatory   |            Y           |
-//! |------------------------|----------------|------------------------|
-//! |xUART_INT_RX            |    Mandatory   |            Y           |
-//! |------------------------|----------------|------------------------|
-//! |xUART_INT_DSR           |  Non-Mandatory |            Y           |
-//! |------------------------|----------------|------------------------|
-//! |xUART_INT_DCD           |  Non-Mandatory |            Y           |
-//! |------------------------|----------------|------------------------|
-//! |xUART_INT_CTS           |  Non-Mandatory |            Y           |
-//! |------------------------|----------------|------------------------|
-//! |xUART_INT_RI            |  Non-Mandatory |            Y           |
-//! |------------------------|----------------|------------------------|
-//! |xUART_INT_LMSB          |  Non-Mandatory |            N           |
-//! +------------------------+----------------+------------------------+
+//! +------------------------+----------------+-----------------------------+
+//! |xUART Interrupts        |       CoX      |        HT32F175x/275x       |
+//! |------------------------|----------------|-----------------------------|
+//! |xUART_INT_ERROR         |    Mandatory   |              Y              |
+//! |------------------------|----------------|-----------------------------|
+//! |xUART_INT_RT            |    Mandatory   |              Y              |
+//! |------------------------|----------------|-----------------------------|
+//! |xUART_INT_TX            |    Mandatory   |              Y              |
+//! |------------------------|----------------|-----------------------------|
+//! |xUART_INT_RX            |    Mandatory   |              Y              |
+//! |------------------------|----------------|-----------------------------|
+//! |xUART_INT_DSR           |  Non-Mandatory |              Y              |
+//! |------------------------|----------------|-----------------------------|
+//! |xUART_INT_DCD           |  Non-Mandatory |              Y              |
+//! |------------------------|----------------|-----------------------------|
+//! |xUART_INT_CTS           |  Non-Mandatory |              Y              |
+//! |------------------------|----------------|-----------------------------|
+//! |xUART_INT_RI            |  Non-Mandatory |              Y              |
+//! |------------------------|----------------|-----------------------------|
+//! |xUART_INT_LMSB          |  Non-Mandatory |              N              |
+//! +------------------------+----------------+-----------------------------+
 //! \endverbatim
 //! @{
 //
@@ -172,7 +172,7 @@ extern "C"
 //! \section xUART_Event_Flag_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Events            |       CoX      |        HT32F1755       |
+//! |xUART Events            |       CoX      |        HT32F175x/275x  |
 //! |------------------------|----------------|------------------------|
 //! |xUART_EVENT_TX          |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -272,7 +272,7 @@ extern "C"
 //! \section xUART_Event_Flag_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Error             |       CoX      |          HT32F1755     |
+//! |xUART Error             |       CoX      |      HT32F175x/275x    |
 //! |------------------------|----------------|------------------------|
 //! |xUART_RXERROR_OVERRUN   |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -313,7 +313,7 @@ extern "C"
 //! \section xUART_Frame_Configs_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Frame Config      |       CoX      |       HT32F1755        |
+//! |xUART Frame Config      |       CoX      |     HT32F175x/275x      |
 //! |------------------------|----------------|------------------------|
 //! |xUART_CONFIG_WLEN_MASK  |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -424,7 +424,7 @@ extern "C"
 //! \section xUART_IrDA_Mode_CoX 2. CoX Port Details 
 //! \verbatim
 //! +-------------------------+----------------+------------------------+
-//! |xUART IrDA Mode          |       CoX      |        HT32F1755       |
+//! |xUART IrDA Mode          |       CoX      |     HT32F175x/275x     |
 //! |-------------------------|----------------|------------------------|
 //! |xUART_IRDA_MODE_NORMAL   |  Non-Mandatory |            Y           |
 //! |-------------------------|----------------|------------------------|
@@ -463,7 +463,7 @@ extern "C"
 //! \section xUART_Enable_Blocks_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Enable Block      |       CoX      |         HT32F1755      |
+//! |xUART Enable Block      |       CoX      |      HT32F175x/275x    |
 //! |------------------------|----------------|------------------------|
 //! |xUART_BLOCK_UART        |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -506,7 +506,7 @@ extern "C"
 //! \section xUART_FIFO_Rx_Tiggle_Level_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |FIFO Rx Tiggle Level    |       CoX      |         HT32F1755      |
+//! |FIFO Rx Tiggle Level    |       CoX      |     HT32F175x/275x     |
 //! |------------------------|----------------|------------------------|
 //! |xUART_FIFO_RX_n         |    Mandatory   |     xUART_FIFO_RX_1    |
 //! |                        |                |------------------------|
@@ -558,7 +558,7 @@ extern "C"
 //! \section xUART_Modem_Output_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Modem Output      |       CoX      |         HT32F1755      |
+//! |xUART Modem Output      |       CoX      |      HT32F175x/275x    |
 //! |------------------------|----------------|------------------------|
 //! |xUART_OUTPUT_RTS        |  Non-Mandatory |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -589,7 +589,7 @@ extern "C"
 //! \section xUART_Modem_Intput_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Modem Input       |       CoX      |          HT32F1755     |
+//! |xUART Modem Input       |       CoX      |     HT32F175x/275x     |
 //! |------------------------|----------------|------------------------|
 //! |xUART_INPUT_CTS         |  Non-Mandatory |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -630,7 +630,7 @@ extern "C"
 //! \section xUART_Flow_Control_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xUART Flow Control      |       CoX      |         HT32F1755      |
+//! |xUART Flow Control      |       CoX      |    HT32F175x/275x      |
 //! |------------------------|----------------|------------------------|
 //! |xUART_FLOWCONTROL_TX    |  Non-Mandatory |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -658,63 +658,63 @@ extern "C"
 //! \addtogroup xUART_Exported_APIs xUART API
 //! \section xUART_Exported_APIs_Port CoX Port Details
 //! \verbatim
-//! +------------------------+----------------+-----------+
-//! |xUART API               |       CoX      | HT32F1755 |
-//! |------------------------|----------------|-----------|
-//! |xUARTConfigSet          |    Mandatory   |     Y     |
-//! |------------------------|----------------|-----------|
-//! |xUARTEnable             |    Mandatory   |     Y     |
-//! |------------------------|----------------|-----------|
-//! |xUARTDisable            |    Mandatory   |     Y     |
-//! |------------------------|----------------|-----------|
-//! |xUARTFIFOEnable         |  Non-Mandatory |     N     |
-//! |------------------------|----------------|-----------|
-//! |xUARTFIFODisable        |  Non-Mandatory |     N     |
-//! |------------------------|----------------|-----------|
-//! |xUARTFIFORxLevelSet     |  Non-Mandatory |     Y     |
-//! |------------------------|----------------|-----------|
-//! |xUARTCharsAvail         |  Non-Mandatory |     Y     |
-//! |------------------------|----------------|-----------|
-//! |xUARTSpaceAvail         |  Non-Mandatory |     Y     |
-//! |------------------------|----------------|-----------|
-//! |xUARTCharGetNonBlocking |    Mandatory   |     Y     |
-//! |------------------------|----------------|-----------|
-//! |xUARTCharGet            |    Mandatory   |     Y     |
-//! |------------------------|----------------|-----------|
-//! |xUARTCharPutNonBlocking |    Mandatory   |     Y     |
-//! |------------------------|----------------|-----------|
-//! |xUARTCharPut            |    Mandatory   |     Y     |
-//! |------------------------|----------------|-----------|
-//! |xUARTBusy               |  Non-Mandatory |     N     |
-//! |------------------------|----------------|-----------|
-//! |xUARTIntEnable          |    Mandatory   |     Y     |
-//! |------------------------|----------------|-----------|
-//! |xUARTIntCallbackInit    |    Mandatory   |     Y     |
-//! |------------------------|----------------|-----------|
-//! |xUARTIntDisable         |    Mandatory   |     Y     |
-//! |------------------------|----------------|-----------|
-//! |xUARTRxErrorGet         |    Mandatory   |     Y     |
-//! |------------------------|----------------|-----------|
-//! |xUARTRxErrorClear       |    Mandatory   |     Y     |
-//! |------------------------|----------------|-----------|
-//! |xUARTModemControlSet    |  Non-Mandatory |     Y     |
-//! |------------------------|----------------|-----------|
-//! |xUARTModemControlClear  |  Non-Mandatory |     Y     |
-//! |------------------------|----------------|-----------|
-//! |xUARTModemControlGet    |  Non-Mandatory |     Y     |
-//! |------------------------|----------------|-----------|
-//! |xUARTModemStatusGet     |  Non-Mandatory |     Y     |
-//! |------------------------|----------------|-----------|
-//! |xUARTFlowControlSet     |  Non-Mandatory |     Y     |
-//! |------------------------|----------------|-----------|
-//! |xUARTFlowControlGet     |  Non-Mandatory |     Y     |
-//! |------------------------|----------------|-----------|
-//! |xUARTIrDAConfig         |  Non-Mandatory |     Y     |
-//! |------------------------|----------------|-----------|
-//! |xUARTIrDAEnable         |  Non-Mandatory |     Y     |
-//! |------------------------|----------------|-----------|
-//! |xUARTIrDADisable        |  Non-Mandatory |     Y     |
-//! |------------------------|----------------|-----------|
+//! +------------------------+----------------+----------------+
+//! |xUART API               |       CoX      | HT32F175x/275x |
+//! |------------------------|----------------|----------------|
+//! |xUARTConfigSet          |    Mandatory   |       Y        |
+//! |------------------------|----------------|----------------|
+//! |xUARTEnable             |    Mandatory   |       Y        |
+//! |------------------------|----------------|----------------|
+//! |xUARTDisable            |    Mandatory   |       Y        |
+//! |------------------------|----------------|----------------|
+//! |xUARTFIFOEnable         |  Non-Mandatory |       N        |
+//! |------------------------|----------------|----------------|
+//! |xUARTFIFODisable        |  Non-Mandatory |       N        |
+//! |------------------------|----------------|----------------|
+//! |xUARTFIFORxLevelSet     |  Non-Mandatory |       Y        |
+//! |------------------------|----------------|----------------|
+//! |xUARTCharsAvail         |  Non-Mandatory |       Y        |
+//! |------------------------|----------------|----------------|
+//! |xUARTSpaceAvail         |  Non-Mandatory |       Y        |
+//! |------------------------|----------------|----------------|
+//! |xUARTCharGetNonBlocking |    Mandatory   |       Y        |
+//! |------------------------|----------------|----------------|
+//! |xUARTCharGet            |    Mandatory   |       Y        |
+//! |------------------------|----------------|----------------|
+//! |xUARTCharPutNonBlocking |    Mandatory   |       Y        |
+//! |------------------------|----------------|----------------|
+//! |xUARTCharPut            |    Mandatory   |       Y        |
+//! |------------------------|----------------|----------------|
+//! |xUARTBusy               |  Non-Mandatory |       N        |
+//! |------------------------|----------------|----------------|
+//! |xUARTIntEnable          |    Mandatory   |       Y        |
+//! |------------------------|----------------|----------------|
+//! |xUARTIntCallbackInit    |    Mandatory   |       Y        |
+//! |------------------------|----------------|----------------|
+//! |xUARTIntDisable         |    Mandatory   |       Y        |
+//! |------------------------|----------------|----------------|
+//! |xUARTRxErrorGet         |    Mandatory   |       Y        |
+//! |------------------------|----------------|----------------|
+//! |xUARTRxErrorClear       |    Mandatory   |       Y        |
+//! |------------------------|----------------|----------------|
+//! |xUARTModemControlSet    |  Non-Mandatory |       Y        |
+//! |------------------------|----------------|----------------|
+//! |xUARTModemControlClear  |  Non-Mandatory |       Y        |
+//! |------------------------|----------------|----------------|
+//! |xUARTModemControlGet    |  Non-Mandatory |       Y        |
+//! |------------------------|----------------|----------------|
+//! |xUARTModemStatusGet     |  Non-Mandatory |       Y        |
+//! |------------------------|----------------|----------------|
+//! |xUARTFlowControlSet     |  Non-Mandatory |       Y        |
+//! |------------------------|----------------|----------------|
+//! |xUARTFlowControlGet     |  Non-Mandatory |       Y        |
+//! |------------------------|----------------|----------------|
+//! |xUARTIrDAConfig         |  Non-Mandatory |       Y        |
+//! |------------------------|----------------|----------------|
+//! |xUARTIrDAEnable         |  Non-Mandatory |       Y        |
+//! |------------------------|----------------|----------------|
+//! |xUARTIrDADisable        |  Non-Mandatory |       Y        |
+//! |------------------------|----------------|----------------|
 //! \endverbatim
 //! @{
 //
@@ -1159,7 +1159,7 @@ extern "C"
 //! there is space available in the receive FIFO.  If no hardware flow control
 //! is required, xUART_FLOWCONTROL_NONE should be passed.
 //!
-//! \note The availability of hardware flow control varies with the HT32F1755
+//! \note The availability of hardware flow control varies with the HT32F175x/275x
 //! part and UART in use.  Please consult the datasheet for the part you are
 //! using to determine whether this support is available.
 //!
@@ -1177,7 +1177,7 @@ extern "C"
 //!
 //! Returns the current hardware flow control mode.
 //!
-//! \note The availability of hardware flow control varies with the HT32F1755
+//! \note The availability of hardware flow control varies with the HT32F175x/275x
 //! part and UART in use.  Please consult the datasheet for the part you are
 //! using to determine whether this support is available.
 //!
@@ -1270,14 +1270,14 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_UART
+//! \addtogroup HT32F175x_275x_UART
 //! @{
 //
 //*****************************************************************************
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_UART_INT_Type HT32F1755 UART Interrupt Type
+//! \addtogroup HT32F175x_275x_UART_INT_Type HT32F175x_275x UART Interrupt Type
 //! Values that can be passed to UARTIntEnable, UARTIntDisable, and UARTIntClear
 //! as the ulIntFlags parameter.
 //! @{
@@ -1317,7 +1317,7 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_UART_Line_Config HT32F1755 UART Line Configuration
+//! \addtogroup HT32F175x_275x_UART_Line_Config HT32F175x_275x UART Line Configuration
 //! Values that can be passed to UARTConfigSetExpClk as the ulConfig parameter
 //! and returned by UARTConfigGetExpClk in the pulConfig parameter.
 //! Additionally, the UART_CONFIG_PAR_* subset can be passed to
@@ -1399,7 +1399,7 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_UART_Enable_Blocks HT32F1755 UART Enable Blocks
+//! \addtogroup HT32F175x_275x_UART_Enable_Blocks HT32F175x_275x UART Enable Blocks
 //! Uart logic blocks that can be passed to UARTEnable or UARTDisable as 
 //! the ulBlock parameter.
 //! @{
@@ -1429,7 +1429,7 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_UART_FIFO_Level HT32F1755 UART FIFO Level
+//! \addtogroup HT32F175x_275x_UART_FIFO_Level HT32F175x_275x UART FIFO Level
 //! Values that can be passed to UARTFIFOTriggerLevelSet(), as the ulRxLevel
 //! parameter, and returned from UARTFIFOTriggerLevelGet().
 //! @{
@@ -1464,7 +1464,7 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 
 //*****************************************************************************
 //
-//! \addtogroup UART_Enable_Blocks xUART Enable Blocks
+//! \addtogroup HT32F175x_275x_UART_Enable_Blocks xUART Enable Blocks
 //! Uart logic blocks  that can be passed to UARTEnable() or UARTDisable()
 //! @{
 //
@@ -1493,7 +1493,7 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_UART_OUTPUT_RTS HT32F1755 UART OUTPUT RTS
+//! \addtogroup HT32F175x_275x_UART_OUTPUT_RTS HT32F175x_275x UART OUTPUT RTS
 //! Values that can be passed to UARTModemControlSet() or returned from
 //! UARTModemControlGet().
 //! @{
@@ -1513,7 +1513,7 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_UART_Error HT32F1755 UART Error
+//! \addtogroup HT32F175x_275x_UART_Error HT32F175x_275x UART Error
 //! Values returned from UARTRxErrorGet().
 //! @{
 //
@@ -1532,7 +1532,7 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_UART_IrDA_Config HT32F1755 UART IrDA Configuration
+//! \addtogroup HT32F175x_275x_UART_IrDA_Config HT32F175x_275x UART IrDA Configuration
 //! Values that can be passed to UARTIrDAConfig() as the ulConfig parameter
 //! @{
 //
@@ -1596,7 +1596,7 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_UART_RS485_Config HT32F1755 UART RS485 Configuration
+//! \addtogroup HT32F175x_275x_UART_RS485_Config HT32F175x_275x UART RS485 Configuration
 //! Values that can be passed to UART485Config() as the ulConfig parameter
 //! @{
 //
@@ -1641,7 +1641,7 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_UART_Transfer_Mode HT32F1755 UART Transfer Mode
+//! \addtogroup HT32F175x_275x_UART_Transfer_Mode HT32F175x_275x UART Transfer Mode
 //! Values that can be passed to UARTTransferModeSet() as the ulConfig parameter
 //! @{
 //
@@ -1663,7 +1663,7 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_UART_DMA_Mode HT32F1755 UART DMA Transfer Mode
+//! \addtogroup HT32F175x_275x_UART_DMA_Mode HT32F175x_275x UART DMA Transfer Mode
 //! Values that can be passed to UARTSDMAModeSet() as the ulDMAMode parameter
 //! @{
 //
@@ -1685,7 +1685,7 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_UART_FIFO_Type HT32F1755 UART FIFO Type
+//! \addtogroup HT32F175x_275x_UART_FIFO_Type HT32F175x_275x UART FIFO Type
 //! Values that can be passed to UARTFIFOStatusGet() as the ulFIFOType parameter
 //! @{
 //
@@ -1707,7 +1707,7 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_UART_Flow_Control HT32F1755 UART Flow Control
+//! \addtogroup HT32F175x_275x_UART_Flow_Control HT32F175x_275x UART Flow Control
 //! Values that can be passed to UARTFlowControlSet() or returned from
 //! UARTFlowControlGet().
 //! @{
@@ -1726,7 +1726,7 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_USART_Synchronous_Config UART Synchronous Mode Config
+//! \addtogroup HT32F175x_275x_USART_Synchronous_Config UART Synchronous Mode Config
 //! Values that can be passed to UARTSyncModeConfig() as the ulConfig parameter
 //! @{
 //
@@ -1765,8 +1765,8 @@ extern void xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_UART_Exported_APIs HT32F1755 UART API
-//! \brief HT32F1755 UART API Reference.
+//! \addtogroup HT32F175x_275x_UART_Exported_APIs HT32F175x_275x UART API
+//! \brief HT32F175x/275x UART API Reference.
 //! @{
 //
 //*****************************************************************************
@@ -1820,7 +1820,8 @@ extern void UART485Config(unsigned long ulBase, unsigned long ulBaud,
 extern void UARTModeSet(unsigned long ulBase, unsigned long ulUartMode);
 extern void UARTSyncModeConfig(unsigned long ulBase, unsigned long ulBaud,
               unsigned long ulSYNConfig, unsigned long ulUARTConfig);
-extern void UARTSDMAModeSet(unsigned long ulBase, unsigned long ulDMAMode);
+extern void UARTDMAModeEnable(unsigned long ulBase, unsigned long ulDMAMode);
+extern void UARTDMAModeDisable(unsigned long ulBase, unsigned long ulDMAMode);
 extern unsigned long UARTFIFOStatusGet(unsigned long ulBase, unsigned long ulFIFOType);
 //*****************************************************************************
 //

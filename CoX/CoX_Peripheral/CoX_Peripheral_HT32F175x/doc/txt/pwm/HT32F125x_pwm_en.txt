@@ -1,39 +1,39 @@
 //*****************************************************************************
 //
-//! \defgroup HT32F175x/275x_PWM HT32F175x/275x PWM
+//! \defgroup HT32F175x_275x_PWM HT32F175x_275x PWM
 //! 
-//! \brief Holtek HT32F175x/275x PWM Peripheral Driver.
+//! \brief Holtek HT32F175x_275x PWM Peripheral Driver.
 //!
 //! The CoX Peripheral Library also provides APIs for full functions of Holtek
-//! HT32F175x/275x PWM. This module supports the whole HT32F175x/275x Series.
+//! HT32F175x_275x PWM. This module supports the whole HT32F175x_275x Series.
 //!
 //! <br />
 //! <h1>Contents</h1>
-//! - \ref HT32F175x/275x_PWM_Blcok
-//! - \ref HT32F175x/275x_PWM_Function_Desc
-//! - \ref HT32F175x/275x_PWM_API_Group
-//!   - \ref HT32F175x/275x_PWM_API_Group_Config
-//!   - \ref HT32F175x/275x_PWM_API_Group_Function
-//!     - \ref HT32F175x/275x_PWM_API_Group_Output
-//!     - \ref HT32F175x/275x_PWM_API_Group_Interrupt
-//!     - \ref HT32F175x/275x_PWM_API_Group_Control
+//! - \ref HT32F175x_275x_PWM_Blcok
+//! - \ref HT32F175x_275x_PWM_Function_Desc
+//! - \ref HT32F175x_275x_PWM_API_Group
+//!   - \ref HT32F175x_275x_PWM_API_Group_Config
+//!   - \ref HT32F175x_275x_PWM_API_Group_Function
+//!     - \ref HT32F175x_275x_PWM_API_Group_Output
+//!     - \ref HT32F175x_275x_PWM_API_Group_Interrupt
+//!     - \ref HT32F175x_275x_PWM_API_Group_Control
 //!   .
-//! - \ref HT32F175x/275x_PWM_Usage
+//! - \ref HT32F175x_275x_PWM_Usage
 //! .
 //!
 //! <br />
-//! \section HT32F175x/275x_PWM_Blcok 1. PWM Physical Block
+//! \section HT32F175x_275x_PWM_Blcok 1. PWM Physical Block
 //! <img src="HT32F175x275x_pwm_block.png" />
 //! 
 //! <br />
-//! \section HT32F175x/275x_PWM_Function_Desc 2. Functional Description
+//! \section HT32F175x_275x_PWM_Function_Desc 2. Functional Description
 //! PWM includes the following functions:
 //! - Interrupt
 //! - Output
 //! .
 //! 
 //! <br />
-//! \section HT32F175x/275x_PWM_API_Group 3. API Groups
+//! \section HT32F175x_275x_PWM_API_Group 3. API Groups
 //! 
 //! The PWM API is broken into two groups of functions : 
 //! - those that deal with configuring the PWM
@@ -41,7 +41,7 @@
 //! .
 //!
 //! <br />
-//! \subsection HT32F175x/275x_PWM_API_Group_Config 3.1 PWM Configuration APIs 
+//! \subsection HT32F175x_275x_PWM_API_Group_Config 3.1 PWM Configuration APIs 
 //! 
 //! The PWM are configured with :
 //! - PWMFrequencyConfig()
@@ -55,10 +55,10 @@
 //! .
 //! 
 //! <br />
-//! \subsection HT32F175x/275x_PWM_API_Group_Function 3.2 PWM Function APIs
+//! \subsection HT32F175x_275x_PWM_API_Group_Function 3.2 PWM Function APIs
 //! 
 //! <br />
-//! \subsubsection HT32F175x/275x_PWM_API_Group_Output 3.2.1 PWM Output APIs
+//! \subsubsection HT32F175x_275x_PWM_API_Group_Output 3.2.1 PWM Output APIs
 //!
 //! The PWM Output are set with : 
 //! - PWMOutputEnable()
@@ -66,7 +66,7 @@
 //! .
 //!
 //! <br />
-//! \subsubsection HT32F175x/275x_PWM_API_Group_Interrupt 3.2.2 PWM Interrupt APIs
+//! \subsubsection HT32F175x_275x_PWM_API_Group_Interrupt 3.2.2 PWM Interrupt APIs
 //!
 //! The PWM Interrupt are set with : 
 //! - PWMIntEnable()
@@ -76,7 +76,7 @@
 //! .
 //!
 //! <br />
-//! \subsubsection HT32F175x/275x_PWM_API_Group_Control 3.2.3 PWM Control APIs
+//! \subsubsection HT32F175x_275x_PWM_API_Group_Control 3.2.3 PWM Control APIs
 //!
 //! The PWM Control are set with : 
 //! - PWMStart()
@@ -84,7 +84,7 @@
 //! .
 //!
 //! <br />
-//! \section HT32F175x/275x_PWM_Usage 4. Usage & Program Examples
+//! \section HT32F175x_275x_PWM_Usage 4. Usage & Program Examples
 //! The following example shows how to use the PWM APIs to initialize 
 //! the PWM as output toggle mode.
 //! 
@@ -105,7 +105,7 @@
 //! //
 //! // \brief PWM output function example. 
 //! // Configure the pwm channel0 as output toggle mode, the duty is 40. This code
-//! // is tested on the HT32F175x/275x Development Board.
+//! // is tested on the HT32F175x_275x Development Board.
 //! //
 //! // \return None.
 //! //

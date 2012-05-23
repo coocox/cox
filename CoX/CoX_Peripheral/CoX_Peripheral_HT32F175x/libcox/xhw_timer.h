@@ -55,7 +55,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F215x_TIMER_Register HT32F125x TIMER Register
+//! \addtogroup HT32F175x_275x_TIMER_Register HT32F175x_275x TIMER Register
 //! \brief Here are the detailed info of TIMER registers. 
 //!
 //! it contains:
@@ -71,7 +71,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_TIMER_Register_Address_Offset TIMER Register Offset(Map)
+//! \addtogroup HT32F175x_275x_TIMER_Register_Address_Offset TIMER Register Offset(Map)
 //! \brief Here is the TIMER register offset, users can get the register address
 //! through <b>TIMER_BASE + offset</b>.
 //! @{
@@ -206,7 +206,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_TIMER_Register_TIMER_CNTCFR Timer Counter 
+//! \addtogroup HT32F175x_275x_TIMER_Register_TIMER_CNTCFR Timer Counter 
 //! Configuration Register (CNTCFR).
 //! \brief Defines for the bit fields in the TIMER_CNTCFR register.
 //! @{
@@ -291,7 +291,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_TIMER_Register_TIMER_MDCFR Timer Mode Configuration 
+//! \addtogroup HT32F175x_275x_TIMER_Register_TIMER_MDCFR Timer Mode Configuration 
 //! Register (MDCFR)
 //! \brief Defines for the bit fields in the TIMER_MDCFR register.
 //! @{
@@ -417,7 +417,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_TIMER_Register_TIMER_TRCFR Timer Trigger Configuration
+//! \addtogroup HT32F175x_275x_TIMER_Register_TIMER_TRCFR Timer Trigger Configuration
 //! Register (TRCFR).
 //! \brief Defines for the bit fields in the TIMER_TRCFR register.
 //! @{
@@ -608,7 +608,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_TIMER_Register_TIMER_CTR Timer Control Register(CTR).
+//! \addtogroup HT32F175x_275x_TIMER_Register_TIMER_CTR Timer Control Register(CTR).
 //! @{
 //
 //*****************************************************************************
@@ -636,7 +636,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_TIMER_Register_TIMER_CH0ICFR Channel 0 Input 
+//! \addtogroup HT32F175x_275x_TIMER_Register_TIMER_CH0ICFR Channel 0 Input 
 //! Configuration Register (CH0ICFR).
 //! @{
 //
@@ -823,7 +823,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_TIMER_Register_TIMER_CH1ICFR Channel 1 Input 
+//! \addtogroup HT32F175x_275x_TIMER_Register_TIMER_CH1ICFR Channel 1 Input 
 //! Configuration Register (CH1ICFR).
 //! @{
 //
@@ -1006,7 +1006,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_TIMER_Register_TIMER_CH2ICFR Channel 2 Input 
+//! \addtogroup HT32F175x_275x_TIMER_Register_TIMER_CH2ICFR Channel 2 Input 
 //! Configuration Register (CH2ICFR).
 //! @{
 //
@@ -1189,7 +1189,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_TIMER_Register_TIMER_CH3ICFR Channel 3 Input 
+//! \addtogroup HT32F175x_275x_TIMER_Register_TIMER_CH3ICFR Channel 3 Input 
 //! Configuration Register (CH3ICFR).
 //! @{
 //
@@ -1372,7 +1372,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_TIMER_Register_TIMER_CH0OCFR Channel 0 Output 
+//! \addtogroup HT32F175x_275x_TIMER_Register_TIMER_CH0OCFR Channel 0 Output 
 //! Configuration Register (CH0OCFR).
 //! @{
 //
@@ -1454,7 +1454,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_TIMER_Register_TIMER_CH1OCFR Channel 1 Output 
+//! \addtogroup HT32F175x_275x_TIMER_Register_TIMER_CH1OCFR Channel 1 Output 
 //! Configuration Register (CH1OCFR).
 //! @{
 //
@@ -1536,7 +1536,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_TIMER_Register_TIMER_CH2OCFR Channel 2 Output 
+//! \addtogroup HT32F175x_275x_TIMER_Register_TIMER_CH2OCFR Channel 2 Output 
 //! Configuration Register (CH2OCFR).
 //! @{
 //
@@ -1618,7 +1618,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_TIMER_Register_TIMER_CH3OCFR Channel 3 Output 
+//! \addtogroup HT32F175x_275x_TIMER_Register_TIMER_CH3OCFR Channel 3 Output 
 //! Configuration Register (CH3OCFR).
 //! @{
 //
@@ -1700,7 +1700,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_TIMER_Register_TIMER_CHCTR Channel Control Register(CHCTR)
+//! \addtogroup HT32F175x_275x_TIMER_Register_TIMER_CHCTR Channel Control Register(CHCTR)
 //! @{
 //
 //*****************************************************************************
@@ -1733,7 +1733,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_TIMER_Register_TIMER_CHPOLR Channel Polarity 
+//! \addtogroup HT32F175x_275x_TIMER_Register_TIMER_CHPOLR Channel Polarity 
 //! Configuration Register
 //! @{
 //
@@ -1767,7 +1767,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_TIMER_Register_TIMER_ICTR Timer Interrupt Control 
+//! \addtogroup HT32F175x_275x_TIMER_Register_TIMER_ICTR Timer Interrupt Control 
 //! Register (ICTR)
 //! @{
 //
@@ -1841,7 +1841,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_TIMER_Register_TIMER_EVGR Timer Event Generator 
+//! \addtogroup HT32F175x_275x_TIMER_Register_TIMER_EVGR Timer Event Generator 
 //! Register (EVGR)
 //! @{
 //
@@ -1885,7 +1885,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_TIMER_Register_TIMER_INTSR Timer Interrupt Status 
+//! \addtogroup HT32F175x_275x_TIMER_Register_TIMER_INTSR Timer Interrupt Status 
 //! Register (INTSR)
 //! @{
 //
@@ -1949,7 +1949,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_TIMER_Register_TIMER_CNTR Timer Counter Register (CNTR)
+//! \addtogroup HT32F175x_275x_TIMER_Register_TIMER_CNTR Timer Counter Register (CNTR)
 //! @{
 //
 //*****************************************************************************
@@ -1967,7 +1967,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_TIMER_Register_TIMER_PSCR Timer Counter Register (PSCR)
+//! \addtogroup HT32F175x_275x_TIMER_Register_TIMER_PSCR Timer Counter Register (PSCR)
 //! @{
 //
 //*****************************************************************************
@@ -1985,7 +1985,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_TIMER_Register_TIMER_CRR Timer Counter Reload Register
+//! \addtogroup HT32F175x_275x_TIMER_Register_TIMER_CRR Timer Counter Reload Register
 //! (CRR)
 //! @{
 //

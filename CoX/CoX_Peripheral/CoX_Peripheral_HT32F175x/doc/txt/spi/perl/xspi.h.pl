@@ -29,7 +29,7 @@ my $tb = Text::Table->new(
 # Fill Table Cotent
 $tb->load(
     # Line 0(Column Name)
-    [ "xSPI Interrupts", "CoX", "HT32F125x"  ],
+    [ "xSPI Interrupts", "CoX", "HT32F175x/275x"  ],
     [ "------------------------", "----------------","------------------------", ],
     [ "xSPI_INT_EOT", "Mandatory", "Y" ],
     [ "------------------------", "----------------","------------------------", ],
@@ -79,7 +79,7 @@ my $tb = Text::Table->new(
 # Fill Table Cotent
 $tb->load(
     # Line 0(Column Name)
-    [ "xSPI Configs", "CoX", "HT32F125x"  ],
+    [ "xSPI Configs", "CoX", "HT32F175x/275x"  ],
     [ "------------------------", "----------------","------------------------", ],
     [ "xSPI_MOTO_FORMAT_MODE_0", "Mandatory", "Y" ],
     [ "------------------------", "----------------","------------------------", ],
@@ -161,7 +161,7 @@ my $tb = Text::Table->new(
 # Fill Table Cotent
 $tb->load(
     # Line 0(Column Name)
-    [ "xSPI DMA", "CoX", "HT32F125x"  ],
+    [ "xSPI DMA", "CoX", "HT32F175x/275x"  ],
     [ "------------------------", "----------------","------------------------", ],
     [ "xSPI_DMA_TX", "Mandatory", "N" ],
     [ "------------------------", "----------------","------------------------", ],
@@ -211,7 +211,7 @@ my $tb = Text::Table->new(
 # Fill Table Cotent
 $tb->load(
     # Line 0(Column Name)
-    [ "xSPI Slave Select Mode", "CoX", "HT32F125x"  ],
+    [ "xSPI Slave Select Mode", "CoX", "HT32F175x/275x"  ],
     [ "------------------------", "----------------","------------------------", ],
     [ "xSPI_SS_HARDWARE", "Mandatory", "Y" ],
     [ "------------------------", "----------------","------------------------", ],
@@ -258,7 +258,7 @@ my $tb = Text::Table->new(
 # Fill Table Cotent
 $tb->load(
     # Line 0(Column Name)
-    [ "xSPI Slave Select", "CoX", "HT32F125x"  ],
+    [ "xSPI Slave Select", "CoX", "HT32F175x/275x"  ],
     [ "------------------------", "----------------","------------------------", ],
     [ "xSPI_SS_NONE", "Mandatory", "N" ],
     [ "------------------------", "----------------","------------------------", ],
@@ -309,7 +309,7 @@ my $tb = Text::Table->new(
 # Fill Table Cotent
 $tb->load(
     # Line 0(Column Name)
-    [ "xSPI API", "CoX", "HT32F125x"  ],
+    [ "xSPI API", "CoX", "HT32F175x/275x"  ],
     [ "------------------------", "----------------","------------------------", ],
     [ "xSPIConfigSet", "Mandatory", "Y" ],
     [ "------------------------", "----------------","------------------------", ],

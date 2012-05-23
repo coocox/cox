@@ -1834,14 +1834,14 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO
+//! \addtogroup HT32F175x_275x_GPIO
 //! @{
 //
 //*****************************************************************************
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_General_Pin_IDs HT32F175x/275x GPIO General Pin ID
+//! \addtogroup HT32F175x_275x_GPIO_General_Pin_IDs HT32F175x/275x GPIO General Pin ID
 //! \brief The following values define the bit field for the ucPins argument 
 //! to several of the APIs.
 //! @{
@@ -1936,7 +1936,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_General_Pin_Bits HT32F175x/275x GPIO General Pin Bits
+//! \addtogroup HT32F175x_275x_GPIO_General_Pin_Bits HT32F175x/275x GPIO General Pin Bits
 //! \brief The following values define the bit field for the ucBit argument to 
 //! GPIODirModeSet() API.
 //! @{
@@ -2031,7 +2031,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Dir_Mode HT32F175x/275x GPIO Dir Mode
+//! \addtogroup HT32F175x_275x_GPIO_Dir_Mode HT32F175x/275x GPIO Dir Mode
 //! \brief Values that can be passed to GPIODirModeSet as the ulPinIO parameter, 
 //! and returned from GPIODirModeGet.
 //! @{
@@ -2066,7 +2066,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
           
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_IN_ENABLE HT32F175x/275x GPIO Input Enable.
+//! \addtogroup HT32F175x_275x_GPIO_IN_ENABLE HT32F175x/275x GPIO Input Enable.
 //! \brief Values that can be passed to GPIOInputConfigure as the ulPinIO ulEnable.
 //! @{
 //
@@ -2090,7 +2090,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Int_Type HT32F175x/275x GPIO Int Type
+//! \addtogroup HT32F175x_275x_GPIO_Int_Type HT32F175x/275x GPIO Int Type
 //! \brief Values that can be passed to GPIOIntTypeSet as the ulIntType parameter, 
 //! and returned from GPIOIntTypeGet.
 //! @{
@@ -2130,7 +2130,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
   
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_PULLRESISTOR_CONFIG HT32F175x/275x Pull Resistor Configure
+//! \addtogroup HT32F175x_275x_PULLRESISTOR_CONFIG HT32F175x/275x Pull Resistor Configure
 //! \brief Values that can be passed to XGPIOPadConfigSet  as the ulPadType  
 //!  parameter.
 //! @{
@@ -2160,7 +2160,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
           
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_OPEN_DRAIN_CFG HT32F175x/275x Open Drain Mode Configure.
+//! \addtogroup HT32F175x_275x_OPEN_DRAIN_CFG HT32F175x/275x Open Drain Mode Configure.
 //! \brief Values that can be passed to xGPIOPadConfigSet as the ulPadType parameter.
 //! @{
 //
@@ -2184,7 +2184,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
           
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_OUTPUT_DRIVING HT32F175x/275x output driving current.
+//! \addtogroup HT32F175x_275x_OUTPUT_DRIVING HT32F175x/275x output driving current.
 //! \brief Values that can be passed to XGPIOPadConfigSet as the ulStrength parameter.
 //! @{
 //
@@ -2204,7 +2204,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
           
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_EXTI_LINES HT32F175x/275x EXTI LINE
+//! \addtogroup HT32F175x_275x_EXTI_LINES HT32F175x/275x EXTI LINE
 //! \brief Values that can be passed to EXTILineDebounceEnable as the ulClockSource
 //! parameter.
 //! @{
@@ -2239,7 +2239,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
           
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_EXTI_WAKEUP_INT HT32F175x/275x EXTI Wake Up Int
+//! \addtogroup HT32F175x_275x_EXTI_WAKEUP_INT HT32F175x/275x EXTI Wake Up Int
 //! \brief Values that can be passed to EXTIWakeUpIntConfigure as the ulWakeUpInt
 //! parameter.
 //! @{
@@ -2264,7 +2264,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
           
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_EXTILINE_WAKEUP HT32F175x/275x EXTI Line Wake Up Configure
+//! \addtogroup HT32F175x_275x_EXTILINE_WAKEUP HT32F175x/275x EXTI Line Wake Up Configure
 //! \brief Values that can be passed to EXTILineWakeUpConfigure as the ulLevel
 //! and ulEnable parameter.
 //! @{
@@ -2293,7 +2293,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
           
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Function_Set HT32F175x/275x GPIO Function Set
+//! \addtogroup HT32F175x_275x_GPIO_Function_Set HT32F175x/275x GPIO Function Set
 //! \brief Values that can be passed to GPIOPinFunctionSet as the ulFunction
 //! parameter.
 //! @{
@@ -2317,7 +2317,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Pin_Config HT32F175x/275x GPIO Pin Config
+//! \addtogroup HT32F175x_275x_GPIO_Pin_Config HT32F175x/275x GPIO Pin Config
 //! \brief Values that can be passed to xGPIOPinConfigure as the ulPinConfig 
 //! parameter.
 //! @{
@@ -2826,7 +2826,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_GPIO_Exported_APIs HT32F175x/275x GPIO API
+//! \addtogroup HT32F175x_275x_GPIO_Exported_APIs HT32F175x/275x GPIO API
 //! \brief GPIO API Reference.
 //! @{
 //

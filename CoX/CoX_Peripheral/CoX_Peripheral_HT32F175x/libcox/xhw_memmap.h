@@ -1,7 +1,7 @@
 //*****************************************************************************
 //
 //! \file xhw_memmap.h
-//! \brief Macros defining the memory map of HT32F175x/275x.
+//! \brief Macros defining the memory map of HT32F175x_275x.
 //! \version V2.2.1.0
 //! \date 2/21/2012
 //! \author CooCox
@@ -116,14 +116,14 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_LowLayer
+//! \addtogroup HT32F175x_275x_LowLayer
 //! @{
 //
 //*****************************************************************************
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_LowLayer_Peripheral_Memmap HT32F175x/275x LowLayer 
+//! \addtogroup HT32F175x_275x_LowLayer_Peripheral_Memmap HT32F175x_275x LowLayer 
 //! Peripheral Memmap
 //! The following are defines for the base address of the memories and
 //! peripherals.

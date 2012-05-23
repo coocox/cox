@@ -1,37 +1,37 @@
 //*****************************************************************************
 //
-//! \defgroup HT32F175x/275x_GPIO ht32f175x/275x GPIO
+//! \defgroup HT32F175x_275x_GPIO ht32f175x_275x GPIO
 //! 
-//! \brief Nuvoton ht32f175x/275x GPIO Peripheral Driver.
+//! \brief Nuvoton ht32f175x_275x GPIO Peripheral Driver.
 //!
 //! The CoX Peripheral Library also provides APIs for full functions of HOLTEK
-//! ht32f175x/275x GPIO. This module supports the whole ht32f175x/275x Series.
+//! ht32f175x_275x GPIO. This module supports the whole ht32f175x_275x Series.
 //!
 //! <br />
 //! <h1>Contents</h1>
-//! - \ref ht32f175x/275x_GPIO_Blcok
-//! - \ref ht32f175x/275x_GPIO_Function_Desc
-//!   - \ref ht32f175x/275x_Function_GPIO
-//!   - \ref ht32f175x/275x_Function_AFIO
-//!   - \ref ht32f175x/275x_Function_EXTI
-//! - \ref ht32f175x/275x_GPIO_API_Group
-//!   - \ref ht32f175x/275x_GPIO_API_Group_GPIO
-//!   - \ref ht32f175x/275x_GPIO_API_Group_AFIO
-//!   - \ref ht32f175x/275x_GPIO_API_Group_EXTI
-//!   - \ref ht32f175x/275x_GPIO_API_Group_Pin 
+//! - \ref ht32f175x_275x_GPIO_Blcok
+//! - \ref ht32f175x_275x_GPIO_Function_Desc
+//!   - \ref ht32f175x_275x_Function_GPIO
+//!   - \ref ht32f175x_275x_Function_AFIO
+//!   - \ref ht32f175x_275x_Function_EXTI
+//! - \ref ht32f175x_275x_GPIO_API_Group
+//!   - \ref ht32f175x_275x_GPIO_API_Group_GPIO
+//!   - \ref ht32f175x_275x_GPIO_API_Group_AFIO
+//!   - \ref ht32f175x_275x_GPIO_API_Group_EXTI
+//!   - \ref ht32f175x_275x_GPIO_API_Group_Pin 
 //!   .
-//! - \ref ht32f175x/275x_GPIO_Usage
+//! - \ref ht32f175x_275x_GPIO_Usage
 //! .
 //!
 //! <br />
-//! \section ht32f175x/275x_GPIO_Blcok 1. GPIO Physical Block
+//! \section ht32f175x_275x_GPIO_Blcok 1. GPIO Physical Block
 //! <img src="ht32f175x275x_gpio_block.png" />
 //! 
 //! <br />
-//! \section ht32f175x/275x_GPIO_Function_Desc 2. Functional Description
+//! \section ht32f175x_275x_GPIO_Function_Desc 2. Functional Description
 //! 
 //! <br />
-//! \subsection ht32f175x/275x_Function_GPIO 2.1 ht32f175x/275x GPIO function
+//! \subsection ht32f175x_275x_Function_GPIO 2.1 ht32f175x_275x GPIO function
 //! 
 //! - Can be configured as an input or an output. 
 //! - In output mode, can be set high level or low level. 
@@ -40,19 +40,19 @@
 //! both level, rising edge, falling edge, or both edges.
 //! .
 //!
-//! \subsection ht32f175x/275x_Function_AFIO 2.2 ht32f175x/275x AFIO function
+//! \subsection ht32f175x_275x_Function_AFIO 2.2 ht32f175x_275x AFIO function
 //! 
 //! <table border=0 ><tr>
 //!   <td width="50%"><img src="AFIO_IN.png" /></td>
 //!   <td width="50%"><img src="AFIO_OUT.png" /></td>
 //! </tr></table>
 //!
-//! \sunsection ht32f175x/275x_Function_EXTI 2.3 ht32f175x/275x EXTI function
+//! \sunsection ht32f175x_275x_Function_EXTI 2.3 ht32f175x_275x EXTI function
 //! 
 //! <img src="ht32f175x275x_exti.png" />
 //! 
 //! <br />
-//! \section ht32f175x/275x_GPIO_API_Group 3. API Groups
+//! \section ht32f175x_275x_GPIO_API_Group 3. API Groups
 //! 
 //! The GPIO API is broken into three groups of functions: 
 //! - those that deal with configuring the GPIO pins, 
@@ -61,7 +61,7 @@
 //! .
 //!
 //! <br />
-//! \subsection ht32f175x/275x_GPIO_API_Group_GPIO 3.1 ht32f175x/275x GPIO API
+//! \subsection ht32f175x_275x_GPIO_API_Group_GPIO 3.1 ht32f175x_275x GPIO API
 //! 
 //! The GPIO pins are configured with:
 //! - GPIODirModeSet(),
@@ -97,14 +97,14 @@
 //! - GPIOPinIntDisable().
 //! 
 //! <br />
-//! \subsection ht32f175x/275x_GPIO_API_Group_AFIO 3.2 ht32f175x/275x AFIO API
+//! \subsection ht32f175x_275x_GPIO_API_Group_AFIO 3.2 ht32f175x_275x AFIO API
 //! 
 //! - GPIOPinFunctionSet(),
 //! - GPIOPinConfigure().
 //! .
 //!
 //! <br />
-//! \subsection ht32f175x/275x_GPIO_API_Group_EXTI 3.3 ht32f175x/275x EXTI API
+//! \subsection ht32f175x_275x_GPIO_API_Group_EXTI 3.3 ht32f175x_275x EXTI API
 //! 
 //! EXTI source select API:
 //! - EXTILineSourceSelect().
@@ -131,7 +131,7 @@
 //! - EXTILineSoftwareClear().
 //!
 //! <br />
-//! \subsection ht32f175x/275x_GPIO_API_Group_Pin 3.3 GPIO Pin State APIs
+//! \subsection ht32f175x_275x_GPIO_API_Group_Pin 3.3 GPIO Pin State APIs
 //! 
 //! The GPIO pin state is accessed with:
 //! - GPIOPinRead(),
@@ -140,7 +140,7 @@
 //! .
 //!
 //! <br />
-//! \section ht32f175x/275x_GPIO_Usage 4. Usage & Program Examples
+//! \section ht32f175x_275x_GPIO_Usage 4. Usage & Program Examples
 //! The following example shows how to use the GPIO API to initialize the 
 //! GPIO, enable interrupts, read data from pins, and write data to pins.
 //! 

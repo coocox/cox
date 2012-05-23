@@ -1,7 +1,7 @@
 //*****************************************************************************
 //
 //! \file xhw_ints.h
-//! \brief Macros that define the interrupt assignment on HT32F175x/275x.
+//! \brief Macros that define the interrupt assignment on HT32F175x_275x.
 //! \version V2.2.1.0
 //! \date 4/25/2012
 //! \author CooCox
@@ -138,14 +138,14 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_LowLayer
+//! \addtogroup HT32F175x_275x_LowLayer
 //! @{
 //
 //*****************************************************************************
 
 //*****************************************************************************
 //
-//! \addtogroup  HT32F175x/275x_LowLayer_Interrupt_Assignments HT32F175x/275x 
+//! \addtogroup  HT32F175x_275x_LowLayer_Interrupt_Assignments HT32F175x_275x 
 //! Interrupt Assignments
 //! \brief Macros defines for the fault/interrupt assignments.
 //!

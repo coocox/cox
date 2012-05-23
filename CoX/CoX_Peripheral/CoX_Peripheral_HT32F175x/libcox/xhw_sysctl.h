@@ -57,7 +57,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Register HT32F1755 SysCtl Register
+//! \addtogroup HT32F175x_275x_SysCtl_Register HT32F175x_275x SysCtl Register
 //!
 //! it contains:
 //! - Register offset.
@@ -72,9 +72,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Register_Offsets HT32F1755 SysCtl Register Offsets(Map)
-//! \brief Defines for the system control register addresses.through 
-//! <b>SysCtl_BASE + offset</b>.
+//! \addtogroup HT32F175x_275x_SysCtl_Register_Offsets HT32F175x_275x SysCtl Register Offsets(Map)
+//! \brief Defines for the system control register addresses.
 //! @{
 //
 //*****************************************************************************
@@ -257,7 +256,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Register_PWRCU_BAKSR SysCtl Register PWRCU BAKSR(SysCtl_PWRCU_BAKSR)
+//! \addtogroup HT32F175x_275x_SysCtl_Register_PWRCU_BAKSR SysCtl Register PWRCU BAKSR(SysCtl_PWRCU_BAKSR)
 //! @{
 //
 //*****************************************************************************
@@ -285,7 +284,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Register_PWRCU_BAKCR SysCtl Register PWRCU BAKCR(SysCtl_PWRCU_BAKCR)
+//! \addtogroup HT32F175x_275x_SysCtl_Register_PWRCU_BAKCR SysCtl Register PWRCU BAKCR(SysCtl_PWRCU_BAKCR)
 //! @{
 //
 //*****************************************************************************
@@ -333,7 +332,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Register_PWRCU_BAKTEST SysCtl Register PWRCU BAKTEST(SysCtl_PWRCU_BAKTEST)
+//! \addtogroup HT32F175x_275x_SysCtl_Register_PWRCU_BAKTEST SysCtl Register PWRCU BAKTEST(SysCtl_PWRCU_BAKTEST)
 //! @{
 //
 //*****************************************************************************
@@ -356,7 +355,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Register_PWRCU_HSIRCR SysCtl Register PWRCU HSIRCR(SysCtl_PWRCU_HSIRCR)
+//! \addtogroup HT32F175x_275x_SysCtl_Register_PWRCU_HSIRCR SysCtl Register PWRCU HSIRCR(SysCtl_PWRCU_HSIRCR)
 //! @{
 //
 //*****************************************************************************
@@ -399,7 +398,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Register_PWRCU_LVDCSR SysCtl Register PWRCU LVDCSR(SysCtl_PWRCU_LVDCSR)
+//! \addtogroup HT32F175x_275x_SysCtl_Register_PWRCU_LVDCSR SysCtl Register PWRCU LVDCSR(SysCtl_PWRCU_LVDCSR)
 //! @{
 //
 //*****************************************************************************
@@ -482,7 +481,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Register_SYSCLK_GCFGR SysCtl Register SYSCLK GCFGR(SysCtl_SYSCLK_GCFGR)
+//! \addtogroup HT32F175x_275x_SysCtl_Register_SYSCLK_GCFGR SysCtl Register SYSCLK GCFGR(SysCtl_SYSCLK_GCFGR)
 //! @{
 //
 //*****************************************************************************
@@ -843,7 +842,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Register_SYSCLK_GCCR SysCtl Register SYSCLK GCCR(SysCtl_SYSCLK_GCCR)
+//! \addtogroup HT32F175x_275x_SysCtl_Register_SYSCLK_GCCR SysCtl Register SYSCLK GCCR(SysCtl_SYSCLK_GCCR)
 //! @{
 //
 //*****************************************************************************
@@ -906,7 +905,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Register_SYSCLK_GCSR SysCtl Register SYSCLK GCSR(SysCtl_SYSCLK_GCSR)
+//! \addtogroup HT32F175x_275x_SysCtl_Register_SYSCLK_GCSR SysCtl Register SYSCLK GCSR(SysCtl_SYSCLK_GCSR)
 //! @{
 //
 //*****************************************************************************
@@ -944,7 +943,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Register_SYSCLK_GCIR SysCtl Register SYSCLK GCIR(SysCtl_SYSCLK_GCIR)
+//! \addtogroup HT32F175x_275x_SysCtl_Register_SYSCLK_GCIR SysCtl Register SYSCLK GCIR(SysCtl_SYSCLK_GCIR)
 //! @{
 //
 //*****************************************************************************
@@ -1017,7 +1016,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Register_SYSCLK_PLLCFGR SysCtl Register SYSCLK PLLCFGR(SysCtl_SYSCLK_PLLCFGR)
+//! \addtogroup HT32F175x_275x_SysCtl_Register_SYSCLK_PLLCFGR SysCtl Register SYSCLK PLLCFGR(SysCtl_SYSCLK_PLLCFGR)
 //! @{
 //
 //*****************************************************************************
@@ -1050,7 +1049,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Register_SYSCLK_PLLCR SysCtl Register SYSCLK PLLCR(SysCtl_SYSCLK_PLLCR)
+//! \addtogroup HT32F175x_275x_SysCtl_Register_SYSCLK_PLLCR SysCtl Register SYSCLK PLLCR(SysCtl_SYSCLK_PLLCR)
 //! @{
 //
 //*****************************************************************************
@@ -1068,7 +1067,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Register_SYSCLK_AHBCFGR SysCtl Register SYSCLK AHBCFGR(SysCtl_SYSCLK_AHBCFGR)
+//! \addtogroup HT32F175x_275x_SysCtl_Register_SYSCLK_AHBCFGR SysCtl Register SYSCLK AHBCFGR(SysCtl_SYSCLK_AHBCFGR)
 //! @{
 //
 //*****************************************************************************
@@ -1115,7 +1114,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Register_SYSCLK_AHBCCR SysCtl Register SYSCLK AHBCCR(SysCtl_SYSCLK_AHBCCR)
+//! \addtogroup HT32F175x_275x_SysCtl_Register_SYSCLK_AHBCCR SysCtl Register SYSCLK AHBCCR(SysCtl_SYSCLK_AHBCCR)
 //! @{
 //
 //*****************************************************************************
@@ -1168,7 +1167,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Register_SYSCLK_APBCFGR SysCtl Register SYSCLK APBCFGR(SysCtl_SYSCLK_APBCFGR)
+//! \addtogroup HT32F175x_275x_SysCtl_Register_SYSCLK_APBCFGR SysCtl Register SYSCLK APBCFGR(SysCtl_SYSCLK_APBCFGR)
 //! @{
 //
 //*****************************************************************************
@@ -1238,7 +1237,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Register_SYSCLK_APBCCR0 SysCtl Register SYSCLK APBCCR0(SysCtl_SYSCLK_APBCCR0)
+//! \addtogroup HT32F175x_275x_SysCtl_Register_SYSCLK_APBCCR0 SysCtl Register SYSCLK APBCCR0(SysCtl_SYSCLK_APBCCR0)
 //! @{
 //
 //*****************************************************************************
@@ -1320,7 +1319,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Register_SYSCLK_APBCCR1 SysCtl Register SYSCLK APBCCR1(SysCtl_SYSCLK_APBCCR1)
+//! \addtogroup HT32F175x_275x_SysCtl_Register_SYSCLK_APBCCR1 SysCtl Register SYSCLK APBCCR1(SysCtl_SYSCLK_APBCCR1)
 //! @{
 //
 //*****************************************************************************
@@ -1388,7 +1387,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Register_SYSCLK_CKST SysCtl Register SYSCLK CKST(SysCtl_SYSCLK_CKST)
+//! \addtogroup HT32F175x_275x_SysCtl_Register_SYSCLK_CKST SysCtl Register SYSCLK CKST(SysCtl_SYSCLK_CKST)
 //! @{
 //
 //*****************************************************************************
@@ -1496,7 +1495,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Register_SYSCLK_LPCR SysCtl Register SYSCLK LPCR(SysCtl_SYSCLK_LPCR)
+//! \addtogroup HT32F175x_275x_SysCtl_Register_SYSCLK_LPCR SysCtl Register SYSCLK LPCR(SysCtl_SYSCLK_LPCR)
 //! @{
 //
 //*****************************************************************************
@@ -1519,7 +1518,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Register_SYSCLK_DBGCR SysCtl Register SYSCLK DBGCR(SysCtl_SYSCLK_DBGCR)
+//! \addtogroup HT32F175x_275x_SysCtl_Register_SYSCLK_DBGCR SysCtl Register SYSCLK DBGCR(SysCtl_SYSCLK_DBGCR)
 //! @{
 //
 //*****************************************************************************
@@ -1620,7 +1619,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Register_RSTCU_GRSR SysCtl GRSR Register(SysCtl_RSTCU_GRSR)
+//! \addtogroup HT32F175x_275x_SysCtl_Register_RSTCU_GRSR SysCtl GRSR Register(SysCtl_RSTCU_GRSR)
 //! @{
 //
 //*****************************************************************************
@@ -1674,7 +1673,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Register_RSTCU_APBPRSTR0 SysCtl APBPRSTR0 Register(SysCtl_RSTCU_APBPRSTR0)
+//! \addtogroup HT32F175x_275x_SysCtl_Register_RSTCU_APBPRSTR0 SysCtl APBPRSTR0 Register(SysCtl_RSTCU_APBPRSTR0)
 //! @{
 //
 //*****************************************************************************
@@ -1764,7 +1763,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_SysCtl_Register_RSTCU_APBPRSTR1 SysCtl APBPRSTR1 Register(SysCtl_RSTCU_APBPRSTR1)
+//! \addtogroup HT32F175x_275x_SysCtl_Register_RSTCU_APBPRSTR1 SysCtl APBPRSTR1 Register(SysCtl_RSTCU_APBPRSTR1)
 //! @{
 //
 //*****************************************************************************

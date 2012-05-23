@@ -56,7 +56,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_UART_Register HT32F1755 UART Register
+//! \addtogroup HT32F175x_275x_UART_Register HT32F175x_275x UART Register
 //! \brief Here are the detailed info of USART registers. 
 //!
 //! it contains:
@@ -72,7 +72,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_USART_Register_Offsets USART Register Offset(Map)
+//! \addtogroup HT32F175x_275x_USART_Register_Offsets USART Register Offset(Map)
 //! \brief Here is the USART register offset, users can get the register address
 //! through <b>USART_BASE + offset</b>.
 //! @{
@@ -173,7 +173,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_USART_Register_USART_RBR USART Receive Buffer Register(USART_RBR)
+//! \addtogroup HT32F175x_275x_USART_Register_USART_RBR USART Receive Buffer Register(USART_RBR)
 //! @{
 //
 //*****************************************************************************
@@ -195,7 +195,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_USART_Register_USART_TBR USART Transmit Holding Register(USART_TBR)
+//! \addtogroup HT32F175x_275x_USART_Register_USART_TBR USART Transmit Holding Register(USART_TBR)
 //! @{
 //
 //*****************************************************************************
@@ -218,7 +218,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_USART_Register_USART_IER USART Interrupt Enable Register(USART_IER)
+//! \addtogroup HT32F175x_275x_USART_Register_USART_IER USART Interrupt Enable Register(USART_IER)
 //! @{
 //
 //*****************************************************************************
@@ -251,7 +251,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_USART_Register_USART_IIR USART FIFO Status Register(USART_IIR)
+//! \addtogroup HT32F175x_275x_USART_Register_USART_IIR USART FIFO Status Register(USART_IIR)
 //! @{
 //
 //*****************************************************************************
@@ -289,7 +289,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_USART_Register_USART_FCR  USART FIFO Control Register(USART_FCR)
+//! \addtogroup HT32F175x_275x_USART_Register_USART_FCR  USART FIFO Control Register(USART_FCR)
 //! @{
 //
 //*****************************************************************************
@@ -386,7 +386,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_USART_Register_USART_LCR USART Line Control Register(USART_LCR)
+//! \addtogroup HT32F175x_275x_USART_Register_USART_LCR USART Line Control Register(USART_LCR)
 //! @{
 //
 //*****************************************************************************
@@ -449,7 +449,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_USART_Register_USART_MCR USART Modem Control Register(USART_MCR)
+//! \addtogroup HT32F175x_275x_USART_Register_USART_MCR USART Modem Control Register(USART_MCR)
 //! @{
 //
 //*****************************************************************************
@@ -486,7 +486,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_USART_Register_USART_LSR USART Line Status Register(USART_LSR)
+//! \addtogroup HT32F175x_275x_USART_Register_USART_LSR USART Line Status Register(USART_LSR)
 //! @{
 //
 //*****************************************************************************
@@ -549,7 +549,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_USART_Register_USART_MSR USART Modem Status Register(USART_MSR)
+//! \addtogroup HT32F175x_275x_USART_Register_USART_MSR USART Modem Status Register(USART_MSR)
 //! @{
 //
 //*****************************************************************************
@@ -602,7 +602,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_USART_Register_USART_TPR USART Timing Parameter Register(USART_TPR)
+//! \addtogroup HT32F175x_275x_USART_Register_USART_TPR USART Timing Parameter Register(USART_TPR)
 //! @{
 //
 //*****************************************************************************
@@ -640,7 +640,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_USART_Register_USART_FUN_SEL USART Function Select Register(USART_FUN_SEL)
+//! \addtogroup HT32F175x_275x_USART_Register_USART_FUN_SEL USART Function Select Register(USART_FUN_SEL)
 //! @{
 //
 //*****************************************************************************
@@ -702,7 +702,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_USART_Register_USART_IRCR USART IrDA Control Register(USART_IRCR)
+//! \addtogroup HT32F175x_275x_USART_Register_USART_IRCR USART IrDA Control Register(USART_IRCR)
 //! @{
 //
 //*****************************************************************************
@@ -766,7 +766,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_USART_Register_USART_RS485CR USART 485 Control Register(USART_RS485CR)
+//! \addtogroup HT32F175x_275x_USART_Register_USART_RS485CR USART 485 Control Register(USART_RS485CR)
 //! @{
 //
 //*****************************************************************************
@@ -811,7 +811,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_USART_Register_USART_SYNCR Synchronous Control Register (SYNCR)
+//! \addtogroup HT32F175x_275x_USART_Register_USART_SYNCR Synchronous Control Register (SYNCR)
 //! @{
 //
 //*****************************************************************************
@@ -849,7 +849,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_USART_Register_USART_FSR FIFO Status Register (FSR)
+//! \addtogroup HT32F175x_275x_USART_Register_USART_FSR FIFO Status Register (FSR)
 //! @{
 //
 //*****************************************************************************
@@ -882,7 +882,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_USART_Register_USART_BAUD USART Baud Rate Divisor Register(USART_BAUD)
+//! \addtogroup HT32F175x_275x_USART_Register_USART_BAUD USART Baud Rate Divisor Register(USART_BAUD)
 //! @{
 //
 //*****************************************************************************
@@ -905,7 +905,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F1755_USART_Register_USART_DEGTSTR USART Debug Mode Register(USART_DEGTSTR)
+//! \addtogroup HT32F175x_275x_USART_Register_USART_DEGTSTR USART Debug Mode Register(USART_DEGTSTR)
 //! @{
 //
 //*****************************************************************************

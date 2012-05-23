@@ -421,7 +421,7 @@ extern void xPWMInitConfigure(unsigned long ulBase, unsigned long ulChannel,
 //! value, The Divider value and the PWM Counter Register value.
 //! Details please refer to \ref xPWM_Freq_Config_CoX.
 //!
-//! \note Config will not the same since diff manu,but for HT32F125x is the above
+//! \note Config will not the same since diff manu,but for HT32F175x_275x is the above
 //!
 //! \return the Actual Frequency of PWM.
 //
@@ -695,15 +695,15 @@ extern void xPWMInitConfigure(unsigned long ulBase, unsigned long ulChannel,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_PWM
+//! \addtogroup HT32F175x_275x_PWM
 //! @{
 //
 //*****************************************************************************
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_PWM_Channel HT32F125x PWM Channel
-//! \brief Values that show HT32F125x PWM Channel
+//! \addtogroup HT32F175x_275x_PWM_Channel HT32F175x_275x PWM Channel
+//! \brief Values that show HT32F175x_275x PWM Channel
 //! Values that can be passed to all the function in xpwm.c.
 //! @{
 //
@@ -757,8 +757,8 @@ extern void xPWMInitConfigure(unsigned long ulBase, unsigned long ulChannel,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_PWM_Config HT32F125x PWM Configuration
-//! \brief Values that show HT32F125x PWM Configuration
+//! \addtogroup HT32F175x_275x_PWM_Config HT32F175x_275x PWM Configuration
+//! \brief Values that show HT32F175x_275x PWM Configuration
 //! Values that can be passed to PWMInitConfigure().
 //! @{
 //
@@ -782,8 +782,8 @@ extern void xPWMInitConfigure(unsigned long ulBase, unsigned long ulChannel,
   
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_PWM_Mode HT32F125x PWM Output Mode
-//! \brief Values that show HT32F125x PWM Configuration
+//! \addtogroup HT32F175x_275x_PWM_Mode HT32F175x_275x PWM Output Mode
+//! \brief Values that show HT32F175x_275x PWM Configuration
 //! Values that can be passed to PWMInitConfigure().
 //! @{
 //
@@ -807,7 +807,7 @@ extern void xPWMInitConfigure(unsigned long ulBase, unsigned long ulChannel,
   
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_Count_Dir HT32F125x Counter direction
+//! \addtogroup HT32F175x_275x_Count_Dir HT32F175x_275x Counter direction
 //! Values that can be passed to PWMInitConfigure().
 //! @{
 //
@@ -831,7 +831,7 @@ extern void xPWMInitConfigure(unsigned long ulBase, unsigned long ulChannel,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_PWM_Int_Type HT32F125x PWM Interrupt Type
+//! \addtogroup HT32F175x_275x_PWM_Int_Type HT32F175x_275x PWM Interrupt Type
 //! Values that can be passed to PWMIntEnable(), PWMIntDisable(), PWMIntFlagGet(),
 //! PWMIntFlagClear().
 //! @{
@@ -856,8 +856,8 @@ extern void xPWMInitConfigure(unsigned long ulBase, unsigned long ulChannel,
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F125x_PWM_Exported_APIs HT32F125x PWM API
-//! \brief HT32F125x PWM API Reference.
+//! \addtogroup HT32F175x_275x_PWM_Exported_APIs HT32F175x_275x PWM API
+//! \brief HT32F175x_275x PWM API Reference.
 //! @{
 //
 //*****************************************************************************
