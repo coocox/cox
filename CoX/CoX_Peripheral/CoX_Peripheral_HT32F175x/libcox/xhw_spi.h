@@ -57,7 +57,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_SPI_Register  HT32F175x/275x SPI Register
+//! \addtogroup HT32F175x_275x_SPI_Register  HT32F175x_275x SPI Register
 //! \brief Here are the detailed info of SPI registers.  
 //!
 //! it contains:
@@ -73,7 +73,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_SPI_Register_Offsets SPI Register Offsets(Map)
+//! \addtogroup HT32F175x_275x_SPI_Register_Offsets SPI Register Offsets(Map)
 //! \brief Here is the SPI register offset, users can get the register address
 //! through <b>SPI_BASE + offset</b>.
 //! @{
@@ -133,7 +133,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_SPI_Register_SPI_CNTRL0 SPI Control0 Register(SPI_CNTRL0) 
+//! \addtogroup HT32F175x_275x_SPI_Register_SPI_CNTRL0 SPI Control0 Register(SPI_CNTRL0) 
 //! \brief Defines for the bit fields in the SPI_CNTRL0 register.
 //! @{
 //
@@ -177,7 +177,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_SPI_Register_SPI_CNTRL1 SPI Control1 Register(SPI_CNTRL1) 
+//! \addtogroup HT32F175x_275x_SPI_Register_SPI_CNTRL1 SPI Control1 Register(SPI_CNTRL1) 
 //! \brief Defines for the bit fields in the SPI_CNTRL1 register.
 //! @{
 //
@@ -250,7 +250,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_SPI_Register_SPI_IER SPI Interrupt Enable Register(SPI_IER)
+//! \addtogroup HT32F175x_275x_SPI_Register_SPI_IER SPI Interrupt Enable Register(SPI_IER)
 //! \brief Defines for the bit fields in the SPI_IER register.
 //! @{
 //
@@ -304,7 +304,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_SPI_Register_SPI_DR SPIreceived or transmitted Data
+//! \addtogroup HT32F175x_275x_SPI_Register_SPI_DR SPIreceived or transmitted Data
 //! Register(SPI_CPR)
 //! \brief efines for the bit fields in the SPI_CPR register.
 //! @{
@@ -330,7 +330,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_SPI_Register_SPI_SR SPI relevant status Register(SPI_RX0)
+//! \addtogroup HT32F175x_275x_SPI_Register_SPI_SR SPI relevant status Register(SPI_RX0)
 //! \brief Defines for the bit fields in the SPI_SR register.
 //! @{
 //
@@ -389,7 +389,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_SPI_Register_SPI_FCR SPI FIFO Control Register(SPI_FCR)
+//! \addtogroup HT32F175x_275x_SPI_Register_SPI_FCR SPI FIFO Control Register(SPI_FCR)
 //! \brief Defines for the bit fields in the SPI_FCR register.
 //! @{
 //
@@ -438,7 +438,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_SPI_Register_SPI_FSR SPI SPI FIFO status Register(SPI_SPIFSR)
+//! \addtogroup HT32F175x_275x_SPI_Register_SPI_FSR SPI SPI FIFO status Register(SPI_SPIFSR)
 //! \brief Defines for the bit fields in the SPI_FSR register.
 //! @{
 //
@@ -472,7 +472,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x/275x_SPI_Register_SPI_FTOCR SPI FIFO Time Out Counter 
+//! \addtogroup HT32F175x_275x_SPI_Register_SPI_FTOCR SPI FIFO Time Out Counter 
 //! Register(SPI_TX1)
 //! \brief Defines for the bit fields in the SPI_FTOCR register.
 //! @{

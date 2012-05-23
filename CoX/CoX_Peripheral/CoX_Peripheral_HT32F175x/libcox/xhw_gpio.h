@@ -723,7 +723,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x_275x_GPIO_Register_AFIO_GPACFGR alternative function SelectionA 
+//! \addtogroup HT32F175x_275x_GPIO_Register_AFIO_GPACFGR Alternative function SelectionA 
 //!  Register(AFIO_GPACFGR)
 //! \brief Defines for the bit fields in the AFIO_GPACFGR register.
 //! @{
@@ -832,7 +832,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x_275x_GPIO_Register_AFIO_GPBCFGR alternative function SelectionB 
+//! \addtogroup HT32F175x_275x_GPIO_Register_AFIO_GPBCFGR Alternative function SelectionB 
 //!  Register(AFIO_GPBCFGR)
 //! \brief Defines for the bit fields in the AFIO_GPBCFGR register.
 //! @{
@@ -941,7 +941,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x_275x_GPIO_Register_AFIO_GPCCFGR alternative function Selection 
+//! \addtogroup HT32F175x_275x_GPIO_Register_AFIO_GPCCFGR Alternative function SelectionC 
 //!  Register(AFIO_GPCCFGR)
 //! \brief Defines for the bit fields in the AFIO_GPCCFGR register.
 //! @{
@@ -1050,7 +1050,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x_275x_GPIO_Register_AFIO_GPDCFGR alternative function Selection 
+//! \addtogroup HT32F175x_275x_GPIO_Register_AFIO_GPDCFGR Alternative function SelectionD 
 //!  Register(AFIO_GPDCFGR)
 //! \brief Defines for the bit fields in the AFIO_GPDCFGR register.
 //! @{
@@ -1159,7 +1159,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup HT32F175x_275x_GPIO_Register_AFIO_GPECFGR alternative function Selection 
+//! \addtogroup HT32F175x_275x_GPIO_Register_AFIO_GPECFGR Alternative function SelectionE 
 //!  Register(AFIO_GPECFGR)
 //! \brief Defines for the bit fields in the AFIO_GPECFGR register.
 //! @{
