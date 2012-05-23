@@ -1686,6 +1686,9 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xgpio.c</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xrtc.c</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xsysctl.c</name>
         </file>
         <file>
@@ -1694,7 +1697,22 @@
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xuart.c</name>
         </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xwdt.c</name>
+        </file>
       </group>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_rtc.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_wdt.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\libcox\xrtc.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\libcox\xwdt.h</name>
+      </file>
     </group>
   </group>
   <group>

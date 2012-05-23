@@ -65,7 +65,7 @@
         </option>
         <option>
           <name>OGCoreOrChip</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>GRuntimeLibSelect</name>
@@ -103,7 +103,7 @@
         </option>
         <option>
           <name>OGChipSelectEditMenu</name>
-          <state>Mini51 series	Nuvoton Mini51 series (Mini51,Mini52,Mini54)</state>
+          <state>HT32F1253	HT32F1253</state>
         </option>
         <option>
           <name>GenLowLevelInterface</name>
@@ -1661,13 +1661,25 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_nvic.h</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_rtc.h</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_sysctl.h</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_types.h</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_wdt.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xrtc.h</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xsysctl.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xwdt.h</name>
         </file>
       </group>
       <group>
@@ -1682,7 +1694,13 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xgpio.c</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xrtc.c</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xsysctl.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xwdt.c</name>
         </file>
       </group>
     </group>

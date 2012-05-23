@@ -1,6 +1,6 @@
 <?xml version="2.0" ?>
 <Component>
-    <Name>CoX.Peripheral.HT32F125x.xCORE</Name>
+    <Name>CoX.Peripheral.HT32F175x.xCORE</Name>
     <Description>CoX CORE< Driver</Description>
     <Category>Peripheral.CoX</Category>
     <Version>2.1.1.0</Version>
@@ -17,13 +17,13 @@
     </FilesCoIDE>
 
     <Dependencys>
-        <Dependency>CoX.Peripheral.HT32F125x.xStartup</Dependency>
-        <Dependency>CoX.Peripheral.HT32F125x.xLowLayer</Dependency>
+        <Dependency>CoX.Peripheral.HT32F175x.xStartup</Dependency>
+        <Dependency>CoX.Peripheral.HT32F175x.xLowLayer</Dependency>
     </Dependencys>
 
     <SupportDevices>
         <Series>
-            <Serie exclude="">HT32F125x</Serie>
+            <Serie exclude="">HT32F175x</Serie>
         </Series>
         <Devices>
             <Device></Device>

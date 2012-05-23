@@ -1,7 +1,7 @@
 <?xml version="2.0" ?>
 <Component>
-    <Name>CoX.Peripheral.HT32F125x.xTimer</Name>
-    <Description>HT32F125x Timer Control Driver</Description>
+    <Name>CoX.Peripheral.HT32F175x.xTimer</Name>
+    <Description>HT32F175x Timer Control Driver</Description>
     <Category>Peripheral.CoX</Category>
     <Version>2.0.0</Version>
     <Tags>CoX, xtimer,timer, TC</Tags>
@@ -17,16 +17,16 @@
     </FilesCoIDE>
 
     <Dependencys>
-        <Dependency>CoX.Peripheral.HT32F125x.xStartup</Dependency>
-        <Dependency>CoX.Peripheral.HT32F125x.xCORE</Dependency> 
-        <Dependency>CoX.Peripheral.HT32F125x.xLowLayer</Dependency>
-	<Dependency>CoX.Peripheral.HT32F125x.xSysCtl</Dependency>
-	<Dependency>CoX.Peripheral.HT32F125x.xGPIO</Dependency>
+        <Dependency>CoX.Peripheral.HT32F175x.xStartup</Dependency>
+        <Dependency>CoX.Peripheral.HT32F175x.xCORE</Dependency> 
+        <Dependency>CoX.Peripheral.HT32F175x.xLowLayer</Dependency>
+	<Dependency>CoX.Peripheral.HT32F175x.xSysCtl</Dependency>
+	<Dependency>CoX.Peripheral.HT32F175x.xGPIO</Dependency>
     </Dependencys>
 
     <SupportDevices>
         <Series>
-            <Serie exclude="">HT32F125x</Serie>
+            <Serie exclude="">HT32F175x</Serie>
         </Series>
         <Devices>
             <Device></Device>

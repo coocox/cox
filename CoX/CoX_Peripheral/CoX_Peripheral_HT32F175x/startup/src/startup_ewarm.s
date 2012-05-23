@@ -204,6 +204,7 @@ __vector_table
       PUBWEAK I2C0IntHandler
       PUBWEAK SPI0IntHandler
       PUBWEAK UART0IntHandler
+      PUBWEAK MCTMBRKIntHandler
       PUBWEAK MCTMUPIntHandler
       PUBWEAK MCTMTRUP2IntHandler
       PUBWEAK MCTMCCIntHandler

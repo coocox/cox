@@ -1660,6 +1660,9 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_pwm.h</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_rtc.h</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_sysctl.h</name>
         </file>
         <file>
@@ -1669,13 +1672,22 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_uart.h</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_wdt.h</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xpwm.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xrtc.h</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xsysctl.h</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xuart.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xwdt.h</name>
         </file>
       </group>
       <group>
@@ -1690,10 +1702,16 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xpwm.c</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xrtc.c</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xsysctl.c</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xuart.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xwdt.c</name>
         </file>
       </group>
     </group>
