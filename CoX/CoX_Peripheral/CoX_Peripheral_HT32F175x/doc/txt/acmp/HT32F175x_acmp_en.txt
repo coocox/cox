@@ -1,0 +1,105 @@
+//*****************************************************************************
+//
+//! \defgroup HT32F175x_275x_ACMP HT32F175x_275x ACMP
+//! 
+//! \brief HT32F175x_275x Analog Comparator Peripheral Driver
+//!
+//! The CoX Peripheral Library also provides APIs for full functions of 
+//! HT32F175x_275x Operational Amplifier/Comparator.
+//! \n
+//!
+//! <h1>Contents</h1>
+//! - \ref HT32F175x_275x_ACMP_Introduction
+//! - \ref HT32F175x_275x_ACMP_Block
+//! - \ref HT32F175x_275x_ACMP_Function_Desc
+//!   - \ref HT32F175x_275x_ACMP_Pin_Desc
+//!   - \ref HT32F175x_275x_ACMP_Func_Comparator
+//!   - \ref HT32F175x_275x_ACMP_Func_Int
+//!   .
+//! - \ref HT32F175x_275x_ACMP_API_Group
+//!   - \ref HT32F175x_275x_ACMP_API_Group_Config
+//!   - \ref HT32F175x_275x_ACMP_API_Group_Int
+//!   .
+//! - \ref HT32F175x_275x_ACMP_Usage
+//! .
+//! \n
+//!
+//! \section HT32F175x_275x_ACMP_Introduction 1. HT32F175x_275x ACMP Introduction
+//! Two Operational Amplifiers/Comparators (OPA/CMP) are implemented 
+//! within the devices. They can be configured either as Operational Amplifiers
+//! or as Analog Comparators. When configured as comparators, they are capable
+//! of asserting interrupts to the NVIC.
+//!
+//! \section HT32F175x_275x_ACMP_Block 2. HT32F175x_275x ACMP Physical Block
+//! <img src="HT32F175x_275x_acmp_block.png" />
+//!
+//! \section HT32F175x_275x_ACMP_Function_Desc 3. HT32F175x_275x ACMP Function Description
+//!
+//! \subsection HT32F175x_275x_ACMP_Pin_Desc 3.1 HT32F175x_275x ACMP Peripheral Pin Description
+//! \verbatim
+//! +-------------------+------------------+-----------------------+
+//! |Peripheral Pin Name|GPIO Pin multiplex|Pin Description        |
+//! |-------------------|------------------|-----------------------|
+//! |CMP0N              |PE5               |CMP0 negative input    |
+//! |-------------------|------------------|-----------------------|
+//! |CMP0P              |PE6               |CMP0 positive input    |
+//! |-------------------|------------------|-----------------------|
+//! |CMP0O              |PE7               |CMP0 output            |
+//! |-------------------|------------------|-----------------------|
+//! |CMP1N              |PE8               |CMP1 negative input    |
+//! |-------------------|------------------|-----------------------|
+//! |CMP1P              |PE9               |CMP1 positive input    |
+//! |-------------------|------------------|-----------------------|
+//! |CMP1O              |PE10              |CMP1 output            |
+//! +-------------------+------------------+-----------------------+
+//! \endverbatim
+//!
+//! \subsection HT32F175x_275x_ACMP_Func_Comparator 3.2 HT32F175x_275x ACMP Comparator
+//! The CMP- input can be:
+//! - Cn- (external pin).
+//! .
+//! The CMP+ input can be:
+//! - Cn+ (external pin).
+//! .
+//!
+//! \subsection HT32F175x_275x_ACMP_Func_Int 3.3 HT32F175x_275x ACMP Interrupt and Event
+//! The comparator interrupt:
+//! The analog comparator can generate an interrupt when its output waveform
+//! generates a rising or falling edge and its corresponding interrupt enable
+//! control bit is also set.
+//!
+//! \section HT32F175x_275x_ACMP_API_Group 4. HT32F175x_275x ACMP API Group
+//!
+//! \subsection HT32F175x_275x_ACMP_API_Group_Config 4.1 HT32F175x_275x ACMP Config API
+//! The Analog Operational Amplifier/Comparator Configure: 
+//! - ACMPConfigure().
+//! - ACMPCancellation().
+//! .
+//! The comparators are enabled/disabled by:
+//! - ACMPEnable().
+//! - ACMPDisable().
+//! .
+//!
+//! \subsection HT32F175x_275x_ACMP_API_Group_Int 4.2 HT32F175x_275x ACMP Interrupt API
+//! The interrupt is enabled/disabled by:
+//! - ACMPIntEnable().
+//! - ACMPIntDisable().
+//! .
+//! The interrupt are managed by:
+//! - ACMPIntStatus().
+//! - ACMPIntClear().
+//! .
+//! The Status are managed by:
+//! - ACMPFlagStatus().
+//! .
+//! \section HT32F175x_275x_ACMP_Usage 5. HT32F175x_275x ACMP Usage & Example
+//! The following shows how to use the ACMP APIs to initialize the ACMP.
+//! -# xSysCtlPeripheralEnable() to enable to GPIO, AFIO, ACMP Peripheral clock.
+//! -# Configure the ACMP pin in the GPIO moudle.
+//! -# ACMPConfigure() to configure the analog negative input source.
+//! -# ACMPEnable() to enable the ADC.
+//! -# ACMPIntEnable(), IntEnable() to enable the interrupt.
+//! . 
+//!
+//
+//*****************************************************************************
