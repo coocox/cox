@@ -14,6 +14,7 @@
 //!   - \ref ht32f175x_275x_Function_GPIO
 //!   - \ref ht32f175x_275x_Function_AFIO
 //!   - \ref ht32f175x_275x_Function_EXTI
+//!   .
 //! - \ref ht32f175x_275x_GPIO_API_Group
 //!   - \ref ht32f175x_275x_GPIO_API_Group_GPIO
 //!   - \ref ht32f175x_275x_GPIO_API_Group_AFIO
@@ -40,6 +41,7 @@
 //! both level, rising edge, falling edge, or both edges.
 //! .
 //!
+//! <br />
 //! \subsection ht32f175x_275x_Function_AFIO 2.2 ht32f175x_275x AFIO function
 //! 
 //! <table border=0 ><tr>
@@ -47,7 +49,8 @@
 //!   <td width="50%"><img src="AFIO_OUT.png" /></td>
 //! </tr></table>
 //!
-//! \sunsection ht32f175x_275x_Function_EXTI 2.3 ht32f175x_275x EXTI function
+//! <br />
+//! \subsection ht32f175x_275x_Function_EXTI 2.3 ht32f175x_275x EXTI function
 //! 
 //! <img src="ht32f175x275x_exti.png" />
 //! 
@@ -67,8 +70,7 @@
 //! - GPIODirModeSet(),
 //! - GPIOInputConfigure(),
 //! - GPIOPadConfigSet(),
-//! - GPIOPinLockSet(),
-//! - GPIODebounceTimeSet().
+//! - GPIOPinLockSet().
 //! .
 //!
 //! The pin pad are configured with:
@@ -82,13 +84,7 @@
 //! There are also convenient
 //! functions for configuring the pin in the required or recommended 
 //! configuration for a particular peripheral; these are :
-//! - GPIOPinFunctionSet(GPIO_FUNCTION_ADC, eShortPin), 
-//! - GPIOPinFunctionSet(GPIO_FUNCTION_I2C, eShortPin),
-//! - GPIOPinFunctionSet(GPIO_FUNCTION_PWM, eShortPin),
-//! - GPIOPinFunctionSet(GPIO_FUNCTION_SPI, eShortPin), 
-//! - GPIOPinFunctionSet(GPIO_FUNCTION_TIM, eShortPin), 
-//! - GPIOPinFunctionSet(GPIO_FUNCTION_UART, eShortPin),
-//! - GPIOPinFunctionSet(GPIO_FUNCTION_ACMP, eShortPin).
+//! - GPIOSPinConfigure().
 //! .
 //! 
 //! The GPIO interrupts are handled with: 

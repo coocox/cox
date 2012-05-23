@@ -119,8 +119,8 @@
 //! \subsection xSPI_API_Group_Interrupt 2.2 SPI Interrupt Control APIs
 //! - xSPIIntEnable()
 //! - xSPIIntDisable()
-//! - xSPIIntStatusGet()
-//! - xSPIIntPendingClear()
+//! - xSPIIntCallbackInit()
+//! - xSPIStatusGet()
 //! .
 //!
 //! <br />
