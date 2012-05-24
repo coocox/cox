@@ -306,7 +306,10 @@ _TestAssert(char* pcFile, unsigned long ulLine,
         TestErrorInfoStore(pcMsg);
         return _TestFail();
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> remotes/jack/HT32F175x_275x
     return xfalse;
 }
 
@@ -460,7 +463,11 @@ TestMain(void)
             Print(".");
             PrintN(j + 1);
             Print(" (");
+<<<<<<< HEAD
             Print((char *)g_psPatterns[i][j]->GetTest());
+=======
+            Print(g_psPatterns[i][j]->GetTest());
+>>>>>>> remotes/jack/HT32F175x_275x
             PrintLine(")");
 
             ExecuteTest(g_psPatterns[i][j]);

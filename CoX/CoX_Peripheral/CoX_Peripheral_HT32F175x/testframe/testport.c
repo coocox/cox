@@ -23,7 +23,6 @@ TestIOInit(void)
     xSPinTypeUART(UART0RX, PA3);
     xSPinTypeUART(UART0TX, PA2);
     
-
     xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART0);
     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART0);
     SysCtlPeripheralClockSourceSet(SYSCTL_PERIPH_UART_S_HCLK);

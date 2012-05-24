@@ -1,0 +1,155 @@
+//*****************************************************************************
+//
+//! \defgroup xUART_Apps xUART Config and Example
+//!
+//! \brief CoX UART Config and Config and Example.
+//!
+//
+//*****************************************************************************
+//!
+//*****************************************************************************
+//
+//! \defgroup xUART_App_NormalMode Normal Mode Config and Example
+//!
+//! \brief CoX UART Normal Mode Config and Example.
+//!
+//! Here we introduce the normal mode config of uart, and provide a small example.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref xUART_App_NormalMode_config
+//! - \ref xUART_App_NormalMode_code
+//! .
+//!
+//! <br />
+//! \section xUART_App_NormalMode_config 1.How to configure the uart to send and receive data. 
+//!
+//! <ol>
+//! <li>Enable the peripheral clock of UART and GPIO</li>
+//! <li>Configure the GPIO pins mode as UART type</li>
+//! <li>Configure the baudrate, word length, parity bit, and stop bit</li>
+//! <li>Enable the UART</li>
+//! <li>Enable the corresponding interrupt for receviing data, and write interrupt handler function</li>
+//! </ol>
+//!
+//! <br />
+//! \section xUART_App_NormalMode_code 2.The code to send and receive data.
+//!
+//! \code
+//!
+//! void uart_test()
+//! {
+//!     char ch[] = "Hello, UART!";    
+//!
+//!     xSysCtlClockSet(72000000, xSYSCTL_XTAL_8MHZ | xSYSCTL_OSC_MAIN);
+//!
+//!     SysCtlDelay(10000);
+//!
+//!     SysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);
+//!     xSPinTypeUART(UART0RX, PC10);
+//!     xSPinTypeUART(UART0TX, PC8);
+//!
+//!     xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART0);
+//!     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART0);
+//!     SysCtlPeripheralClockSourceSet(SYSCTL_PERIPH_UART_S_HCLK);
+//!
+//!     UARTConfigSetExpClk(UART0_BASE, 115200, (UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE | UART_CONFIG_PAR_NONE));
+//!
+//!     UARTEnable(UART0_BASE, (UART_BLOCK_UART | UART_BLOCK_TX | UART_BLOCK_RX));
+//!
+//!     UARTBufferWrite(UART0_BASE, ch, sizeof(ch)/sizeof(*ch));
+//!              
+//!     while(1);
+//! }
+//!     
+//! \endcode
+//!
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
+//! \defgroup xUART_App_IrDA IrDA Config and Example
+//!
+//! \brief CoX UART IrDA Config and Example.
+//!
+//! Here we introduce the IrDA function of uart, and provide a small example.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref xUART_App_IrDA_config
+//! - \ref xUART_App_IrDA_code
+//! .
+//!
+//! <br />
+//! \section xUART_App_IrDA_config 1.How to configure the uart to support IrDA. 
+//!
+//! <ol>
+//! <li>Enale the peripheral clock of UART and GPIO</li>
+//! <li>Configure the GPIO pins mode as UART type</li>
+//! <li>Enable IrDA mode</li>
+//! <li>Configure the baudrate, word length, parity bit, and stop bit</li>
+//! <li>Enable the UART</li>
+//! <li>You can see the encoded signal through an oscilloscope</li>
+//! </ol>
+//!
+//! <br />
+//! \section xUART_App_IrDA_code 2.The code to send and receive data.
+//!
+//! \code
+//! int i;
+//! \endcode
+//! \n
+//! The Tx port outputs signal waves, you can observe it in an OSC.
+//! 
+//! \n
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup xUART_App_Modem Modem Config and Example
+//!
+//! \brief CoX UART Modem Config and Example.
+//!
+//! Here we introduce the Modem function of uart, and provide a small example.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref xUART_App_Modem_config
+//! - \ref xUART_App_Modem_code
+//! .
+//!
+//! <br />
+//! \section xUART_App_Modem_config 1.How to configure the uart to support Modem. 
+//!
+//! <ol>
+//! <li>Enale the peripheral clock of UART and GPIO</li><li>Enable the corresponding interrupt for receviing data, and write interrupt handler function</li>
+//! </ol>
+//!
+//! <br />
+//! \section xUART_App_Modem_code 2.The code to send and receive data.
+//!
+//! \code
+//! int i;
+//! \endcode
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup xUART_App_Synchronous Config and Example
+//!
+//! \brief CoX UART SYNC Config and Example.
+//!
+//! Here we introduce the SYNC function of uart, and provide a small example.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref xUART_App_SYNC_config
+//! .
+//!
+//
+//*****************************************************************************

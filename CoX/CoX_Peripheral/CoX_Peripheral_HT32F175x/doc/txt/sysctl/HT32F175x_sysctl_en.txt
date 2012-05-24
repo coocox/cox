@@ -1,0 +1,170 @@
+//********************************************************************************
+//
+//! \defgroup HT32F175x_275x_SysCtl HT32F175x_275x SysCtl
+//!
+//! \brief HT32F175x_275x SysCtl Peripheral Driver
+//! 
+//! The CoX Peripheral Library also provide APIs for function full functions of
+//! Nuvoton HT32F175x_275x SysCtl.This module supports the whole HT32F175x_275x Series.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref HT32F175x_275x_SysCtl_Block
+//! - \ref HT32F175x_275x_SysCtl_Function_Desc
+//! - \ref HT32F175x_275x_SysCtl_API_Group
+//!   - \ref HT32F175x_275x_API_Group_Peripharal_Control
+//!   - \ref HT32F175x_275x_API_Group_Clock_Control
+//!   - \ref HT32F175x_275x_API_Group_Power_Control
+//!   - \ref HT32F175x_275x_API_Group_Interrupt_Control
+//!   .
+//! - \ref HT32F175x_275x_SysCtl_Usage
+//! .
+//!
+//! <br />
+//! \section HT32F175x_275x_SysCtl_Block 1. SysCtl Physical Block
+//! <img src="HT32F175x_sysctl_block.png" />
+//!
+//! <br />
+//! \section HT32F175x_275x_SysCtl_Function_Desc 2. Functional Description
+//! The system control block has the following functions:
+//! - The perpheral can be individual enable,disable and reset by software
+//! - The Clock Control unit, CKCU, provides a range of frequencies and clock functions.  
+//! These include a High Speed Internal RC oscillator (HSI), a High Speed External crystal 
+//! Speed Internal RC oscillator (LSI), a Low Speed External crystal oscillator (LSE),  
+//! a Phase Lock Loop (PLL), a HSE clock monitor, clock prescalers, clock multiplexers  
+//! and clock gating circuitry. The clocks of the AHB, APB and CortexTM-M3 are derived  
+//! from the system clock (CK_SYS) which can source from the HSI, HSE or PLL. The Watchdog  
+//! Timer and Real Time Clock (RTC) use either the LSI or LSE as their clock source. The  
+//! maximum operating frequency of the system core clock (CK_AHB) can be up to 72 MHz.
+//! - When chip enters into power down mode, system clocks, some clock sources, 
+//!   and some peripheral clocks will be disabled. Some clock sources,peripherals 
+//!   clock are still active in power down mode.
+//! .
+//!
+//! <br />
+//! \subsection HT32F175x_275x_SysCtl_API_Group 2. API Groups
+//!
+//! The SysCtl API is broken into three groups of functions:
+//! - those that deal with Clock control,
+//! - those that deal with Peripheral control,
+//! - those that deal with Power control.
+//! .
+//! <br />
+//! \subsection HT32F175x_275x_API_Group_Clock_Control 2.1 SysCtl clock control APIs
+//!
+//! The SysCtl clock control are dealed with :
+//! - SysCtlClockGet(),
+//! - SysCtlPeripheralClockSourceSet(),
+//! - SysCtlHSIReadyCounterBitLengthSet(),
+//! - SysCtlClkOututSrcSet(),
+//! - SysCtlClockSet().
+//! .
+//! 
+//! <br />
+//! \subsection HT32F175x_275x_API_Group_Peripharal_Control 2.2 SysCtl Peripharal Control APIs
+//! The SysCtl clock control are dealed with :
+//! - SysCtlPeripheralDisable(),
+//! - SysCtlPeripheralEnable(),
+//! - SysCtlPeripheralReset(),
+//! - SysCtlResetSrcGet(),
+//! - SysCtlResetSrcClear().
+//! .
+//!
+//! <br />
+//! \subsection HT32F175x_275x_API_Group_Power_Control 2.3 SysCtl power control
+//! 
+//! The SysCtl power control are dealed with : 
+//! - SysCtlSleep(),
+//! - SysCtlDeepSleep1(),
+//! - SysCtlDeepSleep2(),
+//! - SysCtlBODEnable(),
+//! - SysCtlLowerPowerModeGet(),
+//! - SysCtlPowerDown(),
+//! - SysCtlLVDEnable(),
+//! - SysCtlDMOSEnable(),
+//! - SysCtlBODFunctionSelect(),
+//! - SysCtlDMOSStateGet(),
+//! - SysCtlBODStateGet(),
+//! - SysCtlLVDStateGet(),
+//! - SysCtlLVDVoltSelect(),
+//! - SysCtlWakeUpPinEnable(),
+//! - SysCtlBackupDomainReset(),
+//! - SysCtlBackupReadyStateGet(),
+//! - SysCtlBackupRegWrite(),
+//! - SysCtlBackupRegRead().
+//!
+//! <br />
+//! \subsection HT32F175x_275x_API_Group_Interrupt_Control 2.3 SysCtl interrupt control
+//! 
+//! The SysCtl interrupt control are dealed with : 
+//! - CKRDYIntCallbackInit(),
+//! - LVDIntCallbackInit(),
+//! - BODIntCallbackInit(),
+//! - SysCtlClockReadyIntEnable(),
+//! - SysCtlClockReadyIntGet(),
+//! - SysCtlLVDIntEnable(),
+//! - SysCtlWakeUpIntEnable().
+//!
+//! <br />
+//! \section HT32F175x_275x_SysCtl_Usage
+//! The following example shows how to use the SysCtl API to configure the
+//! system clock,enable the relative peripheral,put the processor into sleep
+//! mode,and then wake up by Wake Up pin;
+//! \code
+//! #include "xhw_types.h"
+//! #include "xhw_memmap.h"
+//! #include "xcore.h"
+//! #include "xhw_sysctl.h"
+//! #include "xsysctl.h"
+//! #include "xhw_ints.h"
+//! #include "xhw_nvic.h"
+//!
+//! //*************************************************************************
+//! //
+//! // Enter Sleep Mode function.
+//! //
+//! // This function will force the processor enter sleep mode,after operating 
+//! // the action,some clocks will be closed except "Internal 32 kHz low speed 
+//! // oscillator clock".
+//!  
+//! // \return None
+//! //*************************************************************************
+//! void PWRCtlStandby(void)
+//! {
+//!     xSysCtlClockSet(72000000, xSYSCTL_XTAL_8MHZ | xSYSCTL_OSC_MAIN);
+//!     xSysCtlSleep();
+//! }
+//!  
+//! //*************************************************************************
+//! // 
+//! // Wake up mcu from sleep mode function.
+//! // 
+//! // This function use extern interrupt to wake up mcu from sleep mode 
+//! //  
+//! //! \return None
+//! //*************************************************************************
+//! void WakeUpFromPowerDown(void)
+//! {	 
+//!     xIntEnable(INT_LPWUP);
+//!     xIntPrioritySet(INT_LPWUP, 1);
+//!     SysCtlWakeUpPinEnable(xtrue);
+//!     SysCtlWakeUpIntEnable(xtrue);
+//! }
+//! //*****************************************************************************
+//! //
+//! // The main function of the PWR_WKUP 
+//! //
+//! //*****************************************************************************
+//! int main(void)
+//! {
+//!     PWRCtlStandby();
+//!     WakeUpFromPowerDown();
+//!     while(1)
+//!     {
+//!         
+//!     }
+//! }
+//! \endcode
+//! \note 
+//!
+//********************************************************************************

@@ -3,7 +3,11 @@
 //! \page Changelog Revisions
 //!
 //! <h3>Revision 2.1.1.1 11/14/2011</h3>
+<<<<<<< HEAD
 //! - Based on CoX Peripheral Interface version V2.2.1.0
+=======
+//! - Based on CoX Peripheral Interface version V2.1.
+>>>>>>> remotes/jack/HT32F175x_275x
 //! - Check wrong words and grammar for code notes and doxygen document.
 //! - Add the APIs of peripheral clock source selecting and frequency  
 //! division In the SysCtl module.
