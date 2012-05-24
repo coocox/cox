@@ -1,0 +1,217 @@
+//*****************************************************************************
+//
+//! \defgroup HT32F175x_275x_TIMER HT32F175x_275x TIMER
+//! 
+//! \brief HOLTEK HT32F175x_275x TIMER Peripheral Driver.
+//!
+//! The CoX Peripheral Library also provides APIs for full functions of Holtek
+//! HT32F175x_275x TIMER. This module supports the whole HT32F175x_275x Series.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref HT32F175x_275x_TIMER_Blcok
+//! - \ref HT32F175x_275x_TIMER_Function_Desc
+//! - \ref HT32F175x_275x_TIMER_API_Group
+//!   - \ref TIMER_API_Config
+//!   - \ref TIMER_API_Start_Stop
+//!   - \ref TIMER_API_Value_Set
+//!   - \ref TIMER_API_Inerrupt
+//!   - \ref TIMER_API_DMA
+//!   .
+//! - \ref HT32F175x_275x_TIMER_Usage
+//! .
+//!
+//! <br />
+//! \section HT32F175x_275x_TIMER_Blcok 1. TIMER Physical Block
+//! <img src="HT32F175x275x_Timer_Controller_Block.png" />
+//! 
+//! <br />
+//! \section HT32F175x_275x_TIMER_Function_Desc 2. Functional Description
+//! 
+//! - Up-Counting:
+//!
+//! In this mode the counter counts continuously from 0 to the counter-reload value,
+//! in a count-up direction. Once the counter reaches the counter-reload value, the
+//! Timer Module generates an overflow event and the counter restarts to count once
+//! again from 0. This action will continue repeatedly.
+//!
+//! - Down-Counting:
+//!
+//! In this mode the counter counts continuously from the counter-reload value, 
+//! to 0 in a count-down direction. Once the counter reaches 0, the Timer module
+//! generates an underflow event and the counter restarts to count once again 
+//! from the counter-reloadvalue. 
+//!
+//! - Center-Align Counting:
+//!
+//! In the center-aligned counting mode, the counter counts up from 0 to the 
+//! counter-reload value and then counts down to 0 alternatively. The Timer  
+//! module generates an overflow event when the counter counts to the counter-reload   
+//! value in the up-counting mode and generates an underflow event when the counter    
+//! counts to 0 in down-counting mode. The counting direction is updated by hardware
+//! automatically.
+//!
+//! - Input Signal Pulse Width Measurement
+//! 
+//! The input capture mode can be also used for pulse width measurement from 
+//! signals on the GTn_CHx pins (TIx). The following example shows how to configure
+//! the GPTM operated in the input capture mode to measure the high pulse width and
+//! the input period on the GTn_CH0 pin using channel 0 and channel 1. The basic steps
+//! are shown as follows.
+//!
+//! - Output Waveform Generation
+//!
+//! The GPTM has four channels for compare match, single pulse or PWM output  
+//! function. The channel output GTn_CHx is controlled by the REFxCE, CHxOM,  
+//! CHxP and CHxE bits in the corresponding CHxOCFR, CHPOLR and CHCTR registers.
+//!
+//! - Encoder Interface Using a Quadrature Decoder
+//!
+//! The Quadrature Decoder function uses two quadrantal inputs TI0 and TI1 
+//! CH0 and GTx_CH1 pins respectively to interact to generate the counter  
+//! value. The DIR bit is modified by hardware automatically during each  
+//! input source transition. The input source can be either TI0 only, TI1 
+//! only or both TI0 and TI1, the selection made by setting the SMSEL field 
+//! to 0x01, 0x02 or 0x03. The mechanism for changing the counter direction  
+//! is shown in the following table. The Quadrature decoder can be regarded
+//!  as an external clock with a directional selection.
+//!
+//! <br />
+//! \section HT32F175x_275x_TIMER_API_Group 3. HT32F175x_275x TIMER API Group
+//!
+//! <br />
+//! \subsection TIMER_API_Config 3.1 TIMER API Mode Config
+//! 
+//! The TIMER are configured with:
+//! - TimeBaseConfigure(),
+//! - TimerOutputConfigure(),
+//! - TimerCaptureConfigure(),
+//! - TimerCHPSCConfigure(),
+//! - TimerITIExtClkConfigure(),
+//! - TimerETIExtClkConfigure(),
+//! - TimerCHExtClkConfigure(),
+//! - TimerSTIConfigure(),
+//! - TimerETIConfigure(),
+//! - TimerPrescalerConfigure(),
+//! - TimerCNTModeConfigure(),
+//! - TimerDecoderConfigure(),
+//! - TimerCRRPreloadConfigure(),
+//! - TimerCHCRRPreloadConfigure(),
+//! - TimerOREFClrConfigure(),
+//! - TimerCHPolarityConfigure(),
+//! - Timer1PulseActiveConfigure(),
+//! - TimerCHConfigure(),
+//! - TimerUpdateConfigure(),
+//! - TimerHallInterfaceConfigure(),
+//! - TimerOnePulseModeConfigure(),
+//! - TimerSlaveModeConfigure(),
+//! - TimerSyncConfigure(),
+//! - TimerCKDivConfigure(),
+//! - TimerInternalClkConfigure(),
+//! - TimerForcedOREF().
+//! .
+//! 
+//! <br />
+//! \subsection TIMER_API_Start_Stop 3.2 TIMER API Start Stop
+//! 
+//! The TIMER start or stop handled with: 
+//! - TimerStart(),
+//! - TimerStop()
+//! .
+//!
+//! <br />
+//! \subsection TIMER_API_Value_Set 3.3 TIMER API Value Set
+//!
+//! Some value register are accessed with:
+//! - TimerCRRSet(),
+//! - TimerCRRGet(),
+//! - TimerMasterOutputSrcSelect(),
+//! - TimerCaptureCompareSet(),
+//! - TimerCaptureCompareGet(),
+//! - TimerFlagStatusGet(),
+//! - TimerFlagStatusClear(),
+//! - TimerCounterSet(),
+//! - TimerCounterGet().
+//! .
+//!
+//! <br />
+//! \subsection TIMER_API_Inerrupt 3.4 TIMER API Interrupt
+//!
+//! Timer interrupt are handed with:
+//! - TimerIntCallbackInit(),
+//! - TimerIntEnable(),
+//! - TimerIntDisable(),
+//! - TimerIntStatus(),
+//! - TimerIntClear(),
+//! - TimerUpdateIntEnable(),
+//! - TimerUpdateIntDisable(). 
+//! .
+//! 
+//! <br />
+//! \subsection TIMER_API_DMA 3.5 TIMER API DMA
+//!
+//! Timer DMA are handed with:
+//! - TimerPDMARequestEnable(),
+//! - TimerPDMARequestDisable(),
+//! - TimerPDMARequestEventSet(). 
+//! .
+//! <br />
+//! \section HT32F175x_275x_TIMER_Usage 4. Usage & Program Examples
+//!
+//! \code
+//!
+//! //*****************************************************************************
+//! //
+//! // \file one_second_clock.c
+//! // \brief Use the timer to make a one second clock.
+//! // \date 5/22/2012
+//! // \author CooCox
+//! // 
+//! // \copy
+//! //
+//! //*****************************************************************************
+//! #include "xhw_types.h"
+//! #include "xcore.h"
+//! #include "xhw_ints.h"
+//! #include "xhw_memmap.h"
+//! #include "xhw_nvic.h"
+//! #include "xgpio.h"
+//! #include "xsysctl.h"
+//! #include "xtimer.h"
+//!
+//! //*****************************************************************************
+//! //
+//! // \biref The main example function
+//! // Enable the timer0, and it's interrupt, the overfolw interrupt will happen 
+//! // every 1 second. It is tested on the HT32F175x_275x Development board.
+//! // \return  none
+//! //
+//! //*****************************************************************************
+//! void OneSecondClock(void)
+//! {   
+//!     //
+//!     // Clear the flag first
+//!     //
+//!     TimerIntClear(TIMER0_BASE, TIMER_INT_UEV1);
+//!     
+//!     //
+//!     // Config as periodic mode
+//!     //
+//!     xTimerInitConfig(xTIMER0_BASE, xTIMER_CHANNEL0, xTIMER_MODE_PERIODIC | xTIMER_COUNT_UP, 1000); 
+//!     xTimerMatchSet(xTIMER0_BASE, xTIMER_CHANNEL0, 10000);
+//!     xTimerPrescaleSet(xTIMER0_BASE, xTIMER_CHANNEL0, 800);
+//!        
+//!     xTimerIntCallbackInit(xTIMER0_BASE, Timer0Callback);
+//!     xTimerIntEnable(xTIMER0_BASE, xTIMER_CHANNEL0, xTIMER_INT_MATCH);
+//!     xIntEnable(xINT_TIMER0);
+//!
+//!     xTimerStart(xTIMER0_BASE, xTIMER_CHANNEL0);
+//!     
+//!     while(1); 
+//!
+//! }
+//!
+//! \endcode
+//!
+//
+//*****************************************************************************
