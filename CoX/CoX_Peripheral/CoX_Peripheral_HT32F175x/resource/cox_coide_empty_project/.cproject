@@ -13,9 +13,9 @@
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings">
 				<externalSettings containerId="org.coocox.ExternalSettings" factoryId="org.eclipse.cdt.core.extension.container.factory">
 					<externalSetting>
-						<entry flags="" kind="includePath" name="D:\Program Files\arm-none-eabi-gcc-4_6\arm-none-eabi\include"/>
-						<entry flags="" kind="includePath" name="D:\Program Files\arm-none-eabi-gcc-4_6\lib\gcc\arm-none-eabi\4.6.2\include"/>
-						<entry flags="" kind="includePath" name="D:\Program Files\arm-none-eabi-gcc-4_6\lib\gcc\arm-none-eabi\4.6.2\include-fixed"/>
+						<entry flags="" kind="includePath" name="C:\Program Files\arm-none-eabi-gcc-4_6\arm-none-eabi\include"/>
+						<entry flags="" kind="includePath" name="C:\Program Files\arm-none-eabi-gcc-4_6\lib\gcc\arm-none-eabi\4.6.2\include"/>
+						<entry flags="" kind="includePath" name="C:\Program Files\arm-none-eabi-gcc-4_6\lib\gcc\arm-none-eabi\4.6.2\include-fixed"/>
 						<entry flags="" kind="macro" name="__GNUC__" value=""/>
 					</externalSetting>
 				</externalSettings>
@@ -23,9 +23,6 @@
 			<storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
 			<storageModule moduleId="org.eclipse.cdt.core.pathentry">
 				<pathentry kind="src" path=""/>
-				<pathentry include="D:/Program Files/arm-none-eabi-gcc-4_6/arm-none-eabi/include" kind="inc" path="" system="true"/>
-				<pathentry include="D:/Program Files/arm-none-eabi-gcc-4_6/lib/gcc/arm-none-eabi/4.6.2/include" kind="inc" path="" system="true"/>
-				<pathentry include="D:/Program Files/arm-none-eabi-gcc-4_6/lib/gcc/arm-none-eabi/4.6.2/include-fixed" kind="inc" path="" system="true"/>
 				<pathentry kind="mac" name="__GNUC__" path="" value=""/>
 				<pathentry kind="out" path=""/>
 			</storageModule>

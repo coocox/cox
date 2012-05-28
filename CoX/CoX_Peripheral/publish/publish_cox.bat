@@ -8,10 +8,11 @@ echo --------------------------------------------
 :: Configure the version & MCU platform
 
 :publish_config_mcu
-set /p _publish_cox=Please input the MCU platform that to publish(NUC1xx, Template):
+set /p _publish_cox=Please input the MCU platform that to publish(NUC1xx, HT32F175x, Template):
 
 if "%_publish_cox%"=="" goto publish_config_mcu_error
 if %_publish_cox%==NUC1xx goto publish_config_version
+if %_publish_cox%==HT32F175x goto publish_config_version
 if %_publish_cox%==Template goto publish_config_version
 
 :publish_config_mcu_error

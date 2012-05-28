@@ -3,7 +3,7 @@
 //! \file xacmp.c
 //! \brief Driver for the analog comparator.
 //! \version V2.2.1.1
-//! \date 11/14/2011
+//! \date 4/1/2012
 //! \author CooCox
 //! \copy
 //!

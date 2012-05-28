@@ -2,8 +2,8 @@
 //
 //! \file xspi.c
 //! \brief Driver for the SPI
-//! \version V2.2.1.0
-//! \date 11/14/2011
+//! \version V2.2.1.1
+//! \date 4/1/2012
 //! \author CooCox
 //! \copy
 //!

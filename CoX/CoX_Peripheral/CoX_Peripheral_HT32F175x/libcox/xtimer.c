@@ -2,7 +2,7 @@
 //
 //! \file xtimer.c
 //! \brief Driver for the Timer
-//! \version V2.1.1.0
+//! \version V2.2.1.0
 //! \date 3/27/2012
 //! \author CooCox
 //! \copy

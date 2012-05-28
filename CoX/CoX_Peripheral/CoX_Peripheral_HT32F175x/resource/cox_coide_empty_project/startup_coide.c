@@ -104,6 +104,7 @@ void WEAK  TIMER1IntHandler(void);
 void WEAK  I2C0IntHandler(void);
 void WEAK  SPI0IntHandler(void);
 void WEAK  UART0IntHandler(void);
+void WEAK MCTMBRKIntHandler(void);
 void WEAK MCTMUPIntHandler(void);
 void WEAK MCTMTRUP2IntHandler(void);
 void WEAK MCTMCCIntHandler(void);
@@ -241,19 +242,19 @@ void (* const g_pfnVectors[])(void) =
     0,                                      // Reserved
     USBIntHandler,                          // USB global interrupt
     0,                                      // Reserved
-    PDMACH0IntHandler                       // PDMA CH0 global interrupt
-    PDMACH1IntHandler                       // PDMA CH1 global interrupt
-    PDMACH2IntHandler                       // PDMA CH2 global interrupt
-    PDMACH3IntHandler                       // PDMA CH3 global interrupt
-    PDMACH4IntHandler                       // PDMA CH4 global interrupt
-    PDMACH5IntHandler                       // PDMA CH5 global interrupt
-    PDMACH6IntHandler                       // PDMA CH6 global interrupt
-    PDMACH7IntHandler                       // PDMA CH7 global interrupt
-    PDMACH8IntHandler                       // PDMA CH8 global interrupt
-    PDMACH9IntHandler                       // PDMA CH9 global interrupt
-    PDMACH10IntHandler                      // PDMA CH10 global interrupt
-    PDMACH11IntHandler                      // PDMA CH11 global interrupt
-    CSIFIntHandler                          // CSIF global interrupt
+    PDMACH0IntHandler,                       // PDMA CH0 global interrupt
+    PDMACH1IntHandler,                       // PDMA CH1 global interrupt
+    PDMACH2IntHandler,                       // PDMA CH2 global interrupt
+    PDMACH3IntHandler,                       // PDMA CH3 global interrupt
+    PDMACH4IntHandler,                       // PDMA CH4 global interrupt
+    PDMACH5IntHandler,                       // PDMA CH5 global interrupt
+    PDMACH6IntHandler,                       // PDMA CH6 global interrupt
+    PDMACH7IntHandler,                       // PDMA CH7 global interrupt
+    PDMACH8IntHandler,                       // PDMA CH8 global interrupt
+    PDMACH9IntHandler,                       // PDMA CH9 global interrupt
+    PDMACH10IntHandler,                      // PDMA CH10 global interrupt
+    PDMACH11IntHandler,                      // PDMA CH11 global interrupt
+    CSIFIntHandler,                          // CSIF global interrupt
 };
 
 //*****************************************************************************
@@ -348,6 +349,7 @@ void Default_ResetHandler(void)
 #pragma weak I2C0IntHandler = DefaultIntHandler
 #pragma weak SPI0IntHandler = DefaultIntHandler
 #pragma weak UART0IntHandler = DefaultIntHandler
+#pragma weak MCTMBRKIntHandler = DefaultIntHandler
 #pragma weak MCTMUPIntHandler = DefaultIntHandler
 #pragma weak MCTMTRUP2IntHandler = DefaultIntHandler
 #pragma weak MCTMCCIntHandler = DefaultIntHandler

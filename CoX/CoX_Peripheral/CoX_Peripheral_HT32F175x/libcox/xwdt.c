@@ -2,7 +2,7 @@
 //
 //! \file xwdt.c
 //! \brief Driver for the WDT
-//! \version V2.1.1.0
+//! \version V2.2.1.0
 //! \date 5/4/2011
 //! \author CooCox
 //! \copy

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project default="postbuild" name="test">
-  <property name="project.name" value="cox_coide_test_project"/>
+  <property name="project.name" value="cox_coide_empty_project"/>
   <property name="project.debug" value="Debug"/>
   <property name="project.obj" value="Debug/obj"/>
   <property name="project.bin" value="Debug/bin"/>
@@ -29,22 +29,26 @@
     <mkdir dir="${project.obj}"/>
     <cc debug="true" objdir="${project.obj}" outfile="${project.bin}/${project.name}.elf" outtype="executable" subsystem="console">
       <!-- compile all the c source file in the project -->
-      <fileset dir="." includes="**/*.c"/>
-      <fileset dir="." includes="**/*.s"/>
+      
+      <fileset dir=".">
+        <include name="**/*.c"/>
+        <include name="**/*.s"/>
+      </fileset>
       <project outfile="${project.name}.elf" overwrite="true" type="xcode"/>
       
       <!-- defines -->
       <defineset>
-        <define name="HT32F1755"/>
+        <define name="HT32F1253"/>
       </defineset>
       
       <!-- include compile path -->
       <includepath path="."/>
-      <includepath path="cmsis_boot"/>
-      <includepath path="cmsis"/>
+	  <includepath path="CoX/CoX_Peripheral/inc"/>
       
       <!-- arm-none-eabi-gcc compiler arguments -->
-      <compilerarg value="-mcpu=cortex-m3"/>
+      <compilerarg value="-mcpu=cortex-m4"/>
+	  <compilerarg value="-mfpu=fpv4-sp-d16"/>
+	  <compilerarg value="-mfloat-abi=softfp"/>
       <compilerarg value="-mthumb"/>
       <compilerarg value="-Wall"/>      
       <compilerarg value="-ffunction-sections"/>
@@ -55,7 +59,7 @@
       <linkerarg value="-O0"/>
       <linkerarg value="-nostartfiles"/>
       <linkerarg value="-Map=${project.name}.map"/>
-      <linkerarg value="-mcpu=cortex-m3"/>
+      <linkerarg value="-mcpu=cortex-m4"/>
       <linkerarg value="-mthumb"/>
       <linkerarg value="-L${linkdir}"/>
       <linkerarg value="--gc-sections"/>
