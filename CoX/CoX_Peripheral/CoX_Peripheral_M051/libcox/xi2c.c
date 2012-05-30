@@ -194,7 +194,7 @@ static unsigned long I2CByteSend (unsigned long ulBase, unsigned char ucData)
     xHWREG(ulBase + I2C_O_DAT) = ucData;
         
     //
-    // Make sure AA and EI bit is not active,and clear EI 
+    // Make sure AA and EI bit is not active,and clear SI 
     //
     xHWREG(ulBase + I2C_O_CON) &= ~(I2C_CON_AA | I2C_CON_EI);
         
@@ -2192,8 +2192,9 @@ xI2CMasterWriteS1(unsigned long ulBase, unsigned char ucSlaveAddr,
     ulStatus = xHWREG(ulBase + I2C_O_STATUS) & I2C_STATUS_M;
     if(!(ulStatus == I2C_I2STAT_M_TX_DAT_ACK))
     {
+        ulStatus = xI2CMasterError(ulBase);
         I2CStopSend(ulBase);
-        return xI2CMasterError(ulBase);
+        return ulStatus;
     }
 
     if(bEndTransmition)
@@ -2263,8 +2264,9 @@ xI2CMasterWriteS2(unsigned long ulBase, unsigned char ucData,
     ulStatus = xHWREG(ulBase + I2C_O_STATUS) & I2C_STATUS_M;
     if(!(ulStatus == I2C_I2STAT_M_TX_DAT_ACK))
     {
+        ulStatus = xI2CMasterError(ulBase);
         I2CStopSend(ulBase);
-        return xI2CMasterError(ulBase);
+        return ulStatus;
     }
 
     if(bEndTransmition)
@@ -2670,14 +2672,21 @@ xI2CMasterReadS1(unsigned long ulBase,
     
     xI2CMasterReadRequestS1(ulBase, ucSlaveAddr, xfalse);
  
-    SysCtlDelay(10000);
+    xHWREG(ulBase + I2C_O_CON) |= I2C_CON_AA;
+    SysCtlDelay(100);
+    xHWREG(ulBase + I2C_O_CON) |= I2C_CON_SI;
     
-    ulStatus = I2CByteGet(ulBase, pucData, !bEndTransmition);
+    while (!(xHWREG(ulBase + I2C_O_CON) & I2C_CON_SI));
+
+    *pucData = xHWREG(ulBase + I2C_O_DAT);
+    
+    ulStatus = (xHWREG(ulBase + I2C_O_STATUS) & I2C_STATUS_M);
     
     if (ulStatus != I2C_I2STAT_M_RX_DAT_ACK)
     {
+        ulStatus = xI2CMasterError(ulBase);
         I2CStopSend(ulBase);
-        return xI2CMasterError(ulBase);
+        return ulStatus;
     }      
     if(bEndTransmition)
     {
@@ -2687,7 +2696,7 @@ xI2CMasterReadS1(unsigned long ulBase,
     //
     // return the error status
     //
-    return ulStatus;       
+    return xI2C_MASTER_ERR_NONE;       
       
 }
 
@@ -2761,8 +2770,9 @@ xI2CMasterReadS2(unsigned long ulBase,
     //
     if (ulStatus != I2C_I2STAT_M_RX_DAT_ACK)
     {
+        ulStatus = xI2CMasterError(ulBase);
         I2CStopSend(ulBase);
-        return xI2CMasterError(ulBase);
+        return ulStatus;
     } 
 
     if(bEndTransmition)
@@ -2773,7 +2783,7 @@ xI2CMasterReadS2(unsigned long ulBase,
     //
     // return the error status
     //
-    return ulStatus;    
+    return xI2C_MASTER_ERR_NONE;    
 }
 
 //*****************************************************************************
@@ -2816,7 +2826,7 @@ xI2CMasterReadBufS1(unsigned long ulBase, unsigned char ucSlaveAddr,
                     unsigned char* pucDataBuf, unsigned long ulLen,
                     xtBoolean bEndTransmition)
 {
-    unsigned long ulStatus;
+    unsigned long ulStatus,ulStatusStart;
     unsigned long ulRead;
     
     //
@@ -2848,13 +2858,13 @@ xI2CMasterReadBufS1(unsigned long ulBase, unsigned char ucSlaveAddr,
     }
 
     xHWREG(ulBase + I2C_O_CON) |= I2C_CON_AA;
-
+    
     //
     // Send start and address
     //    
-    ulStatus = I2CStartSend(ulBase);
-    if(!((ulStatus == I2C_I2STAT_M_TX_START) || 
-         (ulStatus == I2C_I2STAT_M_TX_RESTART)))
+    ulStatusStart = I2CStartSend(ulBase);
+    if(!((ulStatusStart == I2C_I2STAT_M_TX_START) || 
+         (ulStatusStart == I2C_I2STAT_M_TX_RESTART)))
     {
         I2CStopSend(ulBase);
         return 0;
@@ -2862,7 +2872,34 @@ xI2CMasterReadBufS1(unsigned long ulBase, unsigned char ucSlaveAddr,
     //
     // Send address
     //    
-    ulStatus = I2CByteSend(ulBase, (ucSlaveAddr << 1) | 1) ;
+    //ulStatus = I2CByteSend(ulBase, (ucSlaveAddr << 1) | 1) ;
+    //
+    // Make sure start bit is not active,but do not clear SI 
+    //
+    if (xHWREG(ulBase + I2C_O_CON) & I2C_CON_STA)
+    {
+        xHWREG(ulBase + I2C_O_CON) &= ~(I2C_CON_STA | I2C_CON_SI);
+    }
+            
+    //
+    // Send data to I2C BUS
+    //
+    xHWREG(ulBase + I2C_O_DAT) = (ucSlaveAddr << 1) | 1;
+        
+    //
+    // Make sure AA and EI bit is not active,and clear SI 
+    //
+    xHWREG(ulBase + I2C_O_CON) &= ~(I2C_CON_EI);
+        
+    //
+    // Wait the SI be set again by hardware
+    //
+    while (!(xHWREG(ulBase + I2C_O_CON) & I2C_CON_SI));
+        
+    //
+    // Return the i2c status
+    //
+    ulStatus = (xHWREG(ulBase + I2C_O_STATUS) & I2C_STATUS_M);
     if(!(ulStatus == I2C_I2STAT_M_RX_SLAR_ACK))
     {
         I2CStopSend(ulBase);
@@ -2872,15 +2909,19 @@ xI2CMasterReadBufS1(unsigned long ulBase, unsigned char ucSlaveAddr,
     //
     // Waiting the I2C controller to be transmited
     //
+    //xI2CMasterReadRequestS1(ulBase, ucSlaveAddr, xfalse);
+    if(ulStatusStart == I2C_I2STAT_M_TX_RESTART)
+    {   
+        xHWREG(ulBase + I2C_O_CON) |= I2C_CON_AA; 
+    }
+    SysCtlDelay(100);
+    xHWREG(ulBase + I2C_O_CON) |= I2C_CON_SI;
     
-    //xHWREG(ulBase + I2C_O_CON) |= I2C_CON_AA;
-    //xHWREG(ulBase + I2C_O_CON) |= I2C_CON_SI;
-    
-    //while (!(xHWREG(ulBase + I2C_O_CON) & I2C_CON_SI));
+    while (!(xHWREG(ulBase + I2C_O_CON) & I2C_CON_SI));
 
-    //pucDataBuf[0] = xHWREG(ulBase + I2C_O_DAT);
-    SysCtlDelay(10000);
-    ulStatus = I2CByteGet(ulBase, &pucDataBuf[0], 1);
+    pucDataBuf[0] = xHWREG(ulBase + I2C_O_DAT);
+    
+    //ulStatus = I2CByteGet(ulBase, &pucDataBuf[0], 1);
     
     ulRead = 1;
     

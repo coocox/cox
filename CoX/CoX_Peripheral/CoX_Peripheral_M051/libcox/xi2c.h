@@ -253,7 +253,7 @@ extern "C"
 //! The I2C controller lost arbitration
 //
 #define xI2C_MASTER_ERR_ARB_LOST                                              \
-                                I2C_I2STAT_M_TX_ARB_LOST
+                                3
 
 //*****************************************************************************
 //

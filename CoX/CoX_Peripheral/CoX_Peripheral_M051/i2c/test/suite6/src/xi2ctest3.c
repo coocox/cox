@@ -54,6 +54,15 @@ unsigned char ucTemp[5];
 unsigned char ucTempCount = 0;
 unsigned char ucTempCount1 = 0;
 
+static tI2CMasterTransferCfg I2CMasterTrCfg;
+
+static unsigned char SendBuf[] = "helloi2c";
+static unsigned long SendLength =  9;
+static unsigned char SlaveAddress = 0x12;
+
+static unsigned char ReceiveBuf[20] = "\r\n";
+static unsigned char ReceiveLength = 9;
+
 //*****************************************************************************
 //
 //! \breif i2c slave interrupt install function
@@ -115,6 +124,17 @@ static void xI2C001Setup(void)
     //
     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_I2C0);
     
+    //
+    // I2C master transfer config
+    //
+    I2CMasterTrCfg.ulSlave = SlaveAddress;
+    I2CMasterTrCfg.pvWBuf = SendBuf;
+    I2CMasterTrCfg.ulWLen = SendLength;
+    I2CMasterTrCfg.ulWCount = 0;
+    I2CMasterTrCfg.pvRBuf = ReceiveBuf;
+    I2CMasterTrCfg.ulRLen = ReceiveLength;
+    I2CMasterTrCfg.ulRCount = 0;   
+    
 }
 
 
@@ -145,6 +165,7 @@ static void xI2C001TearDown(void)
 //*****************************************************************************
 static void xI2C001Execute(void)
 {
+    
     I2CMasterInit(ulMaster, 400000);
     I2CEnable(ulMaster);
     
@@ -194,52 +215,37 @@ PrintTest(char *pcMsg)
 //*****************************************************************************
 static void xI2C002Execute(void)
 {
+    xtBoolean bFlag;
     I2CMasterInit(ulMaster, 400000);
     I2CEnable(ulMaster);
     
     xI2CMasterWriteBufS1(ulMaster, 0x12, ucTempData, 4, xfalse);
     
-    xI2CMasterReadS1(ulMaster, 0x12, ucTemp, xfalse);
-    PrintTest("ucTemp[0]:  \r\n");
-    TestIOPut(ucTemp[0]);
-    
+    xI2CMasterReadS1(ulMaster, 0x12, ucTemp, xfalse);    
     xI2CMasterReadS2(ulMaster, &ucTemp[1], xfalse);
-    PrintTest("ucTemp[1]:  \r\n");
-    TestIOPut(ucTemp[1]);
     xI2CMasterReadS2(ulMaster, &ucTemp[2], xfalse);
-    PrintTest("ucTemp[2]:  \r\n");
-    TestIOPut(ucTemp[2]);
     xI2CMasterReadS2(ulMaster, &ucTemp[3], xtrue);
-    PrintTest("ucTemp[3]:  \r\n");
-    TestIOPut(ucTemp[3]);
     
     xI2CMasterReadBufS1(ulMaster, 0x12, ucTemp, 4, xtrue);
-    PrintTest("ucTemp[0-3]:  \r\n");
-    PrintTest(ucTemp);
+    
+    xI2CMasterWriteBufS1(ulMaster, 0x12, ucTempData, 4, xfalse);
     xI2CMasterReadBufS1(ulMaster, 0x12, ucTemp, 4, xtrue);
     
     xI2CMasterReadS1(ulMaster, 0x12, ucTemp, xfalse);
-    PrintTest("ucTemp[0]:  \r\n");
-    TestIOPut(ucTemp[0]);
-    
     xI2CMasterReadS2(ulMaster, &ucTemp[1], xfalse);
-    PrintTest("ucTemp[1]:  \r\n");
-    TestIOPut(ucTemp[1]);
     xI2CMasterReadS2(ulMaster, &ucTemp[2], xfalse);
-    PrintTest("ucTemp[2]:  \r\n");
-    TestIOPut(ucTemp[2]);
     xI2CMasterReadS2(ulMaster, &ucTemp[3], xtrue);
-    PrintTest("ucTemp[3]:  \r\n");
-    TestIOPut(ucTemp[3]);
     
     TestAssert(ucTemp[0] == 'r',
                    "xi2c, \"I2C send or receive\" error!");
-    TestAssert(ucTemp[1] == 'o',
+    TestAssert(ucTemp[1] == 's',
                    "xi2c, \"I2C send or receive\" error!");
-    TestAssert(ucTemp[2] == 'n',
+    TestAssert(ucTemp[2] == 't',
                    "xi2c, \"I2C send or receive\" error!");
-    TestAssert(ucTemp[3] == 'g',
+    TestAssert(ucTemp[3] == 'u',
                    "xi2c, \"I2C send or receive\" error!");
+    
+    bFlag = I2CMasterTransfer(I2C0_BASE, &I2CMasterTrCfg, I2C_TRANSFER_POLLING);
 }
 
 //
@@ -268,7 +274,7 @@ const tTestCase sTestXi2c003Register = {
 //
 const tTestCase * const psPatternXi2c003[] =
 {
-    //&sTestXi2c001Register,
+    &sTestXi2c001Register,
     &sTestXi2c003Register,
     0
 };
