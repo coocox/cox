@@ -2,8 +2,8 @@
 //
 //! \file xrtc.h
 //! \brief Prototypes for the RTC Driver.
-//! \version V2.1.1.0
-//! \date 11/14/2011
+//! \version V2.2.1.0
+//! \date 06/01/2012
 //! \author CooCox
 //! \copy
 //!
@@ -84,7 +84,7 @@ extern "C"
 //! \section xRTC_INT_Type_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xRTC Interrupts         |       CoX      |         NUC1xx         |
+//! |xRTC Interrupts         |       CoX      |         STM32F1xx      |
 //! |------------------------|----------------|------------------------|
 //! |xRTC_INT_SECOND         |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -96,8 +96,8 @@ extern "C"
 //! @{
 //
 //*****************************************************************************
-#define xRTC_INT_SECOND         0
-#define xRTC_INT_ALARM          0
+#define xRTC_INT_SECOND         RTC_INT_TIME_TICK
+#define xRTC_INT_ALARM          RTC_INT_ALARM
 
 //*****************************************************************************
 //
@@ -118,7 +118,7 @@ extern "C"
 //! \section xRTC_INT_Event_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xRTC Interrupts         |       CoX      |         NUC1xx         |
+//! |xRTC Interrupts         |       CoX      |         STM32F1xx      |
 //! |------------------------|----------------|------------------------|
 //! |xRTC_EVENT_SECOND       |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -130,8 +130,8 @@ extern "C"
 //! @{
 //
 //*****************************************************************************
-#define xRTC_EVENT_SECOND       0
-#define xRTC_EVENT_ALARM        0
+#define xRTC_EVENT_SECOND       RTC_INT_TIME_TICK
+#define xRTC_EVENT_ALARM        RTC_INT_ALARM
 
 //*****************************************************************************
 //
@@ -151,7 +151,7 @@ extern "C"
 //! \section xRTC_Day_Week_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |tTime.ulWDay            |       CoX      |         NUC1xx         |
+//! |tTime.ulWDay            |       CoX      |         STM32F1xx      |
 //! |------------------------|----------------|------------------------|
 //! |xRTC_WEEK_SUNDAY        |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -175,37 +175,37 @@ extern "C"
 //
 //! Sunday
 //
-#define xRTC_WEEK_SUNDAY        0
+#define xRTC_WEEK_SUNDAY        RTC_WEEK_SUNDAY
 
 //
 //! Monday
 //
-#define xRTC_WEEK_MONDAY        0
+#define xRTC_WEEK_MONDAY        RTC_WEEK_MONDAY
 
 //
 //! Tuesday
 //
-#define xRTC_WEEK_TUESDAY       0
+#define xRTC_WEEK_TUESDAY       RTC_WEEK_TUESDAY
 
 //
 //! Wednesday
 //
-#define xRTC_WEEK_WEDNESDAY     0
+#define xRTC_WEEK_WEDNESDAY     RTC_WEEK_WEDNESDAY
 
 //
 //! Thursday
 //
-#define xRTC_WEEK_THURSDAY      0
+#define xRTC_WEEK_THURSDAY      RTC_WEEK_THURSDAY
 
 //
 //! Friday
 //
-#define xRTC_WEEK_FRIDAY        0
+#define xRTC_WEEK_FRIDAY        RTC_WEEK_FRIDAY
 
 //
 //! Saturday
 //
-#define xRTC_WEEK_SATURDAY      0
+#define xRTC_WEEK_SATURDAY      RTC_WEEK_SATURDAY
 
 //*****************************************************************************
 //
@@ -233,7 +233,7 @@ extern "C"
 //
 //! Initiative time is 00:00:00 1/1 / 2000
 //
-#define xRTC_YEAR_OFFSET        0
+#define xRTC_YEAR_OFFSET        RTC_YEAR_OFFSET
 
 //*****************************************************************************
 //
@@ -253,7 +253,7 @@ extern "C"
 //! \section xRTC_Year_Offset_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |ulTimeAlarm             |       CoX      |         NUC1xx         |
+//! |ulTimeAlarm             |       CoX      |         STM32F1xx      |
 //! |------------------------|----------------|------------------------|
 //! |xRTC_TIME_CURRENT       |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -267,12 +267,12 @@ extern "C"
 //
 //! Read or write current time and date
 //
-#define xRTC_TIME_CURRENT       0
+#define xRTC_TIME_CURRENT       RTC_TIME_CURRENT
 
 //
 //! Read or write alarm time and date 
 //
-#define xRTC_TIME_ALARM         0
+#define xRTC_TIME_ALARM         RTC_TIME_ALARM
 
 //*****************************************************************************
 //
@@ -344,7 +344,7 @@ typedef struct
 //! \section xRTC_Exported_APIs_Port CoX Port Details
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xRTC API                |       CoX      |         NUC1xx         |
+//! |xRTC API                |       CoX      |         STM32F1xx      |
 //! |------------------------|----------------|------------------------|
 //! |xRTCTimeInit            |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -379,7 +379,9 @@ typedef struct
 //! xfalse .
 //
 //*****************************************************************************
-extern void xRTCTimeInit();
+
+#define xRTCTimeInit()                                                        \
+        RTCTimeInit()
 
 //*****************************************************************************
 //
@@ -399,7 +401,12 @@ extern void xRTCTimeInit();
 //! \return None.
 //
 //*****************************************************************************
-extern void xRTCTimeRead(xtTime *xtTime, unsigned long ulTimeAlarm);
+#define xRTCTimeRead(xtTime, ulTimeAlarm)                                     \
+        do                                                                    \
+        {                                                                     \
+         RTCTimeRead((tTime *)xtTime, ulTimeAlarm)                            \
+        }                                                                     \
+        while(0)
 
 //*****************************************************************************
 //
@@ -419,7 +426,12 @@ extern void xRTCTimeRead(xtTime *xtTime, unsigned long ulTimeAlarm);
 //! \return None.
 //
 //*****************************************************************************
-extern void xRTCTimeWrite(xtTime *xtTime, unsigned long ulTimeAlarm);
+#define xRTCTimeWrite(xtTime, ulTimeAlarm)                                    \
+        do                                                                    \
+        {                                                                     \
+         RTCTimeWrite((tTime *)xtTime, ulTimeAlarm)                           \
+        }                                                                     \
+        while(0)
 
 //*****************************************************************************
 //
@@ -437,7 +449,8 @@ extern void xRTCTimeWrite(xtTime *xtTime, unsigned long ulTimeAlarm);
 //! \return None.
 //
 //*****************************************************************************        
-extern void xRTCIntEnable(unsigned long ulIntType);
+#define xRTCIntEnable(ulIntType)                                              \
+        RTCIntEnable(ulIntType)
 
 //*****************************************************************************
 //
@@ -450,7 +463,8 @@ extern void xRTCIntEnable(unsigned long ulIntType);
 //! \return None.
 //
 //*****************************************************************************
-extern void xRTCIntCallbackInit(xtEventCallback xtRTCCallback);
+#define xRTCIntCallbackInit(xtRTCCallback)                                    \
+        RTCIntCallbackInit(xtRTCCallback) 
 
 //*****************************************************************************
 //
@@ -468,7 +482,8 @@ extern void xRTCIntCallbackInit(xtEventCallback xtRTCCallback);
 //! \return None.
 //
 //*****************************************************************************
-extern void xRTCIntDisable(unsigned long ulIntType);
+#define xRTCIntDisable(ulIntType)                                             \
+        RTCIntDisable(ulIntType)
 
 //*****************************************************************************
 //
@@ -481,7 +496,8 @@ extern void xRTCIntDisable(unsigned long ulIntType);
 //! \return None.
 //
 //*****************************************************************************
-extern void xRTCStart();
+#define xRTCStart()                                                           \
+        RTCStart()
 
 //*****************************************************************************
 //
@@ -494,7 +510,221 @@ extern void xRTCStart();
 //! \return None.
 //
 //*****************************************************************************
-extern void xRTCStop();
+#define xRTCStop()                                                            \
+        RTCStop()
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_RTC
+//! @{
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup RTC_INT_Type RTC Interrupt Type
+//! \brief Values that show RTC Interrupt Type
+//! Values that can be passed to RTCIntEnable(),RTCIntDisable().
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Overflow interrupt
+//
+#define RTC_INT_OVERFLOW        0x00000004
+
+//
+//! Time Tick Interrupt
+//
+#define RTC_INT_TIME_TICK       0x00000001
+
+//
+//! Alarm Interrupt 
+//
+#define RTC_INT_ALARM           0x00000002
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup RTC_FLAG_Type RTC Flag Type
+//! \brief Values that show RTC Flag Type
+//! Values that can be passed to RTCIntClear().
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Overflow flag
+//
+#define RTC_FLAG_OVERFLOW       0x00000004
+
+//
+//! Time Tick flag
+//
+#define RTC_FLAG_TIME_TICK      0x00000001
+
+//
+//! Alarm flag 
+//
+#define RTC_FLAG_ALARM          0x00000002
+
+//
+//! Registers synchronized flag
+//
+#define RTC_FLAG_RSF            0x00000008
+
+//
+//! RTC operation OFF flag 
+//
+#define RTC_FLAG_RTOFF          0x00000020
+
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup RTC_Year_Offset RTC Year Offset
+//! \brief Values that show RTC Year Offset
+//! Values that is the offset of the year.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Initiative time is 00:00:00 1/1 / 2000
+//
+#define RTC_YEAR_OFFSET         0x000007D0
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup RTC_Time_Type RTC Time Type
+//! \brief Values that show RTC Time Type
+//! Values that can be passed to RTCTimeRead() and RTCTimeWrite().
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Read or write current time and date
+//
+#define RTC_TIME_CURRENT        0x00000000
+
+//
+//! Read or write alarm time and date 
+//
+#define RTC_TIME_ALARM          0x00000001
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_RTC_Exported_Types
+//! @{
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! RTC Time and Calendar Definition definitions
+//
+//*****************************************************************************
+typedef struct 
+{    
+    //
+    //! Seconds of time 
+    // 
+    unsigned long ulSecond;     
+    
+    //
+    //! Minutes of time 
+    // 
+    unsigned long ulMinute; 
+    
+    //
+    //! Hours of time 
+    // 
+    unsigned long ulHour; 
+    
+    //
+    //! Day of Month
+    // 
+    unsigned long ulMDay;  
+    
+    //
+    //! Month
+    // 
+    unsigned long ulMonth;   
+    
+    //
+    //! Years
+    // 
+    unsigned long ulYear;    
+    
+    //
+    //! Day of Week  
+    // 
+    unsigned long ulWDay;   
+
+} tTime;
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_RTC_Exported_APIs STM32F1xx API
+//! \brief STM32F1xx RTC API Reference.
+//! @{
+//
+//*****************************************************************************
+
+extern xtBoolean RTCTimeInit(unsigned long ulConfig);
+extern void RTCTimeRead(tTime *tTime, unsigned long ulTimeAlarm);
+extern void RTCTimeWrite(tTime *tTime, unsigned long ulTimeAlarm);
+extern void RTCIntEnable(unsigned long ulIntType);
+extern void RTCIntDisable(unsigned long ulIntType);
+extern void RTCIntCallbackInit(xtEventCallback xtRTCCallback);
+
+extern unsigned long RTCFlagStatusGet(void);
+extern void RTCFlagClear(unsigned long ulFlag);
+extern unsigned long RTCIntStatusGet(void);
+extern void RTCIntClear(unsigned long ulIntType);
 
 //*****************************************************************************
 //
