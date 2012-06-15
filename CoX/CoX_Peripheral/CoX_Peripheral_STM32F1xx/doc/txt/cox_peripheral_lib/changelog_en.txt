@@ -1,0 +1,12 @@
+//*****************************************************************************
+//
+//! \page Changelog Revisions
+//!
+//!
+//! <h3>Revision 2.0.1.0 09/30/2011</h3>
+//! We re-write the cox, for the initial version's drawbacks.
+//!
+//! <h3>Revision 1.0.1.0 09/2010</h3>
+//! CoX Peripheral Interface initial version.
+//
+//*****************************************************************************
