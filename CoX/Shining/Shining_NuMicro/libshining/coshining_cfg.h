@@ -93,7 +93,7 @@
 //! - \ref sD11_FUNC_PWM to set D11 as PWM
 //! please refrence \ref CS_B_Arduino_Pin_D11_Map.
 //
-#define sD11_FUNC_MAP           sD11_FUNC_SPI_MOSI    
+#define sD11_FUNC_MAP           sD11_FUNC_PWM    
 
 //
 //! Arduino compatible Pin A4 Peripheral Function select, it can be set :

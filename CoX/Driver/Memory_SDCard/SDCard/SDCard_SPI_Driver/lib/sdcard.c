@@ -46,6 +46,7 @@
 #include "xspi.h"
 #include "hw_sdcard.h"
 #include "sdcard.h"
+#include "coshining.h"
 
 
 //
@@ -316,9 +317,12 @@ SDHardwareInit(void)
     //
     // Set DataIn/CLK/DataOut Pin type to SPI
     //
+		/*
     xSPinTypeSPI(SD_HOST_SPI_PIN_MOSI, SD_PIN_DATAIN);
     xSPinTypeSPI(SD_HOST_SPI_PIN_CLK, SD_PIN_CLK);
     xSPinTypeSPI(SD_HOST_SPI_PIN_MISO, SD_PIN_DATAOUT);
+		*/
+		sPinTypeSPI(sICSP_SPI_BASE);
 
     //
     // Enable SPI 

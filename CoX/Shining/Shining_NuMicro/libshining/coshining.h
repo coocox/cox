@@ -245,7 +245,6 @@
            xASSERT(sD10_FUNC_MAP == sD10_FUNC_SPI_SS);                        \
            xASSERT(sD11_FUNC_MAP == sD11_FUNC_SPI_MOSI);                      \
            xSPinTypeSPI(SPI1CS,  sD10);                                       \
-           xSPinTypeSPI(SPI1MOSI,sD11);                                       \
            xSPinTypeSPI(SPI1MISO,sD12);                                       \
            xSPinTypeSPI(SPI1CLK, sD13);                                       \
          }                                                                    \
@@ -309,4 +308,4 @@
 //}
 #endif
 
-#endif // __CO_SHINING_H__    
+#endif // __CO_SHINING_H__  

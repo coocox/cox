@@ -112,7 +112,7 @@ extern "C"
 //
 //! SD Card Power Pin
 //
-#define SD_PIN_POWER            PD12
+#define SD_PIN_POWER            sD0
 
 //
 //! SD Card Power Pin Active State
@@ -122,22 +122,22 @@ extern "C"
 //
 //! SD Card Pin1 - CS(Chip Select (active low))
 //
-#define SD_PIN_CS               PC8
+#define SD_PIN_CS               sD4
 
 //
 //! SD Card Pin2 - DataIn(Host-to-card Commands and Data)
 //
-#define SD_PIN_DATAIN           PC11
+#define SD_PIN_DATAIN           sICSP_4_MOSI
 
 //
 //! SD Card Pin5 - CLK(Clock)
 //
-#define SD_PIN_CLK              PC9
+#define SD_PIN_CLK              sICSP_3_SCK
 
 //
 //! SD Card Pin7 - DataOut(Card-to-host Data and Status)
 //
-#define SD_PIN_DATAOUT          PC10
+#define SD_PIN_DATAOUT          sICSP_1_MISO
 
 //
 //! SD SPI max(normal) clock freq
@@ -147,10 +147,10 @@ extern "C"
 //
 //! SD Card Host SPI Port
 //
-#define SD_HOST_SPI_PORT        xSPI1_BASE
-#define SD_HOST_SPI_PIN_CLK     SPI1CLK
-#define SD_HOST_SPI_PIN_MOSI    SPI1MOSI
-#define SD_HOST_SPI_PIN_MISO    SPI1MISO
+#define SD_HOST_SPI_PORT        sICSP_SPI_BASE
+#define SD_HOST_SPI_PIN_CLK     SPI0CLK
+#define SD_HOST_SPI_PIN_MOSI    SPI0MOSI
+#define SD_HOST_SPI_PIN_MISO    SPI0MISO
 
 //*****************************************************************************
 //
