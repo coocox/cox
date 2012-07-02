@@ -1,0 +1,45 @@
+<?xml version="2.1" ?>
+<Component>
+    <Name>COX.Peripheral.STM32F1xx.xI2C</Name>
+    <Description>STM32F1xx I2C Driver</Description>
+    <Category>Peripheral.COX</Category>
+    <Version>2.1.1.0</Version>
+    <Tags>COX, xI2C, I2C, SMbus, 2-wire</Tags>
+
+    <Files>
+        <File>..\..\libcox\xi2c.h</File>
+        <File>..\..\libcox\xi2c.c</File>
+    </Files>
+
+    <FilesCoIDE>
+        <File>$PROJECT_ROOT$\COX\COX_Peripheral\src\xi2c.h</File>
+        <File>$PROJECT_ROOT$\COX\COX_Peripheral\inc\xi2c.c</File>
+    </FilesCoIDE>
+
+    <Dependencys>
+        <Dependency>COX.Peripheral.STM32F1xx.xStartup</Dependency>
+        <Dependency>COX.Peripheral.STM32F1xx.xLowLayer</Dependency>
+		<Dependency>COX.Peripheral.STM32F1xx.xGPIO</Dependency>
+    </Dependencys>
+
+    <SupportDevices>
+        <Series>
+            <Serie exclude="">STM32F1xx</Serie>
+        </Series>
+        <Devices>
+            <Device></Device>
+        </Devices>
+    </SupportDevices>
+
+    <Micros>
+        <Comm>
+            <Define></Define>
+        </Comm>
+        <Device name="">
+            <Define></Define>
+        </Device>   
+    </Micros>
+
+    <Help>$DOCUMENT_ROOT$\xi2c</Help>
+
+</Component>
