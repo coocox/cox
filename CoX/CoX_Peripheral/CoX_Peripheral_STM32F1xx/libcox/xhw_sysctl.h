@@ -81,6 +81,11 @@
 //*****************************************************************************
 
 //
+//! Flash Access control register 
+//
+#define FLASH_ACR               0x40022000
+
+//
 //! Clock control register
 //
 #define RCC_CR                  0x40021000
@@ -564,7 +569,7 @@
 //
 //! System clock switch status mask
 //
-#define RCC_CFGR_SWS_M          0x0000000C
+#define RCC_CFGR_SWS_M          0x0000000CUL
 
 //
 //! System clock switch status shift
@@ -1654,6 +1659,58 @@
 //
 //*****************************************************************************
 
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_Flash_Access_Control_Register_FLASH_ACR 
+//!             SysCtl Register FLASH_ACR
+//! \brief Defines for the bit fields in the BKP_CSR register.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Flash prefetch buffer status 
+//
+#define FLASH_ACR_PRFTBS             0x00000020
+
+//
+//! Prefetch buffer enable 
+//
+#define FLASH_ACR_PRFTBE             0x00000010
+
+//
+//! Flash half cycle access enable 
+//
+#define FLASH_ACR_HLFCYA             0x00000008
+
+//
+//! Latency Bits Mask
+//
+#define FLASH_ACR_LATENCY_M          0x00000007
+
+//
+//! Zero wait state, if 0 < SYSCLK <= 24 MHz 
+//
+#define FLASH_ACR_LATENCY_0          0x00000000
+
+//
+//! One wait states, if 24 MHz < SYSCLK <= 48 MHz
+//
+#define FLASH_ACR_LATENCY_1          0x00000001
+
+//
+//! Two wait states, if 48 MHz < SYSCLK <= 72 MHz 
+//
+#define FLASH_ACR_LATENCY_2          0x00000002
+
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
 //*****************************************************************************
 //
 //! @}
@@ -1673,5 +1730,4 @@
 //*****************************************************************************
 
 #endif // __XHW_SYSCTL_H__
-
 

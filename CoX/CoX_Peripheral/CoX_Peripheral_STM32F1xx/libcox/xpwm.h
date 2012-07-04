@@ -2,8 +2,8 @@
 //
 //! \file xpwm.h
 //! \brief Prototypes for the PWM Driver.
-//! \version V2.1.1.0
-//! \date 11/14/2011
+//! \version V2.2.1.0
+//! \date 6/25/2012
 //! \author CooCox
 //! \copy
 //!
@@ -83,11 +83,11 @@ extern "C"
 //! \n
 //! \section xPWM_Int_Type_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
-//! +------------------------+----------------+--------+
-//! |xPWM Interrupt Source   |       CoX      | NUC1xx |
-//! |------------------------|----------------|--------|
-//! |xPWM_INT_PWM            |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
+//! +------------------------+----------------+-----------+
+//! |xPWM Interrupt Source   |       CoX      | STM32F1xx |
+//! |------------------------|----------------|-----------|
+//! |xPWM_INT_PWM            |    Mandatory   |     Y     |
+//! |------------------------|----------------|-----------|
 //! \endverbatim
 //! @{
 //
@@ -96,7 +96,7 @@ extern "C"
 //
 //! PWM channels Interrupt 
 //
-#define xPWM_INT_PWM            0
+#define xPWM_INT_PWM            0x00000002
 
 //*****************************************************************************
 //
@@ -111,18 +111,18 @@ extern "C"
 //! \n
 //! \section xPWM_Event_Type_Section 1. Where to use this group
 //! PWM Event/Error Flag, Used by IntHandle's Event Callback Function as 
-//! ulEvent parmeter. User Callback function can user this to detect what 
+//! ulEvent parameter. User Callback function can use this to detect what 
 //! event happened. 
 //! \n
 //! \section xPWM_Event_Type_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
-//! +------------------------+----------------+--------+
-//! |xPWM Event Source       |       CoX      | NUC1xx |
-//! |------------------------|----------------|--------|
-//! |xPWM_EVENT_PWM          |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xPWM_EVENT_CAP          |  non-Mandatory |    Y   |
-//! |------------------------|----------------|--------|
+//! +------------------------+----------------+-----------+
+//! |xPWM Event Source       |       CoX      | STM32F1xx |
+//! |------------------------|----------------|-----------|
+//! |xPWM_EVENT_PWM          |    Mandatory   |     Y     |
+//! |------------------------|----------------|-----------|
+//! |xPWM_EVENT_CAP          |  non-Mandatory |     N     |
+//! |------------------------|----------------|-----------|
 //! \endverbatim
 //! @{
 //
@@ -131,12 +131,7 @@ extern "C"
 //
 //! The Interrupt event is PWM
 //
-#define xPWM_EVENT_PWM          0
-
-//
-//! The Interrupt event is Capture  
-//
-#define xPWM_EVENT_CAP          0
+#define xPWM_EVENT_PWM          0x00000002   
 
 
 //*****************************************************************************
@@ -155,20 +150,20 @@ extern "C"
 //! \n
 //! \section xPWM_Event_Type_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
-//! +------------------------+----------------+--------+
-//! |xPWM Freq Config        |       CoX      | NUC1xx |
-//! |------------------------|----------------|--------|
-//! |xPWM_FREQ_CONFIG(a,b,c) |    Mandatory   |    Y   |
-//! |a is The Divider value  |                |        |
-//! |b is The PreScale value |                |        |
-//! |c is PWM Counter value  |                |        |
-//! |------------------------|----------------|--------|
+//! +------------------------+----------------+-----------+
+//! |xPWM Freq Config        |       CoX      | STM32F1xx |
+//! |------------------------|----------------|-----------|
+//! |xPWM_FREQ_CONFIG(a,b,c) |    Mandatory   |     Y     |
+//! |a is The Divider value  |                |           |
+//! |b is The PreScale value |                |           |
+//! |c is PWM Counter value  |                |           |
+//! |------------------------|----------------|-----------|
 //! \endverbatim
 //! @{
 //
 //*****************************************************************************
 
-#define xPWM_FREQ_CONFIG(a,b,c) 0
+#define xPWM_FREQ_CONFIG(a,b,c) (1 | b | (c<<16))
 
 //*****************************************************************************
 //
@@ -186,13 +181,13 @@ extern "C"
 //! as the ulChannel parameter. 
 //!
 //! PWM Event Channel Flag, Used by IntHandle's Event Callback Function as 
-//! ulMsgParam parmeter. User Callback function can user this to detect what 
+//! ulMsgParam parmeter. User Callback function can use this to detect what 
 //! Channel event happened. 
 //! \n
 //! \section xPWM_Channel_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
 //! +------------------------+----------------+-------------+
-//! |xPWM Channel Number     |       CoX      |   NUC1xx    |
+//! |xPWM Channel Number     |       CoX      |   STM32F1xx |
 //! |------------------------|----------------|-------------|
 //! |xPWM_CHANNEL$x$         |  Non-Mandatory |xPWM_CHANNEL0|
 //! |                        |                |-------------|
@@ -201,14 +196,6 @@ extern "C"
 //! |                        |                |xPWM_CHANNEL2|
 //! |                        |                |-------------|
 //! |                        |                |xPWM_CHANNEL3|
-//! |                        |                |-------------|
-//! |                        |                |xPWM_CHANNEL4|
-//! |                        |                |-------------|
-//! |                        |                |xPWM_CHANNEL5|
-//! |                        |                |-------------|
-//! |                        |                |xPWM_CHANNEL6|
-//! |                        |                |-------------|
-//! |                        |                |xPWM_CHANNEL7|
 //! |------------------------|----------------|-------------|
 //! \endverbatim
 //! @{
@@ -218,42 +205,22 @@ extern "C"
 //
 //! Channel 0
 //
-#define xPWM_CHANNEL0           0
+#define xPWM_CHANNEL0           PWM_CHANNEL0
 
 //
 //! Channel 1
 //
-#define xPWM_CHANNEL1           0
+#define xPWM_CHANNEL1           PWM_CHANNEL1
 
 //
 //! Channel 2
 //
-#define xPWM_CHANNEL2           0
+#define xPWM_CHANNEL2           PWM_CHANNEL2
 
 //
 //! Channel 3
 //
-#define xPWM_CHANNEL3           0
-
-//
-//! Channel 4
-//
-#define xPWM_CHANNEL4           0
-
-//
-//! Channel 5
-//
-#define xPWM_CHANNEL5           0
-
-//
-//! Channel 6
-//
-#define xPWM_CHANNEL6           0
-
-//
-//! Channel 7
-//
-#define xPWM_CHANNEL7           0
+#define xPWM_CHANNEL3           PWM_CHANNEL3
 
 //*****************************************************************************
 //
@@ -273,21 +240,21 @@ extern "C"
 //! \n
 //! \section xPWM_Config_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
-//! +------------------------+----------------+--------+
-//! |xPWM Config             |       CoX      | NUC1xx |
-//! |------------------------|----------------|--------|
-//! |xPWM_ONE_SHOT_MODE      |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xPWM_TOGGLE_MODE        |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xPWM_OUTPUT_INVERTER_EN |  Non-Mandatory |    Y   |
-//! |------------------------|----------------|--------|
-//! |xPWM_OUTPUT_INVERTER_DIS|  Non-Mandatory |    Y   |
-//! |------------------------|----------------|--------|
-//! |xPWM_DEAD_ZONE_EN       |  Non-Mandatory |    Y   |
-//! |------------------------|----------------|--------|
-//! |xPWM_DEAD_ZONE_DIS      |  Non-Mandatory |    Y   |
-//! |------------------------|----------------|--------|
+//! +------------------------+----------------+-----------+
+//! |xPWM Config             |       CoX      | STM32F1xx |
+//! |------------------------|----------------|-----------|
+//! |xPWM_ONE_SHOT_MODE      |    Mandatory   |     N     |
+//! |------------------------|----------------|-----------|
+//! |xPWM_TOGGLE_MODE        |    Mandatory   |     Y     |
+//! |------------------------|----------------|-----------|
+//! |xPWM_OUTPUT_INVERTER_EN |  Non-Mandatory |     Y     |
+//! |------------------------|----------------|-----------|
+//! |xPWM_OUTPUT_INVERTER_DIS|  Non-Mandatory |     Y     |
+//! |------------------------|----------------|-----------|
+//! |xPWM_DEAD_ZONE_EN       |  Non-Mandatory |     Y     |
+//! |------------------------|----------------|-----------|
+//! |xPWM_DEAD_ZONE_DIS      |  Non-Mandatory |     Y     |
+//! |------------------------|----------------|-----------|
 //! \endverbatim
 //! @{
 //
@@ -301,27 +268,27 @@ extern "C"
 //
 //! Auto-reload Mode
 //
-#define xPWM_TOGGLE_MODE        0
+#define xPWM_TOGGLE_MODE        PWM_TOGGLE_MODE
 
 //
 //! Inverter enable
 //
-#define xPWM_OUTPUT_INVERTER_EN 0
+#define xPWM_OUTPUT_INVERTER_EN PWM_OUTPUT_INVERTER_EN
 
 //
-//! Inverter enable
+//! Inverter disable
 //
-#define xPWM_OUTPUT_INVERTER_DIS 0
-
-//
-//! Dead-Zone 0 Generator enable
-//
-#define xPWM_DEAD_ZONE_EN       0
+#define xPWM_OUTPUT_INVERTER_DIS PWM_OUTPUT_INVERTER_DIS
 
 //
 //! Dead-Zone 0 Generator enable
 //
-#define xPWM_DEAD_ZONE_DIS      0
+#define xPWM_DEAD_ZONE_EN       PWM_DEAD_ZONE_EN
+
+//
+//! Dead-Zone 0 Generator disable
+//
+#define xPWM_DEAD_ZONE_DIS      PWM_DEAD_ZONE_DIS
 
 //*****************************************************************************
 //
@@ -334,37 +301,37 @@ extern "C"
 //! \addtogroup xPWM_Exported_APIs xPWM APIs
 //! \brief xPWM API Reference.
 //! \verbatim
-//! +------------------------+----------------+--------+
-//! |xPWM API                |       CoX      | NUC1xx |
-//! |------------------------|----------------|--------|
-//! |xPWMInitConfigure       |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xPWMFrequencySet        |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xPWMFrequencyConfig     |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xPWMFrequencyGet        |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xPWMOutputEnable        |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xPWMOutputDisable       |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xPWMStart               |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xPWMStop                |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xPWMDutySet             |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xPWMDutyGet             |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xPWMIntEnable           |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xPWMIntDisable          |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xPWMIntFlagGet          |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xPWMIntCallbackInit     |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
+//! +------------------------+----------------+-----------+
+//! |xPWM API                |       CoX      | STM32F1xx |
+//! |------------------------|----------------|-----------|
+//! |xPWMInitConfigure       |    Mandatory   |     Y     |
+//! |------------------------|----------------|-----------|
+//! |xPWMFrequencySet        |    Mandatory   |     Y     |
+//! |------------------------|----------------|-----------|
+//! |xPWMFrequencyConfig     |    Mandatory   |     Y     |
+//! |------------------------|----------------|-----------|
+//! |xPWMFrequencyGet        |    Mandatory   |     Y     |
+//! |------------------------|----------------|-----------|
+//! |xPWMOutputEnable        |    Mandatory   |     Y     |
+//! |------------------------|----------------|-----------|
+//! |xPWMOutputDisable       |    Mandatory   |     Y     |
+//! |------------------------|----------------|-----------|
+//! |xPWMStart               |    Mandatory   |     Y     |
+//! |------------------------|----------------|-----------|
+//! |xPWMStop                |    Mandatory   |     Y     |
+//! |------------------------|----------------|-----------|
+//! |xPWMDutySet             |    Mandatory   |     Y     |
+//! |------------------------|----------------|-----------|
+//! |xPWMDutyGet             |    Mandatory   |     Y     |
+//! |------------------------|----------------|-----------|
+//! |xPWMIntEnable           |    Mandatory   |     Y     |
+//! |------------------------|----------------|-----------|
+//! |xPWMIntDisable          |    Mandatory   |     Y     |
+//! |------------------------|----------------|-----------|
+//! |xPWMIntFlagGet          |    Mandatory   |     Y     |
+//! |------------------------|----------------|-----------|
+//! |xPWMIntCallbackInit     |    Mandatory   |     Y     |
+//! |------------------------|----------------|-----------|
 //! \endverbatim
 //! @{
 //
@@ -382,31 +349,22 @@ extern "C"
 //!
 //! This function is to initialize and configure channel of the PWM module.
 //!
-//! The \e ulChannel parameter can be values:
-//! 0~7,when the \e ulBase is PWMA_BASE,the \e ulChannel parameter can be value
-//! 0~3,when the \e ulBase is PWMB_BASE,the \e ulChannel parameter can be value
-//! 4~7.
+//! The \e ulChannel parameter can be values:0~3
 //!
-//! The \e ulConfig parameter is the logical OR of four values: The PWM mode,
-//! Inverter or not,and use dead zero or not and dead zone length. 
-//! \b xPWM_ONE_SHOT_MODE,\b xPWM_TOGGLE_MODE is the mode selecet.
-//! \b xPWM_OUTPUT_INVERTER_EN,
-//! \b xPWM_OUTPUT_INVERTER_DIS is to enable Inverter or not.
-//! \b xPWM_DEAD_ZONE_EN
-//! \b xPWM_DEAD_ZONE_DIS is to enable dead zone Generator or not.
-//! The dead zone length will be set at the 16~23 bits of the ulConfig.
-//! Details please refer to \ref xPWM_Config_CoX.
+//! The \e ulConfig parameter is the logical OR of four values: The PWM mode. 
+//! \b xPWM_ONE_SHOT_MODE is the mode selecet.
 //!
 //! \note When Dead-Zone Generator is enabled, the pair of PWM0 and PWM1 
-//! becomes a complementary pair for PWM group A and the pair of PWM4 and 
-//! PWM5 becomes a complementary pair for PWM group B.
+//! becomes a complementary pair for PWM group and so on. You can configure 
+//! "Dead-Zone Generator" or "Inverter enable" only When you use xPWMA_BASE
+//! or xPWMB_BASE.
 //!
 //! \return None.
 //
 //*****************************************************************************
 extern void xPWMInitConfigure(unsigned long ulBase, unsigned long ulChannel, 
-                              unsigned long ulConfig);                                         
-
+                              unsigned long ulConfig);
+  
 //*****************************************************************************
 //
 //! \brief Set the PWM frequency of the PWM module. 
@@ -417,22 +375,16 @@ extern void xPWMInitConfigure(unsigned long ulBase, unsigned long ulChannel,
 //!
 //! This function is to set the PWM frequency of the PWM module.
 //!
-//! The \e ulChannel parameter can be values:
-//! 0~7,when the \e ulBase is PWMA_BASE,the \e ulChannel parameter can be value
-//! 0~3,when the \e ulBase is PWMB_BASE,the \e ulChannel parameter can be value
-//! 4~7.
+//! The \e ulChannel parameter can be values:0~3
 //!
 //! The \e ulFrequency parameter can be values: Any values ,ulFrequency > 0 &&
 //! ulFrequency < PWM module input clock.
 //!
-//! \note 
-//!
 //! \return the Actual Frequency of PWM.
 //
 //*****************************************************************************
-extern unsigned long xPWMFrequencySet(unsigned long ulBase, 
-                                      unsigned long ulChannel, 
-									  unsigned long ulFrequency);
+#define xPWMFrequencySet(ulBase, ulChannel, ulFrequency)                      \
+         PWMFrequencySet(ulBase, ulFrequency)
 
 //*****************************************************************************
 //
@@ -445,23 +397,19 @@ extern unsigned long xPWMFrequencySet(unsigned long ulBase,
 //!
 //! This function is to set the PWM frequency of the PWM module.
 //!
-//! The \e ulChannel parameter can be values:
-//! 0~7,when the \e ulBase is PWMA_BASE,the \e ulChannel parameter can be value
-//! 0~3,when the \e ulBase is PWMB_BASE,the \e ulChannel parameter can be value
-//! 4~7.
+//! The \e ulChannel parameter can be values:0~3
 //!
 //! The \e ulConfig parameter is the logical OR of three values: The PreScale
 //! value, The Divider value and the PWM Counter Register value.
 //! Details please refer to \ref xPWM_Freq_Config_CoX.
 //!
-//! \note Config will not the same since diff manu,but for NUC1xx is the above
+//! \note Config will not the same since diff manu,but for STM32F1xx is the above
 //!
 //! \return the Actual Frequency of PWM.
 //
 //*****************************************************************************
-extern unsigned long xPWMFrequencyConfig(unsigned long ulBase, 
-                                         unsigned long ulChannel, 
-                                         unsigned long ulConfig); 
+#define xPWMFrequencyConfig(ulBase, ulChannel, ulConfig)                      \
+        PWMFrequencyConfig(ulBase, ulConfig)  
 
 //*****************************************************************************
 //
@@ -472,18 +420,14 @@ extern unsigned long xPWMFrequencyConfig(unsigned long ulBase,
 //!
 //! This function is to get the PWM frequency of the PWM module.
 //!
-//! The \e ulChannel parameter can be values:
-//! 0~7,when the \e ulBase is PWMA_BASE,the \e ulChannel parameter can be value
-//! 0~3,when the \e ulBase is PWMB_BASE,the \e ulChannel parameter can be value
-//! 4~7.
+//! The \e ulChannel parameter can be values:0~3.
 //!
-//! \note None
 //!
 //! \return the Actual Frequency of PWM.
 //
 //*****************************************************************************
-extern unsigned long xPWMFrequencyGet(unsigned long ulBase, 
-                                      unsigned long ulChannel);
+#define xPWMFrequencyGet(ulBase, ulChannel)                                   \
+        PWMFrequencyGet(ulBase)
 
 //*****************************************************************************
 //
@@ -494,17 +438,13 @@ extern unsigned long xPWMFrequencyGet(unsigned long ulBase,
 //!
 //! This function is to enable the PWM output of the PWM module.
 //!
-//! The \e ulChannel parameter can be values:
-//! 0~7,when the \e ulBase is PWMA_BASE,the \e ulChannel parameter can be value
-//! 0~3,when the \e ulBase is PWMB_BASE,the \e ulChannel parameter can be value
-//! 4~7.
-//!
-//! \note None
+//! The \e ulChannel parameter can be values:0~3.
 //!
 //! \return None.
 //
 //*****************************************************************************
-extern void xPWMOutputEnable(unsigned long ulBase, unsigned long ulChannel);
+#define xPWMOutputEnable(ulBase, ulChannel)                                   \
+        PWMOutputEnable(ulBase, ulChannel)
 
 //*****************************************************************************
 //
@@ -515,17 +455,13 @@ extern void xPWMOutputEnable(unsigned long ulBase, unsigned long ulChannel);
 //!
 //! This function is to disable the PWM output of the PWM module.
 //!
-//! The \e ulChannel parameter can be values:
-//! 0~7,when the \e ulBase is PWMA_BASE,the \e ulChannel parameter can be value
-//! 0~3,when the \e ulBase is PWMB_BASE,the \e ulChannel parameter can be value
-//! 4~7.
-//!
-//! \note None
+//! The \e ulChannel parameter can be values:0~3.
 //!
 //! \return None.
 //
 //*****************************************************************************
-extern void xPWMOutputDisable(unsigned long ulBase, unsigned long ulChannel); 
+#define xPWMOutputDisable(ulBase, ulChannel)                                  \
+        PWMOutputDisable(ulBase, ulChannel)
 
 //*****************************************************************************
 //
@@ -536,17 +472,13 @@ extern void xPWMOutputDisable(unsigned long ulBase, unsigned long ulChannel);
 //!
 //! This function is to start the PWM of the PWM module.
 //!
-//! The \e ulChannel parameter can be values:
-//! 0~7,when the \e ulBase is PWMA_BASE,the \e ulChannel parameter can be value
-//! 0~3,when the \e ulBase is PWMB_BASE,the \e ulChannel parameter can be value
-//! 4~7.
-//!
-//! \note None
+//! The \e ulChannel parameter can be values:0~3.
 //!
 //! \return None.
 //
 //*****************************************************************************
-extern void xPWMStart(unsigned long ulBase, unsigned long ulChannel);
+#define xPWMStart(ulBase, ulChannel)                                          \
+        PWMStart(ulBase)
 
 //*****************************************************************************
 //
@@ -557,17 +489,15 @@ extern void xPWMStart(unsigned long ulBase, unsigned long ulChannel);
 //!
 //! This function is to stop the PWM of the PWM module.
 //!
-//! The \e ulChannel parameter can be values:
-//! 0~7,when the \e ulBase is PWMA_BASE,the \e ulChannel parameter can be value
-//! 0~3,when the \e ulBase is PWMB_BASE,the \e ulChannel parameter can be value
-//! 4~7.
+//! The \e ulChannel parameter can be values:0~3.
 //!
 //! \note None
 //!
 //! \return None.
 //
 //*****************************************************************************
-extern void xPWMStop(unsigned long ulBase, unsigned long ulChannel);
+#define xPWMStop(ulBase, ulChannel)                                           \
+        PWMStop(ulBase)
 
 //*****************************************************************************
 //
@@ -579,20 +509,17 @@ extern void xPWMStop(unsigned long ulBase, unsigned long ulChannel);
 //!
 //! This function is to set the PWM duty of the PWM module.
 //!
-//! The \e ulChannel parameter can be values:
-//! 0~7,when the \e ulBase is PWMA_BASE,the \e ulChannel parameter can be value
-//! 0~3,when the \e ulBase is PWMB_BASE,the \e ulChannel parameter can be value
-//! 4~7.
+//! The \e ulChannel parameter can be values:0~3.
 //!
-//! The \e ulDuty parameter can be values:  duty > 0 && duty <= 100. 
+//! The \e ulDuty parameter can be values: duty > 0 && duty <= 100. 
 //!
 //! \note Duty should not be 0;
 //!
 //! \return None.
 //
 //*****************************************************************************
-extern void xPWMDutySet(unsigned long ulBase, unsigned long ulChannel, 
-                        unsigned long ulDuty);
+#define xPWMDutySet(ulBase, ulChannel, ulDuty)                                \
+        PWMDutySet(ulBase, ulChannel, ulDuty)
 
 //*****************************************************************************
 //
@@ -603,17 +530,13 @@ extern void xPWMDutySet(unsigned long ulBase, unsigned long ulChannel,
 //!
 //! This function is to get the PWM duty of the PWM module.
 //!
-//! The \e ulChannel parameter can be values:
-//! 0~7,when the \e ulBase is PWMA_BASE,the \e ulChannel parameter can be value
-//! 0~3,when the \e ulBase is PWMB_BASE,the \e ulChannel parameter can be value
-//! 4~7.
-//!
-//! \note None
+//! The \e ulChannel parameter can be values:0~3.
 //!
 //! \return the Actual duty of PWM.
 //
 //*****************************************************************************
-extern unsigned long xPWMDutyGet(unsigned long ulBase, unsigned long ulChannel);
+#define xPWMDutyGet(ulBase, ulChannel)                                        \
+        PWMDutyGet(ulBase, ulChannel)
 
 //*****************************************************************************
 //
@@ -626,10 +549,7 @@ extern unsigned long xPWMDutyGet(unsigned long ulBase, unsigned long ulChannel);
 //!
 //! This function is to enable the PWM interrupt of the PWM module.
 //!
-//! The \e ulChannel parameter can be values:
-//! 0~7,when the \e ulBase is PWMA_BASE,the \e ulChannel parameter can be value
-//! 0~3,when the \e ulBase is PWMB_BASE,the \e ulChannel parameter can be value
-//! 4~7.
+//! The \e ulChannel parameter can be values:0~3.
 //!
 //! The \e ulIntType parameter can be values:
 //! \b xPWM_INT_PWM.
@@ -640,9 +560,8 @@ extern unsigned long xPWMDutyGet(unsigned long ulBase, unsigned long ulChannel);
 //! \return None.
 //
 //*****************************************************************************
-extern void xPWMIntEnable(unsigned long ulBase, unsigned long ulChannel, 
-                          unsigned long ulIntType);
-
+#define xPWMIntEnable(ulBase, ulChannel, ulIntType)                           \
+        PWMIntEnable(ulBase, ulChannel, ulIntType)
 //*****************************************************************************
 //
 //! \brief Disable the PWM interrupt of the PWM module. 
@@ -654,22 +573,18 @@ extern void xPWMIntEnable(unsigned long ulBase, unsigned long ulChannel,
 //!
 //! This function is to disable the PWM interrupt of the PWM module.
 //!
-//! The \e ulChannel parameter can be values:
-//! 0~7,when the \e ulBase is PWMA_BASE,the \e ulChannel parameter can be value
-//! 0~3,when the \e ulBase is PWMB_BASE,the \e ulChannel parameter can be value
-//! 4~7.
+//! The \e ulChannel parameter can be values:0~3.
 //!
 //! The \e ulIntType parameter can be values:
 //! \b xPWM_INT_PWM.
 //! Details please refer to \ref xPWM_Int_Type_CoX.
 //!
-//! \note None
 //!
 //! \return None.
 //
 //*****************************************************************************
-extern void xPWMIntDisable(unsigned long ulBase, unsigned long ulChannel, 
-                           unsigned long ulIntType);
+#define xPWMIntDisable(ulBase, ulChannel, ulIntType)                          \
+        PWMIntDisable(ulBase, ulChannel, ulIntType)
 
 //*****************************************************************************
 //
@@ -682,22 +597,17 @@ extern void xPWMIntDisable(unsigned long ulBase, unsigned long ulChannel,
 //!
 //! This function is to get the PWM interrupt flag of the PWM module.
 //!
-//! The \e ulChannel parameter can be values:
-//! 0~7,when the \e ulBase is PWMA_BASE,the \e ulChannel parameter can be value
-//! 0~3,when the \e ulBase is PWMB_BASE,the \e ulChannel parameter can be value
-//! 4~7.
+//! The \e ulChannel parameter can be values:0~3.
 //!
 //! The \e ulIntType parameter can be values:
 //! \b xPWM_INT_PWM.
 //! Details please refer to \ref xPWM_Int_Type_CoX
 //!
-//! \note None
-//!
 //! \return None.
 //
 //*****************************************************************************
-extern void xPWMIntFlagGet(unsigned long ulBase, unsigned long ulChannel, 
-                           unsigned long ulIntType);
+#define xPWMIntFlagGet(ulBase, ulChannel, ulIntType)                          \
+        PWMIntFlagGet(ulBase, ulChannel, ulIntType)
 
 //*****************************************************************************
 //
@@ -710,9 +620,251 @@ extern void xPWMIntFlagGet(unsigned long ulBase, unsigned long ulChannel,
 //! \return None.
 //
 //*****************************************************************************
-extern void xPWMIntCallbackInit(unsigned long ulBase, 
-                                xtEventCallback xtPWMCallback);
+#define xPWMIntCallbackInit(ulBase, xtPWMCallback)                            \
+        PWMIntCallbackInit(ulBase, xtPWMCallback)
         
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_PWM
+//! @{
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_PWM_Channel STM32F1xx PWM Channel
+//! \brief Values that show STM32F1xx PWM Channel
+//! Values that can be passed to all the function in xpwm.c.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Channel 0
+//
+#define PWM_CHANNEL0            0x00000000
+
+//
+//! Channel 1
+//
+#define PWM_CHANNEL1            0x00000001
+
+//
+//! Channel 2
+//
+#define PWM_CHANNEL2            0x00000002
+
+//
+//! Channel 3
+//
+#define PWM_CHANNEL3            0x00000003
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_PWM_Config STM32F1xx PWM Configuration
+//! \brief Values that show STM32F1xx PWM Configuration
+//! Values that can be passed to PWMInitConfigure().
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Auto-reload Mode
+//
+#define PWM_TOGGLE_MODE         0x00000000
+
+//
+//! Inverter enable
+//
+#define PWM_OUTPUT_INVERTER_EN  0x00000C00
+
+//
+//! Inverter disable
+//
+#define PWM_OUTPUT_INVERTER_DIS 0x00000000
+
+//
+//! Dead-Zone 0 Generator enable
+//
+#define PWM_DEAD_ZONE_EN        0x00000005
+
+//
+//! Dead-Zone 0 Generator enable
+//
+#define PWM_DEAD_ZONE_DIS       0x00000000
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+  
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_PWM_Mode STM32F1xx PWM Output Mode
+//! \brief Values that show STM32F1xx PWM Configuration
+//! Values that can be passed to PWMInitConfigure().
+//! @{
+//
+//*****************************************************************************
+  
+//
+//! PWM Mode 1
+//
+#define PWM_OM_1                0x00000060
+    
+//
+//! PWM Mode 2                  
+//  
+#define PWM_OM_2                0x00000070
+  
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_PWM_Event_Type STM32F1xx PWM Event Type
+//! \brief Values that show STM32F1xx PWM Event Type
+//! Values that can be passed to PWMIntEnable(),PWMIntDisable().
+//! @{
+//
+//*****************************************************************************
+
+//
+//! The Interrupt event is PWM
+//
+#define PWM_EVENT_PWM           0x00000002
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_Count_Dir STM32F1xx Counter direction
+//! Values that can be passed to PWMInitConfigure().
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Edge up-counting mode
+// 
+#define PWM_CNT_MODE_UP         0x00000000
+  
+//
+//! Edge down-counting mode
+//
+#define PWM_CNT_MODE_DOWN       0x00000010
+
+//
+//! Center-aligned mode 1
+//
+#define PWM_CNT_MODE_CENTER_1   0x00000020
+
+//
+//! Center-aligned mode 2
+//
+#define PWM_CNT_MODE_CENTER_2   0x00000040 
+
+//
+//! Center-aligned mode 3
+//
+#define PWM_CNT_MODE_CENTER_3   0x00000060 
+  
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_PWM_Int_Type STM32F1xx PWM Interrupt Type
+//! Values that can be passed to PWMIntEnable(), PWMIntDisable(), PWMIntFlagGet(),
+//! PWMIntFlagClear().
+//! @{
+//
+//*****************************************************************************
+
+//
+//! PWM Channel x compare interrupt
+//
+#define PWM_INT_CHXCC           0x00000002
+
+//
+//! Update interrupt
+//
+#define PWM_INT_UEV1            0x00000001
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_PWM_Exported_APIs STM32F1xx PWM API
+//! \brief STM32F1xx PWM API Reference.
+//! @{
+//
+//*****************************************************************************
+  
+extern void PWMInitConfigure(unsigned long ulBase, unsigned long ulChannel,
+                             unsigned long ulMode, unsigned long ulDir);
+
+extern void PWMStart(unsigned long ulBase);
+extern void PWMStop(unsigned long ulBase);
+
+extern unsigned long PWMFrequencySet(unsigned long ulBase, 
+                                     unsigned long ulFrequency);
+extern unsigned long PWMFrequencyGet(unsigned long ulBase);
+extern unsigned long PWMFrequencyConfig(unsigned long ulBase, 
+                                        unsigned long ulConfig);
+extern void PWMOutputEnable(unsigned long ulBase, unsigned long ulChannel);
+extern void PWMOutputDisable(unsigned long ulBase, unsigned long ulChannel);
+
+extern void PWMARRSet(unsigned long ulBase, unsigned long ulCRRValue);
+extern unsigned long PWMARRGet(unsigned long ulBase);
+extern void PWMDutySet(unsigned long ulBase, unsigned long ulChannel,
+                       unsigned char ulDuty);
+extern unsigned long PWMDutyGet(unsigned long ulBase, unsigned long ulChannel);
+
+extern void PWMIntEnable(unsigned long ulBase, unsigned long ulChannel,
+                         unsigned long ulIntType);
+extern void PWMIntDisable(unsigned long ulBase, unsigned long ulChannel,
+                          unsigned long ulIntType);
+extern xtBoolean PWMIntFlagGet(unsigned long ulBase, unsigned long ulChannel,
+                               unsigned long ulIntType);
+extern void PWMIntFlagClear(unsigned long ulBase, unsigned long ulChannel,
+                            unsigned long ulIntType);
+extern void PWMIntCallbackInit(unsigned long ulBase, 
+                               xtEventCallback xtPWMCallback);
 //*****************************************************************************
 //
 //! @}
@@ -747,4 +899,3 @@ extern void xPWMIntCallbackInit(unsigned long ulBase,
 #endif
 
 #endif // __xPWM_H__
-

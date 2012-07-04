@@ -1,9 +1,9 @@
 //*****************************************************************************
 //
-//! \file xwatchdog.h
+//! \file xwdt.h
 //! \brief Prototypes for the WDT Driver.
-//! \version V2.1.1.0
-//! \date 11/14/2011
+//! \version V2.2.1.0
+//! \date 6/14/2012
 //! \author CooCox
 //! \copy
 //!
@@ -75,7 +75,6 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xWDT_Function_Type xWDT Function Type
-//! \brief Values that show xWDT Function Type
 //! \n
 //! \section xWDT_Function_Type_Section 1. Where to use this group
 //! Values that can be passed to xWDTFunctionEnable(), 
@@ -84,15 +83,15 @@ extern "C"
 //! \section xWDT_Function_Type_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------ +----------------+------------------------+
-//! |xWDT Function Type       |       CoX      |         NUC1xx         |
+//! |xWDT Function Type       |       CoX      |        STM32F1xx       |
 //! |------------------------ |----------------|------------------------|
 //! |xWDT_INT_FUNCTION        |    Mandatory   |            Y           |
 //! |------------------------ |----------------|------------------------|
 //! |xWDT_RESET_FUNCTION      |    Mandatory   |            Y           |
 //! |------------------------ |----------------|------------------------|
-//! |xWDT_WAKEUP_FUNCTION     |  Non-Mandatory |            Y           |
+//! |xWDT_WAKEUP_FUNCTION     |  Non-Mandatory |            N           |
 //! |------------------------ |----------------|------------------------|
-//! |xWDT_HOLD_IN_ICE         |  Non-Mandatory |            Y           |
+//! |xWDT_HOLD_IN_ICE         |  Non-Mandatory |            N           |
 //! +------------------------ +----------------+------------------------+
 //! \endverbatim
 //! @{
@@ -102,23 +101,12 @@ extern "C"
 //
 //! Generate Interrupt when watch dog time out
 //
-#define xWDT_INT_FUNCTION       0
+#define xWDT_INT_FUNCTION       WDT_INT_FUNCTION
 
 //
 //! Reset CPU when watch dog time out
 //
-#define xWDT_RESET_FUNCTION     0
-
-//
-//! Watchdog timer timeout can wake-up chip from power down mode.
-//
-#define xWDT_WAKEUP_FUNCTION    0
-
-//
-//! Watchdog Timer counter will keep going no matter ICE debug mode
-//! acknowledged or not.
-//
-#define xWDT_HOLD_IN_ICE        0
+#define xWDT_RESET_FUNCTION     WDT_RESET_FUNCTION
 
 //*****************************************************************************
 //
@@ -138,11 +126,11 @@ extern "C"
 //! \section xWDT_Clock_Config_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |Clock Configuration     |       CoX      |         NUC1xx         |
+//! |Clock Configuration     |       CoX      |        STM32F1xx       |
 //! |------------------------|----------------|------------------------|
-//! |xWDT_S_INTSL            |    Mandatory   |            Y           |
+//! |xWDT_S_INTSL            |    Mandatory   |            N           |
 //! |------------------------|----------------|------------------------|
-//! |xWDT_S_EXTSL            |    Mandatory   |            Y           |
+//! |xWDT_S_EXTSL            |    Mandatory   |            N           |
 //! |------------------------|----------------|------------------------|
 //! |xWDT_S_HCLK_DIV         |  Non-Mandatory |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -152,20 +140,9 @@ extern "C"
 //*****************************************************************************
 
 //
-//! The watch dog source is int. 10 KHz
-//
-#define xWDT_S_INTSL            0     
-
-//
-//! The watch dog source is ext. 32 KHz
-//
-#define xWDT_S_EXTSL            0
-
-//
-//! The watch dog source is the HCLK/2048
+//! The watch dog source is fractional frequency of HCLK
 //
 #define xWDT_S_HCLK_DIV         0
-
 
 //*****************************************************************************
 //
@@ -176,7 +153,6 @@ extern "C"
 //*****************************************************************************
 //
 //! \addtogroup xWDT_Time_Reload_Config xWDT Time Reload Configuration
-//! \brief Values that show xWDT Time Reload Configuration
 //! \n
 //! \section xWDT_Time_Reload_Config_Section 1. Where to use this group
 //! Values that can be passed to xWDTimerInit() as the ulConfig parameter 
@@ -184,13 +160,13 @@ extern "C"
 //! \section xWDT_Time_Reload_Config_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |Time Reload Config      |       CoX      |         NUC1xx         |
+//! |Time Reload Config      |       CoX      |       STM32F1xx        |
 //! |------------------------|----------------|------------------------|
-//! |Time Reload Value       |  Non-Mandatory |   xWDT_INTERVAL_2_4T   |
+//! |Time Reload Value       |  Non-Mandatory |   xWDT_Reload_0        |
 //! |                        |                |------------------------|
 //! |unsigned value          |                |           ...          |
 //! |                        |                |------------------------|
-//! |                        |                |   xWDT_INTERVAL_2_18T  |
+//! |                        |                |   xWDT_Reload_0xFFF    |
 //! +------------------------+----------------+------------------------+
 //! \endverbatim
 //! @{
@@ -198,44 +174,14 @@ extern "C"
 //*****************************************************************************
 
 //
-//! Timeout Interval Selection is 2 4 * TWDT
+//! Reload Value is 0
 //
-#define xWDT_INTERVAL_2_4T      0
+#define xWDT_Reload_0           0
 
 //
-//! Timeout Interval Selection is 2 6 * TWDT
+//! Reload Value is 0x7F 
 //
-#define xWDT_INTERVAL_2_6T      0
-
-//
-//! Timeout Interval Selection is 2 8 * TWDT
-//
-#define xWDT_INTERVAL_2_8T      0
-
-//
-//! Timeout Interval Selection is 2 10 * TWDT
-//
-#define xWDT_INTERVAL_2_10T     0
-
-//
-//! Timeout Interval Selection is 2 12 * TWDT
-//
-#define xWDT_INTERVAL_2_12T     0
-
-//
-//! Timeout Interval Selection is 2 14 * TWDT
-//
-#define xWDT_INTERVAL_2_14T     0
-
-//
-//! Timeout Interval Selection is 2 16 * TWDT
-//
-#define xWDT_INTERVAL_2_16T     0
-
-//
-//! Timeout Interval Selection is 2 18 * TWDT
-//
-#define xWDT_INTERVAL_2_18T     0
+#define xWDT_Reload_0x7F       0x0000007F
 
 
 //*****************************************************************************
@@ -252,7 +198,7 @@ extern "C"
 //! \section xWDT_Exported_APIs_Port CoX Port Details
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xWDT API                |       CoX      |         NUC1xx         |
+//! |xWDT API                |       CoX      |       STM32F1xx        |
 //! |------------------------|----------------|------------------------|
 //! |xWDTInit                |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -264,9 +210,9 @@ extern "C"
 //! |------------------------|----------------|------------------------|
 //! |xWDTRestart             |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
-//! |xWDTFunctionEnable      |    Mandatory   |            Y           |
+//! |xWDTFunctionEnable      |    Mandatory   |            N           |
 //! |------------------------|----------------|------------------------|
-//! |xWDTFunctionDisable     |    Mandatory   |            Y           |
+//! |xWDTFunctionDisable     |    Mandatory   |            N           |
 //! +------------------------+----------------+------------------------+
 //! \endverbatim
 //!
@@ -281,8 +227,7 @@ extern "C"
 //! \param ulBase is the base address of the WatchDog Timer(WDT) module.
 //! \param ulConfig is the Timer's Prescaler divider and clock source 
 //! Selection.
-//! Details please refer to \ref xWDT_Clock_Config and
-//! xWDT_Time_Reload_Config.
+//! Details please refer to \ref xWDT_Clock_Config and xWDT_Time_Reload_Config.
 //! \param ulReload is the Timer's reload value.
 //!
 //! This function is to configureThe WatchDog Timer(WDT)'s Timer Interval.
@@ -293,18 +238,15 @@ extern "C"
 //!
 //! The \e ulConfig parameter contains clock source and Prescaler divider;
 //! When being used,this parameter is the logical OR of the two values.
-//! For NUC1xx,there is no Prescaler divider and the clock source can be:
-//! \b xWDT_S_INTSL, \b xWDT_S_EXTSL, 
-//! \b xWDT_S_HCLK_DIV.
+//! For STM32F1xx,there is no Prescaler divider and the clock source can be:
+//! \b xWDT_S_HCLK_DIV
 //! Details please refer to \ref xWDT_Clock_Config_CoX.
 //!
 //! The \e ulReload parameter is the value which will reload the counter when 
 //! feeding the watch dog.The value range depends on the number of bits of 
 //! corresponding counter.
-//! For NUC1xx, the reload value can only be one of the following:
-//! \b xWDT_INTERVAL_2_4T, \b xWDT_INTERVAL_2_6T, \b xWDT_INTERVAL_2_8T,
-//! \b xWDT_INTERVAL_2_10T, \b xWDT_INTERVAL_2_12T, \b xWDT_INTERVAL_2_14T,
-//! \b xWDT_INTERVAL_2_16T, \b xWDT_INTERVAL_2_18T.
+//! For STM32F1xx, the reload value can only be one of the following:
+//! \b 0 to 0x7F.
 //! Details please refer to \ref xWDT_Time_Reload_Config_CoX.
 //! 
 //! \note When using watch dog xWDTEnable() should be called after call 
@@ -314,8 +256,13 @@ extern "C"
 //
 //*****************************************************************************
 
-extern void xWDTInit(unsigned long ulBase, unsigned long ulConfig, 
-                     unsigned long ulReload);
+#define xWDTInit(ulBase, ulConfig, ulReload)                                  \
+        do                                                                    \
+        {                                                                     \
+         xASSERT(ulBase == xWDT_BASE);                                        \
+         SysCtlPeripheralClockSourceSet(ulConfig, 0);                         \
+         WDTimerInit(ulReload);                                               \
+        }while(0)  
 
 //*****************************************************************************
 //
@@ -331,7 +278,8 @@ extern void xWDTInit(unsigned long ulBase, unsigned long ulConfig,
 //! \return None.
 //
 //*****************************************************************************       
-extern void xWDTEnable(unsigned long ulBase); 
+#define xWDTEnable(ulBase)                                                    \
+        WWDGEnable(ulBase)
 
 
 //*****************************************************************************
@@ -346,8 +294,12 @@ extern void xWDTEnable(unsigned long ulBase);
 //! \return None.
 //
 //*****************************************************************************     
-extern void xWDTIntCallbackInit(unsigned long ulBase, 
-                                xtEventCallback xtWDTCallback); 
+#define xWDTIntCallbackInit(ulBase, xtWDTCallback)                            \
+        do                                                                    \
+        {                                                                     \
+         xASSERT(ulBase == xWDT_BASE);                                        \
+         WDTimerIntCallbackInit(xtWDTCallback);                               \
+        }while(0) 
         
 //*****************************************************************************
 //
@@ -360,8 +312,8 @@ extern void xWDTIntCallbackInit(unsigned long ulBase,
 //! \return None.
 //
 //*****************************************************************************
-extern void xWDTDisable(unsigned long ulBase);
-        
+#define xWDTDisable(ulBase)                                                   \
+        WWDGDisable(ulBase)
 //*****************************************************************************
 //
 //! \brief Restart the Watchdog timer interrupt. 
@@ -375,7 +327,12 @@ extern void xWDTDisable(unsigned long ulBase);
 //! \return None.
 //
 //*****************************************************************************       
-extern void xWDTRestart(unsigned long ulBase);
+#define xWDTRestart(ulBase)                                                   \
+        do                                                                    \
+        {                                                                     \
+         xASSERT(ulBase == xWDT_BASE);                                        \
+         WDTimerRestart();                                                    \
+        }while(0) 
 
 //*****************************************************************************
 //
@@ -386,19 +343,21 @@ extern void xWDTRestart(unsigned long ulBase);
 //! Details please refer to \ref xWDT_Function_Type.
 //!
 //! This function is to enable the watch dog timer's function such as Interrupt
-//! reset\wake up \stop in ICE mode.
+//! reset.
 //! 
 //! The \e ulFunction parameter is the OR value of any of the following:
-//! \b xWDT_INT_FUNCTION,\b xWDT_RESET_FUNCTION,
-//! \b xWDT_WAKEUP_FUNCTION,\b xWDT_HOLD_IN_ICE.
+//! \b xWDT_INT_FUNCTION,\b xWDT_RESET_FUNCTION
 //! Details please refer to \ref xWDT_Function_Type_CoX.
-//!
-//! \note None.
 //!
 //! \return None.
 //
 //*****************************************************************************
-extern void xWDTFunctionEnable(unsigned long ulBase, unsigned long ulFunction);
+#define xWDTFunctionEnable(ulBase, ulFunction)                                \
+        do                                                                    \
+        {                                                                     \
+         xASSERT(ulBase == xWDT_BASE);                                        \
+         WDTimerFunctionEnable(ulFunction);                                   \
+        }while(0) 
         
 //*****************************************************************************
 //
@@ -409,21 +368,188 @@ extern void xWDTFunctionEnable(unsigned long ulBase, unsigned long ulFunction);
 //! Details please refer to \ref xWDT_Function_Type.
 //!
 //! This function is to disable the watch dog timer's function such as Interrupt
-//! reset\wake up \stop in ICE mode.
+//! reset
 //! 
 //! The \e ulFunction parameter is the OR value of any of the following:
 //! \b xWDT_INT_FUNCTION,\b xWDT_RESET_FUNCTION,
-//! \b xWDT_WAKEUP_FUNCTION,\b xWDT_HOLD_IN_ICE.
 //! Details please refer to \ref xWDT_Function_Type_CoX.
-//!
-//! \note None.
 //!
 //! \return None.
 //
 //*****************************************************************************      
-extern void xWDTFunctionDisable(unsigned long ulBase, unsigned long ulFunction);
+#define xWDTFunctionDisable(ulBase, ulFunction)                               0
 
         
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_WDT
+//! @{
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup WDT_Status_Type WDT Status Type
+//! Values that can be return from WDTimerStatusGet().
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Watchdog Timer Early wakeup interrupt flag
+//
+#define WDT_EVENT_EWIF          0x00000001
+
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup WDT_Function_Type WDT Function Type
+//! Values that can be passed to WDTimerIntEnable().
+//! ().
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Generate Interrupt when watch dog time out
+//
+#define WDT_INT_FUNCTION        0x00000200
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
+//! \addtogroup WDT_Prescaler_Value WDT Prescaler Value
+//! Values that can be passed to WDTimerPrescalerSet().
+//! @{
+//
+//*****************************************************************************
+
+//
+//! WDT Prescaler Value is 1
+//
+#define WDT_PRESCALER_1         0x00000000
+
+//
+//! WDT Prescaler Value is 2
+//
+#define WDT_PRESCALER_2         0x00000080
+
+//
+//! WDT Prescaler Value is 4
+//
+#define WDT_PRESCALER_4         0x00000100
+
+//
+//! WDT Prescaler Value is 8
+//
+#define WDT_PRESCALER_8         0x00000180
+
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup IWDG_Prescaler_Value IWDG Prescaler Value
+//! Values that can be passed to IWDGTimerPrescalerSet().
+//! @{
+//
+//*****************************************************************************
+
+//
+//! IWDG Prescaler Value is 4
+//
+#define IWDT_PRESCALER_4        0x00000000
+
+//
+//! IWDG Prescaler Value is 8
+//
+#define IWDT_PRESCALER_8        0x00000001
+
+//
+//! IWDG Prescaler Value is 16
+//
+#define IWDT_PRESCALER_16       0x00000002
+
+//
+//! IWDG Prescaler Value is 32
+//
+#define IWDT_PRESCALER_32       0x00000003
+
+//
+//! IWDG Prescaler Value is 64
+//
+#define IWDT_PRESCALER_64       0x00000004
+
+//
+//! IWDG Prescaler Value is 128
+//
+#define IWDT_PRESCALER_128      0x00000005
+
+//
+//! IWDG Prescaler Value is 256
+//
+#define IWDT_PRESCALER_256      0x00000006
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_WDT_Exported_APIs STM32F1xx WDT API
+//! \brief STM32F1xx WDT API Reference.
+//! @{
+//
+//*****************************************************************************
+
+extern void WDTimerInit(unsigned long ulConfig);
+extern unsigned long WDTimerStatusGet(void);
+extern void WDTimerRestart(void);
+extern void WDTimerIntCallbackInit(xtEventCallback xtWDTCallback);
+extern void WDTimerIntEnable(void);
+extern void WDTimerDisable(void);
+extern void WDTimerWindowValueSet(unsigned long ulConfig);
+extern void WDTimerPrescalerSet(unsigned long ulDivide);
+extern void WWDGEnable(unsigned long ulBase);
+extern void WDTimerStatusClear(void);
+
+extern void IWDGTimerInit(unsigned long ulConfig);
+extern void IWDGTimerStart(void);
+extern void IWDGTimerRestart(void);
+extern unsigned long IWDGTimerStatusGet(void);
+extern void IWDGTimerPrescalerSet(unsigned long ulDivide);
+
 //*****************************************************************************
 //
 //! @}

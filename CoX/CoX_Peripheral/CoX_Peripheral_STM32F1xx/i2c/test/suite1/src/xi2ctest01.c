@@ -163,6 +163,53 @@ static void xI2C001Execute(void)
         ulTemp = xHWREG(ulBase + I2C_OAR2);
         TestAssert(((0x12 << 1) | 1) == ulTemp,
                    "xi2c API \"I2COwnAddress2Config \"error!");
+        
+        I2CStretchClockEnable(ulBase);
+        ulTemp = xHWREG(ulBase + I2C_CR1) & I2C_CR1_NOSTRETCH;
+        TestAssert(I2C_CR1_NOSTRETCH == ulTemp, 
+                   "xi2c API \"I2CStretchClockEnable\" error!");
+ 
+        I2CStretchClockDisable(ulBase);
+        ulTemp = xHWREG(ulBase + I2C_CR1) & I2C_CR1_NOSTRETCH;
+        TestAssert(0 == ulTemp, 
+                   "xi2c API \"I2CStretchClockDisable\" error!");
+  
+        I2CMasterEnable(ulBase);
+        ulTemp = xHWREG(ulBase + I2C_CR1) & I2C_CR1_PE;
+        TestAssert(I2C_CR1_PE == ulTemp, 
+                   "xi2c API \"I2CMasterEnable\" error!");
+        
+        I2CMasterDisable(ulBase);
+        ulTemp = xHWREG(ulBase + I2C_CR1) & I2C_CR1_PE;
+        TestAssert(0 == ulTemp,
+                   "xi2c API \"I2CMasterDisable \"error!");
+/*        
+        I2CSoftwareResetEnable(ulBase);
+        ulTemp = xHWREG(ulBase + I2C_CR1) & I2C_CR1_SWRST;
+        TestAssert(I2C_CR1_SWRST == ulTemp, 
+                   "xi2c API \"I2CSoftwareResetEnable\" error!");
+*/        
+        I2CSoftwareResetDisable(ulBase);
+        ulTemp = xHWREG(ulBase + I2C_CR1) & I2C_CR1_SWRST;
+        TestAssert(0 == ulTemp,
+                   "xi2c API \"I2CSoftwareResetDisable \"error!");
+/*        
+        I2CNACKPositionConfig(ulBase, I2C_NACKPOS_NEXT);
+        ulTemp = xHWREG(ulBase + I2C_CR1) & I2C_NACKPOS_NEXT;
+        TestAssert(I2C_NACKPOS_NEXT == ulTemp, 
+                   "xi2c API \"I2CNACKPositionConfig\" error!");
+*/       
+        I2CNACKPositionConfig(ulBase, I2C_NACKPOS_CURRENT);
+        ulTemp = xHWREG(ulBase + I2C_CR1) & I2C_NACKPOS_NEXT;
+        TestAssert(0 == ulTemp, 
+                   "xi2c API \"I2CNACKPositionConfig\" error!");
+/*        
+        I2CPECConfig(ulBase, I2C_CR1_POS | I2C_CR1_PEC | I2C_CR1_ENPEC);
+        ulTemp = xHWREG(ulBase + I2C_CR2) & (I2C_CR1_POS | I2C_CR1_PEC | 
+                                             I2C_CR1_ENPEC);
+        TestAssert((I2C_CR1_ENPEC | I2C_CR1_PEC | I2C_CR1_POS)== ulTemp,
+                   "xi2c API \"I2CPECConfig \"error!");
+*/
     }
 }
 

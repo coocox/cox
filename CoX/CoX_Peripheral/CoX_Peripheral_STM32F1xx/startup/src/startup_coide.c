@@ -1,7 +1,7 @@
 //*****************************************************************************
 //
 //! \file startup_coide.c
-//! \brief STM32F1xx Devices Startup code for CooCox CoIDE.
+//! \brief NUC1xx Devices Startup code for CooCox CoIDE.
 //!        This module performs:
 //!           - Set the initial SP
 //!           - Set the vector table entries with the exceptions ISR address
@@ -10,7 +10,7 @@
 //!           - Call the application's entry point.
 //!           .
 //! \version V2.1.1.0
-//! \date 5/24/2012
+//! \date 11/20/2011
 //! \author CooCox
 //! \copy
 //!
@@ -97,9 +97,9 @@ void WEAK  CAN1RX0IntHandler(void);
 void WEAK  CAN1RX1IntHandler(void);  
 void WEAK  CAN1SCEIntHandler(void);  
 void WEAK  EXTI95IntHandler(void); 
-void WEAK  TIM1BRKTIM9IntHandler(void);
-void WEAK  TIM1UPTIM10IntHandler(void);
-void WEAK  TIM1TRGCOMTIM11IntHandler(void);
+void WEAK  TIM1BRKIntHandler(void);
+void WEAK  TIM1UPIntHandler(void);
+void WEAK  TIM1TRGCOMIntHandler(void);
 void WEAK  TIM1CCIntHandler(void);
 void WEAK  TIM2IntHandler(void);
 void WEAK  TIM3IntHandler(void);
@@ -116,13 +116,6 @@ void WEAK  USART3IntHandler(void);
 void WEAK  EXTI1510IntHandler(void);
 void WEAK  RTCAlarmIntHandler(void);
 void WEAK  OTGFSWKUPIntHandler(void);
-void WEAK  TIM8BRKTIM12IntHandler(void);
-void WEAK  TIM8UPTIM13IntHandler(void);
-void WEAK  TIM8TRGCOMTIM14IntHandler(void);
-void WEAK  TIM8CCIntHandler(void);
-void WEAK  ADC3IntHandler(void);
-void WEAK  FSMCIntHandler(void);
-void WEAK  SDIOIntHandler(void);
 void WEAK  TIM5IntHandler(void);
 void WEAK  SPI3IntHandler(void);
 void WEAK  UART4IntHandler(void);
@@ -232,9 +225,9 @@ void (* const g_pfnVectors[])(void) =
     CAN1RX1IntHandler,                      // 21 CAN1 RX1 interrupt
     CAN1SCEIntHandler,                      // 22 CAN1 SCE interrupt 
     EXTI95IntHandler,                       // 23 EXTI Line[9:5] interrupts 
-    TIM1BRKTIM9IntHandler,                  // 24 TIM1 Break interrupt
-    TIM1UPTIM10IntHandler,                  // 25 TIM1 Update interrupt
-    TIM1TRGCOMTIM11IntHandler,              // 26 TIM1 Trigger and Commutation
+    TIM1BRKIntHandler,                      // 24 TIM1 Break interrupt
+    TIM1UPIntHandler,                       // 25 TIM1 Update interrupt
+    TIM1TRGCOMIntHandler,                   // 26 TIM1 Trigger and Commutation
     TIM1CCIntHandler,                       // 27 TIM1 Capture Compare interrupt
     TIM2IntHandler,                         // 28 TIM2 global interrupt
     TIM3IntHandler,                         // 29 TIM3 global interrupt
@@ -251,13 +244,7 @@ void (* const g_pfnVectors[])(void) =
     EXTI1510IntHandler,                     // 40 EXTI Line[15:10] interrupts
     RTCAlarmIntHandler,                     // 41 RTC alarm through EXTI line
     OTGFSWKUPIntHandler,                    // 42 USB On-The-Go FS Wakeup
-    TIM8BRKTIM12IntHandler,                 // 43 TIM8 Break interrupt
-    TIM8UPTIM13IntHandler,                  // 44 TIM8 Update interrupt
-    TIM8TRGCOMTIM14IntHandler,              // 45 TIM8 Trigger and Commutation
-    TIM8CCIntHandler,                       // 46 TIM8 Capture Compare interrupt
-    ADC3IntHandler,                         // 47 ADC3 global interrupt
-    FSMCIntHandler,                         // 48 FSMC global interrupt
-    SDIOIntHandler,                         // 49 SDIO global interrupt
+    0,0,0,0,0,0,0,
     TIM5IntHandler,                         // 50 TIM5 global interrupt
     SPI3IntHandler,                         // 51 SPI3 global interrupt
     UART4IntHandler,                        // 52 UART4 global interrupt
@@ -364,9 +351,9 @@ void Default_ResetHandler(void)
 #pragma weak CAN1RX1IntHandler = DefaultIntHandler  
 #pragma weak CAN1SCEIntHandler = DefaultIntHandler  
 #pragma weak EXTI95IntHandler = DefaultIntHandler 
-#pragma weak TIM1BRKTIM9IntHandler = DefaultIntHandler
-#pragma weak TIM1UPTIM10IntHandler = DefaultIntHandler
-#pragma weak TIM1TRGCOMTIM11IntHandler = DefaultIntHandler
+#pragma weak TIM1BRKIntHandler = DefaultIntHandler
+#pragma weak TIM1UPIntHandler = DefaultIntHandler
+#pragma weak TIM1TRGCOMIntHandler = DefaultIntHandler
 #pragma weak TIM1CCIntHandler = DefaultIntHandler
 #pragma weak TIM2IntHandler = DefaultIntHandler  
 #pragma weak TIM3IntHandler = DefaultIntHandler 
@@ -382,14 +369,7 @@ void Default_ResetHandler(void)
 #pragma weak USART3IntHandler = DefaultIntHandler 
 #pragma weak EXTI1510IntHandler = DefaultIntHandler 
 #pragma weak RTCAlarmIntHandler = DefaultIntHandler 
-#pragma weak OTGFSWKUPIntHandler = DefaultIntHandler
-#pragma weak TIM8BRKTIM12IntHandler = DefaultIntHandler
-#pragma weak TIM8UPTIM13IntHandler = DefaultIntHandler
-#pragma weak TIM8TRGCOMTIM14IntHandler = DefaultIntHandler
-#pragma weak TIM8CCIntHandler = DefaultIntHandler
-#pragma weak ADC3IntHandler = DefaultIntHandler
-#pragma weak FSMCIntHandler = DefaultIntHandler
-#pragma weak SDIOIntHandler = DefaultIntHandler
+#pragma weak OTGFSWKUPIntHandler = DefaultIntHandler 
 #pragma weak TIM5IntHandler = DefaultIntHandler 
 #pragma weak SPI3IntHandler = DefaultIntHandler 
 #pragma weak UART4IntHandler = DefaultIntHandler 
@@ -431,4 +411,5 @@ static void DefaultIntHandler(void)
     {
     }
 }
+
 

@@ -3,7 +3,7 @@
 //! \file xuart.c
 //! \brief Driver for the UART
 //! \version V2.1.1.1
-//! \date 11/14/2011
+//! \date 5/24/2012
 //! \author CooCox
 //! \copy
 //!
@@ -105,6 +105,10 @@ USART1IntHandler(void)
     unsigned long ulUART1IntStatus;
 
     ulUART1IntStatus = xHWREG(USART1_BASE + USART_SR);
+    //
+    // Clear Interrupt Flag
+    //
+    xHWREG(USART1_BASE + USART_SR) &= ~ulUART1IntStatus;
 
     if(g_pfnUARTHandlerCallbacks[0] != 0)
     {
@@ -130,6 +134,10 @@ USART2IntHandler(void)
     unsigned long ulUART2IntStatus;
 
     ulUART2IntStatus = xHWREG(USART2_BASE + USART_SR);
+    //
+    // Clear Interrupt Flag
+    //
+    xHWREG(USART2_BASE + USART_SR) &= ~ulUART2IntStatus;
 
     if(g_pfnUARTHandlerCallbacks[1] != 0)
     {
@@ -155,6 +163,10 @@ USART3IntHandler(void)
     unsigned long ulUART3IntStatus;
 
     ulUART3IntStatus = xHWREG(USART3_BASE + USART_SR);
+    //
+    // Clear Interrupt Flag
+    //
+    xHWREG(USART3_BASE + USART_SR) &= ~ulUART3IntStatus;
 
     if(g_pfnUARTHandlerCallbacks[2] != 0)
     {
@@ -180,6 +192,10 @@ UART4IntHandler(void)
     unsigned long ulUART4IntStatus;
 
     ulUART4IntStatus = xHWREG(USART4_BASE + USART_SR);
+    //
+    // Clear Interrupt Flag
+    //
+    xHWREG(USART4_BASE + USART_SR) &= ~ulUART4IntStatus;
 
     if(g_pfnUARTHandlerCallbacks[3] != 0)
     {
@@ -205,6 +221,10 @@ UART5IntHandler(void)
     unsigned long ulUART5IntStatus;
 
     ulUART5IntStatus = xHWREG(USART5_BASE + USART_SR);
+    //
+    // Clear Interrupt Flag
+    //
+    xHWREG(USART5_BASE + USART_SR) &= ~ulUART5IntStatus;
 
     if(g_pfnUARTHandlerCallbacks[4] != 0)
     {
@@ -410,7 +430,73 @@ UARTConfigSet(unsigned long ulBase, unsigned long ulBaud,
     xHWREG(ulBase + USART_BRR) = uldiv;
 }
 
+//*****************************************************************************
+//
+//! Enables SIR (IrDA) mode on the specified UART.
+//!
+//! \param ulBase is the base address of the UART port.
+//! \param ulBaud is the desired baud rate.
+//! \param ulConfig is the data format for the port (number of data bits,
+//! number of stop bits, and parity).
+//! \param ulMode is the IrDA mode. 
+//!
+//! This function configures the UART IrDA for operation in the specified data
+//! format.  The baud rate is provided in the \e ulBaud parameter,  the data
+//! format in the \e ulConfig parameter, and the ulMode is provided in the
+//! \e ulMode parameter.
+//!
+//! The \e ulConfig parameter is the logical OR of three values: the number of
+//! data bits, the number of stop bits, and the parity.  \b xUART_CONFIG_WLEN_9,
+//! \b xUART_CONFIG_WLEN_8.
+//! select from eight to five data bits per byte (respectively).
+//! \bX UART_CONFIG_STOP_1 and \b xUART_CONFIG_STOP_2 select one or two stop
+//! bits (respectively).  \b xUART_CONFIG_PAR_NONE, \b xUART_CONFIG_PAR_EVEN,
+//! \b xUART_CONFIG_PAR_ODD, \b xUART_CONFIG_PAR_ONE,  and
+//! \b xUART_CONFIG_PAR_ZERO select the parity mode (no parity bit, 
+//! even parity bit, odd parity bit, parity bit always one, and 
+//! parity bit always zero, respectively).
+//!
+//! The \e ulMode parameter is the logical OR of two values:Prescaler value
+//! and IrDA mode.
+//! IrDA mode can be:
+//! - \b xUART_IRDA_MODE_NORMAL - IrDA normal mode
+//! - \b xUART_IRDA_MODE_LPM - IrDA low-power mode
+//!
+//! \note SIR (IrDA) operation is not supported on Sandstorm-class devices.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+xUARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud, 
+                unsigned long ulConfig, unsigned long ulMode)
+{    
+    //
+    // Check the arguments.
+    //
+    xASSERT(UARTBaseValid(ulBase));
+    xASSERT(ulBaud != 0);
 
+    //
+    // Disable IrDA, and clear low-power mode flag
+    //
+    xHWREG(ulBase + USART_CR3) &= ~(USART_CR3_IREN | USART_CR3_IRLP);
+
+    //
+    // Set baud, parity, data length, and number of stop bits.
+    //
+    UARTConfigSet(ulBase, ulBaud, ulConfig);
+    
+    xHWREG(ulBase + USART_CR3) &= ~USART_CR3_IRLP;
+
+    if((ulMode & UART_IRDA_MODE_MASK) == UART_IRDA_MODE_LPM)
+    {
+        //
+        // Set IrDA as low-power mode
+        //
+        xHWREG(ulBase + USART_CR3) |= (USART_CR3_IRLP);
+    }
+}
 //*****************************************************************************
 //
 //! \brief Enables transmitting or receiving.
@@ -496,7 +582,8 @@ UARTEnableIrDA(unsigned long ulBase)
     // Check the arguments.
     //
     xASSERT(UARTBaseValid(ulBase));
-
+    xHWREG(ulBase + USART_CR2) &= ~(USART_CR2_LINEN | USART_CR2_CLKEN | USART_CR2_STOP_M);
+    xHWREG(ulBase + USART_CR3) &= ~(USART_CR3_SCEN | USART_CR3_HDSEL);
     //
     // Enable SIR.
     //
@@ -537,6 +624,7 @@ UARTDisableIrDA(unsigned long ulBase)
 //! \param ulConfig is the data format for the port (number of data bits,
 //! number of stop bits, and parity).
 //! \param ulMode is the IrDA mode. 
+//! \param ulPrescaler is the IrDA Prescaler value.
 //!
 //! This function configures the UART IrDA for operation in the specified data
 //! format.  The baud rate is provided in the \e ulBaud parameter,  the data
@@ -568,7 +656,7 @@ UARTDisableIrDA(unsigned long ulBase)
 //*****************************************************************************
 void
 UARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud, 
-            unsigned long ulConfig, unsigned long ulMode)
+            unsigned long ulConfig, unsigned long ulMode, unsigned long ulPrescaler)
 {    
     //
     // Check the arguments.
@@ -587,18 +675,20 @@ UARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud,
     UARTConfigSet(ulBase, ulBaud, ulConfig);
 
     //
-    // Set Prescaler value in low-power mode
+    // Set Prescaler value in normal mode
     //
     xHWREG(ulBase + USART_GTPR) &= ~(USART_GTPR_PSC_M);
     xHWREG(ulBase + USART_GTPR) |= 0x00000001;
     
-    if(ulMode & UART_IRDA_MODE_MASK == UART_IRDA_MODE_LPM)
+    xHWREG(ulBase + USART_CR3) &= ~USART_CR3_IRLP;
+
+    if((ulMode & UART_IRDA_MODE_MASK) == UART_IRDA_MODE_LPM)
     {
         //
         // Set Prescaler value in low-power mode
         //
         xHWREG(ulBase + USART_GTPR) &= ~(USART_GTPR_PSC_M);
-        xHWREG(ulBase + USART_GTPR) |= (ulMode & USART_GTPR_PSC_M);
+        xHWREG(ulBase + USART_GTPR) |= (ulPrescaler & USART_GTPR_PSC_M);
 
         //
         // Set IrDA as low-power mode
@@ -626,6 +716,8 @@ UARTEnableLIN(unsigned long ulBase)
     //
     xASSERT(UARTBaseValid(ulBase));
 
+    xHWREG(ulBase + USART_CR2) &= ~(USART_CR2_CLKEN | USART_CR2_STOP_M);
+    xHWREG(ulBase + USART_CR3) &= ~(USART_CR3_HDSEL | USART_CR3_SCEN | USART_CR3_IREN);
     //
     // Enable LIN Function.
     //
@@ -698,7 +790,8 @@ UARTLINConfig(unsigned long ulBase, unsigned long ulBaud,
     // Enable LIN.
     //
     UARTEnableLIN(ulBase);
-    
+
+    xHWREG(ulBase + USART_CR2) &= ~UART_CONFIG_BKFL_11;
     xHWREG(ulBase + USART_CR2) = (ulConfig);
 
 }
@@ -864,6 +957,35 @@ UARTCharPut(unsigned long ulBase, unsigned char ucData)
 
 //*****************************************************************************
 //
+//! \brief Waits to send a character from the specified port.
+//!
+//! \param ulBase is the base address of the UART port.
+//! \param ucData is the character to be transmitted.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+UARTBufferWrite(unsigned long ulBase, unsigned char *ucBuffer,
+                unsigned long ulLength)
+{
+    
+    unsigned long ulCount;
+    //
+    // Check the arguments.
+    //
+    xASSERT(UARTBaseValid(ulBase));
+
+    //
+    // Wait until a char is available.
+    //
+    for (ulCount=0; ulCount<ulLength; ulCount++)
+    {
+        UARTCharPut(ulBase, ucBuffer[ulCount]);
+    }
+}
+//*****************************************************************************
+//
 //! \brief Causes a BREAK to be sent.
 //!
 //! \param ulBase is the base address of the UART port.
@@ -925,20 +1047,38 @@ UARTIntEnable(unsigned long ulBase, unsigned long ulIntFlags)
     //
     // Enable the specified interrupts.
     //
-    if((ulIntFlags & 0xF000) == 0)
+    if(ulIntFlags == UART_INT_TC)
     {
-        xHWREG(ulBase + USART_CR1) |= (ulIntFlags | USART_CR1_PEIE | 
-                                      USART_CR1_TXEIE | USART_CR1_TCIE | 
-                                      USART_CR1_RXNEIE | USART_CR1_IDLEIE);
+        xHWREG(ulBase + USART_CR1) |= USART_CR1_TCIE;
     }
-    else if((ulIntFlags & 0xF000) == 1)
+        
+    else if(ulIntFlags == UART_INT_PE)
     {
-        xHWREG(ulBase + USART_CR2) |= (ulIntFlags | USART_CR2_LBDIE);
+        xHWREG(ulBase + USART_CR1) |= USART_CR1_PEIE;
+    }
+    else if(ulIntFlags == UART_INT_TXE)
+    {
+        xHWREG(ulBase + USART_CR1) |= USART_CR1_TXEIE;
+    }
+    else if(ulIntFlags  == UART_INT_RXNE)
+    {
+        xHWREG(ulBase + USART_CR1) |= USART_CR1_RXNEIE;
+    }
+    else if(ulIntFlags  == UART_INT_IDLE)
+    {
+        xHWREG(ulBase + USART_CR1) |= USART_CR1_IDLEIE;
+    }
+    else if(ulIntFlags == UART_INT_LIN)
+    {
+        xHWREG(ulBase + USART_CR2) |= USART_CR2_LBDIE;
     }  
+    else if(ulIntFlags == UART_INT_ERR)
+    {
+        xHWREG(ulBase + USART_CR3) |= USART_CR3_EIE;
+    }
     else
     {
-        xHWREG(ulBase + USART_CR3) |= (ulIntFlags | USART_CR3_CTSIE |
-                                      USART_CR3_EIE);
+        xHWREG(ulBase + USART_CR3) |= USART_CR3_CTSIE;
     }
 }
 
@@ -977,22 +1117,40 @@ UARTIntDisable(unsigned long ulBase, unsigned long ulIntFlags)
     xASSERT(UARTBaseValid(ulBase));
 
     //
-    // Enable the specified interrupts.
+    // Disable the specified interrupts.
     //
-    if((ulIntFlags & 0xF000) == 0)
+    if(ulIntFlags == UART_INT_TC)
     {
-        xHWREG(ulBase + USART_CR1) &= ~(ulIntFlags | USART_CR1_PEIE | 
-                                      USART_CR1_TXEIE | USART_CR1_TCIE | 
-                                      USART_CR1_RXNEIE | USART_CR1_IDLEIE);
+        xHWREG(ulBase + USART_CR1) &= ~USART_CR1_TCIE;
     }
-    else if((ulIntFlags & 0xF000) == 1)
+        
+    else if(ulIntFlags == UART_INT_PE)
     {
-        xHWREG(ulBase + USART_CR2) &= ~(ulIntFlags | USART_CR2_LBDIE);
+        xHWREG(ulBase + USART_CR1) &= ~USART_CR1_PEIE;
+    }
+    else if(ulIntFlags == UART_INT_TXE)
+    {
+        xHWREG(ulBase + USART_CR1) &= ~USART_CR1_TXEIE;
+    }
+    else if(ulIntFlags  == UART_INT_RXNE)
+    {
+        xHWREG(ulBase + USART_CR1) &= ~USART_CR1_RXNEIE;
+    }
+    else if(ulIntFlags  == UART_INT_IDLE)
+    {
+        xHWREG(ulBase + USART_CR1) &= ~USART_CR1_IDLEIE;
+    }
+    else if(ulIntFlags == UART_INT_LIN)
+    {
+        xHWREG(ulBase + USART_CR2) &= ~USART_CR2_LBDIE;
     }  
+    else if(ulIntFlags == UART_INT_ERR)
+    {
+        xHWREG(ulBase + USART_CR3) &= ~USART_CR3_EIE;
+    }
     else
     {
-        xHWREG(ulBase + USART_CR3) &= ~(ulIntFlags | USART_CR3_CTSIE |
-                                      USART_CR3_EIE);
+        xHWREG(ulBase + USART_CR3) &= ~USART_CR3_CTSIE;
     }
 }
 
@@ -1117,7 +1275,6 @@ UARTIntClear(unsigned long ulBase, unsigned long ulIntFlags)
     // Check the arguments.
     //
     xASSERT(UARTBaseValid(ulBase));
-    xASSERT(1);
 
     //
     // Clear the requested interrupt sources.
@@ -1152,7 +1309,8 @@ UARTDMAEnable(unsigned long ulBase, unsigned long ulDMAFlags)
     //
     // Check the arguments.
     //
-    xASSERT(UARTBaseValid(ulBase));
+    xASSERT((ulBase == USART1_BASE) || (ulBase == USART2_BASE) ||
+            (ulBase == USART3_BASE) || (ulBase == USART4_BASE));
     xASSERT((ulDMAFlags == UART_DMA_RX) || (ulDMAFlags == UART_DMA_TX) ||
             (ulDMAFlags == (UART_DMA_RX | UART_DMA_TX)));
 
@@ -1185,7 +1343,8 @@ UARTDMADisable(unsigned long ulBase, unsigned long ulDMAFlags)
     //
     // Check the arguments.
     //
-    xASSERT(UARTBaseValid(ulBase));
+    xASSERT((ulBase == USART1_BASE) || (ulBase == USART2_BASE) ||
+            (ulBase == USART3_BASE) || (ulBase == USART4_BASE));
     xASSERT((ulDMAFlags == UART_DMA_RX) || (ulDMAFlags == UART_DMA_TX) ||
             (ulDMAFlags == (UART_DMA_RX | UART_DMA_TX)));
 
@@ -1203,9 +1362,7 @@ UARTDMADisable(unsigned long ulBase, unsigned long ulDMAFlags)
 //! \param ulAddress is to Indicate the address of the USART node.
 //!
 //! This function is used to set the address of the USART node.  The
-//! \e ulAddress parameter can be the following values:
-//!
-//! 0 - 16
+//! \e ulAddress parameter can be the following values: 0 - 15
 //!
 //! \return None.
 //
@@ -1217,7 +1374,7 @@ UARTAddressSet(unsigned long ulBase, unsigned long ulAddress)
     // Check the arguments.
     //
     xASSERT(UARTBaseValid(ulBase));
-    xASSERT(ulAddress < 8);
+    xASSERT(ulAddress < 16);
 
     //
     // Set the address of the USART node.
@@ -1260,55 +1417,6 @@ UARTWakeUpConfig(unsigned long ulBase, unsigned long ulWakeup)
 
 //*****************************************************************************
 //
-//! \brief Initializes the USARTx peripheral Clock according to the specified
-//!  parameters in the ulClockConfig.
-//!
-//! \param ulBase is the base address the USART or the UART peripheral.
-//! \param ulClockConfig that contains the configuration information for the 
-//! specified USART peripheral.  
-//!
-//! This function is used to set the address of the USART node.  The
-//! \e ulClockConfig parameter is the logical OR of four values:Clock enable,
-//! Clock polarity,Clock phase,Last bit clock pulse.
-//!
-//! - Clock enable: \b UART_CLK_EN \b UART_CLK_DIS
-//! - Clock polarity: \b UART_CPOL_LOW \b UART_CPOL_HIGH
-//! - Clock phase: \b UART_CPHA_1EDHGE \b UART_CPHA_2EDHGE
-//! - Last bit clock pulse: \b UART_LASTBIT_EN \b UART_LASTBIT_DIS
-//!
-//! \return None.
-//
-//*****************************************************************************
-void
-UARTClockConfig(unsigned long ulBase, unsigned long ulClockConfig)
-{
-    //
-    // Check the arguments.
-    //
-    xASSERT(UARTBaseValid(ulBase));
-    
-    xASSERT((((ulClockConfig & USART_CR2_CLKEN) == UART_CLK_EN) ||
-             ((ulClockConfig & USART_CR2_CLKEN) == UART_CLK_DIS)) &&
-            (((ulClockConfig & USART_CR2_CPOL) == UART_CPOL_LOW) ||
-             ((ulClockConfig & USART_CR2_CPOL) == UART_CPOL_HIGH)) &&
-            (((ulClockConfig & USART_CR2_CPHA) == UART_CPHA_1EDHGE) ||
-             ((ulClockConfig & USART_CR2_CPHA) == UART_CPHA_2EDHGE)) &&
-            (((ulClockConfig & USART_CR2_LBCL) == UART_LASTBIT_EN) ||
-             ((ulClockConfig & USART_CR2_LBCL) == UART_LASTBIT_DIS)) &&
-            ((ulClockConfig & ~(USART_CR2_LBCL | USART_CR2_CPHA | 
-                                USART_CR2_CPOL | USART_CR2_CLKEN)) == 0)
-           );
-
-    //
-    // Initializes the USARTx peripheral Clock.
-    //
-    xHWREG(ulBase + USART_CR2) &= ~(USART_CR2_CLKEN | USART_CR2_CPOL | 
-                                    USART_CR2_CPHA | USART_CR2_LBCL);
-    xHWREG(ulBase + USART_CR2) |= ulClockConfig;
-}
-
-//*****************************************************************************
-//
 //! \brief Sets the specified USART guard time.
 //!
 //! \param ulBase is the base address the USART or the UART peripheral.
@@ -1334,8 +1442,8 @@ UARTGuardTimeSet(unsigned long ulBase, unsigned long ulGuardTime)
     // Sets the specified USART guard time.
     //
     xHWREG(ulBase + USART_GTPR) &= ~USART_GTPR_GT_M;
-    xHWREG(ulBase + USART_GTPR) |= (ulGuardTime & USART_GTPR_GT_M) 
-                                   << USART_GTPR_GT_S;
+    xHWREG(ulBase + USART_GTPR) |= (ulGuardTime << USART_GTPR_GT_S)
+                                   &USART_GTPR_GT_M;
 }
 
 //*****************************************************************************
@@ -1359,6 +1467,8 @@ UARTHalfDuplexEnable(unsigned long ulBase)
     //
     xASSERT(UARTBaseValid(ulBase));
 
+    xHWREG(ulBase + USART_CR2) &= ~(USART_CR2_LINEN | USART_CR2_CLKEN);
+    xHWREG(ulBase + USART_CR3) &= ~(USART_CR3_SCEN | USART_CR3_IREN);
     //
     // Enables the USART's Half Duplex communication.
     //
@@ -1397,22 +1507,45 @@ UARTHalfDuplexDisable(unsigned long ulBase)
 //! \brief Enables the USART's Smart Card mode.
 //!
 //! \param ulBase is the base address the USART or the UART peripheral.
+//! \param ulSCMode is the mode of Smartcrd, it can be UART_SC_TX or UART_SC_RX.
 //!
 //! This function is used to enable the USART's Smart Card mode.
-//!
-//! \note None. 
 //!
 //! \return None.
 //
 //*****************************************************************************
 void
-UARTSmartCardEnable(unsigned long ulBase)
+UARTSmartCardEnable(unsigned long ulBase, unsigned long ulSCMode)
 {
     //
     // Check the arguments.
     //
-    xASSERT(UARTBaseValid(ulBase));
+    xASSERT((ulBase == USART1_BASE) || (ulBase == USART2_BASE)
+                                    || (ulBase == USART3_BASE));
+    xASSERT((ulSCMode == UART_SC_TX) || (ulSCMode == UART_SC_RX));
 
+    //
+    // LINEN,HDSEL and IREN bits must be kept cleared
+    //
+    xHWREG(ulBase + USART_CR2) &= ~USART_CR2_LINEN;
+    xHWREG(ulBase + USART_CR3) &= ~USART_CR3_HDSEL;
+    xHWREG(ulBase + USART_CR3) &= ~USART_CR3_IREN;
+    
+    //
+    // 8 bits plus parity
+    //
+    xHWREG(ulBase + USART_CR1) |= USART_CR1_M;
+    xHWREG(ulBase + USART_CR1) |= USART_CR1_PCE;
+    
+    xHWREG(ulBase + USART_CR2) &= ~USART_CR2_STOP_15;
+    if(ulSCMode == UART_SC_TX)
+    {
+        xHWREG(ulBase + USART_CR2) |= USART_CR2_STOP_05;
+    }
+    else
+    {
+        xHWREG(ulBase + USART_CR2) |= USART_CR2_STOP_15;
+    }
     //
     // Enables the USART's Smart Card mode.
     //
@@ -1427,8 +1560,6 @@ UARTSmartCardEnable(unsigned long ulBase)
 //!
 //! This function is used to disable the USART's Smart Card mode.
 //!
-//! \note None. 
-//!
 //! \return None.
 //
 //*****************************************************************************
@@ -1438,7 +1569,7 @@ UARTSmartCardDisable(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT(UARTBaseValid(ulBase));
+    xASSERT((ulBase == USART1_BASE) || (ulBase == USART2_BASE) || (ulBase == USART3_BASE));
 
     //
     // Disables the USART's Smart Card mode.
@@ -1446,4 +1577,116 @@ UARTSmartCardDisable(unsigned long ulBase)
     xHWREG(ulBase + USART_CR3) &= ~USART_CR3_SCEN;
 }
 
+//*****************************************************************************
+//
+//! \brief Enables and set the USART's synchronous mode.
+//!
+//! \param ulBase is the base address the USART or the UART peripheral.
+//! \param ulConfig is the configuration of synchronous mode.it is the logical  
+//! OR of these values:  \b UART_SYN_CPOL, \b UART_SYN_CPHA, \b UART_SYN_LBCL.
+//!
+//! This function is used to enable the synchronous mode.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+UARTSynModeSet(unsigned long ulBase, unsigned long ulConfig)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT((ulBase == USART1_BASE) || (ulBase == USART2_BASE) || (ulBase == USART3_BASE));
 
+    //
+    // LINEN,HDSEL and IREN bits must be kept cleared
+    //
+    xHWREG(ulBase + USART_CR2) &= ~USART_CR2_LINEN;
+    xHWREG(ulBase + USART_CR3) &= ~USART_CR3_HDSEL;
+    xHWREG(ulBase + USART_CR3) &= ~(USART_CR3_IREN | USART_CR3_SCEN);
+
+    //
+    // Enables the USART's  and set synchronous mode.
+    //
+    xHWREG(ulBase + USART_CR2) |= (USART_CR2_CLKEN | ulConfig);
+}
+
+//*****************************************************************************
+//
+//! \brief Disable the USART's synchronous mode.
+//!
+//! \param ulBase is the base address the USART or the UART peripheral.
+//!
+//! This function is used to enable the synchronous mode.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+UARTSYNDisable(unsigned long ulBase)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT((ulBase == USART1_BASE) || (ulBase == USART2_BASE) || (ulBase == USART3_BASE));
+
+    //
+    // Enables the USART's  and set synchronous mode.
+    //
+    xHWREG(ulBase + USART_CR2) &= ~USART_CR2_CLKEN;
+}
+//*****************************************************************************
+//
+//! \brief Set the USART's modem mode.
+//!
+//! \param ulBase is the base address the USART or the UART peripheral.
+//! \param ulControl is the mode of UART modem mode.it is the logical OR of these 
+//! values: \b UART_MODEM_RTS, \b UART_MODEM_CTS.
+//!
+//! This function is used to Set the USART's modem mode.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+UARTModemControlSet(unsigned long ulBase, unsigned long ulControl)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT((ulBase == USART1_BASE) || (ulBase == USART2_BASE) || (ulBase == USART3_BASE));
+    xASSERT((ulMode == UART_MODEM_RTS) || (ulMode == UART_MODEM_CTS) || 
+            (ulMode == (UART_MODEM_RTS | UART_MODEM_CTS)));
+    //
+    // Set the USART's modem mode.
+    //
+    xHWREG(ulBase + USART_CR3) |= ulControl;
+}
+
+//*****************************************************************************
+//
+//! \brief Clear the USART's modem mode.
+//!
+//! \param ulBase is the base address the USART or the UART peripheral.
+//! \param ulControl is the mode of UART modem mode.it is the logical OR of these 
+//! values: \b UART_MODEM_RTS, \b UART_MODEM_CTS.
+//!
+//! This function is used to Clear the USART's modem mode.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+UARTModemControlClear(unsigned long ulBase, unsigned long ulControl)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT((ulBase == USART1_BASE) || (ulBase == USART2_BASE) || (ulBase == USART3_BASE));
+    xASSERT((ulMode == UART_MODEM_RTS) || (ulMode == UART_MODEM_CTS) || 
+            (ulMode == (UART_MODEM_RTS | UART_MODEM_CTS)));
+    //
+    // Clear the USART's modem mode.
+    //
+    xHWREG(ulBase + USART_CR3) &= ~ulControl;
+}

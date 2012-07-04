@@ -900,7 +900,7 @@ extern "C"
 //*****************************************************************************
 #define xSPIEnable(ulBase)                                                    \
         SPIEnble(ulBase)
-
+  
 //*****************************************************************************
 //
 //! \brief Disable the specified SPI port.
@@ -1256,4 +1256,5 @@ extern void SPICRCDisble(unsigned long ulBase);
 #endif
 
 #endif // __xSPI_H__
+
 

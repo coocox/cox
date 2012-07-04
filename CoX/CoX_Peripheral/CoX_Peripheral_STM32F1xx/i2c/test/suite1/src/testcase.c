@@ -23,11 +23,10 @@ const tTestCase * const* g_psPatterns[] =  {
     //
     // xcore test
     //
-    //psPatternXsysctl,
+    psPatternXi2c01,
     //
     // end
     //
     0
 };
-
 

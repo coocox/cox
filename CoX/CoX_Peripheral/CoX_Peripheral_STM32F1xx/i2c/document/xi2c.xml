@@ -19,7 +19,8 @@
     <Dependencys>
         <Dependency>COX.Peripheral.STM32F1xx.xStartup</Dependency>
         <Dependency>COX.Peripheral.STM32F1xx.xLowLayer</Dependency>
-		<Dependency>COX.Peripheral.STM32F1xx.xGPIO</Dependency>
+        <Dependency>COX.Peripheral.STM32F1xx.xGPIO</Dependency>
+        <Dependency>CoX.Peripheral.STM32F1xx.xSysCtl</Dependency>
     </Dependencys>
 
     <SupportDevices>

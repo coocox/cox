@@ -2274,7 +2274,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 #define xSPinTypeDAC(ePeripheralPin, eShortPin)                               \
         do                                                                    \
         {                                                                     \
-         xGPIOSDirModeSet(eShortPin, GPIO_TYPE_IN_ANALOG);                    \
+         xGPIOSDirModeSet(eShortPin, GPIO_TYPE_IN_ANALOG);                     \
          GPIOSPinConfigure(ePeripheralPin, eShortPin);                        \
         }                                                                     \
         while(0)
@@ -3628,4 +3628,5 @@ extern unsigned long  GPIOPinToPin(unsigned long ulPort,
 #endif
 
 #endif //  __xGPIO_H__
+
 

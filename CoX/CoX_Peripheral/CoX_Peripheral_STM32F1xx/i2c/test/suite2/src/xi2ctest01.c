@@ -73,7 +73,7 @@ unsigned long I2CSlaveCallback(void *pvCBData,
     {
         I2CDataPut(ulSlave, ucTempData[ucTempCount1]);
         ucTempCount1++;
-        if(ucTempCount1 == 4)
+        if(ucTempCount1 == 5)
         {
             I2CIntDisable(ulSlave, I2C_INT_BUF | I2C_INT_EVT | I2C_INT_ERR);
         }
@@ -134,7 +134,8 @@ static void xI2C001Setup(void)
     I2CMasterReadS1(ulMaster, 0x12, ucTemp, xfalse);
     I2CMasterReadS2(ulMaster, &ucTemp[1], xfalse);
     I2CMasterReadS2(ulMaster, &ucTemp[2], xfalse);
-    I2CMasterReadS2(ulMaster, &ucTemp[3], xtrue);
+    I2CMasterReadS2(ulMaster, &ucTemp[3], xfalse);
+    I2CMasterReadS2(ulMaster, &ucTemp[4], xtrue);
 }
 
 

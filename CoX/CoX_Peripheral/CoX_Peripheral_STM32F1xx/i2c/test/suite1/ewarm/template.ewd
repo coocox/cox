@@ -668,7 +668,11 @@
         </option>
         <option>
           <name>CCSTLinkInterfaceRadio</name>
+<<<<<<< HEAD
           <state>0</state>
+=======
+          <state>1</state>
+>>>>>>> remotes/jack/YanSTM32F1xx
         </option>
         <option>
           <name>CCSTLinkInterfaceCmdLine</name>
@@ -1519,5 +1523,4 @@
     </debuggerPlugins>
   </configuration>
 </project>
-
 

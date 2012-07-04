@@ -388,7 +388,7 @@
 //
 //!  Address of the USART node mask
 //
-#define USART_CR2_ADD_M         0x00000007
+#define USART_CR2_ADD_M         0x0000000F
 
 //
 //!  Address of the USART node shift

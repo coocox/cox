@@ -56,7 +56,7 @@
 //*****************************************************************************
 //
 //! \addtogroup STM32F1xx_I2C_Register STM32F1xx I2C Register
-//! \brief Here are the detailed info of SPI registers. 
+//! \brief Here are the detailed info of I2C registers. 
 //!
 //! it contains:
 //! - Register offset.

@@ -15,7 +15,7 @@
 void 
 TestIOInit(void)
 {
-    xSysCtlClockSet(16000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
+    xSysCtlClockSet(72000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
 
     SysCtlDelay(10000);
 
@@ -35,7 +35,6 @@ TestIOInit(void)
                                          UART_CONFIG_PAR_NONE));
 
     xUARTEnable(USART1_BASE, (UART_BLOCK_UART | UART_BLOCK_TX | UART_BLOCK_RX));
-
 }
 
 //*****************************************************************************
@@ -94,7 +93,6 @@ void TestDisableIRQ(void)
 // The error routine that is called if the driver library encounters an error.(COX)
 //
 //*****************************************************************************
-
 #ifdef xDEBUG
 void
 __xerror__(char *pcFilename, unsigned long ulLine)
@@ -102,4 +100,3 @@ __xerror__(char *pcFilename, unsigned long ulLine)
     while(1);
 }
 #endif
-

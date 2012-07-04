@@ -27,7 +27,10 @@
 #include "xgpio.h"
 #include "xhw_uart.h"
 #include "xuart.h"
+#include "xhw_i2c.h"
 #include "xi2c.h"
+#include "xhw_timer.h"
+#include "xpwm.h"
 
 //*****************************************************************************
 //

@@ -306,6 +306,7 @@ GPIODirModeSet(unsigned long ulPort, unsigned long ulBit,
     {
         xHWREG(ulPort + GPIO_CRL) = (xHWREG(ulPort + GPIO_CRL) &               \
         (~((GPIO_CRL_MODE0_M | GPIO_CRL_CNF0_M) << (ulBit * 4))));
+    
         xHWREG(ulPort + GPIO_CRL) = (xHWREG(ulPort + GPIO_CRL) |               \
         (((ulPinSpeed | ulPinType)) << (ulBit * 4)));  
     }
@@ -313,6 +314,7 @@ GPIODirModeSet(unsigned long ulPort, unsigned long ulBit,
     {
         xHWREG(ulPort + GPIO_CRH) = (xHWREG(ulPort + GPIO_CRH) &               \
         (~((GPIO_CRH_MODE8_M | GPIO_CRH_CNF8_M) << ((ulBit -8) * 4))));
+    
         xHWREG(ulPort + GPIO_CRH) = (xHWREG(ulPort + GPIO_CRH) |               \
         (((ulPinSpeed | ulPinType)) << ((ulBit -8) * 4)));
     }
@@ -820,13 +822,11 @@ GPIOPinLockConfig(unsigned long ulPort, unsigned long ulPins)
 	  //
 	  // Write the LCKR 
 	  //
-
     xHWREG(ulPort + GPIO_LCKR) = (ulPins | ulTemp);
 
     //
     // Reset LCKK bit.
     //
-
 	  xHWREG(ulPort + GPIO_LCKR) = ulPins;
 
     //
@@ -839,7 +839,7 @@ GPIOPinLockConfig(unsigned long ulPort, unsigned long ulPins)
     //
     ulTemp = xHWREG(ulPort + GPIO_LCKR);
     ulTemp = xHWREG(ulPort + GPIO_LCKR);
-
+    
 }
 
 //*****************************************************************************
@@ -888,3 +888,4 @@ GPIOPinConfigure(unsigned long ulPinConfig)
     xHWREG(ulBase) &= ~(ulShift);
     xHWREG(ulBase) |= (ulShift);
 }
+

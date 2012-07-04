@@ -263,8 +263,109 @@
 
 //*****************************************************************************
 //
+//! \addtogroup xI2C_General_Call xI2C General Call
+//! \brief Values that show xI2C General Call
+//! \n
+//! \section xI2C_Transfer_Type_Section 1. Where to use this group
+//! Values that can be passed to xI2CSlaveIntInit()
+//! as the ulGeneralCall parameter. 
+//! \n
+//! \section xI2C_Transfer_Type_CoX 2.CoX Mandatory and CoX Non-mandatory 
+//! \verbatim
+//! +------------------------+----------------+---------------------------+
+//! |xI2C General Call       |       CoX      |         STM32F1xx         |
+//! |------------------------|----------------|---------------------------|
+//! |xI2C_GENERAL_CALL_DIS   |    Mandatory   |             Y             |
+//! |------------------------|----------------|---------------------------|
+//! |xI2C_GENERAL_CALL_EN    |  Non-Mandatory |             Y             |
+//! |------------------------|----------------|---------------------------|
+//! \endverbatim
+//! @{
+//
+//*****************************************************************************
+#define xI2C_GENERAL_CALL_EN    0x00000040
+#define xI2C_GENERAL_CALL_DIS   0x00000000
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
 //! \addtogroup xI2C_Exported_APIs xI2C API
+//! \brief xI2C API Reference.
 //!
+//! \section xI2C_Exported_APIs_Port CoX Port Details
+//! \verbatim
+//! +----------------------------+----------------+------------------------+
+//! |xI2C API                    |       CoX      |       STM32F1xx        |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CMasterInit              |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CMasterEnable            |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CMasterDisable           |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CMasterBusBusy           |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CMasterBusy              |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CMasterError             |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CMasterDataPut           |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CMasterDataGet           |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CMasterStop              |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CMasterWriteRequestS1    |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CMasterWriteRequestS2    |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CMasterWriteS1           |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CMasterWriteS2           |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CMasterWriteBufS1        |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CMasterWriteBufS2        |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CMasterReadRequestS1     |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CMasterReadRequestS2     |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CMasterReadLastRequestS2 |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CMasterReadS1            |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CMasterReadS2            |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CMasterReadBufS1         |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CMasterReadBufS2         |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CMasterIntEnable         |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CMasterIntDisable        |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CSlaveIntEnable          |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CSlaveIntDisable         |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CSlaveIntInit            |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CSlaveEnable             |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CSlaveDisable            |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CIntCallbackInit         |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CSlaveDataPut            |    Mandatory   |            Y           |
+//! |----------------------------|----------------|------------------------|
+//! |xI2CSlaveDataGet            |    Mandatory   |            Y           |
+//! +----------------------------+----------------+------------------------+
+//! \endverbatim
 //! @{
 //
 //*****************************************************************************
@@ -293,14 +394,7 @@
 //! \return None.
 //
 //*****************************************************************************
-#define xI2CMasterInit(ulBase, ulI2CClk)                                      \
-        do                                                                    \
-        {                                                                     \
-            xASSERT(ulI2CClk == 100000 || ulI2CClk == 400000);                \
-            I2CMasterInitExpClk(ulBase, SysCtlClockGet(),                     \
-                (ulI2CClk == 400000) ? xtrue : xfalse);                       \
-        }while(0)
-
+extern void xI2CMasterInit(unsigned long ulBase, unsigned long ulI2CClk);                                      
 
 //*****************************************************************************
 //
@@ -328,6 +422,34 @@
 //
 //*****************************************************************************            
 #define xI2CMasterDisable(ulBase)                                             \
+        I2CMasterDisable(ulBase)
+
+//*****************************************************************************
+//
+//! \brief Enables the I2C Slave block.
+//!
+//! \param ulBase is the base address of the I2C module.
+//!
+//! This will enable operation of the I2C Slave block.
+//!
+//! \return None.
+//
+//*****************************************************************************
+#define xI2CSlaveEnable(ulBase)                                              \
+        I2CMasterEnable(ulBase)
+
+//*****************************************************************************
+//
+//! \brief Disables the I2C slave block.
+//!
+//! \param ulBase is the base address of the I2C module.
+//!
+//! This will disable operation of the I2C slave block.
+//!
+//! \return None.
+//
+//*****************************************************************************            
+#define xI2CSlaveDisable(ulBase)                                             \
         I2CMasterDisable(ulBase)
 
 //*****************************************************************************
@@ -361,7 +483,130 @@
 //
 //*****************************************************************************
 #define xI2CMasterBusy(ulBase)                                                \
-        I2CMasterBusy(ulBase)
+        I2CBusBusy(ulBase)
+
+//*****************************************************************************
+//
+//! \brief Init interrupts callback for the specified I2C Port.
+//!
+//! \param ulPort is the base address of the I2C port.
+//! \param xtI2CCallback is callback for the specified I2C Port.
+//!
+//! Init interrupts callback for the specified I2C Port.
+//!
+//! \return None.
+//
+//*****************************************************************************
+#define xI2CIntCallbackInit(ulBase, xtI2CCallback)                            \
+        I2CIntCallbackInit(ulBase, xtI2CCallback)
+
+//*****************************************************************************
+//! \brief Slave Send a byte to I2C bus. 
+//!
+//! \param ulBase specifies the I2C module base address.
+//! \param ucData specifies the data which will send to I2C BUS.
+//!
+//! This function is to send a byte on specified I2C BUS.
+//!
+//! The \e ulBase can be one of the following values:
+//! \b xI2C1_BASE, \b xI2C2_BASE.
+//!
+//! \note This is only for slave
+//!
+//! \return None.
+//
+//*****************************************************************************
+
+#define xI2CSlaveDataPut(ulBase, ucData)                                      \
+        I2CDataPut(ulBase, ucData)
+
+
+//*****************************************************************************
+//! \brief Slave receive a byte to I2C bus. 
+//!
+//! \param ulBase specifies the I2C module base address.
+//!
+//! This function is to receive a byte on specified I2C BUS.
+//!
+//! The \e ulBase can be one of the following values:
+//! \b xI2C1_BASE, \b xI2C2_BASE.
+//!
+//! \note This is only for slave
+//!
+//! \return None.
+//
+//*****************************************************************************
+
+#define xI2CSlaveDataGet(ulBase)                                              \
+        I2CDataGet(ulBase)
+
+//*****************************************************************************
+//
+//! Enables the I2C Master interrupt.
+//!
+//! \param ulBase is the base address of the I2C module.
+//! \param ulIntType is the interrupt type of the I2C module.
+//!
+//! The \e ulIntType is the interrupt type of the I2C module.
+//!
+//! Enables the I2C Master interrupt source.
+//!
+//! \return None.
+//
+//*****************************************************************************
+#define xI2CMasterIntEnable(ulBase, ulIntType)                                \
+        I2CIntEnable(ulBase, ulIntType)
+
+//*****************************************************************************
+//
+//! Disables the I2C Master interrupt.
+//!
+//! \param ulBase is the base address of the I2C module.
+//! \param ulIntType is the interrupt type of the I2C module.
+//!
+//! The \e ulIntType is the interrupt type of the I2C module.
+//!
+//! Disables the I2C Master interrupt source.
+//!
+//! \return None.
+//
+//*****************************************************************************
+#define xI2CMasterIntDisable(ulBase, ulIntType)                               \
+        I2CIntDisable(ulBase, ulIntType)
+
+//*****************************************************************************
+//
+//! Enables the I2C Slave interrupt.
+//!
+//! \param ulBase is the base address of the I2C module.
+//! \param ulIntType is the interrupt type of the I2C module.
+//!
+//! The \e ulIntType is the interrupt type of the I2C module.
+//!
+//! Enables the I2C Slave interrupt source.
+//!
+//! \return None.
+//
+//*****************************************************************************
+#define xI2CSlaveIntEnable(ulBase, ulIntType)                                 \
+        I2CIntEnable(ulBase, ulIntType)
+        
+//*****************************************************************************
+//
+//! Disables the I2C Slave interrupt.
+//!
+//! \param ulBase is the base address of the I2C module.
+//! \param ulIntType is the interrupt type of the I2C module.
+//!
+//! The \e ulIntType is the interrupt type of the I2C module.
+//!
+//! Disables the I2C slave interrupt source.
+//!
+//! \return None.
+//
+//*****************************************************************************
+#define xI2CSlaveIntDisable(ulBase, ulIntType)                               \
+        I2CIntDisable(ulBase, ulIntType)
 
 //*****************************************************************************
 //
@@ -393,7 +638,7 @@
 //
 //*****************************************************************************
 #define xI2CMasterDataPut(ulBase, ucData)                                     \
-        I2CMasterDataPut(ulBase, ucData)
+        I2CDataPut(ulBase, ucData)
 
 //*****************************************************************************
 //
@@ -407,7 +652,7 @@
 //
 //*****************************************************************************
 #define xI2CMasterDataGet(ulBase)                                             \
-        I2CMasterDataGet(ulBase)
+        I2CDataGet(ulBase)
 
 //*****************************************************************************
 //
@@ -423,7 +668,7 @@
 //
 //*****************************************************************************
 #define xI2CMasterStop(ulBase)                                                \
-        I2CMasterStop(ulBase)
+        I2CStopSend(ulBase)
 
 //*****************************************************************************
 //
@@ -449,7 +694,7 @@
 //! release the I2C bus.
 //!
 //! For this function returns immediately, it is always using in the interrupt
-//! hander.
+//! handler.
 //!
 //! \return None.
 //
@@ -480,7 +725,7 @@
 //! I2C bus.
 //!
 //! For this function returns immediately, it is always using in the interrupt
-//! hander.
+//! handler.
 //!
 //! \return None.
 //
@@ -717,7 +962,7 @@
 //! release the I2C bus.
 //!
 //! For this function returns immediately, it is always using in the interrupt
-//! hander.
+//! handler.
 //!
 //! \return None.
 //
@@ -929,6 +1174,31 @@
 //! @}
 //
 //*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_I2C_DUAL_EN  Dual Address Mode Enable
+//! Values that can be passed to I2COwnAddress2Config() as the ulDual parameter.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Dual Address Mode Enable
+//
+#define I2C_DUAL_ADD_EN         0x00000001
+
+//
+//! Dual Address Mode Disable
+//
+#define I2C_DUAL_ADD_DIS        0x00000000
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
 
 //*****************************************************************************
 //
@@ -1406,6 +1676,40 @@
 
 //*****************************************************************************
 //
+//! \addtogroup STM32F1xx_I2C_PEC_Position I2C NOACK Position
+//! \brief Values that show I2C NOACK Position 
+//! Values that can be passed to I2CPECPositionConfig().
+//! @{
+//
+//*****************************************************************************
+#define I2C_NACKPOS_CURRENT     0x00000000
+#define I2C_NACKPOS_NEXT        0x00000800
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_I2C_PEC_Position I2C PEC Position
+//! \brief Values that show I2C PEC Position 
+//! Values that can be passed to I2CPECPositionConfig().
+//! @{
+//
+//*****************************************************************************
+#define I2C_NACKPOS_CURRENT     0x00000000
+#define I2C_PECPOS_NEXT         0x00000800
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
 //! \addtogroup STM32F1xx_I2C_Exported_APIs STM32F1xx I2C API
 //! \brief STM32F1xx I2C API Reference.
 //! @{
@@ -1417,6 +1721,8 @@ extern void I2CSlaveInit(unsigned long ulBase, unsigned long ulAddrConfig,
                          unsigned char ucSlaveAddr, unsigned long ulGeneralCall);
 extern void I2CEnable(unsigned long ulBase);
 extern void I2CDisable(unsigned long ulBase);
+extern void I2CMasterEnable(unsigned long ulBase);
+extern void I2CMasterDisable(unsigned long ulBase);
 extern void I2CIntEnable(unsigned long ulBase, unsigned long ulIntType);
 extern void I2CIntDisable(unsigned long ulBase, unsigned long ulIntType);
 extern void I2CDMAEnable(unsigned long ulBase, unsigned long ulDMALast);

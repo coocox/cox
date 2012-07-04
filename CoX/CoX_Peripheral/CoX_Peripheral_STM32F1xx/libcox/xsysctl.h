@@ -87,7 +87,7 @@ extern "C"
 //! \section xSysCtl_Peripheral_ID_CoX 2.CoX Port Details
 //! \verbatim
 //! +--------------------------+----------------+--------------------------+
-//! |SysCtl Peripheral ID      |       CoX      |          STM32F1xx          |
+//! |SysCtl Peripheral ID      |       CoX      |       STM32F1xx          |
 //! |--------------------------|----------------|--------------------------|
 //! |xSYSCTL_PERIPH_ACMPn      |  Non-Mandatory |   xSYSCTL_PERIPH_ACMP0   |
 //! |--------------------------|----------------|--------------------------|
@@ -162,8 +162,18 @@ extern "C"
 #define xSYSCTL_PERIPH_GPIOG    SYSCTL_PERIPH_IOPG
 #define xSYSCTL_PERIPH_I2C1     SYSCTL_PERIPH_I2C1
 #define xSYSCTL_PERIPH_I2C2     SYSCTL_PERIPH_I2C2
-#define xSYSCTL_PERIPH_PWMA     0
-#define xSYSCTL_PERIPH_PWMB     0
+#define xSYSCTL_PERIPH_PWMA     SYSCTL_PERIPH_TIM1
+#define xSYSCTL_PERIPH_PWMB     SYSCTL_PERIPH_TIM8
+#define xSYSCTL_PERIPH_PWMC     SYSCTL_PERIPH_TIM2
+#define xSYSCTL_PERIPH_PWMD     SYSCTL_PERIPH_TIM3
+#define xSYSCTL_PERIPH_PWME     SYSCTL_PERIPH_TIM4
+#define xSYSCTL_PERIPH_PWMF     SYSCTL_PERIPH_TIM5
+#define xSYSCTL_PERIPH_PWMG     SYSCTL_PERIPH_TIM9
+#define xSYSCTL_PERIPH_PWMH     SYSCTL_PERIPH_TIM12
+#define xSYSCTL_PERIPH_PWMI     SYSCTL_PERIPH_TIM10
+#define xSYSCTL_PERIPH_PWMJ     SYSCTL_PERIPH_TIM11
+#define xSYSCTL_PERIPH_PWMK     SYSCTL_PERIPH_TIM13
+#define xSYSCTL_PERIPH_PWML     SYSCTL_PERIPH_TIM14
 #define xSYSCTL_PERIPH_RTC      SYSCTL_PERIPH_RTC
 #define xSYSCTL_PERIPH_SPI1     SYSCTL_PERIPH_SPI1
 #define xSYSCTL_PERIPH_SPI2     SYSCTL_PERIPH_SPI2
@@ -213,7 +223,7 @@ extern "C"
 //! \section xSysCtl_Clock_Set_Config_CoX 3.CoX Port Details
 //! \verbatim
 //! +--------------------------+----------------+--------------------------+
-//! |SysCtl Clock Set Configs  |       CoX      |          STM32F1xx          |
+//! |SysCtl Clock Set Configs  |       CoX      |       STM32F1xx          |
 //! |--------------------------|----------------|--------------------------|
 //! |xSYSCTL_OSC_MAIN          |    Mandatory   |             Y            |
 //! |--------------------------|----------------|--------------------------|
@@ -235,7 +245,7 @@ extern "C"
 //! |                          |                |--------------------------|
 //! |                          |                |            ...           |
 //! |                          |                |--------------------------|
-//! |                          |                |    xSYSCTL_XTAL_24MHZ    |
+//! |                          |                |    xSYSCTL_XTAL_25MHZ    |
 //! |--------------------------|----------------|--------------------------|
 //! |xSYSCTL_INT_nMHZ          |  Non-Mandatory |     xSYSCTL_INT_22MHZ    |
 //! |--------------------------|----------------|--------------------------|
@@ -273,7 +283,15 @@ extern "C"
 #define xSYSCTL_XTAL_14MHZ      SYSCTL_XTAL_14MHZ
 #define xSYSCTL_XTAL_15MHZ      SYSCTL_XTAL_15MHZ
 #define xSYSCTL_XTAL_16MHZ      SYSCTL_XTAL_16MHZ
-
+#define xSYSCTL_XTAL_17MHZ      SYSCTL_XTAL_17MHZ
+#define xSYSCTL_XTAL_18MHZ      SYSCTL_XTAL_18MHZ
+#define xSYSCTL_XTAL_19MHZ      SYSCTL_XTAL_19MHZ
+#define xSYSCTL_XTAL_20MHZ      SYSCTL_XTAL_20MHZ
+#define xSYSCTL_XTAL_21MHZ      SYSCTL_XTAL_21MHZ
+#define xSYSCTL_XTAL_22MHZ      SYSCTL_XTAL_22MHZ
+#define xSYSCTL_XTAL_23MHZ      SYSCTL_XTAL_23MHZ
+#define xSYSCTL_XTAL_24MHZ      SYSCTL_XTAL_24MHZ
+#define xSYSCTL_XTAL_25MHZ      SYSCTL_XTAL_25MHZ
 
 //
 //! Internal main clock is 8MHz
@@ -327,22 +345,22 @@ extern "C"
 //! \section xSysCtl_Peripheral_Src_Clk_CoX CoX Port Details
 //! \verbatim
 //! +-------------------------- +----------------+--------------------------+
-//! |Peripheral Source Clock Set|       CoX      |          STM32F1xx          |
+//! |Peripheral Source Clock Set|       CoX      |       STM32F1xx          |
 //! |---------------------------|----------------|--------------------------|
 //! |Those are all Non-Mandatory|  Non-Mandatory |             Y            |
 //! | parameter,the Mandatory   |                |                          |
 //! | is variable naming        |                |                          |
 //! |ModuleName+n+SourceClock   |                |                          |
 //! |---------------------------|----------------|--------------------------|
-//! |xSYSCTL_WDT_EXTSL          |  Non-Mandatory |             Y            |
+//! |xSYSCTL_WDT_HCLK_n         |  Non-Mandatory |             N            |
 //! |-------------------------- |----------------|--------------------------|
-//! |xSYSCTL_WDT_HCLK_2048      |  Non-Mandatory |             Y            |
+//! |xSYSCTL_WDT_HCLK_2048      |  Non-Mandatory |             N            |
 //! |-------------------------- |----------------|--------------------------|
-//! |xSYSCTL_WDT_INTSL          |  Non-Mandatory |             Y            |
+//! |xSYSCTL_WDT_INTSL          |  Non-Mandatory |             N            |
 //! |-------------------------- |----------------|--------------------------|
 //! |xSYSCTL_ADC0_MAIN          |  Non-Mandatory |             Y            |
 //! |-------------------------- |----------------|--------------------------|
-//! |xSYSCTL_ADC0_PLL           |  Non-Mandatory |             Y            |
+//! |xSYSCTL_ADC0_PLL           |  Non-Mandatory |             N            |
 //! |-------------------------- |----------------|--------------------------|
 //! |......                     |  Non-Mandatory |             Y            |
 //! |-------------------------- |----------------|--------------------------|
@@ -352,6 +370,15 @@ extern "C"
 //! @{
 //
 //*****************************************************************************
+
+//
+//!  HCLK used as xWDT clock
+//
+#define xSYSCTL_WDT_HCLK        0x00000000
+//
+//!  HCLK used as ADC clock
+//
+#define xSYSCTL_ADC0_MAIN       SYSCTL_ADC_HCLK
 
 //
 //! LSE oscillator clock used as RTC clock
@@ -449,7 +476,7 @@ extern "C"
 //! \section xSysCtl_Peripheral_Short_CoX CoX Port Details
 //! \verbatim
 //! +-------------------------- +----------------+--------------------------+
-//! |Peripheral Short name      |       CoX      |          STM32F1xx          |
+//! |Peripheral Short name      |       CoX      |       STM32F1xx          |
 //! |---------------------------|----------------|--------------------------|
 //! |ADCn                       |  Non-Mandatory |           ADC0           |
 //! |---------------------------|----------------|--------------------------|
@@ -485,7 +512,7 @@ extern "C"
 //! |-------------------------- |----------------|--------------------------|
 //!
 //! +-------------------------- +----------------+--------------------------+
-//! |Peripheral Clock source    |       CoX      |          STM32F1xx          |
+//! |Peripheral Clock source    |       CoX      |       STM32F1xx          |
 //! |---------------------------|----------------|--------------------------|
 //! |INT                        |    Mandatory   |             Y            |
 //! |---------------------------|----------------|--------------------------|
@@ -574,37 +601,37 @@ extern "C"
 //!
 //! \section xSysCtl_Exported_APIs_Port CoX Port Details
 //! \verbatim
-//! +--------------------------------+----------------+--------+
+//! +--------------------------------+----------------+-----------+
 //! |xSysCtl API                     |       CoX      | STM32F1xx |
-//! |--------------------------------|----------------|--------|
-//! |xSysCtlPeripheralReset          |    Mandatory   |    Y   |
-//! |--------------------------------|----------------|--------|
-//! |xSysCtlPeripheralEnable         |    Mandatory   |    Y   |
-//! |--------------------------------|----------------|--------|
-//! |xSysCtlPeripheralDisable        |    Mandatory   |    Y   |
-//! |--------------------------------|----------------|--------|
-//! |xSysCtlPeripheralReset2         |    Mandatory   |    Y   |
-//! |--------------------------------|----------------|--------|
-//! |xSysCtlPeripheralEnable2        |    Mandatory   |    Y   |
-//! |--------------------------------|----------------|--------|
-//! |xSysCtlPeripheralDisable2       |    Mandatory   |    Y   |
-//! |--------------------------------|----------------|--------|
-//! |xSysCtlPeripheraIntNumGet       |    Mandatory   |    Y   |
-//! |--------------------------------|----------------|--------|
-//! |xSysCtlClockSet                 |    Mandatory   |    Y   |
-//! |--------------------------------|----------------|--------|
-//! |xSysCtlClockGet                 |    Mandatory   |    Y   |
-//! |--------------------------------|----------------|--------|
-//! |xSysCtlDelay                    |    Mandatory   |    Y   |
-//! |--------------------------------|----------------|--------|
-//! |xSysCtlReset                    |    Mandatory   |    Y   |
-//! |--------------------------------|----------------|--------|
-//! |xSysCtlSleep                    |    Mandatory   |    Y   |
-//! |--------------------------------|----------------|--------|
-//! |xSysCtlPeripheralClockSourceSet |    Mandatory   |    Y   |
-//! |--------------------------------|----------------|--------|
-//! |xSysCtlPeripheralClockSourceSet2|    Mandatory   |    Y   |
-//! |--------------------------------|----------------|--------|
+//! |--------------------------------|----------------|-----------|
+//! |xSysCtlPeripheralReset          |    Mandatory   |     Y     |
+//! |--------------------------------|----------------|-----------|
+//! |xSysCtlPeripheralEnable         |    Mandatory   |     Y     |
+//! |--------------------------------|----------------|-----------|
+//! |xSysCtlPeripheralDisable        |    Mandatory   |     Y     |
+//! |--------------------------------|----------------|-----------|
+//! |xSysCtlPeripheralReset2         |    Mandatory   |     Y     |
+//! |--------------------------------|----------------|-----------|
+//! |xSysCtlPeripheralEnable2        |    Mandatory   |     Y     |
+//! |--------------------------------|----------------|-----------|
+//! |xSysCtlPeripheralDisable2       |    Mandatory   |     Y     |
+//! |--------------------------------|----------------|-----------|
+//! |xSysCtlPeripheraIntNumGet       |    Mandatory   |     Y     |
+//! |--------------------------------|----------------|-----------|
+//! |xSysCtlClockSet                 |    Mandatory   |     Y     |
+//! |--------------------------------|----------------|-----------|
+//! |xSysCtlClockGet                 |    Mandatory   |     Y     |
+//! |--------------------------------|----------------|-----------|
+//! |xSysCtlDelay                    |    Mandatory   |     Y     |
+//! |--------------------------------|----------------|-----------|
+//! |xSysCtlReset                    |    Mandatory   |     Y     |
+//! |--------------------------------|----------------|-----------|
+//! |xSysCtlSleep                    |    Mandatory   |     Y     |
+//! |--------------------------------|----------------|-----------|
+//! |xSysCtlPeripheralClockSourceSet |    Mandatory   |     Y     |
+//! |--------------------------------|----------------|-----------|
+//! |xSysCtlPeripheralClockSourceSet2|    Mandatory   |     Y     |
+//! |--------------------------------|----------------|-----------|
 //! \endverbatim
 //!
 //! @{
@@ -883,7 +910,7 @@ extern unsigned long xSysCtlPeripheraIntNumGet(unsigned long ulPeripheralBase);
 //*****************************************************************************
 #define xSysCtlPeripheralClockSourceSet(ulPeripheralSrc, ulDivide)            \
         SysCtlPeripheralClockSourceSet(ulPeripheralSrc, ulDivide)
-											
+
 //*****************************************************************************
 //
 //! \brief Set a peripheral clock source and peripheral divide.
@@ -912,7 +939,7 @@ extern unsigned long xSysCtlPeripheraIntNumGet(unsigned long ulPeripheralBase);
 //! |                    |number such as          |number such as             |
 //! |                    |0 1 2 3 ....            |0 1 2 3 ....               |
 //! |--------------------|------------------------|---------------------------|
-//! |       STM32F1xx       |    ADC0                |MAIN PLL INT               |
+//! |       STM32F1xx    |    ADC0                |MAIN PLL INT               |
 //! |                    |    PWMB                |INT HCLK EXTSL MAIN        |
 //! |                    |    PWMA                |INT HCLK EXTSL MAIN        |
 //! |                    |    FRQDIV              |INT HCLK EXTSL MAIN        |
@@ -1439,6 +1466,16 @@ extern unsigned long xSysCtlPeripheraIntNumGet(unsigned long ulPeripheralBase);
 //*****************************************************************************
 
 //
+//! HCLK used as ADC clock
+//
+#define SYSCTL_ADC_HCLK         0x38080E17
+
+//
+//! LSI oscillator clock used as IWDG clock
+//
+#define SYSCTL_IWDG_LSI         0x30080E07
+
+//
 //! LSE oscillator clock used as RTC clock
 //
 #define SYSCTL_RTC_LSE          0x10080001
@@ -1815,6 +1852,50 @@ extern unsigned long xSysCtlPeripheraIntNumGet(unsigned long ulPeripheralBase);
 //
 #define SYSCTL_XTAL_16MHZ       0x00001000  
 
+//
+//! External main clock crystal is 17MHz.
+//
+#define SYSCTL_XTAL_17MHZ       0x00001100
+
+//
+//! External main clock crystal is 18MHz.
+//
+#define SYSCTL_XTAL_18MHZ       0x00001200
+
+//
+//! External main clock crystal is 19MHz.
+//
+#define SYSCTL_XTAL_19MHZ       0x00001300
+
+//
+//! External main clock crystal is 20MHz.
+//
+#define SYSCTL_XTAL_20MHZ       0x00001400  
+
+//
+//! External main clock crystal is 21MHz.
+//
+#define SYSCTL_XTAL_21MHZ       0x00001500  
+
+//
+//! External main clock crystal is 22MHz.
+//
+#define SYSCTL_XTAL_22MHZ       0x00001600
+
+//
+//! External main clock crystal is 23MHz.
+//
+#define SYSCTL_XTAL_23MHZ       0x00001700
+
+//
+//! External main clock crystal is 24MHz.
+//
+#define SYSCTL_XTAL_24MHZ       0x00001800
+
+//
+//! External main clock crystal is 25MHz.
+//
+#define SYSCTL_XTAL_25MHZ       0x00001900
 //*****************************************************************************
 //
 //! @}
@@ -1837,22 +1918,38 @@ extern void SysCtlDelay(unsigned long ulCount);
 extern void SysCtlPeripheralReset(unsigned long ulPeripheral);
 extern void SysCtlPeripheralEnable(unsigned long ulPeripheral);
 extern void SysCtlPeripheralDisable(unsigned long ulPeripheral);
+
 extern void SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig);
+extern void SysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc, 
+                                           unsigned long ulDivide);
+extern unsigned long SysCtlHClockGet(void);
+extern unsigned long SysCtlAPB1ClockGet(void);
+extern unsigned long SysCtlAPB2ClockGet(void);
+extern void SysCtlLSIConfig(unsigned long ulLSIConfig);
+extern void SysCtlLSEConfig(unsigned long ulLSEConfig);
+
 extern void SysCtlIntEnable(unsigned long ulIntFlags);
 extern void SysCtlIntDisable(unsigned long ulIntFlags);
 extern void SysCtlIntFlagClear(unsigned long ulIntFlags);
 extern unsigned long SysCtlIntFlagGet(void);
-extern void SysCtlLSIConfig(unsigned long ulLSIConfig);
-extern void SysCtlLSEConfig(unsigned long ulLSEConfig);
+extern void RCCIntCallbackInit(xtEventCallback pfnCallback);
+
 extern unsigned long SysCtlResetFlagGet(void);
 extern void SysCtlResetFlagClear(void);
-extern void SysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc);
+
 extern void SysCtlReset(void);
 extern void SysCtlSleep(void);
 extern void SysCtlBackupDomainReset(void);
-extern unsigned long SysCtlHClockGet(void);
-extern unsigned long SysCtlAPB1ClockGet(void);
-extern unsigned long SysCtlAPB2ClockGet(void);
+
+extern void SysCtlFlagStatusClear(unsigned long ulFlag);
+extern unsigned long SysCtlFlagStatusGet(void);
+extern void SysCtlEnterStandbyMode(void);
+extern void SysCtlStopModeConfig(unsigned long ulConfig);
+extern void SysCtlWakeUpPinDisable(void);
+extern void SysCtlWakeUpPinEnable(void);
+extern void SysCtlPVDLevelConfig(unsigned long ulConfig);
+extern void SysCtlBackupAccessDisable(void);
+extern void SysCtlBackupAccessEnable(void);
 
 //*****************************************************************************
 //

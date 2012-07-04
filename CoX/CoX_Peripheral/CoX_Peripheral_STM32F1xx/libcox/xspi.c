@@ -70,7 +70,7 @@ void
 SPI1IntHandler(void)
 {
 	  unsigned long ulEventFlags;
-
+	
     //
     // Call Callback function
     //
@@ -96,7 +96,6 @@ SPI1IntHandler(void)
 void 
 SPI2IntHandler(void)
 {
-
 	  unsigned long ulEventFlags;
 	
     //
@@ -124,9 +123,8 @@ SPI2IntHandler(void)
 void 
 SPI3IntHandler(void)
 {
-
 	  unsigned long ulEventFlags;
-
+	
     //
     // Call Callback function
     //
@@ -138,7 +136,6 @@ SPI3IntHandler(void)
 
 //*****************************************************************************
 //
-
 //! \brief Set the slave select pins of the specified SPI port.
 //!
 //! \param ulBase specifies the SPI module base address.
@@ -236,7 +233,6 @@ void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
 //! - 0 !=  bit rate (master mode)
 //!
 //! The width of the data transfers can be a value between 1 and 32, inclusive.
-
 //! It can be one of the following values: \b SPI_DATA_WIDTH8, \b SPI_DATA_WIDTH16.
 //! 
 //! The first bit of the data transfers, can be one of the following values:
@@ -279,8 +275,7 @@ SPIConfig(unsigned long ulBase, unsigned long ulBitRate,
     //
     // Set the mode.
     //
-
-    xHWREG(ulBase + SPI_CR1) &= ~0x00000087;
+		xHWREG(ulBase + SPI_CR1) &= ~0x00000087;
     xHWREG(ulBase + SPI_CR1) |= ulConfig;
 
     //
@@ -524,7 +519,6 @@ SPIDataPut(unsigned long ulBase, unsigned long ulData)
 //! returns a zero.
 //!
 //! This function replaces the original SSIDataNonBlockingPut() API and
-//! performs the same actions.  A macro is provided in <tt>ssi.h</tt> to map
 //! performs the same actions.  A macro is provided in <tt>SPI.h</tt> to map
 //! the original API to this API.
 //!
