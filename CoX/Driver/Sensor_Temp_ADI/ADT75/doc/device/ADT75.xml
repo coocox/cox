@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>ADT75ARMZ, ADT75ARMZ-REEL7, ADT75ARMZ-REEL, ADT75ARZ, ADT75ARZ-REEL7, ADT75ARZ-REEL, ADT75BRMZ
+ADT75BRMZ-REEL7, ADT75BRMZ-REEL</Name>
+    <Description>12-bit temperature-to-digital converter</Description>
+    <Manufacturer>Analog Devices</Manufacturer>
+    <Category>Sensor</Category>
+    <SubCategory>Temperature</SubCategory>
+    
+    <KeyWord>ADT75, Temp, Temperature, Sensor, I2C, i2c</KeyWord>
+    
+    <Communication>
+        <Interface>I2C</Interface>
+    </Communication>
+    
+    <WebPage>http://www.analog.com/en/analog-to-digital-converters/temperature-to-digital-converters/adt75/products/product.html</WebPage>
+    <Datasheet>http://www.analog.com/static/imported-files/data_sheets/ADT75.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

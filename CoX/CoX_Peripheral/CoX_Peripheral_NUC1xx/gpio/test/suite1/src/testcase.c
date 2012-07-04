@@ -23,7 +23,7 @@ const tTestCase * const* g_psPatterns[] =  {
     //
     // xcore test
     //
-    psPatternxgpio1, 
+   // psPatternxgpio1, 
     psPatternxgpio2,
     
     //

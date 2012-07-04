@@ -1,0 +1,153 @@
+//******************************************************
+//
+//! \addtogroup W25X W25X
+//!
+//! \brief Temperature sensor W25X operate.
+//!
+//! W25X Serial Memories provide a storage solution for systems with limited space,
+//! pins,power.The W25X series offers flexibility and performance well beyond ordinary
+//! Serial devices.They are ideal for code download applicatins as well as storing voice,
+//! test and data.  
+//!
+//! The CoX Driver Library provides the driver of Flash such as W25X and so on,it is
+//! convenient for you to transplant the driver to other mcu that the cox support.
+//! 
+//! 
+//! <br />
+//! <h2>Contents</h2>
+//! - \ref CoX_W25X_BLOCK
+//! - \ref CoX_W25X_TYPICAL_APPLICATION
+//! - \ref CoX_W25X_Driver_Desc
+//! - \ref CoX_W25X_Driver_API_Group
+//!   - \ref CoX_W25X_API_Group_Initialization
+//!   - \ref CoX_W25X_API_Group_ReadandWrite
+//!   - \ref CoX_W25X_API_Group_Control
+//!   - \ref CoX_W25X_API_Group_PowerDown
+//!   - \ref CoX_W25X_API_Group_Attribute
+//! - \ref W25X_Usage
+//! .
+//!
+//! <br />
+//! \section CoX_W25X_BLOCK 1. W25X Block Diagram
+//! <img src="cox_W25Xxx_block.png" />
+//!
+//! <br />
+//! \section CoX_W25X_TYPICAL_APPLICATION 2. Connection Diagram
+//! <img src="cox_W25Xxx_typical_application.png" />
+//! As is shown in diagram,you should connect CS with a GPIO pin in MCU,connect SCK with 
+//! SPIx_CLK in MCU, connect DO and DIO with SPIx_MISO and SPIx_MOSI.Sometimes if the GPIO 
+//! pin connecting with CS doesn't have pull-up resistor in MCU,you should set a pull-up
+//! resistor of CS extern MCU.it is recommended that a decoupling capacitor of 0.1 uF
+//! to 1 uF be provided between the VDD and VSS (Ground) pins (a high frequency ceramic
+//! capacitor should be used).It is necessary for the capacitor to be located as 
+//! possible to the integrated circuit (IC) power pins in order close as to provide
+//! effective noise protection to the W25X.
+//! 
+//! <br />
+//! \section CoX_W25X_Driver_Desc 3. Driver Desrction
+//! The COX W25Xxx driver has the following functions:
+//! - Write data to W25Xxx 
+//! - PowerDown mode can be used to reduce supply current for power sensitive
+//!   applications. 
+//! - A Manufacturer's ID register
+//! - Read data from W25X
+//! - Get attribute of W25X.
+//! .
+//!
+//! <br />
+//! \subsection CoX_W25X_Driver_API_Group 4. API Groups
+//!
+//! The CoX W25Xxx API is broken into four groups of functions:
+//! - those that deal with W25X Initialization
+//! - those that deal with Read and Write data
+//! - those that deal with Control
+//! - those that deal with Power Down
+//! .
+//! <br />
+//! \subsection CoX_W25X_API_Group_Initialization 4.1 W25Xxx initialize W25Xxx
+//! initialization are dealed with:
+//! - W25XInit()
+//! - W25XDeInit()
+//! .
+//!
+//! <br />
+//! \subsection CoX_W25X_API_Group_ReadandWrite 4.2 W25Xxx Read and Write
+//! - W25XIDcodeGet(),
+//! - W25XRead(),
+//! - W25XChipErase(),
+//! - W25XSectorErase(),
+//! - W25XBlockErase(),
+//! - W25XSectorErase2(),
+//! - W25XBlockErase2(),
+//! - W25XWrite().
+//! .
+//!
+//! <br />
+//! \subsection CoX_W25X_API_Group_Control 4.3 W25Xxx Control
+//! - W25XWriteEnable(),
+//! - W25XWriteDisable(),
+//! - W25XIsBusy(),
+//! - W25XStatusRegRead(),
+//! - W25XWriteProtect(),
+//! .
+//!
+//! <br />
+//! \subsection CoX_W25X_API_Group_PowerDown 4.4 W25X enter powerdown status and wake up
+//! - W25XPowerDown(),
+//! - W25XWakeUp().
+//! .
+//! <br />
+//! \subsection CoX_W25X_API_Group_Attribute 4.5 W25X Attribute Get
+//! - W25XPageSizeGet(),
+//! - W25XChipSizeGet(),
+//! - W25XSectorSizeGet(),
+//! - W25XBlockSizeGet(),
+//! .
+//! \section W25X_Usage W25X Usage
+//! Step 1, you should select the CoX implment according to the mcu that you select. \n
+//! Step 2, you should transplant the driver according to your MCU if you use the SPIx 
+//! port which is different from in the W25X driver. \n
+//! Below is some example code:
+//!
+//! \code
+
+//! void W25XReadWrite(void)
+//! {   
+//! 
+//!     //
+//!     // Step 1, you should set system clock.
+//!     // 
+//!     xSysCtlClockSet(50000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_12MHZ);
+//!     
+//!     //
+//!     // Step 2, you should initialize W25Xxx
+//!     // 
+//!     W25XInit(10000);
+//!     
+//!     //
+//!     // Step 3, you should check whether W25Xxx is existent and usable or not
+//!     // 
+//!     if(0xEF14 == W25XIDcodeGet())
+//!     {
+//!       
+//!     //
+//!     // Step 4, you should erase chip,a block or a sector.
+//!     //
+//!         W25XChipErase();
+//!     
+//!     //
+//!     // Step 5, you can write some data to W25Xxx.
+//!     //
+//!         W25XWrite(ucWriteData, 138, Length);
+//!     
+//!     
+//!     //
+//!     // Step 6, you can read some data from W25Xxx.
+//!     //
+//!         W25XRead(ucReadData, 138, Length);
+//!     }
+//! }
+//!     
+//! \endcode
+//
+//*****************************************************************************

@@ -1,8 +1,10 @@
 //*****************************************************************************
 //
-//! \defgroup COX_Driver_Lib CoX Driver Library
+//! \defgroup CoX_Driver_Lib CoX Driver Library
 //! \defgroup LCD LCD
 //! \defgroup LCD_Character Character LCD
+//! \defgroup Sensor Sensor
+//! \defgroup Temperature_Sensor Temperature Sensor
 //!
 //
 //*****************************************************************************
@@ -20,6 +22,31 @@
 //
 //! \defgroup Memmory Memmory
 //! \defgroup SPI_Flash SPI Flash
+//! \defgroup Memory_SDCard SDCard
 //!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+// Group relationship (A - Z)
+//
+//! \addtogroup COX_Driver_Lib
+//! @{
+//!     \addtogroup LCD
+//!     @{
+//!         \addtogroup LCD_Character @{ @}
+//!     @}
+//!     \addtogroup Memmory
+//!     @{
+//!         \addtogroup Memory_SDCard @{ @}
+//!         \addtogroup SPI_Flash @{ @}
+//!     @} 
+//!     \addtogroup Sensor
+//!     @{
+//!         \addtogroup Sensor_Temp @{ @}
+//!     @}
+//! @}
+//
 //
 //*****************************************************************************

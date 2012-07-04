@@ -1033,7 +1033,7 @@ SysCtlLSEConfig(unsigned long ulLSEConfig)
 void
 SysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc)
 {
- //
+    //
     // Check the arguments.
     //
     xASSERT((ulPeripheralSrc==SYSCTL_RTC_LSE)||
@@ -1049,7 +1049,7 @@ SysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc)
             (ulPeripheralSrc==SYSCTL_I2S3_SYSCLK)||
             (ulPeripheralSrc==SYSCTL_I2S3_PLL3)||
             (ulPeripheralSrc==SYSCTL_I2S2_SYSCLK)||
-            (ulPeripheralSrc==SYSCTL_I2S2_PLL3)|||
+            (ulPeripheralSrc==SYSCTL_I2S2_PLL3)||
             (ulPeripheralSrc==SYSCTL_MCO_PLL2)         
            );
     if(SYSCTL_PERIPH_INDEX_CLK(ulPeripheralSrc) == 1)
@@ -1546,4 +1546,3 @@ SysCtlFlagStatusClear(unsigned long ulFlag)
 {
     xHWREG(PWR_CR) |= (ulFlag & (PWR_CR_CWUF | PWR_CR_CSBF)) << 2;
 }
-

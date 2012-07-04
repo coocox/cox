@@ -3,7 +3,7 @@
 //! \file test.c
 //! \brief Tests support code.
 //! \version 1.0
-//! \date 5/19/2011
+//! \date 5/24/2012
 //! \author CooCox
 //! \copy
 //!
@@ -501,4 +501,3 @@ TestMain(void)
 
     return g_bGlobalFail;
 }
-

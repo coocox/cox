@@ -760,4 +760,3 @@ extern void RTCIntClear(unsigned long ulIntType);
 #endif
 
 #endif // __xRTC_H__
-

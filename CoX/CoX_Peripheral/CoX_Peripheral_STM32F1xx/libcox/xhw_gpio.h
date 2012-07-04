@@ -113,7 +113,7 @@
 //
 //! Port configuration lock register
 //
-#define GPIO_LCKR               0x00000010
+#define GPIO_LCKR               0x00000018
 
 //
 //! Event control register 
@@ -184,7 +184,6 @@
 //! Pending register (EXTI_PR)
 //
 #define EXTI_PR                 0x40010414
-
 
 
 //*****************************************************************************

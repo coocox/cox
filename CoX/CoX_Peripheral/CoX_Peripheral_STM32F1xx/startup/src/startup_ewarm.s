@@ -1,7 +1,7 @@
 ;//*****************************************************************************
 ;//
-;//! \file startup_coide.c
-;//! \brief NUC1xx Devices Startup code for EWARM.
+;//! \file startup_ewarm.s
+;//! \brief STM32F1xx Devices Startup code for EWARM.
 ;//!        This module performs:
 ;//!           - Set the initial SP
 ;//!           - Set the vector table entries with the exceptions ISR address
@@ -10,7 +10,7 @@
 ;//!           - Call the application's entry point.
 ;//!           .
 ;//! \version V2.1.1.1
-;//! \date 11/14/2011
+;//! \date 5/24/2012
 ;//! \author CooCox
 ;//! \copy
 ;//!
@@ -115,9 +115,9 @@ __vector_table
         DCD     CAN1RX1IntHandler           ; 21 CAN1 RX1 interrupt
         DCD     CAN1SCEIntHandler           ; 22 CAN1 SCE interrupt 
         DCD     EXTI95IntHandler            ; 23 EXTI Line[9:5] interrupts 
-        DCD     TIM1BRKIntHandler           ; 24 TIM1 Break interrupt
-        DCD     TIM1UPIntHandler            ; 25 TIM1 Update interrupt
-        DCD     TIM1TRGCOMIntHandler        ; 26 TIM1 Trigger and Commutation
+        DCD     TIM1BRKTIM9IntHandler       ; 24 TIM1 Break interrupt
+        DCD     TIM1UPTIM10IntHandler       ; 25 TIM1 Update interrupt
+        DCD     TIM1TRGCOMTIM11IntHandler   ; 26 TIM1 Trigger and Commutation
         DCD     TIM1CCIntHandler            ; 27 TIM1 Capture Compare interrupt
         DCD     TIM2IntHandler              ; 28 TIM2 global interrupt
         DCD     TIM3IntHandler              ; 29 TIM3 global interrupt
@@ -134,13 +134,13 @@ __vector_table
         DCD     EXTI1510IntHandler          ; 40 EXTI Line[15:10] interrupts
         DCD     RTCAlarmIntHandler          ; 41 RTC alarm through EXTI line
         DCD     OTGFSWKUPIntHandler         ; 42 USB On-The-Go FS Wakeup
-        DCD     0
-		DCD     0
-		DCD     0
-		DCD     0
-		DCD     0
-		DCD     0
-		DCD     0
+        DCD     TIM8BRKTIM12IntHandler      ; 43 TIM8 Break interrupt
+        DCD     TIM8UPTIM13IntHandler       ; 44 TIM8 Update interrupt
+        DCD     TIM8TRGCOMTIM14IntHandler   ; 45 TIM8 Trigger and Commutation
+        DCD     TIM8CCIntHandler            ; 46 TIM8 Capture Compare interrupt
+        DCD     ADC3IntHandler              ; 47 ADC3 global interrupt
+        DCD     FSMCIntHandler              ; 48 FSMC global interrupt
+        DCD     SDIOIntHandler              ; 49 SDIO global interrupt
         DCD     TIM5IntHandler              ; 50 TIM5 global interrupt
         DCD     SPI3IntHandler              ; 51 SPI3 global interrupt
         DCD     UART4IntHandler             ; 52 UART4 global interrupt
@@ -199,9 +199,9 @@ __vector_table
       PUBWEAK CAN1RX1IntHandler  
       PUBWEAK CAN1SCEIntHandler  
       PUBWEAK EXTI95IntHandler 
-      PUBWEAK TIM1BRKIntHandler
-      PUBWEAK TIM1UPIntHandler
-      PUBWEAK TIM1TRGCOMIntHandler
+      PUBWEAK TIM1BRKTIM9IntHandler
+      PUBWEAK TIM1UPTIM10IntHandler
+      PUBWEAK TIM1TRGCOMTIM11IntHandler
       PUBWEAK TIM1CCIntHandler
       PUBWEAK TIM2IntHandler  
       PUBWEAK TIM3IntHandler 
@@ -217,7 +217,14 @@ __vector_table
       PUBWEAK USART3IntHandler 
       PUBWEAK EXTI1510IntHandler 
       PUBWEAK RTCAlarmIntHandler 
-      PUBWEAK OTGFSWKUPIntHandler 
+      PUBWEAK OTGFSWKUPIntHandler
+      PUBWEAK TIM8BRKTIM12IntHandler
+      PUBWEAK TIM8UPTIM13IntHandler
+      PUBWEAK TIM8TRGCOMTIM14IntHandler
+      PUBWEAK TIM8CCIntHandler
+      PUBWEAK ADC3IntHandler
+      PUBWEAK FSMCIntHandler
+      PUBWEAK SDIOIntHandler
       PUBWEAK TIM5IntHandler 
       PUBWEAK SPI3IntHandler 
       PUBWEAK UART4IntHandler 
@@ -291,9 +298,9 @@ CAN1RX0IntHandler
 CAN1RX1IntHandler  
 CAN1SCEIntHandler  
 EXTI95IntHandler 
-TIM1BRKIntHandler
-TIM1UPIntHandler
-TIM1TRGCOMIntHandler
+TIM1BRKTIM9IntHandler
+TIM1UPTIM10IntHandler
+TIM1TRGCOMTIM11IntHandler
 TIM1CCIntHandler
 TIM2IntHandler  
 TIM3IntHandler 
@@ -309,7 +316,14 @@ USART2IntHandler
 USART3IntHandler 
 EXTI1510IntHandler 
 RTCAlarmIntHandler 
-OTGFSWKUPIntHandler 
+OTGFSWKUPIntHandler
+TIM8BRKTIM12IntHandler
+TIM8UPTIM13IntHandler
+TIM8TRGCOMTIM14IntHandler
+TIM8CCIntHandler
+ADC3IntHandler
+FSMCIntHandler
+SDIOIntHandler
 TIM5IntHandler 
 SPI3IntHandler 
 UART4IntHandler 

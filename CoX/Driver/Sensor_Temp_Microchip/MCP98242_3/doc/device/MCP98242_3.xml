@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>
+    MCP98242T-BE/MNY, MCP98242T-CE/MNY, MCP98242T-BE/MNYBAC, MCP98242T-BE/MNYBA3, MCP98242T-BE/MNYBAF, MCP98242T-BE/MUY, MCP98242T-CE/MUY
+    MCP98243-BE/MC, MCP98243-BE/ST, MCP98243T-BE/MC, MCP98243T-BE/MCAA, MCP98243T-BE/MCAB, MCP98243T-BE/MNY, MCP98243T-BE/MNYAA
+    </Name>
+    <Description>Memory Module Temperature Sensor w/ EEPROM for SPD</Description>
+    <Manufacturer>Analog Devices</Manufacturer>
+    
+    <Category>Sensor</Category>
+    <SubCategory>Temperature</SubCategory>
+    
+    <KeyWord>MCP9843, MCP9842, Temp, Temperature, Sensor, ADC, I2C</KeyWord>
+    
+    <Communication>
+        <Interface>I2C</Interface>
+    </Communication>
+    
+    <WebPage>http://www.microchip.com/wwwproducts/Devices.aspx?dDocName=en027005</WebPage>
+    <Datasheet>http://ww1.microchip.com/downloads/en/DeviceDoc/21996D.pdf</Datasheet>
+    <Datasheet>http://ww1.microchip.com/downloads/en/DeviceDoc/22153c.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

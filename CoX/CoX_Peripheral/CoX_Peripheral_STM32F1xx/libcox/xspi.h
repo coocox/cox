@@ -84,7 +84,7 @@ extern "C"
 //! \section xSPI_Ints_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xSPI Interrupts         |       CoX      |         STM32F1xx         |
+//! |xSPI Interrupts         |       CoX      |         STM32F1xx      |
 //! |------------------------|----------------|------------------------|
 //! |xSPI_INT_EOT            |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -122,7 +122,7 @@ extern "C"
 //! \section xSPI_Ints_Event_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xSPI Interrupts         |       CoX      |         STM32F1xx         |
+//! |xSPI Interrupts         |       CoX      |         STM32F1xx      |
 //! |------------------------|----------------|------------------------|
 //! |xSPI_EVENT_EOT          |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -160,7 +160,7 @@ extern "C"
 //! \section xSPI_Config_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xSPI Configs            |       CoX      |         STM32F1xx         |
+//! |xSPI Configs            |       CoX      |         STM32F1xx      |
 //! |------------------------|----------------|------------------------|
 //! |xSPI_MOTO_FORMAT_MODE_0 |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -239,38 +239,38 @@ extern "C"
 #define xSPI_MSB_FIRST          SPI_MSB_FIRST 
 #define xSPI_LSB_FIRST          SPI_LSB_FIRST  
 
-#define xSPI_DATA_WIDTH1        SPI_DATA_WIDTH1
-#define xSPI_DATA_WIDTH2        SPI_DATA_WIDTH2 
-#define xSPI_DATA_WIDTH3        SPI_DATA_WIDTH3 
-#define xSPI_DATA_WIDTH4        SPI_DATA_WIDTH4 
-#define xSPI_DATA_WIDTH5        SPI_DATA_WIDTH5 
-#define xSPI_DATA_WIDTH6        SPI_DATA_WIDTH6 
-#define xSPI_DATA_WIDTH7        SPI_DATA_WIDTH7 
+#define xSPI_DATA_WIDTH1        SPI_DATA_WIDTH8
+#define xSPI_DATA_WIDTH2        SPI_DATA_WIDTH8 
+#define xSPI_DATA_WIDTH3        SPI_DATA_WIDTH8 
+#define xSPI_DATA_WIDTH4        SPI_DATA_WIDTH8 
+#define xSPI_DATA_WIDTH5        SPI_DATA_WIDTH8 
+#define xSPI_DATA_WIDTH6        SPI_DATA_WIDTH8 
+#define xSPI_DATA_WIDTH7        SPI_DATA_WIDTH8 
 #define xSPI_DATA_WIDTH8        SPI_DATA_WIDTH8 
-#define xSPI_DATA_WIDTH9        SPI_DATA_WIDTH9 
-#define xSPI_DATA_WIDTH10       SPI_DATA_WIDTH10 
-#define xSPI_DATA_WIDTH11       SPI_DATA_WIDTH11 
-#define xSPI_DATA_WIDTH12       SPI_DATA_WIDTH12 
-#define xSPI_DATA_WIDTH13       SPI_DATA_WIDTH13 
-#define xSPI_DATA_WIDTH14       SPI_DATA_WIDTH14 
-#define xSPI_DATA_WIDTH15       SPI_DATA_WIDTH15 
+#define xSPI_DATA_WIDTH9        SPI_DATA_WIDTH16 
+#define xSPI_DATA_WIDTH10       SPI_DATA_WIDTH16 
+#define xSPI_DATA_WIDTH11       SPI_DATA_WIDTH16 
+#define xSPI_DATA_WIDTH12       SPI_DATA_WIDTH16 
+#define xSPI_DATA_WIDTH13       SPI_DATA_WIDTH16 
+#define xSPI_DATA_WIDTH14       SPI_DATA_WIDTH16 
+#define xSPI_DATA_WIDTH15       SPI_DATA_WIDTH16 
 #define xSPI_DATA_WIDTH16       SPI_DATA_WIDTH16 
-#define xSPI_DATA_WIDTH17       SPI_DATA_WIDTH17 
-#define xSPI_DATA_WIDTH18       SPI_DATA_WIDTH18 
-#define xSPI_DATA_WIDTH19       SPI_DATA_WIDTH19 
-#define xSPI_DATA_WIDTH20       SPI_DATA_WIDTH20 
-#define xSPI_DATA_WIDTH21       SPI_DATA_WIDTH21 
-#define xSPI_DATA_WIDTH22       SPI_DATA_WIDTH22 
-#define xSPI_DATA_WIDTH23       SPI_DATA_WIDTH23 
-#define xSPI_DATA_WIDTH24       SPI_DATA_WIDTH24 
-#define xSPI_DATA_WIDTH25       SPI_DATA_WIDTH25 
-#define xSPI_DATA_WIDTH26       SPI_DATA_WIDTH26 
-#define xSPI_DATA_WIDTH27       SPI_DATA_WIDTH27 
-#define xSPI_DATA_WIDTH28       SPI_DATA_WIDTH28 
-#define xSPI_DATA_WIDTH29       SPI_DATA_WIDTH29 
-#define xSPI_DATA_WIDTH30       SPI_DATA_WIDTH30 
-#define xSPI_DATA_WIDTH31       SPI_DATA_WIDTH31 
-#define xSPI_DATA_WIDTH32       SPI_DATA_WIDTH32 
+#define xSPI_DATA_WIDTH17       SPI_DATA_WIDTH16 
+#define xSPI_DATA_WIDTH18       SPI_DATA_WIDTH16 
+#define xSPI_DATA_WIDTH19       SPI_DATA_WIDTH16 
+#define xSPI_DATA_WIDTH20       SPI_DATA_WIDTH16 
+#define xSPI_DATA_WIDTH21       SPI_DATA_WIDTH16 
+#define xSPI_DATA_WIDTH22       SPI_DATA_WIDTH16 
+#define xSPI_DATA_WIDTH23       SPI_DATA_WIDTH16 
+#define xSPI_DATA_WIDTH24       SPI_DATA_WIDTH16 
+#define xSPI_DATA_WIDTH25       SPI_DATA_WIDTH16 
+#define xSPI_DATA_WIDTH26       SPI_DATA_WIDTH16 
+#define xSPI_DATA_WIDTH27       SPI_DATA_WIDTH16 
+#define xSPI_DATA_WIDTH28       SPI_DATA_WIDTH16 
+#define xSPI_DATA_WIDTH29       SPI_DATA_WIDTH16 
+#define xSPI_DATA_WIDTH30       SPI_DATA_WIDTH16 
+#define xSPI_DATA_WIDTH31       SPI_DATA_WIDTH16 
+#define xSPI_DATA_WIDTH32       SPI_DATA_WIDTH16 
 
 //*****************************************************************************
 //
@@ -290,7 +290,7 @@ extern "C"
 //! \section xSPI_DMA_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xSPI DMA                |       CoX      |         STM32F1xx         |
+//! |xSPI DMA                |       CoX      |         STM32F1xx      |
 //! |------------------------|----------------|------------------------|
 //! |xSPI_DMA_TX             |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -336,7 +336,7 @@ extern "C"
 //! \section xSPI_SlaveSelMode_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xSPI Slave Select Mode  |       CoX      |         STM32F1xx         |
+//! |xSPI Slave Select Mode  |       CoX      |         STM32F1xx      |
 //! |------------------------|----------------|------------------------|
 //! |xSPI_SS_HARDWARE        |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -368,7 +368,7 @@ extern "C"
 //! \section xSPI_SlaveSel_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xSPI Slave Select       |       CoX      |         STM32F1xx         |
+//! |xSPI Slave Select       |       CoX      |         STM32F1xx      |
 //! |------------------------|----------------|------------------------|
 //! |xSPI_SS_NONE            |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -383,10 +383,10 @@ extern "C"
 //
 //*****************************************************************************
 
-#define xSPI_SS_NONE            SPI_SS_NONE   
+//#define xSPI_SS_NONE            SPI_SS_NONE   
 #define xSPI_SS0                SPI_SS0  
-#define xSPI_SS1                SPI_SS1 
-#define xSPI_SS01               SPI_SS0_SS1
+//#define xSPI_SS1                SPI_SS1 
+//#define xSPI_SS01               SPI_SS0_SS1
 
 //*****************************************************************************
 //
@@ -402,7 +402,7 @@ extern "C"
 //! \section xSPI_Exported_APIs_Port CoX Port Details
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xSPI API                |       CoX      |         STM32F1xx         |
+//! |xSPI API                |       CoX      |         STM32F1xx      |
 //! |------------------------|----------------|------------------------|
 //! |xSPIConfigSet           |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -413,6 +413,14 @@ extern "C"
 //! |xSPIDataRead            |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
 //! |xSPIDataWrite           |    Mandatory   |            Y           |
+//! |------------------------|----------------|------------------------|
+//! |xSPIDataPut             |    Mandatory   |            Y           |
+//! |------------------------|----------------|------------------------|
+//! |xSPIDataPutNonBlocking  |    Mandatory   |            Y           |
+//! |------------------------|----------------|------------------------|
+//! |xSPIDataGet             |    Mandatory   |            Y           |
+//! |------------------------|----------------|------------------------|
+//! |xSPIDataGetNonBlocking  |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
 //! |xSPIIntEnable           |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -512,7 +520,6 @@ extern "C"
         do                                                                    \
         {                                                                     \
          SPIConfig(ulBase, ulBitRate, ulConfig);                              \
-         SPISSConfig(ulBase, SPI_SS_LEVEL_TRIGGER, SPI_SS_ACTIVE_LOW_FALLING);\
         }                                                                     \
         while(0)
 
@@ -570,7 +577,7 @@ extern "C"
 //!
 //! \note Only the lower N bits of the value written to \e pulData contain
 //! valid data, where N is the data width as configured by
-//! SPIConfigSetExpClk().  For example, if the interface is configured for
+//! SPIConfig().  For example, if the interface is configured for
 //! 8-bit data width, only the lower 8 bits of the value written to \e pulData
 //! contain valid data.
 //!
@@ -594,7 +601,7 @@ extern "C"
 //!
 //! \note Only the lower N bits of the value written to \e pulData contain
 //! valid data, where N is the data width as configured by
-//! SPIConfigSetExpClk().  For example, if the interface is configured for
+//! SPIConfig().  For example, if the interface is configured for
 //! 8-bit data width, only the lower 8 bits of the value written to \e pulData
 //! contain valid data.
 //!
@@ -603,6 +610,101 @@ extern "C"
 //*****************************************************************************        
 #define xSPIDataWrite(ulBase, pulWData, ulLen)                                \
         SPIDataWrite(ulBase, pulWData, ulLen)
+				
+//*****************************************************************************
+//
+//! \brief Write data element to the SPI interface with block.
+//!
+//! \param ulBase specifies the SPI module base address.
+//! \param pulWData is data that was transmitted over the SPI interface.
+//!
+//! This function transmitted data to the interface of the specified
+//! SPI module with block. when the TX and TX shift are both empty or in FIFO
+//! mode the TX FIFO depth is equal to or less than the trigger level, the
+//! data element can be transmitted, otherwise the data element will be blocked
+//! until can be transmitted.
+//!
+//! \note Only the lower N bits of the value written to \e pulData contain
+//! valid data, where N is the data width as configured by
+//! SPIConfig(). For example, if the interface is configured for
+//! 8-bit data width, only the lower 8 bits of the value written to \e pulData
+//! contain valid data.
+//!
+//! \return None.
+//
+//*****************************************************************************
+#define xSPIDataPut(ulBase, ulData)                                           \
+        SPIDataPut(ulBase, ulData)
+
+//*****************************************************************************
+//
+//! \brief Write data element to the SPI interface with Noblock.
+//!
+//! \param ulBase specifies the SPI module base address.
+//! \param pulWData is data that was transmitted over the SPI interface.
+//!
+//! This function transmitted data to the interface of the specified
+//! SPI module with Noblock.
+//!
+//! \note Only the lower N bits of the value written to \e pulData contain
+//! valid data, where N is the data width as configured by
+//! SPIConfig(). For example, if the interface is configured for
+//! 8-bit data width, only the lower 8 bits of the value written to \e pulData
+//! contain valid data.
+//!
+//! \return the number of data that has been transfered..
+//
+//*****************************************************************************
+#define xSPIDataPutNonBlocking(ulBase, ulData)                                \
+        SPIDataPutNonBlocking(ulBase, ulData)
+
+//*****************************************************************************
+//
+//! \brief Gets a data element from the SPI interface with block.
+//!
+//! \param ulBase specifies the SPI module base address.
+//! \param pulData is a pointer to a storage location for data that was
+//! received over the SPI interface.
+//!
+//! This function gets received data from the interface of the specified
+//! SPI module with block. when the RX not empty flag is set, the data element
+//! can be transmitted, otherwise the data element will be blocked until can be
+//! transmitted.
+//!
+//! \note Only the lower N bits of the value written to \e pulData contain
+//! valid data, where N is the data width as configured by
+//! SPIConfig(). For example, if the interface is configured for
+//! 8-bit data width, only the lower 8 bits of the value written to \e pulData
+//! contain valid data.
+//!
+//! \return None.
+//
+//*****************************************************************************
+#define xSPIDataGet(ulBase, pulData)                                          \
+         SPIDataGet(ulBase, pulData)
+
+//*****************************************************************************
+//
+//! \brief Gets a data element from the SPI interface with Noblock.
+//!
+//! \param ulBase specifies the SPI module base address.
+//! \param pulData is a pointer to a storage location for data that was
+//! received over the SPI interface.
+//!
+//! This function gets received data from the interface of the specified
+//! SPI module with Noblock.
+//!
+//! \note Only the lower N bits of the value written to \e pulData contain
+//! valid data, where N is the data width as configured by
+//! SPIConfig(). For example, if the interface is configured for
+//! 8-bit data width, only the lower 8 bits of the value written to \e pulData
+//! contain valid data.
+//!
+//! \return the number of data that has been received.
+//
+//*****************************************************************************
+#define xSPIDataGetNonBlocking(ulBase, pulData)	                              \
+         SPIDataGetNonBlocking(ulBase, pulData)  
 
 //*****************************************************************************
 //
@@ -645,9 +747,9 @@ extern "C"
 //!
 //! \return None.
 //
-//*****************************************************************************        
+//*****************************************************************************
 #define xSPIIntDisable(ulBase, ulIntFlags)                                    \
-        SPIIntDisable(ulBase) 
+        SPIIntDisable(ulBase, ulIntFlags) 
 
 //*****************************************************************************
 //
@@ -691,9 +793,6 @@ extern "C"
 //!
 //! This function Check the Rx buffer status of the specified SPI module.
 //!
-//! \note Only the chips with the part number NUC1x0xxxCx, ex: NUC140VE3CN, 
-//! can support this function..
-//!
 //! \return Returns the Rx buffer status of the specified SPI port.
 //! \b xtrue The Rx buffer is empty,or \b xfalse The Rx buffer is not empty.
 //
@@ -708,9 +807,6 @@ extern "C"
 //! \param ulBase specifies the SPI module base address.
 //!
 //! This function Check the Tx buffer status of the specified SPI module.
-//!
-//! \note Only the chips with the part number NUC1x0xxxCx, ex: NUC140VE3CN, 
-//! can support this function..
 //!
 //! \return Returns the Tx buffer status of the specified SPI port.
 //! \b xtrue The Tx buffer is in empty,or \b xfalse The Tx buffer is not empty.
@@ -727,9 +823,6 @@ extern "C"
 //!
 //! This function Check the Rx buffer status of the specified SPI module.
 //!
-//! \note Only the chips with the part number NUC1x0xxxCx, ex: NUC140VE3CN, 
-//! can support this function..
-//!
 //! \return Returns the Rx buffer status of the specified SPI port.
 //! \b xtrue The Rx buffer is full,or \b xfalse The Rx buffer is not full.
 //
@@ -744,9 +837,6 @@ extern "C"
 //! \param ulBase specifies the SPI module base address.
 //!
 //! This function Check the Tx buffer status of the specified SPI module.
-//!
-//! \note Only the chips with the part number NUC1x0xxxCx, ex: NUC140VE3CN, 
-//! can support this function..
 //!
 //! \return Returns the Tx buffer status of the specified SPI port.
 //! \b xtrue The Tx buffer is in full,or \b xfalse The Tx buffer is not full.
@@ -773,7 +863,7 @@ extern "C"
 //
 //*****************************************************************************        
 #define xSPIDMAEnable(ulBase, ulDmaMode)                                      \
-        SPI3PDMAEnable(ulBase, ulDmaMode)
+        SPIDMAEnable(ulBase, ulDmaMode)
 
 //*****************************************************************************
 //
@@ -793,7 +883,7 @@ extern "C"
 //
 //*****************************************************************************        
 #define xSPIDMADisable(ulBase, ulDmaMode)                                     \
-        SPI3PDMADisable(ulBase, ulDmaMode)
+        SPIDMADisable(ulBase, ulDmaMode)
 
 //*****************************************************************************
 //
@@ -807,8 +897,9 @@ extern "C"
 //!
 //! \return None.
 //
-//*****************************************************************************         
-#define xSPIEnable(ulBase)
+//*****************************************************************************
+#define xSPIEnable(ulBase)                                                    \
+        SPIEnble(ulBase)
 
 //*****************************************************************************
 //
@@ -822,8 +913,9 @@ extern "C"
 //!
 //! \return None.
 //
-//*****************************************************************************
-#define xSPIDisable(ulBase)
+//***************************************************************************
+#define xSPIDisable(ulBase)                                                 \
+        SPIDisble(ulBase)
 
         
 extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode, 
@@ -998,10 +1090,10 @@ extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
 
 //*****************************************************************************
 //
-//! \addtogroup NUC1xx_SPI_SlaveSel_Config NUC1xx SPI Slave Select Configure
-//! \brief Values that show NUC1xx SPI Slave Select Configure
-//! Values that can be passed to SPIAutoSSEnable() SPISSSet()  SPISSClear()
-//! SPISSConfig().
+//! \addtogroup STM32F1xx_SPI_SlaveSel_Config STM32F1xx SPI Slave Select Configure
+//! \brief Values that show STM32F1xx SPI Slave Select Configure
+//! Values that can be passed to SPISSIConfig(), SPISSModeConfig(), 
+//! SPISSOutputConfig().
 //! @{
 //
 //*****************************************************************************
@@ -1019,7 +1111,8 @@ extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
 //
 //! SS output enable
 //
-#define SPI_SSOE                0x00000004
+#define SPI_SSOE_ENABLE         0x00000004
+#define SPI_SSOE_DISABLE        0x00000000
 
 //*****************************************************************************
 //
@@ -1106,7 +1199,7 @@ extern long SSIDataGetNonBlocking(unsigned long ulBase, unsigned long *pulData);
 extern void SPIIntEnable(unsigned long ulBase, unsigned long ulIntFlags);
 extern void SPIIntCallbackInit(unsigned long ulBase, 
                                xtEventCallback xtSPICallback);
-extern void SPIIntDisable(unsigned long ulBase);
+extern void SPIIntDisable(unsigned long ulBase, unsigned long ulIntFlags);
 extern unsigned long SPIIntFlagGet(unsigned long ulBase);
 extern void SPIIntFlagClear(unsigned long ulBase);
 
@@ -1115,15 +1208,15 @@ extern void SPIDMAEnable(unsigned long ulBase, unsigned long ulDmaMode);
 extern void SPIDMADisable(unsigned long ulBase, unsigned long ulDmaMode);
 extern void SPIEnble(unsigned long ulBase);
 extern void SPIDisble(unsigned long ulBase);
-extern void SPISSSet(unsigned long ulBase, unsigned long ulSSMode, 
-                     unsigned long ulSlaveSel);
-extern void SPISSConfig(unsigned long ulBase, unsigned long ulSSValue);
+extern void SPISSModeConfig(unsigned long ulBase, unsigned long ulSSValue);
+extern void SPISSIConfig(unsigned long ulBase, unsigned long ulSlaveSel);
+extern void SPISSOutputConfig(unsigned long ulBase, unsigned long ulSSOutPut);
 extern xtBoolean SPIIsTxEmpty(unsigned long ulBase);
 extern xtBoolean SPIIsRxNotEmpty(unsigned long ulBase);
 extern void SPICRCPolSet(unsigned long ulBase, unsigned long ulCRCPol);
 extern unsigned long SPICRCPolGet(unsigned long ulBase);
-extern unsigned long SPICRCPolGet(unsigned long ulBase);
 extern unsigned long SPIRxCRCGet(unsigned long ulBase);
+extern unsigned long SPITXCRCGet(unsigned long ulBase);
 extern void SPICRCEnble(unsigned long ulBase);
 extern void SPICRCDisble(unsigned long ulBase);
 
@@ -1163,5 +1256,4 @@ extern void SPICRCDisble(unsigned long ulBase);
 #endif
 
 #endif // __xSPI_H__
-
 

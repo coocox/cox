@@ -88,7 +88,7 @@ void TemperatureGet(void)
     //
     // AD7417Dev Init
     //
-    AD7417Init(10000, AD7417_ShutDown_Disable | AD7417_Triger_Disable);
+    AD7417Init(10000, AD7417_POWER_NORMAL | AD7417_TRIGGER_DISABLE);
     
     
     //

@@ -132,6 +132,11 @@ static void xgpio002Execute(void)
     int i; 
     cIntCount = 0;
    // i = 4;
+ 
+/*    
+    //
+    // Edge trigger interrupt
+    //
     for(i = 0; i < 5; i++)
     {
         //
@@ -152,8 +157,26 @@ static void xgpio002Execute(void)
         xIntEnable(ulGPIOInt[i]);
         TestAssertQBreak("a", "gpio interrupt teset fail", 0xffffffff);  
     }
-
+*/
     
+    //
+    // Level trigger interrupt
+    //
+    xGPIODirModeSet(ulGPIO[1], xGPIO_PIN_9, xGPIO_DIR_MODE_IN);
+    
+    //
+    // Set GPIO pin interrupt callback.
+    //
+    xGPIOPinIntCallbackInit(ulGPIO[1], xGPIO_PIN_9, user_Callback);
+    
+    //
+    // Enable GPIO pin interrupt.
+    //
+    xGPIOPinIntEnable(ulGPIO[1], xGPIO_PIN_9, GPIO_BOTH_LEVEL);
+    
+    xIntEnable(ulGPIOInt[1]);
+    TestAssertQBreak("a", "gpio interrupt teset fail", -1);     
+    while(1);
      
 
 }   

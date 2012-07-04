@@ -35,6 +35,7 @@ TestIOInit(void)
                                          UART_CONFIG_PAR_NONE));
 
     xUARTEnable(USART1_BASE, (UART_BLOCK_UART | UART_BLOCK_TX | UART_BLOCK_RX));
+
 }
 
 //*****************************************************************************
@@ -93,6 +94,7 @@ void TestDisableIRQ(void)
 // The error routine that is called if the driver library encounters an error.(COX)
 //
 //*****************************************************************************
+
 #ifdef xDEBUG
 void
 __xerror__(char *pcFilename, unsigned long ulLine)

@@ -83,7 +83,7 @@ extern "C"
 //! \section xGPIO_Config_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xGPIO General Pin ID    |       CoX      |         STM32F1xx         |
+//! |xGPIO General Pin ID    |       CoX      |         STM32F1xx      |
 //! |------------------------|----------------|------------------------|
 //! |xGPIO_INT_NUMBER        |    Mandatory   |   xGPIO_INT_NUMBER     |
 //! +------------------------+----------------+------------------------+
@@ -114,7 +114,7 @@ extern "C"
 //! \section xGPIO_General_Pin_IDs_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xGPIO General Pin ID    |       CoX      |         STM32F1xx         |
+//! |xGPIO General Pin ID    |       CoX      |         STM32F1xx      |
 //! |------------------------|----------------|------------------------|
 //! |xGPIO_PIN_n             |    Mandatory   |       xGPIO_PIN_0      |
 //! |                        |                |------------------------|
@@ -234,7 +234,7 @@ extern "C"
 //! \section xGPIO_Dir_Mode_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xGPIO Dir Mode          |       CoX      |         STM32F1xx         |
+//! |xGPIO Dir Mode          |       CoX      |         STM32F1xx      |
 //! |------------------------|----------------|------------------------|
 //! |xGPIO_DIR_MODE_IN       |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -264,7 +264,7 @@ extern "C"
 //
 // Pin is a peripheral function
 //
-#define xGPIO_DIR_MODE_HW       GPIO_DIR_MODE_HW
+#define xGPIO_DIR_MODE_HW       0
 
 //
 // Pin is in Quasi-bidirectional mode
@@ -293,7 +293,7 @@ extern "C"
 //! \section xGPIO_Int_Type_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xGPIO Int Type          |       CoX      |         STM32F1xx         |
+//! |xGPIO Int Type          |       CoX      |         STM32F1xx      |
 //! |------------------------|----------------|------------------------|
 //! |xGPIO_FALLING_EDGE      |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -359,7 +359,7 @@ extern "C"
 //! \section xGPIO_Pad_Config_Strength_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xGPIO Pad Strength      |       CoX      |         STM32F1xx         |
+//! |xGPIO Pad Strength      |       CoX      |         STM32F1xx      |
 //! |------------------------|----------------|------------------------|
 //! |xGPIO_STRENGTH_nMA      | Non-Mandatory  |   xGPIO_STRENGTH_2MA   |
 //! |                        |                |------------------------|
@@ -389,7 +389,7 @@ extern "C"
 //! \section xGPIO_Pad_Config_Type_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xGPIO Pad Type          |       CoX      |         STM32F1xx         |
+//! |xGPIO Pad Type          |       CoX      |         STM32F1xx      |
 //! |------------------------|----------------|------------------------|
 //! |xGPIO_PIN_TYPE_STD      |  Non-Mandatory |            N           |
 //! |------------------------|----------------|------------------------|
@@ -559,7 +559,7 @@ extern "C"
 //! \section xGPIO_Short_Pin_CoX 2.CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |xGPIO Short Pin ID      |       CoX      |         STM32F1xx         |
+//! |xGPIO Short Pin ID      |       CoX      |         STM32F1xx      |
 //! |------------------------|----------------|------------------------|
 //! |PXn                     |    Mandatory   |    PA0 PA1 ... PA15    |
 //! |                        |                |------------------------|
@@ -570,6 +570,10 @@ extern "C"
 //! |                        |                |    PD0 PD1 ... PD15    |
 //! |                        |                |------------------------|
 //! |                        |                |    PE0 PE1 ... PE15    |
+//! |                        |                |------------------------|
+//! |                        |                |    PF0 PF1 ... PF15    |
+//! |                        |                |------------------------|
+//! |                        |                |    PG0 PG1 ... PG15    |  
 //! +------------------------+----------------+------------------------+
 //! \endverbatim
 //! @{
@@ -713,17 +717,13 @@ extern "C"
 //! \section xGPIO_Peripheral_Pin_Port CoX Port Details
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-//! |General Peripheral Pin  |       CoX      |         STM32F1xx         |
+//! |General Peripheral Pin  |       CoX      |         STM32F1xx      |
 //! |------------------------|----------------|------------------------|
 //! |ADCn                    |    Mandatory   |   ADC0 ADC1 ... ADC15  |
 //! |------------------------|----------------|------------------------|
 //! |CANnRX                  |    Mandatory   |      CAN0RX CAN1RX     |
 //! |------------------------|----------------|------------------------|
 //! |CANnTX                  |    Mandatory   |      CAN0TX CAN1TX     |
-//! |------------------------|----------------|------------------------|
-//! |CANnRX                  |    Mandatory   |      CAN0RX CAN1RX     |
-//! |------------------------|----------------|------------------------|
-//! |CANnRX                  |    Mandatory   |      CAN0RX CAN1RX     |
 //! |------------------------|----------------|------------------------|
 //! |I2CnSCK                 |    Mandatory   | I2C0SCK I2C1SCK I2C2SCK|
 //! |------------------------|----------------|------------------------|
@@ -828,8 +828,10 @@ extern "C"
 #define I2C0SDA                 I2C0SDA
 #define I2C1SCK                 I2C1SCK
 #define I2C1SDA                 I2C1SDA
+#define I2C1SMBA                I2C1SMBA
 #define I2C2SCK                 I2C2SCK
 #define I2C2SDA                 I2C2SDA
+#define I2C2SMBA                I2C2SMBA  
 
 #define I2S2RXSCK               I2S2RXSCK
 #define I2S2RXMCLK              I2S2RXMCLK
@@ -1061,7 +1063,7 @@ extern "C"
 //!
 //! \verbatim
 //! +--------------------------+----------------+------------------------+
-//! |xGPIO API                 |       CoX      |         STM32F1xx         |
+//! |xGPIO API                 |       CoX      |         STM32F1xx      |
 //! |--------------------------|----------------|------------------------|
 //! |xGPIODirModeSet           |    Mandatory   |            Y           |
 //! |--------------------------|----------------|------------------------|
@@ -1219,7 +1221,7 @@ extern void xGPIODirModeSet(unsigned long ulPort, unsigned long ulPins,
 //! \return GPIO port address which is used by GPIO API.
 //
 //*****************************************************************************
-#define xGPIOSPinToPortPin(eShortPin)                                            \
+#define xGPIOSPinToPortPin(eShortPin)                                         \
         GPIOSPinToPortPin(eShortPin)
         
 //*****************************************************************************
@@ -1323,7 +1325,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! \return None.
 //
 //*****************************************************************************
-#define xGPIOPinIntCallbackInit(ulPort, ulPin, pfnCallback)                    \
+#define xGPIOPinIntCallbackInit(ulPort, ulPin, pfnCallback)                   \
         GPIOPinIntCallbackInit(ulPort, ulPin, pfnCallback)
         
 //*****************************************************************************
@@ -1643,11 +1645,11 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! \return None.
 //
 //*****************************************************************************
-#define xGPIOSPinTypeGPIOInput(eShortPin)                                      \
-        do                                                                     \
-        {                                                                      \
-         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_IN);                        \
-        }                                                                      \
+#define xGPIOSPinTypeGPIOInput(eShortPin)                                     \
+        do                                                                    \
+        {                                                                     \
+         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_IN);                       \
+        }                                                                     \
         while(0)
 
 //*****************************************************************************
@@ -1663,11 +1665,11 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! \return None.
 //
 //*****************************************************************************
-#define xGPIOSPinTypeGPIOOutput(eShortPin)                                     \
-        do                                                                     \
-        {                                                                      \
-         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_OUT);                       \
-        }                                                                      \
+#define xGPIOSPinTypeGPIOOutput(eShortPin)                                    \
+        do                                                                    \
+        {                                                                     \
+         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_OUT);                      \
+        }                                                                     \
         while(0)
             
 //*****************************************************************************
@@ -1683,11 +1685,11 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! \return None.
 //
 //*****************************************************************************
-#define xGPIOSPinTypeGPIOOutputOD(eShortPin)                                   \
-        do                                                                     \
-        {                                                                      \
-         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_OD);                        \
-        }                                                                      \
+#define xGPIOSPinTypeGPIOOutputOD(eShortPin)                                  \
+        do                                                                    \
+        {                                                                     \
+         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_OD);                       \
+        }                                                                     \
         while(0)  
 
 //*****************************************************************************
@@ -1743,7 +1745,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //!
 //! \return None.
 //
-//*****************************************************************************            
+//*****************************************************************************
 #define xSPinTypeADC(ePeripheralPin, eShortPin)                               \
         do                                                                    \
         {                                                                     \
@@ -1795,9 +1797,9 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 #define xSPinTypeCAN(ePeripheralPin, eShortPin)                               \
         do                                                                    \
         {                                                                     \
-         ((eShortPin == CAN0RX) ?                                             \
+         ((ePeripheralPin == CAN0RX) ?                                             \
          xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_IN) :                      \
-         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_HWSTD));                   \
+         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_HWSTD);                   \
          GPIOSPinConfigure(ePeripheralPin, eShortPin);                        \
         }                                                                     \
         while(0)
@@ -1836,10 +1838,10 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! |--------------------|------------------------|------------------------|
 //! |      STM32F1xx     |    I2C1SCK             |    PB6   PB8           |
 //! |                    |    I2C1SDA             |    PB7   PB9           |
-//! |                    |    I2C1SBMA            |    PB5                 |
+//! |                    |    I2C1SMBA            |    PB5                 |
 //! |                    |    I2C2SCK             |    PB10                |
 //! |                    |    I2C2SDA             |    PB11                |
-//! |                    |    I2C2SBMA            |    PB12                |
+//! |                    |    I2C2SMBA            |    PB12                |
 //! |--------------------|------------------------|------------------------|
 //! \endverbatim
 //!
@@ -1952,7 +1954,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! |      STM32F1xx     |    SPI1CLK             |    PA5 PB3             |
 //! |                    |    SPI1MOSI            |    PA7,PB5             |
 //! |                    |    SPI1MISO            |    PA6,PB4             |
-//! |                    |    SPI1CS              |    PC0,PA15            |
+//! |                    |    SPI1CS              |    PA4,PA15            |
 //! |                    |    SPI2CLK             |    PB13                |
 //! |                    |    SPI2MOSI            |    PB15                |
 //! |                    |    SPI2MISO            |    PB14                |
@@ -2007,16 +2009,16 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! |                    |                        |number such as          |
 //! |                    |                        |0 1 2 3 ....            |
 //! |--------------------|------------------------|------------------------|
-//! |      STM32F1xx     |    TIM1ETR             |    PA12  PA12  PE7     |
-//! |                    |    TIM1CH1             |    PA8   PA8   PE9     |
-//! |                    |    TIM1CH1N            |    PB13  PA6   PE8     |
-//! |                    |    TIM1CH2             |    PA9   PA9   PE11    |
-//! |                    |    TIM1CH2N            |    PB14  PB0   PE10    |
-//! |                    |    TIM1CH3             |    PA10  PA10  PE13    |
-//! |                    |    TIM1CH3N            |    PB15  PB1   PE12    |
-//! |                    |    TIM1CH4             |    PA11  PA11  PE14    |
+//! |      STM32F1xx     |    TIM1ETR             |    PA12 PE7            |
+//! |                    |    TIM1CH1             |    PA8  PE9            |
+//! |                    |    TIM1CH1N            |    PA7  PB13   PE8     |
+//! |                    |    TIM1CH2             |    PA9  PE11           |
+//! |                    |    TIM1CH2N            |    PB14 PB0   PE10     |
+//! |                    |    TIM1CH3             |    PA10 PE13           |
+//! |                    |    TIM1CH3N            |    PB15 PB1   PE12     |
+//! |                    |    TIM1CH4             |    PA11 PE14           |
 //! |                    |    TIM1CH4N            |                        |
-//! |                    |    TIM1BKIN            |    PB12  PA6   PE15    |
+//! |                    |    TIM1BKIN            |    PB12 PA6   PE15     |
 //! |                    |    TIM8ETR             |    PA0                 |
 //! |                    |    TIM8CH1             |    PC6                 |
 //! |                    |    TIM8CH1N            |    PA7                 |
@@ -2027,16 +2029,16 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! |                    |    TIM8CH4             |    PC9                 |
 //! |                    |    TIM8CH4N            |                        |
 //! |                    |    TIM8BKIN            |    PA6                 |
-//! |                    |    TIM2ETR             |  PA0  PA15 PA0  PA15   |
-//! |                    |    TIM2CH1             |  PA0  PA15 PA0  PA15   |
-//! |                    |    TIM2CH2             |  PA1  PB3  PA1  PB3    |
-//! |                    |    TIM2CH3             |  PA2  PA2  PB10 PB10   |
-//! |                    |    TIM2CH4             |  PA3  PA3  PB11 PB11   |
+//! |                    |    TIM2ETR             |    PA0  PA15           |
+//! |                    |    TIM2CH1             |    PA0  PA15           |
+//! |                    |    TIM2CH2             |    PA1  PB3            |
+//! |                    |    TIM2CH3             |    PA2  PB10           |
+//! |                    |    TIM2CH4             |    PA3  PB11           |
 //! |                    |    TIM3ETR             |    PD2                 |
-//! |                    |    TIM3CH1             |    PA6  PB4   PC6      |
+//! |                    |    TIM3CH1             |    PA6  PB4   PC6  PF8 |
 //! |                    |    TIM3CH2             |    PA7  PB5   PC7      |
-//! |                    |    TIM3CH3             |    PB0  PB0   PC8      |
-//! |                    |    TIM3CH4             |    PB1  PB1   PC9      |
+//! |                    |    TIM3CH3             |    PB0  PC8            |
+//! |                    |    TIM3CH4             |    PB1  PC9            |
 //! |                    |    TIM4ETR             |    PE0                 |
 //! |                    |    TIM4CH1             |    PB6  PD12           |
 //! |                    |    TIM4CH2             |    PB7  PD13           |
@@ -2049,14 +2051,14 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! |                    |    TIM5CH4             |    PA3                 |
 //! |                    |    TIM9CH1             |    PE5  PA2            |
 //! |                    |    TIM9CH2             |    PE6  PA3            |
-//! |                    |    TIM10CH1            |    PB8  PF6            |
+//! |                    |    TIM10CH1            |    PF6                 |
 //! |                    |    TIM10CH2            |                        |
 //! |                    |    TIM11CH1            |    PF7                 |
 //! |                    |    TIM11CH2            |                        |
-//! |                    |    TIM12CH1            |    PB9  PF7            |
+//! |                    |    TIM12CH1            |    PB14                |
 //! |                    |    TIM12CH2            |    PB15                |
-//! |                    |    TIM13CH1            |    PA6  PF8            |
-//! |                    |    TIM13CH2            |    PA6                 |
+//! |                    |    TIM13CH1            |    PA6                 |
+//! |                    |    TIM13CH2            |                        |
 //! |                    |    TIM14CH1            |    PA7  PF9            |
 //! |                    |    TIM14CH2            |                        |
 //! |--------------------|------------------------|------------------------|
@@ -2185,7 +2187,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 #define xSPinTypeSDIO(ePeripheralPin, eShortPin)                              \
         do                                                                    \
         {                                                                     \
-         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_HWOD);                     \
+         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_HWSTD);                     \
          GPIOSPinConfigure(ePeripheralPin, eShortPin);                        \
         }                                                                     \
         while(0)
@@ -2310,8 +2312,8 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! |                    |    FSMC1NE3            |    PG10                |
 //! |                    |    FSMC1NE4            |    PG12                |
 //! |                    |    FSMC1NADV           |    PB7                 |
-//! |                    |    FSMC1NBL1           |    PE0                 |
-//! |                    |    FSMC1NBL2           |    PE1                 |
+//! |                    |    FSMC1NBL0           |    PE0                 |
+//! |                    |    FSMC1NBL1           |    PE1                 |
 //! |                    |    FSMC1CLK            |    PD3                 |
 //! |                    |    FSMC1A0             |    PF0                 |
 //! |                    |    FSMC1A1             |    PF1                 |
@@ -2606,7 +2608,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //! Pin is a GPIO input
 //
-#define GPIO_DIR_MODE_IN        GPIO_TYPE_IN_FLOATING | GPIO_IN_SPEED_FIXED  
+#define GPIO_DIR_MODE_IN        GPIO_TYPE_IN_WPU_WPD | GPIO_IN_SPEED_FIXED  
 
 //
 //! Pin is a GPIO output
@@ -2793,7 +2795,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 #define GPIO_PA0_TIM2CH1        0x00000000
 #define GPIO_PA0_TIM2ETR        0x00000000
 #define GPIO_PA0_TIM5CH1        0x00000000
-#define GPIO_PA0_TIM5ETR        0x00000000
+#define GPIO_PA0_TIM8ETR        0x00000000
 
 //
 //! GPIO pin A1
@@ -2832,7 +2834,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //! GPIO pin A5
 //
-#define GPIO_PA5_SPI1SCK        0x00000000
+#define GPIO_PA5_SPI1CLK        0x00000000
 #define GPIO_PA5_DACOUT2        0x00000000
 #define GPIO_PA5_ADC5           0x00000000
 
@@ -2894,12 +2896,12 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //! GPIO pin A13
 //
-#define GPIO_PA13_PA13          0x01000000
+#define GPIO_PA13_PA13          0x04000000
 
 //
 //! GPIO pin A14
 //
-#define GPIO_PA14_PA14          0x01000000
+#define GPIO_PA14_PA14          0x02000000
 
 //
 //! GPIO pin A15
@@ -2909,7 +2911,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 #define GPIO_PA15_I2S3TXWS      0x00000000
 #define GPIO_PA15_TIM2ETR       0x00000100
 #define GPIO_PA15_TIM2CH1       0x00000100
-#define GPIO_PA15_PA15          0x01000000
+#define GPIO_PA15_PA15          0x02000000
 #define GPIO_PA15_SPI1CS        0x00000001
 
 //
@@ -2936,13 +2938,13 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //! GPIO pin B3
 //
-#define GPIO_PB3_SPI3SCK        0x00000000
+#define GPIO_PB3_SPI3CLK        0x00000000
 #define GPIO_PB3_I2S3RXSCK      0x00000000 
 #define GPIO_PB3_I2S3TXSCK      0x00000000
 #define GPIO_PB3_PB3            0x01000000
-#define GPIO_PB3_TRACESWO       0x00000002
+#define GPIO_PB3_TRACESWO       0x00000000
 #define GPIO_PB3_TIM2CH2        0x00000100
-#define GPIO_PB3_SPI1SCK        0x00000001
+#define GPIO_PB3_SPI1CLK        0x00000001
 
 //
 //! GPIO pin B4
@@ -2972,10 +2974,10 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //! GPIO pin B7
 //
-#define GPIO_PB7_I2C1SDA        0x10000400
-#define GPIO_PB7_FSMC1NADV      0x10000000
-#define GPIO_PB7_TIM4CH2        0x10000400
-#define GPIO_PB7_UART1RX        0x20000404
+#define GPIO_PB7_I2C1SDA        0x00000000
+#define GPIO_PB7_FSMC1NADV      0x00000000
+#define GPIO_PB7_TIM4CH2        0x00000000
+#define GPIO_PB7_UART1RX        0x00000004
 
 //
 //! GPIO pin B8
@@ -3020,7 +3022,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //! GPIO pin B13
 //
-#define GPIO_PB13_SPI2SCK       0x00000000
+#define GPIO_PB13_SPI2CLK       0x00000000
 #define GPIO_PB13_I2S2RXSCK     0x00000000
 #define GPIO_PB13_I2S2TXSCK     0x00000000
 #define GPIO_PB13_UART3CTS      0x00000000
@@ -3158,7 +3160,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //! GPIO pin D2
 //
-#define GPIO_PD2_TIM3_ETR       0x00000000
+#define GPIO_PD2_TIM3ETR        0x00000000
 #define GPIO_PD2_UART5RX        0x00000000
 #define GPIO_PD2_SDIO1CMD       0x00000000
 
@@ -3257,27 +3259,32 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! GPIO pin E2
 //
 #define GPIO_PE2_TRACECK        0x00000000
+#define GPIO_PE2_FSMC1A23       0x00000000
 
 //
 //! GPIO pin E3
 //
 #define GPIO_PE3_TRACED0        0x00000000
+#define GPIO_PE3_FSMC1A19       0x00000000
 
 //
 //! GPIO pin E4
 //
 #define GPIO_PE4_TRACED1        0x00000000
+#define GPIO_PE4_FSMC1A20       0x00000000
 
 //
 //! GPIO pin E5
 //
 #define GPIO_PE5_TRACED2        0x00000000
+#define GPIO_PE5_FSMC121        0x00000000
 #define GPIO_PE5_TIM9CH1        0x10000020
 
 //
 //! GPIO pin E6
 //
 #define GPIO_PE6_TRACED3        0x00000000
+#define GPIO_PE6_FSMC122        0x00000000
 #define GPIO_PE6_TIM9CH2        0x10000020
 
 //
@@ -3505,8 +3512,6 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! GPIO pin G15
 //
 
-
-
 //*****************************************************************************
 //
 //! @}
@@ -3571,14 +3576,11 @@ extern void GPIOPinIntClear(unsigned long ulPort, unsigned long ulPins);
 extern long GPIOPinRead(unsigned long ulPort, unsigned long ulPins);
 extern void GPIOPinWrite(unsigned long ulPort, unsigned long ulPins,
 		                 unsigned char ucVal);
-extern void GPIOPinDebounceEnable(unsigned long ulPort, 
-                                  unsigned long ulPins);
-extern void GPIOPinDebounceDisable(unsigned long ulPort, 
-                                   unsigned long ulPins);
+extern void GPIOPinSet(unsigned long ulPort, unsigned long ulPins);	
+extern void GPIOPinReset(unsigned long ulPort, unsigned long ulPins);
+extern void GPIOPinLockConfig(unsigned long ulPort, unsigned long ulPins);
+
 extern void GPIOPinMaskSet(unsigned long ulPort, unsigned long ulPins);
-extern void GPIODebounceTimeSet(unsigned long ulClockSource,
-                                unsigned long ulDebounceClk);
-extern long GPIODebounceTimeGet(void);
 extern long GPIOPortMaskGet(unsigned long ulPort);
 extern long GPIOPinPortDoutGet(unsigned long ulPort);
 extern void GPIOPinFunctionSet(unsigned long ulFunction, unsigned long ulPort, 
@@ -3626,5 +3628,4 @@ extern unsigned long  GPIOPinToPin(unsigned long ulPort,
 #endif
 
 #endif //  __xGPIO_H__
-
 

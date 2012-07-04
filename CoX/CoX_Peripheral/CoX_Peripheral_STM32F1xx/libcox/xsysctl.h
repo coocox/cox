@@ -1043,7 +1043,6 @@ extern unsigned long xSysCtlPeripheraIntNumGet(unsigned long ulPeripheralBase);
 //
 #define SYSCTL_PERIPH_RTC       0x30008000
 
-
 //
 //! ETHMAC
 //
@@ -1891,4 +1890,3 @@ extern unsigned long SysCtlAPB2ClockGet(void);
 #endif
 
 #endif // __xSYSCTL_H__
-
