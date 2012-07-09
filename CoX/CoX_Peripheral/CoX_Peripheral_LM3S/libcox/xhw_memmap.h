@@ -1,7 +1,7 @@
 //*****************************************************************************
 //
 //! \file xhw_memmap.h
-//! \brief Macros defining the memory map of NUC1xx.
+//! \brief Macros defining the memory map of TI Stellaris MCU.
 //! \version V2.1.1.0
 //! \date 11/14/2011
 //! \author CooCox
@@ -88,8 +88,12 @@
 #define xGPIO_PORTF_BASE        GPIO_PORTF_BASE
 #define xGPIO_PORTG_BASE        GPIO_PORTG_BASE
 #define xGPIO_PORTH_BASE        GPIO_PORTH_BASE
-#define xSYSCTL_BASE            SYSCTL_BASE
+#define xI2C0_BASE              I2C0_MASTER_BASE
+#define xI2C1_BASE              I2C1_MASTER_BASE
 #define xNVIC_BASE              NVIC_BASE
+#define xSPI0_BASE              SSI0_BASE
+#define xSPI1_BASE              SSI1_BASE
+#define xSYSCTL_BASE            SYSCTL_BASE
 #define xUART0_BASE             UART0_BASE 
 #define xUART1_BASE             UART1_BASE
 #define xUART2_BASE             UART2_BASE
