@@ -12,14 +12,14 @@
       <ToolsetName>ARM-ADS</ToolsetName>
       <TargetOption>
         <TargetCommonOption>
-          <Device>STM32F103VB</Device>
-          <Vendor>STMicroelectronics</Vendor>
-          <Cpu>IRAM(0x20000000-0x20004FFF) IROM(0x8000000-0x801FFFF) CLOCK(8000000) CPUTYPE("Cortex-M3")</Cpu>
+          <Device>HT32F1253</Device>
+          <Vendor>Holtek</Vendor>
+          <Cpu>IRAM(0x20000000-0x20001FFF) IROM(0x00000000-0x00007BFF) CLOCK(8000000) CPUTYPE("Cortex-M3")</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
-          <StartupFile>"STARTUP\ST\STM32F10x\startup_stm32f10x_md.s" ("STM32 Medium Density Line Startup Code")</StartupFile>
-          <FlashDriverDll>UL2CM3(-O14 -S0 -C0 -N00("ARM Cortex-M3") -D00(1BA00477) -L00(4) -FO7 -FD20000000 -FC800 -FN1 -FF0STM32F10x_128 -FS08000000 -FL020000)</FlashDriverDll>
-          <DeviceId>4223</DeviceId>
-          <RegisterFile>stm32f10x_md.h</RegisterFile>
+          <StartupFile>"STARTUP\Holtek\HT32F125x\startup_HT32F125x.s" ("Holtek HT32F125x Startup Code")</StartupFile>
+          <FlashDriverDll>UL2CM3(-O207 -S0 -C0 -FO7 -FD20000000 -FC800 -FN2 -FF0HT32F -FS00 -FL07C00 -FF1HT32F_OPT -FS11FF00000 -FL1400)</FlashDriverDll>
+          <DeviceId>0</DeviceId>
+          <RegisterFile>HT32F125x.h</RegisterFile>
           <MemoryEnv></MemoryEnv>
           <Cmp></Cmp>
           <Asm></Asm>
@@ -29,13 +29,13 @@
           <SLE66CMisc></SLE66CMisc>
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
-          <SFDFile>SFD\ST\STM32F10xx\STM32F10xxB.sfr</SFDFile>
+          <SFDFile>SFD\Holtek\HT32F125x\HT32F125x.SFR</SFDFile>
           <UseEnv>0</UseEnv>
           <BinPath></BinPath>
           <IncludePath></IncludePath>
           <LibPath></LibPath>
-          <RegisterFilePath>ST\STM32F10x\</RegisterFilePath>
-          <DBRegisterFilePath>ST\STM32F10x\</DBRegisterFilePath>
+          <RegisterFilePath>Holtek\HT32F125x\</RegisterFilePath>
+          <DBRegisterFilePath>Holtek\HT32F125x\</DBRegisterFilePath>
           <TargetStatus>
             <Error>0</Error>
             <ExitCodeStop>0</ExitCodeStop>
@@ -44,7 +44,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\obj\</OutputDirectory>
-          <OutputName>template</OutputName>
+          <OutputName>RTCExample</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -71,9 +71,9 @@
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
           </BeforeMake>
           <AfterMake>
-            <RunUserProg1>0</RunUserProg1>
+            <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name></UserProg1Name>
+            <UserProg1Name>fromelf --bin ".\obj\@L.axf" --output ".\obj\@L.bin"</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -99,12 +99,12 @@
         <DllOption>
           <SimDllName>SARMCM3.DLL</SimDllName>
           <SimDllArguments></SimDllArguments>
-          <SimDlgDll>DARMSTM.DLL</SimDlgDll>
-          <SimDlgDllArguments>-pSTM32F103VB</SimDlgDllArguments>
+          <SimDlgDll>DLM.DLL</SimDlgDll>
+          <SimDlgDllArguments>-pEMBER</SimDlgDllArguments>
           <TargetDllName>SARMCM3.DLL</TargetDllName>
           <TargetDllArguments></TargetDllArguments>
-          <TargetDlgDll>TARMSTM.DLL</TargetDlgDll>
-          <TargetDlgDllArguments>-pSTM32F103VB</TargetDlgDllArguments>
+          <TargetDlgDll>TLM.DLL</TargetDlgDll>
+          <TargetDlgDllArguments>-pEMBER</TargetDlgDllArguments>
         </DllOption>
         <DebugOption>
           <OPTHX>
@@ -136,7 +136,7 @@
             <RestoreToolbox>1</RestoreToolbox>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>13</TargetSelection>
+          <TargetSelection>12</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -150,7 +150,7 @@
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
             <InitializationFile></InitializationFile>
-            <Driver>BIN\coocox-agdi.dll</Driver>
+            <Driver>BIN\holtek-elink32.dll</Driver>
           </TargetDlls>
         </DebugOption>
         <Utilities>
@@ -160,9 +160,9 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>4103</DriverSelection>
+            <DriverSelection>4102</DriverSelection>
           </Flash1>
-          <Flash2>BIN\coocox-agdi.dll</Flash2>
+          <Flash2>BIN\holtek-elink32.dll</Flash2>
           <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
         </Utilities>
@@ -264,12 +264,12 @@
               <IRAM>
                 <Type>0</Type>
                 <StartAddress>0x20000000</StartAddress>
-                <Size>0x5000</Size>
+                <Size>0x2000</Size>
               </IRAM>
               <IROM>
                 <Type>1</Type>
-                <StartAddress>0x8000000</StartAddress>
-                <Size>0x20000</Size>
+                <StartAddress>0x0</StartAddress>
+                <Size>0x7c00</Size>
               </IROM>
               <XRAM>
                 <Type>0</Type>
@@ -293,8 +293,8 @@
               </OCR_RVCT3>
               <OCR_RVCT4>
                 <Type>1</Type>
-                <StartAddress>0x8000000</StartAddress>
-                <Size>0x20000</Size>
+                <StartAddress>0x0</StartAddress>
+                <Size>0x7c00</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -319,7 +319,7 @@
               <OCR_RVCT9>
                 <Type>0</Type>
                 <StartAddress>0x20000000</StartAddress>
-                <Size>0x5000</Size>
+                <Size>0x2000</Size>
               </OCR_RVCT9>
               <OCR_RVCT10>
                 <Type>0</Type>
@@ -331,7 +331,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>0</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>0</OneElfS>
@@ -344,9 +344,9 @@
             <uThumb>0</uThumb>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define></Define>
+              <Define>rvmdk</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\..\libcox;..\..\..\..\testframe;..\src;..\..\..\..\startup\src</IncludePath>
+              <IncludePath>..\..\..\..\libcox;..\src;..\..\..\..\testframe</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -371,9 +371,9 @@
             <noStLib>0</noStLib>
             <RepFail>1</RepFail>
             <useFile>0</useFile>
-            <TextAddressRange>0x00080000</TextAddressRange>
+            <TextAddressRange>0x00000000</TextAddressRange>
             <DataAddressRange>0x20000000</DataAddressRange>
-            <ScatterFile>.\obj\template.sct</ScatterFile>
+            <ScatterFile>./obj/uart.sct</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
             <Misc>--entry ResetHandler</Misc>
@@ -394,12 +394,22 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>libcox_inc</GroupName>
+          <GroupName>libcox</GroupName>
           <Files>
+            <File>
+              <FileName>xcore.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\libcox\xcore.c</FilePath>
+            </File>
             <File>
               <FileName>xcore.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\..\..\libcox\xcore.h</FilePath>
+            </File>
+            <File>
+              <FileName>xdebug.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\libcox\xdebug.c</FilePath>
             </File>
             <File>
               <FileName>xdebug.h</FileName>
@@ -407,9 +417,9 @@
               <FilePath>..\..\..\..\libcox\xdebug.h</FilePath>
             </File>
             <File>
-              <FileName>xgpio.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xgpio.h</FilePath>
+              <FileName>xgpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\libcox\xgpio.c</FilePath>
             </File>
             <File>
               <FileName>xhw_gpio.h</FileName>
@@ -447,94 +457,64 @@
               <FilePath>..\..\..\..\libcox\xhw_uart.h</FilePath>
             </File>
             <File>
-              <FileName>xsysctl.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xsysctl.h</FilePath>
-            </File>
-            <File>
-              <FileName>xuart.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xuart.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>libcox_src</GroupName>
-          <Files>
-            <File>
-              <FileName>xcore.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\libcox\xcore.c</FilePath>
-            </File>
-            <File>
-              <FileName>xgpio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\libcox\xgpio.c</FilePath>
-            </File>
-            <File>
               <FileName>xsysctl.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\libcox\xsysctl.c</FilePath>
+            </File>
+            <File>
+              <FileName>xsysctl.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\libcox\xsysctl.h</FilePath>
             </File>
             <File>
               <FileName>xuart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\libcox\xuart.c</FilePath>
             </File>
+            <File>
+              <FileName>xuart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\libcox\xuart.h</FilePath>
+            </File>
+            <File>
+              <FileName>xrtc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\libcox\xrtc.h</FilePath>
+            </File>
+            <File>
+              <FileName>xi2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\libcox\xi2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>xi2c.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\libcox\xi2c.h</FilePath>
+            </File>
+            <File>
+              <FileName>xhw_i2c.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\libcox\xhw_i2c.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Source</GroupName>
+          <GroupName>source</GroupName>
           <Files>
             <File>
-              <FileName>testcase.c</FileName>
+              <FileName>i2cExample.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\src\testcase.c</FilePath>
+              <FilePath>..\src\i2cExample.c</FilePath>
             </File>
             <File>
-              <FileName>testcase.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\src\testcase.h</FilePath>
-            </File>
-            <File>
-              <FileName>xgpiotest1.c</FileName>
+              <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\src\xgpiotest1.c</FilePath>
-            </File>
-            <File>
-              <FileName>xgpiotest2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\xgpiotest2.c</FilePath>
+              <FilePath>..\src\main.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
           <GroupName>document</GroupName>
-        </Group>
-        <Group>
-          <GroupName>testframe</GroupName>
-          <Files>
-            <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\testframe\main.c</FilePath>
-            </File>
-            <File>
-              <FileName>test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\testframe\test.c</FilePath>
-            </File>
-            <File>
-              <FileName>test.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\testframe\test.h</FilePath>
-            </File>
-            <File>
-              <FileName>testport.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\testframe\testport.c</FilePath>
-            </File>
-          </Files>
         </Group>
       </Groups>
     </Target>
@@ -544,13 +524,13 @@
       <ToolsetName>ARM-ADS</ToolsetName>
       <TargetOption>
         <TargetCommonOption>
-          <Device>NUC140LD3AN</Device>
+          <Device>NUC140LE3AN</Device>
           <Vendor>Nuvoton</Vendor>
-          <Cpu>IRAM(0x20000000-0x20003FFF) IROM(0-0x0FFFF) CLOCK(12000000) CPUTYPE("Cortex-M0")</Cpu>
+          <Cpu>IRAM(0x20000000-0x20003FFF) IROM(0-0x1FFFF) CLOCK(12000000) CPUTYPE("Cortex-M0")</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile>"STARTUP\Nuvoton\NUC1xx\startup_NUC1xx.s" ("Nuvoton NUC1xx Startup Code")</StartupFile>
-          <FlashDriverDll>UL2CM3(-UV0998FBE -O206 -S0 -C0 -N00("ARM CoreSight SW-DP") -D00(0BB11477) -L00(0) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC800 -FN1 -FF0NUC1xx_AP_64 -FS00 -FL010000)</FlashDriverDll>
-          <DeviceId>5163</DeviceId>
+          <FlashDriverDll>UL2CM3(-UV0998FBE -O206 -S0 -C0 -N00("ARM CoreSight SW-DP") -D00(0BB11477) -L00(0) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC800 -FN1 -FF0NUC1xx_AP_128 -FS00 -FL020000)</FlashDriverDll>
+          <DeviceId>5164</DeviceId>
           <RegisterFile>NUC1xx.h</RegisterFile>
           <MemoryEnv></MemoryEnv>
           <Cmp></Cmp>
@@ -561,7 +541,7 @@
           <SLE66CMisc></SLE66CMisc>
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
-          <SFDFile></SFDFile>
+          <SFDFile>SFD\Nuvoton\NUC1xx.SFR</SFDFile>
           <UseEnv>0</UseEnv>
           <BinPath></BinPath>
           <IncludePath></IncludePath>
@@ -632,11 +612,11 @@
           <SimDllName>SARMCM3.DLL</SimDllName>
           <SimDllArguments></SimDllArguments>
           <SimDlgDll>DARMCM1.DLL</SimDlgDll>
-          <SimDlgDllArguments>-pNUC140LD3AN</SimDlgDllArguments>
+          <SimDlgDllArguments>-pNUC140LE3AN</SimDlgDllArguments>
           <TargetDllName>SARMCM3.DLL</TargetDllName>
           <TargetDllArguments></TargetDllArguments>
           <TargetDlgDll>TARMCM1.DLL</TargetDlgDll>
-          <TargetDlgDllArguments>-pNUC140LD3AN</TargetDlgDllArguments>
+          <TargetDlgDllArguments>-pNUC140LE3AN</TargetDlgDllArguments>
         </DllOption>
         <DebugOption>
           <OPTHX>
@@ -681,7 +661,7 @@
             <CpuDllArguments></CpuDllArguments>
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
-            <InitializationFile>.\nuc1xx_ram.ini</InitializationFile>
+            <InitializationFile>.\ram.ini</InitializationFile>
             <Driver>BIN\UL2CM3.DLL</Driver>
           </TargetDlls>
         </DebugOption>
@@ -801,7 +781,7 @@
               <IROM>
                 <Type>1</Type>
                 <StartAddress>0x0</StartAddress>
-                <Size>0x10000</Size>
+                <Size>0x20000</Size>
               </IROM>
               <XRAM>
                 <Type>0</Type>
@@ -825,8 +805,8 @@
               </OCR_RVCT3>
               <OCR_RVCT4>
                 <Type>1</Type>
-                <StartAddress>0x20000000</StartAddress>
-                <Size>0x2000</Size>
+                <StartAddress>0x0</StartAddress>
+                <Size>0x20000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -850,8 +830,8 @@
               </OCR_RVCT8>
               <OCR_RVCT9>
                 <Type>0</Type>
-                <StartAddress>0x20002000</StartAddress>
-                <Size>0x2000</Size>
+                <StartAddress>0x20000000</StartAddress>
+                <Size>0x4000</Size>
               </OCR_RVCT9>
               <OCR_RVCT10>
                 <Type>0</Type>
@@ -866,7 +846,7 @@
             <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
-            <OneElfS>1</OneElfS>
+            <OneElfS>0</OneElfS>
             <Strict>0</Strict>
             <EnumInt>0</EnumInt>
             <PlainCh>0</PlainCh>
@@ -878,7 +858,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\..\libcox</IncludePath>
+              <IncludePath>..\..\..\..\libcox;..\src;..\..\..\..\testframe</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -897,7 +877,7 @@
             </VariousControls>
           </Aads>
           <LDads>
-            <umfTarg>0</umfTarg>
+            <umfTarg>1</umfTarg>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
             <noStLib>0</noStLib>
@@ -905,7 +885,7 @@
             <useFile>0</useFile>
             <TextAddressRange>0x00000000</TextAddressRange>
             <DataAddressRange>0x20000000</DataAddressRange>
-            <ScatterFile>.\nuc1xx_ram.sct</ScatterFile>
+            <ScatterFile></ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
             <Misc>--entry Reset_Handler</Misc>
@@ -926,12 +906,22 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>libcox_inc</GroupName>
+          <GroupName>libcox</GroupName>
           <Files>
+            <File>
+              <FileName>xcore.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\libcox\xcore.c</FilePath>
+            </File>
             <File>
               <FileName>xcore.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\..\..\libcox\xcore.h</FilePath>
+            </File>
+            <File>
+              <FileName>xdebug.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\libcox\xdebug.c</FilePath>
             </File>
             <File>
               <FileName>xdebug.h</FileName>
@@ -939,9 +929,9 @@
               <FilePath>..\..\..\..\libcox\xdebug.h</FilePath>
             </File>
             <File>
-              <FileName>xgpio.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xgpio.h</FilePath>
+              <FileName>xgpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\libcox\xgpio.c</FilePath>
             </File>
             <File>
               <FileName>xhw_gpio.h</FileName>
@@ -979,94 +969,64 @@
               <FilePath>..\..\..\..\libcox\xhw_uart.h</FilePath>
             </File>
             <File>
-              <FileName>xsysctl.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xsysctl.h</FilePath>
-            </File>
-            <File>
-              <FileName>xuart.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\libcox\xuart.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>libcox_src</GroupName>
-          <Files>
-            <File>
-              <FileName>xcore.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\libcox\xcore.c</FilePath>
-            </File>
-            <File>
-              <FileName>xgpio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\libcox\xgpio.c</FilePath>
-            </File>
-            <File>
               <FileName>xsysctl.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\libcox\xsysctl.c</FilePath>
+            </File>
+            <File>
+              <FileName>xsysctl.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\libcox\xsysctl.h</FilePath>
             </File>
             <File>
               <FileName>xuart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\libcox\xuart.c</FilePath>
             </File>
+            <File>
+              <FileName>xuart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\libcox\xuart.h</FilePath>
+            </File>
+            <File>
+              <FileName>xrtc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\libcox\xrtc.h</FilePath>
+            </File>
+            <File>
+              <FileName>xi2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\libcox\xi2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>xi2c.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\libcox\xi2c.h</FilePath>
+            </File>
+            <File>
+              <FileName>xhw_i2c.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\libcox\xhw_i2c.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Source</GroupName>
+          <GroupName>source</GroupName>
           <Files>
             <File>
-              <FileName>testcase.c</FileName>
+              <FileName>i2cExample.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\src\testcase.c</FilePath>
+              <FilePath>..\src\i2cExample.c</FilePath>
             </File>
             <File>
-              <FileName>testcase.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\src\testcase.h</FilePath>
-            </File>
-            <File>
-              <FileName>xgpiotest1.c</FileName>
+              <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\src\xgpiotest1.c</FilePath>
-            </File>
-            <File>
-              <FileName>xgpiotest2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\xgpiotest2.c</FilePath>
+              <FilePath>..\src\main.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
           <GroupName>document</GroupName>
-        </Group>
-        <Group>
-          <GroupName>testframe</GroupName>
-          <Files>
-            <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\testframe\main.c</FilePath>
-            </File>
-            <File>
-              <FileName>test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\testframe\test.c</FilePath>
-            </File>
-            <File>
-              <FileName>test.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\testframe\test.h</FilePath>
-            </File>
-            <File>
-              <FileName>testport.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\testframe\testport.c</FilePath>
-            </File>
-          </Files>
         </Group>
       </Groups>
     </Target>

@@ -861,10 +861,11 @@ GPIOPinLockConfig(unsigned long ulPort, unsigned long ulPins)
 //
 //*****************************************************************************
 void
-GPIOPinConfigure(unsigned long ulPinConfig)
+GPIOPinConfigure(unsigned long ulPort, unsigned long ulPins, 
+                 unsigned long ulPinConfig)
 {
-    unsigned long ulBase, ulShift;
-
+    unsigned long ulBase, ulShift, ulInout;
+    int i;
     //
     // Check the argument.
     //
@@ -881,6 +882,31 @@ GPIOPinConfigure(unsigned long ulPinConfig)
     // Extract the shift from the input value.
     //
     ulShift = (ulPinConfig ) & 0x0FFFFFFF;
+	
+    ulInout = (ulPinConfig >> 29) & 0x07;
+	
+    for(i=0; i++; i<16)
+    {
+        if((ulPins >> i) == 1)
+                break;
+    }
+    
+    if(ulInout == 0)
+    {
+        GPIODirModeSet(ulPort, i, GPIO_TYPE_IN_ANALOG, GPIO_IN_SPEED_FIXED);
+    }
+    else if(ulInout == 1)
+    {
+        GPIODirModeSet(ulPort, i, GPIO_TYPE_IN_FLOATING, GPIO_IN_SPEED_FIXED);
+    }
+    else if(ulInout == 3)
+    {
+        GPIODirModeSet(ulPort, i, GPIO_TYPE_AFOUT_STD, GPIO_OUT_SPEED_50M);
+    }
+    else if(ulInout == 4)
+    {
+        GPIODirModeSet(ulPort, i, GPIO_TYPE_AFOUT_OD, GPIO_OUT_SPEED_50M);
+    }
 
     //
     // Write the requested pin muxing value for this GPIO pin.

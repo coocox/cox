@@ -802,6 +802,13 @@ extern "C"
 //
 //*****************************************************************************
 
+#define AIN                     0
+#define FIN                     1
+#define PIN                     2
+#define APP                     3
+#define AOD                     4
+
+
 #define ADC0                    ADC0
 #define ADC1                    ADC1
 #define ADC2                    ADC2
@@ -835,33 +842,33 @@ extern "C"
 
 #define I2S2RXSCK               I2S2RXSCK
 #define I2S2RXMCLK              I2S2RXMCLK
-#define I2S2RXSD                I2S2RXSD
-#define I2S2RXWS                I2S2RXWS
+#define I2S2RXSD(a)             I2S2RXSD(a)
+#define I2S2RXWS(a)             I2S2RXWS(a)
 #define I2S2TXSCK               I2S2TXSCK
 #define I2S2TXMCLK              I2S2TXMCLK
-#define I2S2TXSD                I2S2TXSD
-#define I2S2TXWS                I2S2TXWS
+#define I2S2TXSD(a)             I2S2TXSD(a)
+#define I2S2TXWS(a)             I2S2TXWS(a)
 #define I2S3RXSCK               I2S3RXSCK
 #define I2S3RXMCLK              I2S3RXMCLK
-#define I2S3RXSD                I2S3RXSD
-#define I2S3RXWS                I2S3RXWS
+#define I2S3RXSD(a)             I2S3RXSD(a)
+#define I2S3RXWS(a)             I2S3RXWS(a)
 #define I2S3TXSCK               I2S3TXSCK
 #define I2S3TXMCLK              I2S3TXMCLK
-#define I2S3TXSD                I2S3TXSD
-#define I2S3TXWS                I2S3TXWS
+#define I2S3TXSD(a)             I2S3TXSD(a)
+#define I2S3TXWS(a)             I2S3TXWS(a)
  
-#define SPI1CLK                 SPI1CLK
-#define SPI1MOSI                SPI1MOSI
-#define SPI1MISO                SPI1MISO
-#define SPI1CS                  SPI1CS
-#define SPI2CLK                 SPI2CLK
-#define SPI2MOSI                SPI2MOSI
-#define SPI2MISO                SPI2MISO
-#define SPI2CS                  SPI2CS
-#define SPI3CLK                 SPI3CLK
-#define SPI3MOSI                SPI3MOSI
-#define SPI3MISO                SPI3MISO
-#define SPI3CS                  SPI3CS
+#define SPI1CLK(a)              SPI1CLK(a)
+#define SPI1MOSI(a)             SPI1MOSI(a)
+#define SPI1MISO(a)             SPI1MISO(a)
+#define SPI1CS(a)               SPI1CS(a)
+#define SPI2CLK(a)              SPI2CLK(a)
+#define SPI2MOSI(a)             SPI2MOSI(a)
+#define SPI2MISO(a)             SPI2MISO(a)
+#define SPI2CS(a)               SPI2CS(a)
+#define SPI3CLK(a)              SPI3CLK(a)
+#define SPI3MOSI(a)             SPI3MOSI(a)
+#define SPI3MISO(a)             SPI3MISO(a)
+#define SPI3CS(a)               SPI3CS(a)
  
 #define UART1RX                 UART1RX
 #define UART1TX                 UART1TX
@@ -900,59 +907,59 @@ extern "C"
 #define CMP1O                   CMP1O
 
 #define TIM1ETR                 TIM1ETR
-#define TIM1CH1                 TIM1CH1
+#define TIM1CH1(a)              TIM1CH1(a)
 #define TIM1CH1N                TIM1CH1N
-#define TIM1CH2                 TIM1CH2
+#define TIM1CH2(a)              TIM1CH2(a)
 #define TIM1CH2N                TIM1CH2N
-#define TIM1CH3                 TIM1CH3
+#define TIM1CH3(a)              TIM1CH3(a)
 #define TIM1CH3N                TIM1CH3N
-#define TIM1CH4                 TIM1CH4
+#define TIM1CH4(a)              TIM1CH4(a)
 #define TIM1CH4N                TIM1CH4N
 #define TIM1BKIN                TIM1BKIN
 #define TIM8ETR                 TIM8ETR
-#define TIM8CH1                 TIM8CH1
+#define TIM8CH1(a)              TIM8CH1(a)
 #define TIM8CH1N                TIM8CH1N
-#define TIM8CH2                 TIM8CH2
+#define TIM8CH2(a)              TIM8CH2(a)
 #define TIM8CH2N                TIM8CH2N
-#define TIM8CH3                 TIM8CH3
+#define TIM8CH3(a)              TIM8CH3(a)
 #define TIM8CH3N                TIM8CH3N
-#define TIM8CH4                 TIM8CH4
+#define TIM8CH4(a)              TIM8CH4(a)
 #define TIM8CH4N                TIM8CH4N
 #define TIM8BKIN                TIM8BKIN
 
 #define TIM2ETR                 TIM2ETR
-#define TIM2CH1                 TIM2CH1
-#define TIM2CH2                 TIM2CH2
-#define TIM2CH3                 TIM2CH3
-#define TIM2CH4                 TIM2CH4
+#define TIM2CH1(a)              TIM2CH1(a)
+#define TIM2CH2(a)              TIM2CH2(a)
+#define TIM2CH3(a)              TIM2CH3(a)
+#define TIM2CH4(a)              TIM2CH4(a)
 #define TIM3ETR                 TIM3ETR
-#define TIM3CH1                 TIM3CH1
-#define TIM3CH2                 TIM3CH2
-#define TIM3CH3                 TIM3CH3
-#define TIM3CH4                 TIM3CH4
+#define TIM3CH1(a)              TIM3CH1(a)
+#define TIM3CH2(a)              TIM3CH2(a)
+#define TIM3CH3(a)              TIM3CH3(a)
+#define TIM3CH4(a)              TIM3CH4(a)
 #define TIM4ETR                 TIM4ETR
-#define TIM4CH1                 TIM4CH1
-#define TIM4CH2                 TIM4CH2
-#define TIM4CH3                 TIM4CH3
-#define TIM4CH4                 TIM4CH4
+#define TIM4CH1(a)              TIM4CH1(a)
+#define TIM4CH2(a)              TIM4CH2(a)
+#define TIM4CH3(a)              TIM4CH3(a)
+#define TIM4CH4(a)              TIM4CH4(a)
 #define TIM5ETR                 TIM5ETR
-#define TIM5CH1                 TIM5CH1
-#define TIM5CH2                 TIM5CH2
-#define TIM5CH3                 TIM5CH3
-#define TIM5CH4                 TIM5CH4
+#define TIM5CH1(a)              TIM5CH1(a)
+#define TIM5CH2(a)              TIM5CH2(a)
+#define TIM5CH3(a)              TIM5CH3(a)
+#define TIM5CH4(a)              TIM5CH4(a)
 
-#define TIM9CH1                 TIM9CH1
-#define TIM9CH2                 TIM9CH2
-#define TIM10CH1                TIM10CH1
-#define TIM10CH2                TIM10CH2
-#define TIM11CH1                TIM11CH1
-#define TIM11CH2                TIM11CH2
-#define TIM12CH1                TIM12CH1
-#define TIM12CH2                TIM12CH2
-#define TIM13CH1                TIM13CH1
-#define TIM13CH2                TIM13CH2
-#define TIM14CH1                TIM14CH1
-#define TIM14CH2                TIM14CH2
+#define TIM9CH1(a)              TIM9CH1(a)
+#define TIM9CH2(a)              TIM9CH2(a)
+#define TIM10CH1(a)             TIM10CH1(a)
+#define TIM10CH2(a)             TIM10CH2(a)
+#define TIM11CH1(a)             TIM11CH1(a)
+#define TIM11CH2(a)             TIM11CH2(a)
+#define TIM12CH1(a)             TIM12CH1(a)
+#define TIM12CH2(a)             TIM12CH2(a)
+#define TIM13CH1(a)             TIM13CH1(a)
+#define TIM13CH2(a)             TIM13CH2(a)
+#define TIM14CH1(a)             TIM14CH1(a)
+#define TIM14CH2(a)             TIM14CH2(a)
 
 #define SDIO1D0                 SDIO1D0
 #define SDIO1D1                 SDIO1D1
@@ -1629,8 +1636,8 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! \return None.
 //
 //*****************************************************************************        
-#define xGPIOPinConfigure(ulPinConfig)                                        \
-        GPIOPinConfigure(ulPinConfig)
+#define xGPIOPinConfigure(eShortPin, ulPinConfig)                                        \
+        GPIOPinConfigure(eShortPin, ulPinConfig)
 
 //*****************************************************************************
 //
@@ -1747,12 +1754,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //*****************************************************************************
 #define xSPinTypeADC(ePeripheralPin, eShortPin)                               \
-        do                                                                    \
-        {                                                                     \
-         xGPIOSDirModeSet(eShortPin, GPIO_TYPE_IN_ANALOG);                    \
-         GPIOSPinConfigure(ePeripheralPin, eShortPin);                        \
-        }                                                                     \
-        while(0)  
+        GPIOSPinConfigure(ePeripheralPin, eShortPin)  
 
 //*****************************************************************************
 //
@@ -1795,14 +1797,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //*****************************************************************************             
 #define xSPinTypeCAN(ePeripheralPin, eShortPin)                               \
-        do                                                                    \
-        {                                                                     \
-         ((ePeripheralPin == CAN0RX) ?                                             \
-         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_IN) :                      \
-         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_HWSTD);                   \
-         GPIOSPinConfigure(ePeripheralPin, eShortPin);                        \
-        }                                                                     \
-        while(0)
+        GPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -1849,12 +1844,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //***************************************************************************** 
  #define xSPinTypeI2C(ePeripheralPin, eShortPin)                              \
-        do                                                                    \
-        {                                                                     \
-         GPIOSPinConfigure(ePeripheralPin, eShortPin);                        \
-         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_HWOD);                     \
-        }                                                                     \
-        while(0)
+         GPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -1912,12 +1902,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //***************************************************************************** 
 #define xSPinTypeI2S(ePeripheralPin, eShortPin)                               \
-        do                                                                    \
-        {                                                                     \
-         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_HWSTD);                    \
-         GPIOSPinConfigure(ePeripheralPin, eShortPin);                        \
-        }                                                                     \
-        while(0)
+        GPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -1970,12 +1955,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //*****************************************************************************
 #define xSPinTypeSPI(ePeripheralPin, eShortPin)                               \
-        do                                                                    \
-        {                                                                     \
-         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_HWSTD);                    \
-         GPIOSPinConfigure(ePeripheralPin, eShortPin);                        \
-        }                                                                     \
-        while(0)
+        GPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -2068,12 +2048,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //*****************************************************************************            
 #define xSPinTypeTimer(ePeripheralPin, eShortPin)                             \
-        do                                                                    \
-        {                                                                     \
-         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_HWSTD);                    \
-         GPIOSPinConfigure(ePeripheralPin, eShortPin);                        \
-        }                                                                     \
-        while(0)
+        GPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -2133,12 +2108,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //*****************************************************************************
 #define xSPinTypeUART(ePeripheralPin, eShortPin)                              \
-        do                                                                    \
-        {                                                                     \
-         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_HWSTD);                    \
-         GPIOSPinConfigure(ePeripheralPin, eShortPin);                        \
-        }                                                                     \
-        while(0)
+        GPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -2185,12 +2155,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //*****************************************************************************            
 #define xSPinTypeSDIO(ePeripheralPin, eShortPin)                              \
-        do                                                                    \
-        {                                                                     \
-         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_HWSTD);                     \
-         GPIOSPinConfigure(ePeripheralPin, eShortPin);                        \
-        }                                                                     \
-        while(0)
+        GPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -2228,12 +2193,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //*****************************************************************************
 #define xSPinTypeCLKO(ePeripheralPin, eShortPin)                              \
-        do                                                                    \
-        {                                                                     \
-         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_HWSTD);                    \
-         GPIOSPinConfigure(ePeripheralPin, eShortPin);                        \
-        }                                                                     \
-        while(0)
+        GPIOSPinConfigure(ePeripheralPin, eShortPin)
             
 //*****************************************************************************
 //
@@ -2272,12 +2232,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //*****************************************************************************
 #define xSPinTypeDAC(ePeripheralPin, eShortPin)                               \
-        do                                                                    \
-        {                                                                     \
-         xGPIOSDirModeSet(eShortPin, GPIO_TYPE_IN_ANALOG);                     \
-         GPIOSPinConfigure(ePeripheralPin, eShortPin);                        \
-        }                                                                     \
-        while(0)
+        GPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -2379,12 +2334,8 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //*****************************************************************************            
 #define xSPinTypeFSMC(ePeripheralPin, eShortPin)                              \
-        do                                                                    \
-        {                                                                     \
-         xGPIOSDirModeSet(eShortPin, GPIO_DIR_MODE_HWOD);                     \
-         GPIOSPinConfigure(ePeripheralPin, eShortPin);                        \
-        }                                                                     \
-        while(0)
+        GPIOSPinConfigure(ePeripheralPin, eShortPin)
+
 
 
 //*****************************************************************************
@@ -2789,146 +2740,146 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //! GPIO pin A0
 //
-#define GPIO_PA0_WKUP           0x00000000
-#define GPIO_PA0_UART2CTS       0x00000000
+#define GPIO_PA0_WKUP           0x20000000
+#define GPIO_PA0_UART2CTS       0x20000000
 #define GPIO_PA0_ADC0           0x00000000
-#define GPIO_PA0_TIM2CH1        0x00000000
-#define GPIO_PA0_TIM2ETR        0x00000000
-#define GPIO_PA0_TIM5CH1        0x00000000
-#define GPIO_PA0_TIM8ETR        0x00000000
+#define GPIO_PA0_TIM2CH1(a)     (0x00000000 | (a << 29))
+#define GPIO_PA0_TIM2ETR        0x20000000
+#define GPIO_PA0_TIM5CH1(a)     (0x00000000 | (a << 29))
+#define GPIO_PA0_TIM8ETR        0x20000000
 
 //
 //! GPIO pin A1
 //
-#define GPIO_PA1_UART2RTS       0x00000000
+#define GPIO_PA1_UART2RTS       0x60000000
 #define GPIO_PA1_ADC1           0x00000000
-#define GPIO_PA1_TIM5CH2        0x00000000
-#define GPIO_PA1_TIM2CH2        0x00000000
+#define GPIO_PA1_TIM5CH2(a)     (0x00000000 | (a << 29))
+#define GPIO_PA1_TIM2CH2(a)     (0x00000000 | (a << 29))
 
 //
 //! GPIO pin A2
 //
-#define GPIO_PA2_UART2TX        0x00000000
-#define GPIO_PA2_TIM5CH3        0x00000000
+#define GPIO_PA2_UART2TX        0x60000000
+#define GPIO_PA2_TIM5CH3(a)     (0x00000000 | (a << 29))
 #define GPIO_PA2_ADC2           0x00000000
-#define GPIO_PA2_TIM9CH1        0x00000000
-#define GPIO_PA2_TIM2CH3        0x00000000
+#define GPIO_PA2_TIM9CH1(a)     (0x00000000 | (a << 29))
+#define GPIO_PA2_TIM2CH3(a)     (0x00000000 | (a << 29))
 
 //
 //! GPIO pin A3
 //
-#define GPIO_PA3_UART2RX        0x00000000
-#define GPIO_PA3_TIM5CH4        0x00000000
+#define GPIO_PA3_UART2RX        0x20000000
+#define GPIO_PA3_TIM5CH4(a)     (0x00000000 | (a << 29))
 #define GPIO_PA3_ADC3           0x00000000
-#define GPIO_PA3_TIM2CH4        0x00000000
-#define GPIO_PA3_TIM9CH2        0x00000000
+#define GPIO_PA3_TIM2CH4(a)     (0x00000000 | (a << 29))
+#define GPIO_PA3_TIM9CH2(a)     (0x00000000 | (a << 29))
 
 //
 //! GPIO pin A4
 //
-#define GPIO_PA4_SPI1CS         0x00000000
-#define GPIO_PA4_UART2CK        0x00000000
+#define GPIO_PA4_SPI1CS(a)      (0x00000000 | (a << 29))
+#define GPIO_PA4_UART2CK        0x60000000
 #define GPIO_PA4_DACOUT1        0x00000000
 #define GPIO_PA4_ADC4           0x00000000
 
 //
 //! GPIO pin A5
 //
-#define GPIO_PA5_SPI1CLK        0x00000000
+#define GPIO_PA5_SPI1CLK(a)     (0x00000000 | (a << 29))
 #define GPIO_PA5_DACOUT2        0x00000000
 #define GPIO_PA5_ADC5           0x00000000
 
 //
 //! GPIO pin A6
 //
-#define GPIO_PA6_SPI1MISO       0x00000000
-#define GPIO_PA6_TIM8BKIN       0x00000000
+#define GPIO_PA6_SPI1MISO(a)    (0x00000000 | (a << 29))
+#define GPIO_PA6_TIM8BKIN       0x20000000
 #define GPIO_PA6_ADC6           0x00000000
-#define GPIO_PA6_TIM3CH1        0x00000000
-#define GPIO_PA6_TIM13CH1       0x00000000
-#define GPIO_PA6_TIM1BKIN       0x00000040
+#define GPIO_PA6_TIM3CH1(a)     (0x00000000 | (a << 29))
+#define GPIO_PA6_TIM13CH1(a)    (0x00000000 | (a << 29))
+#define GPIO_PA6_TIM1BKIN       0x20000040
 
 //
 //! GPIO pin A7
 //
-#define GPIO_PA7_SPI1MOSI       0x00000000
-#define GPIO_PA7_TIM8CH1N       0x00000000
+#define GPIO_PA7_SPI1MOSI(a)    (0x00000000 | (a << 29))
+#define GPIO_PA7_TIM8CH1N       0x60000000
 #define GPIO_PA7_ADC7           0x00000000
-#define GPIO_PA7_TIM3CH2        0x00000000
-#define GPIO_PA7_TIM14CH1       0x00000000
-#define GPIO_PA7_TIM1CH1N       0x00000040
+#define GPIO_PA7_TIM3CH2(a)     (0x00000000 | (a << 29))
+#define GPIO_PA7_TIM14CH1(a)    (0x00000000 | (a << 29))
+#define GPIO_PA7_TIM1CH1N       0x60000040
 
 //
 //! GPIO pin A8
 //
-#define GPIO_PA8_UART1CK        0x00000000
-#define GPIO_PA8_TIM1CH1        0x00000040
-#define GPIO_PA8_MCO            0x00000000
+#define GPIO_PA8_UART1CK        0x60000000
+#define GPIO_PA8_TIM1CH1(a)     (0x00000040 | (a << 29))
+#define GPIO_PA8_MCO            0x60000000
 
 //
 //! GPIO pin A9
 //
-#define GPIO_PA9_UART1TX        0x00000000
-#define GPIO_PA9_TIM1CH2        0x00000040
+#define GPIO_PA9_UART1TX        0x60000000
+#define GPIO_PA9_TIM1CH2(a)     (0x00000040 | (a << 29))
 
 //
 //! GPIO pin A10
 //
-#define GPIO_PA10_UART1RX       0x00000000
-#define GPIO_PA10_TIM1CH3       0x00000040
+#define GPIO_PA10_UART1RX       0x20000000
+#define GPIO_PA10_TIM1CH3(a)     (0x00000040 | (a << 29))
 
 //
 //! GPIO pin A11
 //
-#define GPIO_PA11_UART1CTS      0x00000000
+#define GPIO_PA11_UART1CTS      0x20000000
 #define GPIO_PA11_USBDM         0x00000000
-#define GPIO_PA11_CAN0RX        0x00000000
-#define GPIO_PA11_TIM1CH4       0x00000040
+#define GPIO_PA11_CAN0RX        0x20000000
+#define GPIO_PA11_TIM1CH4(a)    (0x00000040 | (a << 29))
 
 //
 //! GPIO pin A12
 //
-#define GPIO_PA12_UART1RTS      0x00000000
+#define GPIO_PA12_UART1RTS      0x60000000
 #define GPIO_PA12_USBDP         0x00000000
-#define GPIO_PA12_CAN0TX        0x00000000
-#define GPIO_PA12_TIM1ETR       0x00000040
+#define GPIO_PA12_CAN0TX        0x60000000
+#define GPIO_PA12_TIM1ETR       0x20000040
 
 //
 //! GPIO pin A13
 //
-#define GPIO_PA13_PA13          0x04000000
+#define GPIO_PA13_PA13(a)       (0x04000000 | (a << 29))
 
 //
 //! GPIO pin A14
 //
-#define GPIO_PA14_PA14          0x02000000
+#define GPIO_PA14_PA14(a)       (0x02000000 | (a << 29))
 
 //
 //! GPIO pin A15
 //
-#define GPIO_PA15_SPI3CS        0x00000000
-#define GPIO_PA15_I2S3RXWS      0x00000000
-#define GPIO_PA15_I2S3TXWS      0x00000000
-#define GPIO_PA15_TIM2ETR       0x00000100
-#define GPIO_PA15_TIM2CH1       0x00000100
-#define GPIO_PA15_PA15          0x02000000
-#define GPIO_PA15_SPI1CS        0x00000001
+#define GPIO_PA15_SPI3CS(a)     (0x00000000 | (a << 29))
+#define GPIO_PA15_I2S3RXWS(a)   (0x00000000 | (a << 29))
+#define GPIO_PA15_I2S3TXWS(a)   (0x00000000 | (a << 29))
+#define GPIO_PA15_TIM2ETR       0x20000100
+#define GPIO_PA15_TIM2CH1(a)    (0x00000100 | (a << 29))
+#define GPIO_PA15_PA15(a)       (0x02000000 | (a << 29))
+#define GPIO_PA15_SPI1CS(a)     (0x00000001 | (a << 29))
 
 //
 //! GPIO pin B0
 //
 #define GPIO_PB0_ADC8           0x00000000
-#define GPIO_PB0_TIM3CH3        0x00000000
-#define GPIO_PB0_TIM8CH2N       0x00000000
-#define GPIO_PB0_TIM1CH2N       0x00000040
+#define GPIO_PB0_TIM3CH3(a)     (0x00000000 | (a << 29))
+#define GPIO_PB0_TIM8CH2N       0x60000000
+#define GPIO_PB0_TIM1CH2N       0x60000040
 
 //
 //! GPIO pin B1
 //
 #define GPIO_PB1_ADC9           0x00000000
-#define GPIO_PB1_TIM3CH4        0x00000000
-#define GPIO_PB1_TIM8CH3N       0x00000000
-#define GPIO_PB1_TIM1CH3N       0x00000040
+#define GPIO_PB1_TIM3CH4(a)     (0x00000000 | (a << 29))
+#define GPIO_PB1_TIM8CH3N       0x60000000
+#define GPIO_PB1_TIM1CH3N       0x60000040
 
 //
 //! GPIO pin B2
@@ -2938,112 +2889,112 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //! GPIO pin B3
 //
-#define GPIO_PB3_SPI3CLK        0x00000000
-#define GPIO_PB3_I2S3RXSCK      0x00000000 
-#define GPIO_PB3_I2S3TXSCK      0x00000000
-#define GPIO_PB3_PB3            0x01000000
+#define GPIO_PB3_SPI3CLK(a)     (0x00000000 | (a << 29))
+#define GPIO_PB3_I2S3RXSCK      0x60000000 
+#define GPIO_PB3_I2S3TXSCK      0x60000000
+#define GPIO_PB3_PB3(a)         (0x01000000 | (a << 29))
 #define GPIO_PB3_TRACESWO       0x00000000
-#define GPIO_PB3_TIM2CH2        0x00000100
-#define GPIO_PB3_SPI1CLK        0x00000001
+#define GPIO_PB3_TIM2CH2(a)     (0x00000100 | (a << 29))
+#define GPIO_PB3_SPI1CLK(a)     (0x00000001 | (a << 29))
 
 //
 //! GPIO pin B4
 //
-#define GPIO_PB4_SPI3MISO       0x00000000
-#define GPIO_PB4_PB4            0x01000000
-#define GPIO_PB4_TIM3CH1        0x00000800
-#define GPIO_PB4_SPI1MISO       0x00000001
+#define GPIO_PB4_SPI3MISO(a)    (0x00000000 | (a << 29))
+#define GPIO_PB4_PB4(a)         (0x01000000 | (a << 29))
+#define GPIO_PB4_TIM3CH1(a)     (0x00000800 | (a << 29))
+#define GPIO_PB4_SPI1MISO(a)    (0x00000001 | (a << 29))
 
 //
 //! GPIO pin B5
 //
-#define GPIO_PB5_I2C1SMBA       0x00000000
-#define GPIO_PB5_SPI3MOSI       0x00000000
-#define GPIO_PB5_I2S3RXSD       0x00000000
-#define GPIO_PB5_I2S3TXSD       0x00000000
-#define GPIO_PB5_TIM3CH2        0x00000800
-#define GPIO_PB5_SPI1MOSI       0x00000001
+#define GPIO_PB5_I2C1SMBA       0x80000000
+#define GPIO_PB5_SPI3MOSI(a)    (0x00000000 | (a << 29))
+#define GPIO_PB5_I2S3RXSD(a)    (0x00000000 | (a << 29))
+#define GPIO_PB5_I2S3TXSD(a)    (0x00000000 | (a << 29))
+#define GPIO_PB5_TIM3CH2(a)     (0x00000800 | (a << 29))
+#define GPIO_PB5_SPI1MOSI(a)    (0x00000001 | (a << 29))
 
 //
 //! GPIO pin B6
 //
-#define GPIO_PB6_I2C1SCK        0x00000000
-#define GPIO_PB6_TIM4CH1        0x00000000
-#define GPIO_PB6_UART1TX        0x00000004
+#define GPIO_PB6_I2C1SCK        0x80000000
+#define GPIO_PB6_TIM4CH1(a)     (0x00000000 | (a << 29))
+#define GPIO_PB6_UART1TX        0x60000004
 
 //
 //! GPIO pin B7
 //
-#define GPIO_PB7_I2C1SDA        0x00000000
-#define GPIO_PB7_FSMC1NADV      0x00000000
-#define GPIO_PB7_TIM4CH2        0x00000000
-#define GPIO_PB7_UART1RX        0x00000004
+#define GPIO_PB7_I2C1SDA        0x80000000
+#define GPIO_PB7_FSMC1NADV      0x60000000
+#define GPIO_PB7_TIM4CH2(a)     (0x00000000 | (a << 29))
+#define GPIO_PB7_UART1RX        0x20000004
 
 //
 //! GPIO pin B8
 //
-#define GPIO_PB8_TIM4CH3        0x00000000
-#define GPIO_PB8_SDIO1D4        0x00000000
-#define GPIO_PB8_I2C1SCK        0x00000002
-#define GPIO_PB8_CAN0RX         0x00004000
+#define GPIO_PB8_TIM4CH3(a)     (0x00000000 | (a << 29))
+#define GPIO_PB8_SDIO1D4        0x60000000
+#define GPIO_PB8_I2C1SCK        0x80000002
+#define GPIO_PB8_CAN0RX         0x20004000
 
 //
 //! GPIO pin B9
 //
-#define GPIO_PB9_TIM4CH4        0x00000000
-#define GPIO_PB9_SDIO1D5        0x00000000
-#define GPIO_PB9_I2C1SDA        0x00000002
-#define GPIO_PB9_CAN0TX         0x00004000
+#define GPIO_PB9_TIM4CH4(a)     (0x00000000 | (a << 29))
+#define GPIO_PB9_SDIO1D5        0x60000000
+#define GPIO_PB9_I2C1SDA        0x80000002
+#define GPIO_PB9_CAN0TX         0x60004000
 
 //
 //! GPIO pin B10
 //
-#define GPIO_PB10_I2C2SCK       0x00000000
-#define GPIO_PB10_UART3TX       0x00000000
-#define GPIO_PB10_TIM2CH3       0x00000200
+#define GPIO_PB10_I2C2SCK       0x80000000
+#define GPIO_PB10_UART3TX       0x60000000
+#define GPIO_PB10_TIM2CH3(a)    (0x00000200 | (a << 29))
 
 //
 //! GPIO pin B11
 //
-#define GPIO_PB11_I2C2SDA       0x00000000
-#define GPIO_PB11_UART3RX       0x00000000
-#define GPIO_PB11_TIM2CH4       0x00000200
+#define GPIO_PB11_I2C2SDA       0x80000000
+#define GPIO_PB11_UART3RX       0x20000000
+#define GPIO_PB11_TIM2CH4(a)    (0x00000200 | (a << 29))
 
 //
 //! GPIO pin B12
 //
-#define GPIO_PB12_SPI2CS        0x00000000
-#define GPIO_PB12_I2S2TXWS      0x00000000
-#define GPIO_PB12_I2S2RXWS      0x00000000
-#define GPIO_PB12_I2C2SMBA      0x00000000
-#define GPIO_PB12_UART3CK       0x00000000
-#define GPIO_PB12_TIM1BKIN      0x00000000
+#define GPIO_PB12_SPI2CS(a)     (0x00000000 | (a << 29))
+#define GPIO_PB12_I2S2TXWS(a)   (0x00000000 | (a << 29))
+#define GPIO_PB12_I2S2RXWS(a)   (0x00000000 | (a << 29))
+#define GPIO_PB12_I2C2SMBA      0x80000000
+#define GPIO_PB12_UART3CK       0x60000000
+#define GPIO_PB12_TIM1BKIN      0x20000000
 
 //
 //! GPIO pin B13
 //
-#define GPIO_PB13_SPI2CLK       0x00000000
-#define GPIO_PB13_I2S2RXSCK     0x00000000
-#define GPIO_PB13_I2S2TXSCK     0x00000000
-#define GPIO_PB13_UART3CTS      0x00000000
-#define GPIO_PB13_TIM1CH1N      0x00000000
+#define GPIO_PB13_SPI2CLK(a)    (0x00000000 | (a << 29))
+#define GPIO_PB13_I2S2RXSCK(a)  (0x00000000 | (a << 29))
+#define GPIO_PB13_I2S2TXSCK(a)  (0x00000000 | (a << 29))
+#define GPIO_PB13_UART3CTS      0x20000000
+#define GPIO_PB13_TIM1CH1N      0x60000000
 
 //
 //! GPIO pin B14
 //
-#define GPIO_PB14_SPI2MISO      0x00000000
-#define GPIO_PB14_TIM1CH2N      0x00000000
-#define GPIO_PB14_UART3RTS      0x00000000
-#define GPIO_PB14_TIM12CH1      0x00000000
+#define GPIO_PB14_SPI2MISO(a)   (0x00000000 | (a << 29))
+#define GPIO_PB14_TIM1CH2N      0x60000000
+#define GPIO_PB14_UART3RTS      0x60000000
+#define GPIO_PB14_TIM12CH1(a)   (0x00000000 | (a << 29))
 
 //
 //! GPIO pin B15
 //
-#define GPIO_PB15_SPI2MOSI      0x00000000
-#define GPIO_PB15_I2S2RXSD      0x00000000
-#define GPIO_PB15_I2S2TXSD      0x00000000
+#define GPIO_PB15_SPI2MOSI(a)   (0x00000000 | (a << 29))
+#define GPIO_PB15_I2S2RXSD(a)   (0x00000000 | (a << 29))
+#define GPIO_PB15_I2S2TXSD(a)   (0x00000000 | (a << 29))
 #define GPIO_PB15_TIM1CH3N      0x00000000
-#define GPIO_PB15_TIM12CH2      0x00000000
+#define GPIO_PB15_TIM12CH2(a)   (0x00000000 | (a << 29))
 
 //
 //! GPIO pin C0
@@ -3078,55 +3029,55 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //! GPIO pin C6
 //
-#define GPIO_PC6_I2S2RXMCLK     0x00000000
-#define GPIO_PC6_I2S2TXMCLK     0x00000000
-#define GPIO_PC6_TIM8CH1        0x00000000
-#define GPIO_PC6_SDIO1D6        0x00000000
-#define GPIO_PC6_TIM3CH1        0x00000C00
+#define GPIO_PC6_I2S2RXMCLK     0x60000000
+#define GPIO_PC6_I2S2TXMCLK     0x60000000
+#define GPIO_PC6_TIM8CH1(a)     (0x00000000 | (a << 29))
+#define GPIO_PC6_SDIO1D6        0x60000000
+#define GPIO_PC6_TIM3CH1(a)     (0x00000C00 | (a << 29))
 
 //
 //! GPIO pin C7
 //
-#define GPIO_PC7_I2S3RXMCLK     0x00000000
-#define GPIO_PC7_I2S3TXMCLK     0x00000000
-#define GPIO_PC7_TIM8CH2        0x00000000
-#define GPIO_PC7_SDIO1D7        0x00000000
-#define GPIO_PC7_TIM3CH2        0x00000C00
+#define GPIO_PC7_I2S3RXMCLK     0x60000000
+#define GPIO_PC7_I2S3TXMCLK     0x60000000
+#define GPIO_PC7_TIM8CH2(a)     (0x00000000 | (a << 29))
+#define GPIO_PC7_SDIO1D7        0x60000000
+#define GPIO_PC7_TIM3CH2(a)     (0x00000C00 | (a << 29))
 
 //
 //! GPIO pin C8
 //
-#define GPIO_PC8_TIM8CH3        0x00000000
-#define GPIO_PC8_SDIO1D0        0x00000000
-#define GPIO_PC8_TIM3CH3        0x00000C00
+#define GPIO_PC8_TIM8CH3(a)     (0x00000000 | (a << 29))
+#define GPIO_PC8_SDIO1D0        0x60000000
+#define GPIO_PC8_TIM3CH3(a)     (0x00000C00 | (a << 29))
 
 //
 //! GPIO pin C9
 //
-#define GPIO_PC9_TIM8CH4        0x00000000
-#define GPIO_PC9_SDIO1D1        0x00000000
-#define GPIO_PC9_TIM3CH4        0x00000C00
+#define GPIO_PC9_TIM8CH4(a)     (0x00000000 | (a << 29))
+#define GPIO_PC9_SDIO1D1        0x60000000
+#define GPIO_PC9_TIM3CH4(a)     (0x00000C00 | (a << 29))
 
 //
 //! GPIO pin C10
 //
-#define GPIO_PC10_UART4TX       0x00000000
-#define GPIO_PC10_SDIO1D2       0x00000000
-#define GPIO_PC10_UART3TX       0x00000010
+#define GPIO_PC10_UART4TX       0x60000000
+#define GPIO_PC10_SDIO1D2       0x60000000
+#define GPIO_PC10_UART3TX       0x60000010
 
 //
 //! GPIO pin C11
 //
-#define GPIO_PC11_UART4RX       0x00000000
-#define GPIO_PC11_SDIO1D3       0x00000000
-#define GPIO_PC11_UART3RX       0x00000010
+#define GPIO_PC11_UART4RX       0x20000000
+#define GPIO_PC11_SDIO1D3       0x60000000
+#define GPIO_PC11_UART3RX       0x20000010
 
 //
 //! GPIO pin C12
 //
-#define GPIO_PC12_UART5TX       0x00000000
-#define GPIO_PC12_SDIO1CK       0x00000000
-#define GPIO_PC12_UART3CK       0x00000010
+#define GPIO_PC12_UART5TX       0x60000000
+#define GPIO_PC12_SDIO1CK       0x60000000
+#define GPIO_PC12_UART3CK       0x60000010
 
 //
 //! GPIO pin C13
@@ -3136,341 +3087,341 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //! GPIO pin C14
 //
-#define GPIO_PC14_OSC32_IN      0x00000000
+#define GPIO_PC14_OSC32_IN      0x20000000
 
 //
 //! GPIO pin C15
 //
-#define GPIO_PC15_OSC32_OUT     0x00000000
+#define GPIO_PC15_OSC32_OUT     0x60000000
 
 //
 //! GPIO pin D0
 //
-#define GPIO_PD0_FSMC1D2        0x00000000
-#define GPIO_PD0_OSC_IN         0x00008000
-#define GPIO_PD0_CAN0RX         0x00006000
+#define GPIO_PD0_FSMC1D2        0x60000000
+#define GPIO_PD0_OSC_IN         0x20008000
+#define GPIO_PD0_CAN0RX         0x20006000
 
 //
 //! GPIO pin D1
 //
-#define GPIO_PD1_FSMC1D3        0x00000000
-#define GPIO_PD1_OSC_OUT        0x00008000
-#define GPIO_PD1_CAN0TX         0x00006000
+#define GPIO_PD1_FSMC1D3        0x60000000
+#define GPIO_PD1_OSC_OUT        0x60008000
+#define GPIO_PD1_CAN0TX         0x60006000
 
 //
 //! GPIO pin D2
 //
-#define GPIO_PD2_TIM3ETR        0x00000000
-#define GPIO_PD2_UART5RX        0x00000000
-#define GPIO_PD2_SDIO1CMD       0x00000000
+#define GPIO_PD2_TIM3ETR        0x20000000
+#define GPIO_PD2_UART5RX        0x20000000
+#define GPIO_PD2_SDIO1CMD       0x60000000
 
 //
 //! GPIO pin D3
 //
-#define GPIO_PD3_FSMC1CLK       0x00000000
-#define GPIO_PD3_UART2CTS       0x00000008
+#define GPIO_PD3_FSMC1CLK       0x60000000
+#define GPIO_PD3_UART2CTS       0x20000008
 
 //
 //! GPIO pin D4
 //
-#define GPIO_PD4_FSMC1NOE       0x00000000
-#define GPIO_PD4_UART2RTS       0x00000008
+#define GPIO_PD4_FSMC1NOE       0x60000000
+#define GPIO_PD4_UART2RTS       0x60000008
 
 //
 //! GPIO pin D5
 //
-#define GPIO_PD5_FSMC1NWE       0x00000000
-#define GPIO_PD5_UART2TX        0x00000008
+#define GPIO_PD5_FSMC1NWE       0x60000000
+#define GPIO_PD5_UART2TX        0x60000008
 
 //
 //! GPIO pin D6
 //
-#define GPIO_PD6_FSMC1NWAIT     0x00000000
-#define GPIO_PD6_UART2RX        0x00000008
+#define GPIO_PD6_FSMC1NWAIT     0x20000000
+#define GPIO_PD6_UART2RX        0x20000008
 
 //
 //! GPIO pin D7
 //
-#define GPIO_PD7_FSMC1NE1       0x00000000
-#define GPIO_PD7_FSMC1NCE2      0x00000000
-#define GPIO_PD7_UART2CK        0x00000008
+#define GPIO_PD7_FSMC1NE1       0x60000000
+#define GPIO_PD7_FSMC1NCE2      0x60000000
+#define GPIO_PD7_UART2CK        0x60000008
 
 //
 //! GPIO pin D8
 //
-#define GPIO_PD8_FSMC1D13       0x00000000
-#define GPIO_PD8_UART3TX        0x00000030
+#define GPIO_PD8_FSMC1D13       0x60000000
+#define GPIO_PD8_UART3TX        0x60000030
 
 //
 //! GPIO pin D9
 //
-#define GPIO_PD9_FSMC1D14       0x00000000
-#define GPIO_PD9_UART3RX        0x00000030
+#define GPIO_PD9_FSMC1D14       0x60000000
+#define GPIO_PD9_UART3RX        0x20000030
 
 //
 //! GPIO pin D10
 //
-#define GPIO_PD10_FSMC1D15      0x00000000
-#define GPIO_PD10_UART3CK       0x00000030
+#define GPIO_PD10_FSMC1D15      0x60000000
+#define GPIO_PD10_UART3CK       0x60000030
 
 //
 //! GPIO pin D11
 //
-#define GPIO_PD11_FSMC1A16      0x00000000
-#define GPIO_PD11_UART3CTS      0x00000030
+#define GPIO_PD11_FSMC1A16      0x60000000
+#define GPIO_PD11_UART3CTS      0x20000030
 
 //
 //! GPIO pin D12
 //
-#define GPIO_PD12_FSMC1A17      0x00000000
-#define GPIO_PD12_TIM4CH1       0x00001000
-#define GPIO_PD12_UART3RTS      0x00000030
+#define GPIO_PD12_FSMC1A17      0x60000000
+#define GPIO_PD12_TIM4CH1(a)    (0x00001000 | (a << 29))
+#define GPIO_PD12_UART3RTS      0x60000030
 
 //
 //! GPIO pin D13
 //
-#define GPIO_PD13_FSMC1A18      0x00000000
-#define GPIO_PD13_TIM4CH2       0x00001000
+#define GPIO_PD13_FSMC1A18      0x60000000
+#define GPIO_PD13_TIM4CH2(a)    (0x00001000 | (a << 29))
 
 //
 //! GPIO pin D14
 //
-#define GPIO_PD14_FSMC1D0       0x00000000
-#define GPIO_PD14_TIM4CH3       0x00001000
+#define GPIO_PD14_FSMC1D0       0x60000000
+#define GPIO_PD14_TIM4CH3(a)    (0x00001000 | (a << 29))
 
 //
 //! GPIO pin D15
 //
-#define GPIO_PD15_FSMC1D1       0x00000000
-#define GPIO_PD15_TIM4CH4       0x00001000
+#define GPIO_PD15_FSMC1D1       0x60000000
+#define GPIO_PD15_TIM4CH4(a)    (0x00001000 | (a << 29))
 
 //
 //! GPIO pin E0
 //
-#define GPIO_PE0_TIM4ETR        0x00000000
-#define GPIO_PE0_FSMC1NBL0      0x00000000
+#define GPIO_PE0_TIM4ETR        0x20000000
+#define GPIO_PE0_FSMC1NBL0      0x60000000
 
 //
 //! GPIO pin E1
 //
-#define GPIO_PE1_FSMC1NBL1      0x00000000
+#define GPIO_PE1_FSMC1NBL1      0x60000000
 
 //
 //! GPIO pin E2
 //
 #define GPIO_PE2_TRACECK        0x00000000
-#define GPIO_PE2_FSMC1A23       0x00000000
+#define GPIO_PE2_FSMC1A23       0x60000000
 
 //
 //! GPIO pin E3
 //
 #define GPIO_PE3_TRACED0        0x00000000
-#define GPIO_PE3_FSMC1A19       0x00000000
+#define GPIO_PE3_FSMC1A19       0x60000000
 
 //
 //! GPIO pin E4
 //
 #define GPIO_PE4_TRACED1        0x00000000
-#define GPIO_PE4_FSMC1A20       0x00000000
+#define GPIO_PE4_FSMC1A20       0x60000000
 
 //
 //! GPIO pin E5
 //
 #define GPIO_PE5_TRACED2        0x00000000
-#define GPIO_PE5_FSMC121        0x00000000
-#define GPIO_PE5_TIM9CH1        0x10000020
+#define GPIO_PE5_FSMC121        0x60000000
+#define GPIO_PE5_TIM9CH1(a)     (0x10000020 | (a << 29))
 
 //
 //! GPIO pin E6
 //
 #define GPIO_PE6_TRACED3        0x00000000
-#define GPIO_PE6_FSMC122        0x00000000
+#define GPIO_PE6_FSMC122        0x60000000
 #define GPIO_PE6_TIM9CH2        0x10000020
 
 //
 //! GPIO pin E7
 //
-#define GPIO_PE7_FSMC1D4        0x00000000
-#define GPIO_PE7_TIM1ETR        0x000000C0
+#define GPIO_PE7_FSMC1D4        0x60000000
+#define GPIO_PE7_TIM1ETR        0x200000C0
 
 //
 //! GPIO pin E8
 //
-#define GPIO_PE8_FSMC1D5        0x00000000
-#define GPIO_PE8_TIM1CH1N       0x000000C0
+#define GPIO_PE8_FSMC1D5        0x60000000
+#define GPIO_PE8_TIM1CH1N       0x600000C0
 
 //
 //! GPIO pin E9
 //
-#define GPIO_PE9_FSMC1D6        0x00000000
-#define GPIO_PE9_TIM1CH1        0x000000C0
+#define GPIO_PE9_FSMC1D6        0x60000000
+#define GPIO_PE9_TIM1CH1(a)     (0x000000C0 | (a << 29))
 
 //
 //! GPIO pin E10
 //
-#define GPIO_PE10_FSMC1D7       0x00000000
-#define GPIO_PE10_TIM1CH2N      0x000000C0
+#define GPIO_PE10_FSMC1D7       0x60000000
+#define GPIO_PE10_TIM1CH2N      0x600000C0
 
 //
 //! GPIO pin E11
 //
-#define GPIO_PE11_FSMC1D8       0x00000000
-#define GPIO_PE11_TIM1CH2       0x000000C0
+#define GPIO_PE11_FSMC1D8       0x60000000
+#define GPIO_PE11_TIM1CH2(a)    (0x000000C0 | (a << 29))
 
 //
 //! GPIO pin E12
 //
-#define GPIO_PE12_FSMC1D9       0x00000000
-#define GPIO_PE12_TIM1CH3N      0x000000C0
+#define GPIO_PE12_FSMC1D9       0x60000000
+#define GPIO_PE12_TIM1CH3N      0x600000C0
 
 //
 //! GPIO pin E13
 //
-#define GPIO_PE13_FSMC1D10      0x00000000
-#define GPIO_PE13_TIM1CH3       0x000000C0
+#define GPIO_PE13_FSMC1D10      0x60000000
+#define GPIO_PE13_TIM1CH3(a)    (0x000000C0 | (a << 29))
 
 //
 //! GPIO pin E14
 //
-#define GPIO_PE14_FSMC1D11      0x00000000
-#define GPIO_PE14_TIM1CH4       0x000000C0
+#define GPIO_PE14_FSMC1D11      0x60000000
+#define GPIO_PE14_TIM1CH4(a)    (0x000000C0 | (a << 29))
 
 //
 //! GPIO pin E15
 //
-#define GPIO_PE15_FSMC1D12      0x00000000
-#define GPIO_PE15_TIM1BKIN      0x000000C0
+#define GPIO_PE15_FSMC1D12      0x60000000
+#define GPIO_PE15_TIM1BKIN      0x200000C0
 
 
 //
 //! GPIO pin F0
 //
-#define GPIO_PF0_FSMC1A0        0x00000000
+#define GPIO_PF0_FSMC1A0        0x60000000
 
 //
 //! GPIO pin F1
 //
-#define GPIO_PF1_FSMC1A1        0x00000000
+#define GPIO_PF1_FSMC1A1        0x60000000
 
 //
 //! GPIO pin F2
 //
-#define GPIO_PF2_FSMC1A2        0x00000000
+#define GPIO_PF2_FSMC1A2        0x60000000
 
 //
 //! GPIO pin F3
 //
-#define GPIO_PF3_FSMC1A3        0x00000000
+#define GPIO_PF3_FSMC1A3        0x60000000
 
 //
 //! GPIO pin F4
 //
-#define GPIO_PF4_FSMC1A4        0x00000000
+#define GPIO_PF4_FSMC1A4        0x60000000
 
 //
 //! GPIO pin F5
 //
-#define GPIO_PF5_FSMC1A5        0x00000000
+#define GPIO_PF5_FSMC1A5        0x60000000
 
 //
 //! GPIO pin F6
 //
 #define GPIO_PF6_ADC4           0x00000000
-#define GPIO_PF6_FSMC1NIORD     0x00000000
-#define GPIO_PF6_TIM10CH1       0x10000040
+#define GPIO_PF6_FSMC1NIORD     0x60000000
+#define GPIO_PF6_TIM10CH1(a)    (0x10000040 | (a << 29))
 
 //
 //! GPIO pin F7
 //
 #define GPIO_PF7_ADC5           0x00000000
-#define GPIO_PF7_FSMC1NREG      0x00000000
-#define GPIO_PF7_TIM11CH1       0x10000080
+#define GPIO_PF7_FSMC1NREG      0x60000000
+#define GPIO_PF7_TIM11CH1(a)    (0x10000080 | (a << 29))
 
 //
 //! GPIO pin F8
 //
 #define GPIO_PF8_ADC6           0x00000000
-#define GPIO_PF8_FSMC1NIOWR     0x00000000
-#define GPIO_PF8_TIM3CH1        0x10000100
+#define GPIO_PF8_FSMC1NIOWR     0x60000000
+#define GPIO_PF8_TIM3CH1(a)     (0x10000100 | (a << 29))
 
 //
 //! GPIO pin F9
 //
 #define GPIO_PF9_ADC7           0x00000000
-#define GPIO_PF9_FSMC1CD        0x00000000
-#define GPIO_PF9_TIM14CH1       0x10000200
+#define GPIO_PF9_FSMC1CD        0x20000000
+#define GPIO_PF9_TIM14CH1(a)    (0x10000200 | (a << 29))
 
 //
 //! GPIO pin F10
 //
 #define GPIO_PF10_ADC8          0x00000000
-#define GPIO_PF10_FSMC1INTR     0x00000000
+#define GPIO_PF10_FSMC1INTR     0x20000000
 
 //
 //! GPIO pin F11
 //
-#define GPIO_PF11_FSMC1NIOS16   0x00000000
+#define GPIO_PF11_FSMC1NIOS16   0x20000000
 
 //
 //! GPIO pin F12
 //
-#define GPIO_PF12_FSMC1A6       0x00000000
+#define GPIO_PF12_FSMC1A6       0x60000000
 
 //
 //! GPIO pin F13
 //
-#define GPIO_PF13_FSMC1A7       0x00000000
+#define GPIO_PF13_FSMC1A7       0x60000000
 
 //
 //! GPIO pin F14
 //
-#define GPIO_PF14_FSMC1A8       0x00000000
+#define GPIO_PF14_FSMC1A8       0x60000000
 
 //
 //! GPIO pin F15
 //
-#define GPIO_PF15_FSMC1A9       0x00000000
+#define GPIO_PF15_FSMC1A9       0x60000000
 
 
 //
 //! GPIO pin G0
 //
-#define GPIO_PG0_FSMC1A10       0x00000000
+#define GPIO_PG0_FSMC1A10       0x60000000
 
 //
 //! GPIO pin G1
 //
-#define GPIO_PG1_FSMC1A11       0x00000000
+#define GPIO_PG1_FSMC1A11       0x60000000
 
 //
 //! GPIO pin G2
 //
-#define GPIO_PG2_FSMC1A12       0x00000000
+#define GPIO_PG2_FSMC1A12       0x60000000
 
 //
 //! GPIO pin G3
 //
-#define GPIO_PG3_FSMC1A13       0x00000000
+#define GPIO_PG3_FSMC1A13       0x60000000
 
 //
 //! GPIO pin G4
 //
-#define GPIO_PG4_FSMC1A14       0x00000000
+#define GPIO_PG4_FSMC1A14       0x60000000
 
 //
 //! GPIO pin G5
 //
-#define GPIO_PG5_FSMC1A15       0x00000000
+#define GPIO_PG5_FSMC1A15       0x60000000
 
 //
 //! GPIO pin G6
 //
-#define GPIO_PG6_FSMC1INT2      0x00000000
+#define GPIO_PG6_FSMC1INT2      0x20000000
 
 //
 //! GPIO pin G7
 //
-#define GPIO_PG7_FSMC1INT3      0x00000000
+#define GPIO_PG7_FSMC1INT3      0x20000000
 
 //
 //! GPIO pin G8
@@ -3479,34 +3430,34 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //! GPIO pin G9
 //
-#define GPIO_PG9_FSMC1NE2       0x00000000
-#define GPIO_PG9_FSMC1NCE3      0x00000000
+#define GPIO_PG9_FSMC1NE2       0x60000000
+#define GPIO_PG9_FSMC1NCE3      0x60000000
 
 //
 //! GPIO pin G10
 //
-#define GPIO_PG10_FSMC1NCE4_1   0x00000000
-#define GPIO_PG10_FSMC1NE3      0x00000000
+#define GPIO_PG10_FSMC1NCE4_1   0x60000000
+#define GPIO_PG10_FSMC1NE3      0x60000000
 
 //
 //! GPIO pin G11
 //
-#define GPIO_PG11_FSMC1NCE4_2   0x00000000
+#define GPIO_PG11_FSMC1NCE4_2   0x60000000
 
 //
 //! GPIO pin G12
 //
-#define GPIO_PG12_FSMC1NE4      0x00000000
+#define GPIO_PG12_FSMC1NE4      0x60000000
 
 //
 //! GPIO pin G13
 //
-#define GPIO_PG13_FSMC1A24      0x00000000
+#define GPIO_PG13_FSMC1A24      0x60000000
 
 //
 //! GPIO pin G14
 //
-#define GPIO_PG14_FSMC1A25      0x00000000
+#define GPIO_PG14_FSMC1A25      0x60000000
 
 //
 //! GPIO pin G15
@@ -3561,7 +3512,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
         GPIOPinToPin(G##eShortPin)
         
 #define GPIOSPinConfigure(ePeripheralPin, eShortPin)                          \
-        GPIOPinConfigure(GPIO_##eShortPin##_##ePeripheralPin)
+        GPIOPinConfigure(G##eShortPin, GPIO_##eShortPin##_##ePeripheralPin)
 
 extern void GPIODirModeSet(unsigned long ulPort, unsigned long ulBit,
                            unsigned long ulPinType, unsigned long ulPinSpeed);
@@ -3585,7 +3536,8 @@ extern long GPIOPortMaskGet(unsigned long ulPort);
 extern long GPIOPinPortDoutGet(unsigned long ulPort);
 extern void GPIOPinFunctionSet(unsigned long ulFunction, unsigned long ulPort, 
                                unsigned long ulPins);
-extern void GPIOPinConfigure(unsigned long ulPinConfig);
+extern void GPIOPinConfigure(unsigned long ulPort, unsigned long ulPins, 
+                             unsigned long ulPinConfig);
 extern unsigned long  GPIOPinToPeripheralId(unsigned long ulPort, 
                                             unsigned long ulPin);
 extern unsigned long  GPIOPinToPort(unsigned long ulPort, 

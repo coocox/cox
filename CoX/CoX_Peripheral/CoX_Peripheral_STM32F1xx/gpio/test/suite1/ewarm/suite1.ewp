@@ -147,7 +147,6 @@
         <option>
           <name>CCDefines</name>
           <state>ewarm</state>
-          <state>xDEBUG</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -640,11 +639,11 @@
         </option>
         <option>
           <name>IlinkIcfOverride</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$TOOLKIT_DIR$\CONFIG\generic_cortex.icf</state>
+          <state>$PROJ_DIR$\suite1.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>

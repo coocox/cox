@@ -1,0 +1,199 @@
+//*****************************************************************************
+//
+//! \defgroup STM32F1xx_ADC STM32F1xx ADC
+//! 
+//! \brief Holtek STM32F1xx ADC Peripheral Driver
+//!
+//! The CoX Peripheral Library also provides APIs for full functions of ST
+//! STM32F1xx ADC.
+//! \n
+//!
+//! <h1>Contents</h1>
+//! - \ref STM32F1xx_ADC_Introduction
+//! - \ref STM32F1xx_ADC_Function_Desc
+//!   - \ref STM32F1xx_ADC_Pin_Desc
+//!   - \ref STM32F1xx_ADC_Func_Convertion
+//!     - \ref STM32F1xx_ADC_Func_Channel
+//!     - \ref STM32F1xx_ADC_Func_Convert_Mode
+//!     - \ref STM32F1xx_ADC_Func_Convert_Tigger
+//!     .
+//!   - \ref STM32F1xx_ADC_Func_Monitor
+//!   - \ref STM32F1xx_ADC_Func_Int
+//!   .
+//! - \ref STM32F1xx_ADC_API_Group
+//!   - \ref STM32F1xx_ADC_API_Group_AD
+//!   - \ref STM32F1xx_ADC_API_Group_Monitor
+//!   - \ref STM32F1xx_ADC_API_Group_Int
+//!   - \ref STM32F1xx_ADC_API_Group_DMA
+//!   .
+//! - \ref STM32F1xx_ADC_Usage
+//! .
+//! \n
+//!
+//! \section STM32F1xx_ADC_Introduction 1. STM32F1xx ADC Introduction
+//! STM32F1xx Series contains one 12-bit successive approximation 
+//!analog-to-digital converters (SAR A/D converter) with 8 input channels.
+//! <img src="STM32F1xx_ADC_block.jpg" />
+//!
+//! \section STM32F1xx_ADC_Function_Desc 2. STM32F1xx ADC Function Description
+//!
+//! \subsection STM32F1xx_ADC_Pin_Desc 2.1 STM32F1xx ADC Peripheral Pin Description
+//! \verbatim
+//! +-------------------+------------------+-----------------------+
+//! |Peripheral Pin Name|GPIO Pin multiplex|Pin Description        |
+//! |-------------------|------------------|-----------------------|
+//! |ADC0               |PA0               |ADC channel 0 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC1               |PA1               |ADC channel 1 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC2               |PA2               |ADC channel 2 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC3               |PA3               |ADC channel 3 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC4               |PA4               |ADC channel 4 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC5               |PA5               |ADC channel 5 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC6               |PA6               |ADC channel 6 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC7               |PA7               |ADC channel 7 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC8               |PB0               |ADC channel 8 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC9               |PB1               |ADC channel 9 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC10              |PC0               |ADC channel 10 input   |
+//! |-------------------|------------------|-----------------------|
+//! |ADC11              |PC1               |ADC channel 11 input   |
+//! |-------------------|------------------|-----------------------|
+//! |ADC12              |PC2               |ADC channel 12 input   |
+//! |-------------------|------------------|-----------------------|
+//! |ADC13              |PC3               |ADC channel 13 input   |
+//! |-------------------|------------------|-----------------------|
+//! |ADC14              |PC4               |ADC channel 14 input   |
+//! |-------------------|------------------|-----------------------|
+//! |ADC15              |PC5               |ADC channel 15 input   |
+//! |-------------------|------------------|-----------------------|
+//! \endverbatim
+//! 
+//! \subsection STM32F1xx_ADC_Func_Convertion 2.2 STM32F1xx ADC AD Convertion Function Description
+//! 
+//! \subsubsection STM32F1xx_ADC_Func_Channel 2.2.1 STM32F1xx ADC Input Channel
+//! The STM32F1xx ADC have 18 analog input channel, each channel can be enabled/
+//! disabled independently.
+//! In single-end mode, The contorl will first sample and convert channel 0, 
+//! then channel 1 and so on if then are enabled.
+//!
+//! \subsubsection STM32F1xx_ADC_Func_Convert_Mode 2.2.2 STM32F1xx ADC AD operation mode
+//!
+//! The A/D converter supports three operation modes: 
+//! - \b single - A/D conversion is performed only once on the specified single 
+//! channel.
+//! - \b single-cycle scan - A/D conversion will sample and convert the 
+//! specified channels once in the sequence from the lowest number enabled 
+//! channel to the highest number enabled channel.
+//! - \b continuous scan mode - A/D conversion is performed sequentially on the
+//! specified enabled channels. This is a continuous loop of single-cycle scan.
+//! - \b ADC_OP_INJECT_DISCONTINUOUS - A/D Discontinuous conversion on injected 
+//! channels.
+//! - \b ADC_OP_REGULAR_DISCONTINUOUS - A/D Discontinuous conversion on regular
+//! channels.
+//!
+//! \subsubsection STM32F1xx_ADC_Func_Convert_Tigger 2.2.3 STM32F1xx ADC Trigger source
+//! There are two Trigger source:
+//! - \b Processor(software)
+//! - \b External EXIT       
+//! - \b a GPTM Event         
+//!   .
+//! .
+//!
+//! \subsection STM32F1xx_ADC_Func_Monitor 2.3 STM32F1xx ADC Watchdog monitor to monitor AD Input.
+//!  and generate an interrupt.
+//!
+//! How to configure a monitor
+//! -# ADCMonitorSet() to Configure the ADC Watchdog Monitor.
+//! -# ADCMoniEnable() to Enable the ADC Watchdog monitor.
+//! -# ADCMoniDisable() to Disable the ADC Watchdog monitor.
+//! .
+//!
+//! \subsection STM32F1xx_ADC_Func_Int 2.4 STM32F1xx ADC Interrupt
+//!
+//! There are 6 interrupt source:
+//! - . ADC_INT_END_CONVERSION: Interrupt of Regular channel end of conversion.
+//! - . ADC_INT_END_JEOC: Interrupt of Injected channel end of conversion.
+//! - . ADC_INT_AWD: Interrupt of Analog watchdog.
+//!
+//!
+//! \section STM32F1xx_ADC_API_Group 3. STM32F1xx ADC API Group
+//!
+//! \subsection STM32F1xx_ADC_API_Group_AD 3.1 STM32F1xx AD Convert API
+//! The AD sample convert are configured with:
+//! - ADCRegularConfigure() or ADCInjectedConfigure()to config the single cycle / continuous
+//!   operation mode and the trigger source.
+//! - ADCEnable()
+//! - ADCDisable()
+//! - ADCDualModeSet()
+//! - ADCProcessorTrigger()
+//! - ADCProcessorInjectedTrigger()
+//! - ADCExtiEventReguTrigger()
+//! - ADCExtiEventInjecTrigger()
+//! - ADCDataInjectedGet()
+//! - ADCSampLenSet()
+//! - ADCConverLenSet()
+//! - ADCSequenceIndexSet()
+//! - ADCAutoInjectedEnable()
+//! - ADCAutoInjectedDisable()
+//! - ADCTemperatureRefVolEnable()
+//! - ADCTemperatureRefVolDisable().
+//! - 
+//! .
+//! The ADC sample convertion software control API:
+//! - ADCProcessorTrigger() to start the AD convertion by software.
+//! .
+//! The AD convertion data API:
+//! - ADCDataRegularGet() to get the channel convertion data(12bit), user should mask 
+//! the data with 0x00000FFF.
+//! - ADCDataInjectedGet().
+//! - ADCInjectedOffsetDataGet().
+//! - ADCCalibrationStart().
+//! - ADCCalibrationStatusGet().
+//! - ADCCalibrationReset().
+//! - ADCOffsetDataGet().
+//! .
+//! \subsection STM32F1xx_ADC_API_Group_Monitor 3.2 STM32F1xx ADC Digital Comparator API
+//!
+//! Here is the API of comparator: 
+//! - ADCMonitorSet()
+//! - ADCMoniEnable()
+//! - ADCMoniDisable()
+//! .
+//! 
+//! \subsection STM32F1xx_ADC_API_Group_Int 3.3 STM32F1xx ADC Interrupt API
+//!
+//! The interrupts are enabled/disabled with:
+//! - ADCIntEnable()
+//! - ADCIntDisable()
+//! .
+//! Interrupt is managed with:
+//! - ADCIntStatus() - to get the interrupt status.
+//! - ADCIntClear() - to clear the interrupt.
+//! .
+//! \subsection STM32F1xx_ADC_API_Group_DMA 3.3 STM32F1xx ADC DMA API
+//!
+//! The DMA are enabled/disabled with:
+//! - ADCDMAEnable()
+//! - ADCDMADisable()
+//! .
+//! \section STM32F1xx_ADC_Usage 4. STM32F1xx ADC Usage & Example
+//!
+//! The following show how to use the ADC APIs to initialize the ADC 
+//! sample sequence, and get the AD convertion data to the buffer.
+//! -# SysCtlPeripheralEnable() to enable to GPIO,ADC Peripheral clock.
+//! -# Configure the ADC pin in the GPIO moudle.
+//! -# ADCRegularConfigure() to configure the operation mode and Trigger source.
+//! -# ADCConverLenSet() and ADCSequenceIndexSet() to Select the convert sequeace.
+//! -# ADCIntEnable(), xIntEnable() to enable the interrupt.
+//! -# ADCDataRegularGet() or ADCDataInjectedGet() get channels data.
+//! . 
+//!
+//*****************************************************************************
