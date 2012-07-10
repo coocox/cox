@@ -85,7 +85,6 @@
         </option>
         <option>
           <name>OCDynDriverList</name>
-          <state>RDI_ID</state>
           <state>JLINK_ID</state>
         </option>
         <option>
@@ -604,15 +603,7 @@
         <debug>1</debug>
         <option>
           <name>CRDIDriverDll</name>
-<<<<<<< HEAD
-<<<<<<< HEAD
           <state>D:\Program Files\CooCox\CoIARPlugin\CoRDI.dll</state>
-=======
-          <state>C:\Program Files\CooCox\CoIARPlugin\CoRDI.dll</state>
->>>>>>> remotes/liam/CoX_Peripheral_STM32F1xx
-=======
-          <state>D:\Program Files\CooCox\CoIARPlugin\CoRDI.dll</state>
->>>>>>> remotes/jack/YanSTM32F1xx
         </option>
         <option>
           <name>CRDILogFileCheck</name>
@@ -1528,4 +1519,5 @@
     </debuggerPlugins>
   </configuration>
 </project>
+
 

@@ -4,7 +4,7 @@
     <Description>STM32F1xx System Ctrl Driver</Description>
     <Category>Peripheral.COX</Category>
     <Version>2.1.1.0</Version>
-    <Tags>COX, xSysCtl, SysCtl, SysCtrl, RCC, PMC, CG</Tags>
+    <Tags>COX, xSysCtl, SysCtl, SysCtrl, RCC, PWR, BKP</Tags>
 
     <Files>
         <File>..\..\libcox\xsysctl.h</File>

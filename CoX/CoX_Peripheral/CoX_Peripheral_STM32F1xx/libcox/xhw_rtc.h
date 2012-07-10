@@ -83,52 +83,52 @@
 //
 //! RTC control register high (RTC_CRH) .
 //
-#define RTC_CRH                 0x00000000 
+#define RTC_CRH                 RTC_BASE+0x00000000 
 
 //
 //! RTC control register low (RTC_CRL).
 //
-#define RTC_CRL                 0x00000004
+#define RTC_CRL                 RTC_BASE+0x00000004
 
 //
 //! RTC prescaler load register high (RTC_PRLH).
 //
-#define RTC_PRLH                0x00000008
+#define RTC_PRLH                RTC_BASE+0x00000008
 
 //
 //! RTC prescaler load register low (RTC_PRLL).
 //
-#define RTC_PRLL                0x0000000C
+#define RTC_PRLL                RTC_BASE+0x0000000C
 
 //
 //! RTC prescaler divider register high (RTC_DIVH).
 //
-#define RTC_DIVH                0x00000010
+#define RTC_DIVH                RTC_BASE+0x00000010
 
 //
 //! RTC prescaler divider register low (RTC_DIVL).
 //
-#define RTC_DIVL               0x00000014
+#define RTC_DIVL               RTC_BASE+0x00000014
 
 //
 //! RTC counter register high (RTC_CNTH).
 //
-#define RTC_CNTH                0x00000018
+#define RTC_CNTH                RTC_BASE+0x00000018
 
 //
 //! RTC counter register low (RTC_CNTL).
 //
-#define RTC_CNTL                0x0000001C
+#define RTC_CNTL                RTC_BASE+0x0000001C
 
 //
 //! RTC alarm register high (RTC_ALRH).
 //
-#define RTC_ALRH                0x00000020
+#define RTC_ALRH                RTC_BASE+0x00000020
 
 //
 //! RTC alarm register low (RTC_ALRL).
 //
-#define RTC_ALRL                0x00000024
+#define RTC_ALRL                RTC_BASE+0x00000024
 
 //*****************************************************************************
 //

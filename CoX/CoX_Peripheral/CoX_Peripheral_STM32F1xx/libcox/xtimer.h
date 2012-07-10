@@ -3,11 +3,7 @@
 //! \file xtimer.h
 //! \brief Prototypes for the TIMER Driver.
 //! \version V2.1.1.0
-<<<<<<< HEAD
 //! \date 6/12/2012
-=======
-//! \date 11/14/2011
->>>>>>> remotes/jack/YanSTM32F1xx
 //! \author CooCox
 //! \copy
 //!
@@ -87,11 +83,7 @@ extern "C"
 //! \section xTIMER_Mode_Type_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-<<<<<<< HEAD
 //! |xTIMER Mode             |       CoX      |         STM32F1xx      |
-=======
-//! |xTIMER Mode             |       CoX      |         NUC1xx         |
->>>>>>> remotes/jack/YanSTM32F1xx
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_MODE_ONESHOT     |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -99,19 +91,11 @@ extern "C"
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_MODE_TOGGLE      |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
-<<<<<<< HEAD
 //! |xTIMER_MODE_CONTINUOUS  |  Non-Mandatory |            N           |
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_MODE_CAPTURE     |  Non-Mandatory |            Y           |
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_MODE_PWM         |  Non-Mandatory |            Y           |
-=======
-//! |xTIMER_MODE_CONTINUOUS  |  Non-Mandatory |            Y           |
-//! |------------------------|----------------|------------------------|
-//! |xTIMER_MODE_CAPTURE     |  Non-Mandatory |            N           |
-//! |------------------------|----------------|------------------------|
-//! |xTIMER_MODE_PWM         |  Non-Mandatory |            N           |
->>>>>>> remotes/jack/YanSTM32F1xx
 //! +------------------------+----------------+------------------------+
 //! \endverbatim
 //! @{
@@ -121,47 +105,27 @@ extern "C"
 //
 //! The timer is operating at the one-shot mode.
 //
-<<<<<<< HEAD
 #define xTIMER_MODE_ONESHOT     0x00000010
-=======
-#define xTIMER_MODE_ONESHOT     0
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //
 //! The timer is operating at the periodic mode.
 //
-<<<<<<< HEAD
 #define xTIMER_MODE_PERIODIC    0x00000020
-=======
-#define xTIMER_MODE_PERIODIC    0
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //
 //! The timer is operating at the toggle mode.
 //
-<<<<<<< HEAD
 #define xTIMER_MODE_TOGGLE      0x00000030
-=======
-#define xTIMER_MODE_TOGGLE      0
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //
 //! The timer is operating at continuous counting mode.
 //
-<<<<<<< HEAD
 #define xTIMER_MODE_CONTINUOUS  0x00000000
-=======
-#define xTIMER_MODE_CONTINUOUS  0
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //
 //! The timer is operating as capture.
 //
-<<<<<<< HEAD
 #define xTIMER_MODE_CAPTURE     0x00000040
-=======
-#define xTIMER_MODE_CAPTURE     0
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //
 //! The timer is operating at PWM mode.
@@ -181,31 +145,19 @@ extern "C"
 //! \brief Values that show xTIMER Interrupt Type.
 //! \n
 //! \section xTIMER_INT_Type_Section 1. Where to use this group
-<<<<<<< HEAD
 //! Values that can be passed to xTimerIntEnable(), xTimerIntDisable() ,
-=======
-//! Values that can be passed to xTimerIntEnable(), xTimerIntEnable() ,
->>>>>>> remotes/jack/YanSTM32F1xx
 //! xTimerIntStatus(),xTimerIntClear() as ulIntFlags . 
 //! \n
 //! \section xTIMER_INT_Type_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-<<<<<<< HEAD
 //! |xTIMER Interrupt        |       CoX      |         STM32F1xx      |
-=======
-//! |xTIMER Interrupt        |       CoX      |         NUC1xx         |
->>>>>>> remotes/jack/YanSTM32F1xx
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_INT_MATCH        |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_INT_CAP_EVENT    |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
-<<<<<<< HEAD
 //! |xTIMER_INT_CAP_MATCH    |  Non-Mandatory |            Y           |
-=======
-//! |xTIMER_INT_CAP_MATCH    |  Non-Mandatory |            N           |
->>>>>>> remotes/jack/YanSTM32F1xx
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_INT_OVERFLOW     |  Non-Mandatory |            N           |
 //! |------------------------|----------------|------------------------|
@@ -219,16 +171,11 @@ extern "C"
 //
 //! Timer match interrupt.
 //
-<<<<<<< HEAD
 #define xTIMER_INT_MATCH        TIMER_INT_UEV
-=======
-#define xTIMER_INT_MATCH        0
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //
 //! Timer External capture event interrupt.
 //
-<<<<<<< HEAD
 #define xTIMER_INT_CAP_EVENT    TIMER_INT_CH1CC | TIMER_INT_CH2CC |           \
                                 TIMER_INT_CH3CC | TIMER_INT_CH4CC
 
@@ -237,10 +184,6 @@ extern "C"
 //
 #define xTIMER_INT_CAP_MATCH    TIMER_INT_CH1CC | TIMER_INT_CH2CC |           \
                                 TIMER_INT_CH3CC | TIMER_INT_CH4CC
-=======
-#define xTIMER_INT_CAP_EVENT    0
-
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //*****************************************************************************
 //
@@ -254,21 +197,13 @@ extern "C"
 //! \brief Values that show xTIMER Interrupt Events.
 //! \n
 //! \section xTIMER_INT_Event_Section 1. Where to use this group
-<<<<<<< HEAD
 //! Values that can be passed to xTimerIntEnable(), xTimerIntDisable(),
-=======
-//! Values that can be passed to xTimerIntEnable(), xTimerIntEnable() ,
->>>>>>> remotes/jack/YanSTM32F1xx
 //! xTimerIntStatus(),xTimerIntClear() as ulIntFlags . 
 //! \n
 //! \section xTIMER_INT_Event_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-<<<<<<< HEAD
 //! |xTIMER Interrupt        |       CoX      |         STM32F1xx      |
-=======
-//! |xTIMER Interrupt        |       CoX      |         NUC1xx         |
->>>>>>> remotes/jack/YanSTM32F1xx
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_EVENT_MATCH      |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -288,21 +223,12 @@ extern "C"
 //
 //! Timer match interrupt.
 //
-<<<<<<< HEAD
 #define xTIMER_EVENT_MATCH
-=======
-#define xTIMER_EVENT_MATCH       0
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //
 //! Timer External capture event interrupt.
 //
-<<<<<<< HEAD
 #define xTIMER_EVENT_CAP_EVENT
-=======
-#define xTIMER_EVENT_CAP_EVENT   0
-
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //*****************************************************************************
 //
@@ -321,11 +247,7 @@ extern "C"
 //! \section xTIMER_Counter_Pase_Type_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-<<<<<<< HEAD
 //! |xTIMER Counter Pase Type|       CoX      |         STM32F1xx      |
-=======
-//! |xTIMER Counter Pase Type|       CoX      |         NUC1xx         |
->>>>>>> remotes/jack/YanSTM32F1xx
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_COUNTER_RISING   |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -339,20 +261,12 @@ extern "C"
 //
 //! A rising edge of external count pin will be counted.
 //
-<<<<<<< HEAD
 #define xTIMER_COUNTER_RISING   TIMER_ICPOL_RISING
-=======
-#define xTIMER_COUNTER_RISING   0
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //
 //! A falling edge of external count pin will be counted.
 //
-<<<<<<< HEAD
 #define xTIMER_COUNTER_FALLING  TIMER_ICPOL_FALLING
-=======
-#define xTIMER_COUNTER_FALLING  0
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //*****************************************************************************
 //
@@ -371,21 +285,13 @@ extern "C"
 //! \section xTIMER_Capture_Edge_Type_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-<<<<<<< HEAD
 //! |xTIMER Capture Edge     |       CoX      |         STM32F1xx      |
-=======
-//! |xTIMER Capture Edge     |       CoX      |         NUC1xx         |
->>>>>>> remotes/jack/YanSTM32F1xx
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_CAP_RISING       |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_CAP_FALLING      |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
-<<<<<<< HEAD
 //! |xTIMER_CAP_BOTH         |  Non-Mandatory |            N           |
-=======
-//! |xTIMER_CAP_BOTH         |  Non-Mandatory |            Y           |
->>>>>>> remotes/jack/YanSTM32F1xx
 //! +------------------------+----------------+------------------------+
 //! \endverbatim
 //! @{
@@ -395,25 +301,12 @@ extern "C"
 //
 //! a 0 to 1 transition on TEX will be detected.
 //
-<<<<<<< HEAD
 #define xTIMER_CAP_RISING       TIMER_ICPOL_RISING
-=======
-#define xTIMER_CAP_RISING       0
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //
 //! a 1 to 0 transition on TEX will be detected.
 //
-<<<<<<< HEAD
 #define xTIMER_CAP_FALLING      TIMER_ICPOL_FALLING
-=======
-#define xTIMER_CAP_FALLING      0
-
-//
-//! either 1 to 0 or 0 to 1 transition on TEX will be detected.
-//
-#define xTIMER_CAP_BOTH         0
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //*****************************************************************************
 //
@@ -432,11 +325,7 @@ extern "C"
 //! \section xTIMER_Capture_Mode_Type_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-<<<<<<< HEAD
 //! |xTIMER Capture Mode     |       CoX      |         STM32F1xx      |
-=======
-//! |xTIMER Capture Mode     |       CoX      |         NUC1xx         |
->>>>>>> remotes/jack/YanSTM32F1xx
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_CAP_MODE_CAP     |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
@@ -450,22 +339,12 @@ extern "C"
 //
 //! TEX transition is using as the timer capture function.
 //
-<<<<<<< HEAD
 #define xTIMER_CAP_MODE_CAP     0x00000001
 
 //
 //! TEX transition is using as the timer reset function.
 //
 #define xTIMER_CAP_MODE_RST     0x00000002
-=======
-#define xTIMER_CAP_MODE_CAP     0
-
-//
-//! TEX transition is using as the timer counter reset function.
-//
-#define xTIMER_CAP_MODE_RST     0
-
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //*****************************************************************************
 //
@@ -484,19 +363,11 @@ extern "C"
 //! \section xTIMER_Count_Direction_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-<<<<<<< HEAD
 //! |xTIMER Count Direction  |       CoX      |         STM32F1xx      |
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_COUNT_UP         |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_COUNT_DOWN       |  Non-Mandatory |            Y           |
-=======
-//! |xTIMER Count Direction  |       CoX      |         NUC1xx         |
-//! |------------------------|----------------|------------------------|
-//! |xTIMER_COUNT_UP         |    Mandatory   |            Y           |
-//! |------------------------|----------------|------------------------|
-//! |xTIMER_COUNT_DOWN       |  Non-Mandatory |            N           |
->>>>>>> remotes/jack/YanSTM32F1xx
 //! +------------------------+----------------+------------------------+
 //! \endverbatim
 //! @{
@@ -506,20 +377,12 @@ extern "C"
 //
 //! the timer counts up.
 //
-<<<<<<< HEAD
 #define xTIMER_COUNT_UP         0x00000001
-=======
-#define xTIMER_COUNT_UP         0
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //
 //! The timer counts down.
 //
-<<<<<<< HEAD
 #define xTIMER_COUNT_DOWN       0x00000002
-=======
-#define xTIMER_COUNT_DOWN       0
->>>>>>> remotes/jack/YanSTM32F1xx
 
 
 //*****************************************************************************
@@ -534,27 +397,17 @@ extern "C"
 //! \brief Timer Count Channels.
 //! \n
 //! \section xTIMER_Count_Channel_Section 1. Where to use this group
-<<<<<<< HEAD
 //! Values that can be passed to all xAPI as ulChannel.
-=======
-//! Values that can be passed to all XAPI as ulChannel.
->>>>>>> remotes/jack/YanSTM32F1xx
 //! \n
 //! \section xTIMER_Count_Channel_CoX 2. CoX Port Details 
 //! \verbatim
 //! +------------------------+----------------+------------------------+
-<<<<<<< HEAD
 //! |xTIMER Count Channel    |       CoX      |         STM32F1xx      |
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_CHANNELn         |    Mandatory   |     xTIMER_CHANNEL0    |
 //! |                        |                |     xTIMER_CHANNEL1    |
 //! |                        |                |     xTIMER_CHANNEL1    |
 //! |                        |                |     xTIMER_CHANNEL1    |  
-=======
-//! |xTIMER Count Channel    |       CoX      |         NUC1xx         |
-//! |------------------------|----------------|------------------------|
-//! |xTIMER_CHANNELn         |    Mandatory   |     xTIMER_CHANNEL0    |
->>>>>>> remotes/jack/YanSTM32F1xx
 //! +------------------------+----------------+------------------------+
 //! \endverbatim
 //! @{
@@ -564,7 +417,6 @@ extern "C"
 //
 //! Channel 0.
 //
-<<<<<<< HEAD
 #define xTIMER_CHANNEL0         TIMER_CH_1
   
 //
@@ -581,9 +433,6 @@ extern "C"
 //! Channel 3.
 //
 #define xTIMER_CHANNEL3         TIMER_CH_4
-=======
-#define xTIMER_CHANNEL0         0
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //*****************************************************************************
 //
@@ -599,11 +448,7 @@ extern "C"
 //! \section xTIMER_Exported_APIs_Port CoX Port Details
 //! \verbatim
 //! +------------------------------+----------------+------------------+
-<<<<<<< HEAD
 //! |xTIMER API                    |       CoX      |      STM32F1xx   |
-=======
-//! |xTIMER API                    |       CoX      |      NUC1xx      |
->>>>>>> remotes/jack/YanSTM32F1xx
 //! |------------------------------|----------------|------------------|
 //! |xTimerInitConfig              |    Mandatory   |         Y        |
 //! |------------------------------|----------------|------------------|
@@ -613,15 +458,9 @@ extern "C"
 //! |------------------------------|----------------|------------------|
 //! |xTimerCounterEnable           |    Mandatory   |         Y        |
 //! |------------------------------|----------------|------------------|
-<<<<<<< HEAD
 //! |xTimerCounterDisable          |    Mandatory   |         N        |
 //! |------------------------------|----------------|------------------|
 //! |xTimerCaptureModeSet          |    Mandatory   |         N        |
-=======
-//! |xTimerCounterDisable          |    Mandatory   |         Y        |
-//! |------------------------------|----------------|------------------|
-//! |xTimerCaptureModeSet          |    Mandatory   |         Y        |
->>>>>>> remotes/jack/YanSTM32F1xx
 //! |------------------------------|----------------|------------------|
 //! |xTimerPrescaleSet             |    Mandatory   |         Y        |
 //! |------------------------------|----------------|------------------|
@@ -648,11 +487,7 @@ extern "C"
 //! |xTimerCounterDetectPhaseSelect|    Mandatory   |         Y        |
 //! |------------------------------|----------------|------------------|
 //! |xTimerCaptureEdgeSelect       |    Mandatory   |         Y        |
-<<<<<<< HEAD
 //! +------------------------------+----------------+------------------+
-=======
-//! +------------------------+----------------+------------------------+
->>>>>>> remotes/jack/YanSTM32F1xx
 //! \endverbatim
 //!
 //! @{
@@ -687,22 +522,13 @@ extern "C"
 //! The \e ulTickFreq parameter is the the timer tick frequency.It can be any
 //! values but ulTickFreq > 0 and ulTickFreq < timer clock source.
 //!
-<<<<<<< HEAD
 //! \note For STM32F1xx,each timer only one channel.
-=======
-//! \note For nuc1xx,each timer only one channel.
->>>>>>> remotes/jack/YanSTM32F1xx
 //!
 //! \return None.
 //
 //*****************************************************************************
-<<<<<<< HEAD
 extern void xTimerInitConfig(unsigned long ulBase, 
      unsigned long ulChannel, unsigned long ulConfig, unsigned long ulTickFreq);
-=======
-extern void xTimerInitConfig(unsigned long ulBase, unsigned long ulChannel, 
-                             unsigned long ulConfig, unsigned long ulTickFreq);
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //*****************************************************************************
 //
@@ -717,12 +543,8 @@ extern void xTimerInitConfig(unsigned long ulBase, unsigned long ulChannel,
 //! \return None.
 //
 //*****************************************************************************
-<<<<<<< HEAD
 #define xTimerStart(ulBase, ulChannel)                                        \
         TimerStart(ulBase)
-=======
-extern void xTimerStart(unsigned long ulBase, unsigned long ulChannel);
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //*****************************************************************************
 //
@@ -737,12 +559,8 @@ extern void xTimerStart(unsigned long ulBase, unsigned long ulChannel);
 //! \return None.
 //
 //*****************************************************************************
-<<<<<<< HEAD
 #define xTimerStop(ulBase, ulChannel)                                         \
         TimerStop(ulBase)
-=======
-extern void xTimerStop(unsigned long ulBase, unsigned long ulChannel);
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //*****************************************************************************
 //
@@ -790,11 +608,7 @@ extern void xTimerCounterDisable(unsigned long ulBase, unsigned long ulChannel);
 //! \return None.
 //
 //*****************************************************************************
-<<<<<<< HEAD
 extern void xTimerCaptureModeSet(unsigned long ulBase, unsigned long ulChannel, 
-=======
-extern void xTimerCaptureModeSet(unsigned long ulBase, unsigned long ulChannel,
->>>>>>> remotes/jack/YanSTM32F1xx
                                  unsigned long ulCapMode);
 
 //*****************************************************************************
@@ -811,13 +625,8 @@ extern void xTimerCaptureModeSet(unsigned long ulBase, unsigned long ulChannel,
 //! \return None.
 //
 //*****************************************************************************
-<<<<<<< HEAD
 #define xTimerPrescaleSet(ulBase, ulChannel, ulValue)                         \
         TimerPrescalerConfigure(ulBase, ulValue, TIMER_PSC_RLD_IMMEDIATE)
-=======
-extern void xTimerPrescaleSet(unsigned long ulBase, unsigned long ulChannel, 
-                              unsigned long ulValue);
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //*****************************************************************************
 //
@@ -832,13 +641,8 @@ extern void xTimerPrescaleSet(unsigned long ulBase, unsigned long ulChannel,
 //! \return the Prescale Value will be get.
 //
 //*****************************************************************************
-<<<<<<< HEAD
 #define xTimerPrescaleGet(ulBase, ulChannel)                                  \
         TimerPerscalerGet(ulBase)
-=======
-extern unsigned long xTimerPrescaleGet(unsigned long ulBase, 
-                                       unsigned long ulChannel);
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //*****************************************************************************
 //
@@ -847,24 +651,15 @@ extern unsigned long xTimerPrescaleGet(unsigned long ulBase,
 //! \param ulBase is the base address of the Timer port.
 //! \param ulChannel is the channel of the Timer port.
 //! Details please refer to \ref xTIMER_Count_Channel
-<<<<<<< HEAD
 //! \param ulValue is the Proload Value will be set.
-=======
-//! \param ulValue is the Prescale Value will be set.
->>>>>>> remotes/jack/YanSTM32F1xx
 //!
 //! This function is to Set The Timer counter Value.
 //!
 //! \return None.
 //
 //*****************************************************************************
-<<<<<<< HEAD
 #define xTimerLoadSet(ulBase, ulChannel, ulValue)                             \
         TimerAutoReloadSet(ulBase, ulValue)
-=======
-extern void xTimerLoadSet(unsigned long ulBase, unsigned long ulChannel, 
-                          unsigned long ulValue);
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //*****************************************************************************
 //
@@ -879,13 +674,8 @@ extern void xTimerLoadSet(unsigned long ulBase, unsigned long ulChannel,
 //! \return the counter Value will be get.
 //
 //*****************************************************************************
-<<<<<<< HEAD
 #define xTimerLoadGet(ulBase, ulChannel)                                      \
         TimerARRReloadGet(ulBase); 
-=======
-extern unsigned long xTimerLoadGet(unsigned long ulBase, 
-                                   unsigned long ulChannel);
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //*****************************************************************************
 //
@@ -901,13 +691,8 @@ extern unsigned long xTimerLoadGet(unsigned long ulBase,
 //! \return current up timer or up event counter value will be set.
 //
 //*****************************************************************************
-<<<<<<< HEAD
 #define xTimerValueGet(ulBase, ulChannel)                                     \
         TimerCounterGet(ulBase)
-=======
-extern unsigned long xTimerValueGet(unsigned long ulBase, 
-                                    unsigned long ulChannel);
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //*****************************************************************************
 //
@@ -977,11 +762,7 @@ extern void xTimerIntCallbackInit(unsigned long ulBase,
 //
 //*****************************************************************************
 extern void xTimerIntEnable(unsigned long ulBase, unsigned long ulChannel, 
-<<<<<<< HEAD
                             unsigned long ulIntFlags);
-=======
-                            unsigned long ulIntFlags)
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //*****************************************************************************
 //
@@ -1005,11 +786,7 @@ extern void xTimerIntEnable(unsigned long ulBase, unsigned long ulChannel,
 //
 //*****************************************************************************
 extern void xTimerIntDisable(unsigned long ulBase, unsigned long ulChannel, 
-<<<<<<< HEAD
                               unsigned long ulIntFlags);
-=======
-                             unsigned long ulIntFlags);
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //*****************************************************************************
 //
@@ -1032,13 +809,8 @@ extern void xTimerIntDisable(unsigned long ulBase, unsigned long ulChannel,
 //! \return the Status of The Timer counter interrupt.
 //
 //*****************************************************************************
-<<<<<<< HEAD
 extern xtBoolean xTimerStatusGet(unsigned long ulBase, unsigned long ulChannel, 
                                  unsigned long ulIntFlags);
-=======
-extern void xTimerStatusGet(unsigned long ulBase, unsigned long ulChannel, 
-                            unsigned long ulIntFlags);
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //*****************************************************************************
 //
@@ -1060,12 +832,7 @@ extern void xTimerStatusGet(unsigned long ulBase, unsigned long ulChannel,
 //
 //*****************************************************************************
 extern void xTimerCounterDetectPhaseSelect(unsigned long ulBase, 
-<<<<<<< HEAD
                                unsigned long ulChannel, unsigned long ulPhase);
-=======
-                                           unsigned long ulChannel, 
-										   unsigned long ulPhase);
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //*****************************************************************************
 //
@@ -1078,11 +845,7 @@ extern void xTimerCounterDetectPhaseSelect(unsigned long ulBase,
 //! This function is to select The Timer counter capture detect edge.
 //! 
 //! The \e ulPhase parameter can be one of the values:
-<<<<<<< HEAD
 //! \b xTIMER_CAP_RISING, \b xTIMER_CAP_FALLING.
-=======
-//! \b xTIMER_CAP_RISING, \b xTIMER_CAP_FALLING, \b xTIMER_CAP_BOTH.
->>>>>>> remotes/jack/YanSTM32F1xx
 //! Details please refer to \ref xTIMER_Capture_Edge_Type_CoX.
 //!
 //! \note None
@@ -1090,7 +853,6 @@ extern void xTimerCounterDetectPhaseSelect(unsigned long ulBase,
 //! \return None.
 //
 //*****************************************************************************
-<<<<<<< HEAD
 extern void xTimerCaptureEdgeSelect(unsigned long ulBase, unsigned long ulChannel,
                                     unsigned long ulEdge);
 
@@ -1219,7 +981,7 @@ extern void xTimerCaptureEdgeSelect(unsigned long ulBase, unsigned long ulChanne
 //
 //! Center-align mode 3
 //  
-#define TIMER_CNT_MODE_CA3      0x00000040
+#define TIMER_CNT_MODE_CA3      0x00000060
   
 //
 //!  Edge down-counting mode
@@ -1373,12 +1135,6 @@ extern void xTimerCaptureEdgeSelect(unsigned long ulBase, unsigned long ulChanne
 //! Input Capture Prescaler8
 //
 #define TIMER_ICPSC_DIV8        0x0000000C
-=======
-extern void xTimerCaptureEdgeSelect(unsigned long ulBase, 
-                                    unsigned long ulChannel, 
-                                    unsigned long ulEdge);                   
-
->>>>>>> remotes/jack/YanSTM32F1xx
 
 //*****************************************************************************
 //
@@ -1388,7 +1144,6 @@ extern void xTimerCaptureEdgeSelect(unsigned long ulBase,
 
 //*****************************************************************************
 //
-<<<<<<< HEAD
 //! \addtogroup TIMER_Output_Compare_modes TIMER Output Compare modes
 //! Values that can be passed to TimerOCxConfigure().
 //! @{
@@ -1427,15 +1182,12 @@ extern void xTimerCaptureEdgeSelect(unsigned long ulBase,
 
 //*****************************************************************************
 //
-=======
->>>>>>> remotes/jack/YanSTM32F1xx
 //! @}
 //
 //*****************************************************************************
 
 //*****************************************************************************
 //
-<<<<<<< HEAD
 //! \addtogroup TIMER_Output_Compare_state Output Compare/complementary Output state
 //! Values that can be passed to TimerOCxConfigure().
 //! @{
@@ -1464,15 +1216,12 @@ extern void xTimerCaptureEdgeSelect(unsigned long ulBase,
   
 //*****************************************************************************
 //
-=======
->>>>>>> remotes/jack/YanSTM32F1xx
 //! @}
 //
 //*****************************************************************************
 
 //*****************************************************************************
 //
-<<<<<<< HEAD
 //! \addtogroup TIMER_Output_Compare_Polarity Output Compare/complementary Output Polarity
 //! Values that can be passed to TimerOCxConfigure().
 //! @{
@@ -1501,15 +1250,12 @@ extern void xTimerCaptureEdgeSelect(unsigned long ulBase,
   
 //*****************************************************************************
 //
-=======
->>>>>>> remotes/jack/YanSTM32F1xx
 //! @}
 //
 //*****************************************************************************
 
 //*****************************************************************************
 //
-<<<<<<< HEAD
 //! \addtogroup TIMER_Output_Compare_Idle_State TIMER Output Compare Idle State
 //! Values that can be passed to TimerOCxConfigure().
 //! @{
@@ -1819,7 +1565,7 @@ extern void xTimerCaptureEdgeSelect(unsigned long ulBase,
 //*****************************************************************************
 
 //
-//! Timer DMA burst length
+//! Timer External Trigger Prescaler
 //  
 #define TIMER_EXTTRGPSC_OFF     0x00000000
 #define TIMER_EXTTRGPSC_DIV2    0x00001000
@@ -1878,36 +1624,6 @@ extern void xTimerCaptureEdgeSelect(unsigned long ulBase,
 #define TIMER_MAINOUTPUT_DISABLE                                              \
                                 0x00000000
     
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup TIMER_Channel_Capture_Src_Selection TIMER channel capture source
-//! selection
-//! Values that can be passed to TimerChannelConfigure() .
-//! @{
-//
-//*****************************************************************************
-  
-//
-//! Channel capture selection direct input
-//
-#define TIMER_CHCCS_DIRECT      0x00010000
-
-//
-//! Channel capture selection indirect input
-//
-#define TIMER_CHCCS_INDIRECT    0x00020000
-
-//
-//! Channel capture selection TRCED of trigger control block
-//
-#define TIMER_CHCCS_TRCED       0x00030000  
-
 //*****************************************************************************
 //
 //! @}
@@ -2668,10 +2384,12 @@ extern void TimerOC1PreloadConfigure(unsigned long ulBase, unsigned long ulOCPre
 extern void TimerOC2PreloadConfigure(unsigned long ulBase, unsigned long ulOCPreload);
 extern void TimerOC3PreloadConfigure(unsigned long ulBase, unsigned long ulOCPreload);
 extern void TimerOC4PreloadConfigure(unsigned long ulBase, unsigned long ulOCPreload);
+
 extern void TimerOC1FastConfigure(unsigned long ulBase, unsigned long ulOCFast);
 extern void TimerOC2FastConfigure(unsigned long ulBase, unsigned long ulOCFast);
 extern void TimerOC3FastConfigure(unsigned long ulBase, unsigned long ulOCFast);
 extern void TimerOC4FastConfigure(unsigned long ulBase, unsigned long ulOCFast);
+
 extern void TimerOCxRefClear(unsigned long ulBase, unsigned long ulChannel, 
                              unsigned long ulOCClear);
 extern void TimerOC1PolarityConfigure(unsigned long ulBase, unsigned long ulPolarity);
@@ -2688,7 +2406,7 @@ extern void TimerCHNConfigure(unsigned long ulBase, unsigned long ulChannel,
                               unsigned long ulCCxN);
 
 extern void TimerOCxModeSelect(unsigned long ulBase, unsigned long ulChannel, 
-                             unsigned long ulCCxN);
+                             unsigned long ulOutputMode);
 extern void TimerUpdateConfigure(unsigned long ulBase, unsigned long ulUpdate);
 extern void TimerUpdateRequestConfigure(unsigned long ulBase, unsigned long ulUpdateSource);
 extern void TimerOnePulseModeConfigure(unsigned long ulBase, unsigned long ulOPMode);
@@ -2760,16 +2478,6 @@ extern void TimerIntClear(unsigned long ulBase, unsigned long ulIntFlags);
 #endif
 
 #endif // __xTIMER_H__
-=======
-// Mark the end of the C bindings section for C++ compilers.
-//
-//*****************************************************************************
-#ifdef __cplusplus
-}
-#endif
-
-#endif // __xTIMER_H__
 
 
 
->>>>>>> remotes/jack/YanSTM32F1xx

@@ -1997,7 +1997,7 @@ TimerOC3Configure(unsigned long ulBase, unsigned long ulOutputMode,
 			  // Set the Output Idle/ N Idle state
 			  //
 			  ulTempcr2 &= ~(TIMER_CR2_OIS3 | TIMER_CR2_OIS3N);
-			  ulTempcr2 |= (ulOCIdleCfg & (TIMER_CR2_OIS3 | TIMER_CR2_OIS3N));
+			  ulTempcr2 |= ((ulOCIdleCfg << 4) & (TIMER_CR2_OIS3 | TIMER_CR2_OIS3N));
     }
 		
 	//
@@ -3235,7 +3235,7 @@ TimerEncoderInterfaceConfigure(unsigned long ulBase, unsigned long ulEncoderMode
 	//
 	// Set the encoder Mode
 	//
-	ulTempsmcr &= TIMER_SMCR_SMS_M;
+	ulTempsmcr &= ~TIMER_SMCR_SMS_M;
 	ulTempsmcr |= ulEncoderMode;
 
 	//
@@ -3247,7 +3247,7 @@ TimerEncoderInterfaceConfigure(unsigned long ulBase, unsigned long ulEncoderMode
 	//
 	// Set the TI1 and the TI2 Polarities
 	//
-	ulTempccer &= (TIMER_CCER_CC1P | TIMER_CCER_CC2P);
+	ulTempccer &= ~(TIMER_CCER_CC1P | TIMER_CCER_CC2P);
 	ulTempccer |= (ulIC1Polarity | (ulIC2Polarity << 4)); 
 	
 	//
@@ -4517,7 +4517,7 @@ TimerCHNConfigure(unsigned long ulBase, unsigned long ulChannel,
 
 //*****************************************************************************
 //
-//! \brief Initializes the TIMERx channel 1 output. 
+//! \brief Initializes the TIMERx channel x output mode. 
 //!
 //! \param ulBase is the base address of the Timer port, it can be  1 to 14 
 //!        except 6 and 7 .

@@ -103,7 +103,7 @@
         </option>
         <option>
           <name>OGChipSelectEditMenu</name>
-          <state>STM32F10xxB	ST STM32F10xxB</state>
+          <state>STM32F10xxE	ST STM32F10xxE</state>
         </option>
         <option>
           <name>GenLowLevelInterface</name>
@@ -306,7 +306,7 @@
         </option>
         <option>
           <name>CCOptLevel</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>CCOptStrategy</name>
@@ -315,7 +315,7 @@
         </option>
         <option>
           <name>CCOptLevelSlave</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>CompilerMisraRules98</name>
@@ -1708,10 +1708,25 @@
         <name>$PROJ_DIR$\..\src\testcase.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\src\Xsysctltest01.c</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\src\Xsysctltest02.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\src\Xsysctltest03.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\src\Xsysctltest04.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\src\Xsysctltest05.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\src\Xsysctltest06.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\src\Xsysctltest07.c</name>
       </file>
     </group>
     <group>
@@ -1731,4 +1746,5 @@
     </group>
   </group>
 </project>
+
 

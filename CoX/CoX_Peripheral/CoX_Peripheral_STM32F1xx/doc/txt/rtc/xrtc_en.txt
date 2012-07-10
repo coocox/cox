@@ -1,0 +1,241 @@
+//*****************************************************************************
+//
+//! \defgroup RTC
+//! 
+//! \brief Real-time Clock(RTC) Peripheral Driver.
+//!
+//! Real Time Clock (RTC) controller provides users with the real time and calendar messages.
+//! The RTC controller provides the time messages (second, minute, hour)
+//! in Time Loading Register (TLR) as well as calendar messages (day, month, year) 
+//! in Calendar Loading  Register (CLR). It also offers an alarm function so that users
+//! can preset alarm time in Time Alarm Register (TAR) and alarm calendar in 
+//! Calendar Alarm Register (CAR).  
+//!
+//! The RTC controller supports periodic Time Tick and Alarm Match interrupts.
+//!
+//! \n
+//! <h1>Contents</h1>
+//! - \ref RTC_Block
+//! - \ref RTC_Function_Desc
+//!   - \ref RTC_initialization_Control
+//!   - \ref RTC_timewdr_Control
+//!   - \ref RTC_int_Control
+//!   .
+//! - \ref RTC_Applications
+//! .
+//! 
+//! \n
+//! \section RTC_Block 1. RTC Physical Block
+//! <img src="RTC_block.png" />
+//!
+//! \n
+//! \section RTC_Function_Desc 2. RTC Functional Description
+//! 
+//! \n
+//! \subsection RTC_initialization_Control 2.1 RTC initialization 
+//!
+//! This function can enable or disable RTC to work.
+//!
+//! \n
+//! \subsection RTC_timewdr_Control 2.2 RTC time write and read
+//!
+//! We can write time to or read time from RTC TLR and CLR registers 
+//! or TAR and CAR registers.
+//! 
+//! \n
+//! \subsection RTC_int_Control 2.3 RTC interrupt
+//!
+//! RTC has two interrupts.
+//!
+//! When periodic time tick interrupt is enabled by setting RIER.TIER to 1, the Periodic
+//! Time Tick Interrupt is requested periodically in the period selected by TTR register.
+//!
+//! When RTC counter in TLR and CLR is equal to alarm setting time TAR and CAR£¬ 
+//! the alarm interrupt flag (RIIR.AIF) is set and the alarm interrupt is requested 
+//! if the alarm interrupt is enabled (RIER.AIER=1). 
+//!
+//! \n
+//! \section RTC_Applications 3. RTC Applications
+//! RTC can be used to display time and alarm.
+//!
+//! \n
+//! \note Here descripte the common function of the RTC Peripheral. The CoX
+//! Peripheral Interface is base on the functions above.
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
+//! \defgroup xRTC xRTC
+//! 
+//! \brief CoX RTC Peripheral Interface
+//!
+//! The xRTC is the RTC Peripheral Interface of CoX. It defines some common
+//! macros and APIs.Here are descriptions of the common functions of the
+//! RTC Peripheral. The CoX Peripheral Interface is based on the functions above. 
+//! 
+//! <h1>Contents</h1>
+//! - \ref CoX_RTC_How_Define
+//! - \ref xRTC_API_Group
+//!   - \ref xRTC_API_Group_Config
+//!   - \ref xRTC_API_Group_Time
+//!   - \ref xRTC_API_Group_Interrupt
+//!   .
+//! - \ref xRTC_Usage 
+//! .
+//!
+//! \n
+//!
+//! \section CoX_RTC_How_Define 1. How is the xRTC Standard Defined? 
+//! CoX RTC defines the APIs based on the following common functions:
+//! - Enable a RTC to work and configure its mode 
+//! - RTC time reading and writing 
+//! - RTC Interrupt ,including tick interrupt and alarm interrupt
+//! .
+//!
+//! \n
+//! \section xRTC_API_Group 2. API Groups
+//! 
+//! The CoX RTC API is broken into three groups of functions: 
+//! - those that deal with RTC initialization , 
+//! - those that deal with time reading and writing, 
+//! - those that deal with interrupt.
+//! .
+//!
+//! \n
+//! \subsection xRTC_API_Group_Config 2.1 RTC Config APIs
+//! 
+//! The RTC can be configured with :
+//! - xRTCTimeInit() 
+//! - xRTCStart() 
+//! - xRTCStop() 
+//! .
+//!  
+//! \n
+//! \subsection xRTC_API_Group_Time 2.2 The RTC time reading and writing are through APIS below:
+//! 
+//! The RTC write and read are through APIS below:
+//! - xRTCTimeRead()
+//! - xRTCTimeWrite().
+//! .
+//!
+//! \n
+//! \subsection xRTC_API_Group_Interrupt 2.3 RTC interrupt APIs
+//! 
+//! The RTC interrupt can be handled with:
+//! - xRTCIntCallbackInit()
+//! - xRTCIntEnable()
+//! - xRTCIntDisable()
+//! .
+//!
+//! \n
+//! \section xRTC_Usage 3. Usage & Program Examples
+//! The following example shows how to use the RTC APIs to 
+//! initialize the RTC, and to write and read time from RTC registers.
+//! 
+//! \code
+//!tTime tTime1, tTime2;
+//!unsigned long ulj;
+//!unsigned long ulTimeAlarm[2] = {RTC_TIME_CURRENT, RTC_TIME_ALARM};
+//!unsigned long ulMode[8] = {RTC_TIME_TICK_1, RTC_TIME_TICK_1_2, RTC_TIME_TICK_1_4,
+//!                           RTC_TIME_TICK_1_8, RTC_TIME_TICK_1_16, RTC_TIME_TICK_1_32,
+//!                           RTC_TIME_TICK_1_64, RTC_TIME_TICK_1_128};
+//!
+//!unsigned long xRTCCallback(void *pvCBData, 
+//!                                       unsigned long ulEvent,
+//!                                       unsigned long ulMsgParam,
+//!                                       void *pvMsgData)
+//!{
+//!    xIntMasterDisable();
+//!    ulj++;
+//!    return 0;
+//!}
+//!static void xrtc001Int()
+//!{
+//!    RTCTimeInit();
+//!    
+//!    tTime2.ulSecond = 40;     
+//!    
+//!    tTime2.ulMinute = 20; 
+//!    
+//!    tTime2.ulHour = 17; 
+//!    
+//!    tTime2.ulMDay = 11;  
+//!    
+//!    tTime2.ulMonth = 8;   
+//!    
+//!    tTime2.ulYear = 2011;    
+//!    
+//!    tTime2.ulWDay = 3;   
+//!
+//!    tTime2.ulFormat = RTC_TIME_24H;
+//!    
+//!    //
+//!    //write current time to corresponding register.
+//!    //
+//!    RTCTimeWrite(&tTime2, ulTimeAlarm[0]);
+//!    
+//!    RTCWriteEnable();
+//!    
+//!    //
+//!    //alarm interrupt after 20 seconds.
+//!    //
+//!    tTime2.ulSecond +=10;
+//!    
+//!    //
+//!    //write current time to corresponding register.
+//!    //
+//!    RTCTimeWrite(&tTime2, ulTimeAlarm[1]);
+//!    
+//!    RTCWriteEnable();
+//!    
+//!    RTCIntCallbackInit(xRTCCallback);
+//!    
+//!    xIntEnable(INT_RTC);
+//!    xIntMasterEnable();
+//!    //
+//!    //enable alarm interrupt.
+//!    //
+//!    RTCIntEnable(RTC_INT_ALARM);
+//!    
+//!    TestAssert(RTC_INT_ALARM == ( xHWREG(RTC_RIER) & 0x00000003),
+//!		  "xrtc API \"RTCIntEnable\" error!");
+//!   
+//!    while(ulj !=1);
+//!    
+//!    //
+//!    //disable alarm interrupt.
+//!    //
+//!    RTCIntDisable(RTC_INT_ALARM);
+//!   
+//!    xIntMasterEnable();
+//!    //
+//!    //set second interrupt.
+//!    //
+//!    RTCTickModeSet(ulMode[0]);
+//!   
+//!    //
+//!    //enable tick interrupt.
+//!    //
+//!    RTCIntEnable(RTC_INT_TIME_TICK);
+//!    
+//!    TestAssert(RTC_INT_TIME_TICK == ( xHWREG(RTC_RIER) & 0x00000003),
+//!		  "xrtc API \"RTCIntEnable\" error!");
+//! 
+//!    while(ulj !=2);
+//!    
+//!    TestAssert(1 == 1,
+//!		  "xrtc API \"RTCIntCallbackInit\" error!");
+//!}
+//! \endcode
+//! \todo 
+//!
+//
+//*****************************************************************************
+
+
+
+
+
+

@@ -2,8 +2,8 @@
 //
 //! \file xdma.h
 //! \brief Defines and Macros for DMA API.
-//! \version V2.1.1.0
-//! \date 11/20/2011
+//! \version V2.1.1.1
+//! \date 11/14/2011
 //! \author CooCox
 //! \copy
 //!
@@ -97,7 +97,7 @@ extern "C"
 //! \section xDMA_Channel_IDs_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
 //! +-------------------------+----------------+----------------+
-//! |xDMA Channel IDs         |       CoX      |     NUC1xx     |
+//! |xDMA Channel IDs         |       CoX      |   STM32F1xx    |
 //! |-------------------------|----------------|----------------|
 //! |xDMA_CHANNEL_$x$         |  Non-Mandatory | xDMA_CHANNEL_0 |
 //! |                         |                |     ......     |
@@ -112,41 +112,41 @@ extern "C"
 //
 //*****************************************************************************
 
-#define xDMA_CHANNEL_COUNT      0
+#define xDMA_CHANNEL_COUNT      32
 #define xDMA_CHANNEL_NOT_EXIST  0xFFFFFFFF 
 
-#define xDMA_CHANNEL_0          0
-#define xDMA_CHANNEL_1          0
-#define xDMA_CHANNEL_2          0
-#define xDMA_CHANNEL_3          0
-#define xDMA_CHANNEL_4          0
-#define xDMA_CHANNEL_5          0
-#define xDMA_CHANNEL_6          0
-#define xDMA_CHANNEL_7          0
-#define xDMA_CHANNEL_8          0
-#define xDMA_CHANNEL_9          0
-#define xDMA_CHANNEL_10         0
-#define xDMA_CHANNEL_11         0
-#define xDMA_CHANNEL_12         0
-#define xDMA_CHANNEL_13         0
-#define xDMA_CHANNEL_14         0
-#define xDMA_CHANNEL_15         0
-#define xDMA_CHANNEL_16         0
-#define xDMA_CHANNEL_17         0
-#define xDMA_CHANNEL_18         0
-#define xDMA_CHANNEL_19         0
-#define xDMA_CHANNEL_20         0
-#define xDMA_CHANNEL_21         0
-#define xDMA_CHANNEL_22         0
-#define xDMA_CHANNEL_23         0
-#define xDMA_CHANNEL_24         0
-#define xDMA_CHANNEL_25         0
-#define xDMA_CHANNEL_26         0
-#define xDMA_CHANNEL_27         0
-#define xDMA_CHANNEL_28         0
-#define xDMA_CHANNEL_29         0
-#define xDMA_CHANNEL_30         0
-#define xDMA_CHANNEL_31         0
+#define xDMA_CHANNEL_0          DMA1_CHANNEL_1
+#define xDMA_CHANNEL_1          DMA1_CHANNEL_2
+#define xDMA_CHANNEL_2          DMA1_CHANNEL_3
+#define xDMA_CHANNEL_3          DMA1_CHANNEL_4
+#define xDMA_CHANNEL_4          DMA1_CHANNEL_5
+#define xDMA_CHANNEL_5          DMA1_CHANNEL_6
+#define xDMA_CHANNEL_6          DMA1_CHANNEL_7
+#define xDMA_CHANNEL_7          DMA2_CHANNEL_1
+#define xDMA_CHANNEL_8          DMA2_CHANNEL_2
+#define xDMA_CHANNEL_9          DMA2_CHANNEL_3
+#define xDMA_CHANNEL_10         DMA2_CHANNEL_4
+#define xDMA_CHANNEL_11         DMA2_CHANNEL_5
+#define xDMA_CHANNEL_12         12
+#define xDMA_CHANNEL_13         13
+#define xDMA_CHANNEL_14         14
+#define xDMA_CHANNEL_15         15
+#define xDMA_CHANNEL_16         16
+#define xDMA_CHANNEL_17         17
+#define xDMA_CHANNEL_18         18
+#define xDMA_CHANNEL_19         19
+#define xDMA_CHANNEL_20         20
+#define xDMA_CHANNEL_21         21
+#define xDMA_CHANNEL_22         22
+#define xDMA_CHANNEL_23         23
+#define xDMA_CHANNEL_24         24
+#define xDMA_CHANNEL_25         25
+#define xDMA_CHANNEL_26         26
+#define xDMA_CHANNEL_27         27
+#define xDMA_CHANNEL_28         28
+#define xDMA_CHANNEL_29         29
+#define xDMA_CHANNEL_30         30
+#define xDMA_CHANNEL_31         31
 
 //*****************************************************************************
 //
@@ -160,13 +160,13 @@ extern "C"
 //! \brief Values show request connecttions
 //! \n
 //! \section xDMA_Request_Connections_Section 1. Where to use this group
-//! Values that can be passed to XPDMAChannelDynamicAssign() 
+//! Values that can be passed to XDMAChannelDynamicAssign() 
 //! as the ulDMASrcRequest and ulDMADestRequest parameter. 
 //! \n
 //! \section xDMA_Request_Connections_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
 //! +-------------------------+----------------+----------------------+
-//! |xDMA Request Connections |       CoX      |        NUC1xx        |
+//! |xDMA Request Connections |       CoX      |      STM32F1xx       |
 //! |-------------------------|----------------|----------------------|
 //! |xDMA_REQUEST_NOT_EXIST   |    Mandatory   |           Y          |
 //! |-------------------------|----------------|----------------------|
@@ -198,31 +198,28 @@ extern "C"
 //*****************************************************************************
 
 
-#define xDMA_REQUEST_NOT_EXIST  0
-#define xDMA_REQUEST_MEM        0
+#define xDMA_REQUEST_NOT_EXIST  DMA_REQUEST_NOT_EXIST
+#define xDMA_REQUEST_MEM        DMA_REQUEST_MEM
 
-#define xDMA_REQUEST_UART0_RX   0
-#define xDMA_REQUEST_UART0_TX   0
+#define xDMA_REQUEST_UART0_RX   DMA_REQUEST_UART1_RX
+#define xDMA_REQUEST_UART0_TX   DMA_REQUEST_UART1_TX
 
-#define xDMA_REQUEST_UART1_RX   0
-#define xDMA_REQUEST_UART1_TX   0
+#define xDMA_REQUEST_UART1_RX   DMA_REQUEST_UART2_RX
+#define xDMA_REQUEST_UART1_TX   DMA_REQUEST_UART2_TX
 
-#define xDMA_REQUEST_SPI0_RX    0
-#define xDMA_REQUEST_SPI0_TX    0
+#define xDMA_REQUEST_SPI0_RX    DMA_REQUEST_SPI1_RX
+#define xDMA_REQUEST_SPI0_TX    DMA_REQUEST_SPI1_TX
 
-#define xDMA_REQUEST_SPI1_RX    0
-#define xDMA_REQUEST_SPI1_TX    0
+#define xDMA_REQUEST_SPI1_RX    DMA_REQUEST_SPI2_RX
+#define xDMA_REQUEST_SPI1_TX    DMA_REQUEST_SPI2_TX
 
-#define xDMA_REQUEST_SPI2_RX    0
-#define xDMA_REQUEST_SPI2_TX    0
+#define xDMA_REQUEST_SPI2_RX    DMA_REQUEST_SPI3_RX
+#define xDMA_REQUEST_SPI2_TX    DMA_REQUEST_SPI3_TX
 
-#define xDMA_REQUEST_SPI3_RX    0
-#define xDMA_REQUEST_SPI3_TX    0
+#define xDMA_REQUEST_IIS0_RX    DMA_REQUEST_I2S2_RX
+#define xDMA_REQUEST_IIS0_TX    DMA_REQUEST_I2S2_TX
 
-#define xDMA_REQUEST_IIS0_RX    0
-#define xDMA_REQUEST_IIS0_TX    0
-
-#define xDMA_REQUEST_ADC_RX     0
+#define xDMA_REQUEST_ADC_RX     DMA_REQUEST_ADC0_RX
 
 // ADC, timer will be added in the further
 
@@ -238,14 +235,14 @@ extern "C"
 //! \brief Values show xDMA interrupt
 //! \n
 //! \section xDMA_Ints_Section 1. Where to use this group
-//! Values that can be passed to XPDMAChannelIntEnable(),
-//! XPDMAChannelIntDisable(), XPDMAChannelIntFlagGet(), XPDMAChannelIntFlagClear()
+//! Values that can be passed to XDMAChannelIntEnable(),
+//! XDMAChannelIntDisable(), XDMAChannelIntFlagGet(), XDMAChannelIntFlagClear()
 //! as the ulIntFlags  parameter. 
 //! \n
 //! \section xDMA_Ints_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
 //! +-------------------------+----------------+----------------+
-//! |xDMA interrupt source    |       CoX      |     NUC1xx     |
+//! |xDMA interrupt source    |       CoX      |     STM32F1xx  |
 //! |-------------------------|----------------|----------------|
 //! |xDMA_INT_TC              |    Mandatory   |        Y       |
 //! |-------------------------|----------------|----------------|
@@ -259,12 +256,12 @@ extern "C"
 //
 //! Transfer complete.
 //
-#define xDMA_INT_TC             0
+#define xDMA_INT_TC             DMA_EVENT_TC
 
 //
 //! Error occurs when DMA channel transfer.
 //
-#define xDMA_INT_ERROR          0
+#define xDMA_INT_ERROR          DMA_EVENT_ERROR
 
 //*****************************************************************************
 //
@@ -279,13 +276,13 @@ extern "C"
 //! \n
 //! \section xDMA_Event_Flags_Section 1. Where to use this group
 //! Uart Event/Error Flag, Used by IntHandle's Event Callback Function as 
-//! ulMsgParam parmeter. User Callback function can user this to detect what 
+//! ulMsgParam parameter. User Callback function can use this to detect what 
 //! event happened.
 //! \n
 //! \section xDMA_Event_Flags_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
 //! +-------------------------+----------------+----------------+
-//! |xDMA event flag          |       CoX      |     NUC1xx     |
+//! |xDMA event flag          |       CoX      |     STM32F1xx  |
 //! |-------------------------|----------------|----------------|
 //! |xDMA_EVENT_TC            |    Mandatory   |        Y       |
 //! |-------------------------|----------------|----------------|
@@ -299,12 +296,12 @@ extern "C"
 //
 //! Transfer complete.
 //
-#define xDMA_EVENT_TC           0
+#define xDMA_EVENT_TC           xDMA_INT_TC
 
 //
 //! Error occurs when DMA channel transfer.
 //
-#define xDMA_EVENT_ERROR        0
+#define xDMA_EVENT_ERROR        xDMA_INT_ERROR
 
 //*****************************************************************************
 //
@@ -324,7 +321,7 @@ extern "C"
 //! \section xDMA_Event_Flags_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
 //! +-------------------------+----------------+----------------+
-//! |xDMA channel Attr        |       CoX      |     NUC1xx     |
+//! |xDMA channel Attr        |       CoX      |     STM32F1xx  |
 //! |-------------------------|----------------|----------------|
 //! |xDMA_ATTR_PRIORITY_NORMAL|  Non-Mandatory |        N       |
 //! |-------------------------|----------------|----------------|
@@ -338,7 +335,7 @@ extern "C"
 //*****************************************************************************
 
 #define xDMA_ATTR_PRIORITY_NORMAL                                      
-#define xDMA_ATTR_PRIORITY_HIGH 
+#define xDMA_ATTR_PRIORITY_HIGH DMA_ATTR_PRIORITY_HIGH
 #define xDMA_ATTR_PRIORITY_MASK 
 
 //*****************************************************************************
@@ -353,13 +350,13 @@ extern "C"
 //! \brief Values show xDMA Channel Control Configuration
 //! \n
 //! \section xDMA_Channel_Control_Config_Section 1. Where to use this group
-//! Values that can be passed to PDMAChannelControlSet()
+//! Values that can be passed to DMAChannelControlSet()
 //! as the ulControl parameter. 
 //! \n
 //! \section xDMA_Channel_Control_Config_CoX 2.CoX Mandatory and CoX Non-mandatory 
 //! \verbatim
 //! +-------------------------+----------------+-----------------+
-//! |xDMA Control Config      |       CoX      |     NUC1xx      |
+//! |xDMA Control Config      |       CoX      |     STM32F1xx   |
 //! |-------------------------|----------------|-----------------|
 //! |xDMA_DST_INC_$x$         |  Non-Mandatory | xDMA_DST_INC_8  |
 //! |                         |                | xDMA_DST_INC_16 |
@@ -389,25 +386,25 @@ extern "C"
 //! @{
 //
 //*****************************************************************************
-#define xDMA_DST_INC_8          0
-#define xDMA_DST_INC_16         0
-#define xDMA_DST_INC_32         0
-#define xDMA_DST_INC_NONE       0
+#define xDMA_DST_INC_8          DMA_PER_DIR_INC
+#define xDMA_DST_INC_16         DMA_PER_DIR_INC
+#define xDMA_DST_INC_32         DMA_PER_DIR_INC
+#define xDMA_DST_INC_NONE       DMA_PER_DIR_FIXED
 #define xDMA_DST_INC(ulDstSize) 
 
-#define xDMA_SRC_INC_8          0
-#define xDMA_SRC_INC_16         0
-#define xDMA_SRC_INC_32         0
-#define xDMA_SRC_INC_NONE       0
+#define xDMA_SRC_INC_8          DMA_MEM_DIR_INC
+#define xDMA_SRC_INC_16         DMA_MEM_DIR_INC
+#define xDMA_SRC_INC_32         DMA_MEM_DIR_INC
+#define xDMA_SRC_INC_NONE       DMA_MEM_DIR_FIXED
 #define xDMA_SRC_INC(ulSrcSize) 
 
-#define xDMA_SRC_SIZE_8         0
-#define xDMA_SRC_SIZE_16        0
-#define xDMA_SRC_SIZE_32        0
+#define xDMA_SRC_SIZE_8         DMA_MEM_WIDTH_8BIT
+#define xDMA_SRC_SIZE_16        DMA_MEM_WIDTH_16BIT
+#define xDMA_SRC_SIZE_32        DMA_MEM_WIDTH_32BIT
 
-#define xDMA_DST_SIZE_8         0
-#define xDMA_DST_SIZE_16        0
-#define xDMA_DST_SIZE_32        0
+#define xDMA_DST_SIZE_8         DMA_PER_WIDTH_8BIT
+#define xDMA_DST_SIZE_16        DMA_PER_WIDTH_16BIT
+#define xDMA_DST_SIZE_32        DMA_PER_WIDTH_32BIT
 
 //
 // The unit is not a byte, is a item
@@ -440,44 +437,46 @@ extern "C"
 //!
 //! \section xDMA_Exported_APIs_Port CoX Port Details
 //! \verbatim
-//! +---------------------------+----------------+--------+
-//! |xDMA API                   |       CoX      | NUC1xx |
-//! |---------------------------|----------------|--------|
-//! |xDMAEnable                 |    Mandatory   |    Y   |
-//! |---------------------------|----------------|--------|
-//! |xDMADisable                |    Mandatory   |    Y   |
-//! |---------------------------|----------------|--------|
-//! |xDMAChannelDynamicAssign   |    Mandatory   |    Y   |
-//! |---------------------------|----------------|--------|
-//! |xDMAChannelAssignmentGet   |    Mandatory   |    Y   |
-//! |---------------------------|----------------|--------|
-//! |xDMAChannelDeAssign        |    Mandatory   |    Y   |
-//! |---------------------------|----------------|--------|
-//! |xDMAChannelAttributeSet    |  Non-Mandatory |    N   |
-//! |---------------------------|----------------|--------|
-//! |xDMAChannelAttributeGet    |  Non-Mandatory |    N   |
-//! |---------------------------|----------------|--------|
-//! |xDMAChannelControlSet      |    Mandatory   |    Y   |
-//! |---------------------------|----------------|--------|
-//! |xDMAChannelTransferSet     |    Mandatory   |    Y   |
-//! |---------------------------|----------------|--------|
-//! |xDMAChannelIntCallbackInit |    Mandatory   |    Y   |
-//! |---------------------------|----------------|--------|
-//! |xDMAChannelIntCallbackGet  |  Non-Mandatory |    Y   |
-//! |---------------------------|----------------|--------|
-//! |xDMAChannelIntEnable       |    Mandatory   |    Y   |
-//! |---------------------------|----------------|--------|
-//! |xDMAChannelIntDisable      |    Mandatory   |    Y   |
-//! |---------------------------|----------------|--------|
-//! |xDMAIntEnable              |  Non-Mandatory |    Y   |
-//! |---------------------------|----------------|--------|
-//! |xDMAIntDisable             |  Non-Mandatory |    Y   |
-//! |---------------------------|----------------|--------|
+//! +---------------------------+----------------+---------+
+//! |xDMA API                   |       CoX      |STM32F1xx|
+//! |---------------------------|----------------|---------|
+//! |xDMAEnable                 |    Mandatory   |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMADisable                |    Mandatory   |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMAChannelDynamicAssign   |    Mandatory   |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMAChannelAssignmentGet   |    Mandatory   |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMAChannelDeAssign        |    Mandatory   |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMAChannelAttributeSet    |  Non-Mandatory |    N    |
+//! |---------------------------|----------------|---------|
+//! |xDMAChannelAttributeGet    |  Non-Mandatory |    N    |
+//! |---------------------------|----------------|---------|
+//! |xDMAChannelControlSet      |    Mandatory   |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMAChannelTransferSet     |    Mandatory   |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMAChannelIntCallbackInit |    Mandatory   |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMAChannelIntCallbackGet  |  Non-Mandatory |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMAChannelIntEnable       |    Mandatory   |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMAChannelIntDisable      |    Mandatory   |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMAIntEnable              |  Non-Mandatory |    Y    |
+//! |---------------------------|----------------|---------|
+//! |xDMAIntDisable             |  Non-Mandatory |    Y    |
+//! |---------------------------|----------------|---------|
 //! \endverbatim
 //! @{
 //
 //*****************************************************************************
-extern void xDMAEnable(unsigned long ulChannelID);
+
+#define xDMAEnable(ulChannelID)                                               \
+        DMAEnable(ulChannelID)
         
 //*****************************************************************************
 //
@@ -489,7 +488,8 @@ extern void xDMAEnable(unsigned long ulChannelID);
 //! \return None.
 //
 //*****************************************************************************                                                        
-extern void xDMADisable(unsigned long ulChannelID);
+#define xDMADisable(ulChannelID)                                              \
+        DMADisable(ulChannelID)
 
 //*****************************************************************************
 //
@@ -524,8 +524,8 @@ extern void xDMADisable(unsigned long ulChannelID);
 //! .
 //
 //*****************************************************************************
-extern void xDMAChannelDynamicAssign(unsigned long ulDMASrcRequest, 
-                                     unsigned long ulDMADestRequest);
+#define xDMAChannelDynamicAssign(ulDMASrcRequest, ulDMADestRequest)           \
+        DMAChannelDynamicAssign(ulDMASrcRequest, ulDMADestRequest)
 
 //*****************************************************************************
 //
@@ -542,7 +542,8 @@ extern void xDMAChannelDynamicAssign(unsigned long ulDMASrcRequest,
 //! if the channel is idle.
 //
 //*****************************************************************************
-extern void xDMAChannelAssignmentGet(unsigned long ulChannelID);
+#define xDMAChannelAssignmentGet(ulChannelID)                                 \
+        DMAChannelAssignmentGet(ulChannelID)
 
 //*****************************************************************************
 //
@@ -558,7 +559,8 @@ extern void xDMAChannelAssignmentGet(unsigned long ulChannelID);
 //! \return None.
 //
 //*****************************************************************************
-extern void xDMAChannelDeAssign(unsigned long ulChannelID);
+#define xDMAChannelDeAssign(ulChannelID)                                      \
+        DMAChannelDeAssign(ulChannelID)
 
 //*****************************************************************************
 //
@@ -578,8 +580,7 @@ extern void xDMAChannelDeAssign(unsigned long ulChannelID);
 //! \return None.
 //
 //*****************************************************************************
-extern void xDMAChannelAttributeSet(unsigned long ulChannelID, 
-                                    unsigned long ulAttr); 
+#define xDMAChannelAttributeSet(ulChannelID, ulAttr) 
 
 //*****************************************************************************
 //
@@ -599,7 +600,7 @@ extern void xDMAChannelAttributeSet(unsigned long ulChannelID,
 //! .
 //
 //*****************************************************************************
-extern void xDMAChannelAttributeGet(unsigned long ulChannelID); 
+#define xDMAChannelAttributeGet(ulChannelID) 
 
 //*****************************************************************************
 //
@@ -649,8 +650,19 @@ extern void xDMAChannelAttributeGet(unsigned long ulChannelID);
 //! \return None.
 //
 //*****************************************************************************
-extern void xDMAChannelControlSet(unsigned long ulChannelID, 
-                                  unsigned long ulControl);    
+#define xDMAChannelControlSet(ulChannelID, ulControl)                         \
+        do                                                                    \
+        {                                                                     \
+            if(xHWREG(DMA1_BASE + DMA_CCR1 + ulChannelID * 20) & DMA_CCR1_DIR) \
+            {                                                                 \
+                DMAChannelControlSet(ulChannelID, ulControl);                 \
+            }                                                                 \
+            else                                                              \
+            {                                                                 \
+                DMAChannelControlSet(ulChannelID, DMAPTOM(ulControl));        \
+            }                                                                 \
+        }                                                                     \
+        while(0)    
 
 //*****************************************************************************
 //
@@ -701,11 +713,10 @@ extern void xDMAChannelControlSet(unsigned long ulChannelID,
 //! \return None.
 //
 //*****************************************************************************
-extern void xDMAChannelTransferSet(unsigned long ulChannelID, 
-                                   unsigned long ulMode, 
-								   void *pvSrcAddr,                
-                                   void *pvDstAddr, 
-								   unsigned long ulTransferSize);
+#define xDMAChannelTransferSet(ulChannelID, ulMode, pvSrcAddr,                \
+                               pvDstAddr, ulTransferSize)                     \
+        DMAChannelTransferSet(ulChannelID, pvSrcAddr,                         \
+                               pvDstAddr, ulTransferSize)
 
 //*****************************************************************************
 //
@@ -727,22 +738,8 @@ extern void xDMAChannelTransferSet(unsigned long ulChannelID,
 //! \return None.
 //
 //*****************************************************************************
-extern void xDMAChannelIntCallbackInit(unsigned long ulChannelID, 
-                                       xtEventCallback pfnCallback);
-
-//*****************************************************************************
-//
-//! \brief Get the DMA channel Interrupt Callback function that have been set.
-//!
-//! \param ulChannelID is channel ID.
-//!
-//! When there is any channel interrupt occrus, Interrupt Handler will 
-//! call the callback function. 
-//!
-//! \return the call back function point.
-//
-//*****************************************************************************
-extern void xDMAChannelIntCallbackGet(unsigned long ulChannelID);
+#define xDMAChannelIntCallbackInit(ulChannelID, pfnCallback)                  \
+        DMAChannelIntCallbackInit(ulChannelID, pfnCallback)
 
 //*****************************************************************************
 //
@@ -765,8 +762,8 @@ extern void xDMAChannelIntCallbackGet(unsigned long ulChannelID);
 //! \return None.
 //
 //*****************************************************************************
-extern void xDMAChannelIntEnable(unsigned long ulChannelID, 
-                                 unsigned long ulIntFlags);
+#define xDMAChannelIntEnable(ulChannelID, ulIntFlags)                         \
+        DMAChannelIntEnable(ulChannelID, ulIntFlags)
 
 //*****************************************************************************
 //
@@ -789,8 +786,8 @@ extern void xDMAChannelIntEnable(unsigned long ulChannelID,
 //! \return None.
 //
 //*****************************************************************************
-extern void xDMAChannelIntDisable(unsigned long ulChannelID, 
-                                  unsigned long ulIntFlags);
+#define xDMAChannelIntDisable(ulChannelID, ulIntFlags)                        \
+        DMAChannelIntDisable(ulChannelID, ulIntFlags)
 
 //*****************************************************************************
 //
@@ -804,7 +801,13 @@ extern void xDMAChannelIntDisable(unsigned long ulChannelID,
 //! \return None.
 //
 //*****************************************************************************
-extern void xDMAIntEnable();
+#define xDMAIntEnable()                                                       \
+        do                                                                    \
+        {                                                                     \
+            xIntEnable(INT_DMA1);                                             \
+            xIntEnable(INT_DMA2);                                             \
+        }                                                                     \
+        while(0)
 
 //*****************************************************************************
 //
@@ -818,7 +821,342 @@ extern void xDMAIntEnable();
 //! \return None.
 //
 //*****************************************************************************
-extern void xDMAIntDisable(void);        
+#define xDMAIntDisable()                                                      \
+        do                                                                    \
+        {                                                                     \
+            xIntDisable(INT_DMA1);                                            \
+            xIntDisable(INT_DMA2);                                            \
+        }                                                                     \
+        while(0)        
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_DMA 
+//! @{
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_DMA_Channel_IDs STM32F1xx DMA Channel IDs
+//! \brief Defines for the STM32F1xx DMA Channel IDs
+//! @{
+//
+//*****************************************************************************
+
+#define DMA_CHANNEL_COUNT       12
+#define DMA_CHANNEL_NOT_EXIST   0xFFFFFFFF 
+
+#define DMA1_CHANNEL_1          0
+#define DMA1_CHANNEL_2          1
+#define DMA1_CHANNEL_3          2
+#define DMA1_CHANNEL_4          3
+#define DMA1_CHANNEL_5          4
+#define DMA1_CHANNEL_6          5
+#define DMA1_CHANNEL_7          6
+
+
+#define DMA2_CHANNEL_1          7
+#define DMA2_CHANNEL_2          8
+#define DMA2_CHANNEL_3          9
+#define DMA2_CHANNEL_4          10
+#define DMA2_CHANNEL_5          11
+
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_DMA_INT_Type STM32F1xx DMA Interrupt Type
+//! \brief Defines for the STM32F1xx DMA Interrupt Type
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Transfer complete interrupt
+//
+#define DMA_INT_TC              0x00000002
+
+//
+//! Half transfer interrupt enable
+//
+#define DMA_INT_HT              0x00000004
+
+//
+//! Transfer error interrupt
+//
+#define DMA_INT_ERROR           0x00000008
+
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_DMA_Event_Flags  STM32F1xx DMA Event Flags
+//! \brief Defines for the STM32F1xx DMA Event Flags
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Transfer complete.
+//
+#define DMA_EVENT_TC            0x00000002
+
+//
+//! Error occurs when DMA channel transfer.
+//
+#define DMA_EVENT_ERROR         0x00000008
+
+//
+//! half transfer flag.
+//
+#define DMA_EVENT_HT            0x00000004
+
+//
+//! Error occurs when DMA channel transfer.
+//
+#define DMA_EVENT_GLOBAL        0x00000001
+
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_DMA_Channel_Control_Config STM32F1xx DMA Channel Control 
+//! Configure
+//! \brief Defines for the STM32F1xx DMA Channel Control Configure
+//! @{
+//
+//*****************************************************************************
+
+#define DMA_PER_DIR_INC         0x00000040
+#define DMA_PER_DIR_FIXED       0x00000000
+
+#define DMA_MEM_DIR_INC         0x00000080
+#define DMA_MEM_DIR_FIXED       0x00000000
+
+#define DMA_MEM_WIDTH_8BIT      0x00000000
+#define DMA_MEM_WIDTH_16BIT     0x00000400
+#define DMA_MEM_WIDTH_32BIT     0x00000800
+
+#define DMA_PER_WIDTH_8BIT      0x00000000
+#define DMA_PER_WIDTH_16BIT     0x00000100
+#define DMA_PER_WIDTH_32BIT     0x00000200
+
+#define DMA_MODE_MTOM           0x00004010
+#define DMA_MODE_MTOP           0x00000010
+#define DMA_MODE_PTOM           0x00000000
+#define DMA_MODE_PTOP           0x00000000
+
+#define DMA_MODE_CIRC_EN        0x00000020
+#define DMA_MODE_CIRC_DIS       0x00000000
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_DMA_Request_Connections STM32F1xx DMA Request Connections
+//! \brief Defines for the STM32F1xx DMA Request Connections
+//! @{
+//
+//*****************************************************************************
+
+#define DMA_REQUEST_NOT_EXIST   0xFFFFFFFF
+#define DMA_REQUEST_MEM         0x0000000F
+
+#define DMA_REQUEST_ADC0_RX     0x00000000
+#define DMA_REQUEST_TIM2_CH3    0x00000000
+#define DMA_REQUEST_TIM4_CH1    0x00000000
+
+#define DMA_REQUEST_UART3_TX    0x00000101
+#define DMA_REQUEST_TIM1_CH1    0x00000001
+#define DMA_REQUEST_TIM2_UP     0x00000101
+#define DMA_REQUEST_TIM3_CH3    0x00000001
+#define DMA_REQUEST_SPI1_RX     0x00000001
+
+#define DMA_REQUEST_UART3_RX    0x00000002
+#define DMA_REQUEST_TIM1_CH2    0x00000002
+#define DMA_REQUEST_TIM3_CH4    0x00000002
+#define DMA_REQUEST_TIM3_UP     0x00000102
+#define DMA_REQUEST_SPI1_TX     0x00000102
+
+#define DMA_REQUEST_UART1_TX    0x00000103
+#define DMA_REQUEST_TIM1_CH4    0x00000003
+#define DMA_REQUEST_TIM1_TRIG   0x00000103
+#define DMA_REQUEST_TIM1_COM    0x00000103
+#define DMA_REQUEST_TIM4_CH2    0x00000003
+#define DMA_REQUEST_SPI2_RX     0x00000003
+#define DMA_REQUEST_I2S2_RX     0x00000003
+#define DMA_REQUEST_I2C2_TX     0x00000103
+
+#define DMA_REQUEST_UART1_RX    0x00000004
+#define DMA_REQUEST_TIM1_UP     0x00000104
+#define DMA_REQUEST_SPI2_TX     0x00000104
+#define DMA_REQUEST_I2S2_TX     0x00000104
+#define DMA_REQUEST_TIM2_CH1    0x00000004
+#define DMA_REQUEST_TIM4_CH3    0x00000004
+#define DMA_REQUEST_I2C2_RX     0x00000004
+
+#define DMA_REQUEST_UART2_RX    0x00000005
+#define DMA_REQUEST_TIM1_CH3    0x00000005
+#define DMA_REQUEST_TIM3_CH1    0x00000005
+#define DMA_REQUEST_TIM3_TRIG   0x00000105
+#define DMA_REQUEST_I2C1_TX     0x00000105
+
+#define DMA_REQUEST_UART2_TX    0x00000106
+#define DMA_REQUEST_TIM2_CH2    0x00000006
+#define DMA_REQUEST_TIM2_CH4    0x00000006
+#define DMA_REQUEST_TIM4_UP     0x00000106
+#define DMA_REQUEST_I2C1_RX     0x00000006
+
+#define DMA_REQUEST_TIM5_CH4    0x10000007
+#define DMA_REQUEST_TIM5_TRIG   0x10000107
+#define DMA_REQUEST_TIM8_CH3    0x10000007
+#define DMA_REQUEST_TIM8_UP     0x10000107
+#define DMA_REQUEST_SPI3_RX     0x10000007
+#define DMA_REQUEST_I2S3_RX     0x10000007
+
+#define DMA_REQUEST_TIM8_CH4    0x10000008
+#define DMA_REQUEST_TIM8_TRIG   0x10000108
+#define DMA_REQUEST_TIM8_COM    0x10000108
+#define DMA_REQUEST_TIM5_CH3    0x10000008
+#define DMA_REQUEST_TIM5_UP     0x10000108
+#define DMA_REQUEST_SPI3_TX     0x10000108
+#define DMA_REQUEST_I2S3_TX     0x10000108
+
+#define DMA_REQUEST_TIM8_CH1    0x10000009
+#define DMA_REQUEST_UART4_RX    0x10000009
+#define DMA_REQUEST_TIM6_UP     0x10000109
+#define DMA_REQUEST_DAC_CH1     0x10000109
+
+#define DMA_REQUEST_TIM5_CH2    0x1000000A
+#define DMA_REQUEST_SDIO_RX     0x1000000A
+#define DMA_REQUEST_SDIO_TX     0x1000010A
+#define DMA_REQUEST_TIM7_UP     0x1000010A
+#define DMA_REQUEST_DAC_CH2     0x1000010A
+
+#define DMA_REQUEST_ADC3_RX     0x1000000B
+#define DMA_REQUEST_TIM8_CH2    0x1000000B
+#define DMA_REQUEST_TIM5_CH1    0x1000000B
+#define DMA_REQUEST_UART4_TX    0x1000010B
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_DMA_Priority_Level  STM32F1xx DMA priority level
+//! \brief Defines for the STM32F1xx DMA Channel priority level
+//! @{
+//
+//*****************************************************************************
+
+//
+//! DMA priority level Low.
+//
+#define DMA_ATTR_PRIORITY_LOW   0x00000000               
+
+//
+//! DMA priority level Medium.
+//
+#define DMA_ATTR_PRIORITY_MEDIUM                                              \
+                                0x00001000
+
+//
+//! DMA priority level High.
+//
+#define DMA_ATTR_PRIORITY_HIGH  0x00002000
+
+//
+//! DMA priority level Very high.
+//                                
+#define DMA_ATTR_PRIORITY_VHIGH 0x00003000
+
+//
+//! DMA priority level mask.
+//                                
+#define DMA_ATTR_PRIORITY_MASK  0x00003000
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
+//! \addtogroup STM32F1xx_DMA_Exported_APIs STM32F1xx DMA APIs
+//! \brief STM32F1xx DMA API Reference.
+//! @{
+//
+//*****************************************************************************
+
+extern void DMAEnable(unsigned long ulChannelID);
+extern void DMADisable(unsigned long ulChannelID);
+extern void DMAChannelIntDisable(unsigned long ulChannelID, 
+                                 unsigned long ulIntFlags);
+extern void DMAChannelIntEnable(unsigned long ulChannelID, 
+                                unsigned long ulIntFlags);
+extern unsigned long DMAChannelDynamicAssign(unsigned long ulDMASrcRequest,    
+                                            unsigned long ulDMADestRequest);
+extern xtBoolean DMAChannelAssignmentGet(unsigned long ulChannelID);
+extern void DMAChannelDeAssign(unsigned long ulChannelID);
+
+extern void DMAChannelAttributeSet(unsigned long ulChannelID, 
+                                unsigned long ulAttr);
+extern unsigned long DMAChannelAttributeGet(unsigned long ulChannelID);
+
+extern void DMAChannelControlSet(unsigned long ulChannelID,
+                                unsigned long ulControl);
+    
+extern void DMAChannelTransferSet(unsigned long ulChannelID,
+                                   void *pvSrcAddr,
+                                   void *pvDstAddr,
+                                   unsigned long ulTransferSize);
+
+extern void DMAChannelIntCallbackInit(unsigned long ulChannelID, 
+                                xtEventCallback pfnCallback);
+
+extern xtBoolean DMAChannelIntFlagGet(unsigned long ulChannelID, 
+                                       unsigned long ulIntFlags);
+extern void DMAChannelIntFlagClear(unsigned long ulChannelID, 
+                                    unsigned long ulIntFlags);
+
+extern unsigned long DMARemainTransferCountGet(unsigned long ulChannelID);
 
 //*****************************************************************************
 //
