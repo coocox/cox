@@ -16,7 +16,7 @@
 #include "xsysctl.h"
 #include "xgpio.h"
 #include "xcore.h"
-#include "xadc.h"
+#include "xpwm.h"
 
 //*****************************************************************************
 //
@@ -28,7 +28,7 @@
 //! \return None.
 //
 //*****************************************************************************
-unsigned long ADC0IntFucntion(void *pvCBData,
+/*unsigned long ADC0IntFucntion(void *pvCBData,
                                        unsigned long ulEvent,
                                        unsigned long ulMsgParam,
                                        void *pvMsgData)
@@ -36,70 +36,60 @@ unsigned long ADC0IntFucntion(void *pvCBData,
     ADCIntClear(ADC_BASE, ADC_INT_END_CYCLE);
     return 0;
 }
-
+*/
 //*****************************************************************************
 //
-//! Ininite the ADC 
+//! Using PWM to control Led 
 //!
 //! \param None
 //!
-//! This function ininite the ADC including clock source and enable ADC 
+//! This function use the PWM to control Led 
 //!
 //! \return none
 //
 //*****************************************************************************
-void ADConvert(void)
+void PWMLedControl(void)
 {
-  
-    unsigned long ulAdcSeqNo[] = {0};
-    unsigned long ulData;
-
+    //
+    // Set System Clock
+    //
     xSysCtlClockSet(72000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
     SysCtlDelay(10000);
 
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
+    //
+    // Enable PWM
+    //
+    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_PWMA);
+
+    //
+    // Configure Channel
+    //
+    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOA);
     SysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);
+    xSPinTypeTimer(TIM1CH1, PA8);
+    
     //
-    // configure GPIO pin as ADC function
+    // Configure PWM 
     //
-    xSPinTypeADC(ADC0, PA0);
-    //
-    // Reset ADC 
-    //
-    SysCtlPeripheralReset(SYSCTL_PERIPH_ADC);
+    xPWMInitConfigure(xPWMA_BASE, xPWM_CHANNEL0, xPWM_OUTPUT_INVERTER_DIS|xPWM_DEAD_ZONE_DIS);
 
     //
-    // Set ADC clock source
+    // Set PWM Frequency(1000Hz)
     //
-    SysCtlPeripheralClockSourceSet(SYSCTL_PERIPH_ADC_S_HCLK_64);
+    xPWMFrequencyConfig(xPWMA_BASE, xPWM_CHANNEL0, xPWM_FREQ_CONFIG(1,0x48,0x3E8));
 
     //
-    // Enable ADC clock 
+    // Set Channel0 Duty 
     //
-    SysCtlPeripheralEnable( SYSCTL_PERIPH_ADC);
-    ADCReset(ADC_BASE);
+    xPWMDutySet(xPWMA_BASE, xPWM_CHANNEL0, 10);
+
     //
-    // Set the length of converter
+    // Enable PWM Output
     //
-    ADCConverLenSet(ADC_BASE, 1, 1);
+    xPWMOutputEnable(xPWMA_BASE, xPWM_CHANNEL0);
+
     //
-    // Test ADC configure API
+    // Start PWM
     //
-    ADCSequenceIndexSet(ADC_BASE, ulAdcSeqNo);
-    ADCSampLenSet(ADC_BASE, 0, 128);
-    //
-    // A/D interrupt enable 
-    //
-    ADCIntEnable(ADC_BASE, ADC_INT_END_CYCLE);
-    xIntEnable(INT_ADC);
-    xADCIntCallbackInit(ADC_BASE, ADC0IntFucntion);
-    //
-    // Software trigger enable
-    //
-    ADCProcessorTrigger(ADC_BASE);
-    //
-    // A/D configure 
-    //
-    ADCConfigure(ADC_BASE, ADC_OP_SINGLE, ADC_TRIGGER_PROCESSOR);
-    ADCDataGet(ADC_BASE, &ulData);
+    xPWMStart(xPWMA_BASE, xPWM_CHANNEL0);
 }

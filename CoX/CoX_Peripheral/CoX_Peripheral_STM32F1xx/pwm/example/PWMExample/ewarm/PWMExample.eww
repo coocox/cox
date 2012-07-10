@@ -2,7 +2,7 @@
 
 <workspace>
   <project>
-    <path>$WS_DIR$\ADConvert.ewp</path>
+    <path>$WS_DIR$\PWMExample.ewp</path>
   </project>
   <batchBuild/>
 </workspace>
