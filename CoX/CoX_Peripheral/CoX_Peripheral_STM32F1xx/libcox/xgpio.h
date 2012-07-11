@@ -93,7 +93,7 @@ extern "C"
 //*****************************************************************************
 
 //
-//! xGPIO intrerrupt nimber config
+//! xGPIO intrerrupt number config
 //
 #define xGPIO_INT_NUMBER        8  
 
@@ -3580,5 +3580,4 @@ extern unsigned long  GPIOPinToPin(unsigned long ulPort,
 #endif
 
 #endif //  __xGPIO_H__
-
 

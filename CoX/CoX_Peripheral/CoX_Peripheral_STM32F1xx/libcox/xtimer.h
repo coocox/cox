@@ -406,8 +406,8 @@ extern "C"
 //! |------------------------|----------------|------------------------|
 //! |xTIMER_CHANNELn         |    Mandatory   |     xTIMER_CHANNEL0    |
 //! |                        |                |     xTIMER_CHANNEL1    |
-//! |                        |                |     xTIMER_CHANNEL1    |
-//! |                        |                |     xTIMER_CHANNEL1    |  
+//! |                        |                |     xTIMER_CHANNEL2    |
+//! |                        |                |     xTIMER_CHANNEL3    |  
 //! +------------------------+----------------+------------------------+
 //! \endverbatim
 //! @{
@@ -458,9 +458,9 @@ extern "C"
 //! |------------------------------|----------------|------------------|
 //! |xTimerCounterEnable           |    Mandatory   |         Y        |
 //! |------------------------------|----------------|------------------|
-//! |xTimerCounterDisable          |    Mandatory   |         N        |
+//! |xTimerCounterDisable          |    Mandatory   |         Y        |
 //! |------------------------------|----------------|------------------|
-//! |xTimerCaptureModeSet          |    Mandatory   |         N        |
+//! |xTimerCaptureModeSet          |    Mandatory   |         Y        |
 //! |------------------------------|----------------|------------------|
 //! |xTimerPrescaleSet             |    Mandatory   |         Y        |
 //! |------------------------------|----------------|------------------|
@@ -515,7 +515,7 @@ extern "C"
 //! Details please refer to \ref xTIMER_Mode_Type_CoX
 //!
 //! \b xTIMER_MODE_ONESHOT, \b xTIMER_MODE_PERIODIC, \b xTIMER_MODE_TOGGLE and
-//! \b xTIMER_MODE_CONTINUOUS is the Timer's mode
+//! \b xTIMER_MODE_CONTINUOUS , \b xTIMER_MODE_CAPTURE is the Timer's mode
 //! 
 //! \b xTIMER_COUNT_UP, \b xTIMER_COUNT_DOWN is the Timer's direction.
 //!
@@ -626,7 +626,7 @@ extern void xTimerCaptureModeSet(unsigned long ulBase, unsigned long ulChannel,
 //
 //*****************************************************************************
 #define xTimerPrescaleSet(ulBase, ulChannel, ulValue)                         \
-        TimerPrescalerConfigure(ulBase, ulValue, TIMER_PSC_RLD_IMMEDIATE)
+        TimerPrescalerConfigure(ulBase, ulValue, TIMER_PSC_RLD_UPDATE)
 
 //*****************************************************************************
 //
@@ -1090,7 +1090,7 @@ extern void xTimerCaptureEdgeSelect(unsigned long ulBase, unsigned long ulChanne
 //
 //! Input Capture Selection Direction TI
 //
-#define TIMER_ICSEL_DIRTI       0x00000000
+#define TIMER_ICSEL_DIRTI       0x00000001
 
 //
 //! Input Capture Selection InDirection TI
@@ -1100,7 +1100,7 @@ extern void xTimerCaptureEdgeSelect(unsigned long ulBase, unsigned long ulChanne
 //
 //! Input Capture Selection TRC
 //
-#define TIMER_ICSEL_TRC         0x0000000A
+#define TIMER_ICSEL_TRC         0x00000003
 
 //*****************************************************************************
 //
@@ -1173,12 +1173,12 @@ extern void xTimerCaptureEdgeSelect(unsigned long ulBase, unsigned long ulChanne
 //
 //! Force Inactive
 //
-#define TIMER_OCMODE_FINACTIVE  0x00000030
+#define TIMER_OCMODE_FINACTIVE  0x00000040
 
 //
 //! Force active
 //
-#define TIMER_OCMODE_FACTIVE    0x00000030
+#define TIMER_OCMODE_FACTIVE    0x00000050
 
 //*****************************************************************************
 //
@@ -1671,37 +1671,37 @@ extern void xTimerCaptureEdgeSelect(unsigned long ulBase, unsigned long ulChanne
 //
 //!  Internal Trigger 1 (ITR1) 
 //
-#define TIMER_TRSEL_ITR1        0x00000001
+#define TIMER_TRSEL_ITR1        0x00000010
 
 //
 //!  Internal Trigger 2 (ITR2) 
 //
-#define TIMER_TRSEL_ITR2        0x00000002
+#define TIMER_TRSEL_ITR2        0x00000020
 
 //
 //!  Internal Trigger 3 (ITR3) 
 //
-#define TIMER_TRSEL_ITR3        0x00000003
+#define TIMER_TRSEL_ITR3        0x00000030
 
 //
 //!  TI1 Edge Detector (TI1F_ED) 
 //
-#define TIMER_TRSEL_TI1FED      0x00000004
+#define TIMER_TRSEL_TI1FED      0x00000040
 
 //
 //!  Filtered Timer Input 1 (TI1FP1) 
 //
-#define TIMER_TRSEL_TI1FP1      0x00000005
+#define TIMER_TRSEL_TI1FP1      0x00000050
 
 //
 //!  Filtered Timer Input 2 (TI1FP2) 
 //
-#define TIMER_TRSEL_TI2FP2      0x00000006
+#define TIMER_TRSEL_TI2FP2      0x00000060
 
 //
 //!  External Trigger input (ETRF)
 //
-#define TIMER_TRSEL_ETRF        0x00000007  
+#define TIMER_TRSEL_ETRF        0x00000070  
 
 //*****************************************************************************
 //

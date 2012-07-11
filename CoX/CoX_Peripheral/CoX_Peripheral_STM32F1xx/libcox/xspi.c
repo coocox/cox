@@ -69,8 +69,25 @@ static xtEventCallback g_pfnSPIHandlerCallbacks[3]={0};
 void 
 SPI1IntHandler(void)
 {
-	  unsigned long ulEventFlags;
-	
+    unsigned long ulEventFlags, ulCR1;
+
+	ulEventFlags = 	xHWREG(SPI1_BASE + SPI_SR);
+
+	if((ulEventFlags & SPI_SR_OVR) != 0)
+	{
+	    xHWREG(SPI1_BASE + SPI_DR);
+		xHWREG(SPI1_BASE + SPI_SR);
+	}
+	else if((ulEventFlags & SPI_SR_MODF) != 0)
+	{
+		ulCR1 = xHWREG(SPI1_BASE + SPI_CR1);
+		xHWREG(SPI1_BASE + SPI_CR1) = ulCR1;	 
+	}
+	else if((ulEventFlags & SPI_SR_CRCERR) != 0)
+	{
+	    xHWREG(SPI1_BASE + SPI_SR) &= ~SPI_SR_CRCERR; 
+	}
+		
     //
     // Call Callback function
     //
@@ -96,12 +113,29 @@ SPI1IntHandler(void)
 void 
 SPI2IntHandler(void)
 {
-	  unsigned long ulEventFlags;
+    unsigned long ulEventFlags, ulCR1;
+
+	ulEventFlags = 	xHWREG(SPI2_BASE + SPI_SR);
+
+	if((ulEventFlags & SPI_SR_OVR) != 0)
+	{
+	    xHWREG(SPI2_BASE + SPI_DR);
+		xHWREG(SPI2_BASE + SPI_SR);
+	}
+	else if((ulEventFlags & SPI_SR_MODF) != 0)
+	{
+		ulCR1 = xHWREG(SPI2_BASE + SPI_CR1);
+		xHWREG(SPI2_BASE + SPI_CR1) = ulCR1;	 
+	}
+	else if((ulEventFlags & SPI_SR_CRCERR) != 0)
+	{
+	    xHWREG(SPI2_BASE + SPI_SR) &= ~SPI_SR_CRCERR; 
+	}
 	
     //
     // Call Callback function
     //
-    if(g_pfnSPIHandlerCallbacks[2])
+    if(g_pfnSPIHandlerCallbacks[1])
     {
         g_pfnSPIHandlerCallbacks[1](0, 0, ulEventFlags, 0);
     }
@@ -123,7 +157,24 @@ SPI2IntHandler(void)
 void 
 SPI3IntHandler(void)
 {
-	  unsigned long ulEventFlags;
+    unsigned long ulEventFlags, ulCR1;
+
+	ulEventFlags = 	xHWREG(SPI3_BASE + SPI_SR);
+
+	if((ulEventFlags & SPI_SR_OVR) != 0)
+	{
+	    xHWREG(SPI3_BASE + SPI_DR);
+		xHWREG(SPI3_BASE + SPI_SR);
+	}
+	else if((ulEventFlags & SPI_SR_MODF) != 0)
+	{
+		ulCR1 = xHWREG(SPI3_BASE + SPI_CR1);
+		xHWREG(SPI3_BASE + SPI_CR1) = ulCR1;	 
+	}
+	else if((ulEventFlags & SPI_SR_CRCERR) != 0)
+	{
+	    xHWREG(SPI3_BASE + SPI_SR) &= ~SPI_SR_CRCERR; 
+	}
 	
     //
     // Call Callback function

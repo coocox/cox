@@ -122,19 +122,21 @@ GPIOBaseValid(unsigned long ulPort)
 //*****************************************************************************
 void EXTI0IntHandler(void)
 {
-    unsigned long i;
+    unsigned long i, ulTemp;
     
     //
     // Clear the interrupt flag.
     //
-    
+    ulTemp = xHWREG(EXTI_PR);
+	xHWREG(EXTI_PR) |= (0x00000001 << 0);
+
     for(i=0; i<xGPIO_INT_NUMBER; i++)
     {
         if((g_psGPIOPinIntAssignTable[i].ulpinID & 0xffff) == GPIO_PIN_0)
         {
             if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
             {
-                g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback(0,0,0,0);
+                g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback(0,ulTemp,0,0);
             }
         }
     } 	
@@ -152,6 +154,22 @@ void EXTI0IntHandler(void)
 //*****************************************************************************
 void EXTI1IntHandler(void)
 {
+    unsigned long i, ulTemp;
+    
+    // Clear the interrupt flag.
+    //
+    ulTemp = xHWREG(EXTI_PR);
+	xHWREG(EXTI_PR) |= (0x00000001 << 1);
+    for(i=0; i<xGPIO_INT_NUMBER; i++)
+    {
+        if((g_psGPIOPinIntAssignTable[i].ulpinID & 0xffff) == GPIO_PIN_1)
+        {
+            if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
+            {
+                g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback(0,ulTemp,0,0);
+            }
+        }
+    } 	
 }
 
 //*****************************************************************************
@@ -166,11 +184,13 @@ void EXTI1IntHandler(void)
 //*****************************************************************************
 void EXTI2IntHandler(void)
 {
-    unsigned long i;
+    unsigned long i, ulTemp;
     
-    //
+	//
     // Clear the interrupt flag.
     //
+    ulTemp = xHWREG(EXTI_PR);
+	xHWREG(EXTI_PR) |= (0x00000001 << 2);
     
     for(i=0; i<xGPIO_INT_NUMBER; i++)
     {
@@ -178,7 +198,7 @@ void EXTI2IntHandler(void)
         {
             if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
             {
-                g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback(0,0,0,0);
+                g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback(0,ulTemp,0,0);
             }
         }
     } 
@@ -196,6 +216,28 @@ void EXTI2IntHandler(void)
 //*****************************************************************************
 void EXTI3IntHandler(void)
 {
+    unsigned long i, ulTemp;
+    
+	//
+    // Clear the interrupt flag.
+    //
+    ulTemp = xHWREG(EXTI_PR);
+	xHWREG(EXTI_PR) |= (0x00000001 << 3);
+    
+    //
+    // Clear the interrupt flag.
+    //
+    
+    for(i=0; i<xGPIO_INT_NUMBER; i++)
+    {
+        if((g_psGPIOPinIntAssignTable[i].ulpinID & 0xffff) == GPIO_PIN_3)
+        {
+            if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
+            {
+                g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback(0,ulTemp,0,0);
+            }
+        }
+    } 	
 }
 
 //*****************************************************************************
@@ -210,6 +252,24 @@ void EXTI3IntHandler(void)
 //*****************************************************************************
 void EXTI4IntHandler(void)
 {
+    unsigned long i, ulTemp;
+    
+	//
+    // Clear the interrupt flag.
+    //
+    ulTemp = xHWREG(EXTI_PR);
+	xHWREG(EXTI_PR) |= (0x00000001 << 4);
+    
+    for(i=0; i<xGPIO_INT_NUMBER; i++)
+    {
+        if((g_psGPIOPinIntAssignTable[i].ulpinID & 0xffff) == GPIO_PIN_4)
+        {
+            if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
+            {
+                g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback(0,ulTemp,0,0);
+            }
+        }
+    } 	
 }
 
 //*****************************************************************************
@@ -224,6 +284,47 @@ void EXTI4IntHandler(void)
 //*****************************************************************************
 void EXTI95IntHandler(void)
 {
+    unsigned long i, ulTemp, ulShift;
+    
+	//
+    // Clear the interrupt flag.
+    //
+    ulTemp = xHWREG(EXTI_PR);
+    if((ulTemp & (0x00000001 << 5)) != 0)
+	{
+	    ulShift = 5;
+	}
+	else if((ulTemp & (0x00000001 << 6)) != 0)
+	{
+	    ulShift = 6;
+	}
+	else if((ulTemp & (0x00000001 << 7)) != 0)
+	{
+	    ulShift = 7;
+	}
+	else if((ulTemp & (0x00000001 << 8)) != 0)
+	{
+	    ulShift = 8;
+	}
+	else
+	{
+	    ulShift = 9;
+	}
+
+
+	xHWREG(EXTI_PR) |= (0x00000001 << ulShift);
+    
+
+    for(i=0; i<xGPIO_INT_NUMBER; i++)
+    {
+        if((g_psGPIOPinIntAssignTable[i].ulpinID & 0xffff) == (GPIO_PIN_0 << ulShift))
+        {
+            if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
+            {
+                g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback(0,0,0,0);
+            }
+        }
+    } 	
 
 }
 
@@ -239,7 +340,50 @@ void EXTI95IntHandler(void)
 //*****************************************************************************
 void EXTI1510IntHandler(void)
 {
+    unsigned long i, ulTemp, ulShift;
+    
+	//
+    // Clear the interrupt flag.
+    //
+    ulTemp = xHWREG(EXTI_PR);
+    if((ulTemp & (0x00000001 << 10)) != 0)
+	{
+	    ulShift = 10;
+	}
+	else if((ulTemp & (0x00000001 << 11)) != 0)
+	{
+	    ulShift = 11;
+	}
+	else if((ulTemp & (0x00000001 << 12)) != 0)
+	{
+	    ulShift = 12;
+	}
+	else if((ulTemp & (0x00000001 << 13)) != 0)
+	{
+	    ulShift = 13;
+	}
+	else if((ulTemp & (0x00000001 << 14)) != 0)
+	{
+	    ulShift = 14;
+	}
+	else
+	{
+	    ulShift = 15;
+	}
 
+	xHWREG(EXTI_PR) |= (0x00000001 << ulShift);
+    
+
+    for(i=0; i<xGPIO_INT_NUMBER; i++)
+    {
+        if((g_psGPIOPinIntAssignTable[i].ulpinID & 0xffff) == (GPIO_PIN_0 << ulShift))
+        {
+            if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
+            {
+                g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback(0,ulTemp,0,0);
+            }
+        }
+    } 	
 }
 
 //*****************************************************************************
@@ -304,16 +448,16 @@ GPIODirModeSet(unsigned long ulPort, unsigned long ulBit,
     //
     if(ulBit < 8)
     {
-        xHWREG(ulPort + GPIO_CRL) = (xHWREG(ulPort + GPIO_CRL) &               \
-        (~((GPIO_CRL_MODE0_M | GPIO_CRL_CNF0_M) << (ulBit * 4))));
+        xHWREG(ulPort + GPIO_CRL) &=                
+        (~((GPIO_CRL_MODE0_M | GPIO_CRL_CNF0_M) << (ulBit * 4)));
     
         xHWREG(ulPort + GPIO_CRL) = (xHWREG(ulPort + GPIO_CRL) |               \
         (((ulPinSpeed | ulPinType)) << (ulBit * 4)));  
     }
     else
     {
-        xHWREG(ulPort + GPIO_CRH) = (xHWREG(ulPort + GPIO_CRH) &               \
-        (~((GPIO_CRH_MODE8_M | GPIO_CRH_CNF8_M) << ((ulBit -8) * 4))));
+        xHWREG(ulPort + GPIO_CRH) &=                
+        (~((GPIO_CRH_MODE8_M | GPIO_CRH_CNF8_M) << ((ulBit -8) * 4)));
     
         xHWREG(ulPort + GPIO_CRH) = (xHWREG(ulPort + GPIO_CRH) |               \
         (((ulPinSpeed | ulPinType)) << ((ulBit -8) * 4)));
@@ -869,13 +1013,13 @@ GPIOPinConfigure(unsigned long ulPort, unsigned long ulPins,
     //
     // Check the argument.
     //
-    xASSERT(((ulPinConfig >> 28) & 0xf) <= 2 );
+    xASSERT(((ulPinConfig >> 28) & 0x1) <= 2 );
 
     //
     // Extract the base address index from the input value.
     //
 
-    ulBase = g_pulRemapRegs[(ulPinConfig >> 28) & 0xf];
+    ulBase = g_pulRemapRegs[(ulPinConfig >> 28) & 0x1];
 
 
     //
@@ -885,7 +1029,8 @@ GPIOPinConfigure(unsigned long ulPort, unsigned long ulPins,
 	
     ulInout = (ulPinConfig >> 29) & 0x07;
 	
-    for(i=0; i++; i<16)
+
+    for(i=0; i<16; i++)
     {
         if((ulPins >> i) == 1)
                 break;
@@ -914,4 +1059,3 @@ GPIOPinConfigure(unsigned long ulPort, unsigned long ulPins,
     xHWREG(ulBase) &= ~(ulShift);
     xHWREG(ulBase) |= (ulShift);
 }
-

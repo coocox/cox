@@ -55,7 +55,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup STM32F1xx_TIMER_Register STM32F1xx_TIMER_Register
+//! \addtogroup STM32F1xx_TIMER_Register STM32F1xx TIMER Register
 //! \brief Here are the detailed info of TIMER registers. 
 //!
 //! it contains:
@@ -1241,13 +1241,13 @@
 //!  fSAMPLING=fDTS/16, N=5
 //							   
 #define TIMER_CCMR1_IC1F_FDTS16_5                                             \
-                                0x000000A0
+                                 0x000000A0
 														
 //
 //!  fSAMPLING=fDTS/16, N=6
 //							   
 #define TIMER_CCMR1_IC1F_FDTS16_6                                             \
-                                0x000000B0
+                                 0x000000B0
 
 //
 //!  fSAMPLING=fDTS/16, N=8

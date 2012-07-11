@@ -46,6 +46,7 @@
 #include "xcore.h"
 #include "xsysctl.h"
 #include "xtimer.h"
+#include "xhw_config.h"
 
 //*****************************************************************************
 //
@@ -75,8 +76,21 @@ TIM1BRKTIM9IntHandler(void)
     //
 	// The SR register read cleared
 	//
-	ulTemp = xHWREG(TIM1_BASE + TIMER_SR);
-	ulTemp1 = xHWREG(TIM9_BASE + TIMER_SR);
+	ulTemp = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM1EN;
+
+	if(ulTemp != 0)
+	{
+	    ulTemp = xHWREG(TIM1_BASE + TIMER_SR);
+	}
+
+	#if (STM32F1xx_DEVICE == STM32F10X_XL)
+	ulTemp1 = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM9EN;
+	
+	if(ulTemp1 != 0)
+	{
+	    ulTemp1 = xHWREG(TIM9_BASE + TIMER_SR);
+	}
+	#endif
 
 	if(ulTemp & TIMER_SR_BIF != 0)
 	{
@@ -107,11 +121,20 @@ TIM1UPTIM10IntHandler(void)
 {
     unsigned long ulTemp = 0, ulTemp1 = 0;
 
-    //
-	// The SR register read cleared
-	//
-	ulTemp = xHWREG(TIM1_BASE + TIMER_SR);
-	ulTemp1 = xHWREG(TIM10_BASE + TIMER_SR);
+	ulTemp = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM1EN;
+
+	if(ulTemp != 0)
+	{
+	    ulTemp = xHWREG(TIM1_BASE + TIMER_SR);
+	}
+
+	#if (STM32F1xx_DEVICE == STM32F10X_XL)
+	ulTemp1 = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM10EN;
+	if(ulTemp1 != 0)
+	{
+	    ulTemp1 = xHWREG(TIM10_BASE + TIMER_SR);
+    }
+    #endif
 
 	if(ulTemp & TIMER_SR_UIF != 0)
 	{
@@ -145,8 +168,20 @@ TIM1TRGCOMTIM11IntHandler(void)
     //
 	// The SR register read cleared
 	//
-	ulTemp = xHWREG(TIM1_BASE + TIMER_SR);
-	ulTemp1 = xHWREG(TIM11_BASE + TIMER_SR);
+	ulTemp = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM1EN;
+
+	if(ulTemp != 0)
+	{
+	    ulTemp = xHWREG(TIM1_BASE + TIMER_SR);
+	}
+
+	#if (STM32F1xx_DEVICE == STM32F10X_XL)
+	ulTemp1 = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM11EN;
+	if(ulTemp1 != 0)
+	{
+	    ulTemp = xHWREG(TIM11_BASE + TIMER_SR);
+	}
+	#endif
 
 	if(ulTemp & TIMER_SR_TIF != 0)
 	{
@@ -372,8 +407,23 @@ TIM8BRKTIM12IntHandler(void)
     //
 	// The SR register read cleared
 	//
-	ulTemp = xHWREG(TIM8_BASE + TIMER_SR);
-	ulTemp1 = xHWREG(TIM12_BASE + TIMER_SR);
+	#if((STM32F1xx_DEVICE == STM32F10X_HD_VL) || (STM32F1xx_DEVICE == STM32F10X_XL))
+	ulTemp = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM8EN;
+
+    if(ulTemp != 0)
+	{
+	    ulTemp = xHWREG(TIM8_BASE + TIMER_SR);
+	}
+	#endif
+
+	#if(STM32F1xx_DEVICE == STM32F10X_XL)
+	ulTemp1 = xHWREG(RCC_APB1ENR) & RCC_APB1ENR_TIM12EN;
+
+	if(ulTemp1 != 0)
+	{
+	    ulTemp1 = xHWREG(TIM12_BASE + TIMER_SR);
+	}
+	#endif
 
 	if(ulTemp & TIMER_SR_BIF != 0)
 	{
@@ -404,11 +454,22 @@ TIM8UPTIM13IntHandler(void)
 {
     unsigned long ulTemp = 0, ulTemp1 = 0;
 
-    //
-	// The SR register read cleared
-	//
-	ulTemp = xHWREG(TIM8_BASE + TIMER_SR);
-	ulTemp1 = xHWREG(TIM13_BASE + TIMER_SR);
+	#if((STM32F1xx_DEVICE == STM32F10X_HD_VL) || (STM32F1xx_DEVICE == STM32F10X_XL))
+	ulTemp = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM8EN;
+
+    if(ulTemp != 0)
+	{
+	    ulTemp = xHWREG(TIM8_BASE + TIMER_SR);
+	}
+	#endif
+	#if(STM32F1xx_DEVICE == STM32F10X_XL)
+	ulTemp1 = xHWREG(RCC_APB1ENR) & RCC_APB1ENR_TIM13EN;
+
+	if(ulTemp1 != 0)
+	{
+	    ulTemp1 = xHWREG(TIM13_BASE + TIMER_SR);
+	}
+	#endif
 
 	if(ulTemp & TIMER_SR_UIF != 0)
 	{
@@ -442,9 +503,22 @@ TIM8TRGCOMTIM14IntHandler(void)
     //
 	// The SR register read cleared
 	//
-	ulTemp = xHWREG(TIM8_BASE + TIMER_SR);
-	ulTemp1 = xHWREG(TIM14_BASE + TIMER_SR);
+	#if((STM32F1xx_DEVICE == STM32F10X_HD_VL) || (STM32F1xx_DEVICE == STM32F10X_XL))
+	ulTemp = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM8EN;
 
+    if(ulTemp != 0)
+	{
+	    ulTemp = xHWREG(TIM8_BASE + TIMER_SR);
+	}
+	#endif
+	#if(STM32F1xx_DEVICE == STM32F10X_XL)
+	ulTemp1 = xHWREG(RCC_APB1ENR) & RCC_APB1ENR_TIM14EN;
+
+	if(ulTemp1 != 0)
+	{
+	    ulTemp1 = xHWREG(TIM14_BASE + TIMER_SR);
+	}
+	#endif
 	if(ulTemp & TIMER_SR_TIF != 0)
 	{
 	    g_pfnTimerHandlerCallbacks[13](0, 0, ulTemp, 0);
@@ -589,7 +663,7 @@ xTimerInitConfig(unsigned long ulBase, unsigned long ulChannel,
         case xTIMER_MODE_PERIODIC:
         {
 		    //
-			// One shot mode
+			// Periodic mode
 			//
             TimerOnePulseModeConfigure(ulBase, TIMER_OPMODE_REPETIVE);
 
@@ -643,6 +717,7 @@ xTimerInitConfig(unsigned long ulBase, unsigned long ulChannel,
         }
         case xTIMER_MODE_CAPTURE:
         {
+		    TimerOnePulseModeConfigure(ulBase, TIMER_OPMODE_REPETIVE);
 			//
 			// Input capture mode cofigure
 			//
@@ -707,7 +782,7 @@ xTimerCounterEnable(unsigned long ulBase, unsigned long ulChannel)
 	    TimerTIxExternalClockConfigure(ulBase, TIMER_TRSEL_TI2FP2, 
 		                             TIMER_ICPOL_RISING, 0);
 	}
-	TimerStart(ulBase);
+	//TimerStart(ulBase);
 }
 
 //*****************************************************************************
@@ -762,7 +837,8 @@ xTimerCaptureModeSet(unsigned long ulBase, unsigned long ulChannel,
 	{
 	    TimerICConfigure(ulBase, ulChannel, TIMER_ICPOL_RISING, 
 		                 TIMER_ICSEL_DIRTI, TIMER_ICPSC_DIV1, 0);
-		TimerSlaveModeConfigure(ulBase, TIMER_SMSEL_DISABLE);
+		//TimerSlaveModeConfigure(ulBase, TIMER_SMSEL_DISABLE);
+		TimerInternalClkConfigure(ulBase);
 	} 
 }
 
@@ -875,7 +951,7 @@ void xTimerIntEnable(unsigned long ulBase, unsigned long ulChannel,
 	else
 	{
 	    xHWREG(ulBase + TIMER_DIER) |= 
-		                (ulIntFlags & (TIMER_DIER_CC1IE << ulChannel));
+		                (ulIntFlags & (TIMER_DIER_CC1IE << (ulChannel - 1)));
 	}
 }
 
@@ -915,7 +991,7 @@ void xTimerIntDisable(unsigned long ulBase, unsigned long ulChannel,
 	else
 	{
 	    xHWREG(ulBase + TIMER_DIER) &= 
-		                ~(ulIntFlags & (TIMER_DIER_CC1IE << ulChannel));
+		                ~(ulIntFlags & (TIMER_DIER_CC1IE << (ulChannel -1)));
 	}
 }
 
@@ -1424,7 +1500,7 @@ TimerTI4Configure(unsigned long ulBase, unsigned long ulICPolarity,
 	// Select the Input and set the filter
 	//
 	ulTempccmr2 &= ~(TIMER_CCMR2_CC3S_M | TIMER_CCMR2_IC3F_M);
-	ulTempccmr2 |= (ulICSelection | (ulICFilter << 4));
+	ulTempccmr2 |= ((ulICSelection << 8) | (ulICFilter << 4));
 		
 	if((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
 	   (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
@@ -1518,6 +1594,7 @@ TimerBaseConfigure(unsigned long ulBase, unsigned long ulCountMode,
         // Select the Counter Mode
 		//
 		ulTempCR1 &= ~(TIMER_CR1_DIR | TIMER_CR1_CMS_M);
+		xHWREG(ulBase + TIMER_CR1) = ulTempCR1;
 		ulTempCR1 |= ulCountMode;
     }
 		
@@ -1542,7 +1619,7 @@ TimerBaseConfigure(unsigned long ulBase, unsigned long ulCountMode,
     //
     xHWREG(ulBase + TIMER_PSC) = ulPrescaler;
      
-	if((ulBase == TIM1_BASE) && (ulBase == TIM8_BASE))
+	if((ulBase == TIM1_BASE) || (ulBase == TIM8_BASE))
 	{
 	    //
 	    // Set the Repetition Counter value
@@ -1972,12 +2049,12 @@ TimerOC3Configure(unsigned long ulBase, unsigned long ulOutputMode,
 		// Set the Output Compare Polarity
 		//
 		ulTempccer &= ~TIMER_CCER_CC3P;
-		ulTempccer |= (ulOCCfg & TIMER_CCER_CC3P);
+		ulTempccer |= ((ulOCCfg << 8) & TIMER_CCER_CC3P);
 		
 		//
 		// Set the Output State
 		//
-		ulTempccer |= (ulOCCfg & TIMER_CCER_CC3E);
+		ulTempccer |= ((ulOCCfg << 8) & TIMER_CCER_CC3E);
 		
 		if((ulBase == TIM1_BASE) || (ulBase == TIM8_BASE))
 		{   
@@ -1985,13 +2062,13 @@ TimerOC3Configure(unsigned long ulBase, unsigned long ulOutputMode,
         // Set the Output N Polarity
         //
 		    ulTempccer &= ~TIMER_CCER_CC3NP;
-		    ulTempccer |= (ulOCNCfg & TIMER_CCER_CC3NP);
+		    ulTempccer |= ((ulOCNCfg << 8) & TIMER_CCER_CC3NP);
 
         //
         // Set the Output N State
         //
 		    ulTempccer &= ~TIMER_CCER_CC3NE;
-		    ulTempccer |= (ulOCNCfg & TIMER_CCER_CC3NE);	
+		    ulTempccer |= ((ulOCNCfg << 8) & TIMER_CCER_CC3NE);	
 			
 			  //
 			  // Set the Output Idle/ N Idle state
@@ -2812,7 +2889,7 @@ TimerInputTriggerSelect(unsigned long ulBase, unsigned long ulInputTriggerSource
 	//
 	// Reset the TS Bits
 	//
-	ulTempsmcr &= ~TIMER_SMCR_SMS_M;
+	ulTempsmcr &= ~TIMER_SMCR_TS_M;
 
 	//
 	// Set the Input Trigger source
@@ -2862,7 +2939,7 @@ TimerTIxExternalClockConfigure(unsigned long ulBase, unsigned long ulExtClkSourc
 			(ulExtClkSource == TIMER_TRSEL_TI2FP2));
     xASSERT((ulICPolarity == TIMER_ICPOL_RISING) || 
 	        (ulICPolarity == TIMER_ICPOL_FALLING));
-	xASSERT((ulICFilter >= 0) && (ulICFilter >= 0xFF));
+	xASSERT((ulICFilter >= 0) && (ulICFilter <= 0xFF));
 
 	if(ulExtClkSource == TIMER_TRSEL_TI2FP2)
 	{
@@ -3071,6 +3148,7 @@ TimerETRConfigure(unsigned long ulBase, unsigned long ulExtTRGPrescaler,
 	//
 	// Set the Prescaler, the Filter value and the Polarity
 	//
+	ulTempsmcr &= ~(TIMER_SMCR_ETP | TIMER_SMCR_ETPS_M | TIMER_SMCR_ETF_M);
 	ulTempsmcr |= (ulExtTRGPrescaler | ulExtTRGPolarity | (ulExtTRGFilter << 8));
 	
 	//
@@ -3165,6 +3243,7 @@ TimerCNTModeConfigure(unsigned long ulBase, unsigned long ulCountMode)
     // Select the Counter Mode
 	//
 	ulTempCR1 &= ~(TIMER_CR1_DIR | TIMER_CR1_CMS_M);
+	xHWREG(ulBase + TIMER_CR1) = ulTempCR1;
 	ulTempCR1 |= ulCountMode;
     
     //
@@ -3218,6 +3297,11 @@ TimerEncoderInterfaceConfigure(unsigned long ulBase, unsigned long ulEncoderMode
 	        (ulIC2Polarity == TIMER_ICPOL_FALLING));
     
 	//
+	// Disable the CC1E ,CC2E
+	//
+	xHWREG(ulBase + TIMER_CCER) &= ~(TIMER_CCER_CC1E | TIMER_CCER_CC2E);    
+
+	//
 	// Get the TIMx SMCR register value
 	//
     ulTempsmcr = xHWREG(ulBase + TIMER_SMCR);
@@ -3263,7 +3347,8 @@ TimerEncoderInterfaceConfigure(unsigned long ulBase, unsigned long ulEncoderMode
 	//
 	// Write to TIMx CCER
 	//
-	xHWREG(ulBase + TIMER_CCER) = ulTempccer; 
+	xHWREG(ulBase + TIMER_CCER) =  ulTempccer; 
+	xHWREG(ulBase + TIMER_CCER) |= TIMER_CCER_CC1E | TIMER_CCER_CC2E;
 
 }
 
@@ -4082,7 +4167,7 @@ TimerOCxRefClear(unsigned long ulBase, unsigned long ulChannel,
 		}
 		else
 		{
-		    ulTempccmr &= ~TIMER_CCMR2_OC3CE;
+		    ulTempccmr &= ~TIMER_CCMR2_OC4CE;
 
 			//
 			// Enable or Disable the Output Compare Clear Bit
@@ -4794,7 +4879,7 @@ TimerOutputSrcSelect(unsigned long ulBase, unsigned long ulSelect)
 
 //*****************************************************************************
 //
-//! \brief Selects Selects slave mode of the Timer.
+//! \brief Selects slave mode of the Timer.
 //!
 //! \param ulBase is the base address of the Timer port. The timer can be 
 //!        selected 1, 2, 3, 4, 5, 8, 9, 12 .
@@ -4934,7 +5019,7 @@ TimerCounterGet(unsigned long ulBase)
 
 //*****************************************************************************
 //
-//! \brief Sets counter reload register value.
+//! \brief Set counter reload register value.
 //!
 //! \param ulBase is the base address of the Timer port. It can be timer 1 to 14.
 //! \param ulARRValue is the counter reload register new value. It is a value 
