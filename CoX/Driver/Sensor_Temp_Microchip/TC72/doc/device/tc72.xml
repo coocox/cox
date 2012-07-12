@@ -20,7 +20,7 @@
         <Interface>SPI</Interface>
     </Communication>
     
-    <WebPage>http://cn.element14.com/jsp/search/productdetail.jsp?id=1852305&Ntt;=1852305</WebPage>
+    <WebPage>http://cn.element14.com/jsp/search/productdetail.jsp?id=1852305</WebPage>
     <Datasheet>http://ww1.microchip.com/downloads/en/devicedoc/21743a.pdf</Datasheet>
     
     <Doc>$Device_ROOT$\doc\</Doc>

@@ -3,8 +3,8 @@
 //! \file xsysctl.h
 //! \brief Prototypes for the System Manager Driver.
 //! \brief Prototypes for the Clock Controller Driver.
-//! \version V2.1.1.0
-//! \date 11/14/2011
+//! \version V2.2
+//! \date 5/17/2012
 //! \author CooCox
 //! \copy
 //!
@@ -786,8 +786,6 @@ extern "C"
 //! |--------------------------------|----------------|--------|
 //! |xSysCtlPeripheralDisable2       |    Mandatory   |    Y   |
 //! |--------------------------------|----------------|--------|
-//! |xSysCtlPeripheraIntNumGet       |    Mandatory   |    Y   |
-//! |--------------------------------|----------------|--------|
 //! |xSysCtlClockSet                 |    Mandatory   |    Y   |
 //! |--------------------------------|----------------|--------|
 //! |xSysCtlClockGet                 |    Mandatory   |    Y   |
@@ -933,22 +931,6 @@ extern void xSysCtlPeripheralDisable2(unsigned long ulPeripheralBase);
 //
 //*****************************************************************************
 extern void xSysCtlPeripheralReset2(unsigned long ulPeripheralBase);
-
-//*****************************************************************************
-//
-//! \brief Get the peripheral interrupt number through peripheral base.
-//!
-//! \param ulPeripheral The peripheral's base  
-//!
-//! \note It's especially useful to enable the short pin's corresponding 
-//! peripheral interrupt: Use the short pin to Get the GPIO base through 
-//! \ref xGPIOSPinToPort function, and then use this function to enable the GPIO
-//! interrupt.
-//!
-//! \return None.
-//
-//*****************************************************************************
-extern unsigned long xSysCtlPeripheraIntNumGet(unsigned long ulPeripheralBase);
 
 //*****************************************************************************
 //

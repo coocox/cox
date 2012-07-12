@@ -307,7 +307,7 @@
 //******************************************************
 //
 //!
-//! \addtogroup COX_Driver_Lib
+//! \addtogroup CoX_Driver_Lib
 //! @{
 //! \addtogroup Sensor 
 //! @{

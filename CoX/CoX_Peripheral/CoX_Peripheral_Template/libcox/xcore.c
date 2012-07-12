@@ -4,8 +4,8 @@
 //! \brief Instruction wrappers for special CPU instructions.
 //! \brief Driver for the NVIC Interrupt Controller.
 //! \brief Driver for the SysTick driver.
-//! \version V2.1.1.0
-//! \date 11/14/2011
+//! \version V2.2
+//! \date 5/17/2012
 //! \author CooCox
 //! \copy
 //!

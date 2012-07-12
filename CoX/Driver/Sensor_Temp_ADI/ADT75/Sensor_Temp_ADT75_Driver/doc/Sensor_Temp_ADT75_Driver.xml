@@ -1,15 +1,18 @@
 <?xml version="1.0" ?> 
   <Component>
-    <Name>Sensor_Temp_ADT75_Driver</Name> 
-    <Description>ADT75 Temperature Driver using I2C interface</Description> 
+    <Name>ADT75 Temperature Driver using I2C interface</Name> 
     <Category>Driver</Category> 
-    <Version>1.0.0</Version> 
+    <Version>2.1.1.0</Version>  
     <KeyWord>ADT75, Temperature, Temp, Sensor, I2C, IIC, Driver, COX</KeyWord> 
     <Filter>
       <Interface>I2C</Interface> 
       <COXBased>true</COXBased> 
-      <Layer>Driver</Layer> 
     </Filter>
+    <Categorys>
+        <Layer name="Driver">
+            <Cate name="Driver" />
+        </Layer>
+    </Categorys> 
     <SupportDevices>
       <Device>ADT75ARMZ, ADT75ARMZ-REEL7, ADT75ARMZ-REEL, ADT75ARZ, ADT75ARZ-REEL7, ADT75ARZ-REEL, ADT75BRMZ
 ADT75BRMZ-REEL7, ADT75BRMZ-REEL</Device> 
@@ -18,7 +21,7 @@ ADT75BRMZ-REEL7, ADT75BRMZ-REEL</Device>
       <File>$Driver_ROOT$\lib\*</File> 
     </Files>
     <CoIDEFiles>
-      <File>PROJECT_ROOT$\CoX\CoX_Driver\Sensor_Temp_ADT75\hw_adt75.h</File> 
+      <File>PROJECT_ROOT$\CoX\CoX_Driver\Sensor_Temp_ADT75\xhw_adt75.h</File> 
       <File>PROJECT_ROOT$\CoX\CoX_Driver\Sensor_Temp_ADT75\adt75.h</File> 
       <File>PROJECT_ROOT$\CoX\CoX_Driver\Sensor_Temp_ADT75\adt75.c</File> 
     </CoIDEFiles>

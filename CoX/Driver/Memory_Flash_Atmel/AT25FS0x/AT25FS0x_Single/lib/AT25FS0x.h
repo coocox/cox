@@ -4,10 +4,10 @@
 //! \brief Prototypes for the AT25FS0x Driver.
 //! \version V2.1.1.0
 //! \date 9/22/2011
-//! \author CooCox
+//! \author CooCoX
 //! \copy
 //!
-//! Copyright (c)  2011, CooCox 
+//! Copyright (c)  2011, CooCoX 
 //! All rights reserved.
 //! 
 //! Redistribution and use in source and binary forms, with or without 
@@ -51,14 +51,14 @@ extern "C"
 #endif
 //*****************************************************************************
 //
-//! \addtogroup COX_Driver_Lib
+//! \addtogroup CoX_Driver_Lib
 //! @{
 //
 //*****************************************************************************
 
 //*****************************************************************************
 //
-//! \addtogroup Memmory
+//! \addtogroup Memory
 //! @{
 //
 //*****************************************************************************
@@ -159,7 +159,7 @@ extern "C"
   
 //*****************************************************************************
 //
-//! \addtogroup COX_AT25FS0x_Exported_APIs
+//! \addtogroup CoX_AT25FS0x_Exported_APIs
 //! @{
 //
 //*****************************************************************************

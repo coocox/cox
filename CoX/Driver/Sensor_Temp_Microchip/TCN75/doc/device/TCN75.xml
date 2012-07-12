@@ -3,7 +3,6 @@
     <Name>TCN75-5.0MOA</Name>
     <Description> Digital temperature sensor particularly suited for low cost and small formfactor applications. </Description>
     <Manufacturer>Microchip</Manufacturer>
-    
     <Category>Sensor</Category>
     <SubCategory>Temperature</SubCategory>
     

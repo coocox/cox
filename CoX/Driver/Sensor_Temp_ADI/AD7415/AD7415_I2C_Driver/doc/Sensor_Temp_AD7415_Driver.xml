@@ -1,15 +1,19 @@
 <?xml version="1.0" ?> 
   <Component>
-    <Name>AD7415_I2C_Driver</Name> 
-    <Description>AD7415 Temperature Driver using I2C interface</Description> 
-    <Category>Driver</Category> 
-    <Version>1.0.0</Version> 
+    <Name>AD7415 series Temperature Driver using I2C interface</Name> 
+    <Version>2.1.1.0</Version> 
     <KeyWord>AD7415, Temperature, Sensor, I2C, IIC, Driver, CoX</KeyWord> 
     <Filter>
       <Interface>I2C</Interface> 
       <COXBased>true</COXBased> 
-      <Layer>Driver</Layer> 
     </Filter>
+	
+    <Categorys>
+        <Layer name="Driver">
+            <Cate name="Driver" />
+        </Layer>
+    </Categorys> 
+	
     <SupportDevices>
       <Device>AD7414ARTZ-3REEL71, AD7414ARTZ-3REEL1, AD7415ART-0REEL7, AD7415ART-0REEL, AD7415ART-0500RL7, AD7415ARTZ-0REEL71, AD7415ARTZ-0REEL1,
       AD7415ARTZ-0500RL71, AD7415ART-1REEL7, AD7415ART-1REEL, AD7415ART-1500RL7, AD7415ARTZ-1REEL71, AD7415ARTZ-1REEL1, AD7415ARTZ-1500RL71</Device> 

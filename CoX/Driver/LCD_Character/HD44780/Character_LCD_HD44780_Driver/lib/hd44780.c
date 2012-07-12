@@ -2,7 +2,7 @@
 //
 //! \file hd44780.c
 //! \brief Driver for Character LCD HD44780.
-//! \version 1.0.0
+//! \version 2.1.1.0
 //! \date 10/18/2011
 //! \author CooCox
 //! \copy

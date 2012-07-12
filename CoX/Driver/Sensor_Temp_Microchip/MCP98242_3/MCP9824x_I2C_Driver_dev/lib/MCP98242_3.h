@@ -56,13 +56,13 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup COX_Driver_Lib  COX Driver Lib
+//! \addtogroup CoX_Driver_Lib  
 //! @{
 //! \addtogroup Sensor 
 //! @{
-//! \addtogroup Temperature_Sensor  Temperature Sensor
+//! \addtogroup Temperature_Sensor  
 //! @{
-//! \addtogroup MCP98242_TempSensor_EEPROM MCP98242 TempSensor EEPROM
+//! \addtogroup MCP98242_TempSensor_EEPROM 
 //! @{
 //
 //*****************************************************************************

@@ -8,11 +8,11 @@
 //! temperature measurements and has an alarm function with nonvolatile
 //! user-programmable upper and lower trigger points. The DS18B20 communicates
 //! over a 1-Wire bus that by definition requires only one data line (and ground)
-//! for communication with a central microprocessor. It has an operating
-//! temperature range of -55°„C to +125°„C and is accurate to °¿0.5°„C over the range
-//! of -10°„C to +85°„C. In addition, the DS18B20 can derive power directly from
-//! the data line (°∞parasite power°±), eliminating the need for an external power
-//! supply.
+//! for communication with a central microprocessor. It has an operating temperature
+//! range of -55 centigrade to +125 centigrade and is accurate to °¿0.5 centigrade
+//! over the range of -10 centigrade over the range to +85 centigrade over the range.
+//! In addition, the DS18B20 can derive power directly from the data line("parasite
+//!  power"),eliminating the need for an external power supply.
 //!
 //! Each DS18B20 has a unique 64-bit serial code, which allows multiple DS18B20s
 //! to function on the same 1-Wire bus. Thus, it is simple to use one
@@ -31,10 +31,8 @@
 //!   .
 //! - \ref DS18B20_API_Group
 //!   - \ref DS18B20_API_Config
-//!   - \ref DS18B20_API_Search
-//!   - \ref DS18B20_API_Location
-//!   - \ref DS18B20_API_Cursor
-//!   - \ref DS18B20_API_Lowlayer
+//!   - \ref DS18B20_API_ROM
+//!   - \ref DS18B20_API_FUNCTION
 //!   .
 //! - \ref DS18B20_Usage
 //! .
@@ -61,7 +59,7 @@
 //! The DS18B20 output temperature data is calibrated in degrees Celsius;
 //! for Fahrenheit applications, a lookup table or conversion routine
 //! must be used. The temperature data is stored as a 16-bit sign-extended
-//! two°Øs complement number in the temperature register (see Figure 2).
+//! two's complement number in the temperature register (see Figure 2).
 //! The sign bits (S) indicate if the temperature is positive or negative:
 //! for positive numbers S = 0 and for negative numbers S = 1. If the
 //! DS18B20 is configured for 12-bit resolution, all bits in the temperature
@@ -76,7 +74,7 @@
 //! \subsection DS18B20_Func_ROM 2.3 64-BIT LASERED ROM CODE
 //!
 //! Each DS18B20 contains a unique 64®Cbit code (see Figure) stored in ROM.
-//! The least significant 8 bits of the ROM code contain the DS18B20°Øs
+//! The least significant 8 bits of the ROM code contain the DS18B20's
 //! 1-Wire family code: 28h. The next 48 bits contain a unique serial number.
 //! The most significant 8 bits contain a cyclic redundancy check (CRC) byte
 //! that is calculated from the first 56 bits of the ROM code. A detailed
