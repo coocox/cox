@@ -2,7 +2,7 @@
 //
 //! \file xhw_rtc.h
 //! \brief Macros used when accessing the RTC hardware.
-//! \version V2.1.1.0
+//! \version V2.2.1.0
 //! \date 05/31/2012
 //! \author CooCox
 //! \copy

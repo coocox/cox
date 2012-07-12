@@ -1,7 +1,7 @@
 ;//*****************************************************************************
 ;//
 ;//! \file startup_rvmdk.c
-;//! \brief NUC1xx Devices Startup code for MDK.
+;//! \brief STM32F1xx Devices Startup code for MDK.
 ;//!        This module performs:
 ;//!           - Set the initial SP
 ;//!           - Set the vector table entries with the exceptions ISR address
@@ -44,162 +44,7 @@
 ;//
 ;//*****************************************************************************
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-CLK_BA_base      EQU 0x50000200
-PWRCON			 EQU 0x00
-AHBCLK			 EQU 0x04
-APBCLK			 EQU 0x08
-CLKSEL0			 EQU 0x10
-CLKSEL1			 EQU 0x14
-CLKDIV			 EQU 0x18
-PLLCON			 EQU 0x20
-TEST_S			 EQU 0x30
-
-CLK_BA_APBCLK    EQU 0x50000208
-
-;// Define clock enable registers  
-
-ADC_COMP_CLK     EQU 0x50000208
-ADC_enable		 EQU 0x10000000
-COMP_enable      EQU 0x40000000
-
-PDMA_CLK         EQU 0x50000204 
-PDMA_enable      EQU 0x00000003
-
-;;  bit 0  CPU_EN
-;;	bit 1  PDMA_EN
-
-
-
-
-;// Define COMP registers base
-COMP_base        EQU  0x400D0000
-CMP1CR           EQU  0x00
-CMP2CR           EQU  0x04
-CMPSR            EQU  0x08
-
-;// Define ADC registers base
-ADC_base         EQU  0x400E0000
-ADDR0            EQU  0x00
-ADDR1            EQU  0x04
-ADDR2            EQU  0x08
-ADDR3            EQU  0x0c
-ADDR4            EQU  0x10
-ADDR5            EQU  0x14
-ADDR6            EQU  0x18
-ADDR7            EQU  0x1c
-ADCR             EQU  0x20
-ADCHER           EQU  0x24
-ADCMPR0          EQU  0x28
-ADCMPR1          EQU  0x2c
-ADSR             EQU  0x30
-ADCALR           EQU  0x34
-ADCFCR           EQU  0x38
-ADCALD           EQU  0x3c
-
-;// Pattern Table
-pattern_55555555 EQU  0x55555555
-pattern_aaaaaaaa EQU  0xaaaaaaaa
-pattern_00005555 EQU  0x00005555
-pattern_0000aaaa EQU  0x0000aaaa
-pattern_05550515 EQU  0x05550515
-pattern_0aaa0a2a EQU  0x0aaa0a2a
-
-;// Define PDMA regsiter base
-PDMA_BA_ch0_base        EQU  0x50008000
-PDMA_BA_ch1_base        EQU  0x50008100
-PDMA_BA_ch2_base        EQU  0x50008200
-PDMA_BA_ch3_base        EQU  0x50008300
-PDMA_BA_ch4_base        EQU  0x50008400
-PDMA_BA_ch5_base        EQU  0x50008500
-PDMA_BA_ch6_base        EQU  0x50008600
-PDMA_BA_ch7_base        EQU  0x50008700
-
-PDMA_BA_GCR             EQU 0x50008F00
-PDMA_BA_GCR_base        EQU 0x50008F00
-
-PDMA_GCRCSR		 EQU  0X00
-PDMA_PDSSR2		 EQU  0X04
-PDMA_PDSSR1		 EQU  0X08  ;; PDMA channel select   0x77000000
-PDMA_GCRISR		 EQU  0X0C
-
-PDMA_GLOBAL_enable      EQU 0x0000FF00
-
-
-PDMA_CSR         EQU  0X00
-PDMA_SAR         EQU  0X04
-PDMA_DAR         EQU  0X08
-PDMA_BCR         EQU  0X0C
-PDMA_CSAR        EQU  0X14
-PDMA_CDAR        EQU  0X18
-PDMA_CBSR        EQU  0X1C
-PDMA_IER         EQU  0X20
-PDMA_ISR         EQU  0X24
-PDMA_CTCSR       EQU  0X28
-PDMA_SASOCR		 EQU  0X2C
-PDMA_DASOCR      EQU  0X30
-PDMA_SBUF0       EQU  0X80
-PDMA_SBUF1       EQU  0X84
-PDMA_SBUF2       EQU  0X88
-PDMA_SBUF3       EQU  0X8C
-
-
-;// Define VIC control register
-VIC_base         EQU  0xFFFF0000
-VIC_SCR15        EQU  0x003c
-VIC_SVR15        EQU  0x00bc
-VIC_SCR16        EQU  0x0040
-VIC_SVR16        EQU  0x00c0
-VIC_SCR30        EQU  0x0078
-VIC_SVR30        EQU  0x00f8
-VIC_MECR         EQU  0x0318
-VIC_MDCR         EQU  0x031c
-VIC_EOSCR        EQU  0x0130
-
-;//==================================
-INT_BA_base      EQU  0x50000300
-
-
-;// Parameter table
-ADC_PDMA_CFG     EQU  0x00002980  
-ADC_PDMA_DST     EQU  0xC0000000
-ADC_PDMA_SRC     EQU  0xE0024200
-ADC_PDMA_TCBL    EQU  0x00030008
-
-;//==================================
-
-
-GPIO_base        EQU  0x50004000
-GPIOB_PMD		 EQU  0x0040
-GPIOB_OFFD		 EQU  0x0044
-GPIOB_DOUT		 EQU  0x0048
-GPIOB_DMASK		 EQU  0x004C
-GPIOB_PIN		 EQU  0x0050
-GPIOB_DBEN		 EQU  0x0054
-GPIOB_IMD		 EQU  0x0058
-GPIOB_IEN		 EQU  0x005C
-GPIOB_ISRC		 EQU  0x0060
-
-;//==================================
-
-
-GCR_base         EQU  0x50000000
-GPB_MFP          EQU  0x0034
-
-
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-
-
-
-
-
-Stack_Size      EQU     0x00001000
+Stack_Size      EQU     0x00000400
 
                 AREA    STACK, NOINIT, READWRITE, ALIGN=3
 Stack_Mem       SPACE   Stack_Size
@@ -230,58 +75,91 @@ __Vectors       DCD     __initial_sp                ; Top of Stack
                 DCD     ResetHandler                ; Reset Handler
                 DCD     NMIIntHandler               ; NMI Handler
                 DCD     HardFaultIntHandler         ; Hard Fault Handler
-                DCD     0                           ; Reserved
-                DCD     0                           ; Reserved
-                DCD     0                           ; Reserved
+                DCD     MemManageIntHandler         ; The hard fault handler
+                DCD     BusFaultIntHandler          ; The bus fault handler
+                DCD     UsageFaultIntHandler        ; The usage fault handler
                 DCD     0                           ; Reserved
                 DCD     0                           ; Reserved
                 DCD     0                           ; Reserved
                 DCD     0                           ; Reserved
                 DCD     SVCIntHandler               ; SVCall Handler
-                DCD     0                           ; Reserved
+                DCD     DebugMonIntHandler          ; Debug monitor handler
                 DCD     0                           ; Reserved
                 DCD     PendSVIntHandler            ; PendSV Handler
                 DCD     SysTickIntHandler           ; SysTick Handler
 
                 ; External Interrupts
-                                                    ; maximum of 32 External Interrupts are possible
-                DCD     BODIntHandler               ; Brownout low voltage detected interrupt                 
-                DCD     WDTIntHandler               ; Watch Dog Timer interrupt                              
-                DCD     EINT0IntHandler             ; External signal interrupt from PB.14 pin                
-                DCD     EINT1IntHandler             ; External signal interrupt from PB.15 pin                
-                DCD     GPABIntHandler              ; External signal interrupt from PA[15:0] / PB[13:0]     
-                DCD     GPCDEIntHandler             ; External interrupt from PC[15:0]/PD[15:0]/PE[15:0]     
-                DCD     PWMAIntHandler              ; PWM0 or PWM2 interrupt                                 
-                DCD     PWMBIntHandler              ; PWM1 or PWM3 interrupt                                 
-                DCD     TIMER0IntHandler            ; Timer 0 interrupt                                      
-                DCD     TIMER1IntHandler            ; Timer 1 interrupt                                      
-                DCD     TIMER2IntHandler            ; Timer 2 interrupt                                      
-                DCD     TIMER3IntHandler            ; Timer 3 interrupt                                      
-                DCD     UART02IntHandler            ; UART0 interrupt                                        
-                DCD     UART1IntHandler             ; UART1 interrupt                                        
-                DCD     SPI0IntHandler              ; SPI0 interrupt                                         
-                DCD     SPI1IntHandler              ; SPI1 interrupt                                         
-                DCD     SPI2IntHandler              ; SPI2 interrupt                                         
-                DCD     SPI3IntHandler              ; SPI3 interrupt                                         
-                DCD     I2C0IntHandler              ; I2C0 interrupt                                         
-                DCD     I2C1IntHandler              ; I2C1 interrupt                                         
-                DCD     CAN0IntHandler              ; CAN0 interrupt                                         
-                DCD     DefaultIntHandler           ; Reserved                                         
-                DCD     DefaultIntHandler           ; Reserved
-                DCD     USBDIntHandler              ; USB FS Device interrupt                                
-                DCD     PS2IntHandler               ; PS2 interrupt                                          
-                DCD     ACMPIntHandler              ; Analog Comparator-0 or Comaprator-1 interrupt          
-                DCD     PDMAIntHandler              ; PDMA interrupt  
-                DCD     I2SIntHandler               ; I2S interrupt
-                DCD     PWRWUIntHandler             ; Clock controller interrupt for chip wake up from power-
-                DCD     ADCIntHandler               ; ADC interrupt                                          
-                DCD     DefaultIntHandler           ; Reserved
-                DCD     RTCIntHandler               ; Real time clock interrupt 
-                
+                DCD     WWDGIntHandler              ; 0 Window Watchdog interrupt                 
+                DCD     PVDIntHandler               ; 1 PVD through EXTI Line detection  
+                DCD     TAMPERIntHandler            ; 2 Tamper interrupt 
+                DCD     RTCIntHandler               ; 3 RTC global interrupt
+                DCD     FLASHIntHandler             ; 4 Flash global interrupt
+                DCD     RCCIntHandler               ; 5 RCC global interrupt
+                DCD     EXTI0IntHandler             ; 6 EXTI Line0 interrupt
+                DCD     EXTI1IntHandler             ; 7 EXTI Line1 interrupt 
+                DCD     EXTI2IntHandler             ; 8 EXTI Line2 interrupt
+                DCD     EXTI3IntHandler             ; 9 EXTI Line3 interrupt
+                DCD     EXTI4IntHandler             ; 10 EXTI Line4 interrupt
+                DCD     DMA1Channel1IntHandler      ; 11 DMA1 Channel1 global interrupt
+                DCD     DMA1Channel2IntHandler      ; 12 DMA1 Channel2 global interrupt
+                DCD     DMA1Channel3IntHandler      ; 13 DMA1 Channel3 global interrupt
+                DCD     DMA1Channel4IntHandler      ; 14 DMA1 Channel4 global interrupt
+                DCD     DMA1Channel5IntHandler      ; 15 DMA1 Channel5 global interrupt
+                DCD     DMA1Channel6IntHandler      ; 16 DMA1 Channel6 global interrupt
+                DCD     DMA1Channel7IntHandler      ; 17 DMA1 Channel7 global interrupt
+                DCD     ADC12IntHandler             ; 18 ADC1 and ADC2 global interrupt
+                DCD     CAN1TXIntHandler            ; 19 CAN1 TX interrupts
+                DCD     CAN1RX0IntHandler           ; 20 CAN1 RX0 interrupts
+                DCD     CAN1RX1IntHandler           ; 21 CAN1 RX1 interrupt
+                DCD     CAN1SCEIntHandler           ; 22 CAN1 SCE interrupt 
+                DCD     EXTI95IntHandler            ; 23 EXTI Line[9:5] interrupts 
+                DCD     TIM1BRKTIM9IntHandler       ; 24 TIM1 Break and IIM9 global interrupt
+                DCD     TIM1UPTIM10IntHandler       ; 25 TIM1 Update and TIM10 global interrupt
+                DCD     TIM1TRGCOMTIM11IntHandler   ; 26 TIM1 Trigger and Commutation and TIM11 global interrupt
+                DCD     TIM1CCIntHandler            ; 27 TIM1 Capture Compare interrupt
+                DCD     TIM2IntHandler              ; 28 TIM2 global interrupt
+                DCD     TIM3IntHandler              ; 29 TIM3 global interrupt
+                DCD     TIM4IntHandler              ; 30 TIM4 global interrupt
+                DCD     I2C1EVIntHandler            ; 31 I2C1 event interrupt
+                DCD     I2C1ERIntHandler            ; 32 I2C1 error interrupt
+                DCD     I2C2EVIntHandler            ; 33 I2C2 event interrupt
+                DCD     I2C2ERIntHandler            ; 34 I2C2 error interrupt
+                DCD     SPI1IntHandler              ; 35 SPI1 global interrupt
+                DCD     SPI2IntHandler              ; 36 SPI2 global interrupt
+                DCD     USART1IntHandler            ; 37 USART1 global interrupt
+                DCD     USART2IntHandler            ; 38 USART2 global interrupt
+                DCD     USART3IntHandler            ; 39 USART3 global interrupt
+                DCD     EXTI1510IntHandler          ; 40 EXTI Line[15:10] interrupts
+                DCD     RTCAlarmIntHandler          ; 41 RTC alarm through EXTI line
+                DCD     OTGFSWKUPIntHandler         ; 42 USB On-The-Go FS Wakeup
+                DCD     TIM8BRKTIM12IntHandler      ; 43 TIM8 Break and TIM12 global interrupt
+                DCD     TIM8UPTIM13IntHandler       ; 44 TIM8 Update interrupt and TIM13 global interrupt
+                DCD     TIM8TRGCOMTIM14IntHandler   ; 45 TIM8 Trigger and Commutation and TIM14 global interrupt
+                DCD     TIM8CCIntHandler            ; 46 TIM8 Capture Compare interrupt
+                DCD     ADC3IntHandler              ; 47 ADC3 global interrupt
+                DCD     FSMCIntHandler              ; 48 FSMC global interrupt
+                DCD     SDIOIntHandler              ; 49 SDIO global interrupt
+                DCD     TIM5IntHandler              ; 50 TIM5 global interrupt
+                DCD     SPI3IntHandler              ; 51 SPI3 global interrupt
+                DCD     UART4IntHandler             ; 52 UART4 global interrupt
+                DCD     UART5IntHandler             ; 53 UART5 global interrupt
+                DCD     TIM6IntHandler              ; 54 TIM6 global interrupt
+                DCD     TIM7IntHandler              ; 55 TIM7 global interrupt
+                DCD     DMA2Channel1IntHandler      ; 56 DMA2 Channel1 global interrupt
+                DCD     DMA2Channel2IntHandler      ; 57 DMA2 Channel2 global interrupt
+                DCD     DMA2Channel3IntHandler      ; 58 DMA2 Channel3 global interrupt
+                DCD     DMA2Channel4IntHandler      ; 59 DMA2 Channel4 global interrupt
+                DCD     DMA2Channel5IntHandler      ; 60 DMA2 Channel5 global interrupt
+                DCD     ETHIntHandler               ; 61 Ethernet global interrupt
+                DCD     ETHWKUPIntHandler           ; 62 Ethernet Wakeup through EXTI line
+                DCD     CAN2TXIntHandler            ; 63 CAN2 TX interrupts
+                DCD     CAN2RX0IntHandler           ; 64 CAN2 RX0 interrupts
+                DCD     CAN2RX1IntHandler           ; 65 CAN2 RX1 interrupt
+                DCD     CAN2SCEIntHandler           ; 66 CAN2 SCE interrupt
+                DCD     OTGFSIntHandler             ; 67 USB On The Go FS global interrupt
+                DCD     0xF108F85F                  ; Boot in RAM mode                     
+        
 
-                
-                
-                
                 AREA    |.text|, CODE, READONLY
                 
                 
@@ -293,42 +171,6 @@ __Vectors       DCD     __initial_sp                ; Top of Stack
 ResetHandler   PROC
                 EXPORT  ResetHandler             [WEAK]
                 IMPORT  __main
-                
-                ; Check PB.15 to hold CPU               
-                LDR     R0, =0x50004000
-                LDR     R2, =0x8000
-1
-                LDR     R1, [R0, #0x50]
-                ANDS    R1, R1, R2
-                BEQ     %B1
-
-
-                LDR     R0, =0x50000100
-                
-                ; Unlock Register                
-                LDR     R1, =0x59
-                STR     R1, [R0]
-                LDR     R1, =0x16
-                STR     R1, [R0]
-                LDR     R1, =0x88
-                STR     R1, [R0]
-
-                ; Init clock
-                LDR     R1, [R0, #0x10]
-                CMP     R1, #0x3F
-                BNE     %F0
-
-                LDR     R1, =0x20
-                STR     R1, [R0, #0x10]
-0
-                ; Init POR
-                LDR     R2, =0x50000024
-                LDR     R1, =0x00005AA5
-                STR     R1, [R2]
-
-                ; Lock register
-                MOVS    R1, #0
-                STR     R1, [R0]                
 
                 LDR     R0, =__main
                 BX      R0
@@ -337,89 +179,187 @@ ResetHandler   PROC
                 
 ; Dummy Exception Handlers (infinite loops which can be modified)                
                 
-NMIIntHandler     PROC
-                EXPORT  NMIIntHandler               [WEAK]
-                B       .
+NMIIntHandler PROC
+                EXPORT NMIIntHandler [WEAK]
+                B .
                 ENDP
 HardFaultIntHandler\
                 PROC
-                EXPORT  HardFaultIntHandler         [WEAK]
-                B       .
+                EXPORT HardFaultIntHandler [WEAK]
+                B .
                 ENDP
-SVCIntHandler     PROC
-                EXPORT  SVCIntHandler               [WEAK]
-                B       .
+MemManageIntHandler\
+                PROC
+                EXPORT MemManageIntHandler [WEAK]
+                B .
                 ENDP
-PendSVIntHandler  PROC
-                EXPORT  PendSVIntHandler            [WEAK]
-                B       .
+BusFaultIntHandler\
+                PROC
+                EXPORT BusFaultIntHandler [WEAK]
+                B .
+                ENDP
+UsageFaultIntHandler\
+                PROC
+                EXPORT UsageFaultIntHandler [WEAK]
+                B .
+                ENDP
+DebugMonIntHandler\
+                PROC
+                EXPORT DebugMonIntHandler [WEAK]
+                B .
+                ENDP
+SVCIntHandler PROC
+                EXPORT SVCIntHandler [WEAK]
+                B .
+                ENDP
+PendSVIntHandler PROC
+                EXPORT PendSVIntHandler [WEAK]
+                B .
                 ENDP
 SysTickIntHandler PROC
-                EXPORT  SysTickIntHandler           [WEAK]
-                B       .
+                EXPORT SysTickIntHandler [WEAK]
+                B .
                 ENDP
 
 DefaultIntHandler PROC
 
-                EXPORT  BODIntHandler            [WEAK]
-                EXPORT  WDTIntHandler            [WEAK]
-                EXPORT  EINT0IntHandler          [WEAK]
-                EXPORT  EINT1IntHandler          [WEAK]
-                EXPORT  GPABIntHandler           [WEAK]
-                EXPORT  GPCDEIntHandler          [WEAK]
-                EXPORT  PWMAIntHandler           [WEAK]
-                EXPORT  PWMBIntHandler           [WEAK]
-                EXPORT  TIMER0IntHandler         [WEAK]
-                EXPORT  TIMER1IntHandler         [WEAK]
-                EXPORT  TIMER2IntHandler         [WEAK]
-                EXPORT  TIMER3IntHandler         [WEAK]
-                EXPORT  UART02IntHandler         [WEAK]
-                EXPORT  UART1IntHandler          [WEAK]
-                EXPORT  SPI0IntHandler           [WEAK]
-                EXPORT  SPI1IntHandler           [WEAK]
-                EXPORT  SPI2IntHandler           [WEAK]
-                EXPORT  SPI3IntHandler           [WEAK]
-                EXPORT  I2C0IntHandler           [WEAK]
-                EXPORT  I2C1IntHandler           [WEAK]
-                EXPORT  CAN0IntHandler           [WEAK]
-                EXPORT  USBDIntHandler           [WEAK]
-                EXPORT  PS2IntHandler            [WEAK]
-                EXPORT  ACMPIntHandler           [WEAK]
-                EXPORT  PDMAIntHandler           [WEAK]
-				EXPORT  I2SIntHandler            [WEAK]
-                EXPORT  PWRWUIntHandler          [WEAK]
-                EXPORT  ADCIntHandler            [WEAK]
-                EXPORT  RTCIntHandler            [WEAK]
-                
-BODIntHandler
-WDTIntHandler
-EINT0IntHandler
-EINT1IntHandler
-GPABIntHandler
-GPCDEIntHandler
-PWMAIntHandler
-PWMBIntHandler
-TIMER0IntHandler
-TIMER1IntHandler
-TIMER2IntHandler
-TIMER3IntHandler
-UART02IntHandler
-UART1IntHandler
-SPI0IntHandler
+                EXPORT WWDGIntHandler            [WEAK]
+                EXPORT PVDIntHandler             [WEAK] 
+                EXPORT TAMPERIntHandler          [WEAK]      
+                EXPORT RTCIntHandler             [WEAK]
+                EXPORT FLASHIntHandler           [WEAK]
+                EXPORT RCCIntHandler             [WEAK]
+                EXPORT EXTI0IntHandler           [WEAK]
+                EXPORT EXTI1IntHandler           [WEAK]
+                EXPORT EXTI2IntHandler           [WEAK]
+                EXPORT EXTI3IntHandler           [WEAK]
+                EXPORT EXTI4IntHandler           [WEAK]
+                EXPORT DMA1Channel1IntHandler    [WEAK]
+                EXPORT DMA1Channel2IntHandler    [WEAK]
+                EXPORT DMA1Channel3IntHandler    [WEAK]
+                EXPORT DMA1Channel4IntHandler    [WEAK]
+                EXPORT DMA1Channel5IntHandler    [WEAK]
+                EXPORT DMA1Channel6IntHandler    [WEAK]
+                EXPORT DMA1Channel7IntHandler    [WEAK]
+                EXPORT ADC12IntHandler           [WEAK] 
+                EXPORT CAN1TXIntHandler          [WEAK] 
+                EXPORT CAN1RX0IntHandler         [WEAK]
+                EXPORT CAN1RX1IntHandler         [WEAK]
+                EXPORT CAN1SCEIntHandler         [WEAK]
+                EXPORT EXTI95IntHandler          [WEAK]
+                EXPORT TIM1BRKTIM9IntHandler     [WEAK]
+                EXPORT TIM1UPTIM10IntHandler     [WEAK]
+                EXPORT TIM1TRGCOMTIM11IntHandler [WEAK]
+                EXPORT TIM1CCIntHandler          [WEAK]
+                EXPORT TIM2IntHandler            [WEAK]
+                EXPORT TIM3IntHandler            [WEAK]
+                EXPORT TIM4IntHandler            [WEAK]
+                EXPORT I2C1EVIntHandler          [WEAK]
+                EXPORT I2C1ERIntHandler          [WEAK]
+                EXPORT I2C2EVIntHandler          [WEAK]
+                EXPORT I2C2ERIntHandler          [WEAK]
+                EXPORT SPI1IntHandler            [WEAK]
+                EXPORT SPI2IntHandler            [WEAK]
+                EXPORT USART1IntHandler          [WEAK]
+                EXPORT USART2IntHandler          [WEAK]
+                EXPORT USART3IntHandler          [WEAK]
+                EXPORT EXTI1510IntHandler        [WEAK]
+                EXPORT RTCAlarmIntHandler        [WEAK]
+                EXPORT OTGFSWKUPIntHandler       [WEAK]
+                EXPORT TIM8BRKTIM12IntHandler    [WEAK]
+                EXPORT TIM8UPTIM13IntHandler     [WEAK]
+                EXPORT TIM8TRGCOMTIM14IntHandler [WEAK]
+                EXPORT TIM8CCIntHandler          [WEAK]
+                EXPORT ADC3IntHandler            [WEAK]
+                EXPORT FSMCIntHandler            [WEAK]
+                EXPORT SDIOIntHandler            [WEAK]
+                EXPORT TIM5IntHandler            [WEAK]
+                EXPORT SPI3IntHandler            [WEAK]
+                EXPORT UART4IntHandler           [WEAK]
+                EXPORT UART5IntHandler           [WEAK]
+                EXPORT TIM6IntHandler            [WEAK]
+                EXPORT TIM7IntHandler            [WEAK]
+                EXPORT DMA2Channel1IntHandler    [WEAK]
+                EXPORT DMA2Channel2IntHandler    [WEAK]
+                EXPORT DMA2Channel3IntHandler    [WEAK]
+                EXPORT DMA2Channel4IntHandler    [WEAK]
+                EXPORT DMA2Channel5IntHandler    [WEAK]
+                EXPORT ETHIntHandler             [WEAK]
+                EXPORT ETHWKUPIntHandler         [WEAK]
+                EXPORT CAN2TXIntHandler          [WEAK]
+                EXPORT CAN2RX0IntHandler         [WEAK]
+                EXPORT CAN2RX1IntHandler         [WEAK]
+                EXPORT CAN2SCEIntHandler         [WEAK]
+                EXPORT OTGFSIntHandler           [WEAK]
+
+WWDGIntHandler
+PVDIntHandler 
+TAMPERIntHandler
+RTCIntHandler
+FLASHIntHandler
+RCCIntHandler
+EXTI0IntHandler
+EXTI1IntHandler
+EXTI2IntHandler
+EXTI3IntHandler
+EXTI4IntHandler
+DMA1Channel1IntHandler
+DMA1Channel2IntHandler
+DMA1Channel3IntHandler
+DMA1Channel4IntHandler
+DMA1Channel5IntHandler
+DMA1Channel6IntHandler
+DMA1Channel7IntHandler
+ADC12IntHandler 
+CAN1TXIntHandler 
+CAN1RX0IntHandler
+CAN1RX1IntHandler
+CAN1SCEIntHandler
+EXTI95IntHandler
+TIM1BRKTIM9IntHandler
+TIM1UPTIM10IntHandler
+TIM1TRGCOMTIM11IntHandler
+TIM1CCIntHandler
+TIM2IntHandler
+TIM3IntHandler
+TIM4IntHandler
+I2C1EVIntHandler
+I2C1ERIntHandler
+I2C2EVIntHandler
+I2C2ERIntHandler
 SPI1IntHandler
 SPI2IntHandler
+USART1IntHandler
+USART2IntHandler
+USART3IntHandler
+EXTI1510IntHandler
+RTCAlarmIntHandler
+OTGFSWKUPIntHandler
+TIM8BRKTIM12IntHandler
+TIM8UPTIM13IntHandler
+TIM8TRGCOMTIM14IntHandler
+TIM8CCIntHandler
+ADC3IntHandler
+FSMCIntHandler
+SDIOIntHandler
+TIM5IntHandler
 SPI3IntHandler
-I2C0IntHandler
-I2C1IntHandler
-CAN0IntHandler
-USBDIntHandler
-PS2IntHandler
-ACMPIntHandler
-PDMAIntHandler
-I2SIntHandler
-PWRWUIntHandler
-ADCIntHandler
-RTCIntHandler
+UART4IntHandler
+UART5IntHandler
+TIM6IntHandler
+TIM7IntHandler
+DMA2Channel1IntHandler
+DMA2Channel2IntHandler
+DMA2Channel3IntHandler
+DMA2Channel4IntHandler
+DMA2Channel5IntHandler
+ETHIntHandler
+ETHWKUPIntHandler
+CAN2TXIntHandler
+CAN2RX0IntHandler
+CAN2RX1IntHandler
+CAN2SCEIntHandler
+OTGFSIntHandler
                 B       .
                 ENDP
 

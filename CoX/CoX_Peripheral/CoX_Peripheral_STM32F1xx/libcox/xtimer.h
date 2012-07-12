@@ -2,7 +2,7 @@
 //
 //! \file xtimer.h
 //! \brief Prototypes for the TIMER Driver.
-//! \version V2.1.1.0
+//! \version V2.2.1.0
 //! \date 6/12/2012
 //! \author CooCox
 //! \copy

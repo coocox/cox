@@ -2,7 +2,7 @@
 //
 //! \file xtimer.c
 //! \brief Driver for the Timer
-//! \version V2.1.1.0
+//! \version V2.2.1.0
 //! \date 3/27/2012
 //! \author CooCox
 //! \copy
@@ -39,6 +39,7 @@
 #include "xhw_types.h"
 #include "xhw_ints.h"
 #include "xhw_memmap.h"
+#include "xhw_config.h"
 #include "xhw_nvic.h"
 #include "xhw_sysctl.h"
 #include "xhw_timer.h"
@@ -46,7 +47,6 @@
 #include "xcore.h"
 #include "xsysctl.h"
 #include "xtimer.h"
-#include "xhw_config.h"
 
 //*****************************************************************************
 //
@@ -55,6 +55,7 @@
 //*****************************************************************************
 static xtEventCallback g_pfnTimerHandlerCallbacks[22]={0};
 
+#if (TIM1_FUNCTION_SELECT == TIM_TIMER || TIM9_FUNCTION_SELECT == TIM_TIMER)
 //*****************************************************************************
 //
 //! \brief TIM1 Break and IIM9 global interrupt serivice function.
@@ -74,35 +75,38 @@ TIM1BRKTIM9IntHandler(void)
     unsigned long ulTemp = 0, ulTemp1 = 0;
 
     //
-	// The SR register read cleared
-	//
-	ulTemp = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM1EN;
+    // The SR register read cleared
+    //
+    ulTemp = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM1EN;
 
-	if(ulTemp != 0)
-	{
-	    ulTemp = xHWREG(TIM1_BASE + TIMER_SR);
-	}
+    if(ulTemp != 0)
+    {
+        ulTemp = xHWREG(TIM1_BASE + TIMER_SR);
+    }
 
-	#if (STM32F1xx_DEVICE == STM32F10X_XL)
-	ulTemp1 = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM9EN;
-	
-	if(ulTemp1 != 0)
-	{
-	    ulTemp1 = xHWREG(TIM9_BASE + TIMER_SR);
-	}
-	#endif
+#if (STM32F1xx_DEVICE == STM32F10X_XL)
+    ulTemp1 = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM9EN;
+    
+    if(ulTemp1 != 0)
+    {
+        ulTemp1 = xHWREG(TIM9_BASE + TIMER_SR);
+    }
+#endif
 
-	if(ulTemp & TIMER_SR_BIF != 0)
-	{
-	    g_pfnTimerHandlerCallbacks[0](0, 0, ulTemp, 0);
-	}
-	else
-	{
-	    g_pfnTimerHandlerCallbacks[16](0, 0, ulTemp1, 0);
-	}
-	
+    if((ulTemp & TIMER_SR_BIF) != 0)
+    {
+        g_pfnTimerHandlerCallbacks[0](0, 0, ulTemp, 0);
+    }
+    else
+    {
+        g_pfnTimerHandlerCallbacks[16](0, 0, ulTemp1, 0);
+    }
+    
 }
+#endif
 
+
+#if (TIM1_FUNCTION_SELECT == TIM_TIMER || TIM10_FUNCTION_SELECT == TIM_TIMER)
 //*****************************************************************************
 //
 //! \brief TIM1 Update and TIM10 global interrupt service function.
@@ -121,31 +125,34 @@ TIM1UPTIM10IntHandler(void)
 {
     unsigned long ulTemp = 0, ulTemp1 = 0;
 
-	ulTemp = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM1EN;
+    ulTemp = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM1EN;
 
-	if(ulTemp != 0)
-	{
-	    ulTemp = xHWREG(TIM1_BASE + TIMER_SR);
-	}
-
-	#if (STM32F1xx_DEVICE == STM32F10X_XL)
-	ulTemp1 = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM10EN;
-	if(ulTemp1 != 0)
-	{
-	    ulTemp1 = xHWREG(TIM10_BASE + TIMER_SR);
+    if(ulTemp != 0)
+    {
+        ulTemp = xHWREG(TIM1_BASE + TIMER_SR);
     }
-    #endif
 
-	if(ulTemp & TIMER_SR_UIF != 0)
-	{
-	    g_pfnTimerHandlerCallbacks[1](0, 0, ulTemp, 0);
-	}
-	else
-	{
-	    g_pfnTimerHandlerCallbacks[17](0, 0, ulTemp1, 0);
-	}	
+#if (STM32F1xx_DEVICE == STM32F10X_XL)
+    ulTemp1 = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM10EN;
+    if(ulTemp1 != 0)
+    {
+        ulTemp1 = xHWREG(TIM10_BASE + TIMER_SR);
+    }
+#endif
+
+    if((ulTemp & TIMER_SR_UIF) != 0)
+    {
+        g_pfnTimerHandlerCallbacks[1](0, 0, ulTemp, 0);
+    }
+    else
+    {
+        g_pfnTimerHandlerCallbacks[17](0, 0, ulTemp1, 0);
+    }    
 }
+#endif
 
+
+#if (TIM1_FUNCTION_SELECT == TIM_TIMER || TIM11_FUNCTION_SELECT == TIM_TIMER)
 //*****************************************************************************
 //
 //! \brief TIM1 Trigger and Commutation and TIM11 global interrupt service 
@@ -166,37 +173,39 @@ TIM1TRGCOMTIM11IntHandler(void)
     unsigned long ulTemp = 0, ulTemp1 = 0;
 
     //
-	// The SR register read cleared
-	//
-	ulTemp = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM1EN;
+    // The SR register read cleared
+    //
+    ulTemp = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM1EN;
 
-	if(ulTemp != 0)
-	{
-	    ulTemp = xHWREG(TIM1_BASE + TIMER_SR);
-	}
+    if(ulTemp != 0)
+    {
+        ulTemp = xHWREG(TIM1_BASE + TIMER_SR);
+    }
 
-	#if (STM32F1xx_DEVICE == STM32F10X_XL)
-	ulTemp1 = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM11EN;
-	if(ulTemp1 != 0)
-	{
-	    ulTemp = xHWREG(TIM11_BASE + TIMER_SR);
-	}
-	#endif
+#if (STM32F1xx_DEVICE == STM32F10X_XL)
+    ulTemp1 = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM11EN;
+    if(ulTemp1 != 0)
+    {
+        ulTemp = xHWREG(TIM11_BASE + TIMER_SR);
+    }
+#endif
 
-	if(ulTemp & TIMER_SR_TIF != 0)
-	{
-	    g_pfnTimerHandlerCallbacks[2](0, 0, ulTemp, 0);
-	}
-	else if(ulTemp & TIMER_SR_COMIF != 0)
-	{
-	    g_pfnTimerHandlerCallbacks[3](0, 0, ulTemp, 0);
-	}
-	else
-	{
-	    g_pfnTimerHandlerCallbacks[18](0, 0, ulTemp1, 0);
-	}	
+    if((ulTemp & TIMER_SR_TIF) != 0)
+    {
+        g_pfnTimerHandlerCallbacks[2](0, 0, ulTemp, 0);
+    }
+    else if((ulTemp & TIMER_SR_COMIF) != 0)
+    {
+        g_pfnTimerHandlerCallbacks[3](0, 0, ulTemp, 0);
+    }
+    else
+    {
+        g_pfnTimerHandlerCallbacks[18](0, 0, ulTemp1, 0);
+    }    
 }
+#endif
 
+#if (TIM1_FUNCTION_SELECT == TIM_TIMER)
 //*****************************************************************************
 //
 //! \brief TIM1 Capture Compare interrupt service function.
@@ -216,14 +225,16 @@ TIM1CCIntHandler(void)
     unsigned long ulTemp = 0;
 
     //
-	// The SR register read cleared
-	//
-	ulTemp = xHWREG(TIM1_BASE + TIMER_SR);
+    // The SR register read cleared
+    //
+    ulTemp = xHWREG(TIM1_BASE + TIMER_SR);
 
-	g_pfnTimerHandlerCallbacks[4](0, 0, ulTemp, 0);
-	
+    g_pfnTimerHandlerCallbacks[4](0, 0, ulTemp, 0);
+    
 }
+#endif
 
+#if (TIM2_FUNCTION_SELECT == TIM_TIMER)
 //*****************************************************************************
 //
 //! \brief TIM2 global interrupt service function.
@@ -243,14 +254,16 @@ TIM2IntHandler(void)
     unsigned long ulTemp = 0;
 
     //
-	// The SR register read cleared
-	//
-	ulTemp = xHWREG(TIM2_BASE + TIMER_SR);
+    // The SR register read cleared
+    //
+    ulTemp = xHWREG(TIM2_BASE + TIMER_SR);
 
-	g_pfnTimerHandlerCallbacks[5](0, 0, ulTemp, 0);
-	
+    g_pfnTimerHandlerCallbacks[5](0, 0, ulTemp, 0);
+    
 }
+#endif
 
+#if (TIM3_FUNCTION_SELECT == TIM_TIMER)
 //*****************************************************************************
 //
 //! \brief TIM3 global interrupt service function.
@@ -270,14 +283,16 @@ TIM3IntHandler(void)
     unsigned long ulTemp = 0;
 
     //
-	// The SR register read cleared
-	//
-	ulTemp = xHWREG(TIM3_BASE + TIMER_SR);
+    // The SR register read cleared
+    //
+    ulTemp = xHWREG(TIM3_BASE + TIMER_SR);
 
-	g_pfnTimerHandlerCallbacks[6](0, 0, ulTemp, 0);
-	
+    g_pfnTimerHandlerCallbacks[6](0, 0, ulTemp, 0);
+    
 }
+#endif
 
+#if (TIM4_FUNCTION_SELECT == TIM_TIMER)
 //*****************************************************************************
 //
 //! \brief TIM4 global interrupt service function.
@@ -297,14 +312,16 @@ TIM4IntHandler(void)
     unsigned long ulTemp = 0;
 
     //
-	// The SR register read cleared
-	//
-	ulTemp = xHWREG(TIM4_BASE + TIMER_SR);
+    // The SR register read cleared
+    //
+    ulTemp = xHWREG(TIM4_BASE + TIMER_SR);
 
-	g_pfnTimerHandlerCallbacks[7](0, 0, ulTemp, 0);
-	
+    g_pfnTimerHandlerCallbacks[7](0, 0, ulTemp, 0);
+    
 }
+#endif
 
+#if (TIM5_FUNCTION_SELECT == TIM_TIMER)
 //*****************************************************************************
 //
 //! \brief TIM5 global interrupt service function.
@@ -324,13 +341,17 @@ TIM5IntHandler(void)
     unsigned long ulTemp = 0;
 
     //
-	// The SR register read cleared
-	//
-	ulTemp = xHWREG(TIM5_BASE + TIMER_SR);
+    // The SR register read cleared
+    //
+    ulTemp = xHWREG(TIM5_BASE + TIMER_SR);
 
-	g_pfnTimerHandlerCallbacks[8](0, 0, ulTemp, 0);
-	
+    g_pfnTimerHandlerCallbacks[8](0, 0, ulTemp, 0);
+    
 }
+#endif
+
+#if (STM32F1xx_DEVICE == STM32F10X_XL || STM32F1xx_DEVICE == STM32F10X_HD_VL || \
+     STM32F1xx_DEVICE == STM32F10X_CL)
 
 //*****************************************************************************
 //
@@ -351,12 +372,12 @@ TIM6IntHandler(void)
     unsigned long ulTemp = 0;
 
     //
-	// The SR register read cleared
-	//
-	ulTemp = xHWREG(TIM6_BASE + TIMER_SR);
+    // The SR register read cleared
+    //
+    ulTemp = xHWREG(TIM6_BASE + TIMER_SR);
 
-	g_pfnTimerHandlerCallbacks[9](0, 0, ulTemp, 0);
-	
+    g_pfnTimerHandlerCallbacks[9](0, 0, ulTemp, 0);
+    
 }
 
 //*****************************************************************************
@@ -378,14 +399,17 @@ TIM7IntHandler(void)
     unsigned long ulTemp = 0;
 
     //
-	// The SR register read cleared
-	//
-	ulTemp = xHWREG(TIM7_BASE + TIMER_SR);
+    // The SR register read cleared
+    //
+    ulTemp = xHWREG(TIM7_BASE + TIMER_SR);
 
-	g_pfnTimerHandlerCallbacks[10](0, 0, ulTemp, 0);
-	
+    g_pfnTimerHandlerCallbacks[10](0, 0, ulTemp, 0);
+    
 }
+#endif
 
+#if (STM32F1xx_DEVICE == STM32F10X_XL || STM32F1xx_DEVICE == STM32F10X_HD_VL)
+#if (TIM8_FUNCTION_SELECT == TIM_TIMER || TIM12_FUNCTION_SELECT == TIM_TIMER)
 //*****************************************************************************
 //
 //! \brief TIM8 Break and TIM12 global interrupt serivice function.
@@ -405,37 +429,39 @@ TIM8BRKTIM12IntHandler(void)
     unsigned long ulTemp = 0, ulTemp1 = 0;
 
     //
-	// The SR register read cleared
-	//
-	#if((STM32F1xx_DEVICE == STM32F10X_HD_VL) || (STM32F1xx_DEVICE == STM32F10X_XL))
-	ulTemp = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM8EN;
+    // The SR register read cleared
+    //
+#if((STM32F1xx_DEVICE == STM32F10X_HD_VL) || (STM32F1xx_DEVICE == STM32F10X_XL))
+    ulTemp = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM8EN;
 
     if(ulTemp != 0)
-	{
-	    ulTemp = xHWREG(TIM8_BASE + TIMER_SR);
-	}
-	#endif
+    {
+        ulTemp = xHWREG(TIM8_BASE + TIMER_SR);
+    }
+#endif
 
-	#if(STM32F1xx_DEVICE == STM32F10X_XL)
-	ulTemp1 = xHWREG(RCC_APB1ENR) & RCC_APB1ENR_TIM12EN;
+#if(STM32F1xx_DEVICE == STM32F10X_XL)
+    ulTemp1 = xHWREG(RCC_APB1ENR) & RCC_APB1ENR_TIM12EN;
 
-	if(ulTemp1 != 0)
-	{
-	    ulTemp1 = xHWREG(TIM12_BASE + TIMER_SR);
-	}
-	#endif
+    if(ulTemp1 != 0)
+    {
+        ulTemp1 = xHWREG(TIM12_BASE + TIMER_SR);
+    }
+#endif
 
-	if(ulTemp & TIMER_SR_BIF != 0)
-	{
-	    g_pfnTimerHandlerCallbacks[11](0, 0, ulTemp, 0);
-	}
-	else
-	{
-	    g_pfnTimerHandlerCallbacks[19](0, 0, ulTemp1, 0);
-	}
-	
+    if(ulTemp & TIMER_SR_BIF != 0)
+    {
+        g_pfnTimerHandlerCallbacks[11](0, 0, ulTemp, 0);
+    }
+    else
+    {
+        g_pfnTimerHandlerCallbacks[19](0, 0, ulTemp1, 0);
+    }
+    
 }
+#endif
 
+#if (TIM8_FUNCTION_SELECT == TIM_TIMER || TIM13_FUNCTION_SELECT == TIM_TIMER)
 //*****************************************************************************
 //
 //! \brief TIM8 Update interrupt and TIM13 global interrupt service function.
@@ -454,33 +480,35 @@ TIM8UPTIM13IntHandler(void)
 {
     unsigned long ulTemp = 0, ulTemp1 = 0;
 
-	#if((STM32F1xx_DEVICE == STM32F10X_HD_VL) || (STM32F1xx_DEVICE == STM32F10X_XL))
-	ulTemp = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM8EN;
+#if((STM32F1xx_DEVICE == STM32F10X_HD_VL) || (STM32F1xx_DEVICE == STM32F10X_XL))
+    ulTemp = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM8EN;
 
     if(ulTemp != 0)
-	{
-	    ulTemp = xHWREG(TIM8_BASE + TIMER_SR);
-	}
-	#endif
-	#if(STM32F1xx_DEVICE == STM32F10X_XL)
-	ulTemp1 = xHWREG(RCC_APB1ENR) & RCC_APB1ENR_TIM13EN;
+    {
+        ulTemp = xHWREG(TIM8_BASE + TIMER_SR);
+    }
+#endif
+#if(STM32F1xx_DEVICE == STM32F10X_XL)
+    ulTemp1 = xHWREG(RCC_APB1ENR) & RCC_APB1ENR_TIM13EN;
 
-	if(ulTemp1 != 0)
-	{
-	    ulTemp1 = xHWREG(TIM13_BASE + TIMER_SR);
-	}
-	#endif
+    if(ulTemp1 != 0)
+    {
+        ulTemp1 = xHWREG(TIM13_BASE + TIMER_SR);
+    }
+#endif
 
-	if(ulTemp & TIMER_SR_UIF != 0)
-	{
-	    g_pfnTimerHandlerCallbacks[12](0, 0, ulTemp, 0);
-	}
-	else
-	{
-	    g_pfnTimerHandlerCallbacks[20](0, 0, ulTemp1, 0);
-	}	
+    if(ulTemp & TIMER_SR_UIF != 0)
+    {
+        g_pfnTimerHandlerCallbacks[12](0, 0, ulTemp, 0);
+    }
+    else
+    {
+        g_pfnTimerHandlerCallbacks[20](0, 0, ulTemp1, 0);
+    }    
 }
+#endif
 
+#if (TIM8_FUNCTION_SELECT == TIM_TIMER || TIM14_FUNCTION_SELECT == TIM_TIMER)
 //*****************************************************************************
 //
 //! \brief TIM8 Trigger and Commutation and TIM14 global interrupt service 
@@ -501,38 +529,40 @@ TIM8TRGCOMTIM14IntHandler(void)
     unsigned long ulTemp = 0, ulTemp1 = 0;
 
     //
-	// The SR register read cleared
-	//
-	#if((STM32F1xx_DEVICE == STM32F10X_HD_VL) || (STM32F1xx_DEVICE == STM32F10X_XL))
-	ulTemp = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM8EN;
+    // The SR register read cleared
+    //
+#if((STM32F1xx_DEVICE == STM32F10X_HD_VL) || (STM32F1xx_DEVICE == STM32F10X_XL))
+    ulTemp = xHWREG(RCC_APB2ENR) & RCC_APB2ENR_TIM8EN;
 
     if(ulTemp != 0)
-	{
-	    ulTemp = xHWREG(TIM8_BASE + TIMER_SR);
-	}
-	#endif
-	#if(STM32F1xx_DEVICE == STM32F10X_XL)
-	ulTemp1 = xHWREG(RCC_APB1ENR) & RCC_APB1ENR_TIM14EN;
+    {
+        ulTemp = xHWREG(TIM8_BASE + TIMER_SR);
+    }
+#endif
+#if(STM32F1xx_DEVICE == STM32F10X_XL)
+    ulTemp1 = xHWREG(RCC_APB1ENR) & RCC_APB1ENR_TIM14EN;
 
-	if(ulTemp1 != 0)
-	{
-	    ulTemp1 = xHWREG(TIM14_BASE + TIMER_SR);
-	}
-	#endif
-	if(ulTemp & TIMER_SR_TIF != 0)
-	{
-	    g_pfnTimerHandlerCallbacks[13](0, 0, ulTemp, 0);
-	}
-	else if(ulTemp & TIMER_SR_COMIF != 0)
-	{
-	    g_pfnTimerHandlerCallbacks[14](0, 0, ulTemp, 0);
-	}
-	else
-	{
-	    g_pfnTimerHandlerCallbacks[21](0, 0, ulTemp1, 0);
-	}	
+    if(ulTemp1 != 0)
+    {
+        ulTemp1 = xHWREG(TIM14_BASE + TIMER_SR);
+    }
+#endif
+    if(ulTemp & TIMER_SR_TIF != 0)
+    {
+        g_pfnTimerHandlerCallbacks[13](0, 0, ulTemp, 0);
+    }
+    else if(ulTemp & TIMER_SR_COMIF != 0)
+    {
+        g_pfnTimerHandlerCallbacks[14](0, 0, ulTemp, 0);
+    }
+    else
+    {
+        g_pfnTimerHandlerCallbacks[21](0, 0, ulTemp1, 0);
+    }    
 }
+#endif
 
+#if (TIM8_FUNCTION_SELECT == TIM_TIMER)
 //*****************************************************************************
 //
 //! \brief TIM1 Capture Compare interrupt service function.
@@ -552,13 +582,15 @@ TIM8CCIntHandler(void)
     unsigned long ulTemp = 0;
 
     //
-	// The SR register read cleared
-	//
-	ulTemp = xHWREG(TIM8_BASE + TIMER_SR);
+    // The SR register read cleared
+    //
+    ulTemp = xHWREG(TIM8_BASE + TIMER_SR);
 
-	g_pfnTimerHandlerCallbacks[15](0, 0, ulTemp, 0);
-	
+    g_pfnTimerHandlerCallbacks[15](0, 0, ulTemp, 0);
+    
 }
+#endif
+#endif
 
 //*****************************************************************************
 //
@@ -600,7 +632,7 @@ xTimerInitConfig(unsigned long ulBase, unsigned long ulChannel,
     unsigned long ulInternalClk;
     unsigned long ulPreScale;
     unsigned long ulTCMPRValue;
-	unsigned long ulTemp;
+    unsigned long ulTemp;
     
     //
     // Check the arguments.
@@ -610,29 +642,29 @@ xTimerInitConfig(unsigned long ulBase, unsigned long ulChannel,
             (ulChannel == xTIMER_CHANNEL2) ||
             (ulChannel == xTIMER_CHANNEL3));
 
-	//
-	// Get the timer clock source frequency
-	//
-	if((ulBase == xTIMER1_BASE) || (ulBase == xTIMER8_BASE) || 
-	   (ulBase == xTIMER9_BASE) || (ulBase == xTIMER10_BASE) || 
-	   (ulBase == xTIMER11_BASE))
-	{
+    //
+    // Get the timer clock source frequency
+    //
+    if((ulBase == xTIMER1_BASE) || (ulBase == xTIMER8_BASE) || 
+       (ulBase == xTIMER9_BASE) || (ulBase == xTIMER10_BASE) || 
+       (ulBase == xTIMER11_BASE))
+    {
         ulInternalClk = SysCtlAPB2ClockGet();
-		ulTemp = (xHWREG(RCC_CFGR) & RCC_CFGR_PPRE2_M) >> RCC_CFGR_PPRE2_S;
-		if(ulTemp == 1)
-		{
-		    ulInternalClk = ulInternalClk * 2; 
-		}
-	}
-	else
-	{
-	    ulInternalClk = SysCtlAPB1ClockGet();
-		ulTemp = (xHWREG(RCC_CFGR) & RCC_CFGR_PPRE1_M) >> RCC_CFGR_PPRE1_S;
+        ulTemp = (xHWREG(RCC_CFGR) & RCC_CFGR_PPRE2_M) >> RCC_CFGR_PPRE2_S;
         if(ulTemp == 1)
-		{
-		    ulInternalClk = ulInternalClk * 2;
-		}
-	}
+        {
+            ulInternalClk = ulInternalClk * 2; 
+        }
+    }
+    else
+    {
+        ulInternalClk = SysCtlAPB1ClockGet();
+        ulTemp = (xHWREG(RCC_CFGR) & RCC_CFGR_PPRE1_M) >> RCC_CFGR_PPRE1_S;
+        if(ulTemp == 1)
+        {
+            ulInternalClk = ulInternalClk * 2;
+        }
+    }
     
     for (ulPreScale = 1; ulPreScale < 0x0000FFFF; ulPreScale++)
     {
@@ -649,65 +681,65 @@ xTimerInitConfig(unsigned long ulBase, unsigned long ulChannel,
     {
         case xTIMER_MODE_ONESHOT:
         {
-		    //
-			// One shot mode
-			// 
+            //
+            // One shot mode
+            // 
             TimerOnePulseModeConfigure(ulBase, TIMER_OPMODE_SINGLE);
 
-			//
-			// Output mode timing
-			//
-			TimerOCxModeSelect(ulBase, ulChannel, TIMER_OCMODE_TIMING);
+            //
+            // Output mode timing
+            //
+            TimerOCxModeSelect(ulBase, ulChannel, TIMER_OCMODE_TIMING);
             break;
         }
         case xTIMER_MODE_PERIODIC:
         {
-		    //
-			// Periodic mode
-			//
+            //
+            // Periodic mode
+            //
             TimerOnePulseModeConfigure(ulBase, TIMER_OPMODE_REPETIVE);
 
-			//
-			// Output mode timing
-			//
-			TimerOCxModeSelect(ulBase, ulChannel, TIMER_OCMODE_TIMING);
+            //
+            // Output mode timing
+            //
+            TimerOCxModeSelect(ulBase, ulChannel, TIMER_OCMODE_TIMING);
             break;
         }
         case xTIMER_MODE_TOGGLE:
         {
             TimerOnePulseModeConfigure(ulBase, TIMER_OPMODE_REPETIVE);
-            
-			//
-			// Output toggle control 
-			//
-			if(ulChannel == xTIMER_CHANNEL0)
-			{
-			    TimerOC1Configure(ulBase, TIMER_OCMODE_TOGGLE, ulTCMPRValue/2, 
-				TIMER_OP_STATE_EN | TIMER_OP_POL_HIGH, 
-				TIMER_OP_N_STATE_EN | TIMER_OP_N_POL_HIGH, 
-				TIMER_OCIDLESTATE_RESET | TIMER_OCNIDLESTATE_RESET);
-			}
-			else if(ulChannel == xTIMER_CHANNEL1)
-			{
-			    TimerOC2Configure(ulBase, TIMER_OCMODE_TOGGLE, ulTCMPRValue/2, 
-				TIMER_OP_STATE_EN | TIMER_OP_POL_HIGH, 
-				TIMER_OP_N_STATE_EN | TIMER_OP_N_POL_HIGH, 
-				TIMER_OCIDLESTATE_RESET | TIMER_OCNIDLESTATE_RESET);
-			}
-			else if(ulChannel == xTIMER_CHANNEL2)
-			{
-			    TimerOC3Configure(ulBase, TIMER_OCMODE_TOGGLE, ulTCMPRValue/2, 
-				TIMER_OP_STATE_EN | TIMER_OP_POL_HIGH, 
-				TIMER_OP_N_STATE_EN | TIMER_OP_N_POL_HIGH, 
-				TIMER_OCIDLESTATE_RESET | TIMER_OCNIDLESTATE_RESET);
-			}
-			else
-			{
-			    TimerOC4Configure(ulBase, TIMER_OCMODE_TOGGLE, ulTCMPRValue/2, 
-				TIMER_OP_STATE_EN | TIMER_OP_POL_HIGH, 
-				TIMER_OP_N_STATE_EN | TIMER_OP_N_POL_HIGH, 
-				TIMER_OCIDLESTATE_RESET | TIMER_OCNIDLESTATE_RESET);
-			}
+
+            //
+            // Output toggle control 
+            //
+            if(ulChannel == xTIMER_CHANNEL0)
+            {
+                TimerOC1Configure(ulBase, TIMER_OCMODE_TOGGLE, ulTCMPRValue/2, 
+                TIMER_OP_STATE_EN | TIMER_OP_POL_HIGH, 
+                TIMER_OP_N_STATE_EN | TIMER_OP_N_POL_HIGH, 
+                TIMER_OCIDLESTATE_RESET | TIMER_OCNIDLESTATE_RESET);
+            }
+            else if(ulChannel == xTIMER_CHANNEL1)
+            {
+                TimerOC2Configure(ulBase, TIMER_OCMODE_TOGGLE, ulTCMPRValue/2, 
+                TIMER_OP_STATE_EN | TIMER_OP_POL_HIGH, 
+                TIMER_OP_N_STATE_EN | TIMER_OP_N_POL_HIGH, 
+                TIMER_OCIDLESTATE_RESET | TIMER_OCNIDLESTATE_RESET);
+            }
+            else if(ulChannel == xTIMER_CHANNEL2)
+            {
+                TimerOC3Configure(ulBase, TIMER_OCMODE_TOGGLE, ulTCMPRValue/2, 
+                TIMER_OP_STATE_EN | TIMER_OP_POL_HIGH, 
+                TIMER_OP_N_STATE_EN | TIMER_OP_N_POL_HIGH, 
+                TIMER_OCIDLESTATE_RESET | TIMER_OCNIDLESTATE_RESET);
+            }
+            else
+            {
+                TimerOC4Configure(ulBase, TIMER_OCMODE_TOGGLE, ulTCMPRValue/2, 
+                TIMER_OP_STATE_EN | TIMER_OP_POL_HIGH, 
+                TIMER_OP_N_STATE_EN | TIMER_OP_N_POL_HIGH, 
+                TIMER_OCIDLESTATE_RESET | TIMER_OCNIDLESTATE_RESET);
+            }
  
             break;
         }
@@ -717,16 +749,16 @@ xTimerInitConfig(unsigned long ulBase, unsigned long ulChannel,
         }
         case xTIMER_MODE_CAPTURE:
         {
-		    TimerOnePulseModeConfigure(ulBase, TIMER_OPMODE_REPETIVE);
-			//
-			// Input capture mode cofigure
-			//
+            TimerOnePulseModeConfigure(ulBase, TIMER_OPMODE_REPETIVE);
+            //
+            // Input capture mode cofigure
+            //
             TimerICConfigure(ulBase, ulChannel, TIMER_ICPOL_RISING, 
-			                 TIMER_ICSEL_DIRTI, TIMER_ICPSC_DIV1, 0);
+                             TIMER_ICSEL_DIRTI, TIMER_ICPSC_DIV1, 0);
             break;
         }
-	    default: 
-		    break; 
+        default: 
+            break; 
     }
     
     if((ulConfig & 0x0000000F) == xTIMER_COUNT_UP)
@@ -734,21 +766,21 @@ xTimerInitConfig(unsigned long ulBase, unsigned long ulChannel,
         //
         // Counter up
         //
-		TimerCNTModeConfigure(ulBase, TIMER_CNT_MODE_UP);
+        TimerCNTModeConfigure(ulBase, TIMER_CNT_MODE_UP);
     }
     else
     {
         //
-		// Counter down
-		//
-	    TimerCNTModeConfigure(ulBase, TIMER_CNT_MODE_DOWN);
+        // Counter down
+        //
+        TimerCNTModeConfigure(ulBase, TIMER_CNT_MODE_DOWN);
     }
     
     //
     // Set the ARR and PSC register
     // 
-	TimerARRPreloadConfigure(ulBase, TIMER_ARPE_ENABLE);
-	TimerAutoReloadSet(ulBase, ulTCMPRValue);
+    TimerARRPreloadConfigure(ulBase, TIMER_ARPE_ENABLE);
+    TimerAutoReloadSet(ulBase, ulTCMPRValue);
     TimerPrescalerConfigure(ulBase, ulPreScale, TIMER_PSC_RLD_UPDATE);
     
 }
@@ -772,17 +804,17 @@ xTimerCounterEnable(unsigned long ulBase, unsigned long ulChannel)
 {
     xASSERT((ulChannel == xTIMER_CHANNEL0) || (ulChannel == xTIMER_CHANNEL1));
 
-	if(ulChannel == xTIMER_CHANNEL0)
-	{
-	    TimerTIxExternalClockConfigure(ulBase, TIMER_TRSEL_TI1FP1, 
-		                             TIMER_ICPOL_RISING, 0);
-	}
-	else
-	{
-	    TimerTIxExternalClockConfigure(ulBase, TIMER_TRSEL_TI2FP2, 
-		                             TIMER_ICPOL_RISING, 0);
-	}
-	//TimerStart(ulBase);
+    if(ulChannel == xTIMER_CHANNEL0)
+    {
+        TimerTIxExternalClockConfigure(ulBase, TIMER_TRSEL_TI1FP1, 
+                                       TIMER_ICPOL_RISING, 0);
+    }
+    else
+    {
+        TimerTIxExternalClockConfigure(ulBase, TIMER_TRSEL_TI2FP2, 
+                                       TIMER_ICPOL_RISING, 0);
+    }
+    //TimerStart(ulBase);
 }
 
 //*****************************************************************************
@@ -801,10 +833,10 @@ xTimerCounterEnable(unsigned long ulBase, unsigned long ulChannel)
 void 
 xTimerCounterDisable(unsigned long ulBase, unsigned long ulChannel)
 {
-	//
-	// Select the External clock mode1
-	//
-	TimerStop(ulBase);
+    //
+    // Select the External clock mode1
+    //
+    TimerStop(ulBase);
 }
 
 //*****************************************************************************
@@ -828,18 +860,18 @@ xTimerCaptureModeSet(unsigned long ulBase, unsigned long ulChannel,
                      unsigned long ulCapMode)
 {
     if((ulCapMode & 0x0F) == 0x00000002)
-	{
-	    TimerICConfigure(ulBase, ulChannel, TIMER_ICPOL_RISING, 
-		                 TIMER_ICSEL_DIRTI, TIMER_ICPSC_DIV1, 0);
-	    TimerSlaveModeConfigure(ulBase, TIMER_SMSEL_RESET);
-	}
-	else
-	{
-	    TimerICConfigure(ulBase, ulChannel, TIMER_ICPOL_RISING, 
-		                 TIMER_ICSEL_DIRTI, TIMER_ICPSC_DIV1, 0);
-		//TimerSlaveModeConfigure(ulBase, TIMER_SMSEL_DISABLE);
-		TimerInternalClkConfigure(ulBase);
-	} 
+    {
+        TimerICConfigure(ulBase, ulChannel, TIMER_ICPOL_RISING, 
+                         TIMER_ICSEL_DIRTI, TIMER_ICPSC_DIV1, 0);
+        TimerSlaveModeConfigure(ulBase, TIMER_SMSEL_RESET);
+    }
+    else
+    {
+        TimerICConfigure(ulBase, ulChannel, TIMER_ICPOL_RISING, 
+                         TIMER_ICSEL_DIRTI, TIMER_ICPSC_DIV1, 0);
+        //TimerSlaveModeConfigure(ulBase, TIMER_SMSEL_DISABLE);
+        TimerInternalClkConfigure(ulBase);
+    } 
 }
 
 //*****************************************************************************
@@ -858,24 +890,24 @@ xTimerCaptureModeSet(unsigned long ulBase, unsigned long ulChannel,
 //*****************************************************************************
 void 
 xTimerMatchSet(unsigned long ulBase, unsigned long ulChannel, 
-                           unsigned long ulValue)
+               unsigned long ulValue)
 {
-   if(ulChannel == xTIMER_CHANNEL0)
-   {
-	   TimerCompare1Set(ulBase, ulValue);
-   }
-   else if(ulChannel == xTIMER_CHANNEL1)
-   {
-	   TimerCompare2Set(ulBase, ulValue);
-   }
-   else if(ulChannel == xTIMER_CHANNEL2)
-   {
-	   TimerCompare3Set(ulBase, ulValue);
-   }
-   else
-   {
-       TimerCompare4Set(ulBase, ulValue);
-   }
+    if(ulChannel == xTIMER_CHANNEL0)
+    {
+        TimerCompare1Set(ulBase, ulValue);
+    }
+    else if(ulChannel == xTIMER_CHANNEL1)
+    {
+        TimerCompare2Set(ulBase, ulValue);
+    }
+    else if(ulChannel == xTIMER_CHANNEL2)
+    {
+        TimerCompare3Set(ulBase, ulValue);
+    }
+    else
+    {
+        TimerCompare4Set(ulBase, ulValue);
+    }
 }
 
 //*****************************************************************************
@@ -894,25 +926,25 @@ xTimerMatchSet(unsigned long ulBase, unsigned long ulChannel,
 unsigned long 
 xTimerMatchGet(unsigned long ulBase, unsigned long ulChannel)
 {
-   unsigned long ulTemp = 0;   
+    unsigned long ulTemp = 0;   
 
-   if(ulChannel == xTIMER_CHANNEL0)
-   {
-	   ulTemp = TimerCapture1Get(ulBase);
-   }
-   else if(ulChannel == xTIMER_CHANNEL1)
-   {
-	   ulTemp = TimerCapture2Get(ulBase);
-   }
-   else if(ulChannel == xTIMER_CHANNEL2)
-   {
-	   ulTemp = TimerCapture3Get(ulBase);
-   }
-   else
-   {
-       ulTemp = TimerCapture4Get(ulBase);
-   }
-   return ulTemp;
+    if(ulChannel == xTIMER_CHANNEL0)
+    {
+        ulTemp = TimerCapture1Get(ulBase);
+    }
+    else if(ulChannel == xTIMER_CHANNEL1)
+    {
+        ulTemp = TimerCapture2Get(ulBase);
+    }
+    else if(ulChannel == xTIMER_CHANNEL2)
+    {
+        ulTemp = TimerCapture3Get(ulBase);
+    }
+    else
+    {
+        ulTemp = TimerCapture4Get(ulBase);
+    }
+    return ulTemp;
 }
 
 //*****************************************************************************
@@ -942,17 +974,17 @@ void xTimerIntEnable(unsigned long ulBase, unsigned long ulChannel,
     //
     xASSERT((ulIntFlags == xTIMER_INT_MATCH) || 
             (ulIntFlags == xTIMER_INT_CAP_EVENT) || 
-			(ulIntFlags == xTIMER_INT_CAP_MATCH));
+            (ulIntFlags == xTIMER_INT_CAP_MATCH));
 
-	if(ulIntFlags == xTIMER_INT_MATCH)
-	{
-	    xHWREG(ulBase + TIMER_DIER) |= ulIntFlags;    
-	}
-	else
-	{
-	    xHWREG(ulBase + TIMER_DIER) |= 
-		                (ulIntFlags & (TIMER_DIER_CC1IE << (ulChannel - 1)));
-	}
+    if(ulIntFlags == xTIMER_INT_MATCH)
+    {
+        xHWREG(ulBase + TIMER_DIER) |= ulIntFlags;    
+    }
+    else
+    {
+        xHWREG(ulBase + TIMER_DIER) |= 
+        (ulIntFlags & (TIMER_DIER_CC1IE << (ulChannel - 1)));
+    }
 }
 
 //*****************************************************************************
@@ -982,17 +1014,17 @@ void xTimerIntDisable(unsigned long ulBase, unsigned long ulChannel,
     //
     xASSERT((ulIntFlags == xTIMER_INT_MATCH) || 
             (ulIntFlags == xTIMER_INT_CAP_EVENT) || 
-			(ulIntFlags == xTIMER_INT_CAP_MATCH));
+            (ulIntFlags == xTIMER_INT_CAP_MATCH));
 
-	if(ulIntFlags == xTIMER_INT_MATCH)
-	{
-	    xHWREG(ulBase + TIMER_DIER) &= ~ulIntFlags;    
-	}
-	else
-	{
-	    xHWREG(ulBase + TIMER_DIER) &= 
-		                ~(ulIntFlags & (TIMER_DIER_CC1IE << (ulChannel -1)));
-	}
+    if(ulIntFlags == xTIMER_INT_MATCH)
+    {
+        xHWREG(ulBase + TIMER_DIER) &= ~ulIntFlags;    
+    }
+    else
+    {
+        xHWREG(ulBase + TIMER_DIER) &= 
+        ~(ulIntFlags & (TIMER_DIER_CC1IE << (ulChannel -1)));
+    }
 }
 
 //*****************************************************************************
@@ -1020,7 +1052,7 @@ xTimerStatusGet(unsigned long ulBase, unsigned long ulChannel,
     //
     xASSERT((ulIntFlags == xTIMER_INT_MATCH) || 
             (ulIntFlags == xTIMER_INT_CAP_EVENT) || 
-			(ulIntFlags == xTIMER_INT_CAP_MATCH));
+            (ulIntFlags == xTIMER_INT_CAP_MATCH));
     
     if(ulIntFlags == xTIMER_INT_MATCH)
     {
@@ -1054,56 +1086,56 @@ xTimerStatusGet(unsigned long ulBase, unsigned long ulChannel,
 void 
 xTimerIntCallbackInit(unsigned long ulBase, xtEventCallback xtTimerCallback)
 {
-	//
+    //
     // Init the interrupts callback.
     //
     switch(ulBase)
-	{
-	    case TIM1_BASE:
-		    g_pfnTimerHandlerCallbacks[1] = xtTimerCallback;
-			g_pfnTimerHandlerCallbacks[4] = xtTimerCallback;
-		    break;
-	    case TIM2_BASE:
-			g_pfnTimerHandlerCallbacks[5] = xtTimerCallback;
-	        break;
-		case TIM3_BASE:
-			g_pfnTimerHandlerCallbacks[6] = xtTimerCallback;
-	        break;
-		case TIM4_BASE:
-			g_pfnTimerHandlerCallbacks[7] = xtTimerCallback;
-	        break;
-		case TIM5_BASE:
-			g_pfnTimerHandlerCallbacks[8] = xtTimerCallback;
-	        break;
-		case TIM6_BASE:
-			g_pfnTimerHandlerCallbacks[9] = xtTimerCallback;
-	        break;
-		case TIM7_BASE:
-			g_pfnTimerHandlerCallbacks[10] = xtTimerCallback;
-	        break;
-		case TIM8_BASE:
- 		    g_pfnTimerHandlerCallbacks[12] = xtTimerCallback;
-			g_pfnTimerHandlerCallbacks[15] = xtTimerCallback;
-		    break;
-		case TIM9_BASE:
-			g_pfnTimerHandlerCallbacks[16] = xtTimerCallback;
-	        break;
-		case TIM10_BASE:
-			g_pfnTimerHandlerCallbacks[17] = xtTimerCallback;
-	        break;
-		case TIM11_BASE:
-			g_pfnTimerHandlerCallbacks[18] = xtTimerCallback;
-	        break;
-		case TIM12_BASE:
-			g_pfnTimerHandlerCallbacks[19] = xtTimerCallback;
-	        break;
-		case TIM13_BASE:
-			g_pfnTimerHandlerCallbacks[20] = xtTimerCallback;
-	        break;
-		case TIM14_BASE:
-			g_pfnTimerHandlerCallbacks[21] = xtTimerCallback;
-	        break;
-	}
+    {
+        case TIM1_BASE:
+            g_pfnTimerHandlerCallbacks[1] = xtTimerCallback;
+            g_pfnTimerHandlerCallbacks[4] = xtTimerCallback;
+            break;
+        case TIM2_BASE:
+            g_pfnTimerHandlerCallbacks[5] = xtTimerCallback;
+            break;
+        case TIM3_BASE:
+            g_pfnTimerHandlerCallbacks[6] = xtTimerCallback;
+            break;
+        case TIM4_BASE:
+            g_pfnTimerHandlerCallbacks[7] = xtTimerCallback;
+            break;
+        case TIM5_BASE:
+            g_pfnTimerHandlerCallbacks[8] = xtTimerCallback;
+            break;
+        case TIM6_BASE:
+            g_pfnTimerHandlerCallbacks[9] = xtTimerCallback;
+            break;
+        case TIM7_BASE:
+            g_pfnTimerHandlerCallbacks[10] = xtTimerCallback;
+            break;
+        case TIM8_BASE:
+            g_pfnTimerHandlerCallbacks[12] = xtTimerCallback;
+            g_pfnTimerHandlerCallbacks[15] = xtTimerCallback;
+            break;
+        case TIM9_BASE:
+            g_pfnTimerHandlerCallbacks[16] = xtTimerCallback;
+            break;
+        case TIM10_BASE:
+            g_pfnTimerHandlerCallbacks[17] = xtTimerCallback;
+            break;
+        case TIM11_BASE:
+            g_pfnTimerHandlerCallbacks[18] = xtTimerCallback;
+            break;
+        case TIM12_BASE:
+            g_pfnTimerHandlerCallbacks[19] = xtTimerCallback;
+            break;
+        case TIM13_BASE:
+            g_pfnTimerHandlerCallbacks[20] = xtTimerCallback;
+            break;
+        case TIM14_BASE:
+            g_pfnTimerHandlerCallbacks[21] = xtTimerCallback;
+            break;
+    }
 }
 
 //*****************************************************************************
@@ -1129,25 +1161,25 @@ void
 xTimerCounterDetectPhaseSelect(unsigned long ulBase, 
                                unsigned long ulChannel, unsigned long ulPhase)
 {
-	//
-	// Disable the Channel: Reset the CCxE Bit
-	//
-	xHWREG(ulBase + TIMER_CCER) &= ~(TIMER_CCER_CC1E << ((ulChannel -1) * 4));
-	
     //
-	// Reset the polarity bit 
-	//
-	xHWREG(ulBase + TIMER_CCER) &= ~(TIMER_CCER_CC1P << ((ulChannel -1) * 4));
+    // Disable the Channel: Reset the CCxE Bit
+    //
+    xHWREG(ulBase + TIMER_CCER) &= ~(TIMER_CCER_CC1E << ((ulChannel -1) * 4));
+    
+    //
+    // Reset the polarity bit 
+    //
+    xHWREG(ulBase + TIMER_CCER) &= ~(TIMER_CCER_CC1P << ((ulChannel -1) * 4));
 
-	//
-	// Set the polarity bit
-	//
-	xHWREG(ulBase + TIMER_CCER) |= (ulPhase << ((ulChannel -1) * 4));
+    //
+    // Set the polarity bit
+    //
+    xHWREG(ulBase + TIMER_CCER) |= (ulPhase << ((ulChannel -1) * 4));
 
-	//
-	// Enable the channel
-	//
-	xHWREG(ulBase + TIMER_CCER) |= (TIMER_CCER_CC1E << ((ulChannel -1) * 4));
+    //
+    // Enable the channel
+    //
+    xHWREG(ulBase + TIMER_CCER) |= (TIMER_CCER_CC1E << ((ulChannel -1) * 4));
 }
 
 //*****************************************************************************
@@ -1173,25 +1205,25 @@ void
 xTimerCaptureEdgeSelect(unsigned long ulBase, unsigned long ulChannel,
                         unsigned long ulEdge)
 {
-	//
-	// Disable the Channel: Reset the CCxE Bit
-	//
-	xHWREG(ulBase + TIMER_CCER) &= ~(TIMER_CCER_CC1E << ((ulChannel -1) * 4));
-	
     //
-	// Reset the polarity bit 
-	//
-	xHWREG(ulBase + TIMER_CCER) &= ~(TIMER_CCER_CC1P << ((ulChannel -1) * 4));
+    // Disable the Channel: Reset the CCxE Bit
+    //
+    xHWREG(ulBase + TIMER_CCER) &= ~(TIMER_CCER_CC1E << ((ulChannel -1) * 4));
+    
+    //
+    // Reset the polarity bit 
+    //
+    xHWREG(ulBase + TIMER_CCER) &= ~(TIMER_CCER_CC1P << ((ulChannel -1) * 4));
 
-	//
-	// Set the polarity bit
-	//
-	xHWREG(ulBase + TIMER_CCER) |= (ulEdge << ((ulChannel -1) * 4));
+    //
+    // Set the polarity bit
+    //
+    xHWREG(ulBase + TIMER_CCER) |= (ulEdge << ((ulChannel -1) * 4));
 
-	//
-	// Enable the channel
-	//
-	xHWREG(ulBase + TIMER_CCER) |= (TIMER_CCER_CC1E << ((ulChannel -1) * 4));
+    //
+    // Enable the channel
+    //
+    xHWREG(ulBase + TIMER_CCER) |= (TIMER_CCER_CC1E << ((ulChannel -1) * 4));
 }
 
 //*****************************************************************************
@@ -1221,62 +1253,62 @@ static void
 TimerTI1Configure(unsigned long ulBase, unsigned long ulICPolarity, 
                   unsigned long ulICSelection, unsigned long ulICFilter)
 {
-	unsigned long ulTempccmr1 = 0, ulTempccer = 0;
+    unsigned long ulTempccmr1 = 0, ulTempccer = 0;
     //
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
     xASSERT((ulICPolarity == TIMER_ICPOL_RISING) || 
-	        (ulICPolarity == TIMER_ICPOL_FALLING));	
+            (ulICPolarity == TIMER_ICPOL_FALLING));    
     xASSERT((ulICSelection == TIMER_ICSEL_DIRTI) || 
-	        (ulICSelection == TIMER_ICSEL_INDIRTI) || 
-	        (ulICSelection == TIMER_ICSEL_TRC));	
-    xASSERT((ulICFilter >= 0) && (ulICSelection <= 15));		
-	  
-	//
-	// Disable the Channel 1: Reset the CC1E Bit
-	//
-	xHWREG(ulBase + TIMER_CCER) &= ~TIMER_CCER_CC1E;
-		
-	ulTempccmr1 = xHWREG(ulBase + TIMER_CCMR1);
-	ulTempccer = xHWREG(ulBase + TIMER_CCER);
-		
-	//
-	// Select the Input and set the filter
-	//
-	ulTempccmr1 &= ~(TIMER_CCMR1_CC1S_M | TIMER_CCMR1_IC1F_M);
-	ulTempccmr1 |= ulICSelection | (ulICFilter << 4);
-		
-	if((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	   (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	   (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE))
-	{
-	    //
-		// Select the Polarity and set the CC1E Bit
-		//
-		ulTempccer &= ~TIMER_CCER_CC1P;
-		ulTempccer |= (ulICPolarity | TIMER_CCER_CC1E);
-			  
+            (ulICSelection == TIMER_ICSEL_INDIRTI) || 
+            (ulICSelection == TIMER_ICSEL_TRC));    
+    xASSERT((ulICFilter >= 0) && (ulICSelection <= 15));        
+      
+    //
+    // Disable the Channel 1: Reset the CC1E Bit
+    //
+    xHWREG(ulBase + TIMER_CCER) &= ~TIMER_CCER_CC1E;
+            
+    ulTempccmr1 = xHWREG(ulBase + TIMER_CCMR1);
+    ulTempccer = xHWREG(ulBase + TIMER_CCER);
+            
+    //
+    // Select the Input and set the filter
+    //
+    ulTempccmr1 &= ~(TIMER_CCMR1_CC1S_M | TIMER_CCMR1_IC1F_M);
+    ulTempccmr1 |= ulICSelection | (ulICFilter << 4);
+            
+    if((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
+       (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+       (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE))
+    {
+        //
+        // Select the Polarity and set the CC1E Bit
+        //
+        ulTempccer &= ~TIMER_CCER_CC1P;
+        ulTempccer |= (ulICPolarity | TIMER_CCER_CC1E);
+              
     }
     else
-	{
-	    //
-	    // Select the Polarity and set the CC1E Bit
-	    //
-	    ulTempccer &= ~(TIMER_CCER_CC1P | TIMER_CCER_CC1NP);
-	    ulTempccer |= (ulICPolarity | TIMER_CCER_CC1E);
+    {
+        //
+        // Select the Polarity and set the CC1E Bit
+        //
+        ulTempccer &= ~(TIMER_CCER_CC1P | TIMER_CCER_CC1NP);
+        ulTempccer |= (ulICPolarity | TIMER_CCER_CC1E);
     }
-		
-		//
-		// Write to TIMx CCMR1 and CCER registers
-		//
-		xHWREG(ulBase + TIMER_CCMR1) = ulTempccmr1;
-		xHWREG(ulBase + TIMER_CCER) = ulTempccer;
+    
+    //
+    // Write to TIMx CCMR1 and CCER registers
+    //
+    xHWREG(ulBase + TIMER_CCMR1) = ulTempccmr1;
+    xHWREG(ulBase + TIMER_CCER) = ulTempccer;
 }
 
 //*****************************************************************************
@@ -1306,61 +1338,61 @@ static void
 TimerTI2Configure(unsigned long ulBase, unsigned long ulICPolarity, 
                   unsigned long ulICSelection, unsigned long ulICFilter)
 {
-	unsigned long ulTempccmr1 = 0, ulTempccer = 0, ulTemp;
+    unsigned long ulTempccmr1 = 0, ulTempccer = 0, ulTemp;
     //
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE)); 
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE)); 
     xASSERT((ulICPolarity == TIMER_ICPOL_RISING) || 
-	        (ulICPolarity == TIMER_ICPOL_FALLING));	
+            (ulICPolarity == TIMER_ICPOL_FALLING));    
     xASSERT((ulICSelection == TIMER_ICSEL_DIRTI) || 
-	        (ulICSelection == TIMER_ICSEL_INDIRTI) || 
-	        (ulICSelection == TIMER_ICSEL_TRC));	
-    xASSERT((ulICFilter >= 0) && (ulICSelection <= 15));		
-	  
-	//
-	// Disable the Channel 1: Reset the CC1E Bit
-	//
-	xHWREG(ulBase + TIMER_CCER) &= ~TIMER_CCER_CC2E;
-		
-	ulTempccmr1 = xHWREG(ulBase + TIMER_CCMR1);
-	ulTempccer = xHWREG(ulBase + TIMER_CCER);
-	ulTemp = ulICPolarity << 4;
-		
-	//
-	// Select the Input and set the filter
-	//
-	ulTempccmr1 &= ~(TIMER_CCMR1_CC2S_M | TIMER_CCMR1_IC2F_M);
-	ulTempccmr1 |= ((ulICSelection << 8) | (ulICFilter << 12));
-		
-	if((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	   (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	   (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE))
-	{
-	    //
-	    // Select the Polarity and set the CC2E Bit
-	    //
-		ulTempccer &= ~TIMER_CCER_CC2P;
-		ulTempccer |= (ulTemp | TIMER_CCER_CC2E);
-			  
-    }
-	else
-	{
+            (ulICSelection == TIMER_ICSEL_INDIRTI) || 
+            (ulICSelection == TIMER_ICSEL_TRC));    
+    xASSERT((ulICFilter >= 0) && (ulICSelection <= 15));        
+      
+    //
+    // Disable the Channel 1: Reset the CC1E Bit
+    //
+    xHWREG(ulBase + TIMER_CCER) &= ~TIMER_CCER_CC2E;
+            
+    ulTempccmr1 = xHWREG(ulBase + TIMER_CCMR1);
+    ulTempccer = xHWREG(ulBase + TIMER_CCER);
+    ulTemp = ulICPolarity << 4;
+            
+    //
+    // Select the Input and set the filter
+    //
+    ulTempccmr1 &= ~(TIMER_CCMR1_CC2S_M | TIMER_CCMR1_IC2F_M);
+    ulTempccmr1 |= ((ulICSelection << 8) | (ulICFilter << 12));
+            
+    if((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
+       (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+       (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE))
+    {
         //
-		// Select the Polarity and set the CC2E Bit
-		//
-		ulTempccer &= ~(TIMER_CCER_CC2P | TIMER_CCER_CC2NP);
-		ulTempccer |= (ulTemp | TIMER_CCER_CC2E);
+        // Select the Polarity and set the CC2E Bit
+        //
+        ulTempccer &= ~TIMER_CCER_CC2P;
+        ulTempccer |= (ulTemp | TIMER_CCER_CC2E);
+              
     }
-		
-		//
-		// Write to TIMx CCMR1 and CCER registers
-		//
-		xHWREG(ulBase + TIMER_CCMR1) = ulTempccmr1;
-		xHWREG(ulBase + TIMER_CCER) = ulTempccer;
+    else
+    {
+        //
+        // Select the Polarity and set the CC2E Bit
+        //
+        ulTempccer &= ~(TIMER_CCER_CC2P | TIMER_CCER_CC2NP);
+        ulTempccer |= (ulTemp | TIMER_CCER_CC2E);
+    }
+        
+    //
+    // Write to TIMx CCMR1 and CCER registers
+    //
+    xHWREG(ulBase + TIMER_CCMR1) = ulTempccmr1;
+    xHWREG(ulBase + TIMER_CCER) = ulTempccer;
 }
 
 //*****************************************************************************
@@ -1390,60 +1422,60 @@ static void
 TimerTI3Configure(unsigned long ulBase, unsigned long ulICPolarity, 
                   unsigned long ulICSelection, unsigned long ulICFilter)
 {
-	unsigned long ulTempccmr2 = 0, ulTempccer = 0, ulTemp;
+    unsigned long ulTempccmr2 = 0, ulTempccer = 0, ulTemp;
     //
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	          (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	          (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE)); 
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE)); 
     xASSERT((ulICPolarity == TIMER_ICPOL_RISING) || 
-	          (ulICPolarity == TIMER_ICPOL_FALLING));	
+            (ulICPolarity == TIMER_ICPOL_FALLING));    
     xASSERT((ulICSelection == TIMER_ICSEL_DIRTI) || 
-	          (ulICSelection == TIMER_ICSEL_INDIRTI) || 
-	          (ulICSelection == TIMER_ICSEL_TRC));	
-    xASSERT((ulICFilter >= 0) && (ulICSelection <= 15));		
-	  
-	//
-	// Disable the Channel 1: Reset the CC1E Bit
-	//
-	xHWREG(ulBase + TIMER_CCER) &= ~TIMER_CCER_CC3E;
-		
-	ulTempccmr2 = xHWREG(ulBase + TIMER_CCMR2);
-	ulTempccer = xHWREG(ulBase + TIMER_CCER);
-	ulTemp = ulICPolarity << 8;
-		
-	//
-	// Select the Input and set the filter
-	//
-	ulTempccmr2 &= ~(TIMER_CCMR2_CC3S_M | TIMER_CCMR2_IC3F_M);
-	ulTempccmr2 |= (ulICSelection | (ulICFilter << 4));
-		
-	if((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	   (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	   (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE))
-	{
-	    //
-	    // Select the Polarity and set the CC2E Bit
-	    //
-	    ulTempccer &= ~TIMER_CCER_CC3P;
-	    ulTempccer |= (ulTemp | TIMER_CCER_CC3E);
-			  
+            (ulICSelection == TIMER_ICSEL_INDIRTI) || 
+            (ulICSelection == TIMER_ICSEL_TRC));    
+    xASSERT((ulICFilter >= 0) && (ulICSelection <= 15));        
+      
+    //
+    // Disable the Channel 1: Reset the CC1E Bit
+    //
+    xHWREG(ulBase + TIMER_CCER) &= ~TIMER_CCER_CC3E;
+            
+    ulTempccmr2 = xHWREG(ulBase + TIMER_CCMR2);
+    ulTempccer = xHWREG(ulBase + TIMER_CCER);
+    ulTemp = ulICPolarity << 8;
+            
+    //
+    // Select the Input and set the filter
+    //
+    ulTempccmr2 &= ~(TIMER_CCMR2_CC3S_M | TIMER_CCMR2_IC3F_M);
+    ulTempccmr2 |= (ulICSelection | (ulICFilter << 4));
+            
+    if((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
+       (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+       (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE))
+    {
+        //
+        // Select the Polarity and set the CC2E Bit
+        //
+        ulTempccer &= ~TIMER_CCER_CC3P;
+        ulTempccer |= (ulTemp | TIMER_CCER_CC3E);
+              
     }
-	else
-	{
-	    //
-	    // Select the Polarity and set the CC2E Bit
-		//
-		ulTempccer &= ~(TIMER_CCER_CC3P | TIMER_CCER_CC3NP);
-		ulTempccer |= (ulTemp | TIMER_CCER_CC3E);
+    else
+    {
+        //
+        // Select the Polarity and set the CC2E Bit
+        //
+        ulTempccer &= ~(TIMER_CCER_CC3P | TIMER_CCER_CC3NP);
+        ulTempccer |= (ulTemp | TIMER_CCER_CC3E);
     }
-		
-		//
-		// Write to TIMx CCMR1 and CCER registers
-		//
-		xHWREG(ulBase + TIMER_CCMR2) = ulTempccmr2;
-		xHWREG(ulBase + TIMER_CCER) = ulTempccer;
+    
+    //
+    // Write to TIMx CCMR1 and CCER registers
+    //
+    xHWREG(ulBase + TIMER_CCMR2) = ulTempccmr2;
+    xHWREG(ulBase + TIMER_CCER) = ulTempccer;
 }
 
 //*****************************************************************************
@@ -1478,51 +1510,51 @@ TimerTI4Configure(unsigned long ulBase, unsigned long ulICPolarity,
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE)); 
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE)); 
     xASSERT((ulICPolarity == TIMER_ICPOL_RISING) || 
-	        (ulICPolarity == TIMER_ICPOL_FALLING));	
+            (ulICPolarity == TIMER_ICPOL_FALLING));    
     xASSERT((ulICSelection == TIMER_ICSEL_DIRTI) || 
-	        (ulICSelection == TIMER_ICSEL_INDIRTI) || 
-	        (ulICSelection == TIMER_ICSEL_TRC));	
-    xASSERT((ulICFilter >= 0) && (ulICSelection <= 15));		
-	  
-	//
-	// Disable the Channel 1: Reset the CC1E Bit
-	//
-	xHWREG(ulBase + TIMER_CCER) &= ~TIMER_CCER_CC4E;
-		
-	ulTempccmr2 = xHWREG(ulBase + TIMER_CCMR2);
-	ulTempccer = xHWREG(ulBase + TIMER_CCER);
-	ulTemp = ulICPolarity << 12;
-		
-	//
-	// Select the Input and set the filter
-	//
-	ulTempccmr2 &= ~(TIMER_CCMR2_CC3S_M | TIMER_CCMR2_IC3F_M);
-	ulTempccmr2 |= ((ulICSelection << 8) | (ulICFilter << 4));
-		
-	if((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	   (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	   (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE))
-	{
-	    //
-	    // Select the Polarity and set the CC2E Bit
-	    //
-	    ulTempccer &= ~TIMER_CCER_CC4P;
-	    ulTempccer |= (ulTemp | TIMER_CCER_CC4E);
-			  
+            (ulICSelection == TIMER_ICSEL_INDIRTI) || 
+            (ulICSelection == TIMER_ICSEL_TRC));    
+    xASSERT((ulICFilter >= 0) && (ulICSelection <= 15));        
+      
+    //
+    // Disable the Channel 1: Reset the CC1E Bit
+    //
+    xHWREG(ulBase + TIMER_CCER) &= ~TIMER_CCER_CC4E;
+        
+    ulTempccmr2 = xHWREG(ulBase + TIMER_CCMR2);
+    ulTempccer = xHWREG(ulBase + TIMER_CCER);
+    ulTemp = ulICPolarity << 12;
+        
+    //
+    // Select the Input and set the filter
+    //
+    ulTempccmr2 &= ~(TIMER_CCMR2_CC3S_M | TIMER_CCMR2_IC3F_M);
+    ulTempccmr2 |= ((ulICSelection << 8) | (ulICFilter << 4));
+        
+    if((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
+       (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+       (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE))
+    {
+        //
+        // Select the Polarity and set the CC2E Bit
+        //
+        ulTempccer &= ~TIMER_CCER_CC4P;
+        ulTempccer |= (ulTemp | TIMER_CCER_CC4E);
+              
     }
-	else
-	{
+    else
+    {
 
     }
-		
-	//
-	// Write to TIMx CCMR1 and CCER registers
-	//
-	xHWREG(ulBase + TIMER_CCMR2) = ulTempccmr2;
-	xHWREG(ulBase + TIMER_CCER) = ulTempccer;
+        
+    //
+    // Write to TIMx CCMR1 and CCER registers
+    //
+    xHWREG(ulBase + TIMER_CCMR2) = ulTempccmr2;
+    xHWREG(ulBase + TIMER_CCER) = ulTempccer;
 }
 
 //*****************************************************************************
@@ -1558,20 +1590,20 @@ TimerTI4Configure(unsigned long ulBase, unsigned long ulICPolarity,
 void 
 TimerBaseConfigure(unsigned long ulBase, unsigned long ulCountMode, 
                    unsigned long ulCRRValue, unsigned long ulPrescaler, 
-		           unsigned long ulCLKDiv, unsigned long ulRepCnt)
+                   unsigned long ulCLKDiv, unsigned long ulRepCnt)
 {
-	unsigned long ulTempCR1;
-	  
+    unsigned long ulTempCR1;
+      
     //
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-			(ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) ||
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) ||
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
     xASSERT((ulCountMode == TIMER_CNT_MODE_UP) || 
             (ulCountMode == TIMER_CNT_MODE_CA1) || 
             (ulCountMode == TIMER_CNT_MODE_CA2) ||
@@ -1581,34 +1613,34 @@ TimerBaseConfigure(unsigned long ulBase, unsigned long ulCountMode,
     xASSERT((ulPrescaler >= 0) && (ulPrescaler <= 65535));
     xASSERT((ulCLKDiv == TIMER_CLKDIV_0) || 
             (ulCLKDiv == TIMER_CLKDIV_2) ||
-	        (ulCLKDiv == TIMER_CLKDIV_4));
-	xASSERT((ulRepCnt >= 0) && (ulRepCnt <= 255))				
+            (ulCLKDiv == TIMER_CLKDIV_4));
+    xASSERT((ulRepCnt >= 0) && (ulRepCnt <= 255))                
     
-	ulTempCR1 = xHWREG(ulBase + TIMER_CR1);
-				
-	if((ulBase == TIM1_BASE) || (ulBase == TIM8_BASE) ||
+    ulTempCR1 = xHWREG(ulBase + TIMER_CR1);
+                
+    if((ulBase == TIM1_BASE) || (ulBase == TIM8_BASE) ||
        (ulBase == TIM2_BASE) || (ulBase == TIM3_BASE) ||
-	   (ulBase == TIM4_BASE) || (ulBase == TIM5_BASE))
-	{
-	    //
+       (ulBase == TIM4_BASE) || (ulBase == TIM5_BASE))
+    {
+        //
         // Select the Counter Mode
-		//
-		ulTempCR1 &= ~(TIMER_CR1_DIR | TIMER_CR1_CMS_M);
-		xHWREG(ulBase + TIMER_CR1) = ulTempCR1;
-		ulTempCR1 |= ulCountMode;
+        //
+        ulTempCR1 &= ~(TIMER_CR1_DIR | TIMER_CR1_CMS_M);
+        xHWREG(ulBase + TIMER_CR1) = ulTempCR1;
+        ulTempCR1 |= ulCountMode;
     }
-		
+        
     if((ulBase != TIM6_BASE) && (ulBase != TIM7_BASE))
-	{
-	    //
-	    // Set the clock division
-	    //
-	    ulTempCR1 &= ~TIMER_CR1_CKD_M;
-        ulTempCR1 |= ulCLKDiv;			
+    {
+        //
+        // Set the clock division
+        //
+        ulTempCR1 &= ~TIMER_CR1_CKD_M;
+        ulTempCR1 |= ulCLKDiv;            
     }
-		
-	xHWREG(ulBase + TIMER_CR1) = ulTempCR1;
-		
+        
+    xHWREG(ulBase + TIMER_CR1) = ulTempCR1;
+        
     //
     // Set the Autoreload value
     //
@@ -1619,20 +1651,20 @@ TimerBaseConfigure(unsigned long ulBase, unsigned long ulCountMode,
     //
     xHWREG(ulBase + TIMER_PSC) = ulPrescaler;
      
-	if((ulBase == TIM1_BASE) || (ulBase == TIM8_BASE))
-	{
-	    //
-	    // Set the Repetition Counter value
-	    //
-        xHWREG(ulBase + TIMER_RCR) = ulRepCnt;		
+    if((ulBase == TIM1_BASE) || (ulBase == TIM8_BASE))
+    {
+        //
+        // Set the Repetition Counter value
+        //
+        xHWREG(ulBase + TIMER_RCR) = ulRepCnt;        
     }
 
-	//
-	// Generate an update event to reload the Prescaler and the Repetition 
-	// counter values immediately
-	//
-	xHWREG(ulBase + TIMER_EGR) = TIMER_PSC_RLD_IMMEDIATE;
-}	 
+    //
+    // Generate an update event to reload the Prescaler and the Repetition 
+    // counter values immediately
+    //
+    xHWREG(ulBase + TIMER_EGR) = TIMER_PSC_RLD_IMMEDIATE;
+}     
 
 //*****************************************************************************
 //
@@ -1678,38 +1710,38 @@ TimerBaseConfigure(unsigned long ulBase, unsigned long ulCountMode,
 void 
 TimerOC1Configure(unsigned long ulBase, unsigned long ulOutputMode, 
                        unsigned long ulOCompare,unsigned long ulOCCfg, 
-					   unsigned long ulOCNCfg, unsigned long ulOCIdleCfg)
+                       unsigned long ulOCNCfg, unsigned long ulOCIdleCfg)
 {
-	unsigned long ulTempccer = 0, ulTempccmrx = 0, ulTempcr2 = 0;
-	
+    unsigned long ulTempccer = 0, ulTempccmrx = 0, ulTempcr2 = 0;
+    
     //
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	          (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	          (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	          (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	          (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	          (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
     xASSERT((ulOutputMode == TIMER_OCMODE_TIMING) ||
             (ulOutputMode == TIMER_OCMODE_ACTIVE) ||
             (ulOutputMode == TIMER_OCMODE_INACTIVE) || 
             (ulOutputMode == TIMER_OCMODE_TOGGLE) ||
             (ulOutputMode == TIMER_OCMODE_FINACTIVE) ||
             (ulOutputMode == TIMER_OCMODE_FACTIVE));
-    xASSERT((ulOCompare >= 0) && (ulOCompare <= 65535));	
-	xASSERT((ulOCCfg == TIMER_OP_STATE_DIS | TIMER_OP_POL_HIGH) ||
-			(ulOCCfg == TIMER_OP_STATE_DIS | TIMER_OP_POL_LOW) || 
-			(ulOCCfg == TIMER_OP_STATE_EN | TIMER_OP_POL_LOW) ||
-			(ulOCCfg == TIMER_OP_STATE_EN | TIMER_OP_POL_HIGH));
-	xASSERT((ulOCNCfg == TIMER_OP_N_STATE_DIS | TIMER_OP_N_POL_HIGH) ||
-			(ulOCNCfg == TIMER_OP_N_STATE_DIS | TIMER_OP_N_POL_LOW) || 
-			(ulOCNCfg == TIMER_OP_N_STATE_EN | TIMER_OP_N_POL_LOW) ||
-			(ulOCNCfg == TIMER_OP_N_STATE_EN | TIMER_OP_N_POL_HIGH));
-	xASSERT((ulOCIdleCfg == TIMER_OCIDLESTATE_SET | TIMER_OCNIDLESTATE_SET) ||
-			(ulOCIdleCfg == TIMER_OCIDLESTATE_SET | TIMER_OCNIDLESTATE_RESET) ||
-			(ulOCIdleCfg == TIMER_OCIDLESTATE_RESET | TIMER_OCNIDLESTATE_RESET) ||
-			(ulOCIdleCfg == TIMER_OCIDLESTATE_RESET | TIMER_OCNIDLESTATE_SET));		
+    xASSERT((ulOCompare >= 0) && (ulOCompare <= 65535));    
+    xASSERT((ulOCCfg == TIMER_OP_STATE_DIS | TIMER_OP_POL_HIGH) ||
+            (ulOCCfg == TIMER_OP_STATE_DIS | TIMER_OP_POL_LOW) || 
+            (ulOCCfg == TIMER_OP_STATE_EN | TIMER_OP_POL_LOW) ||
+            (ulOCCfg == TIMER_OP_STATE_EN | TIMER_OP_POL_HIGH));
+    xASSERT((ulOCNCfg == TIMER_OP_N_STATE_DIS | TIMER_OP_N_POL_HIGH) ||
+            (ulOCNCfg == TIMER_OP_N_STATE_DIS | TIMER_OP_N_POL_LOW) || 
+            (ulOCNCfg == TIMER_OP_N_STATE_EN | TIMER_OP_N_POL_LOW) ||
+            (ulOCNCfg == TIMER_OP_N_STATE_EN | TIMER_OP_N_POL_HIGH));
+    xASSERT((ulOCIdleCfg == TIMER_OCIDLESTATE_SET | TIMER_OCNIDLESTATE_SET) ||
+            (ulOCIdleCfg == TIMER_OCIDLESTATE_SET | TIMER_OCNIDLESTATE_RESET) ||
+            (ulOCIdleCfg == TIMER_OCIDLESTATE_RESET | TIMER_OCNIDLESTATE_RESET) ||
+            (ulOCIdleCfg == TIMER_OCIDLESTATE_RESET | TIMER_OCNIDLESTATE_SET));        
     
     //
     // Disable the channel
@@ -1717,78 +1749,78 @@ TimerOC1Configure(unsigned long ulBase, unsigned long ulOutputMode,
     xHWREG(ulBase + TIMER_CCER) &= ~TIMER_CCER_CC1E;
 
     //
-	// Get the TIMx CCER register value
-	//
-	ulTempccer = xHWREG(ulBase + TIMER_CCER);
-	
-	//
-	// Get the TIMx CR2 register value
-	//
-	ulTempcr2 = xHWREG(ulBase + TIMER_CR2);
-		
-	//
-	// Get the TIMx CCMR1 register value
-	//
-	ulTempccmrx = xHWREG(ulBase + TIMER_CCMR1);
-	
-	//
-	// Set the Output Compare Mode Bits
-	//
+    // Get the TIMx CCER register value
+    //
+    ulTempccer = xHWREG(ulBase + TIMER_CCER);
+    
+    //
+    // Get the TIMx CR2 register value
+    //
+    ulTempcr2 = xHWREG(ulBase + TIMER_CR2);
+        
+    //
+    // Get the TIMx CCMR1 register value
+    //
+    ulTempccmrx = xHWREG(ulBase + TIMER_CCMR1);
+    
+    //
+    // Set the Output Compare Mode Bits
+    //
     ulTempccmrx &= ~(TIMER_CCMR1_OC1M_M | TIMER_CCMR1_CC1S_M);
-	ulTempccmrx |= ulOutputMode;
-		
-	//
-	// Set the Output Compare Polarity
-	//
-	ulTempccer &= ~TIMER_CCER_CC1P;
-	ulTempccer |= (ulOCCfg & TIMER_CCER_CC1P);
-		
-	//
-	// Set the Output State
-	//
-	ulTempccer |= (ulOCCfg & TIMER_CCER_CC1E);
-		
-	if((ulBase == TIM1_BASE) || (ulBase == TIM8_BASE))
-	{   
+    ulTempccmrx |= ulOutputMode;
+        
+    //
+    // Set the Output Compare Polarity
+    //
+    ulTempccer &= ~TIMER_CCER_CC1P;
+    ulTempccer |= (ulOCCfg & TIMER_CCER_CC1P);
+        
+    //
+    // Set the Output State
+    //
+    ulTempccer |= (ulOCCfg & TIMER_CCER_CC1E);
+        
+    if((ulBase == TIM1_BASE) || (ulBase == TIM8_BASE))
+    {   
         //
         // Set the Output N Polarity
         //
-	    ulTempccer &= ~TIMER_CCER_CC1NP;
-	    ulTempccer |= (ulOCNCfg & TIMER_CCER_CC1NP);
+        ulTempccer &= ~TIMER_CCER_CC1NP;
+        ulTempccer |= (ulOCNCfg & TIMER_CCER_CC1NP);
 
         //
         // Set the Output N State
         //
-	    ulTempccer &= ~TIMER_CCER_CC1NE;
-	    ulTempccer |= (ulOCNCfg & TIMER_CCER_CC1NE);	
-			
-	    //
-		// Set the Output Idle/ N Idle state
-		//
-		ulTempcr2 &= ~(TIMER_CR2_OIS1 | TIMER_CR2_OIS1N);
-		ulTempcr2 |= (ulOCIdleCfg & (TIMER_CR2_OIS1 | TIMER_CR2_OIS1N));
+        ulTempccer &= ~TIMER_CCER_CC1NE;
+        ulTempccer |= (ulOCNCfg & TIMER_CCER_CC1NE);    
+            
+        //
+        // Set the Output Idle/ N Idle state
+        //
+        ulTempcr2 &= ~(TIMER_CR2_OIS1 | TIMER_CR2_OIS1N);
+        ulTempcr2 |= (ulOCIdleCfg & (TIMER_CR2_OIS1 | TIMER_CR2_OIS1N));
     }
-		
-	//
-	// Write to TIMx CR2
-	//
-	xHWREG(ulBase + TIMER_CR2) = ulTempcr2;
-	
-	//
-	// Write to TIMx CCMR1
-	//
-	xHWREG(ulBase + TIMER_CCMR1) = ulTempccmrx;
-		
-	//
-	// Set the Capture Compare Register value
-	//
-	xHWREG(ulBase + TIMER_CCR1) = ulOCompare;
-		
-	//
-	// Write to TIMx CCER
-	//
-	xHWREG(ulBase + TIMER_CCER) = ulTempccer;
-		
+        
+    //
+    // Write to TIMx CR2
+    //
+    xHWREG(ulBase + TIMER_CR2) = ulTempcr2;
+    
+    //
+    // Write to TIMx CCMR1
+    //
+    xHWREG(ulBase + TIMER_CCMR1) = ulTempccmrx;
+        
+    //
+    // Set the Capture Compare Register value
+    //
+    xHWREG(ulBase + TIMER_CCR1) = ulOCompare;
+        
+    //
+    // Write to TIMx CCER
+    //
+    xHWREG(ulBase + TIMER_CCER) = ulTempccer;
+        
 }
 
 //*****************************************************************************
@@ -1834,36 +1866,36 @@ TimerOC1Configure(unsigned long ulBase, unsigned long ulOutputMode,
 //*****************************************************************************
 void TimerOC2Configure(unsigned long ulBase, unsigned long ulOutputMode, 
                        unsigned long ulOCompare,unsigned long ulOCCfg, 
-		               unsigned long ulOCNCfg, unsigned long ulOCIdleCfg)
+                       unsigned long ulOCNCfg, unsigned long ulOCIdleCfg)
 {
     unsigned long ulTempccer = 0, ulTempccmrx = 0, ulTempcr2 = 0;
-	
+    
     //
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	          (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	          (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	          (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE)); 
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE)); 
     xASSERT((ulOutputMode == TIMER_OCMODE_TIMING) ||
             (ulOutputMode == TIMER_OCMODE_ACTIVE) ||
             (ulOutputMode == TIMER_OCMODE_INACTIVE) || 
             (ulOutputMode == TIMER_OCMODE_TOGGLE) ||
             (ulOutputMode == TIMER_OCMODE_FINACTIVE) ||
             (ulOutputMode == TIMER_OCMODE_FACTIVE));
-    xASSERT((ulOCompare >= 0) && (ulOCompare <= 65535));	
+    xASSERT((ulOCompare >= 0) && (ulOCompare <= 65535));    
     xASSERT((ulOCCfg == TIMER_OP_STATE_DIS | TIMER_OP_POL_HIGH) ||
-	          (ulOCCfg == TIMER_OP_STATE_DIS | TIMER_OP_POL_LOW) || 
-	          (ulOCCfg == TIMER_OP_STATE_EN | TIMER_OP_POL_LOW) ||
-	          (ulOCCfg == TIMER_OP_STATE_EN | TIMER_OP_POL_HIGH));
+            (ulOCCfg == TIMER_OP_STATE_DIS | TIMER_OP_POL_LOW) || 
+            (ulOCCfg == TIMER_OP_STATE_EN | TIMER_OP_POL_LOW) ||
+            (ulOCCfg == TIMER_OP_STATE_EN | TIMER_OP_POL_HIGH));
     xASSERT((ulOCNCfg == TIMER_OP_N_STATE_DIS | TIMER_OP_N_POL_HIGH) ||
-	          (ulOCNCfg == TIMER_OP_N_STATE_DIS | TIMER_OP_N_POL_LOW) || 
-	          (ulOCNCfg == TIMER_OP_N_STATE_EN | TIMER_OP_N_POL_LOW) ||
-	          (ulOCNCfg == TIMER_OP_N_STATE_EN | TIMER_OP_N_POL_HIGH));
+            (ulOCNCfg == TIMER_OP_N_STATE_DIS | TIMER_OP_N_POL_LOW) || 
+            (ulOCNCfg == TIMER_OP_N_STATE_EN | TIMER_OP_N_POL_LOW) ||
+            (ulOCNCfg == TIMER_OP_N_STATE_EN | TIMER_OP_N_POL_HIGH));
     xASSERT((ulOCIdleCfg == TIMER_OCIDLESTATE_SET | TIMER_OCNIDLESTATE_SET) ||
-	          (ulOCIdleCfg == TIMER_OCIDLESTATE_SET | TIMER_OCNIDLESTATE_RESET) ||
-	          (ulOCIdleCfg == TIMER_OCIDLESTATE_RESET | TIMER_OCNIDLESTATE_RESET) ||
-	          (ulOCIdleCfg == TIMER_OCIDLESTATE_RESET | TIMER_OCNIDLESTATE_SET));		
+            (ulOCIdleCfg == TIMER_OCIDLESTATE_SET | TIMER_OCNIDLESTATE_RESET) ||
+            (ulOCIdleCfg == TIMER_OCIDLESTATE_RESET | TIMER_OCNIDLESTATE_RESET) ||
+            (ulOCIdleCfg == TIMER_OCIDLESTATE_RESET | TIMER_OCNIDLESTATE_SET));        
     
     //
     // Disable the channel
@@ -1874,75 +1906,75 @@ void TimerOC2Configure(unsigned long ulBase, unsigned long ulOutputMode,
     // Get the TIMx CCER register value
     //
     ulTempccer = xHWREG(ulBase + TIMER_CCER);
-		
+        
     //
     // Get the TIMx CR2 register value
     //
     ulTempcr2 = xHWREG(ulBase + TIMER_CR2);
-		
+        
     //
     // Get the TIMx CCMR1 register value
     //
     ulTempccmrx = xHWREG(ulBase + TIMER_CCMR1);
-		
+        
     //
     // Set the Output Compare Mode Bits
     //
     ulTempccmrx &= ~(TIMER_CCMR1_OC2M_M | TIMER_CCMR1_CC2S_M);
     ulTempccmrx |= (ulOutputMode << 8);
-		
+        
     //
     // Set the Output Compare Polarity
     //
     ulTempccer &= ~TIMER_CCER_CC2P;
     ulTempccer |= ((ulOCCfg << 4) & TIMER_CCER_CC2P);
-		
+        
     //
     // Set the Output State
     //
     ulTempccer |= ((ulOCCfg << 4) & TIMER_CCER_CC2E);
-		
+        
     if((ulBase == TIM1_BASE) || (ulBase == TIM8_BASE))
     {   
         //
         // Set the Output N Polarity
         //
         ulTempccer &= ~TIMER_CCER_CC2NP;
-	      ulTempccer |= ((ulOCNCfg << 4) & TIMER_CCER_CC2NP);
+        ulTempccer |= ((ulOCNCfg << 4) & TIMER_CCER_CC2NP);
 
         //
         // Set the Output N State
         //
-	      ulTempccer &= ~TIMER_CCER_CC2NE;
-	      ulTempccer |= ((ulOCNCfg << 4) & TIMER_CCER_CC2NE);	
-			
+        ulTempccer &= ~TIMER_CCER_CC2NE;
+        ulTempccer |= ((ulOCNCfg << 4) & TIMER_CCER_CC2NE);    
+            
         //
         // Set the Output Idle/ N Idle state
-	      //
-	      ulTempcr2 &= ~(TIMER_CR2_OIS2 | TIMER_CR2_OIS2N);
-	      ulTempcr2 |= ((ulOCIdleCfg << 2) & (TIMER_CR2_OIS2 | TIMER_CR2_OIS2N));
+        //
+        ulTempcr2 &= ~(TIMER_CR2_OIS2 | TIMER_CR2_OIS2N);
+        ulTempcr2 |= ((ulOCIdleCfg << 2) & (TIMER_CR2_OIS2 | TIMER_CR2_OIS2N));
     }
-		
+        
     //
     // Write to TIMx CR2
     //
     xHWREG(ulBase + TIMER_CR2) = ulTempcr2;
-		
+        
     //
     // Write to TIMx CCMR1
     //
     xHWREG(ulBase + TIMER_CCMR1) = ulTempccmrx;
-		
+        
     //
     // Set the Capture Compare Register value
     //
     xHWREG(ulBase + TIMER_CCR2) = ulOCompare;
-		
+        
     //
     // Write to TIMx CCER
     //
     xHWREG(ulBase + TIMER_CCER) = ulTempccer;
-		
+        
 }
 
 //*****************************************************************************
@@ -1991,33 +2023,33 @@ TimerOC3Configure(unsigned long ulBase, unsigned long ulOutputMode,
                   unsigned long ulOCompare,unsigned long ulOCCfg, 
                   unsigned long ulOCNCfg, unsigned long ulOCIdleCfg)
 {
-	  unsigned long ulTempccer = 0, ulTempccmrx = 0, ulTempcr2 = 0;
-	
+      unsigned long ulTempccer = 0, ulTempccmrx = 0, ulTempcr2 = 0;
+    
     //
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	          (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	          (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE)); 
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE)); 
     xASSERT((ulOutputMode == TIMER_OCMODE_TIMING) ||
             (ulOutputMode == TIMER_OCMODE_ACTIVE) ||
             (ulOutputMode == TIMER_OCMODE_INACTIVE) || 
             (ulOutputMode == TIMER_OCMODE_TOGGLE) ||
             (ulOutputMode == TIMER_OCMODE_FINACTIVE) ||
             (ulOutputMode == TIMER_OCMODE_FACTIVE));
-    xASSERT((ulOCompare >= 0) && (ulOCompare <= 65535));	
-		xASSERT((ulOCCfg == TIMER_OP_STATE_DIS | TIMER_OP_POL_HIGH) ||
-						(ulOCCfg == TIMER_OP_STATE_DIS | TIMER_OP_POL_LOW) || 
-						(ulOCCfg == TIMER_OP_STATE_EN | TIMER_OP_POL_LOW) ||
-						(ulOCCfg == TIMER_OP_STATE_EN | TIMER_OP_POL_HIGH));
-		xASSERT((ulOCNCfg == TIMER_OP_N_STATE_DIS | TIMER_OP_N_POL_HIGH) ||
-						(ulOCNCfg == TIMER_OP_N_STATE_DIS | TIMER_OP_N_POL_LOW) || 
-						(ulOCNCfg == TIMER_OP_N_STATE_EN | TIMER_OP_N_POL_LOW) ||
-						(ulOCNCfg == TIMER_OP_N_STATE_EN | TIMER_OP_N_POL_HIGH));
-		xASSERT((ulOCIdleCfg == TIMER_OCIDLESTATE_SET | TIMER_OCNIDLESTATE_SET) ||
-						(ulOCIdleCfg == TIMER_OCIDLESTATE_SET | TIMER_OCNIDLESTATE_RESET) ||
-						(ulOCIdleCfg == TIMER_OCIDLESTATE_RESET | TIMER_OCNIDLESTATE_RESET) ||
-						(ulOCIdleCfg == TIMER_OCIDLESTATE_RESET | TIMER_OCNIDLESTATE_SET));		
+    xASSERT((ulOCompare >= 0) && (ulOCompare <= 65535));    
+    xASSERT((ulOCCfg == TIMER_OP_STATE_DIS | TIMER_OP_POL_HIGH) ||
+            (ulOCCfg == TIMER_OP_STATE_DIS | TIMER_OP_POL_LOW) || 
+            (ulOCCfg == TIMER_OP_STATE_EN | TIMER_OP_POL_LOW) ||
+            (ulOCCfg == TIMER_OP_STATE_EN | TIMER_OP_POL_HIGH));
+    xASSERT((ulOCNCfg == TIMER_OP_N_STATE_DIS | TIMER_OP_N_POL_HIGH) ||
+            (ulOCNCfg == TIMER_OP_N_STATE_DIS | TIMER_OP_N_POL_LOW) || 
+            (ulOCNCfg == TIMER_OP_N_STATE_EN | TIMER_OP_N_POL_LOW) ||
+            (ulOCNCfg == TIMER_OP_N_STATE_EN | TIMER_OP_N_POL_HIGH));
+    xASSERT((ulOCIdleCfg == TIMER_OCIDLESTATE_SET | TIMER_OCNIDLESTATE_SET) ||
+            (ulOCIdleCfg == TIMER_OCIDLESTATE_SET | TIMER_OCNIDLESTATE_RESET) ||
+            (ulOCIdleCfg == TIMER_OCIDLESTATE_RESET | TIMER_OCNIDLESTATE_RESET) ||
+            (ulOCIdleCfg == TIMER_OCIDLESTATE_RESET | TIMER_OCNIDLESTATE_SET));        
     
     //
     // Disable the channel
@@ -2025,78 +2057,78 @@ TimerOC3Configure(unsigned long ulBase, unsigned long ulOutputMode,
     xHWREG(ulBase + TIMER_CCER) &= ~TIMER_CCER_CC3E;
 
     //
-		// Get the TIMx CCER register value
-		//
-		ulTempccer = xHWREG(ulBase + TIMER_CCER);
-		
-		//
-		// Get the TIMx CR2 register value
-		//
-		ulTempcr2 = xHWREG(ulBase + TIMER_CR2);
-		
-		//
-		// Get the TIMx CCMR1 register value
-		//
-		ulTempccmrx = xHWREG(ulBase + TIMER_CCMR2);
-		
-		//
-		// Set the Output Compare Mode Bits
-		//
-        ulTempccmrx &= ~(TIMER_CCMR2_OC3M_M | TIMER_CCMR2_CC3S_M);
-		ulTempccmrx |= ulOutputMode;
-		
-		//
-		// Set the Output Compare Polarity
-		//
-		ulTempccer &= ~TIMER_CCER_CC3P;
-		ulTempccer |= ((ulOCCfg << 8) & TIMER_CCER_CC3P);
-		
-		//
-		// Set the Output State
-		//
-		ulTempccer |= ((ulOCCfg << 8) & TIMER_CCER_CC3E);
-		
-		if((ulBase == TIM1_BASE) || (ulBase == TIM8_BASE))
-		{   
+    // Get the TIMx CCER register value
+    //
+    ulTempccer = xHWREG(ulBase + TIMER_CCER);
+    
+    //
+    // Get the TIMx CR2 register value
+    //
+    ulTempcr2 = xHWREG(ulBase + TIMER_CR2);
+    
+    //
+    // Get the TIMx CCMR1 register value
+    //
+    ulTempccmrx = xHWREG(ulBase + TIMER_CCMR2);
+    
+    //
+    // Set the Output Compare Mode Bits
+    //
+    ulTempccmrx &= ~(TIMER_CCMR2_OC3M_M | TIMER_CCMR2_CC3S_M);
+    ulTempccmrx |= ulOutputMode;
+    
+    //
+    // Set the Output Compare Polarity
+    //
+    ulTempccer &= ~TIMER_CCER_CC3P;
+    ulTempccer |= ((ulOCCfg << 8) & TIMER_CCER_CC3P);
+    
+    //
+    // Set the Output State
+    //
+    ulTempccer |= ((ulOCCfg << 8) & TIMER_CCER_CC3E);
+    
+    if((ulBase == TIM1_BASE) || (ulBase == TIM8_BASE))
+    {   
         //
         // Set the Output N Polarity
         //
-		    ulTempccer &= ~TIMER_CCER_CC3NP;
-		    ulTempccer |= ((ulOCNCfg << 8) & TIMER_CCER_CC3NP);
+        ulTempccer &= ~TIMER_CCER_CC3NP;
+        ulTempccer |= ((ulOCNCfg << 8) & TIMER_CCER_CC3NP);
 
         //
         // Set the Output N State
         //
-		    ulTempccer &= ~TIMER_CCER_CC3NE;
-		    ulTempccer |= ((ulOCNCfg << 8) & TIMER_CCER_CC3NE);	
-			
-			  //
-			  // Set the Output Idle/ N Idle state
-			  //
-			  ulTempcr2 &= ~(TIMER_CR2_OIS3 | TIMER_CR2_OIS3N);
-			  ulTempcr2 |= ((ulOCIdleCfg << 4) & (TIMER_CR2_OIS3 | TIMER_CR2_OIS3N));
+        ulTempccer &= ~TIMER_CCER_CC3NE;
+        ulTempccer |= ((ulOCNCfg << 8) & TIMER_CCER_CC3NE);    
+        
+        //
+        // Set the Output Idle/ N Idle state
+        //
+        ulTempcr2 &= ~(TIMER_CR2_OIS3 | TIMER_CR2_OIS3N);
+        ulTempcr2 |= ((ulOCIdleCfg << 4) & (TIMER_CR2_OIS3 | TIMER_CR2_OIS3N));
     }
-		
-	//
-	// Write to TIMx CR2
-	//
-	xHWREG(ulBase + TIMER_CR2) = ulTempcr2;
-		
-	//
-	// Write to TIMx CCMR1
-	//
-	xHWREG(ulBase + TIMER_CCMR2) = ulTempccmrx;
-		
-	//
-	// Set the Capture Compare Register value
-	//
+        
+    //
+    // Write to TIMx CR2
+    //
+    xHWREG(ulBase + TIMER_CR2) = ulTempcr2;
+        
+    //
+    // Write to TIMx CCMR1
+    //
+    xHWREG(ulBase + TIMER_CCMR2) = ulTempccmrx;
+        
+    //
+    // Set the Capture Compare Register value
+    //
     xHWREG(ulBase + TIMER_CCR3) = ulOCompare;
-		
-	//
-	// Write to TIMx CCER
-	//
-	xHWREG(ulBase + TIMER_CCER) = ulTempccer;
-		
+        
+    //
+    // Write to TIMx CCER
+    //
+    xHWREG(ulBase + TIMER_CCER) = ulTempccer;
+        
 }
 
 //*****************************************************************************
@@ -2146,32 +2178,32 @@ TimerOC4Configure(unsigned long ulBase, unsigned long ulOutputMode,
                   unsigned long ulOCNCfg, unsigned long ulOCIdleCfg)
 {
     unsigned long ulTempccer = 0, ulTempccmrx = 0, ulTempcr2 = 0;
-	
+    
     //
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE)); 
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE)); 
     xASSERT((ulOutputMode == TIMER_OCMODE_TIMING) ||
             (ulOutputMode == TIMER_OCMODE_ACTIVE) ||
             (ulOutputMode == TIMER_OCMODE_INACTIVE) || 
             (ulOutputMode == TIMER_OCMODE_TOGGLE) ||
             (ulOutputMode == TIMER_OCMODE_FINACTIVE) ||
             (ulOutputMode == TIMER_OCMODE_FACTIVE));
-    xASSERT((ulOCompare >= 0) && (ulOCompare <= 65535));	
+    xASSERT((ulOCompare >= 0) && (ulOCompare <= 65535));    
     xASSERT((ulOCCfg == TIMER_OP_STATE_DIS | TIMER_OP_POL_HIGH) ||
-	        (ulOCCfg == TIMER_OP_STATE_DIS | TIMER_OP_POL_LOW) || 
-	        (ulOCCfg == TIMER_OP_STATE_EN | TIMER_OP_POL_LOW) ||
-	        (ulOCCfg == TIMER_OP_STATE_EN | TIMER_OP_POL_HIGH));
+            (ulOCCfg == TIMER_OP_STATE_DIS | TIMER_OP_POL_LOW) || 
+            (ulOCCfg == TIMER_OP_STATE_EN | TIMER_OP_POL_LOW) ||
+            (ulOCCfg == TIMER_OP_STATE_EN | TIMER_OP_POL_HIGH));
     xASSERT((ulOCNCfg == TIMER_OP_N_STATE_DIS | TIMER_OP_N_POL_HIGH) ||
-	        (ulOCNCfg == TIMER_OP_N_STATE_DIS | TIMER_OP_N_POL_LOW) || 
-	        (ulOCNCfg == TIMER_OP_N_STATE_EN | TIMER_OP_N_POL_LOW) ||
-	        (ulOCNCfg == TIMER_OP_N_STATE_EN | TIMER_OP_N_POL_HIGH));
+            (ulOCNCfg == TIMER_OP_N_STATE_DIS | TIMER_OP_N_POL_LOW) || 
+            (ulOCNCfg == TIMER_OP_N_STATE_EN | TIMER_OP_N_POL_LOW) ||
+            (ulOCNCfg == TIMER_OP_N_STATE_EN | TIMER_OP_N_POL_HIGH));
     xASSERT((ulOCIdleCfg == TIMER_OCIDLESTATE_SET | TIMER_OCNIDLESTATE_SET) ||
-	        (ulOCIdleCfg == TIMER_OCIDLESTATE_SET | TIMER_OCNIDLESTATE_RESET) ||
-	        (ulOCIdleCfg == TIMER_OCIDLESTATE_RESET | TIMER_OCNIDLESTATE_RESET) ||
-	        (ulOCIdleCfg == TIMER_OCIDLESTATE_RESET | TIMER_OCNIDLESTATE_SET));		
+            (ulOCIdleCfg == TIMER_OCIDLESTATE_SET | TIMER_OCNIDLESTATE_RESET) ||
+            (ulOCIdleCfg == TIMER_OCIDLESTATE_RESET | TIMER_OCNIDLESTATE_RESET) ||
+            (ulOCIdleCfg == TIMER_OCIDLESTATE_RESET | TIMER_OCNIDLESTATE_SET));        
     
     //
     // Disable the channel
@@ -2182,64 +2214,64 @@ TimerOC4Configure(unsigned long ulBase, unsigned long ulOutputMode,
     // Get the TIMx CCER register value
     //
     ulTempccer = xHWREG(ulBase + TIMER_CCER);
-		
+        
     //
     // Get the TIMx CR2 register value
     //
     ulTempcr2 = xHWREG(ulBase + TIMER_CR2);
-		
+        
     //
     // Get the TIMx CCMR2 register value
     //
     ulTempccmrx = xHWREG(ulBase + TIMER_CCMR2);
-		
+        
     //
     // Set the Output Compare Mode Bits
     //
     ulTempccmrx &= ~(TIMER_CCMR2_OC4M_M | TIMER_CCMR2_CC4S_M);
     ulTempccmrx |= (ulOutputMode << 8);
-		
+        
     //
     // Set the Output Compare Polarity
     //
     ulTempccer &= ~TIMER_CCER_CC4P;
     ulTempccer |= ((ulOCCfg << 12) & TIMER_CCER_CC4P);
-		
+        
     //
     // Set the Output State
     //
     ulTempccer |= ((ulOCCfg << 12) & TIMER_CCER_CC2E);
-		
+        
     if((ulBase == TIM1_BASE) || (ulBase == TIM8_BASE))
     {   
-			
+            
         //
         // Set the Output Idle/ N Idle state
-	    //
-	    ulTempcr2 &= ~(TIMER_CR2_OIS4);
-	    ulTempcr2 |= ((ulOCIdleCfg << 6) & (TIMER_CR2_OIS4));
+        //
+        ulTempcr2 &= ~(TIMER_CR2_OIS4);
+        ulTempcr2 |= ((ulOCIdleCfg << 6) & (TIMER_CR2_OIS4));
     }
-		
+        
     //
     // Write to TIMx CR2
     //
     xHWREG(ulBase + TIMER_CR2) = ulTempcr2;
-		
+        
     //
     // Write to TIMx CCMR1
     //
     xHWREG(ulBase + TIMER_CCMR2) = ulTempccmrx;
-		
+        
     //
     // Set the Capture Compare Register value
     //
     xHWREG(ulBase + TIMER_CCR4) = ulOCompare;
-		
+        
     //
     // Write to TIMx CCER
     //
     xHWREG(ulBase + TIMER_CCER) = ulTempccer;
-		
+        
 }
 
 //*****************************************************************************
@@ -2266,25 +2298,25 @@ TimerIC1PrescalerSet(unsigned long ulBase, unsigned long ulPrescaler)
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
-	xASSERT((ulPrescaler == TIMER_ICPSC_DIV1) || 
-	        (ulPrescaler == TIMER_ICPSC_DIV2) ||
-	        (ulPrescaler == TIMER_ICPSC_DIV4) ||
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
+    xASSERT((ulPrescaler == TIMER_ICPSC_DIV1) || 
+            (ulPrescaler == TIMER_ICPSC_DIV2) ||
+            (ulPrescaler == TIMER_ICPSC_DIV4) ||
             (ulPrescaler == TIMER_ICPSC_DIV8));
-	
-	//
-	// Reset the IC1PSC Bits
-	//
-	xHWREG(ulBase + TIMER_CCMR1) &= ~TIMER_CCMR1_IC1PSC_M;
-	
-	//
-	// Set the IC1PSC value
-	//
-	xHWREG(ulBase + TIMER_CCMR1) |= ulPrescaler;
+    
+    //
+    // Reset the IC1PSC Bits
+    //
+    xHWREG(ulBase + TIMER_CCMR1) &= ~TIMER_CCMR1_IC1PSC_M;
+    
+    //
+    // Set the IC1PSC value
+    //
+    xHWREG(ulBase + TIMER_CCMR1) |= ulPrescaler;
 }
 
 //*****************************************************************************
@@ -2311,23 +2343,23 @@ TimerIC2PrescalerSet(unsigned long ulBase, unsigned long ulPrescaler)
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) ||
-	          (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE)); 
-	xASSERT((ulPrescaler == TIMER_ICPSC_DIV1) || 
-	        (ulPrescaler == TIMER_ICPSC_DIV2) ||
-	        (ulPrescaler == TIMER_ICPSC_DIV4) ||
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) ||
+              (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE)); 
+    xASSERT((ulPrescaler == TIMER_ICPSC_DIV1) || 
+            (ulPrescaler == TIMER_ICPSC_DIV2) ||
+            (ulPrescaler == TIMER_ICPSC_DIV4) ||
             (ulPrescaler == TIMER_ICPSC_DIV8));
-	
-	//
-	// Reset the IC2PSC Bits
-	//
-	xHWREG(ulBase + TIMER_CCMR1) &= ~TIMER_CCMR1_IC2PSC_M;
-	
-	//
-	// Set the IC2PSC value
-	//
-	xHWREG(ulBase + TIMER_CCMR1) |= (ulPrescaler << 8) ;
+    
+    //
+    // Reset the IC2PSC Bits
+    //
+    xHWREG(ulBase + TIMER_CCMR1) &= ~TIMER_CCMR1_IC2PSC_M;
+    
+    //
+    // Set the IC2PSC value
+    //
+    xHWREG(ulBase + TIMER_CCMR1) |= (ulPrescaler << 8) ;
 }
 
 //*****************************************************************************
@@ -2354,22 +2386,22 @@ TimerIC3PrescalerSet(unsigned long ulBase, unsigned long ulPrescaler)
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE)); 
-	xASSERT((ulPrescaler == TIMER_ICPSC_DIV1) || 
-	        (ulPrescaler == TIMER_ICPSC_DIV2) ||
-	        (ulPrescaler == TIMER_ICPSC_DIV4) ||
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE)); 
+    xASSERT((ulPrescaler == TIMER_ICPSC_DIV1) || 
+            (ulPrescaler == TIMER_ICPSC_DIV2) ||
+            (ulPrescaler == TIMER_ICPSC_DIV4) ||
             (ulPrescaler == TIMER_ICPSC_DIV8));
-	
-	//
-	// Reset the IC3PSC Bits
-	//
-	xHWREG(ulBase + TIMER_CCMR2) &= ~TIMER_CCMR2_IC3PSC_M;
-	
-	//
-	// Set the IC3PSC value
+    
     //
-	xHWREG(ulBase + TIMER_CCMR2) |= ulPrescaler;
+    // Reset the IC3PSC Bits
+    //
+    xHWREG(ulBase + TIMER_CCMR2) &= ~TIMER_CCMR2_IC3PSC_M;
+    
+    //
+    // Set the IC3PSC value
+    //
+    xHWREG(ulBase + TIMER_CCMR2) |= ulPrescaler;
 }
 
 //*****************************************************************************
@@ -2396,22 +2428,22 @@ TimerIC4PrescalerSet(unsigned long ulBase, unsigned long ulPrescaler)
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	          (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	          (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE)); 
-	  xASSERT((ulPrescaler == TIMER_ICPSC_DIV1) || 
-	          (ulPrescaler == TIMER_ICPSC_DIV2) ||
-	          (ulPrescaler == TIMER_ICPSC_DIV4) ||
+              (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+              (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE)); 
+      xASSERT((ulPrescaler == TIMER_ICPSC_DIV1) || 
+              (ulPrescaler == TIMER_ICPSC_DIV2) ||
+              (ulPrescaler == TIMER_ICPSC_DIV4) ||
               (ulPrescaler == TIMER_ICPSC_DIV8));
-	
-	  //
-	  // Reset the IC4PSC Bits
-	  //
-	  xHWREG(ulBase + TIMER_CCMR2) &= ~TIMER_CCMR2_IC4PSC_M;
-	
-	  //
-	  // Set the IC4PSC value
-	  //
-	  xHWREG(ulBase + TIMER_CCMR2) |= (ulPrescaler << 8);
+    
+      //
+      // Reset the IC4PSC Bits
+      //
+      xHWREG(ulBase + TIMER_CCMR2) &= ~TIMER_CCMR2_IC4PSC_M;
+    
+      //
+      // Set the IC4PSC value
+      //
+      xHWREG(ulBase + TIMER_CCMR2) |= (ulPrescaler << 8);
 }
 
 //*****************************************************************************
@@ -2449,78 +2481,78 @@ TimerIC4PrescalerSet(unsigned long ulBase, unsigned long ulPrescaler)
 void 
 TimerICConfigure(unsigned long ulBase, unsigned long ulChannel, 
                  unsigned long ulICPolarity, unsigned long ulICSelection, 
-				 unsigned long ulPrescaler, unsigned long ulICFilter)
+                 unsigned long ulPrescaler, unsigned long ulICFilter)
 {
     //
     // Check the arguments.
     //
     xASSERT((ulChannel == TIMER_CH_1) || (ulChannel == TIMER_CH_2) || 
-	          (ulChannel == TIMER_CH_3) || (ulChannel == TIMER_CH_4));
+              (ulChannel == TIMER_CH_3) || (ulChannel == TIMER_CH_4));
     
     if((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	   (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	   (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE))
-	{
+       (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+       (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE))
+    {
         xASSERT((ulICPolarity == TIMER_ICPOL_RISING) || 
-			    (ulICPolarity == TIMER_ICPOL_FALLING));
+                (ulICPolarity == TIMER_ICPOL_FALLING));
     }
-	else
-	{
+    else
+    {
         xASSERT((ulICPolarity == TIMER_ICPOL_RISING) || 
-	            (ulICPolarity == TIMER_ICPOL_FALLING) ||
-	            (ulICPolarity == TIMER_ICPOL_BOTHEDGE));
+                (ulICPolarity == TIMER_ICPOL_FALLING) ||
+                (ulICPolarity == TIMER_ICPOL_BOTHEDGE));
     }
-		
-	if(ulChannel == TIMER_CH_1)
-	{
-	    //
-	    // TI1 Configuration
-	    //
-	    TimerTI1Configure(ulBase, ulICPolarity, ulICSelection, ulICFilter);
-			
-	    //
-	    // Set the Input Capture Prescaler value
-	    //
-	    TimerIC1PrescalerSet(ulBase, ulPrescaler);
-			  
-    }
-	else if(ulChannel == TIMER_CH_2)
-	{
-	    //
-	    // TI2 Configuration
-	    //
-	    TimerTI2Configure(ulBase, ulICPolarity, ulICSelection, ulICFilter);
-		
-	    //
-	    // Set the Input Capture Prescaler value
-	    //
-	    TimerIC2PrescalerSet(ulBase, ulPrescaler);
-    }
-	else if(ulChannel == TIMER_CH_3)
-	{
+        
+    if(ulChannel == TIMER_CH_1)
+    {
         //
-	    // TI3 Configuration
-	    //
-	    TimerTI3Configure(ulBase, ulICPolarity, ulICSelection, ulICFilter);
-			
-	    //
-	    // Set the Input Capture Prescaler value
-	    //
-	    TimerIC3PrescalerSet(ulBase, ulPrescaler);
+        // TI1 Configuration
+        //
+        TimerTI1Configure(ulBase, ulICPolarity, ulICSelection, ulICFilter);
+            
+        //
+        // Set the Input Capture Prescaler value
+        //
+        TimerIC1PrescalerSet(ulBase, ulPrescaler);
+              
     }
-	else
-	{
-	    //
-	    // TI4 Configuration
-	    //
-	    TimerTI4Configure(ulBase, ulICPolarity, ulICSelection, ulICFilter);
-			
-	    //
-	    // Set the Input Capture Prescaler value
-	    //
-	    TimerIC4PrescalerSet(ulBase, ulPrescaler);
-    }	
-    	
+    else if(ulChannel == TIMER_CH_2)
+    {
+        //
+        // TI2 Configuration
+        //
+        TimerTI2Configure(ulBase, ulICPolarity, ulICSelection, ulICFilter);
+        
+        //
+        // Set the Input Capture Prescaler value
+        //
+        TimerIC2PrescalerSet(ulBase, ulPrescaler);
+    }
+    else if(ulChannel == TIMER_CH_3)
+    {
+        //
+        // TI3 Configuration
+        //
+        TimerTI3Configure(ulBase, ulICPolarity, ulICSelection, ulICFilter);
+            
+        //
+        // Set the Input Capture Prescaler value
+        //
+        TimerIC3PrescalerSet(ulBase, ulPrescaler);
+    }
+    else
+    {
+        //
+        // TI4 Configuration
+        //
+        TimerTI4Configure(ulBase, ulICPolarity, ulICSelection, ulICFilter);
+            
+        //
+        // Set the Input Capture Prescaler value
+        //
+        TimerIC4PrescalerSet(ulBase, ulPrescaler);
+    }    
+        
 }
 
 //*****************************************************************************
@@ -2558,88 +2590,88 @@ TimerICConfigure(unsigned long ulBase, unsigned long ulChannel,
 void 
 TimerPWMIConfigure(unsigned long ulBase, unsigned long ulChannel, 
                    unsigned long ulICPolarity, unsigned long ulICSelection, 
-				   unsigned long ulPrescaler, unsigned long ulICFilter)
+                   unsigned long ulPrescaler, unsigned long ulICFilter)
 {
-	  unsigned long ulOppositePol = TIMER_ICPOL_RISING;
-	  unsigned long ulOppositeSel = TIMER_ICSEL_DIRTI;
+    unsigned long ulOppositePol = TIMER_ICPOL_RISING;
+    unsigned long ulOppositeSel = TIMER_ICSEL_DIRTI;
     //
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) ||
-	        (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE)); 
-	
-	  //
-	  // Select the Opposite Input Polarity
-	  //
-	  if(ulICPolarity == TIMER_ICPOL_RISING)
-		{
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) ||
+            (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE)); 
+    
+    //
+    // Select the Opposite Input Polarity
+    //
+    if(ulICPolarity == TIMER_ICPOL_RISING)
+    {
         ulOppositePol = TIMER_ICPOL_FALLING;   
-        }
-		else
-		{
-			  ulOppositePol = TIMER_ICPOL_RISING;
-        }
-		
-		//
-		// Select the Opposite Input
-		//
-		if(ulICSelection == TIMER_ICSEL_DIRTI)
-		{
-			  ulOppositeSel = TIMER_ICSEL_INDIRTI;
     }
-		else
-		{
-			  ulOppositeSel = TIMER_ICSEL_DIRTI;
+    else
+    {
+        ulOppositePol = TIMER_ICPOL_RISING;
     }
-		
-		if(ulChannel == TIMER_CH_1)
-		{
-			  //
-			  // TI1 Configuration
-			  //
-			  TimerTI1Configure(ulBase, ulICPolarity, ulICSelection, ulICFilter);
-			
-			  //
-			  // Set the Input Capture Prescaler value
-			  //
-			  TimerIC1PrescalerSet(ulBase, ulPrescaler);
-			
-			  //
-			  // TI2 Configuration
-			  //
-			  TimerTI2Configure(ulBase, ulOppositePol, ulOppositeSel, ulICFilter);
-			
-			  //
-			  // Set the Input Capture Prescaler value
-			  //
-			  TimerIC2PrescalerSet(ulBase, ulPrescaler);
-			  
+    
+    //
+    // Select the Opposite Input
+    //
+    if(ulICSelection == TIMER_ICSEL_DIRTI)
+    {
+        ulOppositeSel = TIMER_ICSEL_INDIRTI;
     }
-		else
-		{
-			  //
-			  // TI2 Configuration
-			  //
-			  TimerTI2Configure(ulBase, ulICPolarity, ulICSelection, ulICFilter);
-			
-			  //
-			  // Set the Input Capture Prescaler value
-			  //
-			  TimerIC2PrescalerSet(ulBase, ulPrescaler);
-			
-			  //
-			  // TI1 Configuration
-			  //
-			  TimerTI1Configure(ulBase, ulOppositePol, ulOppositeSel, ulICFilter);
-			
-			  //
-			  // Set the Input Capture Prescaler value
-			  //
-			  TimerIC1PrescalerSet(ulBase, ulPrescaler);	  
+    else
+    {
+        ulOppositeSel = TIMER_ICSEL_DIRTI;
     }
-		
+      
+    if(ulChannel == TIMER_CH_1)
+    {
+        //
+        // TI1 Configuration
+        //
+        TimerTI1Configure(ulBase, ulICPolarity, ulICSelection, ulICFilter);
+      
+        //
+        // Set the Input Capture Prescaler value
+        //
+        TimerIC1PrescalerSet(ulBase, ulPrescaler);
+      
+        //
+        // TI2 Configuration
+        //
+        TimerTI2Configure(ulBase, ulOppositePol, ulOppositeSel, ulICFilter);
+      
+        //
+        // Set the Input Capture Prescaler value
+        //
+        TimerIC2PrescalerSet(ulBase, ulPrescaler);
+            
+    }
+    else
+    {
+        //
+        // TI2 Configuration
+        //
+        TimerTI2Configure(ulBase, ulICPolarity, ulICSelection, ulICFilter);
+      
+        //
+        // Set the Input Capture Prescaler value
+        //
+        TimerIC2PrescalerSet(ulBase, ulPrescaler);
+      
+        //
+        // TI1 Configuration
+        //
+        TimerTI1Configure(ulBase, ulOppositePol, ulOppositeSel, ulICFilter);
+      
+        //
+        // Set the Input Capture Prescaler value
+        //
+        TimerIC1PrescalerSet(ulBase, ulPrescaler);      
+    }
+        
 }
 
 //*****************************************************************************
@@ -2652,18 +2684,18 @@ TimerPWMIConfigure(unsigned long ulBase, unsigned long ulChannel,
 //!        TIM peripheral. 
 //!
 //! The \e ulBDTRConfig is the logical OR of the following values:
-//!	The Off-State selection used in Run mode can be one of the following value:
+//!    The Off-State selection used in Run mode can be one of the following value:
 //! \b TIMER_OSSRSTATE_ENABLE, \b TIMER_OSSRSTATE_DISABLE .
-//!	The Off-State selection used in Idle mode can be one of the following value:
+//!    The Off-State selection used in Idle mode can be one of the following value:
 //! \b TIMER_OSSISTATE_ENABLE, \b TIMER_OSSISTATE_DISABLE .
-//!	The Lock level can be one of the following value:
+//!    The Lock level can be one of the following value:
 //! \b TIMER_LOCKLEVEL_OFF, \b TIMER_LOCKLEVEL_1, \b TIMER_LOCKLEVEL_2, 
 //! \b TIMER_LOCKLEVEL_3 .
-//!	The break input enable disable can be one of the following value:
+//!    The break input enable disable can be one of the following value:
 //! \b TIMER_BREAK_ENABLE, TIMER_BREAK_DISABLE.
-//!	The break Polarity can be one of the following value:
+//!    The break Polarity can be one of the following value:
 //! \b TIMER_BREAKPOL_LOW, TIMER_BREAKPOL_HIGH.
-//!	The TIMER AOE Bit Set Reset can be one of the following value:
+//!    The TIMER AOE Bit Set Reset can be one of the following value:
 //! \b TIMER_AUTOOUTPUT_ENABLE, TIMER_AUTOOUTPUT_DISABLE.
 //! The dead time interval can be select form 0x00 to 0xFF.
 //!
@@ -2700,11 +2732,11 @@ TimerStart(unsigned long ulBase)
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
 
     xHWREG(ulBase + TIMER_CR1) |= TIMER_CR1_CEN;
 
@@ -2731,11 +2763,11 @@ TimerStop(unsigned long ulBase)
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
 
     xHWREG(ulBase + TIMER_CR1) &= ~TIMER_CR1_CEN;
 }
@@ -2763,16 +2795,16 @@ TimerMainOutputConfigure(unsigned long ulBase, unsigned long ulMOConfigure)
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM8_BASE)); 
     xASSERT((ulMOConfigure == TIMER_MAINOUTPUT_ENABLE) || 
-	        (ulMOConfigure == TIMER_MAINOUTPUT_DISABLE));
+            (ulMOConfigure == TIMER_MAINOUTPUT_DISABLE));
 
     if(ulMOConfigure == TIMER_MAINOUTPUT_ENABLE)
-	{
-	     xHWREG(ulBase + TIMER_BDTR) |= TIMER_BDTR_MOE;
-	}
-	else
-	{
-	     xHWREG(ulBase + TIMER_BDTR) &= ~TIMER_BDTR_MOE;
-	}
+    {
+         xHWREG(ulBase + TIMER_BDTR) |= TIMER_BDTR_MOE;
+    }
+    else
+    {
+         xHWREG(ulBase + TIMER_BDTR) &= ~TIMER_BDTR_MOE;
+    }
 }
 
 //*****************************************************************************
@@ -2794,15 +2826,15 @@ TimerInternalClkConfigure(unsigned long ulBase)
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
-			
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
+            
     //
-	// Disable slave mode to clock the prescaler directly with the internal clock 
-	//
-	xHWREG(ulBase + TIMER_SMCR) &= ~TIMER_SMCR_SMS_M;
-			 
+    // Disable slave mode to clock the prescaler directly with the internal clock 
+    //
+    xHWREG(ulBase + TIMER_SMCR) &= ~TIMER_SMCR_SMS_M;
+             
 } 
 
 //*****************************************************************************
@@ -2830,19 +2862,19 @@ TimerITRxExternalClockConfigure(unsigned long ulBase,
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
-	xASSERT((ulInputTriggerSource == TIMER_TRSEL_ITR0) || 
-	        (ulInputTriggerSource == TIMER_TRSEL_ITR1) || 
-			(ulInputTriggerSource == TIMER_TRSEL_ITR2) || 
-			(ulInputTriggerSource == TIMER_TRSEL_ITR3));
-	
-	//
-	// Select the External clock mode1
-	//		
-	xHWREG(ulBase + TIMER_SMCR) |= ulInputTriggerSource;		
-	 
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
+    xASSERT((ulInputTriggerSource == TIMER_TRSEL_ITR0) || 
+            (ulInputTriggerSource == TIMER_TRSEL_ITR1) || 
+            (ulInputTriggerSource == TIMER_TRSEL_ITR2) || 
+            (ulInputTriggerSource == TIMER_TRSEL_ITR3));
+    
+    //
+    // Select the External clock mode1
+    //        
+    xHWREG(ulBase + TIMER_SMCR) |= ulInputTriggerSource;        
+     
 }
 
 //*****************************************************************************
@@ -2866,40 +2898,40 @@ void
 TimerInputTriggerSelect(unsigned long ulBase, unsigned long ulInputTriggerSource)
 {
     unsigned long ulTempsmcr = 0;
-	//
+    //
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
     xASSERT((ulInputTriggerSource == TIMER_TRSEL_ITR0) || 
-	        (ulInputTriggerSource == TIMER_TRSEL_ITR1) ||
-			(ulInputTriggerSource == TIMER_TRSEL_ITR2) ||
-			(ulInputTriggerSource == TIMER_TRSEL_ITR3) ||
-			(ulInputTriggerSource == TIMER_TRSEL_TI1FED) ||
-			(ulInputTriggerSource == TIMER_TRSEL_TI1FP1) ||
-			(ulInputTriggerSource == TIMER_TRSEL_TI2FP2) ||
-			(ulInputTriggerSource == TIMER_TRSEL_ETRF));
-	//
-	// Get the TIMx SMCR register value
-	//
-	ulTempsmcr = xHWREG(ulBase + TIMER_SMCR);
+            (ulInputTriggerSource == TIMER_TRSEL_ITR1) ||
+            (ulInputTriggerSource == TIMER_TRSEL_ITR2) ||
+            (ulInputTriggerSource == TIMER_TRSEL_ITR3) ||
+            (ulInputTriggerSource == TIMER_TRSEL_TI1FED) ||
+            (ulInputTriggerSource == TIMER_TRSEL_TI1FP1) ||
+            (ulInputTriggerSource == TIMER_TRSEL_TI2FP2) ||
+            (ulInputTriggerSource == TIMER_TRSEL_ETRF));
+    //
+    // Get the TIMx SMCR register value
+    //
+    ulTempsmcr = xHWREG(ulBase + TIMER_SMCR);
 
-	//
-	// Reset the TS Bits
-	//
-	ulTempsmcr &= ~TIMER_SMCR_TS_M;
+    //
+    // Reset the TS Bits
+    //
+    ulTempsmcr &= ~TIMER_SMCR_TS_M;
 
-	//
-	// Set the Input Trigger source
-	//
-	ulTempsmcr |= ulInputTriggerSource;
+    //
+    // Set the Input Trigger source
+    //
+    ulTempsmcr |= ulInputTriggerSource;
 
-	//
-	// Write to TIMx SMCR
-	//
-	xHWREG(ulBase + TIMER_SMCR) = ulTempsmcr;
+    //
+    // Write to TIMx SMCR
+    //
+    xHWREG(ulBase + TIMER_SMCR) = ulTempsmcr;
 }
 
 //*****************************************************************************
@@ -2931,34 +2963,34 @@ TimerTIxExternalClockConfigure(unsigned long ulBase, unsigned long ulExtClkSourc
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
-	xASSERT((ulExtClkSource == TIMER_TRSEL_TI1FED) ||
-	        (ulExtClkSource == TIMER_TRSEL_TI1FP1) ||
-			(ulExtClkSource == TIMER_TRSEL_TI2FP2));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
+    xASSERT((ulExtClkSource == TIMER_TRSEL_TI1FED) ||
+            (ulExtClkSource == TIMER_TRSEL_TI1FP1) ||
+            (ulExtClkSource == TIMER_TRSEL_TI2FP2));
     xASSERT((ulICPolarity == TIMER_ICPOL_RISING) || 
-	        (ulICPolarity == TIMER_ICPOL_FALLING));
-	xASSERT((ulICFilter >= 0) && (ulICFilter <= 0xFF));
+            (ulICPolarity == TIMER_ICPOL_FALLING));
+    xASSERT((ulICFilter >= 0) && (ulICFilter <= 0xFF));
 
-	if(ulExtClkSource == TIMER_TRSEL_TI2FP2)
-	{
-	    TimerTI2Configure(ulBase, ulICPolarity, TIMER_ICSEL_DIRTI, ulICFilter);
-	}
-	else
-	{
-	    TimerTI1Configure(ulBase, ulICPolarity, TIMER_ICSEL_DIRTI, ulICFilter);
-	}
+    if(ulExtClkSource == TIMER_TRSEL_TI2FP2)
+    {
+        TimerTI2Configure(ulBase, ulICPolarity, TIMER_ICSEL_DIRTI, ulICFilter);
+    }
+    else
+    {
+        TimerTI1Configure(ulBase, ulICPolarity, TIMER_ICSEL_DIRTI, ulICFilter);
+    }
 
-	//
-	// Select the Trigger source
-	//
-	TimerInputTriggerSelect(ulBase, ulExtClkSource);
+    //
+    // Select the Trigger source
+    //
+    TimerInputTriggerSelect(ulBase, ulExtClkSource);
 
-	//
-	// Select the External clock mode1
-	//
-	xHWREG(ulBase + TIMER_SMCR) |= TIMER_SMSEL_EXTERNAL1;
+    //
+    // Select the External clock mode1
+    //
+    xHWREG(ulBase + TIMER_SMCR) |= TIMER_SMSEL_EXTERNAL1;
 }
 
 //*****************************************************************************
@@ -2989,7 +3021,7 @@ void
 TimerETRClockMode1Configure(unsigned long ulBase, 
                             unsigned long ulExtTRGPrescaler,
                             unsigned long ulExtTRGPloarity, 
-							unsigned long ulExtTRGFilter)
+                            unsigned long ulExtTRGFilter)
 {
     unsigned long ulTempsmcr = 0;
 
@@ -2997,46 +3029,46 @@ TimerETRClockMode1Configure(unsigned long ulBase,
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
     xASSERT((ulExtTRGPrescaler == TIMER_EXTTRGPSC_OFF) ||
-	        (ulExtTRGPrescaler == TIMER_EXTTRGPSC_DIV2) ||
-			(ulExtTRGPrescaler == TIMER_EXTTRGPSC_DIV4) ||
-			(ulExtTRGPrescaler == TIMER_EXTTRGPSC_DIV8));
+            (ulExtTRGPrescaler == TIMER_EXTTRGPSC_DIV2) ||
+            (ulExtTRGPrescaler == TIMER_EXTTRGPSC_DIV4) ||
+            (ulExtTRGPrescaler == TIMER_EXTTRGPSC_DIV8));
     xASSERT((ulExtTRGPloarity == TIMER_EXTTRGPOL_INVERTED) ||
-	        (ulExtTRGPloarity == TIMER_EXTTRGPOL_NONINVERTED));
-	xASSERT((ulExtTRGFilter >= 0) && (ulExtTRGFilter <= 0x0F));
-	
-	//
-	// Configure the ETR Clock source
-	//
-    TimerETRConfigure(ulBase, ulExtTRGPrescaler, ulExtTRGPloarity, ulExtTRGFilter);	
+            (ulExtTRGPloarity == TIMER_EXTTRGPOL_NONINVERTED));
+    xASSERT((ulExtTRGFilter >= 0) && (ulExtTRGFilter <= 0x0F));
+    
+    //
+    // Configure the ETR Clock source
+    //
+    TimerETRConfigure(ulBase, ulExtTRGPrescaler, ulExtTRGPloarity, ulExtTRGFilter);    
 
-	//
-	// Get the TIMx SMCR register value
-	//
-	ulTempsmcr = xHWREG(ulBase + TIMER_SMCR);
+    //
+    // Get the TIMx SMCR register value
+    //
+    ulTempsmcr = xHWREG(ulBase + TIMER_SMCR);
 
-	//
-	// Reset the SMS Bits
-	//
-	ulTempsmcr &= ~TIMER_SMCR_SMS_M;
+    //
+    // Reset the SMS Bits
+    //
+    ulTempsmcr &= ~TIMER_SMCR_SMS_M;
 
-	//
-	// Select the External clock mode1
-	//
-	ulTempsmcr |= TIMER_SMCR_SMS_EXC1;
+    //
+    // Select the External clock mode1
+    //
+    ulTempsmcr |= TIMER_SMCR_SMS_EXC1;
 
-	//
-	// Select the Trigger selection : ETRF
-	//
-	ulTempsmcr &= ~TIMER_SMCR_TS_M;
-	ulTempsmcr |= TIMER_SMCR_TS_ETRF;
+    //
+    // Select the Trigger selection : ETRF
+    //
+    ulTempsmcr &= ~TIMER_SMCR_TS_M;
+    ulTempsmcr |= TIMER_SMCR_TS_ETRF;
 
-	//
-	// Write to TIMx SMCR
-	//
-	xHWREG(ulBase + TIMER_SMCR) = ulTempsmcr;
+    //
+    // Write to TIMx SMCR
+    //
+    xHWREG(ulBase + TIMER_SMCR) = ulTempsmcr;
 
 }
 
@@ -3068,31 +3100,31 @@ void
 TimerETRClockMode2Configure(unsigned long ulBase, 
                             unsigned long ulExtTRGPrescaler,
                             unsigned long ulExtTRGPloarity, 
-							unsigned long ulExtTRGFilter)
+                            unsigned long ulExtTRGFilter)
 {
     //
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
     xASSERT((ulExtTRGPrescaler == TIMER_EXTTRGPSC_OFF) ||
-	        (ulExtTRGPrescaler == TIMER_EXTTRGPSC_DIV2) ||
-			(ulExtTRGPrescaler == TIMER_EXTTRGPSC_DIV4) ||
-			(ulExtTRGPrescaler == TIMER_EXTTRGPSC_DIV8));
+            (ulExtTRGPrescaler == TIMER_EXTTRGPSC_DIV2) ||
+            (ulExtTRGPrescaler == TIMER_EXTTRGPSC_DIV4) ||
+            (ulExtTRGPrescaler == TIMER_EXTTRGPSC_DIV8));
     xASSERT((ulExtTRGPloarity == TIMER_EXTTRGPOL_INVERTED) ||
-	        (ulExtTRGPloarity == TIMER_EXTTRGPOL_NONINVERTED));
-	xASSERT((ulExtTRGFilter >= 0) && (ulExtTRGFilter <= 0x0F));
-	
-	//
-	// Configure the ETR Clock source
-	//
-    TimerETRConfigure(ulBase, ulExtTRGPrescaler, ulExtTRGPloarity, ulExtTRGFilter);	
+            (ulExtTRGPloarity == TIMER_EXTTRGPOL_NONINVERTED));
+    xASSERT((ulExtTRGFilter >= 0) && (ulExtTRGFilter <= 0x0F));
+    
+    //
+    // Configure the ETR Clock source
+    //
+    TimerETRConfigure(ulBase, ulExtTRGPrescaler, ulExtTRGPloarity, ulExtTRGFilter);    
 
-	//
-	// Enable the External clock mode2
-	//
-	xHWREG(ulBase + TIMER_SMCR) |= TIMER_SMCR_ECE;
+    //
+    // Enable the External clock mode2
+    //
+    xHWREG(ulBase + TIMER_SMCR) |= TIMER_SMCR_ECE;
 
 }
 
@@ -3130,31 +3162,31 @@ TimerETRConfigure(unsigned long ulBase, unsigned long ulExtTRGPrescaler,
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
     xASSERT((ulExtTRGPrescaler == TIMER_EXTTRGPSC_OFF) ||
-	        (ulExtTRGPrescaler == TIMER_EXTTRGPSC_DIV2) ||
-			(ulExtTRGPrescaler == TIMER_EXTTRGPSC_DIV4) ||
-			(ulExtTRGPrescaler == TIMER_EXTTRGPSC_DIV8));
+            (ulExtTRGPrescaler == TIMER_EXTTRGPSC_DIV2) ||
+            (ulExtTRGPrescaler == TIMER_EXTTRGPSC_DIV4) ||
+            (ulExtTRGPrescaler == TIMER_EXTTRGPSC_DIV8));
     xASSERT((ulExtTRGPolarity == TIMER_EXTTRGPOL_INVERTED) ||
-	        (ulExtTRGPolarity == TIMER_EXTTRGPOL_NONINVERTED));
-	xASSERT((ulExtTRGFilter >= 0) && (ulExtTRGFilter <= 0x0F));
-	
-	//
-	// Get the TIMx SMCR register value
-	//
-	ulTempsmcr = xHWREG(ulBase + TIMER_SMCR);
-	
-	//
-	// Set the Prescaler, the Filter value and the Polarity
-	//
-	ulTempsmcr &= ~(TIMER_SMCR_ETP | TIMER_SMCR_ETPS_M | TIMER_SMCR_ETF_M);
-	ulTempsmcr |= (ulExtTRGPrescaler | ulExtTRGPolarity | (ulExtTRGFilter << 8));
-	
-	//
-	// Write to TIMx SMCR
-	//
-	xHWREG(ulBase + TIMER_SMCR) = ulTempsmcr;	 
+            (ulExtTRGPolarity == TIMER_EXTTRGPOL_NONINVERTED));
+    xASSERT((ulExtTRGFilter >= 0) && (ulExtTRGFilter <= 0x0F));
+    
+    //
+    // Get the TIMx SMCR register value
+    //
+    ulTempsmcr = xHWREG(ulBase + TIMER_SMCR);
+    
+    //
+    // Set the Prescaler, the Filter value and the Polarity
+    //
+    ulTempsmcr &= ~(TIMER_SMCR_ETP | TIMER_SMCR_ETPS_M | TIMER_SMCR_ETF_M);
+    ulTempsmcr |= (ulExtTRGPrescaler | ulExtTRGPolarity | (ulExtTRGFilter << 8));
+    
+    //
+    // Write to TIMx SMCR
+    //
+    xHWREG(ulBase + TIMER_SMCR) = ulTempsmcr;     
 }
 
 //*****************************************************************************
@@ -3183,12 +3215,12 @@ TimerPrescalerConfigure(unsigned long ulBase, unsigned long ulPrescale,
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-			(ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) ||
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) ||
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
     xASSERT((ulPrescale >= 0) && (ulPrescale <= 0x0000FFFF));
     xASSERT((ulPSCReloadTime == TIMER_PSC_RLD_UPDATE) || 
             (ulPSCReloadTime == TIMER_PSC_RLD_IMMEDIATE));
@@ -3225,26 +3257,26 @@ TimerCNTModeConfigure(unsigned long ulBase, unsigned long ulCountMode)
 {
     unsigned long ulTempCR1;
     
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
     xASSERT((ulCountMode == TIMER_CNT_MODE_UP) ||
             (ulCountMode == TIMER_CNT_MODE_CA1) ||
             (ulCountMode == TIMER_CNT_MODE_CA2) ||
             (ulCountMode == TIMER_CNT_MODE_CA3) ||
             (ulCountMode == TIMER_CNT_MODE_DOWN));
     
-	ulTempCR1 = xHWREG(ulBase + TIMER_CR1);
-				
-	//
+    ulTempCR1 = xHWREG(ulBase + TIMER_CR1);
+                
+    //
     // Select the Counter Mode
-	//
-	ulTempCR1 &= ~(TIMER_CR1_DIR | TIMER_CR1_CMS_M);
-	xHWREG(ulBase + TIMER_CR1) = ulTempCR1;
-	ulTempCR1 |= ulCountMode;
+    //
+    ulTempCR1 &= ~(TIMER_CR1_DIR | TIMER_CR1_CMS_M);
+    xHWREG(ulBase + TIMER_CR1) = ulTempCR1;
+    ulTempCR1 |= ulCountMode;
     
     //
     // Set the Counter Mode
@@ -3280,75 +3312,75 @@ void
 TimerEncoderInterfaceConfigure(unsigned long ulBase, unsigned long ulEncoderMode,
                        unsigned long ulIC1Polarity, unsigned long ulIC2Polarity)
 {
-	unsigned long ulTempsmcr = 0, ulTempccmr1 = 0, ulTempccer = 0; 
+    unsigned long ulTempsmcr = 0, ulTempccmr1 = 0, ulTempccer = 0; 
 
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
     xASSERT((ulEncoderMode == TIMER_SMSEL_ENCODER1) || 
             (ulEncoderMode == TIMER_SMSEL_ENCODER2) ||
             (ulEncoderMode == TIMER_SMSEL_ENCODER3));
     xASSERT((ulIC1Polarity == TIMER_ICPOL_RISING) || 
-	        (ulIC1Polarity == TIMER_ICPOL_FALLING));
+            (ulIC1Polarity == TIMER_ICPOL_FALLING));
     xASSERT((ulIC2Polarity == TIMER_ICPOL_RISING) || 
-	        (ulIC2Polarity == TIMER_ICPOL_FALLING));
+            (ulIC2Polarity == TIMER_ICPOL_FALLING));
     
-	//
-	// Disable the CC1E ,CC2E
-	//
-	xHWREG(ulBase + TIMER_CCER) &= ~(TIMER_CCER_CC1E | TIMER_CCER_CC2E);    
+    //
+    // Disable the CC1E ,CC2E
+    //
+    xHWREG(ulBase + TIMER_CCER) &= ~(TIMER_CCER_CC1E | TIMER_CCER_CC2E);    
 
-	//
-	// Get the TIMx SMCR register value
-	//
+    //
+    // Get the TIMx SMCR register value
+    //
     ulTempsmcr = xHWREG(ulBase + TIMER_SMCR);
 
-	//
-	// Get the TIMx CCMR1 register value
-	//
-	ulTempccmr1 = xHWREG(ulBase + TIMER_CCMR1);
+    //
+    // Get the TIMx CCMR1 register value
+    //
+    ulTempccmr1 = xHWREG(ulBase + TIMER_CCMR1);
 
-	//
-	// Get the TIMx CCER register value
-	//
-	ulTempccer = xHWREG(ulBase + TIMER_CCER);
+    //
+    // Get the TIMx CCER register value
+    //
+    ulTempccer = xHWREG(ulBase + TIMER_CCER);
 
-	//
-	// Set the encoder Mode
-	//
-	ulTempsmcr &= ~TIMER_SMCR_SMS_M;
-	ulTempsmcr |= ulEncoderMode;
+    //
+    // Set the encoder Mode
+    //
+    ulTempsmcr &= ~TIMER_SMCR_SMS_M;
+    ulTempsmcr |= ulEncoderMode;
 
-	//
-	// Select the Capture Compare 1 and the Capture Compare 2 as input
-	//
+    //
+    // Select the Capture Compare 1 and the Capture Compare 2 as input
+    //
     ulTempccmr1 &= ~(TIMER_CCMR1_CC1S_M | TIMER_CCMR1_CC2S_M);
-	ulTempccmr1 |= (TIMER_CCMR1_CC1S_IC1TI1 | TIMER_CCMR1_CC2S_IC2TI2); 
-	
-	//
-	// Set the TI1 and the TI2 Polarities
-	//
-	ulTempccer &= ~(TIMER_CCER_CC1P | TIMER_CCER_CC2P);
-	ulTempccer |= (ulIC1Polarity | (ulIC2Polarity << 4)); 
-	
-	//
-	// Write to TIMx SMCR
-	//
-	xHWREG(ulBase + TIMER_SMCR) = ulTempsmcr;
-	
-	//
-	// Write to TIMx CCMR1
-	//
-	xHWREG(ulBase + TIMER_CCMR1) = ulTempccmr1;
-	
-	//
-	// Write to TIMx CCER
-	//
-	xHWREG(ulBase + TIMER_CCER) =  ulTempccer; 
-	xHWREG(ulBase + TIMER_CCER) |= TIMER_CCER_CC1E | TIMER_CCER_CC2E;
+    ulTempccmr1 |= (TIMER_CCMR1_CC1S_IC1TI1 | TIMER_CCMR1_CC2S_IC2TI2); 
+    
+    //
+    // Set the TI1 and the TI2 Polarities
+    //
+    ulTempccer &= ~(TIMER_CCER_CC1P | TIMER_CCER_CC2P);
+    ulTempccer |= (ulIC1Polarity | (ulIC2Polarity << 4)); 
+    
+    //
+    // Write to TIMx SMCR
+    //
+    xHWREG(ulBase + TIMER_SMCR) = ulTempsmcr;
+    
+    //
+    // Write to TIMx CCMR1
+    //
+    xHWREG(ulBase + TIMER_CCMR1) = ulTempccmr1;
+    
+    //
+    // Write to TIMx CCER
+    //
+    xHWREG(ulBase + TIMER_CCER) =  ulTempccer; 
+    xHWREG(ulBase + TIMER_CCER) |= TIMER_CCER_CC1E | TIMER_CCER_CC2E;
 
 }
 
@@ -3373,39 +3405,39 @@ TimerForcedOC1Configure(unsigned long ulBase, unsigned long ulForcedAction)
 {
     unsigned long ulTempccmr1 = 0;
 
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) ||
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) ||
-	        (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 	
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) ||
-			(ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) ||
+            (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) ||     
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) ||
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
 
-	xASSERT((ulForcedAction == TIMER_FORCED_ACTIVE) || 
-	        (ulForcedAction == TIMER_FORCED_INACTIVE));
+    xASSERT((ulForcedAction == TIMER_FORCED_ACTIVE) || 
+            (ulForcedAction == TIMER_FORCED_INACTIVE));
 
-	//
-	// Write to TIMx CCMR1
-	//
+    //
+    // Write to TIMx CCMR1
+    //
     ulTempccmr1 = xHWREG(ulBase + TIMER_CCMR1);
 
-	//
-	// Reset the OC1M Bits
-	//
-	ulTempccmr1 &= ~TIMER_CCMR1_OC1M_M;
+    //
+    // Reset the OC1M Bits
+    //
+    ulTempccmr1 &= ~TIMER_CCMR1_OC1M_M;
 
-	//
-	// Configure The Forced output Mode
-	//
-	ulTempccmr1 |= ulForcedAction;
+    //
+    // Configure The Forced output Mode
+    //
+    ulTempccmr1 |= ulForcedAction;
 
-	//
-	// Write to TIMx CCMR1 register
-	//
-	xHWREG(ulBase + TIMER_CCMR1) = ulTempccmr1;
+    //
+    // Write to TIMx CCMR1 register
+    //
+    xHWREG(ulBase + TIMER_CCMR1) = ulTempccmr1;
      
 }
 
@@ -3430,36 +3462,36 @@ TimerForcedOC2Configure(unsigned long ulBase, unsigned long ulForcedAction)
 {
     unsigned long ulTempccmr1 = 0;
 
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) ||
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) ||
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) ||
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
 
-	xASSERT((ulForcedAction == TIMER_FORCED_ACTIVE) || 
-	        (ulForcedAction == TIMER_FORCED_INACTIVE));
+    xASSERT((ulForcedAction == TIMER_FORCED_ACTIVE) || 
+            (ulForcedAction == TIMER_FORCED_INACTIVE));
 
-	//
-	// Write to TIMx CCMR1
-	//
+    //
+    // Write to TIMx CCMR1
+    //
     ulTempccmr1 = xHWREG(ulBase + TIMER_CCMR1);
 
-	//
-	// Reset the OC1M Bits
-	//
-	ulTempccmr1 &= ~TIMER_CCMR1_OC2M_M;
+    //
+    // Reset the OC1M Bits
+    //
+    ulTempccmr1 &= ~TIMER_CCMR1_OC2M_M;
 
-	//
-	// Configure The Forced output Mode
-	//
-	ulTempccmr1 |= (ulForcedAction << 8);
+    //
+    // Configure The Forced output Mode
+    //
+    ulTempccmr1 |= (ulForcedAction << 8);
 
-	//
-	// Write to TIMx CCMR1 register
-	//
-	xHWREG(ulBase + TIMER_CCMR1) = ulTempccmr1;
+    //
+    // Write to TIMx CCMR1 register
+    //
+    xHWREG(ulBase + TIMER_CCMR1) = ulTempccmr1;
      
 }
 
@@ -3484,34 +3516,34 @@ TimerForcedOC3Configure(unsigned long ulBase, unsigned long ulForcedAction)
 {
     unsigned long ulTempccmr2 = 0;
 
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
-	xASSERT((ulForcedAction == TIMER_FORCED_ACTIVE) || 
-	        (ulForcedAction == TIMER_FORCED_INACTIVE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
+    xASSERT((ulForcedAction == TIMER_FORCED_ACTIVE) || 
+            (ulForcedAction == TIMER_FORCED_INACTIVE));
 
-	//
-	// Write to TIMx CCMR2
-	//
+    //
+    // Write to TIMx CCMR2
+    //
     ulTempccmr2 = xHWREG(ulBase + TIMER_CCMR2);
 
-	//
-	// Reset the OC3M Bits
-	//
-	ulTempccmr2 &= ~TIMER_CCMR2_OC3M_M;
+    //
+    // Reset the OC3M Bits
+    //
+    ulTempccmr2 &= ~TIMER_CCMR2_OC3M_M;
 
-	//
-	// Configure The Forced output Mode
-	//
-	ulTempccmr2 |= ulForcedAction;
+    //
+    // Configure The Forced output Mode
+    //
+    ulTempccmr2 |= ulForcedAction;
 
-	//
-	// Write to TIMx CCMR2 register
-	//
-	xHWREG(ulBase + TIMER_CCMR2) = ulTempccmr2;
+    //
+    // Write to TIMx CCMR2 register
+    //
+    xHWREG(ulBase + TIMER_CCMR2) = ulTempccmr2;
      
 }
 
@@ -3536,34 +3568,34 @@ TimerForcedOC4Configure(unsigned long ulBase, unsigned long ulForcedAction)
 {
     unsigned long ulTempccmr2 = 0;
 
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
-	xASSERT((ulForcedAction == TIMER_FORCED_ACTIVE) || 
-	        (ulForcedAction == TIMER_FORCED_INACTIVE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
+    xASSERT((ulForcedAction == TIMER_FORCED_ACTIVE) || 
+            (ulForcedAction == TIMER_FORCED_INACTIVE));
 
-	//
-	// Write to TIMx CCMR2
-	//
+    //
+    // Write to TIMx CCMR2
+    //
     ulTempccmr2 = xHWREG(ulBase + TIMER_CCMR2);
 
-	//
-	// Reset the OC3M Bits
-	//
-	ulTempccmr2 &= ~TIMER_CCMR2_OC4M_M;
+    //
+    // Reset the OC3M Bits
+    //
+    ulTempccmr2 &= ~TIMER_CCMR2_OC4M_M;
 
-	//
-	// Configure The Forced output Mode
-	//
-	ulTempccmr2 |= (ulForcedAction << 8);
+    //
+    // Configure The Forced output Mode
+    //
+    ulTempccmr2 |= (ulForcedAction << 8);
 
-	//
-	// Write to TIMx CCMR2 register
-	//
-	xHWREG(ulBase + TIMER_CCMR2) = ulTempccmr2;
+    //
+    // Write to TIMx CCMR2 register
+    //
+    xHWREG(ulBase + TIMER_CCMR2) = ulTempccmr2;
      
 }
 
@@ -3586,27 +3618,27 @@ TimerForcedOC4Configure(unsigned long ulBase, unsigned long ulForcedAction)
 void 
 TimerARRPreloadConfigure(unsigned long ulBase, unsigned long ulARRProload)
 {
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
     xASSERT((ulARRProload == TIMER_ARPE_ENABLE) || 
-	        (ulARRProload == TIMER_ARPE_DISABLE));
+            (ulARRProload == TIMER_ARPE_DISABLE));
 
     if(ulARRProload == TIMER_ARPE_ENABLE)
-	{
-	    xHWREG(ulBase + TIMER_CR1) |= TIMER_CR1_ARR;
-	}
-	else
-	{
-	    xHWREG(ulBase + TIMER_CR1) &= ~TIMER_CR1_ARR;
-	}
+    {
+        xHWREG(ulBase + TIMER_CR1) |= TIMER_CR1_ARR;
+    }
+    else
+    {
+        xHWREG(ulBase + TIMER_CR1) &= ~TIMER_CR1_ARR;
+    }
 
 }
 
@@ -3628,21 +3660,21 @@ TimerARRPreloadConfigure(unsigned long ulBase, unsigned long ulARRProload)
 void 
 TimerCCUSelect(unsigned long ulBase, unsigned long ulCCUSelect)
 {
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM8_BASE));
-	xASSERT((ulCCUSelect == TIMER_CCUS_ENABLE) || 
-	        (ulCCUSelect == TIMER_CCUS_DISABLE));
+    xASSERT((ulCCUSelect == TIMER_CCUS_ENABLE) || 
+            (ulCCUSelect == TIMER_CCUS_DISABLE));
 
-	if(ulCCUSelect == TIMER_CCUS_ENABLE)
-	{
+    if(ulCCUSelect == TIMER_CCUS_ENABLE)
+    {
         xHWREG(ulBase + TIMER_CR2) |= TIMER_CR2_MMS_CCUS; 
-	}
-	else
-	{
-	  	xHWREG(ulBase + TIMER_CR2) &= ~TIMER_CR2_MMS_CCUS; 
-	}
+    }
+    else
+    {
+          xHWREG(ulBase + TIMER_CR2) &= ~TIMER_CR2_MMS_CCUS; 
+    }
 
 }
 
@@ -3665,23 +3697,23 @@ TimerCCUSelect(unsigned long ulBase, unsigned long ulCCUSelect)
 void 
 TimerCCDSelect(unsigned long ulBase, unsigned long ulCCDSelect)
 {
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
-	xASSERT((ulCCDSelect == TIMER_CCDS_ENABLE) || 
-	        (ulCCDSelect == TIMER_CCDS_DISABLE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
+    xASSERT((ulCCDSelect == TIMER_CCDS_ENABLE) || 
+            (ulCCDSelect == TIMER_CCDS_DISABLE));
 
-	if(ulCCDSelect == TIMER_CCDS_ENABLE)
-	{
-		xHWREG(ulBase + TIMER_CR2) |= TIMER_CR2_MMS_CCDS; 
-	}
-	else
-	{
-	    xHWREG(ulBase + TIMER_CR2) &= ~TIMER_CR2_MMS_CCDS;
-	}
+    if(ulCCDSelect == TIMER_CCDS_ENABLE)
+    {
+        xHWREG(ulBase + TIMER_CR2) |= TIMER_CR2_MMS_CCDS; 
+    }
+    else
+    {
+        xHWREG(ulBase + TIMER_CR2) &= ~TIMER_CR2_MMS_CCDS;
+    }
 }
 
 //*****************************************************************************
@@ -3703,23 +3735,23 @@ TimerCCDSelect(unsigned long ulBase, unsigned long ulCCDSelect)
 void 
 TimerCCPreloadControl(unsigned long ulBase, unsigned long ulCCPreload)
 {
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
-	xASSERT((ulCCPreload == TIMER_CCPC_SET) || 
-	        (ulCCPreload == TIMER_CCPC_RESET));
-			
-	if(ulCCPreload == TIMER_CCPC_SET)
-	{
-		xHWREG(ulBase + TIMER_CR2) |= TIMER_CR2_MMS_CCPC;
-	}
-	else
-	{
-	    xHWREG(ulBase + TIMER_CR2) &= ~TIMER_CR2_MMS_CCPC;
-	}		     
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
+    xASSERT((ulCCPreload == TIMER_CCPC_SET) || 
+            (ulCCPreload == TIMER_CCPC_RESET));
+            
+    if(ulCCPreload == TIMER_CCPC_SET)
+    {
+        xHWREG(ulBase + TIMER_CR2) |= TIMER_CR2_MMS_CCPC;
+    }
+    else
+    {
+        xHWREG(ulBase + TIMER_CR2) &= ~TIMER_CR2_MMS_CCPC;
+    }             
 }
 
 //*****************************************************************************
@@ -3743,28 +3775,28 @@ TimerOC1PreloadConfigure(unsigned long ulBase, unsigned long ulOCPreload)
 {
     unsigned long ulTempccmr1 = 0;
 
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
     xASSERT((ulOCPreload == TIMER_OCPROLOAD_ENABLE) || 
-	        (ulOCPreload == TIMER_OCPROLOAD_DISABLE));
+            (ulOCPreload == TIMER_OCPROLOAD_DISABLE));
    
-	ulTempccmr1 = xHWREG(ulBase + TIMER_CCMR1);
+    ulTempccmr1 = xHWREG(ulBase + TIMER_CCMR1);
     
     //
-	// Reset the OC1PE Bit  
-	//
+    // Reset the OC1PE Bit  
+    //
     ulTempccmr1 &= ~TIMER_CCMR1_OC1PE;
-	ulTempccmr1 |= ulOCPreload;
+    ulTempccmr1 |= ulOCPreload;
 
-	xHWREG(ulBase + TIMER_CCMR1) = ulTempccmr1;
+    xHWREG(ulBase + TIMER_CCMR1) = ulTempccmr1;
 }
 
 //*****************************************************************************
@@ -3789,25 +3821,25 @@ TimerOC2PreloadConfigure(unsigned long ulBase, unsigned long ulOCPreload)
 {
     unsigned long ulTempccmr1 = 0;
 
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
     xASSERT((ulOCPreload == TIMER_OCPROLOAD_ENABLE) || 
-	        (ulOCPreload == TIMER_OCPROLOAD_DISABLE));
+            (ulOCPreload == TIMER_OCPROLOAD_DISABLE));
    
-	ulTempccmr1 = xHWREG(ulBase + TIMER_CCMR1);
+    ulTempccmr1 = xHWREG(ulBase + TIMER_CCMR1);
     
     //
-	// Reset the OC2PE Bit  
-	//
+    // Reset the OC2PE Bit  
+    //
     ulTempccmr1 &= ~TIMER_CCMR1_OC2PE;
-	ulTempccmr1 |= (ulOCPreload << 8);
+    ulTempccmr1 |= (ulOCPreload << 8);
 
-	xHWREG(ulBase + TIMER_CCMR1) = ulTempccmr1;
+    xHWREG(ulBase + TIMER_CCMR1) = ulTempccmr1;
 } 
 
 //*****************************************************************************
@@ -3832,25 +3864,25 @@ TimerOC3PreloadConfigure(unsigned long ulBase, unsigned long ulOCPreload)
 {
     unsigned long ulTempccmr2 = 0;
 
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
     xASSERT((ulOCPreload == TIMER_OCPROLOAD_ENABLE) || 
-	        (ulOCPreload == TIMER_OCPROLOAD_DISABLE));
+            (ulOCPreload == TIMER_OCPROLOAD_DISABLE));
    
-	ulTempccmr2 = xHWREG(ulBase + TIMER_CCMR2);
+    ulTempccmr2 = xHWREG(ulBase + TIMER_CCMR2);
     
     //
-	// Reset the OC3PE Bit  
-	//
+    // Reset the OC3PE Bit  
+    //
     ulTempccmr2 &= ~TIMER_CCMR2_OC3PE;
-	ulTempccmr2 |= ulOCPreload;
+    ulTempccmr2 |= ulOCPreload;
 
-	xHWREG(ulBase + TIMER_CCMR2) = ulTempccmr2;
+    xHWREG(ulBase + TIMER_CCMR2) = ulTempccmr2;
 }
 
 //*****************************************************************************
@@ -3875,25 +3907,25 @@ TimerOC4PreloadConfigure(unsigned long ulBase, unsigned long ulOCPreload)
 {
     unsigned long ulTempccmr2 = 0;
 
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
     xASSERT((ulOCPreload == TIMER_OCPROLOAD_ENABLE) || 
-	        (ulOCPreload == TIMER_OCPROLOAD_DISABLE));
+            (ulOCPreload == TIMER_OCPROLOAD_DISABLE));
    
-	ulTempccmr2 = xHWREG(ulBase + TIMER_CCMR2);
+    ulTempccmr2 = xHWREG(ulBase + TIMER_CCMR2);
     
     //
-	// Reset the OC4PE Bit  
-	//
+    // Reset the OC4PE Bit  
+    //
     ulTempccmr2 &= ~TIMER_CCMR2_OC4PE;
-	ulTempccmr2 |= (ulOCPreload << 8);
+    ulTempccmr2 |= (ulOCPreload << 8);
 
-	xHWREG(ulBase + TIMER_CCMR2) = ulTempccmr2;
+    xHWREG(ulBase + TIMER_CCMR2) = ulTempccmr2;
 } 
 
 //*****************************************************************************
@@ -3917,34 +3949,34 @@ TimerOC1FastConfigure(unsigned long ulBase, unsigned long ulOCFast)
 {
     unsigned long ulTempccmr1 = 0;
 
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
     xASSERT((ulOCFast == TIMER_OCFAST_ENABLE) || 
-	        (ulOCFast == TIMER_OCFAST_DISABLE));
+            (ulOCFast == TIMER_OCFAST_DISABLE));
 
     ulTempccmr1 = xHWREG(ulBase + TIMER_CCMR1);
 
-	//
-	// Reset the OC1FE Bit
-	//
-    ulTempccmr1	&= ~TIMER_CCMR1_OC1FE;
-	
-	//
-	// Enable or Disable the Output Compare Fast Bit
-	//
-	ulTempccmr1 |= ulOCFast;
-	
-	//
-	// Write to TIMx CCMR1
-	//
-	xHWREG(ulBase + TIMER_CCMR1) = ulTempccmr1;
+    //
+    // Reset the OC1FE Bit
+    //
+    ulTempccmr1    &= ~TIMER_CCMR1_OC1FE;
+    
+    //
+    // Enable or Disable the Output Compare Fast Bit
+    //
+    ulTempccmr1 |= ulOCFast;
+    
+    //
+    // Write to TIMx CCMR1
+    //
+    xHWREG(ulBase + TIMER_CCMR1) = ulTempccmr1;
 
 }
 
@@ -3969,32 +4001,32 @@ TimerOC2FastConfigure(unsigned long ulBase, unsigned long ulOCFast)
 {
     unsigned long ulTempccmr1 = 0;
 
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
     xASSERT((ulOCFast == TIMER_OCFAST_ENABLE) || 
-	        (ulOCFast == TIMER_OCFAST_DISABLE));
+            (ulOCFast == TIMER_OCFAST_DISABLE));
 
     ulTempccmr1 = xHWREG(ulBase + TIMER_CCMR1);
 
-	//
-	// Reset the OC1FE Bit
-	//
-    ulTempccmr1	&= ~TIMER_CCMR1_OC2FE;
-	
-	//
-	// Enable or Disable the Output Compare Fast Bit
-	//
-	ulTempccmr1 |= (ulOCFast << 8);
-	
-	//
-	// Write to TIMx CCMR1
-	//
-	xHWREG(ulBase + TIMER_CCMR1) = ulTempccmr1;
+    //
+    // Reset the OC1FE Bit
+    //
+    ulTempccmr1    &= ~TIMER_CCMR1_OC2FE;
+    
+    //
+    // Enable or Disable the Output Compare Fast Bit
+    //
+    ulTempccmr1 |= (ulOCFast << 8);
+    
+    //
+    // Write to TIMx CCMR1
+    //
+    xHWREG(ulBase + TIMER_CCMR1) = ulTempccmr1;
 
 }  
 
@@ -4019,31 +4051,31 @@ TimerOC3FastConfigure(unsigned long ulBase, unsigned long ulOCFast)
 {
     unsigned long ulTempccmr2 = 0;
 
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
     xASSERT((ulOCFast == TIMER_OCFAST_ENABLE) || 
-	        (ulOCFast == TIMER_OCFAST_DISABLE));
+            (ulOCFast == TIMER_OCFAST_DISABLE));
 
     ulTempccmr2 = xHWREG(ulBase + TIMER_CCMR2);
 
-	//
-	// Reset the OC3FE Bit
-	//
-    ulTempccmr2	&= ~TIMER_CCMR2_OC3FE;
-	
-	//
-	// Enable or Disable the Output Compare Fast Bit
-	//
-	ulTempccmr2 |= ulOCFast;
-	
-	//
-	// Write to TIMx CCMR2
-	//
-	xHWREG(ulBase + TIMER_CCMR2) = ulTempccmr2;
+    //
+    // Reset the OC3FE Bit
+    //
+    ulTempccmr2    &= ~TIMER_CCMR2_OC3FE;
+    
+    //
+    // Enable or Disable the Output Compare Fast Bit
+    //
+    ulTempccmr2 |= ulOCFast;
+    
+    //
+    // Write to TIMx CCMR2
+    //
+    xHWREG(ulBase + TIMER_CCMR2) = ulTempccmr2;
 
 }
 
@@ -4068,31 +4100,31 @@ TimerOC4FastConfigure(unsigned long ulBase, unsigned long ulOCFast)
 {
     unsigned long ulTempccmr2 = 0;
 
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
     xASSERT((ulOCFast == TIMER_OCFAST_ENABLE) || 
-	        (ulOCFast == TIMER_OCFAST_DISABLE));
+            (ulOCFast == TIMER_OCFAST_DISABLE));
 
     ulTempccmr2 = xHWREG(ulBase + TIMER_CCMR2);
 
-	//
-	// Reset the OC4FE Bit
-	//
-    ulTempccmr2	&= ~TIMER_CCMR2_OC4FE;
-	
-	//
-	// Enable or Disable the Output Compare Fast Bit
-	//
-	ulTempccmr2 |= (ulOCFast << 8);
-	
-	//
-	// Write to TIMx CCMR2
-	//
-	xHWREG(ulBase + TIMER_CCMR2) = ulTempccmr2;
+    //
+    // Reset the OC4FE Bit
+    //
+    ulTempccmr2    &= ~TIMER_CCMR2_OC4FE;
+    
+    //
+    // Enable or Disable the Output Compare Fast Bit
+    //
+    ulTempccmr2 |= (ulOCFast << 8);
+    
+    //
+    // Write to TIMx CCMR2
+    //
+    xHWREG(ulBase + TIMER_CCMR2) = ulTempccmr2;
 
 }
 
@@ -4119,63 +4151,63 @@ TimerOCxRefClear(unsigned long ulBase, unsigned long ulChannel,
 {
     unsigned long ulTempccmr = 0;
 
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
     xASSERT((ulChannel == TIMER_CH_1) || (ulChannel == TIMER_CH_2) ||
             (ulChannel == TIMER_CH_3) || (ulChannel == TIMER_CH_4));
     xASSERT((ulOCClear == TIMER_OCCLEAR_ENABLE) || 
-	        (ulOCClear == TIMER_OCCLEAR_DISABLE));
+            (ulOCClear == TIMER_OCCLEAR_DISABLE));
 
-	if((ulChannel == TIMER_CH_1) || (ulChannel == TIMER_CH_2))
-	{
-	    ulTempccmr = xHWREG(ulBase + TIMER_CCMR1);
-		if(ulChannel == TIMER_CH_1)
-		{
-		    ulTempccmr &= ~TIMER_CCMR1_OC1CE;
+    if((ulChannel == TIMER_CH_1) || (ulChannel == TIMER_CH_2))
+    {
+        ulTempccmr = xHWREG(ulBase + TIMER_CCMR1);
+        if(ulChannel == TIMER_CH_1)
+        {
+            ulTempccmr &= ~TIMER_CCMR1_OC1CE;
 
-			//
-			// Enable or Disable the Output Compare Clear Bit
-			//
-			ulTempccmr |= ulOCClear;
-		}
-		else
-		{
-		    ulTempccmr &= ~TIMER_CCMR1_OC2CE;
+            //
+            // Enable or Disable the Output Compare Clear Bit
+            //
+            ulTempccmr |= ulOCClear;
+        }
+        else
+        {
+            ulTempccmr &= ~TIMER_CCMR1_OC2CE;
 
-			//
-			// Enable or Disable the Output Compare Clear Bit
-			//
-			ulTempccmr |= (ulOCClear << 8);
-		}
+            //
+            // Enable or Disable the Output Compare Clear Bit
+            //
+            ulTempccmr |= (ulOCClear << 8);
+        }
         xHWREG(ulBase + TIMER_CCMR1) = ulTempccmr;
-	}
-	else
-	{
-	    ulTempccmr = xHWREG(ulBase + TIMER_CCMR2);
-		if(ulChannel == TIMER_CH_3)
-		{
-		    ulTempccmr &= ~TIMER_CCMR2_OC3CE;
+    }
+    else
+    {
+        ulTempccmr = xHWREG(ulBase + TIMER_CCMR2);
+        if(ulChannel == TIMER_CH_3)
+        {
+            ulTempccmr &= ~TIMER_CCMR2_OC3CE;
 
-			//
-			// Enable or Disable the Output Compare Clear Bit
-			//
-			ulTempccmr |= ulOCClear;
-		}
-		else
-		{
-		    ulTempccmr &= ~TIMER_CCMR2_OC4CE;
+            //
+            // Enable or Disable the Output Compare Clear Bit
+            //
+            ulTempccmr |= ulOCClear;
+        }
+        else
+        {
+            ulTempccmr &= ~TIMER_CCMR2_OC4CE;
 
-			//
-			// Enable or Disable the Output Compare Clear Bit
-			//
-			ulTempccmr |= (ulOCClear << 8);
-		}
+            //
+            // Enable or Disable the Output Compare Clear Bit
+            //
+            ulTempccmr |= (ulOCClear << 8);
+        }
         xHWREG(ulBase + TIMER_CCMR2) = ulTempccmr;
-	}
+    }
 }
 
 //*****************************************************************************
@@ -4199,30 +4231,30 @@ TimerOC1PolarityConfigure(unsigned long ulBase, unsigned long ulPolarity)
 {
     unsigned long ulTempccer = 0;
 
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
-	xASSERT((ulPolarity == TIMER_OP_POL_HIGH) ||
-	        (ulPolarity == TIMER_OP_POL_LOW));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
+    xASSERT((ulPolarity == TIMER_OP_POL_HIGH) ||
+            (ulPolarity == TIMER_OP_POL_LOW));
 
-	ulTempccer = xHWREG(ulBase + TIMER_CCER);
+    ulTempccer = xHWREG(ulBase + TIMER_CCER);
 
-	//
-	// Set or Reset the CC1P Bit
-	//
-	ulTempccer &= ~TIMER_CCER_CC1P;
-	ulTempccer |= ulPolarity;
-	 
-	//
-	// Write to TIMx CCER register
-	//
-	xHWREG(ulBase + TIMER_CCER) = ulTempccer;
+    //
+    // Set or Reset the CC1P Bit
+    //
+    ulTempccer &= ~TIMER_CCER_CC1P;
+    ulTempccer |= ulPolarity;
+     
+    //
+    // Write to TIMx CCER register
+    //
+    xHWREG(ulBase + TIMER_CCER) = ulTempccer;
 }
 
 //*****************************************************************************
@@ -4246,30 +4278,30 @@ TimerOC1NPolarityConfigure(unsigned long ulBase, unsigned long ulPolarity)
 {
     unsigned long ulTempccer = 0;
 
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
-	xASSERT((ulPolarity == TIMER_OP_N_POL_HIGH) ||
-	        (ulPolarity == TIMER_OP_N_POL_LOW));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
+    xASSERT((ulPolarity == TIMER_OP_N_POL_HIGH) ||
+            (ulPolarity == TIMER_OP_N_POL_LOW));
 
-	ulTempccer = xHWREG(ulBase + TIMER_CCER);
+    ulTempccer = xHWREG(ulBase + TIMER_CCER);
 
-	//
-	// Set or Reset the CC1NP Bit
-	//
-	ulTempccer &= ~TIMER_CCER_CC1NP;
-	ulTempccer |= ulPolarity;
-	 
-	//
-	// Write to TIMx CCER register
-	//
-	xHWREG(ulBase + TIMER_CCER) = ulTempccer;
+    //
+    // Set or Reset the CC1NP Bit
+    //
+    ulTempccer &= ~TIMER_CCER_CC1NP;
+    ulTempccer |= ulPolarity;
+     
+    //
+    // Write to TIMx CCER register
+    //
+    xHWREG(ulBase + TIMER_CCER) = ulTempccer;
 }
 
 //*****************************************************************************
@@ -4293,28 +4325,28 @@ TimerOC2PolarityConfigure(unsigned long ulBase, unsigned long ulPolarity)
 {
     unsigned long ulTempccer = 0;
 
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
-	xASSERT((ulPolarity == TIMER_OP_POL_HIGH) ||
-	        (ulPolarity == TIMER_OP_POL_LOW));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
+    xASSERT((ulPolarity == TIMER_OP_POL_HIGH) ||
+            (ulPolarity == TIMER_OP_POL_LOW));
 
-	ulTempccer = xHWREG(ulBase + TIMER_CCER);
+    ulTempccer = xHWREG(ulBase + TIMER_CCER);
 
-	//
-	// Set or Reset the CC2P Bit
-	//
-	ulTempccer &= ~TIMER_CCER_CC2P;
-	ulTempccer |= (ulPolarity << 4);
-	 
-	//
-	// Write to TIMx CCER register
-	//
-	xHWREG(ulBase + TIMER_CCER) = ulTempccer;
+    //
+    // Set or Reset the CC2P Bit
+    //
+    ulTempccer &= ~TIMER_CCER_CC2P;
+    ulTempccer |= (ulPolarity << 4);
+     
+    //
+    // Write to TIMx CCER register
+    //
+    xHWREG(ulBase + TIMER_CCER) = ulTempccer;
 }
 
 //*****************************************************************************
@@ -4338,28 +4370,28 @@ TimerOC2NPolarityConfigure(unsigned long ulBase, unsigned long ulPolarity)
 {
     unsigned long ulTempccer = 0;
 
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
-	xASSERT((ulPolarity == TIMER_OP_N_POL_HIGH) ||
-	        (ulPolarity == TIMER_OP_N_POL_LOW));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
+    xASSERT((ulPolarity == TIMER_OP_N_POL_HIGH) ||
+            (ulPolarity == TIMER_OP_N_POL_LOW));
 
-	ulTempccer = xHWREG(ulBase + TIMER_CCER);
+    ulTempccer = xHWREG(ulBase + TIMER_CCER);
 
-	//
-	// Set or Reset the CC1NP Bit
-	//
-	ulTempccer &= ~TIMER_CCER_CC2NP;
-	ulTempccer |= (ulPolarity << 4);
-	 
-	//
-	// Write to TIMx CCER register
-	//
-	xHWREG(ulBase + TIMER_CCER) = ulTempccer;
+    //
+    // Set or Reset the CC1NP Bit
+    //
+    ulTempccer &= ~TIMER_CCER_CC2NP;
+    ulTempccer |= (ulPolarity << 4);
+     
+    //
+    // Write to TIMx CCER register
+    //
+    xHWREG(ulBase + TIMER_CCER) = ulTempccer;
 }
 
 //*****************************************************************************
@@ -4383,27 +4415,27 @@ TimerOC3PolarityConfigure(unsigned long ulBase, unsigned long ulPolarity)
 {
     unsigned long ulTempccer = 0;
 
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
-	xASSERT((ulPolarity == TIMER_OP_POL_HIGH) ||
-	        (ulPolarity == TIMER_OP_POL_LOW));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
+    xASSERT((ulPolarity == TIMER_OP_POL_HIGH) ||
+            (ulPolarity == TIMER_OP_POL_LOW));
 
-	ulTempccer = xHWREG(ulBase + TIMER_CCER);
+    ulTempccer = xHWREG(ulBase + TIMER_CCER);
 
-	//
-	// Set or Reset the CC2P Bit
-	//
-	ulTempccer &= ~TIMER_CCER_CC3P;
-	ulTempccer |= (ulPolarity << 8);
-	 
-	//
-	// Write to TIMx CCER register
-	//
-	xHWREG(ulBase + TIMER_CCER) = ulTempccer;
+    //
+    // Set or Reset the CC2P Bit
+    //
+    ulTempccer &= ~TIMER_CCER_CC3P;
+    ulTempccer |= (ulPolarity << 8);
+     
+    //
+    // Write to TIMx CCER register
+    //
+    xHWREG(ulBase + TIMER_CCER) = ulTempccer;
 }
 
 //*****************************************************************************
@@ -4427,27 +4459,27 @@ TimerOC3NPolarityConfigure(unsigned long ulBase, unsigned long ulPolarity)
 {
     unsigned long ulTempccer = 0;
 
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
-	xASSERT((ulPolarity == TIMER_OP_N_POL_HIGH) ||
-	        (ulPolarity == TIMER_OP_N_POL_LOW));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
+    xASSERT((ulPolarity == TIMER_OP_N_POL_HIGH) ||
+            (ulPolarity == TIMER_OP_N_POL_LOW));
 
-	ulTempccer = xHWREG(ulBase + TIMER_CCER);
+    ulTempccer = xHWREG(ulBase + TIMER_CCER);
 
-	//
-	// Set or Reset the CC1NP Bit
-	//
-	ulTempccer &= ~TIMER_CCER_CC3NP;
-	ulTempccer |= (ulPolarity << 8);
-	 
-	//
-	// Write to TIMx CCER register
-	//
-	xHWREG(ulBase + TIMER_CCER) = ulTempccer;
+    //
+    // Set or Reset the CC1NP Bit
+    //
+    ulTempccer &= ~TIMER_CCER_CC3NP;
+    ulTempccer |= (ulPolarity << 8);
+     
+    //
+    // Write to TIMx CCER register
+    //
+    xHWREG(ulBase + TIMER_CCER) = ulTempccer;
 }
 
 //*****************************************************************************
@@ -4471,27 +4503,27 @@ TimerOC4PolarityConfigure(unsigned long ulBase, unsigned long ulPolarity)
 {
     unsigned long ulTempccer = 0;
 
-	//
+    //
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
-	xASSERT((ulPolarity == TIMER_OP_POL_HIGH) ||
-	        (ulPolarity == TIMER_OP_POL_LOW));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
+    xASSERT((ulPolarity == TIMER_OP_POL_HIGH) ||
+            (ulPolarity == TIMER_OP_POL_LOW));
 
-	ulTempccer = xHWREG(ulBase + TIMER_CCER);
+    ulTempccer = xHWREG(ulBase + TIMER_CCER);
 
-	//
-	// Set or Reset the CC2P Bit
-	//
-	ulTempccer &= ~TIMER_CCER_CC4P;
-	ulTempccer |= (ulPolarity << 12);
-	 
-	//
-	// Write to TIMx CCER register
-	//
-	xHWREG(ulBase + TIMER_CCER) = ulTempccer;
+    //
+    // Set or Reset the CC2P Bit
+    //
+    ulTempccer &= ~TIMER_CCER_CC4P;
+    ulTempccer |= (ulPolarity << 12);
+     
+    //
+    // Write to TIMx CCER register
+    //
+    xHWREG(ulBase + TIMER_CCER) = ulTempccer;
 }
 
 //*****************************************************************************
@@ -4524,11 +4556,11 @@ TimerCHConfigure(unsigned long ulBase, unsigned long ulChannel,
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
     xASSERT((ulChannel == TIMER_CH_1) || (ulChannel == TIMER_CH_2) ||
             (ulChannel == TIMER_CH_3) || (ulChannel == TIMER_CH_4)); 
     xASSERT((ulCCx == TIMER_CH_ENABLE) || 
@@ -4577,11 +4609,11 @@ TimerCHNConfigure(unsigned long ulBase, unsigned long ulChannel,
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
     xASSERT((ulChannel == TIMER_CH_1) || (ulChannel == TIMER_CH_2) ||
             (ulChannel == TIMER_CH_3)); 
     xASSERT((ulCCxN == TIMER_CHN_ENABLE) || 
@@ -4627,11 +4659,11 @@ TimerOCxModeSelect(unsigned long ulBase, unsigned long ulChannel,
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
     xASSERT((ulChannel == TIMER_CH_1) || (ulChannel == TIMER_CH_2) ||
             (ulChannel == TIMER_CH_3) || (ulChannel == TIMER_CH_4)); 
     xASSERT((ulOutputMode == TIMER_OCMODE_TIMING) ||
@@ -4640,32 +4672,32 @@ TimerOCxModeSelect(unsigned long ulBase, unsigned long ulChannel,
             (ulOutputMode == TIMER_OCMODE_TOGGLE) ||
             (ulOutputMode == TIMER_OCMODE_FINACTIVE) ||
             (ulOutputMode == TIMER_OCMODE_FACTIVE));
-	
-	//
-	// Disable the Channel: Reset the CCxE Bit
-	//
-	xHWREG(ulBase + TIMER_CCER) &= ~(0x00000001 << ((ulChannel -1) * 4));
-	
-	if((ulChannel == TIMER_CH_1) || (ulChannel == TIMER_CH_3))
-	{
-	    //
-		// Reset the OCxM bits in the CCMRx register
-		//
-	    xHWREG(ulBase + TIMER_CCMR1 + (ulChannel / 3) * 4) &= ~TIMER_CCMR1_OC1M_M;
+    
+    //
+    // Disable the Channel: Reset the CCxE Bit
+    //
+    xHWREG(ulBase + TIMER_CCER) &= ~(0x00000001 << ((ulChannel -1) * 4));
+    
+    if((ulChannel == TIMER_CH_1) || (ulChannel == TIMER_CH_3))
+    {
+        //
+        // Reset the OCxM bits in the CCMRx register
+        //
+        xHWREG(ulBase + TIMER_CCMR1 + (ulChannel / 3) * 4) &= ~TIMER_CCMR1_OC1M_M;
 
-		//
-		// Configure the OCxM bits in the CCMRx register
-		//
-		xHWREG(ulBase + TIMER_CCMR1 + (ulChannel / 3) * 4) |= ulOutputMode;
-	}
-	else
-	{
-	    //
-		// Reset the OCxM bits in the CCMRx register
-		//
-	    xHWREG(ulBase + TIMER_CCMR1 + (ulChannel / 4) * 4) &= ~TIMER_CCMR1_OC2M_M;
-		xHWREG(ulBase + TIMER_CCMR1 + (ulChannel / 4) * 4) |= (ulOutputMode << 8);
-	}   
+        //
+        // Configure the OCxM bits in the CCMRx register
+        //
+        xHWREG(ulBase + TIMER_CCMR1 + (ulChannel / 3) * 4) |= ulOutputMode;
+    }
+    else
+    {
+        //
+        // Reset the OCxM bits in the CCMRx register
+        //
+        xHWREG(ulBase + TIMER_CCMR1 + (ulChannel / 4) * 4) &= ~TIMER_CCMR1_OC2M_M;
+        xHWREG(ulBase + TIMER_CCMR1 + (ulChannel / 4) * 4) |= (ulOutputMode << 8);
+    }   
 }
 
 //*****************************************************************************
@@ -4690,12 +4722,12 @@ TimerUpdateConfigure(unsigned long ulBase, unsigned long ulUpdate)
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
     xASSERT((ulUpdate == TIMER_UPDATE_EVENT_EN) || 
             (ulUpdate == TIMER_UPDATE_EVENT_DIS));
     
@@ -4731,24 +4763,24 @@ TimerUpdateRequestConfigure(unsigned long ulBase, unsigned long ulUpdateSource)
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
-	xASSERT((ulUpdateSource == TIMER_UPDATESOURCE_GLOBAL) || 
-	        (ulUpdateSource == TIMER_UPDATESOURCE_REGULAR));
-	
-	if(ulUpdateSource == TIMER_UPDATESOURCE_GLOBAL)
-	{
-	    xHWREG(ulBase + TIMER_CR1) &= ~TIMER_CR1_URS; 
-	}
-	else
-	{
-	    xHWREG(ulBase + TIMER_CR1) |= TIMER_CR1_URS; 
-	}		
-					 
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
+    xASSERT((ulUpdateSource == TIMER_UPDATESOURCE_GLOBAL) || 
+            (ulUpdateSource == TIMER_UPDATESOURCE_REGULAR));
+    
+    if(ulUpdateSource == TIMER_UPDATESOURCE_GLOBAL)
+    {
+        xHWREG(ulBase + TIMER_CR1) &= ~TIMER_CR1_URS; 
+    }
+    else
+    {
+        xHWREG(ulBase + TIMER_CR1) |= TIMER_CR1_URS; 
+    }        
+                     
 }
 
 //*****************************************************************************
@@ -4770,19 +4802,19 @@ void
 TimerHallSensorSelect(unsigned long ulBase, unsigned long ulHallSensor)
 {
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
     xASSERT((ulHallSensor == TIMER_HALL_INTERFACE_EN) || 
-	        (ulHallSensor == TIMER_HALL_INTERFACE_DIS));
+            (ulHallSensor == TIMER_HALL_INTERFACE_DIS));
 
     if(ulHallSensor == TIMER_HALL_INTERFACE_DIS)
-	{
-	    xHWREG(ulBase + TIMER_CR2) &= ~TIMER_CR2_TI1S;
-	}
-	else
-	{
-	    xHWREG(ulBase + TIMER_CR2) |= TIMER_CR2_TI1S;
-	}
+    {
+        xHWREG(ulBase + TIMER_CR2) &= ~TIMER_CR2_TI1S;
+    }
+    else
+    {
+        xHWREG(ulBase + TIMER_CR2) |= TIMER_CR2_TI1S;
+    }
   
 }
 
@@ -4808,24 +4840,24 @@ TimerOnePulseModeConfigure(unsigned long ulBase, unsigned long ulOPMode)
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
     xASSERT((ulOPMode == TIMER_OPMODE_SINGLE) ||
             (ulOPMode == TIMER_OPMODE_REPETIVE));
     
-	//
-	// Reset the OPM Bit
-	//
-	xHWREG(ulBase + TIMER_CR1) &= ~TIMER_CR1_OPM ;
+    //
+    // Reset the OPM Bit
+    //
+    xHWREG(ulBase + TIMER_CR1) &= ~TIMER_CR1_OPM ;
 
-	//
-	// Configure the OPM Mode
-	//
-	xHWREG(ulBase + TIMER_CR1) |= ulOPMode ;
+    //
+    // Configure the OPM Mode
+    //
+    xHWREG(ulBase + TIMER_CR1) |= ulOPMode ;
 }
 
 //*****************************************************************************
@@ -4853,10 +4885,10 @@ TimerOutputSrcSelect(unsigned long ulBase, unsigned long ulSelect)
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
     xASSERT((ulSelect == TIMER_TRGOSRC_RESET) || 
             (ulSelect == TIMER_TRGOSRC_ENABLE) ||
             (ulSelect == TIMER_TRGOSRC_UPDATE) ||
@@ -4866,14 +4898,14 @@ TimerOutputSrcSelect(unsigned long ulBase, unsigned long ulSelect)
             (ulSelect == TIMER_TRGOSRC_CH3OREF) || 
             (ulSelect == TIMER_TRGOSRC_CH4OREF));
     
-	//
-	// Reset the MMS Bits
-	//
+    //
+    // Reset the MMS Bits
+    //
     xHWREG(ulBase + TIMER_CR2) &= ~TIMER_CR2_MMS_M;
 
-	//
-	// Select the TRGO source
-	//
+    //
+    // Select the TRGO source
+    //
     xHWREG(ulBase + TIMER_CR2) |= ulSelect;
 }
 
@@ -4901,22 +4933,22 @@ TimerSlaveModeConfigure(unsigned long ulBase, unsigned long ulSelect)
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) ||
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) ||
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
     xASSERT((ulSelect == TIMER_SMSEL_RESET) || 
             (ulSelect == TIEMR_SMSEL_GATED) ||
             (ulSelect == TIMER_SMSEL_TRIGGER) ||
             (ulSelect == TIMER_SMSEL_EXTERNAL1)); 
     
-	//
-	// Reset the SMS Bits 
-	//
+    //
+    // Reset the SMS Bits 
+    //
     xHWREG(ulBase + TIMER_SMCR) &= ~TIMER_SMCR_SMS_M;
 
-	//
-	// Select the Slave Mode
-	//
+    //
+    // Select the Slave Mode
+    //
     xHWREG(ulBase + TIMER_SMCR) |= ulSelect;
     
 }
@@ -4944,15 +4976,15 @@ TimerSyncConfigure(unsigned long ulBase, unsigned long ulConfigure)
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) ||
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) ||
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
     xASSERT((ulConfigure == TIMER_SYNC_ENABLE) ||
             (ulConfigure == TIMER_SYNC_DISABLE));
     
-	//
-	// Reset the MSM Bit
-	//
+    //
+    // Reset the MSM Bit
+    //
     xHWREG(ulBase + TIMER_SMCR) &= ~TIMER_SMCR_MSM;
     xHWREG(ulBase + TIMER_SMCR) |= ulConfigure;
     
@@ -4978,12 +5010,12 @@ TimerCounterSet(unsigned long ulBase, unsigned long ulCounter)
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
     xASSERT((ulCounter >= 0) && (ulCounter <= 0x0000FFFF));
     
     xHWREG(ulBase + TIMER_CNT) = ulCounter; 
@@ -5007,12 +5039,12 @@ TimerCounterGet(unsigned long ulBase)
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
     
     return (xHWREG(ulBase + TIMER_CNT));
 }
@@ -5037,12 +5069,12 @@ TimerAutoReloadSet(unsigned long ulBase, unsigned long ulARRValue)
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
     xASSERT((ulARRValue >= 0) && (ulARRValue <= 0x0000FFFF));
     
     xHWREG(ulBase + TIMER_ARR) = ulARRValue;    
@@ -5066,12 +5098,12 @@ TimerARRReloadGet(unsigned long ulBase)
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
     
     return (xHWREG(ulBase + TIMER_ARR));
 }
@@ -5097,11 +5129,11 @@ TimerCompare1Set(unsigned long ulBase, unsigned long ulCompare1)
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
     xASSERT((ulCompare1 >= 0) && (ulCompare1 <= 0x0000FFFF));
     
     xHWREG(ulBase + TIMER_CCR1) = ulCompare1;    
@@ -5128,9 +5160,9 @@ TimerCompare2Set(unsigned long ulBase, unsigned long ulCompare2)
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
     xASSERT((ulCompare2 >= 0) && (ulCompare2 <= 0x0000FFFF));
     
     xHWREG(ulBase + TIMER_CCR2) = ulCompare2;    
@@ -5157,8 +5189,8 @@ TimerCompare3Set(unsigned long ulBase, unsigned long ulCompare3)
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
     xASSERT((ulCompare3 >= 0) && (ulCompare3 <= 0x0000FFFF));
     
     xHWREG(ulBase + TIMER_CCR3) = ulCompare3;    
@@ -5185,8 +5217,8 @@ TimerCompare4Set(unsigned long ulBase, unsigned long ulCompare4)
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
     xASSERT((ulCompare4 >= 0) && (ulCompare4 <= 0x0000FFFF));
     
     xHWREG(ulBase + TIMER_CCR4) = ulCompare4;    
@@ -5215,22 +5247,22 @@ TimerCKDivConfigure(unsigned long ulBase, unsigned long ulDiv)
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
     xASSERT((ulDiv == TIMER_CLKDIV_0) || (ulDiv == TIMER_CLKDIV_2) || 
-	        (ulDiv == TIMER_CLKDIV_4));
+            (ulDiv == TIMER_CLKDIV_4));
     
-	//
-	// Reset the CKD Bits
-	//
+    //
+    // Reset the CKD Bits
+    //
     xHWREG(ulBase + TIMER_CR1) &= ~TIMER_CR1_CKD_M;
 
-	//
-	// Set the CKD value
-	//
+    //
+    // Set the CKD value
+    //
     xHWREG(ulBase + TIMER_CR1) |= ulDiv;
     
 }
@@ -5254,11 +5286,11 @@ TimerCapture1Get(unsigned long ulBase)
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
 
     return xHWREG(ulBase + TIMER_CCR1);    
 }
@@ -5282,9 +5314,9 @@ TimerCapture2Get(unsigned long ulBase)
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM12_BASE));
 
     return xHWREG(ulBase + TIMER_CCR2);    
 }
@@ -5308,8 +5340,8 @@ TimerCapture3Get(unsigned long ulBase)
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
 
     return xHWREG(ulBase + TIMER_CCR3);    
 }
@@ -5333,8 +5365,8 @@ TimerCapture4Get(unsigned long ulBase)
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
 
     return xHWREG(ulBase + TIMER_CCR4);    
 }
@@ -5357,12 +5389,12 @@ TimerPerscalerGet(unsigned long ulBase)
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) ||
-		    (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) ||  
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) ||
+            (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) ||  
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
     
     return (xHWREG(ulBase + TIMER_PSC));
 }
@@ -5394,20 +5426,20 @@ TimerEventGenerate(unsigned long ulBase, unsigned long ulEventSource)
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-		    (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
     xASSERT((ulEventSource == TIMER_EVENT_UEV) || 
-	        (ulEventSource == TIMER_EVENT_CH1CC) ||
-			(ulEventSource == TIMER_EVENT_CH2CC) ||
-			(ulEventSource == TIMER_EVENT_CH3CC) ||
-			(ulEventSource == TIMER_EVENT_CH4CC) ||
-			(ulEventSource == TIMER_EVENT_COM) ||
-			(ulEventSource == TIMER_EVENT_TEV) ||
-			(ulEventSource == TIMER_EVENT_BRK));
+            (ulEventSource == TIMER_EVENT_CH1CC) ||
+            (ulEventSource == TIMER_EVENT_CH2CC) ||
+            (ulEventSource == TIMER_EVENT_CH3CC) ||
+            (ulEventSource == TIMER_EVENT_CH4CC) ||
+            (ulEventSource == TIMER_EVENT_COM) ||
+            (ulEventSource == TIMER_EVENT_TEV) ||
+            (ulEventSource == TIMER_EVENT_BRK));
 
     xHWREG(ulBase + TIMER_EGR) = ulEventSource;
 }
@@ -5453,47 +5485,47 @@ TimerDMAConfigure(unsigned long ulBase, unsigned long ulDMABase,
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-			(ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
     xASSERT((ulDMABase == TIMER_DMABASE_CR1) || 
-	        (ulDMABase == TIMER_DMABASE_CR2) ||
-			(ulDMABase == TIMER_DMABASE_SMCR) ||
-			(ulDMABase == TIMER_DMABASE_DIER) ||
-			(ulDMABase == TIMER_DMABASE_SR) ||
-			(ulDMABase == TIMER_DMABASE_EGR) ||
-			(ulDMABase == TIMER_DMABASE_CCMR1) ||
-			(ulDMABase == TIMER_DMABASE_CCMR2) ||
-			(ulDMABase == TIMER_DMABASE_CCER) ||
-			(ulDMABase == TIMER_DMABASE_CNT) ||
-			(ulDMABase == TIMER_DMABASE_ARR) ||
-			(ulDMABase == TIMER_DMABASE_RCR) ||
-			(ulDMABase == TIMER_DMABASE_CCR1) ||
-			(ulDMABase == TIMER_DMABASE_CCR2) ||
-			(ulDMABase == TIMER_DMABASE_CCR3) ||
-			(ulDMABase == TIMER_DMABASE_CCR4) ||
-			(ulDMABase == TIMER_DMABASE_BDTR) ||
-			(ulDMABase == TIMER_DMABASE_DCR));
+            (ulDMABase == TIMER_DMABASE_CR2) ||
+            (ulDMABase == TIMER_DMABASE_SMCR) ||
+            (ulDMABase == TIMER_DMABASE_DIER) ||
+            (ulDMABase == TIMER_DMABASE_SR) ||
+            (ulDMABase == TIMER_DMABASE_EGR) ||
+            (ulDMABase == TIMER_DMABASE_CCMR1) ||
+            (ulDMABase == TIMER_DMABASE_CCMR2) ||
+            (ulDMABase == TIMER_DMABASE_CCER) ||
+            (ulDMABase == TIMER_DMABASE_CNT) ||
+            (ulDMABase == TIMER_DMABASE_ARR) ||
+            (ulDMABase == TIMER_DMABASE_RCR) ||
+            (ulDMABase == TIMER_DMABASE_CCR1) ||
+            (ulDMABase == TIMER_DMABASE_CCR2) ||
+            (ulDMABase == TIMER_DMABASE_CCR3) ||
+            (ulDMABase == TIMER_DMABASE_CCR4) ||
+            (ulDMABase == TIMER_DMABASE_BDTR) ||
+            (ulDMABase == TIMER_DMABASE_DCR));
     xASSERT((ulDMABurstLength == TIMER_DMABURSTLEN_1) || 
-	        (ulDMABurstLength == TIMER_DMABURSTLEN_2) ||
-			(ulDMABurstLength == TIMER_DMABURSTLEN_3) ||
-			(ulDMABurstLength == TIMER_DMABURSTLEN_3) ||
-			(ulDMABurstLength == TIMER_DMABURSTLEN_4) ||
-			(ulDMABurstLength == TIMER_DMABURSTLEN_5) ||
-			(ulDMABurstLength == TIMER_DMABURSTLEN_6) ||
-			(ulDMABurstLength == TIMER_DMABURSTLEN_7) ||
-			(ulDMABurstLength == TIMER_DMABURSTLEN_8) ||
-			(ulDMABurstLength == TIMER_DMABURSTLEN_9) ||
-			(ulDMABurstLength == TIMER_DMABURSTLEN_10) ||
-			(ulDMABurstLength == TIMER_DMABURSTLEN_11) ||
-			(ulDMABurstLength == TIMER_DMABURSTLEN_12) ||
-			(ulDMABurstLength == TIMER_DMABURSTLEN_13) ||
-			(ulDMABurstLength == TIMER_DMABURSTLEN_14) ||
-			(ulDMABurstLength == TIMER_DMABURSTLEN_15) ||
-			(ulDMABurstLength == TIMER_DMABURSTLEN_16) ||
-			(ulDMABurstLength == TIMER_DMABURSTLEN_17) ||
-			(ulDMABurstLength == TIMER_DMABURSTLEN_18));
+            (ulDMABurstLength == TIMER_DMABURSTLEN_2) ||
+            (ulDMABurstLength == TIMER_DMABURSTLEN_3) ||
+            (ulDMABurstLength == TIMER_DMABURSTLEN_3) ||
+            (ulDMABurstLength == TIMER_DMABURSTLEN_4) ||
+            (ulDMABurstLength == TIMER_DMABURSTLEN_5) ||
+            (ulDMABurstLength == TIMER_DMABURSTLEN_6) ||
+            (ulDMABurstLength == TIMER_DMABURSTLEN_7) ||
+            (ulDMABurstLength == TIMER_DMABURSTLEN_8) ||
+            (ulDMABurstLength == TIMER_DMABURSTLEN_9) ||
+            (ulDMABurstLength == TIMER_DMABURSTLEN_10) ||
+            (ulDMABurstLength == TIMER_DMABURSTLEN_11) ||
+            (ulDMABurstLength == TIMER_DMABURSTLEN_12) ||
+            (ulDMABurstLength == TIMER_DMABURSTLEN_13) ||
+            (ulDMABurstLength == TIMER_DMABURSTLEN_14) ||
+            (ulDMABurstLength == TIMER_DMABURSTLEN_15) ||
+            (ulDMABurstLength == TIMER_DMABURSTLEN_16) ||
+            (ulDMABurstLength == TIMER_DMABURSTLEN_17) ||
+            (ulDMABurstLength == TIMER_DMABURSTLEN_18));
 
-   	xHWREG(ulBase + TIMER_DCR) = (ulDMABase | ulDMABurstLength);
+       xHWREG(ulBase + TIMER_DCR) = (ulDMABase | ulDMABurstLength);
 }
 
 //*****************************************************************************
@@ -5519,21 +5551,21 @@ TimerDMAEnable(unsigned long ulBase, unsigned long ulDMASource)
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
-			(ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
     xASSERT((ulDMASource == TIMER_DMA_UPDATA) || 
-	        (ulDMASource == TIMER_DMA_CH1CC) ||
-	        (ulDMASource == TIMER_DMA_CH2CC) || 
-			(ulDMASource == TIMER_DMA_CH3CC) ||
-			(ulDMASource == TIMER_DMA_CH4CC) ||
-			(ulDMASource == TIMER_DMA_COM) ||
-			(ulDMASource == TIMER_DMA_TRIGGER));
-			
+            (ulDMASource == TIMER_DMA_CH1CC) ||
+            (ulDMASource == TIMER_DMA_CH2CC) || 
+            (ulDMASource == TIMER_DMA_CH3CC) ||
+            (ulDMASource == TIMER_DMA_CH4CC) ||
+            (ulDMASource == TIMER_DMA_COM) ||
+            (ulDMASource == TIMER_DMA_TRIGGER));
+            
     //
-	//	Enable the DMA sources
-	//
-	xHWREG(ulBase + TIMER_DIER) |= ulDMASource; 			 
+    //    Enable the DMA sources
+    //
+    xHWREG(ulBase + TIMER_DIER) |= ulDMASource;              
 }
 
 //*****************************************************************************
@@ -5559,21 +5591,21 @@ TimerDMADisable(unsigned long ulBase, unsigned long ulDMASource)
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-	        (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
-			(ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE));
     xASSERT((ulDMASource == TIMER_DMA_UPDATA) || 
-	        (ulDMASource == TIMER_DMA_CH1CC) ||
-	        (ulDMASource == TIMER_DMA_CH2CC) || 
-			(ulDMASource == TIMER_DMA_CH3CC) ||
-			(ulDMASource == TIMER_DMA_CH4CC) ||
-			(ulDMASource == TIMER_DMA_COM) ||
-			(ulDMASource == TIMER_DMA_TRIGGER));
-			
+            (ulDMASource == TIMER_DMA_CH1CC) ||
+            (ulDMASource == TIMER_DMA_CH2CC) || 
+            (ulDMASource == TIMER_DMA_CH3CC) ||
+            (ulDMASource == TIMER_DMA_CH4CC) ||
+            (ulDMASource == TIMER_DMA_COM) ||
+            (ulDMASource == TIMER_DMA_TRIGGER));
+            
     //
-	//	Enable the DMA sources
-	//
-	xHWREG(ulBase + TIMER_DIER) &= ~ulDMASource; 	
+    //    Enable the DMA sources
+    //
+    xHWREG(ulBase + TIMER_DIER) &= ~ulDMASource;     
 }
 
 
@@ -5610,18 +5642,18 @@ TimerFlagStatusGet(unsigned long ulBase, unsigned long ulFlag)
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) ||
-		    (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) ||  
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) ||
+            (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) ||  
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
     xASSERT((ulFlag == TIMER_FLAG_UPDATE) || (ulFlag == TIMER_FLAG_CH1CC) ||
             (ulFlag == TIMER_FLAG_CH2CC) || (ulFlag == TIMER_FLAG_CH3CC) ||
             (ulFlag == TIMER_FLAG_CH4CC) || (ulFlag == TIMER_FLAG_COM) ||
             (ulFlag == TIMER_FLAG_TRIGGER) || (ulFlag == TIMER_FLAG_BREAK) ||
             (ulFlag == TIMER_FLAG_CH1OF) || (ulFlag == TIMER_FLAG_CH2OF)||
-			(ulFlag == TIMER_FLAG_CH3OF) || (ulFlag == TIMER_FLAG_CH4OF));
+            (ulFlag == TIMER_FLAG_CH3OF) || (ulFlag == TIMER_FLAG_CH4OF));
     
     if((xHWREG(ulBase + TIMER_SR) & ulFlag))
     {
@@ -5665,23 +5697,23 @@ TimerFlagStatusClear(unsigned long ulBase, unsigned long ulFlag)
     // Check the arguments
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) ||
-		    (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) ||  
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) ||
+            (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) ||  
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE));
     xASSERT((ulFlag == TIMER_FLAG_CH1CC) || (ulFlag == TIMER_FLAG_CH2CC) ||
             (ulFlag == TIMER_FLAG_CH3CC) || (ulFlag == TIMER_FLAG_CH4CC) ||
             (ulFlag == TIMER_FLAG_CH1OF) || (ulFlag == TIMER_FLAG_CH2OF) ||
             (ulFlag == TIMER_FLAG_CH3OF) || (ulFlag == TIMER_FLAG_CH4OF) ||
             (ulFlag == TIMER_FLAG_UPDATE) || (ulFlag == TIMER_FLAG_BREAK) ||
-			(ulFlag == TIMER_FLAG_COM) || (ulFlag == TIMER_FLAG_TRIGGER));
+            (ulFlag == TIMER_FLAG_COM) || (ulFlag == TIMER_FLAG_TRIGGER));
     
-	//
-	// RC_W0 Software can read as well as clear this bit by writing 0. 
-	// Writing ¡®1¡¯ has no effect on the bit value
-	//
+    //
+    // RC_W0 Software can read as well as clear this bit by writing 0. 
+    // Writing ¡®1¡¯ has no effect on the bit value
+    //
     xHWREG(ulBase + TIMER_SR) = ~ulFlag;
 }
 
@@ -5718,103 +5750,103 @@ TimerIntCallbackInit(unsigned long ulBase, unsigned long ulIntType,
                      xtEventCallback xtTimerCallback)
 {
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-		    (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
     xASSERT((ulIntType == TIMER_INT_CH1CC) || (ulIntType == TIMER_INT_CH2CC) ||
             (ulIntType == TIMER_INT_CH3CC) || (ulIntType == TIMER_INT_CH4CC) ||
             (ulIntType == TIMER_INT_UEV) || (ulIntType == TIMER_INT_TEV) ||
-			(ulIntType == TIMER_INT_COM) || (ulIntType == TIMER_INT_BRK));
+            (ulIntType == TIMER_INT_COM) || (ulIntType == TIMER_INT_BRK));
 
-	//
+    //
     // Init the interrupts callback.
     //
     switch(ulBase)
-	{
-	    case TIM1_BASE:
-		    if(ulIntType == TIMER_INT_BRK)
-			{
-			    g_pfnTimerHandlerCallbacks[0] = xtTimerCallback;
-			}
-			else if(ulIntType == TIMER_INT_UEV)
-			{
-			    g_pfnTimerHandlerCallbacks[1] = xtTimerCallback;
-			}
-			else if(ulIntType == TIMER_INT_TEV)
-			{
-			    g_pfnTimerHandlerCallbacks[2] = xtTimerCallback;
-			}
-			else if(ulIntType == TIMER_INT_COM)
-			{
-			    g_pfnTimerHandlerCallbacks[3] = xtTimerCallback;
-			}
-			else
-			{
-			    g_pfnTimerHandlerCallbacks[4] = xtTimerCallback;
-			}
-		    break;
-	    case TIM2_BASE:
-			g_pfnTimerHandlerCallbacks[5] = xtTimerCallback;
-	        break;
-		case TIM3_BASE:
-			g_pfnTimerHandlerCallbacks[6] = xtTimerCallback;
-	        break;
-		case TIM4_BASE:
-			g_pfnTimerHandlerCallbacks[7] = xtTimerCallback;
-	        break;
-		case TIM5_BASE:
-			g_pfnTimerHandlerCallbacks[8] = xtTimerCallback;
-	        break;
-		case TIM6_BASE:
-			g_pfnTimerHandlerCallbacks[9] = xtTimerCallback;
-	        break;
-		case TIM7_BASE:
-			g_pfnTimerHandlerCallbacks[10] = xtTimerCallback;
-	        break;
-		case TIM8_BASE:
-		    if(ulIntType == TIMER_INT_BRK)
-			{
-			    g_pfnTimerHandlerCallbacks[11] = xtTimerCallback;
-			}
-			else if(ulIntType == TIMER_INT_UEV)
-			{
-			    g_pfnTimerHandlerCallbacks[12] = xtTimerCallback;
-			}
-			else if(ulIntType == TIMER_INT_TEV)
-			{
-			    g_pfnTimerHandlerCallbacks[13] = xtTimerCallback;
-			}
-			else if(ulIntType == TIMER_INT_COM)
-			{
-			    g_pfnTimerHandlerCallbacks[14] = xtTimerCallback;
-			}
-			else
-			{
-			    g_pfnTimerHandlerCallbacks[15] = xtTimerCallback;
-			}
-		    break;
-		case TIM9_BASE:
-			g_pfnTimerHandlerCallbacks[16] = xtTimerCallback;
-	        break;
-		case TIM10_BASE:
-			g_pfnTimerHandlerCallbacks[17] = xtTimerCallback;
-	        break;
-		case TIM11_BASE:
-			g_pfnTimerHandlerCallbacks[18] = xtTimerCallback;
-	        break;
-		case TIM12_BASE:
-			g_pfnTimerHandlerCallbacks[19] = xtTimerCallback;
-	        break;
-		case TIM13_BASE:
-			g_pfnTimerHandlerCallbacks[20] = xtTimerCallback;
-	        break;
-		case TIM14_BASE:
-			g_pfnTimerHandlerCallbacks[21] = xtTimerCallback;
-	        break;
-	}
+    {
+        case TIM1_BASE:
+            if(ulIntType == TIMER_INT_BRK)
+            {
+                g_pfnTimerHandlerCallbacks[0] = xtTimerCallback;
+            }
+            else if(ulIntType == TIMER_INT_UEV)
+            {
+                g_pfnTimerHandlerCallbacks[1] = xtTimerCallback;
+            }
+            else if(ulIntType == TIMER_INT_TEV)
+            {
+                g_pfnTimerHandlerCallbacks[2] = xtTimerCallback;
+            }
+            else if(ulIntType == TIMER_INT_COM)
+            {
+                g_pfnTimerHandlerCallbacks[3] = xtTimerCallback;
+            }
+            else
+            {
+                g_pfnTimerHandlerCallbacks[4] = xtTimerCallback;
+            }
+            break;
+        case TIM2_BASE:
+            g_pfnTimerHandlerCallbacks[5] = xtTimerCallback;
+            break;
+        case TIM3_BASE:
+            g_pfnTimerHandlerCallbacks[6] = xtTimerCallback;
+            break;
+        case TIM4_BASE:
+            g_pfnTimerHandlerCallbacks[7] = xtTimerCallback;
+            break;
+        case TIM5_BASE:
+            g_pfnTimerHandlerCallbacks[8] = xtTimerCallback;
+            break;
+        case TIM6_BASE:
+            g_pfnTimerHandlerCallbacks[9] = xtTimerCallback;
+            break;
+        case TIM7_BASE:
+            g_pfnTimerHandlerCallbacks[10] = xtTimerCallback;
+            break;
+        case TIM8_BASE:
+            if(ulIntType == TIMER_INT_BRK)
+            {
+                g_pfnTimerHandlerCallbacks[11] = xtTimerCallback;
+            }
+            else if(ulIntType == TIMER_INT_UEV)
+            {
+                g_pfnTimerHandlerCallbacks[12] = xtTimerCallback;
+            }
+            else if(ulIntType == TIMER_INT_TEV)
+            {
+                g_pfnTimerHandlerCallbacks[13] = xtTimerCallback;
+            }
+            else if(ulIntType == TIMER_INT_COM)
+            {
+                g_pfnTimerHandlerCallbacks[14] = xtTimerCallback;
+            }
+            else
+            {
+                g_pfnTimerHandlerCallbacks[15] = xtTimerCallback;
+            }
+            break;
+        case TIM9_BASE:
+            g_pfnTimerHandlerCallbacks[16] = xtTimerCallback;
+            break;
+        case TIM10_BASE:
+            g_pfnTimerHandlerCallbacks[17] = xtTimerCallback;
+            break;
+        case TIM11_BASE:
+            g_pfnTimerHandlerCallbacks[18] = xtTimerCallback;
+            break;
+        case TIM12_BASE:
+            g_pfnTimerHandlerCallbacks[19] = xtTimerCallback;
+            break;
+        case TIM13_BASE:
+            g_pfnTimerHandlerCallbacks[20] = xtTimerCallback;
+            break;
+        case TIM14_BASE:
+            g_pfnTimerHandlerCallbacks[21] = xtTimerCallback;
+            break;
+    }
 }
 
 //*****************************************************************************
@@ -5850,16 +5882,16 @@ TimerIntEnable(unsigned long ulBase, unsigned long ulIntFlags)
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-		    (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
     xASSERT((ulIntFlags == TIMER_INT_CH1CC) || (ulIntFlags == TIMER_INT_CH2CC) ||
             (ulIntFlags == TIMER_INT_CH3CC) || (ulIntFlags == TIMER_INT_CH4CC) ||
             (ulIntFlags == TIMER_INT_UEV) || (ulIntFlags == TIMER_INT_TEV) ||
-			(ulIntFlags == TIMER_INT_COM) || (ulIntFlags == TIMER_INT_BRK));
+            (ulIntFlags == TIMER_INT_COM) || (ulIntFlags == TIMER_INT_BRK));
     
     xHWREG(ulBase + TIMER_DIER) |= ulIntFlags;
 }
@@ -5895,16 +5927,16 @@ TimerIntDisable(unsigned long ulBase, unsigned long ulIntFlags)
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-		    (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
     xASSERT((ulIntFlags == TIMER_INT_CH1CC) || (ulIntFlags == TIMER_INT_CH2CC) ||
             (ulIntFlags == TIMER_INT_CH3CC) || (ulIntFlags == TIMER_INT_CH4CC) ||
             (ulIntFlags == TIMER_INT_UEV) || (ulIntFlags == TIMER_INT_TEV) ||
-			(ulIntFlags == TIMER_INT_COM) || (ulIntFlags == TIMER_INT_BRK));
+            (ulIntFlags == TIMER_INT_COM) || (ulIntFlags == TIMER_INT_BRK));
     
     xHWREG(ulBase + TIMER_DIER) &= ~ulIntFlags;
 }
@@ -5942,16 +5974,16 @@ TimerIntStatus(unsigned long ulBase, unsigned long ulIntFlags)
     // Check the arguments.
     //  
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-		    (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
     xASSERT((ulIntFlags == TIMER_INT_CH1CC) || (ulIntFlags == TIMER_INT_CH2CC) ||
             (ulIntFlags == TIMER_INT_CH3CC) || (ulIntFlags == TIMER_INT_CH4CC) ||
             (ulIntFlags == TIMER_INT_UEV) || (ulIntFlags == TIMER_INT_TEV) ||
-			(ulIntFlags == TIMER_INT_COM) || (ulIntFlags == TIMER_INT_BRK));
+            (ulIntFlags == TIMER_INT_COM) || (ulIntFlags == TIMER_INT_BRK));
 
     ulIntStatus = xHWREG(ulBase + TIMER_SR) & ulIntFlags;
     ulIntEnable = xHWREG(ulBase + TIMER_DIER) & ulIntFlags;
@@ -5997,16 +6029,16 @@ TimerIntClear(unsigned long ulBase, unsigned long ulIntFlags)
     // Check the arguments.
     //
     xASSERT((ulBase == TIM1_BASE) || (ulBase == TIM2_BASE) || 
-	        (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
-		    (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
-	        (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
-	        (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
-	        (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
-	        (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
+            (ulBase == TIM3_BASE) || (ulBase == TIM4_BASE) || 
+            (ulBase == TIM6_BASE) || (ulBase == TIM7_BASE) || 
+            (ulBase == TIM5_BASE) || (ulBase == TIM8_BASE) || 
+            (ulBase == TIM9_BASE) || (ulBase == TIM10_BASE) || 
+            (ulBase == TIM11_BASE) || (ulBase == TIM12_BASE) || 
+            (ulBase == TIM13_BASE) || (ulBase == TIM14_BASE)); 
     xASSERT((ulIntFlags == TIMER_INT_CH1CC) || (ulIntFlags == TIMER_INT_CH2CC) ||
             (ulIntFlags == TIMER_INT_CH3CC) || (ulIntFlags == TIMER_INT_CH4CC) ||
             (ulIntFlags == TIMER_INT_UEV) || (ulIntFlags == TIMER_INT_TEV) ||
-			(ulIntFlags == TIMER_INT_COM) || (ulIntFlags == TIMER_INT_BRK));
+            (ulIntFlags == TIMER_INT_COM) || (ulIntFlags == TIMER_INT_BRK));
     
     xHWREG(ulBase + TIMER_SR) = ~ulIntFlags;
 

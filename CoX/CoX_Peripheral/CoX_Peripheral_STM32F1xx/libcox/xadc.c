@@ -36,11 +36,11 @@
 //! THE POSSIBILITY OF SUCH DAMAGE.
 //
 //*****************************************************************************
-
-#include "xhw_adc.h"
 #include "xhw_ints.h"
 #include "xhw_memmap.h"
+#include "xhw_config.h"
 #include "xhw_types.h"
+#include "xhw_adc.h"
 #include "xadc.h"
 #include "xdebug.h"
 #include "xcore.h"

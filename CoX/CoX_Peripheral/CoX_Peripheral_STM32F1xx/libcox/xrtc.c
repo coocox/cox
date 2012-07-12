@@ -2,7 +2,7 @@
 //
 //! \file xrtc.c
 //! \brief Driver for the RTC
-//! \version V2.1.1.1
+//! \version V2.2.1.0
 //! \date 06/01/2011
 //! \author CooCox
 //! \copy
@@ -39,6 +39,7 @@
 #include "xhw_types.h"
 #include "xhw_ints.h"
 #include "xhw_memmap.h"
+#include "xhw_config.h"
 #include "xhw_nvic.h"
 #include "xhw_sysctl.h"
 #include "xhw_rtc.h"
@@ -53,16 +54,13 @@
 //*****************************************************************************
 static xtEventCallback g_pfnRTCHandlerCallbacks[1]={0};
 
-#define xRTC_COUNTER            1
-#define xRTC_AUTO	        1
-
-#ifdef xRTC_COUNTER
+#if (xRTC_COUNTER_CONFIG == 1)
 static xtTime xtBaseTime;
 static unsigned long ulBaseDay;
 #define xRTC_SECOND_A_DAY       0x00015180
 static unsigned char ucMonthNumber[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30,
                                           31, 30, 31};
-#ifdef xRTC_AUTO
+#if (xRTC_AUTO_LEAPYEAR > 0)
 static unsigned char ucLeapYear[136] = {
     1, // 2000 is leap year
     0, // 2001 not leap year
@@ -123,7 +121,7 @@ xRTCConvertTimeToCounter(xtTime *xtTime)
     unsigned long ulTempDay = 0;
     for(i=0; i<(xtTime->ulYear -2000); i++)
     {
-#ifdef xRTC_AUTO
+#if (xRTC_AUTO_LEAPYEAR > 0)
         ulTempDay += (ucLeapYear[i] ? 366 : 365 );
 #else
         ulTempDay += (((((2000 + i) % 4) == 0 && 
@@ -142,7 +140,7 @@ xRTCConvertTimeToCounter(xtTime *xtTime)
     ulTempDay += (xtTime->ulMDay-1);
     if(xtTime->ulMonth > 2)
     {
-#ifdef xRTC_AUTO
+#if (xRTC_AUTO_LEAPYEAR > 0)
         if(ucLeapYear[xtTime->ulYear -2000])
 #else
         if((((xtTime->ulYear % 4) == 0 && (xtTime->ulYear % 100) != 0)) ||
@@ -211,7 +209,7 @@ xRTCConvertCounterToTime(xtTime *xtTime, unsigned long ultimeCounter)
         xtBaseTime.ulMDay++;
         if (xtBaseTime.ulMonth == 2)   
         {
-#ifdef xRTC_AUTO        
+#if (xRTC_AUTO_LEAPYEAR > 0)       
             if(ucLeapYear[xtBaseTime.ulYear - 2000])
             {
 #else

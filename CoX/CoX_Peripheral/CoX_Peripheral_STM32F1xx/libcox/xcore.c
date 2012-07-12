@@ -4,7 +4,7 @@
 //! \brief Instruction wrappers for special CPU instructions.
 //! Driver for the NVIC Interrupt Controller.
 //! Driver for the SysTick driver.
-//! \version V2.1.1.0
+//! \version V2.2.1.0
 //! \date 11/20/2011
 //! \author CooCox
 //! \copy
@@ -42,6 +42,7 @@
 #include "xhw_types.h"
 #include "xhw_ints.h"
 #include "xhw_memmap.h"
+#include "xhw_config.h"
 #include "xhw_nvic.h"
 #include "xdebug.h"
 #include "xcore.h"

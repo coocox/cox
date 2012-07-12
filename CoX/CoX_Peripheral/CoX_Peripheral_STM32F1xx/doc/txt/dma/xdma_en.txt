@@ -120,7 +120,6 @@
 //! <br />
 //! \subsection xDMA_API_Group_Interrupt 2.2 DMA Interrupt Control APIs
 //! - xDMAChannelIntCallbackInit()
-//! - xDMAChannelIntCallbackGet()
 //! - xDMAChannelIntEnable()
 //! - xDMAChannelIntDisable()
 //! - xDMAIntEnable()

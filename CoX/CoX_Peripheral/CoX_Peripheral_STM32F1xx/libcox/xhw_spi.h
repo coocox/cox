@@ -2,7 +2,7 @@
 //
 //! \file xhw_spi.h
 //! \brief Macros used when accessing the SPI hardware.
-//! \version V2.1.1.0
+//! \version V2.2.1.0
 //! \date 01/05/2012
 //! \author CooCox
 //! \copy

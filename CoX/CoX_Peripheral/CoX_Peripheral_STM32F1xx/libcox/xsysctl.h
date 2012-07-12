@@ -3,7 +3,7 @@
 //! \file xsysctl.h
 //! \brief Prototypes for the System Manager Driver.
 //! \brief Prototypes for the Clock Controller Driver.
-//! \version V2.1.1.0
+//! \version V2.2.1.0
 //! \date 11/20/2011
 //! \author CooCox
 //! \copy
@@ -982,30 +982,6 @@ extern unsigned long xSysCtlPeripheraIntNumGet(unsigned long ulPeripheralBase);
 //
 //*****************************************************************************
 
-//*****************************************************************************
-//
-//! \addtogroup STM32F1xx_SysCtl_Config STM32F1xx SysCtl config
-//! 
-//! \section STM32F1xx_SysCtl_Config_section 1. Where to use this group
-//! This is use to config APB1 and APB2 clock divide.
-//! 
-//! @{
-//
-//*****************************************************************************
-
-//
-//! STM32F1xx SysCtl config
-//
-#define SYSCTL_APB1CLOCK_DIV    4
-
-#define SYSCTL_APB2CLOCK_DIV    0
-
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
 
 //*****************************************************************************
 //

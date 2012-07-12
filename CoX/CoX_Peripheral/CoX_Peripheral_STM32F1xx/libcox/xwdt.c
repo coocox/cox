@@ -2,7 +2,7 @@
 //
 //! \file xwdt.c
 //! \brief Driver for the WDT
-//! \version V2.1.1.0
+//! \version V2.2.1.0
 //! \date 6/14/2011
 //! \author CooCox
 //! \copy
@@ -39,6 +39,7 @@
 #include "xhw_types.h"
 #include "xhw_ints.h"
 #include "xhw_memmap.h"
+#include "xhw_config.h"
 #include "xhw_nvic.h"
 #include "xhw_sysctl.h"
 #include "xhw_wdt.h"
@@ -46,7 +47,6 @@
 #include "xcore.h"
 #include "xsysctl.h"
 #include "xwdt.h"
-
 
 //*****************************************************************************
 //

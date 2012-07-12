@@ -2,7 +2,7 @@
 //
 //! \file xhw_timer.h
 //! \brief Macros and defines used when accessing the TIMER hardware.
-//! \version V2.1.1.0
+//! \version V2.2.1.0
 //! \date 6/12/2012
 //! \author CooCox
 //! \copy

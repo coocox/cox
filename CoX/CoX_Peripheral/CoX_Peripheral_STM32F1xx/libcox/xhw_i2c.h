@@ -2,7 +2,7 @@
 //
 //! \file xhw_i2c.h
 //! \brief Macros and defines used when accessing the I2C hardware.
-//! \version V2.1.1.0
+//! \version V2.2.1.0
 //! \date 02/03/2012
 //! \author CooCox
 //! \copy

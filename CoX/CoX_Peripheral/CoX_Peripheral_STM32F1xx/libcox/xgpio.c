@@ -2,7 +2,7 @@
 //
 //! \file xgpio.c
 //! \brief Driver for the GPIO AFIO and EXTI controller
-//! \version V2.1.1.0
+//! \version V2.2.1.0
 //! \date 12/16/2011
 //! \author CooCox
 //! \copy
@@ -39,6 +39,7 @@
 #include "xhw_types.h"
 #include "xhw_ints.h"
 #include "xhw_memmap.h"
+#include "xhw_config.h"
 #include "xhw_nvic.h"
 #include "xhw_sysctl.h"
 #include "xhw_gpio.h"
@@ -67,7 +68,7 @@ tGPIOPinIntAsssign;
 //
 static tGPIOPinIntAsssign g_psGPIOPinIntAssignTable[xGPIO_INT_NUMBER] = 
 {
-    0
+    {0,0}
 };
 
 //*****************************************************************************

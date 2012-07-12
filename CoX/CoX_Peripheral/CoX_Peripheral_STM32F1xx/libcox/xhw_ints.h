@@ -2,7 +2,7 @@
 //
 //! \file xhw_ints.h
 //! \brief Macros that define the interrupt assignment on the MCU.
-//! \version V2.1.1.0
+//! \version V2.2.1.0
 //! \date 11/20/2011
 //! \author CooCox
 //! \copy

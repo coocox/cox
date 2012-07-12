@@ -37,8 +37,8 @@
 //
 //*****************************************************************************
 
-#ifndef __XHW_TYPES_H__
-#define __XHW_TYPES_H__
+#ifndef __XHW_CONFIG_H__
+#define __XHW_CONFIG_H__
 
 //*****************************************************************************
 //
@@ -71,7 +71,7 @@
 
 //
 //! xRTC counter config.
-/
+//
 #define xRTC_COUNTER_CONFIG     RTC_COUNTER_CONFIG
 
 //
@@ -126,7 +126,7 @@
 //! config your HSE external crystal value.It can be one of the following values: 
 //! 4-16Mhz
 //
-#define STM32F1xx_HSE_VAL       12
+#define STM32F1xx_HSE_VAL       8
 
 
 //
@@ -140,7 +140,7 @@
 //! STM32F1xx APB low-speed prescaler (APB1) division config.
 //! It can be one of the following values: 
 //! APBCLOCK_DIV_1, APBCLOCK_DIV_2, APBCLOCK_DIV_8, APBCLOCK_DIV_16
-/
+//
 #define SYSCTL_APB1CLOCK_DIV    APBCLOCK_DIV_1
 
 //
@@ -148,7 +148,7 @@
 //! It can be one of the following values: 
 //! 0 or 1.  0: can read hour minute second directly 
 //!          1: can not read hour minute second directly 
-/
+//
 #define RTC_COUNTER_CONFIG      1
 
 //
@@ -156,7 +156,7 @@
 //! It can be one of the following values: 
 //! 0 or 1.  0: can read hour minute second directly 
 //!          1: auto leap year 
-/
+//
 #define RTC_AUTO_LEAPYEAR       1
 
 
@@ -165,6 +165,65 @@
 //
 #define GPIO_INT_NUMBER         8  
 
+//
+//! STM32F1xx Timer1 function select
+//
+#define TIM1_FUNCTION_SELECT    TIM_TIMER
+
+//
+//! STM32F1xx Timer2 function select
+//
+#define TIM2_FUNCTION_SELECT    TIM_PWM
+
+//
+//! STM32F1xx Timer3 function select
+//
+#define TIM3_FUNCTION_SELECT    TIM_TIMER
+
+//
+//! STM32F1xx Timer4 function select
+//
+#define TIM4_FUNCTION_SELECT    TIM_TIMER
+
+//
+//! STM32F1xx Timer5 function select
+//
+#define TIM5_FUNCTION_SELECT    TIM_TIMER
+
+//
+//! STM32F1xx Timer8 function select
+//
+#define TIM8_FUNCTION_SELECT    TIM_TIMER
+
+//
+//! STM32F1xx Timer9 function select
+//
+#define TIM9_FUNCTION_SELECT    TIM_TIMER
+
+//
+//! STM32F1xx Timer10 function select
+//
+#define TIM10_FUNCTION_SELECT   TIM_TIMER
+
+//
+//! STM32F1xx Timer11 function select
+//
+#define TIM11_FUNCTION_SELECT   TIM_TIMER
+
+//
+//! STM32F1xx Timer12 function select
+//
+#define TIM12_FUNCTION_SELECT   TIM_TIMER
+
+//
+//! STM32F1xx Timer13 function select
+//
+#define TIM13_FUNCTION_SELECT   TIM_TIMER
+
+//
+//! STM32F1xx Timer14 function select
+//
+#define TIM14_FUNCTION_SELECT   TIM_TIMER
 
 //*****************************************************************************
 //
@@ -259,9 +318,28 @@
 
 //*****************************************************************************
 //
+//! \addtogroup STM32F1xx_LowLayer_Tim_Function STM32F1xx timer Function 
+//! \brief STM32F1xx timer Function .
+//! @{
+//
+//*****************************************************************************
+
+//
+//! timer Function is used as a timer.
+//
+#define TIM_TIMER               0
+
+//
+//! timer Function is used as a PWM.
+//
+#define TIM_PWM                 1
+
+//*****************************************************************************
+//
 //! @}
 //
 //*****************************************************************************
+
 
 //*****************************************************************************
 //
@@ -275,5 +353,11 @@
 //
 //*****************************************************************************
 
-#endif // __XHW_TYPES_H__
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+#endif // __XHW_CONFIG_H__
 

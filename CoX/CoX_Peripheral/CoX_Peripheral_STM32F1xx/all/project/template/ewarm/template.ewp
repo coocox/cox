@@ -1652,6 +1652,12 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xgpio.h</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_adc.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_config.h</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_dma.h</name>
         </file>
         <file>
@@ -1679,10 +1685,16 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_sysctl.h</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_timer.h</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_types.h</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_uart.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_wdt.h</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xi2c.h</name>
@@ -1712,6 +1724,9 @@
       <group>
         <name>src</name>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xadc.c</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xcore.c</name>
         </file>
         <file>
@@ -1727,6 +1742,9 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xi2c.c</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xpwm.c</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xrtc.c</name>
         </file>
         <file>
@@ -1736,7 +1754,13 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xsysctl.c</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xtimer.c</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xuart.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xwdt.c</name>
         </file>
       </group>
     </group>

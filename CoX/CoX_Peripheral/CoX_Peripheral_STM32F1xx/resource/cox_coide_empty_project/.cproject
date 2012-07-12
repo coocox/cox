@@ -13,22 +13,24 @@
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings">
 				<externalSettings containerId="org.coocox.ExternalSettings" factoryId="org.eclipse.cdt.core.extension.container.factory">
 					<externalSetting>
-						<entry flags="" kind="includePath" name="D:\Program Files\CooCox\CoIDE_1.4.0\gcc\arm-none-eabi\include"/>
+						<entry flags="" kind="includePath" name="F:\d\CooCox\CoIDE_1.2.1\gcc\Sourcery G++ Lite\arm-none-eabi\include"/>
+						<entry flags="" kind="includePath" name="F:\d\CooCox\CoIDE_1.2.1\gcc\Sourcery G++ Lite\lib\gcc\arm-none-eabi\4.4.1\include"/>
+						<entry flags="" kind="includePath" name="F:\d\CooCox\CoIDE_1.2.1\gcc\Sourcery G++ Lite\lib\gcc\arm-none-eabi\4.4.1\include-fixed"/>
 						<entry flags="" kind="includePath" name="."/>
-						<entry flags="" kind="includePath" name="CoX/CoX_Peripheral/inc"/>
 						<entry flags="" kind="macro" name="__GNUC__" value=""/>
-						<entry flags="" kind="macro" name="gcc" value=""/>
+						<entry flags="" kind="macro" name="STM32F103VB" value=""/>
 					</externalSetting>
 				</externalSettings>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
 			<storageModule moduleId="org.eclipse.cdt.core.pathentry">
 				<pathentry kind="src" path=""/>
-				<pathentry include="D:/Program Files/CooCox/CoIDE_1.4.0/gcc/arm-none-eabi/include" kind="inc" path="" system="true"/>
-				<pathentry include="E:/rongdong/git/cox/CoX/CoX_Peripheral/CoX_Peripheral_STM32F1xx/resource/cox_coide_empty_project" kind="inc" path="" system="true"/>
-				<pathentry include="E:/rongdong/git/cox/CoX/CoX_Peripheral/CoX_Peripheral_STM32F1xx/resource/cox_coide_empty_project/CoX/CoX_Peripheral/inc" kind="inc" path="" system="true"/>
+				<pathentry include="F:/d/CooCox/CoIDE_1.2.1/gcc/Sourcery G++ Lite/arm-none-eabi/include" kind="inc" path="" system="true"/>
+				<pathentry include="F:/d/CooCox/CoIDE_1.2.1/gcc/Sourcery G++ Lite/lib/gcc/arm-none-eabi/4.4.1/include" kind="inc" path="" system="true"/>
+				<pathentry include="F:/d/CooCox/CoIDE_1.2.1/gcc/Sourcery G++ Lite/lib/gcc/arm-none-eabi/4.4.1/include-fixed" kind="inc" path="" system="true"/>
+				<pathentry include="D:/CooCox/CoIDE/workspace/cox_coide_empty_project" kind="inc" path="" system="true"/>
 				<pathentry kind="mac" name="__GNUC__" path="" value=""/>
-				<pathentry kind="mac" name="gcc" path="" value=""/>
+				<pathentry kind="mac" name="STM32F103VB" path="" value=""/>
 				<pathentry kind="out" path=""/>
 			</storageModule>
 		</cconfiguration>

@@ -2,7 +2,7 @@
 //
 //! \file xhw_memmap.h
 //! \brief Macros defining the memory map of the MCU.
-//! \version V2.1.1.0
+//! \version V2.2.1.0
 //! \date 11/20/2011
 //! \author CooCox
 //! \copy

@@ -2,7 +2,7 @@
 //
 //! \file xsysctl.c
 //! \brief Driver for the system controller
-//! \version V2.1.1.0
+//! \version V2.2.1.0
 //! \date 11/20/2011
 //! \author CooCox
 //! \copy
@@ -39,13 +39,14 @@
 #include "xhw_types.h"
 #include "xhw_ints.h"
 #include "xhw_memmap.h"
+#include "xhw_config.h"
 #include "xhw_nvic.h"
 #include "xhw_sysctl.h"
 #include "xdebug.h"
 #include "xsysctl.h"
 #include "xcore.h"
 
-static unsigned long s_ulExtClockMHz = 8;
+static unsigned long s_ulExtClockMHz = xHSE_VAL;
 
 //*****************************************************************************
 //
@@ -658,8 +659,11 @@ SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
     //
     // Reset SW, HPRE, PPRE1, PPRE2, ADCPRE and MCO bits
     //
-    //xHWREG(RCC_CFGR) &= 0xF0FF0000;
+#if (STM32F1xx_DEVICE == STM32F10X_CL)    
     xHWREG(RCC_CFGR) &= 0xF8FF0000;
+#else
+    xHWREG(RCC_CFGR) &= 0xF0FF0000;
+#endif /* STM32F10X_CL */
     
     //
     // Reset HSEON, CSSON and PLLON bits 
@@ -675,28 +679,52 @@ SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
     // Reset PLLSRC, PLLXTPRE, PLLMUL and USBPRE/OTGFSPRE bits
     //
     xHWREG(RCC_CFGR) &= 0xFF80FFFF;
-
+    
+#if (STM32F1xx_DEVICE == STM32F10X_CL)  
     //
-    // Reset HSEBYP bit
+    // Reset PLL2ON and PLL3ON bits
     //
     xHWREG(RCC_CR) &= 0xEBFFFFFF;
     
     //
-    // Disable all interrupts and clear pending bits
+    // Disable all interrupts and clear pending bits 
     //
     xHWREG(RCC_CIR) &= 0x00FF0000;
-
-    xHWREG(RCC_CIR) |= 0x00001800;
-
-    //
-    // 
-    //
-    xHWREG(RCC_CFGR2) = 0x00000000; 
     
+    //
+    // Reset CFGR2 register
+    //
+    xHWREG(RCC_CFGR2) &= 0x00000000;
+#elif (STM32F1xx_DEVICE == STM32F10X_LD_VL || STM32F1xx_DEVICE == STM32F10X_MD_VL\
+       || STM32F1xx_DEVICE == STM32F10X_HD_VL) 
+    //
+    // Disable all interrupts and clear pending bits 
+    //
+    xHWREG(RCC_CIR) &= 0x009F0000;
+    
+    //
+    // Reset CFGR2 register
+    //
+    xHWREG(RCC_CFGR2) &= 0x00000000;
+#else
+    //
+    // Disable all interrupts and clear pending bits 
+    //
+    xHWREG(RCC_CIR) &= 0x009F0000;
+#endif // STM32F10X_CL     
+
     //
     // Calc oscillator freq
     //
-    s_ulExtClockMHz = ((ulConfig & SYSCTL_XTAL_MASK) >> 8);
+    if((((ulConfig & SYSCTL_XTAL_MASK) >> 8) >=4) && 
+       (((ulConfig & SYSCTL_XTAL_MASK) >> 8) <=16))
+    {
+        s_ulExtClockMHz = ((ulConfig & SYSCTL_XTAL_MASK) >> 8);
+    }
+    else
+    {
+        s_ulExtClockMHz = xHSE_VAL;
+    }
     switch(ulConfig & SYSCTL_OSCSRC_M)
     {
         case SYSCTL_OSC_MAIN:
@@ -1297,12 +1325,13 @@ SysCtlHClockGet(void)
     //
     // STM32F10X_CL
     //
-#ifdef  STM32F10X_CL
+#if (STM32F1xx_DEVICE == STM32F10X_CL)
     unsigned long ulPrediv1Source = 0, ulPrediv1Factor = 0, ulPrediv2Factor = 0, 
                   ulPll2Mull = 0;
 #endif 
 
-#if defined (STM32F10X_LD_VL) || defined (STM32F10X_MD_VL) || defined (STM32F10X_HD_VL)
+#if (STM32F1xx_DEVICE == STM32F10X_LD_VL || STM32F1xx_DEVICE == STM32F10X_MD_VL\
+     || STM32F1xx_DEVICE == STM32F10X_HD_VL)
     unsigned long ulPrediv1Factor = 0;
 #endif
     
@@ -1339,7 +1368,7 @@ SysCtlHClockGet(void)
             ulPllMull = xHWREG(RCC_CFGR) & RCC_CFGR_PLLMUL_M;
             ulPllSource = xHWREG(RCC_CFGR) & RCC_CFGR_PLLSRC;
                   
-#ifndef STM32F10X_CL      
+#if (STM32F1xx_DEVICE != STM32F10X_CL)      
             ulPllMull = ( ulPllMull >> 18) + 2;
       
             if (ulPllSource == 0x00)
@@ -1351,13 +1380,14 @@ SysCtlHClockGet(void)
             }
             else
             {
- #if defined (STM32F10X_LD_VL) || defined (STM32F10X_MD_VL) || defined (STM32F10X_HD_VL)
+#if (STM32F1xx_DEVICE == STM32F10X_LD_VL || STM32F1xx_DEVICE == STM32F10X_MD_VL\
+     || STM32F1xx_DEVICE == STM32F10X_HD_VL)
                 ulPrediv1Factor = (xHWREG(RCC_CFGR2) & RCC_CFGR2_PREDIV1_M) + 1;
                 //
                 // HSE oscillator clock selected as PREDIV1 clock entry 
                 //
                 ulHclk = (s_ulExtClockMHz*1000000 / ulPrediv1Factor) * ulPllMull; 
- #else
+#else
                 //
                 // HSE selected as PLL clock entry 
                 //
@@ -1372,7 +1402,7 @@ SysCtlHClockGet(void)
                 {
                     ulHclk = s_ulExtClockMHz*1000000 * ulPllMull;
                 }
- #endif
+#endif
             }
 #else
             ulPllMull = ulPllMull >> 18;

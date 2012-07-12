@@ -2,7 +2,7 @@
 //
 //! \file xspi.h
 //! \brief Driver for Inter-IC (I2C) bus block.
-//! \version V2.1.1.1
+//! \version V2.2.1.0
 //! \date 02/08/2011
 //! \author CooCox
 //! \copy
@@ -40,6 +40,7 @@
 #include "xhw_types.h"
 #include "xhw_ints.h"
 #include "xhw_memmap.h"
+#include "xhw_config.h"
 #include "xhw_sysctl.h"
 #include "xhw_i2c.h"
 #include "xdebug.h"
@@ -142,50 +143,6 @@ static void I2CByteSend (unsigned long ulBase, unsigned char ucData)
     // Send i2c address and RW bit 
     //
     xHWREG(ulBase + I2C_DR) = ucData;
-}
-
-//*****************************************************************************
-//
-//! \internal
-//! \brief Get a byte to I2C bus. 
-//!
-//! \param ulBase specifies the I2C module base address.
-//! \param ucpData specifies the data point which will save the data get from 
-//! I2C BUS.
-//!
-//! This function is to get a byte on specified I2C BUS.
-//!
-//! The \e ulBase can be one of the following values:
-//! \b I2C2_BASE, \b I2C1_BASE.
-//!
-//! \note This is only for master
-//!
-//! \return value of I2C status register after send a byte.
-//
-//*****************************************************************************
-static unsigned long I2CByteGet (unsigned long ulBase, unsigned char *ucpData, 
-                                 unsigned char ucAck)
-{
-    //
-    // Check the arguments.
-    //
-    xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C1_BASE));
-    
-    //
-    // Make sure start bit is not active 
-    //
-    if (ucAck == 1)
-    {
-        xHWREG(ulBase + I2C_CR1) |= I2C_CR1_ACK;
-    }
-    else
-    {
-        xHWREG(ulBase + I2C_CR1) &= ~I2C_CR1_ACK;
-    }
-    
-    while (!(xHWREG(ulBase + I2C_SR1) & I2C_SR1_RXNE));
-    *ucpData = (unsigned char)xHWREG(ulBase + I2C_DR);
-    return (xHWREG(ulBase + I2C_SR1) | (xHWREG(ulBase + I2C_SR2) << 16));
 }
 
 //*****************************************************************************

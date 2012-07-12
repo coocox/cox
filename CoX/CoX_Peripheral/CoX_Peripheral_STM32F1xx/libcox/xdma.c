@@ -2,7 +2,7 @@
 //
 //! \file xdma.c
 //! \brief Driver for the DMA Controller.
-//! \version V2.2.1.1
+//! \version V2.2.1.0
 //! \date 06/24/2012
 //! \author CooCox
 //! \copy
@@ -40,6 +40,7 @@
 #include "xhw_types.h"
 #include "xhw_ints.h"
 #include "xhw_memmap.h"
+#include "xhw_config.h"
 #include "xhw_nvic.h"
 #include "xhw_sysctl.h"
 #include "xhw_dma.h"
@@ -67,15 +68,6 @@ typedef struct
 
 }
 tDMAChannelAsssign;
-
-//
-// DMA Service Base address.
-//
-static unsigned long g_psDMABaseReg[] = 
-{
-    DMA1_BASE,
-    DMA2_BASE
-};
 
 //
 // DMA Service channel base address.

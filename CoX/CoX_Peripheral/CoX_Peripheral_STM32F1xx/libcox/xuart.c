@@ -2,7 +2,7 @@
 //
 //! \file xuart.c
 //! \brief Driver for the UART
-//! \version V2.1.1.1
+//! \version V2.2.1.0
 //! \date 5/24/2012
 //! \author CooCox
 //! \copy
@@ -39,6 +39,7 @@
 #include "xhw_types.h"
 #include "xhw_ints.h"
 #include "xhw_memmap.h"
+#include "xhw_config.h"
 #include "xhw_nvic.h"
 #include "xhw_sysctl.h"
 #include "xhw_uart.h"

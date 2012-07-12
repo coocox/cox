@@ -71,8 +71,6 @@
 //! \subsection STM32F1xx_API_Group_Trig_Control 3.3 DMA Transfer and Trig Control
 //!
 //! - DMAChannelTransferSet()
-//! - DMACurrentSourceAddrGet()
-//! - DMACurrentDestAddrGet()
 //! - DMARemainTransferCountGet()
 //! .
 //! <br />
