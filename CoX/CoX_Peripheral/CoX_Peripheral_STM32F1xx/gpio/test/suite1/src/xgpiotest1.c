@@ -143,7 +143,6 @@ static char* xgpio001GetTest(void)
 //*****************************************************************************
 static void xgpio001Setup(void)
 {
-    xSysCtlClockSet(16000000, xSYSCTL_XTAL_8MHZ | xSYSCTL_OSC_MAIN);
     xSysCtlPeripheralEnable(SYSCTL_PERIPH_IOPA);
     xSysCtlPeripheralEnable(SYSCTL_PERIPH_IOPB);
     xSysCtlPeripheralEnable(SYSCTL_PERIPH_IOPC);
@@ -186,6 +185,7 @@ static void xgpio001Execute(void)
     static unsigned long i, j, k, ulShift;
 
     xSPinTypeUART(UART1RX,PA10);
+
     xGPIODirModeSet(xGPIO_PORTA_BASE, xGPIO_PIN_0, xGPIO_DIR_MODE_IN);
     ulTemp = xGPIODirModeGet(xGPIO_PORTA_BASE, xGPIO_PIN_0);
     TestAssert((ulTemp == xGPIO_DIR_MODE_IN), "xgpio, \" GPIODirModeSet or GPIODirModeGet()\" error"); 	
@@ -484,7 +484,7 @@ static void xgpio001Execute(void)
     ulTemp = xGPIODirModeGet(GPIOA_BASE, GPIO_PIN_0);
     TestAssert((ulTemp == GPIO_TYPE_IN_ANALOG), 
                 "xgpio, \" xSPinTypeADC \" error");     
-
+  
     //
     // CAN AFIO test
     //
@@ -512,7 +512,6 @@ static void xgpio001Execute(void)
     //
     // I2C AFIO test
     //
-
     xSPinTypeI2C(I2C1SCK, PB8);
     ulTemp = xGPIODirModeGet(GPIOB_BASE, GPIO_PIN_8);
     TestAssert((ulTemp == GPIO_DIR_MODE_HWOD), 
