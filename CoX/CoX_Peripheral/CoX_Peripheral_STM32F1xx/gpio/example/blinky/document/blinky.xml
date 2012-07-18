@@ -4,7 +4,7 @@
   <Description>In this example,we enable the GPIOA's clock,second we configure the PA.0, PA.1 as output,finally we turn it on or off with a little delay in an infinite loop.This code segment suits for STM32F1xx serial mcu.</Description>
   <Version>2.1.1.0</Version>
   <Tags>GPIO</Tags>
-  <EVKit>HT32F125x Development Board</EVKit>
+  <EVKit>STM32F1xx Development Board</EVKit>
   
   <Files>
     <File>$REPO_ROOT$\CoX\CoX_Peripheral\CoX_Peripheral_STM32F1xx\gpio\example\blinky\src\Blinky.c</File>

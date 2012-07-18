@@ -48,9 +48,6 @@
 #include "xhw_sysctl.h"
 #include "xhw_gpio.h"
 #include "xgpio.h"
-#include "xhw_uart.h"
-#include "xuart.h"
-#include "xi2c.h"
 #include "xhw_dma.h"
 #include "xdma.h"
 
