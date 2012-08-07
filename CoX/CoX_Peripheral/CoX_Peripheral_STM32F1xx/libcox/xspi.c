@@ -423,7 +423,10 @@ SPISingleDataReadWrite(unsigned long ulBase, unsigned long ulWData)
     while((xHWREG(ulBase + SPI_SR) & SPI_SR_BSY))
     {
     }
-    
+    while(!(xHWREG(ulBase + SPI_SR) & SPI_SR_RXNE))
+    {
+    } 
+
     //
     // write data to SPI.
     //

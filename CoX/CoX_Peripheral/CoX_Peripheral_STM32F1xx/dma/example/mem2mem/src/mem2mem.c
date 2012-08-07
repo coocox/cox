@@ -61,6 +61,48 @@ unsigned long ulSrcTemp[64] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,
                                 0x71727374, 0x75767778, 0x797A7B7C, 0x7D7E7F80};
 
 unsigned long ulDestTemp[64];
+unsigned long DmaChannel0Callback(void *pvCBData,  unsigned long ulEvent,
+                                       unsigned long ulMsgParam,
+                                       void *pvMsgData);
+									   
+void DMAInit(void);
+
+
+//*****************************************************************************
+//
+//! \brief DMA memory to memory Trig transfer
+//!
+//! \param None
+//!
+//! \details This function is to memory to memory Trig transfer.
+//!
+//! \return None
+//
+//*****************************************************************************
+void DmaMem2Mem(void)
+{
+    DMAInit();
+    
+    //
+    // Set Channel control  parameter
+    //
+    DMAChannelControlSet(DMA1_CHANNEL_1, DMA_MEM_WIDTH_32BIT |
+                                                DMA_PER_WIDTH_32BIT |
+                                                DMA_MEM_DIR_INC |
+                                                DMA_PER_DIR_INC);
+    //
+    // Trig DMA Transfer
+    //
+    DMAChannelTransferSet(DMA1_CHANNEL_1, ulSrcTemp, ulDestTemp ,64);
+        
+    DMAEnable(DMA1_CHANNEL_1);    
+    
+    //
+    // Check Transfer is over or not
+    //
+    while(DMARemainTransferCountGet(DMA1_CHANNEL_1));
+    
+}
 
 //
 // Install callback function
@@ -123,7 +165,7 @@ void DMAInit(void)
 //! \return None
 //
 //*****************************************************************************
-static void DmaMem2Mem(void)
+void DmaMem2Mem(void)
 {
     DMAInit();
     

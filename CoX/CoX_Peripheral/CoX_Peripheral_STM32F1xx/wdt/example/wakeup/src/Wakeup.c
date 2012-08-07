@@ -42,21 +42,24 @@ void Wakeup(void)
 {
     xSysCtlClockSet(72000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
     SysCtlDelay(10000);
+
+    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_WDOG);
     //
-    // Enable WDT wake up function.
+    // Enable WDT Interrupt.
     //
-    xWDTFunctionEnable(xWDT_BASE, xWDT_INT_FUNCTION);
+    WDTimerIntEnable();
 
     //
     // Set WDT clock and interval time.
     //
-    xWDTInit(xWDT_BASE, SYSCTL_PERIPH_WDG_S_EXTSL, 512);
+    xWDTInit(xWDT_BASE, xSYSCTL_WDT_HCLK, 0x55);;
 
-    //
+    //														   
     // Set WDT interrupt and initionalize callback.
     //
     xWDTIntCallbackInit(xWDT_BASE, WdtCallback);
-    xIntEnable(xINT_WDT);
+	xWDTEnable(xWDT_BASE);
+
 }
  
 //*****************************************************************************
