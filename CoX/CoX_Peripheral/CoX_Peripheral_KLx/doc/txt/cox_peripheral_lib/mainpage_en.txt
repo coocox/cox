@@ -1,0 +1,297 @@
+//*****************************************************************************
+//
+//! \mainpage CooCox/CoX
+//! 
+//! <h2>What's CoX ?</h2>
+//! CoX is the definition of a group of interface function.
+//! It defines the functional access functions of MCU's common peripherals, 
+//! such as I2C, SPI, UART, etc.
+//!
+//!
+//! <b> CoX Peripheral Library can be divided into four parts: </b>
+//! - Common mandatory type interface.
+//! - Common type of non-mandatory interface.
+//! - MCU-specific interface.
+//! - MCU register interface.
+//! .
+//!
+//! <h2>Features</h2>
+//! - \b Free and \b Open source under BSD license
+//! - Peripherals library with a unified standard interface, can be ported to 
+//! other MCUs easily, Supports the platforms of ICCARM, ARMCC, GCC
+//! - Full functions of the peripheral, CoX still provides a set of APIs for 
+//! special MCU features
+//! - Support interrupt, CoX extracts a set of interrupt events
+//! - A lot of reused drivers
+//! - Extensive documentation generated using doxygen standard
+//! - Standard definition of the API reference for almost all the Cortex-M0/M3 
+//! MCU manuals
+//! - Add a new innovative element, such as the short pin (PA2) in GPIO module
+//! - Strict coding standard and does not affect code size and speed, 
+//! through rigorous testing and verification
+//! - Configurable
+//! - Provide blank template to make port more easily
+//! .
+//!
+//! <img src="CoX-Big0.png" border="0" />
+//!
+//! <h2>Why do we use CoX ?</h2>
+//! - CoX Peripheral is not only a common interface for drivers, but also a 
+//! full peripheral library.
+//! - CoX function interface unify the definition of the access functions of 
+//! MCU's common peripherals, which makes you port programs among different 
+//! MCUs more conveniently.
+//! - CoX has a set of specific realization for each MCU, and its code size and
+//! speed are nearly the same as the library that the suppliers provided.
+//! .
+//!
+//! 
+//! <h2>When should we use CoX ?</h2>
+//! - If users may change MCU in the future and do not want to do too much 
+//! unnecessary port work.
+//! - If users plan to use the existing drivers based on CoX interface.
+//! .
+//!
+//! <h2>The process of CoX evolution ?</h2>
+//! <a href="http://www.coocox.org/Cox.htm" target="_blank">CoX V1.0.0</a> 
+//! was first released in September 2010, and has been ported to 
+//! several MCU platforms, such as LPC11xx, NUC1xx and so on.
+//!
+//! CoX V1.0.0 also provides a group of common functions for peripherals, but
+//! it has some drawbacks:
+//! - Do not support interrupt.
+//! - Does not have full functions. It just implements some of the most common
+//! functions, and can't play the advantages of the special MCUs.
+//! - Does not support all the peripherals, users need to rely on the 
+//! cooperation of other libraries. That will also leads to larger code size,
+//! and may have some conflicts for logic implementation.
+//!
+//! So we re-write the CoX. We have prepared for about one year for the new CoX,
+//! each of whose interface was defined after having read and compared a number
+//! of chip manufacturers'manuals. The current version of CoX has solved all
+//! the problems above, and added some innovative things. Now the CoX 
+//! peripheral library can meet different needs, such as reusable driver, 
+//! specified application and so on.
+//! 
+//!
+//! <h2> How to use CoX?</h2>
+//! CoX is a group of APIs and Macros who have the prefix x. such as 
+//! xGPIOPinRead(), etc. \n
+//! Click here to see more about how to use CoX: \ref CoX_Guide.  
+//!
+//! \n
+//! <h2>CoX Peripheral Interfaces List and Roadmap</h2>
+//! <table>
+//!     <tr>
+//!         <td>Interface</td>
+//!         <td>Description</td>
+//!         <td>State</td>
+//!         <td>Date</td>
+//!     </tr>
+//!     <tr>
+//!         <td>\ref Startup</td>
+//!         <td>CoX startup code</td>
+//!         <td><img src="accepts.png" border="0" /></td>
+//!         <td>09/2011</td>
+//!     </tr>
+//!     <tr>
+//!         <td>\ref LowLayer</td>
+//!         <td>
+//!             CoX lowlyaer support, such as type define, register define, \n 
+//!             debug assert and so on.
+//!         </td>
+//!         <td><img src="accepts.png" border="0" /></td>
+//!         <td>09/2011</td>
+//!     </tr>
+//!     <tr>
+//!         <td>\ref xCORE</td>
+//!         <td>Cortex-M0/M3 Core Peripheral Interface</td>
+//!         <td><img src="accepts.png" border="0" /></td>
+//!         <td>09/2011</td>
+//!     </tr>
+//!     <tr>
+//!         <td>\ref SysCtl</td>
+//!         <td>System Control(CG & PMC) Peripheral Interface</td>
+//!         <td><img src="accepts.png" border="0" /></td>
+//!         <td>09/2011</td>
+//!     </tr>
+//!     <tr>
+//!         <td>\ref DMA</td>
+//!         <td>DMA Peripheral Interface</td>
+//!         <td><img src="accepts.png" border="0" /></td>
+//!         <td>09/2011</td>
+//!     </tr>
+//!     <tr>
+//!         <td>\ref GPIO</td>
+//!         <td>GPIO & AFIO Peripheral Interface</td>
+//!         <td><img src="accepts.png" border="0" /></td>
+//!         <td>09/2011</td>
+//!     </tr>
+//!     <tr>
+//!         <td>\ref UART</td>
+//!         <td>UART Peripheral Interface</td>
+//!         <td><img src="accepts.png" border="0" /></td>
+//!         <td>09/2011</td>
+//!     </tr>
+//!     <tr>
+//!         <td>\ref SPI</td>
+//!         <td>SPI(SSI) Peripheral Interface</td>
+//!         <td><img src="accepts.png" border="0" /></td>
+//!         <td>09/2011</td>
+//!     </tr>
+//!     <tr>
+//!         <td>\ref I2C</td>
+//!         <td>I2C Peripheral Interface</td>
+//!         <td><img src="accepts.png" border="0" /></td>
+//!         <td>09/2011</td>
+//!     </tr>
+//!     <tr>
+//!         <td>\ref TIMER</td>
+//!         <td>Timer Peripheral Interface</td>
+//!         <td><img src="accepts.png" border="0" /></td>
+//!         <td>09/2011</td>
+//!     </tr>
+//!     <tr>
+//!         <td>\ref PWM</td>
+//!         <td>PWM Peripheral Interface</td>
+//!         <td><img src="accepts.png" border="0" /></td>
+//!         <td>09/2011</td>
+//!     </tr>
+//!     <tr>
+//!         <td>\ref RTC</td>
+//!         <td>RTC Peripheral Interface</td>
+//!         <td><img src="accepts.png" border="0" /></td>
+//!         <td>09/2011</td>
+//!     </tr>
+//!     <tr>
+//!         <td>\ref WDT</td>
+//!         <td>Watchdog Timer Peripheral Interface</td>
+//!         <td><img src="accepts.png" border="0" /></td>
+//!         <td>09/2011</td>
+//!     </tr>
+//!     <tr>
+//!         <td>\ref ADC</td>
+//!         <td>ADC Peripheral Interface</td>
+//!         <td><img src="accepts.png" border="0" /></td>
+//!         <td>09/2011</td>
+//!     </tr>
+//!     <tr>
+//!         <td>\ref ACMP</td>
+//!         <td>Analog Comparator Peripheral Interface</td>
+//!         <td><img src="accepts.png" border="0" /></td>
+//!         <td>09/2011</td>
+//!     </tr>
+//!     <tr>
+//!         <td>\ref I2S</td>
+//!         <td>Inter-Integrated Circuit Sound(I2S) Peripheral Interface</td>
+//!         <td><img src="adds.png" border="0" /></td>
+//!         <td>12/2011</td>
+//!     </tr>
+//!     <tr>
+//!         <td>\ref CAN</td>
+//!         <td>CAN Bus Peripheral Interface</td>
+//!         <td><img src="adds.png" border="0" /></td>
+//!         <td>12/2011</td>
+//!     </tr>
+//!     <tr>
+//!         <td>\ref USB</td>
+//!         <td>USB Device/Host/OTG Peripheral Interface</td>
+//!         <td><img src="adds.png" border="0" /></td>
+//!         <td>12/2011</td>
+//!     </tr>
+//!     <tr>
+//!         <td>\ref EBI</td>
+//!         <td>EBI bus Peripheral Interface</td>
+//!         <td><img src="adds.png" border="0" /></td>
+//!         <td>12/2011</td>
+//!     </tr>
+//! </table>
+//!
+//! \n
+//! <h2>CoX Support MCU List and Roadmap</h2>
+//! <table>
+//!     <tr>
+//!         <td>Manufacturer</td>
+//!         <td>Series</td>
+//!         <td>State</td>
+//!         <td>Date</td>
+//!         <td>Download</td>
+//!     </tr>
+//!     <tr>
+//!         <td >CooCox</td>
+//!         <td><a href="http://www.coocox.org/cox/manual/interface/">CoX Port Template</a></td>
+//!         <td><img src="accepts.png" /></td>
+//!         <td>09/2011</td>
+//!         <td><a href="http://www.coocox.org/Cox.html#mcu">Download</a></td>
+//!     </tr>
+//!     <tr>
+//!         <td rowspan="3">Nuvoton</td>
+//!         <td><a href="http://www.coocox.org/cox/manual/nuc1xx/">NUC1xx</a></td>
+//!         <td><img src="accepts.png" /></td>
+//!         <td>09/2011</td>
+//!         <td><a href="http://www.coocox.org/Cox.html#mcu">Download</a></td>
+//!     </tr>
+//!     <tr>
+//!         <td>NUC122</td>
+//!         <td><img src="adds.png" /></td>
+//!         <td>11/2011</td>
+//!         <td>NA</td>
+//!     </tr>
+//!     <tr>
+//!         <td>M051</td>
+//!         <td><img src="adds.png" /></td>
+//!         <td>12/2011</td>
+//!         <td>NA</td>
+//!     </tr>
+//!     <tr>
+//!         <td rowspan="5">NXP</td>
+//!         <td>LPC11c1x</td>
+//!         <td><img src="adds.png" /></td>
+//!         <td>2012</td>
+//!         <td>NA</td>
+//!     </tr>
+//!     <tr>
+//!         <td>LPC11xx</td>
+//!         <td><img src="adds.png" /></td>
+//!         <td>12/2011</td>
+//!         <td>NA</td>
+//!     </tr>
+//!     <tr>
+//!         <td>LPC12xx</td>
+//!         <td><img src="adds.png" /></td>
+//!         <td>2012</td>
+//!         <td>NA</td>
+//!     </tr>
+//!     <tr>
+//!         <td>LPC13xx</td>
+//!         <td><img src="adds.png" /></td>
+//!         <td>2012</td>
+//!         <td>NA</td>
+//!     </tr>
+//!     <tr>
+//!         <td>LPC17xx</td>
+//!         <td><img src="adds.png" /></td>
+//!         <td>2012</td>
+//!         <td>NA</td>
+//!     </tr>
+//!     <tr>
+//!         <td rowspan="1">ST</td>
+//!         <td>STM32F10x</td>
+//!         <td><img src="adds.png" /></td>
+//!         <td>12/2011</td>
+//!         <td>NA</td>
+//!     </tr>
+//!     <tr>
+//!         <td rowspan="1">TI</td>
+//!         <td>Stellaris</td>
+//!         <td><img src="adds.png" /></td>
+//!         <td>12/2011</td>
+//!         <td>NA</td>
+//!     </tr>
+//! </table>
+//! If you hope other MCUs can be supported by CoX as soon as possible, 
+//! you can develop them by yourself with our guide, 
+//! <a href="mailto:master@coocox.com">contact us</a> please!
+//!
+//
+//*****************************************************************************

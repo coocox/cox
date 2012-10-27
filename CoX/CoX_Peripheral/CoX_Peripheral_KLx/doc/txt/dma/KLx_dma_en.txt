@@ -1,0 +1,234 @@
+//********************************************************************************
+//
+//! \defgroup KLx_DMA KLx DMA
+//!
+//! \brief KLx DMA Peripheral Driver
+//!
+//! The CoX Peripheral Library also provides DMAs for full functions of
+//! FreeScale KLx DMA. This module supports the whole KLx Series.
+//!
+//! <br /> 
+//! <h1>Contents</h1>
+//! - \ref KLx_DMA_BLOCK
+//! - \ref KLx_DMA_Function_Desc
+//! - \ref KLx_DMA_API_Group
+//!   - \ref KLx_API_Group_Configure_Control
+//!   - \ref KLx_API_Group_Interrupt_Control
+//!   - \ref KLx_API_Group_Trig_Control
+//!   .
+//! - \ref KLx_DMA_Usage
+//! .
+//!
+//! <br />
+//! \section KLx_DMA_BLOCK 1. DMA Physical Block
+//! <img src="KLx_DMA_block.png" />
+//!
+//! <br />
+//! \section KLx_DMA_Function_Desc 2. Functional Description
+//! The system control block has the following functions:
+//! - The DMA has different configure parameter of transfer including width of data,
+//!   the mode of address, and the mode of transfer, you must set them before you trig. 
+//! - Each DMA channel can generates an individual interrupt when data transfer is    
+//!   finished or  target abort interrupt generation during DMA transfer and the
+//!   respective interrupt event flag IF will be set. The interrupt event flag will
+//!   generates an interrupt to CPU if the interrupt enable bit IE.
+//! - The DMA should be triged if you want to use it after you finish configuring. 
+//! .
+//!
+//! <br />
+//! \subsection KLx_DMA_API_Group 3. API Groups
+//!
+//! The DMA API is broken into three groups of functions:
+//! - those that deal with DMA configure,
+//! - those that deal with DMA interrupt control,
+//! - those that deal with DMA transfer and trig control.
+//! .
+//! <br />
+//! \subsection KLx_API_Group_Configure_Control 3.1 DMA configure control APIs
+//!
+//! The DMA configure control are dealt with:
+//! - DMAEnable()
+//! - DMADisable()
+//! - DMAChannelIsBusy()
+//! - DMAChannelDynamicAssign()
+//! - DMAChannelDeAssign()
+//! - DMAChannelControlSet()
+//! .
+//!
+//! <br />
+//! \subsection KLx_API_Group_Interrupt_Control 3.2 DMA Interrupt Control APIs
+//! - DMAChannelIntEnable()
+//! - DMAChannelIntDisable()
+//! - DMAChannelIntCallbackInit()
+//! - DMAChannelIntCallbackGet()
+//! - DMAChannelIntFlagGet()
+//! - DMAChannelIntFlagClear()
+//! .
+//!
+//! <br />
+//! \subsection KLx_API_Group_Trig_Control 3.3 DMA Transfer and Trig Control
+//!
+//! - DMAChannelTransferSet()
+//! - DMASharedBufferDataGet()
+//! .
+//! <br />
+//! \section KLx_DMA_Usage 4.  Program Examples
+//! The following example shows how to use the DMA API to configure DMA and implement
+//! the function of transfer between memory and memory.
+//! \code
+//! #include "test.h"
+//! #include "xhw_dma.h"
+//! #include "xdma.h"
+//!
+//! unsigned long ulSrcArray[64] = {0x01020304, 0x05060708, 0x090A0B0C, 0x0D0E0F10,
+//!                                 0x11121314, 0x15161718, 0x191A1B1C, 0x1D1E1F20,
+//!                                 0x21222324, 0x25262728, 0x292A2B2C, 0x2D2E2F30,
+//!                                 0x31323334, 0x35363738, 0x393A3B3C, 0x3D3E3F40,
+//!                                 0x41424344, 0x45464748, 0x494A4B4C, 0x4D4E4F50,
+//!                                 0x51525354, 0x55565758, 0x595A5B5C, 0x5D5E5F60,
+//!                                 0x61626364, 0x65666768, 0x696A6B6C, 0x6D6E6F70,
+//!                                 0x71727374, 0x75767778, 0x797A7B7C, 0x7D7E7F80};
+//! unsigned char IntMessage[] = "The DMA transfer over!";
+//! unsigned long ulDestArray[64];
+//! unsigned long i;
+//! unsigned long ulAssignChannel;
+//! unsigned long TransferOver(void *pvCBData, 
+//!                                       unsigned long ulEvent,
+//!                                       unsigned long ulMsgParam,
+//!                                       void *pvMsgData)
+//! {
+//!    for(i=0;i<25;i++)
+//!    {
+//!        TestIOPut(IntMessage[i]);
+//!	       TestIOPut('\n');
+//!        TestIOPut('\r');
+//!    }
+//!    return 0;
+//! }
+//! //*****************************************************************************
+//!
+//! //Prints a decimal unsigned number.
+//!
+//! //param n is the number to be printed
+//!
+//! // Prints a decimal unsigned number.
+//!
+//! //return None.
+//!
+//! //*****************************************************************************
+//! static 
+//! void PrintN(unsigned long n)
+//! {
+//!    char buf[16], *p;
+//!
+//!    if (n == 0)
+//!    {
+//!        TestIOPut('0');
+//!    }
+//!    else
+//!    {
+//!        p = buf;
+//!        while (n != 0)
+//!        {
+//!            *p++ = (n % 10) + '0';
+//!            n /= 10;
+//!        }
+//!
+//!        while (p > buf)
+//!            TestIOPut(*--p);
+//!    }
+//! }
+//! //*****************************************************************************
+//!
+//! // Ininite the DMA case which is needed
+//!
+//! // param None
+//!
+//! // This function ininite the DMA including clock source and enable DMA 
+//!
+//! //return none
+//!
+//! //*****************************************************************************
+//! void DMAInit(void)
+//! {
+//!    //
+//!    // Enable Peripheral DMA
+//!    //
+//!    SysCtlPeripheralEnable(SYSCTL_PERIPH_DMA);
+//!    SysCtlPeripheralDisable(SYSCTL_PERIPH_DMAMUX);
+//!    ulAssignChannel = DMAChannelDynamicAssign(DMA_REQUEST_MEM, DMA_REQUEST_MEM);
+//!
+//!    DMAEnable(ulAssignChannel);
+//!    //
+//!    // Enable DMA interrupt
+//!    //
+//!    xIntEnable(INT_DMA0);
+//!    xIntEnable(INT_DMA1);
+//!    xIntEnable(INT_DMA2);
+//!    xIntEnable(INT_DMA3);
+//!
+//!    DMAChannelIntEnable(ulAssignChannel, DMA_EVENT_TC);
+//!    DMAChannelIntCallbackInit(ulAssignChannel, TransferOver);
+//! }
+//! //*****************************************************************************
+//!
+//! // DMA Configure and Trig transfer
+//!
+//! //param None
+//!
+//! // This function configure DMA and Trig transfer
+//!
+//! //return None
+//!
+//! //*****************************************************************************
+//! void DMAConfigAndTrigTransfer(void)
+//! {
+//!    unsigned long uli;
+//!    //
+//!    // Set Channel control  parameter
+//!    //
+//!    DMAChannelControlSet(ulAssignChannel,  DMA_DST_SIZE_32 |
+//!                                           DMA_SRC_SIZE_32 |                   
+//!                                           DMA_SRC_DIR_INC |                  
+//!                                           DMA_DST_DIR_INC);
+//!    //
+//!    // Trig DMA Transfer
+//!    //
+//!    DMAChannelTransferSet(ulAssignChannel, ulSrcArray, ulDestArray, 64*4);
+//! 
+//!    DMAChannelRequest(ulAssignChannel);
+//!		
+//!    //
+//!    // Check Transfer is over or not
+//!    //
+//!    uli = 1000;
+//!    while(uli--); 
+//!
+//!    for(uli = 0; uli < 64; uli++)
+//!    {
+//!        PrintN(ulDestArray[uli]);
+//!        TestIOPut('\n');
+//!        TestIOPut('\r');
+//!	       SysCtlDelay(5000000);
+//!    }
+//! }
+//! //*****************************************************************************
+//!
+//! //main function
+//!
+//! //param None
+//!
+//! //return None
+//! //*****************************************************************************
+//! int main(void)
+//! {
+//!    DMAInit();
+//!    while(1)
+//!    {
+//!        DMAConfigAndTrigTransfer();
+//!    }
+//! }
+//! \endcode
+//! \note 
+//!
+//**********************************************************************************

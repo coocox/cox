@@ -1,0 +1,150 @@
+//*****************************************************************************
+//
+//! \defgroup xUART xUART
+//!
+//! \brief CoX UART Peripheral Interface
+//!
+//! The xUART is the UART Peripheral Interface of CoX. It defines some common
+//! macros and APIs.
+//!
+//! <h1>Contents</h1>
+//! - \ref CoX_UART_How_Define
+//! - \ref xUART_API_Group
+//!   - \ref xUART_API_Group_NormalMode
+//!   - \ref xUART_API_Group_LIN
+//!   - \ref xUART_API_Group_Int
+//!   .
+//! - \ref xUART_Usage 
+//! .
+//!
+//! \n
+//!
+//! \section CoX_UART_How_Define 1. How is the xUART Standard Define?
+//! CoX UART defines the APIs based on the following common functions:
+//! - \ref xUART_API_Group_NormalMode     "Configure UART as Normal Mode"
+//! - \ref xUART_API_Group_LIN            "UART to Support LIN"
+//! - \ref xUART_API_Group_Int            "Deal with the Interrupts"
+//! .
+//!
+//! \n
+//! \section xUART_API_Group 2. API Groups
+//!
+//! The CoX UART API is broken into six groups of functions.
+//!
+//! \n
+//! \subsection xUART_API_Group_NormalMode 2.1 UART Normal Mode APIs
+//! -  xUARTConfigSet()
+//! -  xUARTEnable()
+//! -  xUARTDisable()
+//! -  xUARTFIFOEnable()
+//! -  xUARTFIFODisable()
+//! -  xUARTFIFORxLevelSet()
+//! -  xUARTCharsAvail()
+//! -  xUARTSpaceAvail()
+//! -  xUARTCharGetNonBlocking()
+//! -  xUARTCharGet()
+//! -  xUARTCharPutNonBlocking()
+//! -  xUARTCharPut()
+//! -  xUARTBusy()
+//! -  xUARTRxErrorGet()
+//! -  xUARTRxErrorClear()
+//! .
+//!
+//! \n
+//! \subsection xUART_API_Group_LIN 2.2 UART LIN APIs
+//! -  xUARTLINConfig()
+//! -  xUARTLINEnable()
+//! -  xUARTLINDisable()
+//! .
+//!
+//! \n
+//! \subsection xUART_API_Group_Int 2.3 UART Interrupt APIs
+//! -  xUARTIntEnable()
+//! -  xUARTIntDisable()
+//! -  xUARTIntCallbackInit()
+//! .
+//!
+//! \n
+//! \section xUART_Usage 3. Usage & Program Examples
+//! - \ref xUART_App_NormalMode
+//! - \ref xUART_App_LIN
+//! .
+//! 
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup xUART_Apps xUART Config and Example
+//!
+//! \brief CoX UART Config and Config and Example.
+//!
+//
+//*****************************************************************************
+//!
+//*****************************************************************************
+//
+//! \defgroup xUART_App_NormalMode Normal Mode Config and Example
+//!
+//! \brief CoX UART Normal Mode Config and Example.
+//!
+//! Here we introduce the normal mode config of uart, and provide a small example.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref xUART_App_NormalMode_config
+//! - \ref xUART_App_NormalMode_code
+//! .
+//!
+//! <br />
+//! \section xUART_App_NormalMode_config 1.How to configure the uart to send and receive data. 
+//!
+//! <ol>
+//! <li>Enale the peripheral clock of UART and GPIO</li>
+//! <li>Configure the GPIO pins mode as UART type</li>
+//! <li>Configure the baudrate, word length, parity bit, and stop bit</li>
+//! <li>Enable the UART</li>
+//! <li>Enable the corresponding interrupt for receviing data, and write interrupt handler function</li>
+//! </ol>
+//!
+//! <br />
+//! \section xUART_App_NormalMode_code 2.The code to send and receive data.
+//!
+//! \code
+//!
+//! void uart_test()
+//! {
+//!     //void 
+//! }
+//!     
+//! \endcode
+//!
+//
+//*****************************************************************************
+
+
+//******************************************************
+//
+//! \addtogroup UART
+//! @{
+//! \addtogroup xUART_Apps
+//! @{
+//! \addtogroup xUART_App_NormalMode
+//! @{
+//! @}
+//! \addtogroup xUART_App_IrDA
+//! @{
+//! @}
+//! \addtogroup xUART_App_Modem
+//! @{
+//! @}
+//! \addtogroup xUART_App_LIN
+//! @{
+//! @}
+//! @}
+//! @}
+//
+//******************************************************
+
+

@@ -1,0 +1,46 @@
+<?xml version="2.0" ?>
+<Component>
+    <Name>COX.Peripheral.KLx.xSPI</Name>
+    <Description>KLx SPI Driver</Description>
+    <Category>Peripheral.COX</Category>
+    <Version>2.0.0</Version>
+    <Tags>COX, xSPI, SPI</Tags>
+
+    <Files>
+        <File>..\..\libcox\xspi.h</File>
+        <File>..\..\libcox\xspi.c</File>
+    </Files>
+
+    <FilesCoIDE>
+        <File>$PROJECT_ROOT$\COX\COX_Peripheral\src\xspi.h</File>
+        <File>$PROJECT_ROOT$\COX\COX_Peripheral\inc\xspi.c</File>
+    </FilesCoIDE>
+
+    <Dependencys>
+        <Dependency>COX.Peripheral.KLx.xStartup</Dependency>
+        <Dependency>COX.Peripheral.KLx.xLowLayer</Dependency>
+		<Dependency>COX.Peripheral.KLx.xSysCtl</Dependency>
+		<Dependency>COX.Peripheral.KLx.xGPIO</Dependency>
+    </Dependencys>
+
+    <SupportDevices>
+        <Series>
+            <Serie exclude="">KLx</Serie>
+        </Series>
+        <Devices>
+            <Device></Device>
+        </Devices>
+    </SupportDevices>
+
+    <Micros>
+        <Comm>
+            <Define></Define>
+        </Comm>
+        <Device name="">
+            <Define></Define>
+        </Device>   
+    </Micros>
+
+    <Help></Help>
+
+</Component>

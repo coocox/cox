@@ -1,0 +1,83 @@
+//*****************************************************************************
+//
+//! \defgroup KLxx_WDT KLxx WDT
+//! 
+//! \brief Freescale KLxx WDT Peripheral Driver.
+//!
+//! The CoX Peripheral Library also provides APIs for full functions of Freescale
+//! KLxx WDT. This module supports the whole KLxx Series.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref KLxx_WDT_Blcok
+//! - \ref KLxx_WDT_Function_Desc
+//! - \ref KLxx_WDT_API_Group
+//!   - \ref KLxx_WDT_API_Group_Config
+//!   - \ref KLxx_WDT_API_Group_Function
+//!   .
+//! - \ref KLxx_WDT_Usage
+//! .
+//!
+//! 
+//! <br />
+//! \section KLxx_WDT_Function_Desc 1. Functional Description
+//! WDT includes the following functions:
+//! - Restart
+//! .
+//! 
+//! <br />
+//! \section KLxx_WDT_API_Group 2. API Groups
+//! 
+//! The WDT API is broken into two groups of functions : 
+//! - those that deal with configuring the WDT
+//! - those that deal with functions
+//! .
+//!
+//! <br />
+//! \subsection KLxx_WDT_API_Group_Config 2.1 WDT Config APIs
+//! The WDT are configured with :
+//! - WDTimerInit()
+//! .
+//!
+//! <br />
+//! \subsection KLxx_WDT_API_Group_Config 2.2 WDT Function APIs
+//! The WDT are configured with :
+//! - WDTimerEnable()
+//! - WDTimerDisable()
+//! - WDTimerRestart() 
+//! .
+//! 
+//! <br />
+//! \section KLxx_WDT_Usage 3. Usage & Program Examples
+//! The following example shows how to use the WDT API to initialize the 
+//! WDT, achieve the WDT interrupt function.
+//! 
+//! \code
+//!
+//! //
+//! // Configure System clock
+//! //
+//! xSysCtlClockSet(48000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
+//! //
+//! // Configure watchdog
+//! // MODE    : Normal Mode
+//! // CLOCK   : Bus clock
+//! // TIMEOUT : 2**16 Tick
+//! //
+//! WDTimerInit(WDT_MODE_NORMAL | WDT_INTERVAL_BUS_2_16T);
+//!
+//! //
+//! // Start the Watchdog Timer.
+//! //
+//! WDTimerEnable();
+//!  
+//! //
+//! // wait until mcu reset
+//! //
+//!
+//! \endcode
+//! 
+//
+//*****************************************************************************
+
+

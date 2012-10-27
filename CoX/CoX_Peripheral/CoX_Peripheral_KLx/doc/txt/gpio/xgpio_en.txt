@@ -1,0 +1,258 @@
+//*****************************************************************************
+//
+//! \defgroup GPIO
+//! 
+//! \brief General-Purpose Input/Outputs (GPIO) Peripheral Driver.
+//!
+//! General Purpose Input/Output (a.k.a. GPIO) is a generic pin on a mcu  
+//! whose behavior (including whether it is an input or output pin) can be 
+//! controlled (programmed) through software.
+//!
+//! Always an I/O line may be dedicated as a general-purpose I/O or be 
+//! assigned to a function of an embedded peripheral.
+//!
+//! An I/O line Can also pend an interrupt when  detect rising edge, 
+//! falling edge, low level or high level.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref GPIO_Blcok
+//! - \ref GPIO_Function_Desc
+//!   - \ref GPIO_Data_Control
+//!     - \ref GPIO_Data_Direction
+//!     - \ref GPIO_Data_IO
+//!     .
+//!   - \ref GPIO_Int_Control
+//!   - \ref GPIO_AFIO_Control
+//!   - \ref GPIO_Pad_Control
+//!   .
+//! - \ref GPIO_Applications
+//! .
+//! 
+//! <br />
+//! \section GPIO_Blcok 1. GPIO Physical Block
+//! <img src="gpio_block.png" />
+//!
+//! <br />
+//! \section GPIO_Function_Desc 2. GPIO Functional Description
+//! 
+//! <br />
+//! \subsection GPIO_Data_Control 2.1 GPIO Data Control
+//!
+//! \subsubsection GPIO_Data_Direction 2.1.1 GPIO Data Direction
+//!
+//! The GPIO Control can configure each individual pin as : 
+//! - \b Input
+//! - \b Output
+//! - \b Peripheral Function
+//! .
+//!
+//! \subsubsection GPIO_Data_IO 2.1.2 GPIO Data Input/Output
+//! Software Can drive the I/O line to High Level(digital 0) or 
+//! Low Level(digital 0) when config as Output, or 
+//! <br /> sample the pin value when config as output.
+//! 
+//! <br />
+//! \subsection GPIO_Int_Control 2.2 GPIO Input Edge/Level Interrupt
+//! The PIO Controller can be programmed to generate an interrupt when 
+//! it detects an edge or a level on an I/O line.
+//!
+//! The Interrupt mode can be:
+//! - Rising Edge Detection
+//! - Falling Edge Detection
+//! - Both Edge Detection
+//! - Low Level Detection
+//! - High Level Detection
+//! - Both Level Dectection
+//! .
+//! 
+//! <br />
+//! \subsection GPIO_AFIO_Control 2.3 GPIO AFIO Control
+//! There is always an Alternate function I/O configuration (AFIO) 
+//! to optimize the number of peripherals available for the various kinds
+//! of package. Highly flexible pin muxing allows use as GPIO or one of 
+//! several peripheral functions.
+//!
+//! <br />
+//! \subsection GPIO_Pad_Control 2.4 GPIO Pad Control
+//! The pad control registers allow software to configure the GPIO pads 
+//! based on the application requirements.
+//! It contains:
+//! - control drive strength
+//! - open-drain configuration
+//! - pull-up and pull-down resistors
+//! .
+//! 
+//! <br />
+//! \section GPIO_Applications 3. GPIO Applications
+//! The PIO can be used to read button state, drive LED, etc.
+//! <table border=0 ><tr>
+//!   <td width="50%"><img src="pio_button.png" /></td>
+//!   <td width="50%"><img src="pio_led.png" /></td>
+//! </tr></table>
+//!
+//! <br />
+//! \note Here describes the common function of the GPIO Peripheral. The CoX
+//! Peripheral Interface is base on the functions above.
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
+//! \defgroup xGPIO xGPIO
+//! 
+//! \brief CoX GPIO Peripheral Interface
+//!
+//! The xGPIO is the GPIO Peripheral Interface of CoX. It defines some common
+//! macros and APIs.
+//! 
+//! <h1>Contents</h1>
+//! - \ref CoX_GPIO_How_Define
+//! - \ref xGPIO_API_Group
+//!   - \ref xGPIO_API_Group_Config
+//!   - \ref xGPIO_API_Group_Interrupt
+//!   - \ref xGPIO_API_Group_Pin
+//!   .
+//! - \ref xGPIO_Usage 
+//! .
+//!
+//! <br />
+//!
+//! \section CoX_GPIO_How_Define 1. How is the xGPIO Standard Define?
+//! CoX GPIO defines the APIs based on the following common functions:
+//! - Configure a GPIO I/O line(pin)
+//!   - Direction Configure :
+//!     - Input
+//!     - Output
+//!     - Hardware
+//!     .
+//!   - Peripheral Function Assignment(AFIO)
+//!   - Pad Configure :
+//!     - Drive strength
+//!     - open-drain / push-pull
+//!     - weak pull-up / pull-down resistors
+//!     .
+//!   .
+//! - GPIO Pin Data Control.
+//!   - Output a High or Low level.
+//!   - Sample the pin value.
+//!   .
+//! - Input Interrupt(EXTI) :
+//!   - Rising Edge Detection
+//!   - Falling Edge Detection
+//!   - Both Edge Detection
+//!   - Low Level Detection
+//!   - High Level Detection
+//!   . 
+//! .
+//!
+//! <br />
+//! \section xGPIO_API_Group 2. API Groups
+//! 
+//! The CoX GPIO API is broken into three groups of functions: 
+//! - those that deal with configuring the GPIO pins, 
+//! - those that deal with interrupts, 
+//! - those that access the pin value.
+//! .
+//!
+//! <br />
+//! \subsection xGPIO_API_Group_Config 2.1 GPIO Config APIs
+//! 
+//! The GPIO pins are configured with :
+//! - xGPIODirModeSet() 
+//! - xGPIOPadConfigSet(). 
+//! .
+//! The configuration can be read back with 
+//! - xGPIODirModeGet() 
+//! - xGPIOPadConfigGet(). 
+//!.
+//! 
+//! There are also convenience
+//! functions for configuring the pin in the required or recommended 
+//! configuration for a particular peripheral; these are :
+//! - xPinTypeGPIOInput(),
+//! - xPinTypeGPIOOutput(),
+//! - xPinTypeADC(),
+//! - xPinTypeCAN(),
+//! - xSPinTypeI2C(),
+//! - xSPinTypePWM(),
+//! - xSPinTypeSPI(),
+//! - xSPinTypeTimer(),
+//! - xSPinTypeUART(),
+//! - xSPinTypeACMP(),
+//! - xSPinTypeCLKO(),
+//! - xSPinTypeEXTINT().
+//! - others must be add to the list.
+//! .
+//! 
+//! <br />
+//! \subsection xGPIO_API_Group_Interrupt 2.2 GPIO Interrupt APIs
+//! 
+//! The GPIO interrupts are handled with :
+//! - xGPIOPinIntCallbackInit(),
+//! - xGPIOPinIntEnable(), 
+//! - xGPIOSPinIntEnable(),
+//! - xGPIOPinIntDisable(),
+//! - xGPIOSPinIntDisable(), 
+//! - xGPIOPinIntStatus(),
+//! - xGPIOPinIntClear(),
+//! - xGPIOSPinIntClear().
+//! .
+//!
+//! <br />
+//! \subsection xGPIO_API_Group_Pin 2.3 GPIO Pin State APIs
+//! 
+//! The GPIO pin state is accessed with :
+//! - xGPIOPinRead(),
+//! - xGPIOPinWrite(),
+//! - xGPIOSPinRead(),
+//! - xGPIOSPinWrite().
+//! .
+//!
+//! <br />
+//! \section xGPIO_Usage 3. Usage & Program Examples
+//! The following example shows how to use the GPIO API to initialize the 
+//! GPIO, read data from pins, and write data to pins.
+//! 
+//! \code
+//! int iVal;
+//!
+//! //
+//! // Initialize the GPIO pin configuration.
+//! //
+//! // Set pins 2, 4, and 5 as input, SW controlled.
+//! XPinTypeGPIOInput(xGPIO_PORTA_BASE,
+//!                   xGPIO_PIN_2 | xGPIO_PIN_4 | xGPIO_PIN_5);
+//! //
+//! // Set pins 0 and 3 as output, SW controlled.
+//! //
+//! XPinTypeGPIOOutput(xGPIO_PORTA_BASE, xGPIO_PIN_0 | xGPIO_PIN_3);
+//!
+//! //
+//! // Read some pins.
+//! //
+//! iVal = xGPIOPinRead(GPIO_PORTA_BASE,
+//!                     (GPIO_PIN_0 | GPIO_PIN_2 | GPIO_PIN_3 |
+//!                      GPIO_PIN_4 | GPIO_PIN_5));
+//! //
+//! // Write some pins. Even though pins 2, 4, and 5 are specified, those
+//! // pins are unaffected by this write since they are configured as inputs.
+//! // At the end of this write, pin 0 will be a 0, and pin 3 will be a 1.
+//! //
+//! xGPIOPinWrite(GPIO_PORTA_BASE,
+//!               (GPIO_PIN_0 | GPIO_PIN_2 | GPIO_PIN_3 |
+//!                GPIO_PIN_4 | GPIO_PIN_5),
+//!               0xF8);
+//!
+//! \endcode
+//! \todo 
+//!
+//
+//*****************************************************************************
+
+
+
+
+
+

@@ -1,0 +1,185 @@
+//*****************************************************************************
+//
+//! \defgroup xCORE xCORE  
+//! \brief ARM Cortex-M0+ Core peripheral (CPU, NVIC, Systick).
+//!
+//! <h1>Contents</h1>
+//! - \ref CORE_Blcok
+//! - \ref CORE_Peripherals
+//! - \ref CORE_Function_Desc
+//!   - \ref CORE_Spe_Reg_Control
+//!   - \ref CORE_Int_Control
+//!     - \ref CORE_Int_Enable
+//!     - \ref CORE_Int_Disable
+//!     - \ref CORE_Int_Pending
+//!     - \ref CORE_Int_Priority
+//!     .
+//!   - \ref CORE_xSysTick_Control
+//! - \ref xCORE_API_Group
+//!   - \ref xCORE_API_Group_Cpu
+//!   - \ref xCORE_API_Group_Int
+//!   - \ref xCORE_API_Group_Systick
+//!   .
+//! - \ref CORE_Applications
+//! .
+//! 
+//! \section CORE_Blcok 1. CORE Physical Block
+//! <img src="core_block.png" />
+//! 
+//! \section CORE_Peripherals 2. Cortex -Mx Peripherals 
+//! - SysTick 
+//! - Provides a simple, 24-bit clear-on-write, decrementing, wrap-on-zero counter
+//! - with a flexible control mechanism.
+//! - Nested Vectored Interrupt Controller (NVIC) 
+//! - Facilitates low-latency exception and interrupt handling
+//! - Controls power management
+//! - Implements system control registers
+//! - System Control Block (SCB) 
+//! - Provides system implementation information and system control, including
+//! configuration, control,and reporting of system exceptions.
+//! - Memory Protection Unit (MPU) 
+//! - Supports the standard ARMv7 Protected Memory System Architecture (PMSA)
+//! model. The MPU provides full support for protection regions, overlapping
+//! protection regions, access permissions,and exporting memory attributes to
+//! the system.
+//! .
+//! 
+//! \section CORE_Function_Desc 3. CORE Functional Description
+//! 
+//! \subsection CORE_Spe_Reg_Control 3.1 CORE Special register access
+//! 
+//! The core driver will access Special register As following:
+//! - \b PRIMASK
+//! - \b BASEPRI
+//! - \b psp
+//! - \b msp
+//! .
+//! 
+//! \subsection CORE_Int_Control 3.2 NVIC Control
+//! 
+//! \subsubsection CORE_Int_Enable 3.2.1 NVIC Interrupt Enable
+//! 
+//! The specified interrupt is enabled in the interrupt controller.  Other
+//! enables for the interrupt (such as at the peripheral level) are unaffected
+//! by this function. 
+//! 
+//! \subsubsection CORE_Int_Disable 3.2.2 NVIC Interrupt Disable
+//! 
+//! The specified interrupt is disabled in the interrupt controller.  Other
+//! disables for the interrupt (such as at the peripheral level) are unaffected
+//! by this function. 
+//! 
+//! \subsubsection CORE_Int_Pending 3.2.3 NVIC Interrupt Pending
+//! 
+//! If the pend is set,The specified interrupt is pended in the interrupt controller. 
+//! This will cause the interrupt controller to execute the corresponding interrupt
+//! handler at the next available time, based on the current interrupt state
+//! priorities.  For example, if called by a higher priority interrupt handler,
+//! the specified interrupt handler will not be called until after the current
+//! interrupt handler has completed execution.  The interrupt must have been
+//! enabled for it to be called.
+//!
+//! If the pend is clear,The specified interrupt is unpended in the interrupt controller.  
+//! This will cause any previously generated interrupts that have not been handled yet
+//! (due to higher priority interrupts or the interrupt no having been enabled
+//! yet) to be discarded.
+//! 
+//! \subsubsection CORE_Int_Priority 3.2.4 NVIC Interrupt Priority
+//! 
+//! When multiple interrupts are asserted simultaneously, the ones with the highest 
+//! priority are processed before the lower priority interrupts.  Smaller numbers
+//! correspond to higher interrupt priorities; priority 0 is the highest
+//! interrupt priority.
+//!
+//! The hardware priority mechanism will only look at the upper N bits of the
+//! priority level (where N is 2 for the NUC1xx family), so any
+//! prioritization must be performed in those bits.  The remaining bits can be
+//! used to sub-prioritize the interrupt sources, and may be used by the
+//! hardware priority mechanism on a future part.  This arrangement allows
+//! priorities to migrate to different NVIC implementations without changing
+//! the gross prioritization of the interrupts.
+//! 
+//! NVIC can also split between preemptable priority levels and
+//! subpriority levels in the interrupt priority specification.  The range of
+//! the grouping values are dependent upon the hardware implementation; on
+//! the NUC1xx family, Cortex -M0 as it is ,do not support it.
+//! 
+//! \subsection CORE_xSysTick_Control 3.3 SysTick Control
+//! 
+//! SysTick provides a simple, 24-bit clear-on-write, decrementing, wrap-on-zero
+//! counter with a flexible control mechanism. The counter can be used as a Real 
+//! Time Operating System (RTOS) tick timer or as a simple counter.
+//!
+//! When system timer is enabled, it will count down from the value in the SysTick Current Value
+//! Register (SYST_CVR) to zero, and reload (wrap) to the value in the SysTick Reload Value
+//! Register (SYST_RVR) on the next clock cycle, then decrement on subsequent clocks. When the
+//! counter transitions to zero, the COUNTFLAG status bit is set. The COUNTFLAG bit clears on reads.
+//! 
+//!
+//! \section xCORE_API_Group 4. API Groups
+//! The CoX Core API is broken into 3 groups of functions: 
+//! - those that wrapping CPU instruction. 
+//! - those that deal with interrupts.
+//! - those that deal with systick.
+//! .
+//! \subsection xCORE_API_Group_Cpu 4.1 CPU instruction wrapping API
+//! CPSID/CSPIE instruction:
+//! - xCPUcpsid()
+//! - xCPUcpsie()
+//! - xCPUprimask()
+//! .
+//! BASEPRI read/write with:
+//! - xCPUbasepriGet()
+//! - xCPUbasepriSet()
+//! .
+//! WFI instruction:
+//! - xCPUwfi()
+//! .
+//! PSP read/write with:
+//! - xCPUpspGet()
+//! - xCPUpspSet()
+//! .
+//! MSP read/write with:
+//! - xCPUmspGet()
+//! - xCPUmspSet()
+//! .
+//!
+//! \subsection xCORE_API_Group_Int 4.2 Interrupt API
+//! Interrupt enable/disable by:
+//! - xIntMasterEnable(), xIntMasterDisable()
+//! - xIntEnable(), xIntDisable()
+//! .
+//! The interrupt priority is deal with: 
+//! - xIntPriorityGroupingSet(), xIntPriorityGroupingGet()
+//! - xIntPrioritySet(), xIntPriorityGet()
+//! - xIntPriorityMaskSet(), xIntPriorityMaskGet()
+//! .
+//! The interrupt can be pending with:
+//! - xIntPendSet(),  xIntPendClr()
+//! - xPendSVPendSet(), xPendSVPendClr()
+//! - xSysTickPendSet(), xSysTickPendClr()
+//! .
+//!
+//! \subsection xCORE_API_Group_Systick 4.3 Systick API
+//! The Systick is enable/disable with:
+//! - xSysTickEnable()
+//! - xSysTickDisable()
+//! .
+//! The Systick interrupt is enable/disable with:
+//! - xSysTickIntEnable()
+//! - xSysTickIntDisable()
+//! .
+//! The Systick is controled by:
+//! - xSysTickPeriodSet()
+//! - xSysTickPeriodGet()
+//! - xSysTickValueGet()
+//! .
+//! \n
+//! <br />
+//! \section CORE_Applications 5. CORE Applications
+//! Add in the fulture...
+//!
+//
+//*****************************************************************************
+
+

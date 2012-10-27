@@ -1,0 +1,141 @@
+//*****************************************************************************
+//
+//! \defgroup KLx_I2C KLx I2C
+//! 
+//! \brief KLx I2C Peripheral Driver.
+//!
+//! The CoX Peripheral Library also provide APIs for full functions of 
+//! KLx I2C. This module supports the whole KLx.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref KLx_I2C_Function_Desc
+//! - \ref KLx_I2C_API_Group
+//!   - \ref KLx_I2C_API_Group_Init 
+//!   - \ref KLx_I2C_API_Group_Transfer 
+//!   - \ref KLx_I2C_API_Group_Interrupt 
+//!   - \ref KLx_I2C_API_Group_Timeout
+//! - \ref KLx_I2C_Usage
+//! .
+//! 
+//! <br />
+//! \section KLx_I2C_Function_Desc 1. KLx I2C Functional Description
+//! The inter-integrated circuit (I2C, I2C, or IIC) module provides a method of
+//! communication between a number of devices. The interface is designed to operate up to
+//! 100 kbit/s with maximum bus loading and timing. The I2C device is capable of operating
+//! at higher baud rates, up to a maximum of clock/20, with reduced bus loading. The
+//! maximum communication length and the number of devices that can be connected are
+//! limited by a maximum bus capacitance of 400 pF. The I2C module also complies with
+//! the System Management Bus (SMBus) Specification, version 2.
+//! 
+//! <br />
+//! \section KLx_I2C_API_Group 2. KLx I2C API Group
+//! 
+//! The I2C API is broken into three groups of functions: 
+//! - those that deal with init the i2c, 
+//! - those that deal with data transfer, 
+//! - those that deal with the interrupt handler,
+//! - those that deal with the timeout. 
+//! .
+//!
+//! <br />
+//! \subsection KLx_I2C_API_Group_Init  2.1 I2C Init APIs
+//! 
+//! I2C Enable or Disable :
+//! - I2CDisable()
+//! - I2CEnable()
+//! .
+//!
+//! The I2C master init functions are:
+//! - I2CMasterInit() 
+//! .  
+//! 
+//! The I2C slave init functions are: 
+//! - I2CSlaveInit() 
+//! - I2CSlaveSecondAddressSet()
+//! - I2CRangeAddrEnable()
+//! .
+//! 
+//! <br />
+//! \subsection KLx_I2C_API_Group_Transfer 2.2 xI2C Transfer APIs
+//! 
+//! Get the i2c status
+//! - I2CStatusGet()
+//! .
+//!
+//! Master transfer API includes:
+//! - I2CMasterDataPut()
+//! - I2CMasterDataGet()
+//! - I2CStopSend()
+//! - I2CMasterWriteRequestS1()
+//! - I2CMasterWriteRequestS2()
+//! - I2CMasterWriteS1()
+//! - I2CMasterWriteS2()
+//! - I2CMasterWriteBufS1()
+//! - I2CMasterWriteBufS2()
+//! - I2CMasterReadRequestS1()
+//! - I2CMasterReadRequestS2()
+//! - I2CMasterReadLastRequestS2()
+//! - I2CMasterReadS1()
+//! - I2CMasterReadS2()
+//! - I2CMasterReadBufS1()
+//! - I2CMasterReadBufS2()
+//! .
+//! 
+//! Slave transfer API includes:
+//! - xI2CSlaveDataPut()
+//! - xI2CSlaveDataGet()
+//! .
+//! 
+//! <br />
+//! \subsection KLx_I2C_API_Group_Interrupt  2.3 I2C interrupt handler functions
+//! 
+//! The Callback functions
+//! - I2CIntCallbackInit()
+//! - I2CIntFlagClear()
+//! - I2CIntFlagGet()
+//! - I2CIntDisable()
+//! - I2CIntEnable()
+//! .
+//!
+//! 
+//! <br />
+//! \subsection KLx_I2C_API_Group_Timeout 2.4 I2C API Timeout
+//! - I2CTimeoutCounterSet()
+//! - I2CTimeoutFlagGet()
+//! - I2CTimeoutFlagClear()
+//! .
+//!
+//!
+//! <br />
+//! \section KLx_I2C_Usage 3. Usage & Program Examples
+//! The following example shows how to use the I2C API to initialize the 
+//! I2C, and how to transfer data to slave as master.
+//! 
+//! \code
+//!     I2CMasterInit(ulMaster, 400000);
+//!     I2CEnable(ulMaster);
+//!     
+//!     xI2CMasterWriteBufS1(ulMaster, 0x12, ucTempData, 4, xfalse);
+//!     
+//!     xI2CMasterReadS1(ulMaster, 0x12, ucTemp, xfalse);    
+//!     xI2CMasterReadS2(ulMaster, &ucTemp[1], xfalse);
+//!     xI2CMasterReadS2(ulMaster, &ucTemp[2], xfalse);
+//!     xI2CMasterReadS2(ulMaster, &ucTemp[3], xtrue);
+//!     
+//!     xI2CMasterReadBufS1(ulMaster, 0x12, ucTemp, 4, xtrue);
+//!     
+//!     xI2CMasterWriteBufS1(ulMaster, 0x12, ucTempData, 4, xfalse);
+//!     xI2CMasterReadBufS1(ulMaster, 0x12, ucTemp, 4, xtrue);
+//!     
+//!     xI2CMasterReadS1(ulMaster, 0x12, ucTemp, xfalse);
+//!     xI2CMasterReadS2(ulMaster, &ucTemp[1], xfalse);
+//!     xI2CMasterReadS2(ulMaster, &ucTemp[2], xfalse);
+//!     xI2CMasterReadS2(ulMaster, &ucTemp[3], xtrue);
+//!
+//! \endcode
+//! 
+//! \note 
+//! 
+//
+//*****************************************************************************

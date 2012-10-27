@@ -1,0 +1,176 @@
+//*****************************************************************************
+//
+//! \defgroup KLx_RTC KLx RTC
+//! 
+//! \brief KLx RTC Peripheral Driver.
+//!
+//! The CoX Peripheral Library also provides APIs 
+//! for full functions of KLx RTC.
+//!
+//! \n
+//! <h1>Contents</h1>
+//! - \ref KLx_RTC_Block
+//! - \ref KLx_RTC_Function_Desc
+//! - \ref KLx_RTC_API_Group
+//!   - \ref KLx_RTC_API_Group_Config
+//!   - \ref KLx_RTC_API_Group_Time
+//!   - \ref KLx_RTC_API_Group_Interrupt
+//!   .
+//! - \ref KLx_RTC_Usage
+//! .
+//!
+//! \n
+//! \section KLx_RTC_Block 1. RTC Physical Block
+//! <img src="KLx_RTC_block.png" />
+//! 
+//! \n
+//! \section KLx_RTC_Function_Desc 2. Functional Description
+//!
+//! Real Time Clock (RTC) controller provides users with the real time and 
+//! clendar messages.The RTC controller provides the time messages (second, minute, hour)
+//! in Time Loading Register (TLR) as well as calendar messages (day, month, year) 
+//! in Calendar Loading  Register (CLR). It also offers an alarm function so that 
+//! users can preset alarm time in Time Alarm Register (TAR) and alarm calendar
+//! in Calendar Alarm Register (CAR).  
+//!
+//! The RTC controller supports periodic Time Tick and Alarm Match interrupts.
+//! 
+//! \n
+//! \section KLx_RTC_API_Group 3. API Groups
+//! 
+//! The RTC API is broken into three groups of functions: 
+//! - those that deal with RTC initialization , 
+//! - those that deal with time reading and writing, 
+//! - those that deal with interrupt.
+//! .
+//!
+//! \n
+//! \subsection KLx_RTC_API_Group_Config 3.1 RTC Config APIs
+//! 
+//! The RTC pins are configured with :
+//! - RTCTimeInit() 
+//! - RTCStart() 
+//! - RTCStop() 
+//! - RTCFrequencyCompensationSet()     
+//! .
+//! 
+//! \n
+//! \subsection KLx_RTC_API_Group_Time 3.2 RTC time reading and writing APIs
+//! 
+//! The RTC write and read are through APIS below:
+//! - RTCTimeRead()
+//! - RTCTimeWrite().
+//! .
+//!
+//! \n
+//! \subsection KLx_RTC_API_Group_Interrupt 3.3 RTC interrupt APIs
+//! 
+//! The RTC interrupt can be handled with:
+//! - RTCIntCallbackInit()
+//! - RTCIntEnable()
+//! - RTCIntDisable().
+//! .
+//!
+//! \n
+//! \section KLx_RTC_Usage 4. Usage & Program Examples
+//! The following example shows how to use the RTC APIs to initialize the 
+//! RTC, enable interrupts,read data from pins, and write data to pins.
+//! 
+//! \code
+//!tTime tTime1, tTime2;
+//!unsigned long uli = 0, ulj = 0;
+//!unsigned long ulTimeAlarm[2] = {RTC_TIME_CURRENT, RTC_TIME_ALARM};
+//!
+//!unsigned long xRTCACallback(void *pvCBData, 
+//!                                       unsigned long ulEvent,
+//!                                       unsigned long ulMsgParam,
+//!                                       void *pvMsgData)
+//!{
+//!    xIntMasterDisable();
+//!    uli++;
+//!    return 0;
+//!}
+//!
+//!unsigned long xRTCSCallback(void *pvCBData, 
+//!                                       unsigned long ulEvent,
+//!                                       unsigned long ulMsgParam,
+//!                                       void *pvMsgData)
+//!{
+//!    xIntMasterDisable();
+//!    ulj++;
+//!    return 0;
+//!}
+//!
+//!static void xrtc001Int()
+//!{
+//!    RTCTimeInit();
+//!    
+//!    tTime2.ulSecond = 40;     
+//!    
+//!    tTime2.ulMinute = 20; 
+//!    
+//!    tTime2.ulHour = 17; 
+//!    
+//!    tTime2.ulMDay = 11;  
+//!    
+//!    tTime2.ulMonth = 8;   
+//!    
+//!    tTime2.ulYear = 2011;    
+//!    
+//!    tTime2.ulWDay = 3;   
+//!
+//!    tTime2.ulFormat = RTC_TIME_24H;
+//!    
+//!    //
+//!    //write current time to corresponding register.
+//!    //
+//!    RTCTimeWrite(&tTime2, ulTimeAlarm[0]);
+//!    
+//!    
+//!    //
+//!    //alarm interrupt after 20 seconds.
+//!    //
+//!    tTime2.ulSecond +=10;
+//!    
+//!    //
+//!    //write current time to corresponding register.
+//!    //
+//!    RTCTimeWrite(&tTime2, ulTimeAlarm[1]);
+//!    
+//!    
+//!    RTCIntCallbackInit(RTC_INT_ALARM, xRTCACallback);
+//!    
+//!    xIntEnable(INT_RTCA);
+//!    xIntMasterEnable();
+//!    //
+//!    //enable alarm interrupt.
+//!    //
+//!    RTCIntEnable(RTC_INT_ALARM);
+//!    
+//!    RTCStart();
+//!   
+//!    while(uli !=1);
+//!    
+//!    //
+//!    //disable alarm interrupt.
+//!    //
+//!    RTCIntDisable(RTC_INT_ALARM);
+//!   
+//!    xIntMasterEnable();
+//!   
+//!    //
+//!    //enable tick interrupt.
+//!    //
+//!    RTCIntEnable(RTC_INT_TIME_TICK);
+//!    RTCIntCallbackInit(RTC_INT_TIME_TICK, xRTCACallback);
+//!    xIntEnable(INT_RTCS);
+//!    RTCStart();
+//!
+//!    while(ulj !=1);
+//!    
+//!}
+//! \endcode
+//! 
+//! 
+//
+//*****************************************************************************

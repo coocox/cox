@@ -1,0 +1,212 @@
+//********************************************************************************
+//
+//! \defgroup KLx_SPI KLx SPI
+//!
+//! \brief KLx SPI Peripheral Driver
+//!
+//! The CoX Peripheral Library also provides APIs for full functions of FreeScale
+//! KLx SPI.This module supports the whole KLx Series.
+//!
+//! <br /> 
+//! <h1>Contents</h1>
+//! - \ref KLx_SPI_BLOCK
+//! - \ref KLx_SPI_Function_Desc
+//! - \ref KLx_SPI_API_Group
+//!   - \ref KLx_API_Group_Configure_Control
+//!   - \ref KLx_API_Group_Interrupt_Control
+//!   - \ref KLx_API_Group_TransferReceive_Control
+//!   .
+//! - \ref KLx_SPI_Usage
+//! .
+//!
+//! <br />
+//! \section KLx_SPI_BLOCK 1. Spi Physical Block
+//! <img src="KLx_spi_block.png" />
+//!
+//! <br />
+//! \section KLx_SPI_Function_Desc 2. Functional Description
+//! The system control block has the following functions:
+//! - The SPI controller can be configured as a master or a slave device. In master 
+//!   mode the spi controller can drive up to two off-chip slave devices. It can also
+//!   be set to normal mode or DMA mode with different rate and 8bit data width and 
+//!   MSB or LSB shift mode and slave select mode. 
+//! - Each SPI controller can generate an individual interrupt when data transfer is finished,
+//!   and the respective interrupt event flag IF will be set. The interrupt 
+//!   event flag will generates an interrupt to CPU if the interrupt enable bit IE.
+//! - The SPI controller can be set to different transfer and receive mode,including
+//!   normal transfer and receive mode, burst transfer and receive mode, FIFO mode,
+//!   and DMA mode. At the same time, it is a synchronous serial data communication 
+//!   protocol which operates in full duplex mode.Devices communicate in master/slave
+//!   mode with 3-wire bi-direction interface. 
+//! .
+//!
+//! <br />
+//! \subsection KLx_SPI_API_Group 3. API Groups
+//!
+//! The Spi API is broken into three groups of functions:
+//! - those that deal with SPI mode configure,
+//! - those that deal with SPI interrupt control,
+//! - those that deal with SPI transfer and receive controlling.
+//! .
+//! <br />
+//! \subsection KLx_API_Group_Configure_Control 3.1 SPI configuration control APIs
+//!
+//! - SPIConfigSetExpClk()
+//! - SPIDisable()
+//! - SPIEnable()
+//! - SPISSSet()
+//! - SPISSClear()
+//! - SPI3WireEnable()
+//! - SPI3WireDisable()
+//! - SPIDMAEnable()
+//! - SPIDMADisable()
+//! - SPIClkStatusForWaitMode()
+//! .
+//!
+//! <br />
+//! \subsection KLx_API_Group_Interrupt_Control 3.2 SPI Interrupt Control APIs
+//! - SPIIntFlagClear()
+//! - SPIIntStatus()
+//! - SPIIntDisable()
+//! - SPIIntEnable()
+//! .
+//!
+//! <br />
+//! \subsection KLx_API_Group_TransferReceive_Control 3.3 SPI Transfer&Receive Control
+//! - SPISingleDataReadWrite()
+//! - SPIDataGet()
+//! - SPIDataGetNonBlocking()
+//! - SPIDataPut()
+//! - SPIDataPutNonBlocking()
+//! - SPIDataRead()
+//! - SPIDataWrite()
+//! .
+//!
+//! <br />
+//! \section KLx_SPI_Usage 4 Program Examples
+//! The following example shows how to use the SPI APIs to configue SPI and to implement 
+//! the function of transferring and receiving. 
+//! \code
+//! #include "xhw_memmap.h"
+//! #include "xspi.h"
+//! #include "xhw_spi.h"
+//! #include "xsysctl.h"
+//! #include "xhw_types.h"
+//! #include "xgpio.h"
+//! #include "xhw_gpio.h"
+//! #include "SPI_loop.h"
+//! #include "xhw_sysctl.h"
+//! #include "test.h"
+//! #include "testcase.h"
+//!
+//! unsigned char SendData[] = "Wonderful World";
+//! unsigned char ReceData[64];
+//! unsigned long i;
+//!
+//! //*****************************************************************************
+//!
+//! //Ininite the SPI case which is needed
+//!
+//! //param None
+//!
+//! //This function ininite the SPI including clock source and enable spi 
+//!
+//! //return none
+//!
+//! //*****************************************************************************
+//! void SpiReceiveTransferInit(void)
+//! {
+//!    SysCtlKeyAddrUnlock();
+//!    xHWREG(SYSCLK_PWRCON) |= SYSCLK_PWRCON_XTL12M_EN;
+//!    xHWREG(SYSCLK_PLLCON) &= ~SYSCLK_PLLCON_OE;
+//!    xHWREG(SYSCLK_PLLCON) &= ~SYSCLK_PLLCON_PD;
+//!    //
+//!    // Set SysClk 36MHz using Extern 12M oscillator
+//!    //
+//!    xSysCtlClockSet(36000000, xSYSCTL_OSC_MAIN|xSYSCTL_XTAL_12MHZ);
+//!    //
+//!    // Enable Peripheral SPI0,SPI1
+//!    //
+//!    SysCtlPeripheralEnable(SYSCTL_PERIPH_SPI0);
+//!    SysCtlPeripheralEnable(SYSCTL_PERIPH_SPI1);
+//!    SPIIntEnable(SPI0_BASE, TransferOver);
+//!  }
+//! //*****************************************************************************
+//!
+//! //Spi Master Slave Mode Configure
+//!
+//! //param None
+//!
+//! //This function configure the SPI as master and slave mode at the same time
+//! //transfer and receive data
+//!
+//! //return None
+//!
+//! //*****************************************************************************
+//! void SpiMasterSlaveModeConfig(void)
+//! {
+//!    
+//!    //
+//!    // Configure Some GPIO pins as SPI Mode
+//!    //
+//!    GPIOPinFunctionSet(GPIO_FUNCTION_SPI, GPIO_PORTC_BASE,GPIO_PIN_2);
+//!    GPIOPinFunctionSet(GPIO_FUNCTION_SPI, GPIO_PORTC_BASE,GPIO_PIN_3);
+//!    GPIOPinFunctionSet(GPIO_FUNCTION_SPI, GPIO_PORTC_BASE,GPIO_PIN_0);
+//!    GPIOPinFunctionSet(GPIO_FUNCTION_SPI, GPIO_PORTC_BASE,GPIO_PIN_1);
+//!    GPIOPinFunctionSet(GPIO_FUNCTION_SPI, GPIO_PORTC_BASE,GPIO_PIN_9);
+//!    GPIOPinFunctionSet(GPIO_FUNCTION_SPI, GPIO_PORTC_BASE,GPIO_PIN_8);
+//!    GPIOPinFunctionSet(GPIO_FUNCTION_SPI, GPIO_PORTC_BASE,GPIO_PIN_10);
+//!    GPIOPinFunctionSet(GPIO_FUNCTION_SPI, GPIO_PORTC_BASE,GPIO_PIN_11);
+//!    //
+//!    // Master Mode  polarity 0,Rx latched at rising edge Tx changed at rising edge
+//!    // 2000000Hz 8Bits Data windth  SPI MSB First
+//!    //
+//!    SPIConfig(SPI0_BASE,2000000,SPI_FORMAT_MODE_0|SPI_MSB_FIRST|SPI_MODE_MASTER);
+//!    //
+//!    // Slave Mode  polarity 0,Rx latched at rising edge Tx changed at rising edge
+//!    // 2000000Hz 8Bits Data windth  SPI MSB First
+//!    //
+//!    xHWREG(SPI1_BASE + SPI_CNTRL) = 0x00000000;
+//!    xHWREG(SPI1_BASE + SPI_CNTRL) |= 0x00040844;
+//!    //
+//!    // Software Control Transfer Select SS0 and SS1
+//!    //
+//!    xSPISSSet(SPI0_BASE,xSPI_SS_SOFTWARE,SPI_SS0);   
+//!
+//!    //
+//!    // Level Trig Slave at High Level
+//!    //
+//!    SPISSConfig(SPI0_BASE, SPI_SS_LEVEL_TRIGGER,SPI_SS_ACTIVE_HIGH_RISING);
+//!    SPISSConfig(SPI1_BASE, SPI_SS_LEVEL_TRIGGER,SPI_SS_ACTIVE_HIGH_RISING);
+//!
+//!    for(i=0;i<1;i++)
+//!    {
+//!        SPIDataWrite(SPI0_BASE,SendData,15);
+//!        SPIDataRead(SPI1_BASE,ReceData, 16);
+//!        TestIOPut('O');
+//!        TestIOPut('K');
+//!    }
+//!    TestIOPut('\n');
+//!    for(i=0;i<18;i++)
+//!    {
+//!        TestIOPut(ReceData[i]);  
+//!    }
+//! }
+//! //******************************************************************************
+//! //
+//! // The main function of the SPI transfer  
+//! //
+//! //******************************************************************************
+//! int main(void)
+//! {
+//!    SpiReceiveTransferInit();
+//!    SpiMasterSlaveModeConfig();
+//!    while(1)
+//!    {	
+//!    }
+//!        
+//! }
+//! \endcode
+//! \note 
+//!
+//**********************************************************************************

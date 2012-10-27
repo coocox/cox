@@ -1,0 +1,137 @@
+//*****************************************************************************
+//
+//! \defgroup KLx_GPIO KLx GPIO
+//! 
+//! \brief Nuvoton KLx GPIO Peripheral Driver.
+//!
+//! The CoX Peripheral Library also provides APIs for full functions of Nuvoton
+//! KLx GPIO. This module supports the whole KLx Series.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref KLx_GPIO_Blcok
+//! - \ref KLx_GPIO_Function_Desc
+//! - \ref KLx_GPIO_API_Group
+//!   - \ref KLx_GPIO_API_Group_Config
+//!   - \ref KLx_GPIO_API_Group_Interrupt
+//!   - \ref KLx_GPIO_API_Group_Pin
+//!   .
+//! - \ref KLx_GPIO_Usage
+//! .
+//!
+//! <br />
+//! \section KLx_GPIO_Blcok 1. GPIO Physical Block
+//! <img src="KLx_gpio_block.png" />
+//! 
+//! <br />
+//! \section KLx_GPIO_Function_Desc 2. Functional Description
+//! Each pin has the following capabilities:
+//! - Can be configured as an input or an output. 
+//! - In input mode, can generate interrupts on high level, low level, 
+//!   rising edge, falling edge, or both edges.
+//! - In output mode, can be set high level or low level. 
+//! - Can be configured to be a GPIO or a peripheral pin. 
+//! .
+//! 
+//! <br />
+//! \section KLx_GPIO_API_Group 3. API Groups
+//! 
+//! The GPIO API is broken into three groups of functions: 
+//! - those that deal with configuring the GPIO pins, 
+//! - those that deal with interrupts, 
+//! - those that access the pin value.
+//! .
+//!
+//! <br />
+//! \subsection KLx_GPIO_API_Group_Config 3.1 GPIO Config APIs
+//! 
+//! The GPIO pins are configured with:
+//! - GPIODirModeSet(),
+//! - GPIOPinMaskSet(),
+//! - GPIODMAEdgeSet(),
+//! - GPIOPullConfigure(),
+//! - GPIOPadConfigSet(),
+//! - GPIOPassiveConfigure().
+//! - GPIOSlewRataConfigure(),
+//! - GPIOPinFunctionSet(),
+//! - GPIOPinConfigure().
+//! .
+//!
+//! The configuration can be read back with:
+//! - GPIODirModeGet(),
+//! - GPIOPortMaskGet().  
+//! .
+//! 
+//! <br />
+//! \subsection KLx_GPIO_API_Group_Interrupt 3.2 GPIO Interrupt APIs
+//! 
+//! The GPIO interrupts are handled with: 
+//! - GPIOPinIntCallbackInit(),
+//! - GPIOPinIntEnable(),
+//! - GPIOPinIntDisable(), 
+//! - GPIOPinIntStatus(), 
+//! - GPIOPinIntClear().
+//! .
+//!
+//! <br />
+//! \subsection KLx_GPIO_API_Group_Pin 3.3 GPIO Pin State APIs
+//! 
+//! The GPIO pin state is accessed with:
+//! - GPIOPinRead(),
+//! - GPIOPinWrite(),
+//! - GPIOPinSet(),
+//! - GPIOPinReset(),
+//! - GPIOPinPortDoutGet().
+//! .
+//!
+//! <br />
+//! \section KLx_GPIO_Usage 4. Usage & Program Examples
+//! The following example shows how to use the GPIO API to initialize the 
+//! GPIO, enable interrupts, read data from pins, and write data to pins.
+//! 
+//! \code
+//! int iVal;
+//!
+//! //
+//! // Initialize the GPIO pin configuration.
+//! //
+//! // Set pins 2, 4, and 5 as input, SW controlled.
+//! GPIODirModeSet(GPIO_PORTA_BASE,
+//!                      GPIO_PIN_2 | GPIO_PIN_4 | GPIO_PIN_5, GPIO_DIR_MODE_IN);
+//! //
+//! // Set pins 0 and 3 as output, SW controlled.
+//! //
+//! GPIODirModeSet(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_3, GPIO_DIR_MODE_OUT);
+//! //
+//! // Make pins 2 and 4 rising edge triggered interrupts.
+//! //
+//! GPIOPinIntEnable(GPIO_PORTA_BASE, GPIO_PIN_2 | GPIO_PIN_4, GPIO_RISING_EDGE);
+//! //
+//! // Make pin 5 high level triggered interrupts.
+//! //
+//! GPIOPinIntEnable(GPIO_PORTA_BASE, GPIO_PIN_5, GPIO_HIGH_LEVEL);
+//! //
+//! // Read some pins.
+//! //
+//! iVal = GPIOPinRead(GPIO_PORTA_BASE,
+//!                    (GPIO_PIN_0 | GPIO_PIN_2 | GPIO_PIN_3 |
+//!                     GPIO_PIN_4 | GPIO_PIN_5));
+//! //
+//! // Write some pins. Even though pins 2, 4, and 5 are specified, those
+//! // pins are unaffected by this write since they are configured as inputs.
+//! // At the end of this write, pin 0 will be a 0, and pin 3 will be a 1.
+//! //
+//! GPIOPinWrite(GPIO_PORTA_BASE,
+//!              (GPIO_PIN_0 | GPIO_PIN_2 | GPIO_PIN_3 |
+//!               GPIO_PIN_4 | GPIO_PIN_5),
+//!              0xF8);
+//! //
+//! // Enable the pin interrupts.
+//! //
+//! GPIOPinIntEnable(GPIO_PORTA_BASE, GPIO_PIN_2 | GPIO_PIN_4 | GPIO_PIN_5, GPIO_BOTH_EDGES);
+//!
+//! \endcode
+//! 
+//! 
+//
+//*****************************************************************************

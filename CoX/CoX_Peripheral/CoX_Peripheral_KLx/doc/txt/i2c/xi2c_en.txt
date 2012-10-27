@@ -1,0 +1,234 @@
+//*****************************************************************************
+//
+//! \defgroup I2C
+//! 
+//! \brief I2C Serial Interface Controller.
+//!
+//! I2C is two-wire, bi-directional serial bus to transfer data. One bus is SCL 
+//! which provide the clock pulse for each data bit transfer on the other SDA bus.
+//!
+//! I2c can be configure as master mode or slave mode. Master mode provide the 
+//! clock and start/stop signal. Arbitration exist between simultaneously transmitting
+//! masters.
+//!
+//! Programmable clocks allow versatile rate control, i2c supports multiple 
+//! address with mask option.
+//!
+//! Any of the status chage will cause an interrupt if the interrupt enable 
+//! bit set.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref Function_Description
+//!   - \ref I2C_Protocol
+//!   - \ref Data_Transfer
+//!   .
+//! - \ref Mode_Operation
+//!   - \ref Master_Mode
+//!   - \ref Slave_Mode
+//!   .
+//! - \ref I2C_Applications
+//! .
+//! 
+//! <br />
+//! \section Function_Description 1. Function Description
+//!
+//! <br />
+//! \subsection I2C_Protocol 1.1 I2C Protocol
+//! Normally, a standard communication consists of four parts:
+//!
+//! - 1) START or Repeated START signal generation
+//! - 2) Slave address and R/W bit transfer
+//! - 3) Data transfer
+//! - 4) STOP signal generation
+//! . 
+//! <img src="i2c_protocol.png" />
+//!
+//! <br />
+//! \subsection Data_Transfer 1.2 Data transfer
+//! Master Transmits Data to Slave:
+//! <img src="master_to_slave.png" />
+//!
+//! Master Reads Data form Slave:
+//! <img src="slave_to_master.png" />
+//!
+//!
+//! <br />
+//! \section Mode_Operation 2. Mode Operation
+//! 
+//! <br />
+//! \subsection Slave_Mode 2.1 Slave Mode
+//! - Master Transmitter Mode
+//! - Master Receiver Mode
+//! .
+//! 
+//! <br />
+//! \subsection Master_Mode 2.2 Master Mode
+//! - Slave Receiver Mode
+//! - Slave Transmitter Mode
+//! .
+//! 
+//! <br />
+//! \section I2C_Applications 3. I2C Applications
+//! Add in the future...
+//!
+//! <br />
+//! \note Here describe the common function of the I2C Peripheral. The CoX
+//! Peripheral Interface is based on the functions above.
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
+//! \defgroup xI2C xI2C
+//! 
+//! \brief CoX I2C Peripheral Interface
+//!
+//! The xI2C is the I2C Peripheral Interface of CoX. It defines some common
+//! macros and APIs.
+//! 
+//! <h1>Contents</h1>
+//! - \ref CoX_I2C_How_Define
+//! - \ref xI2C_API_Group
+//!   - \ref xI2C_API_Init
+//!   - \ref xI2C_API_Transfer
+//!   - \ref xI2C_API_Interrupt
+//!   - \ref xI2C_API_Group_Timeout
+//!   .
+//! - \ref xI2C_Usage 
+//! .
+//!
+//! <br />
+//!
+//! \section CoX_I2C_How_Define 1. How is the xI2C Standard Define?
+//! CoX I2C defines the APIs based on the following common functions:
+//! - Init the I2C before transfer.
+//!   - Master initialize function
+//!   - Slave initialize function
+//!   .
+//! - Transfer functions.
+//!   - Master transfer functions
+//!   - Slave transfer functions
+//!   .
+//! - Interrupt funcions:
+//!   - Master interrupt functions
+//!   - Slave interrupt functions
+//!   . 
+//! .
+//!
+//! <br />
+//! \section xI2C_API_Group 2. KLx I2C API Group
+//! 
+//! The I2C API is broken into three groups of functions: 
+//! - those that deal with init the i2c, 
+//! - those that deal with data transfer, 
+//! - those that deal with the interrupt handler,
+//! - those that deal with the timeout. 
+//! .
+//!
+//! <br />
+//! \subsection xI2C_API_Init  2.1 I2C Init APIs
+//! 
+//! I2C Enable or Disable :
+//! - xI2CDisable()
+//! - xI2CEnable()
+//! .
+//!
+//! The I2C master init functions are:
+//! - xI2CMasterInit() 
+//! .  
+//! 
+//! The I2C slave init functions are: 
+//! - xI2CSlaveInit() 
+//! .
+//! 
+//! <br />
+//! \subsection xI2C_API_Transfer 2.2 xI2C Transfer APIs
+//! 
+//! Get the i2c status
+//! - xI2CStatusGet()
+//! .
+//!
+//! Master transfer API includes:
+//! - xI2CMasterDataPut()
+//! - xI2CMasterDataGet()
+//! - xI2CStopSend()
+//! - xI2CMasterWriteRequestS1()
+//! - xI2CMasterWriteRequestS2()
+//! - xI2CMasterWriteS1()
+//! - xI2CMasterWriteS2()
+//! - xI2CMasterWriteBufS1()
+//! - xI2CMasterWriteBufS2()
+//! - xI2CMasterReadRequestS1()
+//! - xI2CMasterReadRequestS2()
+//! - xI2CMasterReadLastRequestS2()
+//! - xI2CMasterReadS1()
+//! - xI2CMasterReadS2()
+//! - xI2CMasterReadBufS1()
+//! - xI2CMasterReadBufS2()
+//! .
+//! 
+//! Slave transfer API includes:
+//! - xI2CSlaveDataPut()
+//! - xI2CSlaveDataGet()
+//! .
+//! 
+//! <br />
+//! \subsection xI2C_API_Interrupt  2.3 I2C interrupt handler functions
+//! 
+//! The Callback functions
+//! - xI2CIntCallbackInit()
+//! - xI2CIntFlagClear()
+//! - xI2CIntFlagGet()
+//! - xI2CIntDisable()
+//! - xI2CIntEnable()
+//! .
+//!
+//! 
+//! <br />
+//! \subsection xI2C_API_Group_Timeout 2.4 I2C API Timeout
+//! - xI2CTimeoutCounterSet()
+//! - xI2CTimeoutFlagGet()
+//! - xI2CTimeoutFlagClear()
+//! .
+//!
+//!
+//! <br />
+//! \section xI2C_Usage 3. Usage & Program Examples
+//! The following example shows how to use the I2C API to initialize the 
+//! I2C, and how to transfer data to slave as master.
+//! 
+//! \code
+//!     xI2CMasterInit(ulMaster, 400000);
+//!     xI2CEnable(ulMaster);
+//!     
+//!     xI2CMasterWriteBufS1(ulMaster, 0x12, ucTempData, 4, xfalse);
+//!     
+//!     xI2CMasterReadS1(ulMaster, 0x12, ucTemp, xfalse);    
+//!     xI2CMasterReadS2(ulMaster, &ucTemp[1], xfalse);
+//!     xI2CMasterReadS2(ulMaster, &ucTemp[2], xfalse);
+//!     xI2CMasterReadS2(ulMaster, &ucTemp[3], xtrue);
+//!     
+//!     xI2CMasterReadBufS1(ulMaster, 0x12, ucTemp, 4, xtrue);
+//!     
+//!     xI2CMasterWriteBufS1(ulMaster, 0x12, ucTempData, 4, xfalse);
+//!     xI2CMasterReadBufS1(ulMaster, 0x12, ucTemp, 4, xtrue);
+//!     
+//!     xI2CMasterReadS1(ulMaster, 0x12, ucTemp, xfalse);
+//!     xI2CMasterReadS2(ulMaster, &ucTemp[1], xfalse);
+//!     xI2CMasterReadS2(ulMaster, &ucTemp[2], xfalse);
+//!     xI2CMasterReadS2(ulMaster, &ucTemp[3], xtrue);
+//!
+//! \endcode
+//! 
+//! \note 
+//! 
+//
+//*****************************************************************************
+
+
+
+
+
+

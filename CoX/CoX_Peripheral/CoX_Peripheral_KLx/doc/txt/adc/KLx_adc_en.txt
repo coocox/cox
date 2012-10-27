@@ -1,0 +1,219 @@
+//*****************************************************************************
+//
+//! \defgroup KLx_ADC KLx ADC
+//! 
+//! \brief Freescale KLx ADC Peripheral Driver
+//!
+//! The CoX Peripheral Library also provides APIs for full functions of Freescale
+//! KLx ADC.
+//! \n
+//!
+//! <h1>Contents</h1>
+//! - \ref KLx_ADC_Introduction
+//! - \ref KLx_ADC_Function_Desc
+//!   - \ref KLx_ADC_Pin_Desc
+//!   - \ref KLx_ADC_Func_Convertion
+//!     - \ref KLx_ADC_Func_Channel
+//!     - \ref KLx_ADC_Func_Convert_Mode
+//!     - \ref KLx_ADC_Func_Convert_Tigger
+//!     .
+//!   - \ref KLx_ADC_Func_Monitor
+//!   - \ref KLx_ADC_Func_Int
+//!   .
+//! - \ref KLx_ADC_API_Group
+//!   - \ref KLx_ADC_API_Group_AD
+//!   - \ref KLx_ADC_API_Group_Monitor
+//!   - \ref KLx_ADC_API_Group_Int
+//!   - \ref KLx_ADC_API_Group_DMA
+//!   .
+//! - \ref KLx_ADC_Usage
+//! .
+//! \n
+//!
+//! \section KLx_ADC_Introduction 1. KLx ADC Introduction
+//! KLx Series contains one 10-bit or 12-bit successive approximation 
+//!analog-to-digital converters (SAR A/D converter) with 8 input channels.
+//! <img src="KLx_ADC_block.png" />
+//!
+//! \section KLx_ADC_Function_Desc 2. KLx ADC Function Description
+//!
+//! \subsection KLx_ADC_Pin_Desc 2.1 KLx ADC Peripheral Pin Description
+//! \verbatim
+//! +-------------------+------------------+-----------------------+
+//! |Peripheral Pin Name|GPIO Pin multiplex|Pin Description        |
+//! |-------------------|------------------|-----------------------|
+//! |ADC0               |PE20              |ADC channel 0 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC1               |PC2               |ADC channel 1 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC2               |                  |ADC channel 2 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC3               |PE22              |ADC channel 3 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC4               |                  |ADC channel 4 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC5               |                  |ADC channel 5 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC6               |PD5               |ADC channel 6 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC7               |PD6,PE23          |ADC channel 7 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC8               |PB0               |ADC channel 8 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC9               |PB1               |ADC channel 9 input    |
+//! |-------------------|------------------|-----------------------|
+//! |ADC10              |                  |ADC channel 10 input   |
+//! |-------------------|------------------|-----------------------|
+//! |ADC11              |PC2               |ADC channel 11 input   |
+//! |-------------------|------------------|-----------------------|
+//! |ADC12              |PB2               |ADC channel 12 input   |
+//! |-------------------|------------------|-----------------------|
+//! |ADC13              |PB3               |ADC channel 13 input   |
+//! |-------------------|------------------|-----------------------|
+//! |ADC14              |PC0               |ADC channel 14 input   |
+//! |-------------------|------------------|-----------------------|
+//! |ADC15              |PC1               |ADC channel 15 input   |
+//! |-------------------|------------------|-----------------------|
+//! |ADC16              |                  |ADC channel 16 input   |
+//! |-------------------|------------------|-----------------------|
+//! |ADC17              |                  |ADC channel 17 input   |
+//! |-------------------|------------------|-----------------------|
+//! |ADC18              |                  |ADC channel 18 input   |
+//! |-------------------|------------------|-----------------------|
+//! |ADC19              |                  |ADC channel 19 input   |
+//! |-------------------|------------------|-----------------------|
+//! |ADC20              |                  |ADC channel 20 input   |
+//! |-------------------|------------------|-----------------------|
+//! |ADC21              |                  |ADC channel 21 input   |
+//! |-------------------|------------------|-----------------------|
+//! |ADC22              |                  |ADC channel 22 input   |
+//! |-------------------|------------------|-----------------------|
+//! |ADC23              |PE30              |ADC channel 23 input   |
+//! |-------------------|------------------|-----------------------|
+//! \endverbatim
+//! 
+//! \subsection KLx_ADC_Func_Convertion 2.2 KLx ADC AD Convertion Function Description
+//! 
+//! \subsubsection KLx_ADC_Func_Channel 2.2.1 KLx ADC Input Channel
+//! The KLx ADC have 24 analog input channel and 4 pairs of differential inputs, 
+//! each channel can be enabled/disabled independently.
+//! In single-end mode, The contorl will first sample and convert channel 0, 
+//! then channel 1 and so on if then are enabled.
+//!
+//! \subsubsection KLx_ADC_Func_Convert_Mode 2.2.2 KLx ADC AD operation mode
+//!
+//! The A/D converter supports three operation modes: 
+//! - \b single - A/D conversion is performed only once on the specified single 
+//! channel.
+//! - \b continuous scan mode - A/D conversion is performed sequentially on the
+//! specified enabled channels. This is a continuous loop of single-cycle scan.
+//!
+//! \subsubsection KLx_ADC_Func_Convert_Tigger 2.2.3 KLx ADC Trigger source
+//! There are two Trigger source:
+//! - \b Processor(software)
+//! - \b External Event. 
+//! .
+//!
+//! \subsection KLx_ADC_Func_Monitor 2.3 KLx ADC monitor to monitor AD Input.
+//!  and generate an interrupt.
+//!
+//! How to configure a monitor
+//! -# ADCCompDataSet(),ADCCompFuncRangeSet() to Configure the ADC Monitor.
+//! -# ADCCompEnable() to Enable the ADC monitor.
+//! -# ADCCompDisable() to Disable the ADC monitor.
+//! .
+//!
+//! \subsection KLx_ADC_Func_Int 2.4 KLx ADC Interrupt
+//!
+//! There are 6 interrupt source:
+//! - . ADC_INT_END_CONVERSION: Interrupt of Regular channel end of conversion.
+//!
+//! \section KLx_ADC_API_Group 3. KLx ADC API Group
+//!
+//! \subsection KLx_ADC_API_Group_AD 3.1 KLx AD Convert API
+//! The AD sample convert are configured with:
+//! - ADCConfigure() is to config the single cycle / continuous
+//!   operation mode and the trigger source.
+//! - ADCDiffChannelEnable()
+//! - ADCSingleEndedChannelEnable()
+//! - ADCCalibrationEnable()
+//! - ADCCalibrationIsFailed()
+//! - ADCCalibrationFailedFlagClear()
+//! - ADCProcessorTrigger()
+//! - ADCConvertStop()
+//! - ADCDataGet()
+//! - ADCOffsetDataGet()
+//! - ADCCalibrationEnable()
+//! - ADCCalibrationDisable()
+//! - ADCAsynClkOutputEnable()
+//! - ADCAsynClkOutputDisable()
+//! - ADCCalibrationDone()
+//! - ADCRefVoltageSet()
+//! - ADCHardwareAverageEnable()
+//! - ADCHardwareAverageDisable()
+//! - ADCHardwareAverageSet()
+//! - ADCPowerModeSet()
+//! - ADCSampleTimeSet()
+//! - ADCGainSet()
+//! - ADCLongSampleTimeSet()
+//! - ADCSingleResolutionSet()
+//! - ADCDifferentialResolutionSet()
+//! - ADCConSpeedSelect()
+//! - ADCMuxSelect()
+//! - ADCBandgapConfigure()
+//! - ADCTemperatureSensorConfigure()
+//! - ADCAlternateTriggerEnable()
+//! - ADC0TPMTriggerEnable()
+//! - ADC0PretriggerSet()
+//! - 
+//! .
+//! The ADC sample convertion software control API:
+//! - ADCProcessorTrigger() to start the AD convertion by software.
+//! .
+//! The AD convertion data API:
+//! - ADCDataRegularGet() to get the channel convertion data(12bit), user should mask 
+//! the data with 0x00000FFF.
+//! - ADCDataInjectedGet().
+//! - ADCInjectedOffsetDataGet().
+//! - ADCCalibrationStart().
+//! - ADCCalibrationStatusGet().
+//! - ADCCalibrationReset().
+//! - ADCOffsetDataGet().
+//! .
+//! \subsection KLx_ADC_API_Group_Monitor 3.2 KLx ADC Digital Comparator API
+//!
+//! Here is the API of comparator: 
+//! - ADCCompDataSet()
+//! - ADCCompEnable()
+//! - ADCCompDisable()
+//! - ADCCompFuncRangeSet()
+//! .
+//! 
+//! \subsection KLx_ADC_API_Group_Int 3.3 KLx ADC Interrupt API
+//!
+//! The interrupts are enabled/disabled with:
+//! - ADCIntEnable()
+//! - ADCIntDisable()
+//! .
+//! Interrupt is managed with:
+//! - ADCIntClear() - to clear the interrupt.
+//! .
+//! \subsection KLx_ADC_API_Group_DMA 3.3 KLx ADC DMA API
+//!
+//! The DMA are enabled/disabled with:
+//! - ADCDMAEnable()
+//! - ADCDMADisable()
+//! .
+//! \section KLx_ADC_Usage 4. KLx ADC Usage & Example
+//!
+//! The following show how to use the ADC APIs to initialize the ADC 
+//! sample sequence, and get the AD convertion data to the buffer.
+//! -# SysCtlPeripheralEnable() to enable to GPIO,ADC Peripheral clock.
+//! -# Configure the ADC pin in the GPIO moudle.
+//! -# ADCConfigure() to configure the operation mode and Trigger source.
+//! -# ADCSingleEndedChannelEnable() to enable channel
+//! -# ADCIntEnable(), xIntEnable() to enable the interrupt.
+//! -# ADCDataGet() or ADCDataInjectedGet() get channels data.
+//! . 
+//!
+//*****************************************************************************
