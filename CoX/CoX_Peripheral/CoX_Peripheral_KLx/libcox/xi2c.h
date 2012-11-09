@@ -2,7 +2,7 @@
 //
 //! \file xi2c.h
 //! \brief Prototypes for the I2C Driver.
-//! \version V2.1.1.0
+//! \version V2.2.1.0
 //! \date 12/30/2011
 //! \author CooCox
 //! \copy

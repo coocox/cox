@@ -2,7 +2,7 @@
 //
 //! \file xdma.h
 //! \brief Defines and Macros for DMA API.
-//! \version V2.0.1
+//! \version V2.2.1.0
 //! \date 11/11/2011
 //! \author CooCox
 //! \copy

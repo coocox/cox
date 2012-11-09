@@ -2,7 +2,7 @@
 //
 //! \file xhw_wdt.h
 //! \brief Macros and defines used when accessing the WATCHDOG hardware.
-//! \version V2.1.1.1
+//! \version V2.2.1.0
 //! \date 11/14/2012
 //! \author CooCox
 //! \copy

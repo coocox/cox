@@ -2,7 +2,7 @@
 //
 //! \file xhw_dma.h
 //! \brief Macros for use in accessing the DMA registers.
-//! \version V2.1.1.0
+//! \version V2.2.1.0
 //! \date 11/14/2011
 //! \author CooCox
 //! \copy

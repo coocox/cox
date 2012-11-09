@@ -2,7 +2,7 @@
 //
 //! \file xadc.c
 //! \brief Driver for the ADC Controller.
-//! \version V2.2.1.1
+//! \version V2.2.1.0
 //! \date 8/15/2011
 //! \author CooCox
 //! \copy

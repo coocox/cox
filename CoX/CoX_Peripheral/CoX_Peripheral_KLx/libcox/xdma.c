@@ -2,7 +2,7 @@
 //
 //! \file xdma.c
 //! \brief Driver for the DMA Controller.
-//! \version V2.1.1.0
+//! \version V2.2.1.0
 //! \date 11/14/2011
 //! \author CooCox
 //! \copy

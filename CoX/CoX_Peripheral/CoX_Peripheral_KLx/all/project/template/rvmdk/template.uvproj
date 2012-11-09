@@ -614,9 +614,9 @@
           <GroupName>Source</GroupName>
           <Files>
             <File>
-              <FileName>main.c</FileName>
+              <FileName>m  ain.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\main.c</FilePath>
+              <FilePath>..\m  ain.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1233,9 +1233,9 @@
           <GroupName>Source</GroupName>
           <Files>
             <File>
-              <FileName>main.c</FileName>
+              <FileName>m  ain.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\main.c</FilePath>
+              <FilePath>..\m  ain.c</FilePath>
             </File>
           </Files>
         </Group>

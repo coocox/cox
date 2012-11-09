@@ -2,7 +2,7 @@
 //
 //! \file xhw_sysctl.h
 //! \brief Macros used when accessing the system control hardware.
-//! \version V2.2.1.1
+//! \version V2.2.1.0
 //! \date 8/1/2012
 //! \author CooCox
 //! \copy

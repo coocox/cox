@@ -2,7 +2,7 @@
 //
 //! \file xuart.c
 //! \brief Driver for the UART
-//! \version V2.1.1.1
+//! \version V2.2.1.0
 //! \date 08/17/2012
 //! \author CooCox
 //! \copy
