@@ -1,0 +1,285 @@
+//*****************************************************************************
+//
+//! \defgroup SSD2119 SSD2119
+//!
+//! \brief Character LCD control.
+//!
+//! An SSD2119 Character LCD is a de facto industry standard thin film transistor 
+//! (TFT) LCD display device designed for interfacing with embedded systems.
+//! These screens come in a variety of configurations including 320*240, which has 
+//! two kinds of color mode, 65k-color and 262k-color mode, some include backlight 
+//! provided by a LED.
+//!
+//! Any parallelly interfaced character LCD you get these days will have a 
+//! Solomon Systech SSD2119 chip or a different one compatible with the SSD2119. These 
+//! usually have 60 pins.
+//!
+//!  <h1>Webpage</h1>
+//!  Webpage for the device http://www.kentecdisplay.com/plus/view.php?aid=63
+//!
+//! <h1>Contents</h1>
+//! - \ref SSD2119_Pin
+//!   - \ref SSD2119_Pin_6800
+//!   - \ref SSD2119_Pin_8080
+//!   - \ref SSD2119_Pin_3SPI
+//!   - \ref SSD2119_Pin_4SPI
+//!   - \ref SSD2119_Pin_RGB
+//!   .
+//! - \ref SSD2119_Func_Desc
+//!   - \ref SSD2119_Func_GDDRAM
+//!   - \ref SSD2119_Func_Register
+//!   - \ref SSD2119_Func_AC
+//!   - \ref SSD2119_Func_Display
+//!   - \ref SSD2119_Func_Command
+//!   .
+//! - \ref SSD2119_API_Group
+//!   - \ref SSD2119_API_Config
+//!   - \ref SSD2119_API_Display
+//!   - \ref SSD2119_API_Location
+//!   - \ref SSD2119_API_Lowlayer
+//!   .
+//! - \ref SSD2119_Usage
+//! .
+//!
+//! \section SSD2119_Pin 1. SSD2119 Pin Map
+//! \subsection SSD2119_Pin_6800 1.1 SSD2119 6800 Pin Description
+//! 
+//! \verbatim
+//! +----------------+------------------------------------------------+
+//! |Pin Name        |Pin Description                                 |
+//! |----------------|------------------------------------------------|
+//! |D17 - D0        |Bi-directional data bus.                        |
+//! |----------------|------------------------------------------------|
+//! |R/W             |Determines if we read from or write to the LCD. |
+//! |----------------|------------------------------------------------|
+//! |DC              |Register select.                                |
+//! |                |0: instruction register; 1:  data register      |
+//! |----------------|------------------------------------------------|
+//! |E               |Enables or disables the LCD module.             |
+//! |----------------|------------------------------------------------|
+//! |CSn             |LCD Select Pin.                                 |
+//! |----------------|------------------------------------------------|
+//! |RSTn            |LCD Reset Pin.                                  |
+//! +----------------+------------------------------------------------+
+//! \endverbatim
+//!
+//! \subsection SSD2119_Pin_8080 1.2 SSD2119 8080 Pin Description
+//! 
+//! \verbatim
+//! +----------------+------------------------------------------------+
+//! |Pin Name        |Pin Description                                 |
+//! |----------------|------------------------------------------------|
+//! |D17 - D0        |Bi-directional data bus.                        |
+//! |----------------|------------------------------------------------|
+//! |WR              |Write strobe signal.                            |
+//! |----------------|------------------------------------------------|
+//! |DC              |Register select.                                |
+//! |                |0: instruction register; 1:  data register      |
+//! |----------------|------------------------------------------------|
+//! |RD              |Read strobe signal.                             |
+//! |----------------|------------------------------------------------|
+//! |CSn             |LCD Select Pin.                                 |
+//! |----------------|------------------------------------------------|
+//! |RSTn            |LCD Reset Pin.                                  |
+//! +----------------+------------------------------------------------+
+//! \endverbatim
+//!
+//! \subsection SSD2119_Pin_3SPI 1.3 SSD2119 3_SPI Pin Description
+//! 
+//! \verbatim
+//! +----------------+------------------------------------------------+
+//! |Pin Name        |Pin Description                                 |
+//! |----------------|------------------------------------------------|
+//! |SDI             |Data input pin in serial interface.             |
+//! |----------------|------------------------------------------------|
+//! |SDO             |Data output pin in serial interface.            |
+//! |----------------|------------------------------------------------|
+//! |SCL             |Serial clock input.                             |
+//! |----------------|------------------------------------------------|
+//! |CSn             |LCD Select Pin.                                 |
+//! |----------------|------------------------------------------------|
+//! |RSTn            |LCD Reset Pin.                                  |
+//! +----------------+------------------------------------------------+
+//! \endverbatim
+//!
+//! \subsection SSD2119_Pin_4SPI 1.4 SSD2119 4_SPI Pin Description
+//! 
+//! \verbatim
+//! +----------------+------------------------------------------------+
+//! |Pin Name        |Pin Description                                 |
+//! |----------------|------------------------------------------------|
+//! |SDI             |Data input pin in serial interface.             |
+//! |----------------|------------------------------------------------|
+//! |SDO             |Data output pin in serial interface.            |
+//! |----------------|------------------------------------------------|
+//! |SCL             |Serial clock input.                             |
+//! |----------------|------------------------------------------------|
+//! |DC              |Register select.                                |
+//! |                |0: instruction register; 1:  data register      |
+//! |----------------|------------------------------------------------|
+//! |CSn             |LCD Select Pin.                                 |
+//! |----------------|------------------------------------------------|
+//! |RSTn            |LCD Reset Pin.                                  |
+//! +----------------+------------------------------------------------+
+//! \endverbatim
+//!
+//! \subsection SSD2119_Pin_RGB 1.5 SSD2119 18_RGB Pin Description
+//! 
+//! \verbatim
+//! +----------------+------------------------------------------------+
+//! |Pin Name        |Pin Description                                 |
+//! |----------------|------------------------------------------------|
+//! |D17 - D0        |Bi-directional data bus.                        |
+//! |----------------|------------------------------------------------|
+//! |VSYNC           |Frame /Ram synchronization signal input.        |
+//! |----------------|------------------------------------------------|
+//! |HSYNC           |Line synchronization signal input.              |
+//! |----------------|------------------------------------------------|
+//! |DOTCLK          |Dot clock signal.                               |
+//! |----------------|------------------------------------------------|
+//! |OE              |Display enable pin from controller.             |
+//! |----------------|------------------------------------------------|
+//! |CSn             |LCD Select Pin.                                 |
+//! |----------------|------------------------------------------------|
+//! |RSTn            |LCD Reset Pin.                                  |
+//! +----------------+------------------------------------------------+
+//! \endverbatim
+//!
+//! \section SSD2119_Func_Desc 2. SSD2119 Function Description
+//! \subsection SSD2119_Func_GDDRAM 2.1 Display Data RAM (GDDRAM)
+//!
+//! Display data RAM (GDDRAM) is where you send the characters (ASCII code) you
+//! want to see on the LCD screen. It stores display data represented in 8-bit
+//! character codes. Its capacity is 80 characters (bytes). Bonus: The area in
+//! display data RAM (GDDRAM) that is not used for display can be used as general
+//! data RAM. DD RAM address is the position of the cursor (i.e. where the data
+//! you sent will be displayed). Below you see DD RAM address layout of a 2*16
+//! LCD.
+//! <img src="SSD2119_gddramaddress.png" />
+//! 
+//! \subsection SSD2119_Func_Register 2.2 Registers
+//!
+//! The SSD2119 has two 16-bit registers, an instruction register (IR) and a 
+//! Device Code Read(DCR). The IR specifies the RAM control indexes (R00h to RFFh).  
+//! It sets the register number in the range of 00000000 to 11111 111 in binary  
+//! form. But do not access to Index register and instruction bits which do not 
+//! have it¡¯s own index register. The DCR stores the device code, We can read the 
+//! ssd2119's device num from this register.
+//! The instruction and data registers can be selected
+//! by the register selector (DC) signal. 
+//!
+//! \verbatim
+//! +----+---------------------------------------------------------+
+//! |DC  |Operation                                                |
+//! |----|---------------------------------------------------------|
+//! |0   | write as an instruction operation                       |
+//! |1   | write as an data operation (DR to DDRAM or CGRAM)       |
+//! +----+---------------------------------------------------------+
+//! \endverbatim
+//!
+//! \subsection SSD2119_Func_AC 2.3 Address Counter (AC)
+//! 
+//! The address counter (AC) assigns address to the GDDRAM. When an address 
+//! set instruction is written into the IR, the address information is sent
+//! from the IR to the AC. 
+//! 
+//! After writing into the GRAM, the AC is automatically  incremented by 1 
+//! (or decremented by 1). After reading the data, the AC is not updated. 
+//! A window addr ess function allows for data to be written only to a 
+//! window area specified by GRAM. 
+//!
+//! \subsection SSD2119_Func_Display 2.4 To display a character
+//!
+//! positional data is written into IR (DDRAM address). A character code is then
+//! written into DR and the LCD unit displays the corresponding pattern at the
+//! specified location. The LCD unit can either increment or decrement the 
+//! display position after each character entry, so that only successive 
+//! character codes need to be entered to display a continuos character string.
+//!
+//! \subsection SSD2119_Func_Command 2.5 Commands
+//! <img src="ssd2119_commands.jpg" />
+//!
+//! \section SSD2119_API_Group 3. API Group
+//! \subsection SSD2119_API_Config 3.1 Config API
+//! - SSD2119Init() to initialize.
+//! .
+//! 
+//! \subsection SSD2119_API_Display 3.2 Display API
+//! The display is entered sleep mode on/off by:
+//! - SSD2119EnterSleepMode()
+//! - SSD2119ExitSleepMode()
+//! .
+//! 
+//! The display is cleared by SSD2119DisplayClear().
+//!
+//! Print something on the LCD:
+//! - SSD2119DrawOnePixel()
+//! - SSD2119DrawHorizontalLine()
+//! - SSD2119DrawVerticalLine()
+//! - SSD2119DisplayString()
+//! - SSD2119DisplayNum()
+//! - SSD2119DisplayBmp()
+//! .
+//!
+//! \subsection SSD2119_API_Location 3.3 Location API
+//! - SSD2119SetCurPos() - move to (s_x, e_s, s_y, e_y)
+//! .
+//!
+//! \subsection SSD2119_API_Lowlayer 3.4 Lowlayer API
+//! If the LCD API can not meet your need, you can use the API below operated 
+//! on the lowlayer.
+//! - SSD2119WriteCmd()
+//! - SSD2119WriteData()
+//! - SSD2119WritePixelData()
+//! - SSD2119Read()
+//! .
+//!
+//! <img src="logo.png" />
+//!
+//! \section SSD2119_Usage SSD2119 Usage
+//! 
+//! Before Using the LCD driver, you should configure the LCD moudle, function,
+//! character font, data interface length, pin remap. Please reference
+//! \ref SSD2119_Config.
+//!
+//! Below is some example code:
+//!
+//! \code
+//!
+//! void SSD2119Test(void)
+//! {
+//!     int i , j;
+//!     
+//!     SSD2119Init();
+//!     
+//!     //
+//!     // Location Set & Display string, number Test
+//!     //
+//!     SSD2119DisplayClear(Green);
+//!
+//!     SSD2119DisplayString(60, 20, "Hello SSD2119!", MAGENTA, GREEN);
+//!     SSD2119DisplayString(60, 60, "Number: ", BLUE, WHITE);
+//!     SSD2119DisplayNum(124, 60, 10086, BLUE, WHITE);
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!
+//!     SSD2119DisplayString(60, 80, "Backlight Leds off/on", BLUE, WHITE);
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     SSD2119BacklightOff();    
+//!     xSysCtlDelay(xSysCtlClockGet() / 4 );
+//!     SSD2119BacklightOn();
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!
+//!     SSD2119DisplayString(60, 120, "Display off/on", BLUE, WHITE);
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     SSD2119EnterSleepMode();    
+//!     xSysCtlDelay(xSysCtlClockGet() / 4 );
+//!     SSD2119ExitSleepMode();
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!
+//!     SSD2119DisplayString(60, 180, "Complete", BLUE, WHITE);
+//!         
+//! }
+//!     
+//! \endcode
+//
+//*****************************************************************************

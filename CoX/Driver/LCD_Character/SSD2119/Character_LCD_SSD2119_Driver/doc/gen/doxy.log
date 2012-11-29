@@ -1,0 +1,346 @@
+Notice: Output directory `../en' does not exist. I have created it for you.
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/dma/xdma_en.txt:3: warning: missing title after \defgroup DMA
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/gpio/xgpio_en.txt:3: warning: missing title after \defgroup GPIO
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/lowlayer/xlowlayer_en.txt:3: warning: missing title after \defgroup LowLayer
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/spi/xspi_en.txt:3: warning: missing title after \defgroup SPI
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/sysctl/xsysctl_en.txt:3: warning: missing title after \defgroup SysCtl
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/timer/xtimer_en.txt:3: warning: missing title after \defgroup TIMER
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/uart/uart_en.txt:3: warning: missing title after \defgroup UART
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/hw_ssd2119.h:672: warning: end of file while inside a group
+
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xdma.h:109: group xDMA_Channel_IDs: ignoring title "xDMA Channel ID" that does not match old title "xDMA Channel IDs"
+
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xdma.h:276: group xDMA_Ints: ignoring title "xDMA Interrupt" that does not match old title "xDMA Ints"
+
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xdma.h:355: group xDMA_Channel_Attr: ignoring title "xDMA Channel Attribution" that does not match old title "xDMA Channel Attribute"
+
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xdma.h:520: group xDMA_Exported_APIs: ignoring title "xDMA API" that does not match old title "Exported APIs Refrence"
+
+F:/driver/CoX/Driver/doc/doxygen/txt/device_group_en.txt:32: group LCD_Character: ignoring title "@{ @}" that does not match old title "Character LCD"
+
+F:/driver/CoX/Driver/doc/doxygen/txt/device_group_en.txt:36: group Text_Displays: ignoring title "@{ @}" that does not match old title "Text Displays"
+
+F:/driver/CoX/Driver/doc/doxygen/txt/device_group_en.txt:40: group Memory_SDCard: ignoring title "@{ @}" that does not match old title "SDCard"
+
+F:/driver/CoX/Driver/doc/doxygen/txt/device_group_en.txt:41: group SPI_Flash: ignoring title "@{ @}" that does not match old title "SPI Flash"
+
+F:/driver/CoX/Driver/doc/doxygen/txt/device_group_en.txt:45: group Temperature_Sensor: ignoring title "@{ @}" that does not match old title "Temperature Sensor"
+
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xacmp.c:3: warning: the name `xcomp.c' supplied as the second argument in the \file statement is not an input file
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xacmp.h:3: warning: the name `xcomp.h' supplied as the second argument in the \file statement is not an input file
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_acmp.h:3: warning: the name `xhw_comp.h' supplied as the second argument in the \file statement is not an input file
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xacmp.h:630: warning: Member COMP_TRIG_NONE found in multiple @addtogroup groups! The member will be put in group Stellaris_COMP_Configure, and not in group Stellaris_COMP
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_sysctl.h:1104: warning: Member SYSCTL_GPIOHBCTL_PORTJ found in multiple @addtogroup groups! The member will be put in group Stellaris_Register_SYSCTL_GPIOHBCTL, and not in group Stellaris_Register_SysCtl
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_sysctl.h:1533: warning: Member SYSCTL_DSLPCLKCFG_D_M found in multiple @addtogroup groups! The member will be put in group Stellaris_Register_SYSCTL_DSLPCLKCFG, and not in group Stellaris_Register_SysCtl
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_sysctl.h:1620: warning: Member SYSCTL_PIOSCCAL_UTEN found in multiple @addtogroup groups! The member will be put in group Stellaris_Register_SYSCTL_PIOSCCAL, and not in group Stellaris_Register_SysCtl
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_sysctl.h:1655: warning: Member SYSCTL_PIOSCSTAT_DT_M found in multiple @addtogroup groups! The member will be put in group Stellaris_Register_SYSCTL_PIOSCSTAT, and not in group Stellaris_Register_SysCtl
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_sysctl.h:1696: warning: Member SYSCTL_I2SMCLKCFG_RXEN found in multiple @addtogroup groups! The member will be put in group Stellaris_Register_SYSCTL_I2SMCLKCFG, and not in group Stellaris_Register_SysCtl
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xsysctl.h:623: warning: Member SYSCTL_LDOCFG_ARST found in multiple @addtogroup groups! The member will be put in group Stellaris_SysCtl_LDO_Config, and not in group Stellaris_SysCtl
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xsysctl.h:708: warning: Member SYSCTL_PWMDIV_1 found in multiple @addtogroup groups! The member will be put in group Stellaris_SysCtl_PWM_Clock_Config, and not in group Stellaris_SysCtl
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xuart.h:692: warning: Member xUART_OUTPUT_RTS found in multiple @addtogroup groups! The member will be put in group xUART_Modem_Output, and not in group xUART
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/cox_peripheral_lib/mainpage_en.txt:1461: warning: unable to resolve reference to `PWM' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/cox_peripheral_lib/mainpage_en.txt:1467: warning: unable to resolve reference to `RTC' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/cox_peripheral_lib/mainpage_en.txt:1473: warning: unable to resolve reference to `WDT' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/cox_peripheral_lib/mainpage_en.txt:1491: warning: unable to resolve reference to `I2S' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/cox_peripheral_lib/mainpage_en.txt:1497: warning: unable to resolve reference to `CAN' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/cox_peripheral_lib/mainpage_en.txt:1503: warning: unable to resolve reference to `USB' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/cox_peripheral_lib/mainpage_en.txt:1509: warning: unable to resolve reference to `EBI' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/cox_peripheral_lib/mainpage_en.txt:150: warning: unable to resolve reference to `PWM' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/cox_peripheral_lib/mainpage_en.txt:156: warning: unable to resolve reference to `RTC' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/cox_peripheral_lib/mainpage_en.txt:162: warning: unable to resolve reference to `WDT' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/cox_peripheral_lib/mainpage_en.txt:180: warning: unable to resolve reference to `I2S' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/cox_peripheral_lib/mainpage_en.txt:186: warning: unable to resolve reference to `CAN' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/cox_peripheral_lib/mainpage_en.txt:192: warning: unable to resolve reference to `USB' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/cox_peripheral_lib/mainpage_en.txt:198: warning: unable to resolve reference to `EBI' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xadc.c:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xadc.c:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xadc.h:682: warning: explicit link request to 'V' could not be resolved
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xadc.h:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xadc.h:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xcore.c:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xcore.c:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xcore.h:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xcore.h:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xdebug.h:9: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xdebug.h:23: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xdma.c:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xdma.c:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xdma.h:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xdma.h:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.c:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.c:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.h:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.h:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_adc.h:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_adc.h:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_dma.h:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_dma.h:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_gpio.h:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_gpio.h:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_i2c.h:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_i2c.h:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_ints.h:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_ints.h:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_memmap.h:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_memmap.h:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_nvic.h:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_nvic.h:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_spi.h:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_spi.h:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_sysctl.h:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_sysctl.h:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_timer.h:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_timer.h:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_types.h:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_types.h:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_uart.h:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xhw_uart.h:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xi2c.h:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xi2c.h:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xspi.c:1166: warning: argument 'pulData' of command @param is not found in the argument list of SPIDataRead(unsigned long ulBase, unsigned long *pulRData, unsigned long ulLen)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xspi.c:1166: warning: The following parameters of SPIDataRead(unsigned long ulBase, unsigned long *pulRData, unsigned long ulLen) are not documented:
+  parameter 'pulRData'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xspi.h:9: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xspi.h:23: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xsysctl.c:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xsysctl.c:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xsysctl.c:1733: warning: argument 'ulCount' of command @param is not found in the argument list of __attribute__((naked))
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xsysctl.h:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xsysctl.h:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xtimer.c:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xtimer.c:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xtimer.c:62: warning: argument 'None.' of command @param is not found in the argument list of TIMER0AIntHandler(void)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xtimer.c:92: warning: argument 'None.' of command @param is not found in the argument list of TIMER0BIntHandler(void)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xtimer.c:122: warning: argument 'None.' of command @param is not found in the argument list of TIMER1AIntHandler(void)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xtimer.c:152: warning: argument 'None.' of command @param is not found in the argument list of TIMER1BIntHandler(void)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xtimer.c:182: warning: argument 'None.' of command @param is not found in the argument list of TIMER2AIntHandler(void)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xtimer.c:212: warning: argument 'None.' of command @param is not found in the argument list of TIMER2BIntHandler(void)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xtimer.c:242: warning: argument 'None.' of command @param is not found in the argument list of TIMER3AIntHandler(void)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xtimer.c:272: warning: argument 'None.' of command @param is not found in the argument list of TIMER3BIntHandler(void)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xtimer.h:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xtimer.h:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xuart.c:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xuart.c:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xuart.h:6: warning: Found unknown command `\copy'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xuart.h:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/hw_ssd2119.h:6: warning: Found unknown command `\copy'
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/hw_ssd2119.h:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:6: warning: Found unknown command `\copy'
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:61: warning: argument 'ucRS' of command @param is not found in the argument list of SSD2119Write(unsigned char ucDC, unsigned long ulInstruction, unsigned char ucRegType)
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:61: warning: The following parameters of SSD2119Write(unsigned char ucDC, unsigned long ulInstruction, unsigned char ucRegType) are not documented:
+  parameter 'ucDC'
+  parameter 'ulInstruction'
+  parameter 'ucRegType'
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1216: warning: argument 'None.' of command @param is not found in the argument list of SSD2119BackLightOn(void)
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1231: warning: argument 'None.' of command @param is not found in the argument list of SSD2119DisplayOff(void)
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1610: warning: argument 'pcString' of command @param is not found in the argument list of SSD2119PutGB1616(unsigned short usX, unsigned short usY, unsigned char ucChinese[2], unsigned long fColor, unsigned long bColor)
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1610: warning: The following parameters of SSD2119PutGB1616(unsigned short usX, unsigned short usY, unsigned char ucChinese[2], unsigned long fColor, unsigned long bColor) are not documented:
+  parameter 'usX'
+  parameter 'usY'
+  parameter 'ucChinese'
+  parameter 'fColor'
+  parameter 'bColor'
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1657: warning: argument 'pcString' of command @param is not found in the argument list of SSD2119PutGB3232(unsigned short usX, unsigned short usY, unsigned char ucChinese[2], unsigned long fColor, unsigned long bColor)
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1657: warning: The following parameters of SSD2119PutGB3232(unsigned short usX, unsigned short usY, unsigned char ucChinese[2], unsigned long fColor, unsigned long bColor) are not documented:
+  parameter 'usX'
+  parameter 'usY'
+  parameter 'ucChinese'
+  parameter 'fColor'
+  parameter 'bColor'
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.h:6: warning: Found unknown command `\copy'
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.h:20: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/cox_peripheral_lib/changelog_en.txt:14: warning: unable to resolve reference to `SysCtlBODLowPowerModeEnable' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/cox_peripheral_lib/changelog_en.txt:15: warning: unable to resolve reference to `SPIDivOneFunction' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/cox_peripheral_lib/changelog_en.txt:16: warning: unable to resolve reference to `I2CIntCallbackInit' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/cox_peripheral_lib/changelog_en.txt:17: warning: unable to resolve reference to `GPIODebounceTimeSet' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/cox_peripheral_lib/changelog_en.txt:20: warning: unable to resolve reference to `PWMFrequencyConfig' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/cox_peripheral_lib/copyleft_en.txt:26: warning: Unsupported xml/html tag <ORGANIZATION> found
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xdma.c:333: warning: unable to resolve reference to `ulDMASrcRequest' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xdma.c:333: warning: unable to resolve reference to `ulDMADestRequest' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/gpio/xgpio_en.txt:113: warning: unable to resolve reference to `xGPIO_Usage' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/spi/Stellaris_spi_en.txt:15: warning: unable to resolve reference to `M051_SPI_Usage' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/uart/xuart_en.txt:14: warning: unable to resolve reference to `xUART_API_Group_SmartCard' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/uart/xuart_en.txt:28: warning: unable to resolve reference to `xUART_API_Group_SmartCard' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/doc/txt/uart/xuart_en.txt:1172: warning: unable to resolve reference to `xUART_App_SmardCard' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xacmp.h:527: warning: argument 'ulComp' of command @param is not found in the argument list of xACMPEnable(ulBase, ulCompID)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xacmp.h:527: warning: The following parameters of xACMPEnable(ulBase, ulCompID) are not documented:
+  parameter 'ulCompID'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xacmp.h:544: warning: argument 'ulComp' of command @param is not found in the argument list of xACMPDisable(ulBase, ulCompID)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xacmp.h:544: warning: The following parameters of xACMPDisable(ulBase, ulCompID) are not documented:
+  parameter 'ulCompID'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xacmp.h:564: warning: argument 'ulComp' of command @param is not found in the argument list of xACMPIntEnable(ulBase, ulCompID)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xacmp.h:564: warning: The following parameters of xACMPIntEnable(ulBase, ulCompID) are not documented:
+  parameter 'ulCompID'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xacmp.h:581: warning: argument 'ulComp' of command @param is not found in the argument list of xACMPIntDisable(ulBase, ulCompID)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xacmp.h:581: warning: The following parameters of xACMPIntDisable(ulBase, ulCompID) are not documented:
+  parameter 'ulCompID'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xacmp.c:223: warning: The following parameters of xACMPIntCallbackInit(unsigned long ulBase, unsigned long ulCompID, xtEventCallback pfnCallback) are not documented:
+  parameter 'ulCompID'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xadc.h:308: warning: unable to resolve reference to `xADC_TRIGGER_EXT_PB8' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xadc.h:308: warning: unable to resolve reference to `xADC_TRIGGER_EXT_RISING_EDGE' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xadc.h:682: warning: explicit link request to 'V' could not be resolved
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xadc.h:682: warning: explicit link request to 'V' could not be resolved
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xadc.c:157: warning: argument 'ulSequenceNum' of command @param is not found in the argument list of xADCStepConfigure(unsigned long ulBase, unsigned long ulStep, unsigned long ulConfig)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.h:1035: warning: argument 'ucPins' of command @param is not found in the argument list of xGPIODirModeSet(ulPort, ulPins, ulPinIO)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.h:1035: warning: The following parameters of xGPIODirModeSet(ulPort, ulPins, ulPinIO) are not documented:
+  parameter 'ulPins'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.h:1073: warning: argument 'ucPin' of command @param is not found in the argument list of xGPIODirModeGet(ulPort, ulPin)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.h:1073: warning: The following parameters of xGPIODirModeGet(ulPort, ulPin) are not documented:
+  parameter 'ulPin'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.h:1092: warning: argument 'ucPins' of command @param is not found in the argument list of xGPIOPadConfigSet(ulPort, ulPins, ulStrength, ulPadType)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.h:1092: warning: argument 'ulPinType' of command @param is not found in the argument list of xGPIOPadConfigSet(ulPort, ulPins, ulStrength, ulPadType)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.h:1092: warning: The following parameters of xGPIOPadConfigSet(ulPort, ulPins, ulStrength, ulPadType) are not documented:
+  parameter 'ulPins'
+  parameter 'ulPadType'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.h:1141: warning: argument 'ucPin' of command @param is not found in the argument list of xGPIOPadConfigGet(ulPort, ulPin, pulStrength, pulPadType)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.h:1141: warning: argument 'pulPinType' of command @param is not found in the argument list of xGPIOPadConfigGet(ulPort, ulPin, pulStrength, pulPadType)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.h:1141: warning: The following parameters of xGPIOPadConfigGet(ulPort, ulPin, pulStrength, pulPadType) are not documented:
+  parameter 'ulPin'
+  parameter 'pulPadType'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.h:1250: warning: argument 'ucPin' of command @param is not found in the argument list of xGPIOIntTypeGet(ulPort, ucPins)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.h:1250: warning: The following parameters of xGPIOIntTypeGet(ulPort, ucPins) are not documented:
+  parameter 'ucPins'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.h:1271: warning: argument 'ucPins' of command @param is not found in the argument list of xGPIOPinIntEnable(ulPort, ulPins, ulIntType)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.h:1271: warning: The following parameters of xGPIOPinIntEnable(ulPort, ulPins, ulIntType) are not documented:
+  parameter 'ulPins'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.h:1348: warning: argument 'ucPins' of command @param is not found in the argument list of xGPIOPinIntDisable(ulPort, ulPins)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.h:1348: warning: The following parameters of xGPIOPinIntDisable(ulPort, ulPins) are not documented:
+  parameter 'ulPins'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.h:1385: warning: argument 'ucPins' of command @param is not found in the argument list of xGPIOPinRead(ulPort, ulPins)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.h:1385: warning: The following parameters of xGPIOPinRead(ulPort, ulPins) are not documented:
+  parameter 'ulPins'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.h:1429: warning: argument 'ucPins' of command @param is not found in the argument list of xGPIOPinWrite(ulPort, ulPins, ucVal)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.h:1429: warning: The following parameters of xGPIOPinWrite(ulPort, ulPins, ucVal) are not documented:
+  parameter 'ulPins'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.c:120: warning: argument 'eShortPin' of command @param is not found in the argument list of GPIOPinToPeripheralId(unsigned long ulPort, unsigned long ulPin)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.c:120: warning: The following parameters of GPIOPinToPeripheralId(unsigned long ulPort, unsigned long ulPin) are not documented:
+  parameter 'ulPort'
+  parameter 'ulPin'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.c:144: warning: argument 'eShortPin' of command @param is not found in the argument list of GPIOPinToPort(unsigned long ulPort, unsigned long ulPin)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.c:144: warning: The following parameters of GPIOPinToPort(unsigned long ulPort, unsigned long ulPin) are not documented:
+  parameter 'ulPort'
+  parameter 'ulPin'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.c:167: warning: argument 'eShortPin' of command @param is not found in the argument list of GPIOPinToPin(unsigned long ulPort, unsigned long ulPin)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.c:167: warning: The following parameters of GPIOPinToPin(unsigned long ulPort, unsigned long ulPin) are not documented:
+  parameter 'ulPort'
+  parameter 'ulPin'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.c:560: warning: argument 'pfnCallback' of command @param is not found in the argument list of GPIOPinIntCallbackInit(unsigned long ulPort, unsigned long ulPin, xtEventCallback xtPortCallback)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xgpio.c:560: warning: The following parameters of GPIOPinIntCallbackInit(unsigned long ulPort, unsigned long ulPin, xtEventCallback xtPortCallback) are not documented:
+  parameter 'xtPortCallback'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xi2c.h:844: warning: argument 'ucSlaveAddr' of command @param is not found in the argument list of xI2CMasterReadBufS2(ulBase, pucDataBuf, ulLen, bEndTransmition)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xi2c.c:1953: warning: argument 'ucSlaveAddr' of command @param is not found in the argument list of I2CMasterReadBufS2(unsigned long ulBase, unsigned char *pucDataBuf, unsigned long ulLen, xtBoolean bEndTransmition)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xspi.h:100: warning: unable to resolve reference to `xSPI_INT_TX_FIFO' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xspi.h:102: warning: unable to resolve reference to `xSPI_INT_TX_FIFO' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xspi.h:103: warning: unable to resolve reference to `xSPI_INT_TX_FIFO' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xspi.h:653: warning: argument 'pulData' of command @param is not found in the argument list of xSPIDataRead(ulBase, pulRData, ulLen)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xspi.h:653: warning: The following parameters of xSPIDataRead(ulBase, pulRData, ulLen) are not documented:
+  parameter 'pulRData'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xspi.h:812: warning: argument 'ulPort' of command @param is not found in the argument list of xSPIIntCallbackInit(ulBase, pfnCallback)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xspi.h:812: warning: The following parameters of xSPIIntCallbackInit(ulBase, pfnCallback) are not documented:
+  parameter 'ulBase'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xspi.h:827: warning: The following parameters of xSPIIntDisable(ulBase, ulIntFlags) are not documented:
+  parameter 'ulIntFlags'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xsysctl.c:720: warning: argument 'ulPeripheral' of command @param is not found in the argument list of xSysCtlPeripheralIntNumGet(unsigned long ulPeripheralBase)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xsysctl.c:720: warning: The following parameters of xSysCtlPeripheralIntNumGet(unsigned long ulPeripheralBase) are not documented:
+  parameter 'ulPeripheralBase'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xtimer.h:558: warning: unable to resolve reference to `xTIMER_Capture_Mode_Type' for \ref command
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xtimer.h:688: warning: argument 'xtPortCallback' of command @param is not found in the argument list of xTimerIntCallbackInit(ulBase, xtTimerCallback)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xtimer.h:688: warning: The following parameters of xTimerIntCallbackInit(ulBase, xtTimerCallback) are not documented:
+  parameter 'xtTimerCallback'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xtimer.h:773: warning: The following parameters of xTimerCounterDetectPhaseSelect(ulBase, ulChannel, ulPhase) are not documented:
+  parameter 'ulChannel'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xtimer.h:795: warning: The following parameters of xTimerCaptureEdgeSelect(ulBase, ulChannel, ulEdge) are not documented:
+  parameter 'ulChannel'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xtimer.c:323: warning: The following parameters of TimerInitConfig(unsigned long ulBase, unsigned long ulChannel, unsigned long ulConfig, unsigned long ulTickFreq) are not documented:
+  parameter 'ulChannel'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xtimer.c:517: warning: The following parameters of TimerCounterEnable(unsigned long ulBase, unsigned long ulChannel) are not documented:
+  parameter 'ulChannel'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xtimer.c:536: warning: The following parameters of TimerCounterDisable(unsigned long ulBase, unsigned long ulChannel) are not documented:
+  parameter 'ulChannel'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xtimer.c:555: warning: The following parameters of TimerCaptureModeSet(unsigned long ulBase, unsigned long ulChannel, unsigned long ulCapMode) are not documented:
+  parameter 'ulChannel'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xtimer.c:864: warning: argument 'xtPortCallback' of command @param is not found in the argument list of TimerIntCallbackInit(unsigned long ulBase, unsigned long ulChannel, xtEventCallback xtTimerCallback)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xtimer.c:864: warning: The following parameters of TimerIntCallbackInit(unsigned long ulBase, unsigned long ulChannel, xtEventCallback xtTimerCallback) are not documented:
+  parameter 'ulChannel'
+  parameter 'xtTimerCallback'
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xuart.h:903: warning: argument 'ulUARTClk' of command @param is not found in the argument list of xUARTConfigSet(ulBase, ulBaud, ulConfig)
+F:/driver/CoX/CoX_Peripheral/CoX_Peripheral_LM3S/libcox/xuart.h:1438: warning: Found unknown command `\bX'
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.h:96: warning: unable to resolve reference to `SSD2119_INTERFACE_8080_9BIT' for \ref command
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.h:97: warning: unable to resolve reference to `SSD2119_INTERFACE_8080_16BIT' for \ref command
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.h:98: warning: unable to resolve reference to `SSD2119_INTERFACE_8080_18BIT' for \ref command
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.h:99: warning: unable to resolve reference to `SSD2119_INTERFACE_6800_8BIT' for \ref command
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.h:100: warning: unable to resolve reference to `SSD2119_INTERFACE_6800_9BIT' for \ref command
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.h:101: warning: unable to resolve reference to `SSD2119_INTERFACE_6800_16BIT' for \ref command
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.h:102: warning: unable to resolve reference to `SSD2119_INTERFACE_6800_18BIT' for \ref command
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.h:103: warning: unable to resolve reference to `SSD2119_INTERFACE_RGB_6BIT' for \ref command
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.h:104: warning: unable to resolve reference to `SSD2119_INTERFACE_RGB_18BIT' for \ref command
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.h:105: warning: unable to resolve reference to `SSD2119_INTERFACE_3SPI' for \ref command
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.h:106: warning: unable to resolve reference to `SSD2119_INTERFACE_4SPI' for \ref command
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:759: warning: argument 'None.' of command @param is not found in the argument list of SSD2119Init(void)
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:771: warning: unable to resolve reference to `SSD2119_INTERFACE_IDATA_LEN' for \ref command
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:772: warning: unable to resolve reference to `SSD2119_DISPLAY_LINE' for \ref command
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:773: warning: unable to resolve reference to `SSD2119_CHARACTER_FONT' for \ref command
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1156: warning: argument 'ulStartX' of command @param is not found in the argument list of SSD2119DisplayRectFill(unsigned short usStartX, unsigned short usEndX, unsigned short usStartY, unsigned short usEndY, unsigned long ulColor)
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1156: warning: argument 'ulStartY' of command @param is not found in the argument list of SSD2119DisplayRectFill(unsigned short usStartX, unsigned short usEndX, unsigned short usStartY, unsigned short usEndY, unsigned long ulColor)
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1156: warning: argument 'ulEndX' of command @param is not found in the argument list of SSD2119DisplayRectFill(unsigned short usStartX, unsigned short usEndX, unsigned short usStartY, unsigned short usEndY, unsigned long ulColor)
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1156: warning: argument 'ulEndY' of command @param is not found in the argument list of SSD2119DisplayRectFill(unsigned short usStartX, unsigned short usEndX, unsigned short usStartY, unsigned short usEndY, unsigned long ulColor)
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1156: warning: The following parameters of SSD2119DisplayRectFill(unsigned short usStartX, unsigned short usEndX, unsigned short usStartY, unsigned short usEndY, unsigned long ulColor) are not documented:
+  parameter 'usStartX'
+  parameter 'usEndX'
+  parameter 'usStartY'
+  parameter 'usEndY'
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1246: warning: argument 'ulX' of command @param is not found in the argument list of SSD2119DrawOnePixel(unsigned short usX, unsigned short usY, unsigned long ulColor)
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1246: warning: argument 'ulY' of command @param is not found in the argument list of SSD2119DrawOnePixel(unsigned short usX, unsigned short usY, unsigned long ulColor)
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1246: warning: argument 'ulValue' of command @param is not found in the argument list of SSD2119DrawOnePixel(unsigned short usX, unsigned short usY, unsigned long ulColor)
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1246: warning: The following parameters of SSD2119DrawOnePixel(unsigned short usX, unsigned short usY, unsigned long ulColor) are not documented:
+  parameter 'usX'
+  parameter 'usY'
+  parameter 'ulColor'
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1516: warning: argument 'usColor' of command @param is not found in the argument list of SSD2119DrawHorizontalLine(unsigned short usStartX, unsigned short usEndX, unsigned short usY, unsigned long ulColor)
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1516: warning: The following parameters of SSD2119DrawHorizontalLine(unsigned short usStartX, unsigned short usEndX, unsigned short usY, unsigned long ulColor) are not documented:
+  parameter 'ulColor'
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1543: warning: argument 'ulX' of command @param is not found in the argument list of SSD2119DrawVerticalLine(unsigned short usX, unsigned short usStartY, unsigned short usEndY, unsigned long ulColor)
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1543: warning: argument 'ulStartY' of command @param is not found in the argument list of SSD2119DrawVerticalLine(unsigned short usX, unsigned short usStartY, unsigned short usEndY, unsigned long ulColor)
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1543: warning: argument 'ulEndY' of command @param is not found in the argument list of SSD2119DrawVerticalLine(unsigned short usX, unsigned short usStartY, unsigned short usEndY, unsigned long ulColor)
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1543: warning: The following parameters of SSD2119DrawVerticalLine(unsigned short usX, unsigned short usStartY, unsigned short usEndY, unsigned long ulColor) are not documented:
+  parameter 'usX'
+  parameter 'usStartY'
+  parameter 'usEndY'
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1570: warning: argument 'pcString' of command @param is not found in the argument list of SSD2119PutChar8x16(unsigned short usX, unsigned short usY, char c, unsigned long fColor, unsigned long bColor)
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1570: warning: The following parameters of SSD2119PutChar8x16(unsigned short usX, unsigned short usY, char c, unsigned long fColor, unsigned long bColor) are not documented:
+  parameter 'usX'
+  parameter 'usY'
+  parameter 'c'
+  parameter 'fColor'
+  parameter 'bColor'
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1704: warning: The following parameters of SSD2119DisplayString(unsigned short usX, unsigned short usY, const char *pcString, unsigned long fColor, unsigned long bColor) are not documented:
+  parameter 'usX'
+  parameter 'usY'
+  parameter 'fColor'
+  parameter 'bColor'
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1740: warning: argument 'n' of command @param is not found in the argument list of SSD2119DisplayNum(unsigned short usX, unsigned short usY, unsigned long ulNum, unsigned long fColor, unsigned long bColor)
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1740: warning: The following parameters of SSD2119DisplayNum(unsigned short usX, unsigned short usY, unsigned long ulNum, unsigned long fColor, unsigned long bColor) are not documented:
+  parameter 'usX'
+  parameter 'usY'
+  parameter 'ulNum'
+  parameter 'fColor'
+  parameter 'bColor'
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1778: warning: argument 'n' of command @param is not found in the argument list of SSD2119DisplayBmp(unsigned short usX, unsigned short usY, unsigned short usSizeX, unsigned short usSizeY, unsigned char const *Bmp)
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1778: warning: The following parameters of SSD2119DisplayBmp(unsigned short usX, unsigned short usY, unsigned short usSizeX, unsigned short usSizeY, unsigned char const *Bmp) are not documented:
+  parameter 'usX'
+  parameter 'usY'
+  parameter 'usSizeX'
+  parameter 'usSizeY'
+  parameter 'Bmp'
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1114: warning: argument 'None.' of command @param is not found in the argument list of SSD2119EnterSleepMode(void)
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:1138: warning: argument 'None.' of command @param is not found in the argument list of SSD2119ExitSleepMode(void)
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:674: warning: argument 'None.' of command @param is not found in the argument list of SSD2119WritePixelData(unsigned long ulData)
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:674: warning: The following parameters of SSD2119WritePixelData(unsigned long ulData) are not documented:
+  parameter 'ulData'
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:496: warning: argument 'ucRS' of command @param is not found in the argument list of SSD2119Read(unsigned char ucDC)
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:496: warning: The following parameters of SSD2119Read(unsigned char ucDC) are not documented:
+  parameter 'ucDC'
+F:/driver/CoX/Driver/LCD_Character/SSD2119/Character_LCD_SSD2119_Driver/lib/ssd2119.c:689: warning: The following parameters of SSD2119SetCurPos(unsigned long ulStartX, unsigned long ulEndX, unsigned long ulStartY, unsigned long ulEndY) are not documented:
+  parameter 'ulStartY'
+  parameter 'ulEndY'
