@@ -1095,7 +1095,6 @@ SysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc)
     if(ulPeripheralSrc == SYSCTL_PERIPH_RTC_S_OSC32KCLK)
     {
         xHWREG(SIM_SOPT1) &= ~SIM_SOPT1_OSC32KSEL_M;
-        xHWREG(SIM_SOPT1) |= SIM_SOPT1_OSC32KSEL_OSC32KCLK;
     }
     else if(ulPeripheralSrc == SYSCTL_PERIPH_RTC_S_RTC_CLKIN)
     {
@@ -2454,22 +2453,43 @@ SysCtlRegulatorStatusGet(void)
 //! \return the PWM and UART0 Clock Rate clock.
 //
 //*****************************************************************************
-unsigned long SysCtlPWMAndUART0ClkGet(void)
+unsigned long SysCtlPWMAndUART0ClkGet(unsigned long ulGetUart)
 {
     unsigned long ulHclk = 0, ulPWMClk = 0;
+    unsigned char shift;
 
     //
-    // Check the PWM Clock Source.
-    //
-    if((xHWREG(SIM_SOPT2) & SIM_SOPT2_TPMSRC_MCGXLL)
-                         == SIM_SOPT2_TPMSRC_MCGXLL)
+    // Uart register in SOPT2 is shifted, otherwise get TPM
+    if (ulGetUart)
     {
-        ulHclk = SysCtlHClockGet();
-        ulPWMClk = ulHclk/2;
+    	shift = 2;
+    }
+    else
+    {
+    	shift = 0;
+    }
+
+    //
+    // Check the PWM/Uart Clock Source.
+    //
+    if((xHWREG(SIM_SOPT2) & (SIM_SOPT2_TPMSRC_MCGXLL << shift))
+                         == (SIM_SOPT2_TPMSRC_MCGXLL << shift))
+    {
+        if (xHWREG(SIM_SOPT2) & SIM_SOPT2_PLLFLLSEL)
+		{
+        	//MCGPLLCLK/2
+        	ulHclk = SysCtlHClockGet();
+        	ulPWMClk = ulHclk/2;
+		}
+        else
+        {
+        	//FLL (slow or fast)
+        	ulPWMClk = 96000000;
+        }
         return ulPWMClk;
     }
-    else if((xHWREG(SIM_SOPT2) & SIM_SOPT2_TPMSRC_OSCERCLK)
-                         == SIM_SOPT2_TPMSRC_OSCERCLK)
+    else if((xHWREG(SIM_SOPT2) & (SIM_SOPT2_TPMSRC_OSCERCLK << shift))
+                         == (SIM_SOPT2_TPMSRC_OSCERCLK << shift))
     {
         xHWREGB(OSC0_CR) |= OSC0_CR_ERCLKEN;
         xHWREGB(MCG_C2) |= MCG_C2_EREFS0;
@@ -2480,6 +2500,7 @@ unsigned long SysCtlPWMAndUART0ClkGet(void)
     {
         xHWREGB(MCG_C1) |= MCG_C1_IRCLKEN;
         xHWREGB(MCG_C2) |= MCG_C2_IRCS;
+        // fast clock 4MHz
         ulPWMClk = 4000000;
         return ulPWMClk;    
     }
