@@ -1,10 +1,10 @@
 /**
   *****************************************************************************
-  * @title   blinky_freedomKL25.c
+  * @title   uart_freedomKL25.c
   * @author  0xc0170
   * @date    30 Nov 2012
-  * @brief   Print welcome message to the terminal through UART using usb on
-  * 		 KL25 Freedom board and echo users input typed in terminal.
+  * @brief   Print welcome message to the terminal through UART on
+  * 		     KL25 Freedom board and echo users input typed in the terminal.
   *******************************************************************************
   */
 #include "xhw_types.h"
@@ -17,14 +17,22 @@
 #include "xhw_uart.h"
 #include "xuart.h"
 
-
-/* xASSERT enable */
-#define xDEBUG 1
-
 const unsigned char Begin[] = "Welcome, here is Freedom KL25 UART example\r\n, \
                                Now you can input your word, end with 'enter'\r\n";
 const unsigned char End[] = "\nEnd of UART Example";
 
+//*****************************************************************************
+//
+//! Initialize the UART module and send characters to the terminal
+//!
+//! \param None
+//!
+//! This function initializes the UART including clock source, enables RX and TX.
+//! Prints the welcome message and echos characters.
+//!
+//! \return none
+//
+//*****************************************************************************
 void UART_example_freedomKL25(void)
 {
     unsigned int i = 0;
@@ -86,7 +94,7 @@ void UART_example_freedomKL25(void)
     }
 
     //
-    // print out run over information
+    // print out last message
     //
     i = 0;
     while(End[i] != '\0')
