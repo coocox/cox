@@ -1,0 +1,226 @@
+//*****************************************************************************
+//
+//! \defgroup HX8347-G
+//!
+//! \brief HX8347-G driver.
+//!
+//!The  HX8347-G  is  designed  to  provide  a  single-chip  solution  that   
+//!combines  a  gate driver, a source driver, power supply circuit for  
+//!262,144 colors to drive a TFT panel with 240RGBx320 dots at maximum.
+//!
+//! <h1>Contents</h1>
+//! - \ref HX8347-G_BLOCK
+//! - \ref HX8347-G_Pins
+//! - \ref HX8347-G_SPI_MODE
+//! - \ref HX8347-G_SYS_Interface
+//! - \ref HX8347-G_Func_Desc
+//! .
+//!
+//! \section HX8347-G_BLOCK 1. HX8347-G Physical Block
+//! <img src="HX8347-G.png">
+//!
+//! \section HX8347-G_Pins  2. HX8347-G signals name.
+//! <img src="HX8347-G_pins1.png">
+//! <img src="HX8347-G_pins2.png">
+//!
+//! \section HX8347-G_SPI_MODE 3. HX8347-G support SPI mode.
+//! HX8347-G can be driven by a microcontroller with its SPI peripheral 
+//! running in the following mode:
+//! - CPOL=1, CPHA=1    \ref SPI_FORMAT_MODE_4
+//! .
+//! In this mode, polarity is 1, phase is 1. Tx changed at falling edge.
+//! Rx latched at rising edge.
+//! 
+//! \section HX8347-G_SYS_Interface 4. HX8347-G System interface circuit.
+//! The system interface circuit in HX8347-G supports, 18-/16-/9-/8-bit bus  
+//! width parallel bus system interface for I80 series CPU, and 4-/3-wire serial  
+//! bus system interface for serial data input. When NCS = ¡°L¡±, the parallel and   
+//! serial bus system interface of the HX8347-G become active and data transfer   
+//! through the interface circuit is available. The  DNC_SCL  pin  specifies     
+//! whether  the  system  interface circuit  access  is  to  the register  command      
+//! or  to  the  display  data  RAM.  The  input bus  format  of  system interface   
+//! circuit is selected by external pins setting. For selecting the input bus format,
+//! please refer the follow Table .
+//!
+//! <img src="HX8347-G_Sys_Interface.png">
+//! 
+//! \section HX8347-G_Function_Desc 5. HX8347-G Instructions
+//! - Set 6-bit bus device identification code   \ref HX8347_SPI_START
+//! - Set Write instruction or GRAM data         \ref HX8347_SPI_WR
+//! - Set Reads command (Not support GRAM read)  \ref HX8347_SPI_RD
+//! - Writing data to the index register or read \ref HX8347_SPI_INDEX
+//! - Writing or reading a command or GRAM data  \ref HX8347_SPI_DATA
+//!
+//! \defgroup HX8347-G_Driver_Single  
+//! 
+//! \brief This is the HX8347-G series Driver can be used in the condition which
+//! the system only have one HX8347-G series device.
+//!
+//! This driver is implemented by using defines and global variables.It can only 
+//! use on one device because all the APIs use the some macros and global variables.
+//!
+//! <h1>Contents</h1>
+//! - \ref HX8347-G_How_Define
+//! - \ref HX8347-G_API_Group
+//!   - \ref HX8347-G_API_Config
+//!   - \ref HX8347-G_API_Display
+//!   - \ref HX8347-G_API_Lowlayer
+//!   .
+//! - \ref HX8347-G_Usage 
+//! .
+//!
+//! \section HX8347-G_How_Define 1. How is the HX8347-G Driver implemented?
+//! Use define to config some Fixing things,such as SPI base and SPI pins
+//! CS pin,use hold input or not,BL_CN pin,use hold input or not.
+//!
+//! Use global variables to save variables use by the APIs.
+//!
+//! \section HX8347-G_API_Group 2. API Groups
+//! 
+//! The HX8347-G API is broken into three groups of functions: 
+//! - those that deal with HX8347-G config , 
+//! - those that deal with AT25FS0x chip information and init, 
+//! - those that deal with AT25FS0x hold input and write protect function.
+//! .
+//!
+//! \n
+//! \subsection HX8347-G_API_Config 2.1 HX8347-G config APIs
+//! 
+//! The HX8347-G init is implemented by :
+//! - HX8347Init()
+//! - HX8347SetTextColor()
+//! - HX8347SetBackColor()
+//! - HX8347SetWindow()
+//! - HX8347SetWindowMax()
+//! .
+//!
+//! \n
+//! \subsection HX8347-G_API_Display 2.2 HX8347 display APIs
+//! 
+//! The HX8347-G display is set by :
+//! - HX8347LCDClear() 
+//! - HX8347DisplayBmp() 
+//! - HX8347Bargraph() 
+//! - HX8347DisplayChar() 
+//! - HX8347DisplayString()
+//! - HX8347ClearLine()
+//! - HX8347DrawPixel()
+//! - HX8347DisplayN()
+//! - HX8347DisplayOff()
+//! - HX8347DisplayOn()
+//! - HX8347DrawChinese()
+//! - HX8347DisplayChinese()
+//! .
+//!
+//! \n
+//! \subsection HX8347-G_API_Lowlayer 2.3 Lowlayer API
+//! If the LCD API can not meet your need, you can use the API below operated 
+//! on the lowlayer.
+//! - HX8347WriteCmd()
+//! - HX8347WriteDat()
+//! - HX8347WriteReg()
+//! - HX8347SetWindow()
+//! - HX8347WriteDataStart()
+//! - HX8347WriteDataStop()
+//! - HX8347WriteDataOnly()
+//! -	HX8347DrawPixel()
+//! .
+//!
+//! \section HX8347-G_Usage HX8347-G Usage
+//! 
+//! Before Using the LCD driver, you should configure the LCD moudle, function,
+//! character font, data interface length, pin remap. 
+//!
+//! Below is some example code:
+//!
+//! \code
+//!//*****************************************************************************
+//!//
+//!//! \file Example.c
+//!//! \brief the HX8347-G Example.
+//!//! \version 1.0
+//!//! \date 7/3/2012
+//!//! \author CooCox
+//!//! \copy
+//!//!
+//!//! Copyright (c)  2011, CooCox 
+//!//! All rights reserved.
+//!//! 
+//!//! Redistribution and use in source and binary forms, with or without 
+//!//! modification, are permitted provided that the following conditions 
+//!//! are met: 
+//!//! 
+//!//!     * Redistributions of source code must retain the above copyright 
+//!//! notice, this list of conditions and the following disclaimer. 
+//!//!     * Redistributions in binary form must reproduce the above copyright
+//!//! notice, this list of conditions and the following disclaimer in the
+//!//! documentation and/or other materials provided with the distribution. 
+//!//!     * Neither the name of the <ORGANIZATION> nor the names of its 
+//!//! contributors may be used to endorse or promote products derived 
+//!//! from this software without specific prior written permission. 
+//!//! 
+//!//! THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+//!//! AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//!//! IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+//!//! ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+//!//! LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+//!//! CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+//!//! SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+//!//! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+//!//! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+//!//! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+//!//! THE POSSIBILITY OF SUCH DAMAGE.
+//!//*****************************************************************************
+//!#include "HX8347-G.h"
+//!#include "hw_HX8347-G.h"
+//!#include "xhw_ints.h"
+//!#include "xhw_nvic.h"
+//!#include "xhw_memmap.h"
+//!#include "xhw_types.h"
+//!#include "xdebug.h"
+//!#include "xcore.h"
+//!#include "xsysctl.h"
+//!#include "xhw_sysctl.h"
+//!#include "xhw_gpio.h"
+//!#include "xgpio.h"
+//!
+//!
+//!//*****************************************************************************
+//!//
+//!//! \brief The example of the function of read and write.
+//!//!
+//!//! \param None
+//!//!
+//!//! \details The example of the function of read and write.
+//!//! \return None.
+//!//
+//!//*****************************************************************************
+//!void HX8347Example(void)
+//!{
+//!    xSysCtlClockSet(72000000, xSYSCTL_OSC_MAIN | SYSCTL_XTAL_25MHZ);
+//!    
+//!    HX8347Init(18000000);
+//!    
+//!    HX8347LCDClear(Blue);
+//!    xSysCtlDelay(2000000);
+//!    HX8347LCDClear(White);
+//!    //
+//!    // Change backcolor and textcolor,display string.
+//!    //
+//!    HX8347SetBackColor(Blue);
+//!    HX8347SetTextColor(White);
+//!    HX8347DisplayString(0, 0, "  STM32F1xx Board   ");
+//!    HX8347SetBackColor(Blue);
+//!    HX8347SetTextColor(Red);
+//!    HX8347DisplayString(1, 0, "  HX8347-G EXAMPLE  ");
+//!    //
+//!    // Display number.
+//!    //
+//!    HX8347SetBackColor(White);
+//!    HX8347SetTextColor(Red);
+//!    HX8347DisplayN(8, 15, 2012);
+//!    
+//!}
+//! \endcode
+//
+//*****************************************************************************

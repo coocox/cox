@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>M24C32-F_M24C32-W_M24C32-R_M24C32-DF</Name>
+    <Description>
+    	  I2C-compatible electrically erasable pro-grammable memory (EEPROM) devices are orga-nized as 4096 x 8 bits (M24C32)
+    </Description>
+    <Manufacturer>ST</Manufacturer>
+    
+    <Category>Memory</Category>
+    <SubCategory>Eeprom</SubCategory>
+    
+    <KeyWord>Eeprom, I2C, M24C32, COX</KeyWord>
+    
+    <Communication>
+        <Interface>Eeprom</Interface>
+    </Communication>
+    
+    <WebPage>http://www.stmicroelectronics.com.cn/stonline/stappl/resourceSelector/app?page=resourceSelector&doctype=DATASHEET&SubClassID=112</WebPage>
+    <Datasheet>http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/DATASHEET/CD00001012.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</DoC>
+</Device>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>STMPE811</Name>
+    <Description>S-Touch advanced resistive touchscreen controller with 8-bit GPIO expander.</Description>
+    <Manufacturer>ST</Manufacturer>
+    
+    <Category>Sensor</Category>
+    <SubCategory>S-Touch</SubCategory>
+    
+    <KeyWord>STMPE811, Temp, Touch, Sensor, ST</KeyWord>
+    
+    <Communication>
+        <Interface>I2C</Interface>
+    </Communication>
+    
+    <WebPage>http://www.st.com/internet/analog/product/185203.jsp</WebPage>
+    <Datasheet>http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/DATASHEET/CD00186725.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

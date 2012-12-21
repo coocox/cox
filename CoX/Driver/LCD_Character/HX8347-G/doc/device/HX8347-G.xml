@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>HX8347-G</Name>
+    <Description>
+        The  HX8347-G  is  designed  to  provide  a  single-chip  solution  that  combines  a  gate 
+driver, a source driver, power supply circuit for 262,144 colors to drive a TFT panel 
+with 240RGBx320 dots at maximum.
+    </Description>
+    <Manufacturer>HIMAX</Manufacturer>
+    <Category>Display</Category>
+    <SubCategory>HX8347-G</SubCategory>    
+    <KeyWord>HX8347-G, LCD, HIMAX, display</KeyWord>
+    
+    <Communication>
+        <Interface>GPIO</Interface>
+        <Interface>SPI</Interface>
+    </Communication>
+    
+    <WebPage>http://www.himax.com.tw/en/home/index.asp</WebPage>
+    <Datasheet></Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>Seven_Segment</Name>
+    <Description>
+        An seven segment is a device that can display all the available digital parameters, such as the the time, date, temperature and etc.
+    </Description>
+    <Manufacturer>COMPUL</Manufacturer>
+    
+    <Category>LED</Category>
+    <SubCategory>Seven_Segment_LED</SubCategory>
+    
+    <KeyWord>7-Segment, display</KeyWord>
+    
+    <Communication>
+        <Interface>GPIO</Interface>
+    </Communication>
+    
+    <WebPage></WebPage>
+    <Datasheet></Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

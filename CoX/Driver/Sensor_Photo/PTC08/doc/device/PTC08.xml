@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>PTC08</Name>
+    <Description>Serial camera module</Description>
+    <Manufacturer>putal</Manufacturer>
+    
+    <Category>Sensor</Category>
+    <SubCategory>Photo</SubCategory>
+    
+    <KeyWord>Photo, Sensor, PTC08, Serial, camera, module</KeyWord>
+    
+    <Communication>
+        <Interface>UART</Interface>
+    </Communication>
+    
+    <WebPage>http://www.putal.com.cn/</WebPage>
+    <Datasheet>http://www.putal.com.cn/upfile/20120606171914474515.rar</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

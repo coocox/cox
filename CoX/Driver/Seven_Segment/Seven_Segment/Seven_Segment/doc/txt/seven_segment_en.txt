@@ -1,0 +1,106 @@
+//*****************************************************************************
+//
+//! \defgroup LG5641 LG5641BH
+//!
+//! \brief Seven Segment digital tubes
+//!
+//! Seven Segment tubes is a digital display device that can only display all 
+//! the available digital parameters, such as the the time, date, 
+//! temperature and etc.
+//! 
+//! Seven Segment tubes have various  many different types and models, but 
+//! common to them all is direct controled by GPIO. 
+//! 
+//! <h1>Contents</h1>
+//! - \ref Seven_Segment_Block_Diagram
+//! - \ref Seven_Segment_Func_Desc
+//!   - \ref Seven_Segment_Func_Pin
+//!   .
+//! - \ref Seven_Segment_API_Group
+//! - \ref Seven_Segment_Usage
+//! .
+//!
+//!
+//! \section Seven_Segment_Block_Diagram 1. Seven Segment connection Circuitry Diagram
+//! <img src="Seven_Segment_system.jpg" />
+//!
+//! \section Seven_Segment_Func_Desc 2. Seven Segment Function Description
+//! \subsection Seven_Segment_Func_Pin 2.1 Seven Segment Pin Description
+//!
+//! <img src="Seven_Segment.jpg" />
+//! \verbatim
+//! +---+-------+-------------------------------+
+//! |No.|PinName|Pin Description                |
+//! |---|-------|-------------------------------|
+//! | 1 |   E   |Digital Pin input              |
+//! | 2 |   D   |Digital Pin input              |
+//! | 3 |  COM  |Commont pin input(VCC or GND)  |
+//! | 4 |   C   |Digital Pin input              |
+//! | 5 |  DP   |Digital Pin input              |
+//! | 6 |   B   |Digital Pin input              |
+//! | 7 |   A   |Digital Pin input              |
+//! | 8 |  COM  |Commont pin input(VCC or GND)  |
+//! | 9 |   F   |Digital Pin input              |
+//! |10 |   G   |Digital Pin input              |
+//! +---+-------+-------------------------------+
+//! \endverbatim
+//!
+//! \section Seven_Segment_API_Group 3. API Group
+//! \subsection Seven_Segment_API_Config 3.1 Config API
+//! - SevenSegmentInit() - to initialize.
+//! - SevenLEDOff() - to close the led.
+//! - LEDChipSel() - to select the LED chip
+//!
+//! \subsection SDCard_API_RW 3.2 Read/Write API
+//! - SevenSegmentShow() - to Show the number on the Seven_Segment
+//! - SevenSegmentScan() - to display data on the Seven_Segment
+//! - SevenSegmentClear() - to Close the seven segment digital tubes
+//! .
+//!
+//! \section Seven_Segment_Usage 4. Seven Segment Usage
+//! 
+//! Before Using the seven segment digital tubes driver, you should configure 
+//! the seven segment digital tubes, such as pin map,Please reference
+//! \ref SDCard_Config.
+//!
+//! \code
+//! #include "test.h"
+//! #include "Seven_Segment.h"
+//! 
+//! void SDCardTest(void)
+//! {   
+//!     unsigned long i;
+    
+//!     
+//!     //
+//!     // Step1: SD Card Init
+//!     //
+//!     SevenSegmentInit();
+//!     
+//!     //
+//!     // After initialize complete, you can use the seven segment digital 
+//!     // tubes to display.
+//!     //  
+//!     while(1)
+//!     {
+//!       for(i = 200; i > 0; i--)
+//!       {
+//!         SevenSegmentScan(1234,DECIMAL);
+//!       }
+//!       for(i = 200; i > 0; i--)
+//!       {
+//!         SevenSegmentScan(5678,DECIMAL);
+//!       }
+//!       for(i = 200; i > 0; i--)
+//!       {
+//!         SevenSegmentScan(0x90aab,HEXADECIMAL);
+//!       }
+//!       for(i = 200; i > 0; i--)
+//!       {
+//!         SevenSegmentScan(0xcdef,HEXADECIMAL);
+//!       }
+ //!    }
+//! }
+//! \endcode
+//
+//*****************************************************************************

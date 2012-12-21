@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>SSD2119</Name>
+    <Description>
+        An SSD2119 Character LCD is a factory industry standard thin film transistor (TFT) LCD display device designed for interfacing with embedded systems. These screens come in a variety of configurations including 320x240, which has two kinds of color mode, 65k-color and 262k-color mode, some include backlight provided by a LED.
+    </Description>
+    <Manufacturer>SOLOMON SYSTECH</Manufacturer>
+    
+    <Category>LCD</Category>
+    <SubCategory>Character-LCD</SubCategory>
+    
+    <KeyWord>SSD2119, LCD, TFT, Character LCD, Text LCD, 320x240, display</KeyWord>
+    
+    <Communication>
+        <Interface>GPIO</Interface>
+    </Communication>
+    
+    <WebPage></WebPage>
+    <Datasheet>http://www.solomon-systech.com.cn/cn/product/display-ic/tft-lcd-driver-controller/ssd2119/</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

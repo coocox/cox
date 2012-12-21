@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+  <project>
+    <path>$WS_DIR$\suite1.STM32F1xx.ewp</path>
+  </project>
+  <batchBuild/>
+</workspace>
+
+

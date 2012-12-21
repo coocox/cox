@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>M24C64-F_M24C64-W_M24C64-R_M24C64-DF</Name>
+    <Description>
+    	  I2C-compatible electrically erasable pro-grammable memory (EEPROM) devices are orga-nized as 8192 x 8 bits (M24C64)
+    </Description>
+    <Manufacturer>ST</Manufacturer>
+    
+    <Category>Memory</Category>
+    <SubCategory>Eeprom</SubCategory>
+    
+    <KeyWord>Eeprom, I2C, M24C64, COX</KeyWord>
+    
+    <Communication>
+        <Interface>Eeprom</Interface>
+    </Communication>
+    
+    <WebPage>http://www.stmicroelectronics.com.cn/stonline/stappl/resourceSelector/app?page=resourceSelector&doctype=DATASHEET&SubClassID=112</WebPage>
+    <Datasheet>http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/DATASHEET/CD00259166.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</DoC>
+</Device>
