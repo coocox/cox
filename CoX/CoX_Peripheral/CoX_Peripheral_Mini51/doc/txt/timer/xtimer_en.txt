@@ -1,0 +1,252 @@
+//*****************************************************************************
+//
+//! \defgroup TIMER
+//! 
+//! \brief Timer controller Peripheral Driver.
+//!
+//! Timer controller allows user to implement a timer control for application 
+//! easily. The timer can perform functions like frequency measurement, event
+//! counting, interval measurement, clock generation, delay timing, and so on.
+//! The timer can generate an interrupt signal upon timeout, or provide the
+//! current value during operation.
+//!
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref TIMER_Blcok
+//! - \ref TIMER_Functions_Desc
+//!   - \ref Internal_Timer
+//!   - \ref Event_counting
+//!   - \ref Pulse_Width_Modulation
+//!   - \ref Delay_Timing
+//!   .
+//! .
+//! 
+//! <br />
+//! \section TIMER_Blcok 1. TIMER Physical Block
+//!
+//! <br />
+//! \section TIMER_Functions_Desc 2. TIMER Functional Description
+//! 
+//! <br />
+//! \subsection Internal_Timer 2.1 Internal Timer
+//! Users can select the Internal clock source as the timer clock source,
+//! and start the timer with diffierent mode, such as one shot mode,
+//! periodic mode. when the timer's count value reaches the compared value,
+//! its corresponding interrupt flag will be set.
+//! 
+//! <br />
+//! \subsection Event_counting 2.2 Event counting
+//! Timer can be configured to count the event signal which is selected as 
+//! rising or falling edge form the corresponding pin. 
+//! 
+//! <br />
+//! \subsection Pulse_Width_Modulation 2.3 Pulse Width Modulation
+//! Timer's Pulse width modulation can be used to output an 0~100% duty ratio.
+//!
+//! <br />
+//! \subsection Delay_Timing 2.4 Delay Timing
+//! Timer also can be used to make a accurate delay for the application.
+//! 
+//! <br />
+//! \section TIMER_Applications 3. TIMER Applications
+//!
+//! <br />
+//! \note Here describes the common functions of the TIMER Peripheral. 
+//! The CoX Peripheral Interface is based on the functions above. 
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
+//! \defgroup xTIMER xTIMER
+//! 
+//! \brief CoX TIMER Peripheral Interface
+//!
+//! The xTIMER is the TIMER Peripheral Interface of CoX. It defines some common
+//! macros and APIs.
+//! 
+//! <h1>Contents</h1>
+//! - \ref CoX_TIMER_How_Define
+//! - \ref xTIMER_API_Group
+//!   - \ref xTIMER_API_Config_Control
+//!   - \ref xTIMER_API_Event_Counting
+//!   - \ref xTIMER_API_Capture
+//!   - \ref xTIMER_API_Interrupt
+//!   .
+//! - \ref xTIMER_Usage 
+//! .
+//!
+//! <br />
+//!
+//! \section CoX_TIMER_How_Define 1. How is xTIMER Standard Defined?
+//! CoX TIMER defines the APIs based on the following common functions:
+//! - Mode configure
+//!   - One shot mode
+//!   - Periodic mode
+//!   - toggle mode
+//!   - continuous mode
+//!   .
+//! - Timer Start-Stop 
+//!   - Timer start
+//!   - Tiemr stop
+//!   .
+//! - Event counting set
+//!   - Rising edge count
+//!   - Falling edge count
+//!   .
+//! - Capture set
+//!   - Capture reset 
+//!   - Input capture
+//!   .
+//! - Values set and get
+//!   - Prescale value set and get
+//!   - Timer value set and get
+//!   - Match value set and get
+//!   .
+//! - Interrupt operation
+//! .
+//!
+//! <br />
+//! \section xTIMER_API_Group 2. xTiemr API Groups
+//! 
+//! The CoX TIMER API is broken into six groups of functions: 
+//! - those that deal with configuring the Mode configure, 
+//! - those that deal with Timer Start-Stop, 
+//! - those that deal with Event counting set,
+//! - those that deal with values set and get,
+//! - those that deal with interrupt operation
+//! .
+//!
+//! <br />
+//! \subsection xTIMER_API_Config_Control 2.1 xTIMER API Configuration and Control
+//! 
+//! The TIMER Mode are configured with:
+//! - xTimerInitConfig()
+//! - xTimerStart()
+//! - xTimerStop()
+//! - xTimerPrescaleSet()
+//! - xTimerPrescaleGet()
+//! - xTimerValueGet()
+//! - xTimerMatchSet()
+//! - xTimerMatchGet()
+//! .
+//! 
+//! <br />
+//! \subsection xTIMER_API_Event_Counting 2.2 xTIMER API Event Counting
+//! 
+//! The TIMER event counting are handled with:
+//! - xTimerCounterEnable()
+//! - xTimerCounterDisable()
+//! .
+//! 
+//! <br />
+//! \subsection xTIMER_API_Capture 2.3 xTIMER API Capture
+//! 
+//! The capture function are handled with:
+//! - xTimerCaptureModeSet()
+//! - xTIMERPinWrite()
+//! .
+//!
+//! <br />
+//! \subsection xTIMER_API_Interrupt 2.4 xTIMER API Interrupt
+//! The Interrupt are handled with:
+//! - xTimerIntCallbackInit()
+//! - xTimerIntEnable()
+//! - xTimerIntDisable()
+//! - xTimerStatusGet()
+//! 
+//! <br />
+//! \section xTIMER_Usage 3. Usage & Program Examples
+//! The following example shows how to use the TIMER API to initialize the 
+//! TIMER, read data from pins, and write data to pins.
+//! 
+//! \code
+//!
+//! //*****************************************************************************
+//! //
+//! // \file one_second_clock.c
+//! // \brief Use the timer to make a one second clock.
+//! // \date 2/17/2012
+//! // \author CooCox
+//! // 
+//! // The timer source select external 12M hz crystal oscillator, the TCMP register
+//! // set to oxffff, the prescale register value is 12M/0x1ffff = 92
+//! // 
+//! // \copy
+//! //
+//! //*****************************************************************************
+//! #include "xhw_types.h"
+//! #include "xcore.h"
+//! #include "xhw_ints.h"
+//! #include "xhw_memmap.h"
+//! #include "xhw_nvic.h"
+//! #include "xgpio.h"
+//! #include "xsysctl.h"
+//! #include "xtimer.h"
+//!
+//! //*****************************************************************************
+//! //
+//! // \biref The main example function
+//! //
+//! // \return  none
+//! //
+//! //*****************************************************************************
+//! void OneSecondClock(void)
+//! {    
+//!     xSysCtlClockSet(12000000, xSYSCTL_XTAL_12MHZ | xSYSCTL_OSC_MAIN);    
+//!     //
+//!     // Set the timer clock
+//!     //
+//!     xSysCtlPeripheralClockSourceSet(SYSCTL_PERIPH_TMR0_S_EXT12M, 1);
+//!     
+//!     // 
+//!     // Enable tiemr0
+//!     // 
+//!     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_TIMER0);  
+//!     
+//!     //
+//!     // Clear the flag first
+//!     //
+//!     TimerIntClear(TIMER0_BASE, TIMER_INT_MATCH);
+//!     while(xTimerStatusGet(TIMER0_BASE, 0, TIMER_INT_MATCH));
+//!     
+//!     // 
+//!     // Config as One shot mode
+//!     //        
+//!     xTimerInitConfig(TIMER0_BASE, 0, TIMER_MODE_PERIODIC, 1000);
+//!     xTimerPrescaleSet(TIMER0_BASE, 0, 91);
+//!     xTimerMatchSet(TIMER0_BASE, 0, 0x1ffff);
+//!     xTimerIntEnable(TIMER0_BASE, 0, TIMER_INT_MATCH);
+//!     
+//!     //
+//!     // Start the timer
+//!     //
+//!     xTimerStart(TIMER0_BASE, 0);
+//!         
+//!     //
+//!     // One shot mode test.
+//!     //
+//!     while(1)
+//!     {       
+//!         //
+//!         // wait until the timer data register reach equel to compare register
+//!         //
+//!         while(!xTimerStatusGet(TIMER0_BASE, 0, TIMER_INT_MATCH));
+//!         TimerIntClear(TIMER0_BASE, TIMER_INT_MATCH);
+//!     }      
+//!
+//! }
+//!
+//! \endcode
+//!
+//
+//*****************************************************************************
+
+
+
+
+
+
+

@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>I2CExample</Name>
+  <Description>The example shows how to use the I2C API to initialize the
+               slave I2C, and how to transfer data to master with polling mode.
+  </Description>
+  <Version>1.0.0</Version>
+  <Tags>I2C</Tags>
+  <EVKit>Nu-LB-Mini_V001 Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\CoX\CoX_Peripheral\CoX_Peripheral_Mini51\i2c\example\slave_receive_poll\src\SlaveReceivePoll.c</File>
+  </Files>
+  
+  <Dependencys>
+        <Dependency>CoX.Peripheral.Mini51.xStartup</Dependency>
+        <Dependency>CoX.Peripheral.Mini51.xLowLayer</Dependency>
+        <Dependency>CoX.Peripheral.Mini51.xCORE</Dependency>
+        <Dependency>CoX.Peripheral.Mini51.xSysCtl</Dependency>
+	    <Dependency>CoX.Peripheral.Mini51.xGPIO</Dependency>
+  </Dependencys>
+  
+   
+</Example>

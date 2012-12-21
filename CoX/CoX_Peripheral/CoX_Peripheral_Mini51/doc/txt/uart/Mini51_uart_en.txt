@@ -1,0 +1,297 @@
+//*****************************************************************************
+//
+//! \defgroup Mini51_UART Mini51 UART
+//! 
+//! \brief Mini51 UART Peripheral Driver.
+//!
+//! The CoX Peripheral Library also provide APIs for full functions of Mini51
+//! UART. This module supports the whole Mini51 Series.
+//!
+//! \n
+//! <h1>Contents</h1>
+//! - \ref Mini51_UART_Blcok
+//! - \ref Mini51_UART_Function_Desc
+//!   - \ref Mini51_UART_Data_Transmission
+//!     - \ref Mini51_UART_RxTx
+//!     - \ref Mini51_UART_Baudrate
+//!     - \ref Mini51_UART_FIFO
+//!     .
+//!   - \ref Mini51_UART_SIR
+//!   - \ref Mini51_UART_Modem
+//!   - \ref Mini51_UART_RS485
+//!   - \ref Mini51_UART_Interrupt
+//!   .
+//! - \ref Mini51_UART_API_Group
+//!   - \ref Mini51_UART_API_Group_Config
+//!   - \ref Mini51_UART_API_Group_FIFO
+//!   - \ref Mini51_UART_API_Group_SIR
+//!   - \ref Mini51_UART_API_Group_RS485
+//!   - \ref Mini51_UART_API_Group_Modem
+//!   - \ref Mini51_UART_API_Group_Interrupt
+//!   .
+//! - \ref Mini51_UART_Usage
+//! .
+//!
+//! \n
+//! \section Mini51_UART_Blcok 1. UART Physical Block
+//! <img src="Mini51_UART_block.png" />
+//! 
+//! \n
+//! \section Mini51_UART_Function_Desc 2. Functional Description
+//! 
+//! \n
+//! \subsection Mini51_UART_Data_Transmission 2.1 UART Data Transmission
+//!
+//! \subsubsection Mini51_UART_RxTx 2.1.1 UART Data Transmit and Receive
+//! 
+//! Full duplex, asynchronous communications. Separate receive/transmit 
+//! 16/16 bytes(UART0) entry FIFO for data payloads. 
+//!
+//! \subsubsection Mini51_UART_Baudrate 2.1.2 UART Baudrate Generation
+//! 
+//! The UART includes a programmable baud rate generator that is capable
+//! of dividing clock input by divisors to produce the serial clock that
+//! transmitter and receiver need.
+//! <center>
+//! <b>UART Baud Rate Equation</b>
+//! <table>
+//! <tr><td>Mode</td><td>DIV_X_EN</td><td>DIV_X_ONE</td><td>Divider X</td><td>BRD</td><td>Baud rate equation</td></tr>
+//! <tr><td>0</td><td>0</td><td>0</td><td>B</td><td>A</td><td>UART_CLK/[16*(A+2)]</td></tr>
+//! <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>UART_CLK/[(B+1)*(A+2)], B must >= 8</td></tr>
+//! <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>UART_CLK/(A+2), A must >= 3</td></tr>
+//! </table>
+//! </center>
+//!
+//! \subsubsection Mini51_UART_FIFO 2.1.3 UART FIFO
+//!
+//! The UART0 are built-in with a 16-byte transmitter FIFO(TX_FIFO) and a 16-byte
+//! receiver FIFO(RX_FIFO) that reduces the number of interrupts presented to the CPU.
+//!
+//! <center>
+//! <b>RX FIFO Interrupt(INT_RDA) Trigger Level</b>
+//! <table>
+//! <tr><td>RFITL</td><td>INTR_RDA Trigger Level(Bytes)</td></tr>
+//! <tr><td>0x00</td><td>01</td></tr>
+//! <tr><td>0x01</td><td>04</td></tr>
+//! <tr><td>0x02</td><td>08</td></tr>
+//! <tr><td>0x03</td><td>14</td></tr>
+//! </table>
+//! </center>
+//!
+//! \n
+//! \subsection Mini51_UART_SIR 2.2 UART Serial IR
+//!
+//! The IrDA SIR Encoder/Decoder provides functionality which converts between 
+//! UART data stream and half duplex serial SIR interface. The following diagram
+//! is IrDA encoder/decoder waveform:
+//! <img src="Mini51_IrDA_TimingDiagram.png" />
+//!
+//!
+//! \n
+//! \subsection Mini51_UART_Modem 2.3 UART Modem Support
+//!
+//! Support hardware auto flow control/flow control funciton(CTS, RTS) and programmable
+//! RTS flow control trigger level.
+//!
+//! \n
+//! \subsection Mini51_UART_RS485 2.4 UART RS-485 Support
+//! Support RS-485 function mode.
+//! <ul>
+//! <li>Support RS-485 9bit mode</li>
+//! <li>Support hardware or software direct enable control provided by RTS pin</li>
+//! </ul>
+//!
+//! The UART supports RS-485 9 bits mode function. The RS-485 mode is selected 
+//! by setting the UART_FUN_SEL register to select RS-485 function. The RS-485 
+//! driver control is implemented using the RTS control signal from an asynchronous 
+//! serial port to enable the RS-485 driver. In RS-485 mode, many characteristics of
+//! the RX and TX are same as UART.
+//!
+//! \n
+//! \subsection Mini51_UART_Interrupt 2.5 UART Interrupt
+//!
+//! The UART can generate interrupts when the following conditions are observed:
+//! Overrun Error
+//! Break Error
+//! Parity Error
+//! Framing Error
+//! Receive Timeout
+//! Transmit
+//! Receive 
+//! 
+//! \n
+//! \section Mini51_UART_API_Group 3. API Groups
+//! 
+//! \n
+//! \subsection Mini51_UART_API_Group_Config 3.1 UART Config APIs
+//! 
+//! -  UARTParityModeSet()
+//! -  UARTParityModeGet()
+//! -  UARTConfigSetExpClk()
+//! -  UARTConfigGetExpClk()
+//! -  UARTEnable()
+//! -  UARTCharGetNonBlocking()
+//! -  UARTCharGet()
+//! -  UARTCharPutNonBlocking()
+//! -  UARTCharPut()
+//! -  UARTBreakCtl()
+//! -  UARTRxErrorGet()
+//! -  UARTRxErrorClear()
+//! -  UARTRxTimeOutSet()
+//! .
+//!
+//! \n
+//! \subsection Mini51_UART_API_Group_FIFO 3.2 UART FIFO APIs
+//!
+//! -  UARTFIFOTriggerLevelSet()
+//! -  UARTFIFOTriggerLevelGet()
+//! -  UARTFIFOTxIsEmpty()
+//! -  UARTFIFOTxIsFull()
+//! -  UARTFIFOTxLength()
+//! -  UARTFIFORxIsEmpty()
+//! -  UARTFIFORxIsFull()
+//! -  UARTFIFORxLength()
+//! .
+//!
+//! \n
+//! \subsection Mini51_UART_API_Group_SIR 3.3 UART IrDA APIs
+//!
+//! -  UARTIrDAConfig()
+//! -  UARTEnableIrDA()
+//! -  UARTDisableIrDA()
+//! .
+//!
+//! \n
+//! \subsection Mini51_UART_API_Group_RS485 3.4 UART RS-485 APIs
+//!
+//! -  UART485Config()
+//! .
+//!
+//! \n
+//! \subsection Mini51_UART_API_Group_Modem 3.5 UART Modem APIs
+//!
+//! -  UARTModemControlSet()
+//! -  UARTModemControlClear()
+//! -  UARTModemControlGet()
+//! -  UARTModemStatusSet()
+//! -  UARTModemStatusGet()
+//! -  UARTFlowControlSet()
+//! -  UARTFlowControlGet()
+//! .
+//!
+//! \n
+//! \subsection Mini51_UART_API_Group_Interrupt 3.6 UART Interrupt APIs
+//!
+//! -  UARTIntEnable()
+//! -  UARTIntDisable()
+//! -  UARTIntStatus()
+//! -  UARTIntEnableGet()
+//! -  UARTIntCallbackInit()
+//! -  UARTIntClear()
+//! .
+//! 
+//! \n
+//! \section Mini51_UART_Usage 4. Usage & Program Examples
+//! 
+//! - \ref xUART_App_NormalMode
+//! - \ref xUART_App_IrDA
+//! - \ref xUART_App_Modem
+//! .
+//! 
+//! \note 
+//! 
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
+//! \defgroup Mini51_UART_INT_Type Mini51 UART Interrupt type
+//! 
+//! \brief Mini51 UART Interrupt type
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup Mini51_UART_Line_Config Mini51 UART Line Config
+//! 
+//!
+//! \brief Mini51 UART Line Config
+//! 
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup Mini51_UART_IrDA_Config Mini51 UART IrDA Mode Config
+//! 
+//! \brief Mini51 UART IrDA Mode Config
+//! 
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup Mini51_UART_Enable_Blocks Mini51 UART Enable Blocks
+//! 
+//! \brief Mini51 UART Enable Blocks
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup Mini51_UART_FIFO_Level Mini51 UART FIFO Level
+//! 
+//! \brief Mini51 UART FIFO Level
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup Mini51_UART_Error Mini51 UART Error
+//!
+//! \brief Mini51 UART Error
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup Mini51_UART_Flow_Control Mini51 UART Flow Control
+//! 
+//! \brief Mini51 UART Flow Control
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup Mini51_UART_OUTPUT_RTS Mini51 UART OUTPUT RTS
+//! 
+//! \brief Mini51 UART OUTPUT RTS
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup Mini51_UART_INPUT_CTS Mini51 UART INPUT CTS
+//! 
+//! \brief Mini51 UART INPUT CTS
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup Mini51_UART_Exported_APIs Mini51 UART Exported APIs
+//! 
+//! \brief Mini51 UART Exported APIs
+//!
+//
+//*****************************************************************************

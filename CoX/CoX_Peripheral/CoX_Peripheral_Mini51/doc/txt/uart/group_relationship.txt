@@ -1,0 +1,40 @@
+//******************************************************
+//
+//!
+//! \addtogroup UART
+//! @{
+//! \addtogroup Mini51_UART_Register 
+//! @{
+//! @}
+//! \addtogroup xUART
+//! @{
+//! @}
+//! \addtogroup Mini51_UART
+//! @{
+//! @}
+//! \addtogroup xUART_Apps
+//! @{
+//! @}
+//! @}
+//
+//******************************************************
+
+//******************************************************
+//
+//! \addtogroup UART
+//! @{
+//! \addtogroup xUART_Apps
+//! @{
+//! \addtogroup xUART_App_NormalMode
+//! @{
+//! @}
+//! \addtogroup xUART_App_IrDA
+//! @{
+//! @}
+//! \addtogroup xUART_App_Modem
+//! @{
+//! @}
+//! @}
+//! @}
+//
+//******************************************************
