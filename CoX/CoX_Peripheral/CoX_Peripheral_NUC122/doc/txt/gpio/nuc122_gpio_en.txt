@@ -1,0 +1,138 @@
+//*****************************************************************************
+//
+//! \defgroup NUC122_GPIO NUC122 GPIO
+//! 
+//! \brief Nuvoton NUC122 GPIO Peripheral Driver.
+//!
+//! The CoX Peripheral Library also provides APIs for full functions of Nuvoton
+//! NUC122 GPIO. This module supports the whole NUC122 Series.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref NUC122_GPIO_Blcok
+//! - \ref NUC122_GPIO_Function_Desc
+//! - \ref NUC122_GPIO_API_Group
+//!   - \ref NUC122_GPIO_API_Group_Config
+//!   - \ref NUC122_GPIO_API_Group_Interrupt
+//!   - \ref NUC122_GPIO_API_Group_Pin
+//!   .
+//! - \ref NUC122_GPIO_Usage
+//! .
+//!
+//! <br />
+//! \section NUC122_GPIO_Blcok 1. GPIO Physical Block
+//! <img src="NUC122_gpio_block.png" />
+//! 
+//! <br />
+//! \section NUC122_GPIO_Function_Desc 2. Functional Description
+//! Each pin has the following capabilities:
+//! - Can be configured as an input or an output. 
+//! - In input mode, can generate interrupts on high level, low level, 
+//! both level, rising edge, falling edge, or both edges.
+//! - In output mode, can be set high level or low level. 
+//! - Optional quasi-bidirection operation. On reset, they default to quasi-bidirection operation.
+//! - Optional open-drain operation.  
+//! - Can be configured to be a GPIO or a peripheral pin. On reset, they 
+//! default to being GPIOs.
+//! .
+//! 
+//! <br />
+//! \section NUC122_GPIO_API_Group 3. API Groups
+//! 
+//! The GPIO API is broken into three groups of functions: 
+//! - those that deal with configuring the GPIO pins, 
+//! - those that deal with interrupts, 
+//! - those that access the pin value.
+//! .
+//!
+//! <br />
+//! \subsection NUC122_GPIO_API_Group_Config 3.1 GPIO Config APIs
+//! 
+//! The GPIO pins are configured with:
+//! - GPIODirModeSet(),
+//! - GPIOPinDebounceEnable(),
+//! - GPIOPinDebounceDisable(),
+//! - GPIOPinMaskSet(),
+//! - GPIODebounceTimeSet(),
+//! - GPIOPinFunctionSet(),
+//! - GPIOPinConfigure().
+//! .
+//! The configuration can be read back with:
+//! - GPIODirModeGet(),
+//! - GPIOPortMaskGet(),
+//! - GPIODebounceTimeGet().  
+//!.
+//! 
+//! There are also convenient
+//! functions for configuring the pin in the required or recommended 
+//! configuration for a particular peripheral; these are :
+//! - GPIOPinFunctionSet();
+//! .
+//! 
+//! <br />
+//! \subsection NUC122_GPIO_API_Group_Interrupt 3.2 GPIO Interrupt APIs
+//! 
+//! The GPIO interrupts are handled with: 
+//! - GPIOPinIntCallbackInit(),
+//! - GPIOPinIntEnable(),
+//! - GPIOPinIntDisable(), 
+//! - GPIOPinIntStatus(), 
+//! - GPIOPinIntClear().
+//! .
+//!
+//! <br />
+//! \subsection NUC122_GPIO_API_Group_Pin 3.3 GPIO Pin State APIs
+//! 
+//! The GPIO pin state is accessed with:
+//! - GPIOPinRead(),
+//! - GPIOPinWrite(),
+//! - GPIOPinPortDoutGet().
+//! .
+//!
+//! <br />
+//! \section NUC122_GPIO_Usage 4. Usage & Program Examples
+//! The following example shows how to use the GPIO API to initialize the 
+//! GPIO, enable interrupts, read data from pins, and write data to pins.
+//! 
+//! \code
+//! int iVal;
+//!
+//! //
+//! // Initialize the GPIO pin configuration.
+//! //
+//! // Set pins 10, 11, and 12 as input, SW controlled.
+//! GPIODirModeSet(GPIO_PORTA_BASE,
+//!                      GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12, GPIO_DIR_MODE_IN);
+//! //
+//! // Set pins 14 and 15 as output, SW controlled.
+//! //
+//! GPIODirModeSet(GPIO_PORTA_BASE, GPIO_PIN_10 | GPIO_PIN_11, GPIO_DIR_MODE_OUT);
+//! //
+//! // Make pins 10 and 11 rising edge triggered interrupts.
+//! //
+//! GPIOPinIntEnable(GPIO_PORTA_BASE, GPIO_PIN_10 | GPIO_PIN_11, GPIO_RISING_EDGE);
+//! //
+//! // Make pin 10 high level triggered interrupts.
+//! //
+//! GPIOPinIntEnable(GPIO_PORTA_BASE, GPIO_PIN_10, GPIO_HIGH_LEVEL);
+//! //
+//! // Read some pins.
+//! //
+//! iVal = GPIOPinRead(GPIO_PORTA_BASE,
+//!                    (GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 |
+//!                     GPIO_PIN_13 | GPIO_PIN_14));
+//! //
+//! // Write some pins. Even though pins 10, 11, and 12 are specified, those
+//! // pins are unaffected by this write since they are configured as inputs.
+//! // At the end of this write, pin 10 will be a 1, and pin 11 will be a 0.
+//! //
+//! GPIOPinWrite(GPIO_PORTA_BASE,
+//!              (GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 |
+//!               GPIO_PIN_13 | GPIO_PIN_14),
+//!              0x00000100);
+//!
+//! \endcode
+//! 
+//! 
+//
+//*****************************************************************************
