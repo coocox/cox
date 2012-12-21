@@ -1,0 +1,285 @@
+//*****************************************************************************
+//
+//! \defgroup HT32F125x_UART HT32F125x UART
+//! 
+//! \brief HT32F125x UART Peripheral Driver.
+//!
+//! The CoX Peripheral Library also provide APIs for full functions of HT32F125x
+//! UART. This module supports the whole HT32F125x Series.
+//!
+//! \n
+//! <h1>Contents</h1>
+//! - \ref HT32F125x_UART_Blcok
+//! - \ref HT32F125x_UART_Function_Desc
+//!   - \ref HT32F125x_UART_Data_Transmission
+//!     - \ref HT32F125x_UART_RxTx
+//!     - \ref HT32F125x_UART_Baudrate
+//!     - \ref HT32F125x_UART_FIFO
+//!     .
+//!   - \ref HT32F125x_UART_SIR
+//!   - \ref HT32F125x_UART_Modem
+//!   - \ref HT32F125x_UART_SYNC
+//!   - \ref HT32F125x_UART_RS485
+//!   - \ref HT32F125x_UART_Interrupt
+//!   .
+//! - \ref HT32F125x_UART_API_Group
+//!   - \ref HT32F125x_UART_API_Group_Config
+//!   - \ref HT32F125x_UART_API_Group_FIFO
+//!   - \ref HT32F125x_UART_API_Group_SIR
+//!   - \ref HT32F125x_UART_API_Group_RS485
+//!   - \ref HT32F125x_UART_API_Group_Modem
+//!   - \ref HT32F125x_UART_API_Group_SYNC
+//!   - \ref HT32F125x_UART_API_Group_Interrupt
+//!   .
+//! - \ref HT32F125x_UART_Usage
+//! .
+//!
+//! \n
+//! \section HT32F125x_UART_Blcok 1. UART Physical Block
+//! <img src="HT32F125x_UART_block.png" />
+//! 
+//! \n
+//! \section HT32F125x_UART_Function_Desc 2. Functional Description
+//! 
+//!
+//! \n
+//! \subsection HT32F125x_UART_Data_Transmission 2.1 UART Data Transmission
+//!
+//! \subsubsection HT32F125x_UART_RxTx 2.1.1 UART Data Transmit and Receive
+//! 
+//! Full duplex, asynchronous communications. Separate receive/transmit 
+//! 16/16 bytes entry FIFO for data payloads. 
+//!
+//! \subsubsection HT32F125x_UART_Baudrate 2.1.2 UART Baudrate Generation
+//! 
+//! The UART includes a programmable baud rate generator that is capable
+//! of dividing clock input by divisors to produce the serial clock that
+//! transmitter and receiver need.
+//! <center>
+//! <b>UART Baud Rate Equation</b>
+//! <table>
+//! <tr><td>Mode</td><td>DIV_X_EN</td><td>DIV_X_ONE</td><td>Divider X</td><td>BRD</td><td>Baud rate equation</td></tr>
+//! <tr><td>0</td><td>0</td><td>0</td><td>B</td><td>A</td><td>CK_USART/BRD</td></tr>
+//! </table>
+//! </center>
+//!
+//! \subsubsection HT32F125x_UART_FIFO 2.1.3 UART FIFO
+//!
+//! The UART0 are built-in with a 16-byte transmitter FIFO(TX_FIFO) and a 16-byte receiver
+//! FIFO(RX_FIFO) that reduces the number of interrupts presented to the CPU.
+//!
+//! <center>
+//! <b>RX FIFO Interrupt(INT_RDA) Trigger Level</b>
+//! <table>
+//! <tr><td>RFITL</td><td>INTR_RDA Trigger Level(Bytes)</td></tr>
+//! <tr><td>0x00</td><td>01</td></tr>
+//! <tr><td>0x01</td><td>04</td></tr>
+//! <tr><td>0x02</td><td>08</td></tr>
+//! <tr><td>0x03</td><td>14</td></tr>
+//! </table>
+//! </center>
+//!
+//! \n
+//! \subsection HT32F125x_UART_SIR 2.2 UART Serial IR
+//!
+//! The IrDA SIR Encoder/Decoder provides functionality which converts between 
+//! UART data stream and half duplex serial SIR interface. The following diagram
+//! is IrDA encoder/decoder waveform:
+//! <img src="HT32F125x_IrDA_TimingDiagram.png" />
+//!
+//!
+//! \n
+//! \subsection HT32F125x_UART_Modem 2.3 UART Modem Support
+//!
+//! Support hardware auto flow control/flow control funciton(DTR, RTS) and programmable
+//! RTS flow control trigger level.
+//!
+//! \n
+//! \subsection HT32F125x_UART_SYNC 2.4 UART SYNC Support
+//!
+//! Support SYNC function mode.
+//! The data is transmitted in a full-duplex style in the USART Synchronous Master Mode,   
+//! i.e., data transmission and reception both occur at the same time and only support
+//! the master mode.
+//! <center>
+//! <b>Structure of SYNC Frame</b>
+//! <img src="HT32F125x_UART_SYNC_Frame.png" />
+//! </center>
+//! \n
+//! \subsection HT32F125x_UART_RS485 2.5 UART RS-485 Support
+//! Support RS-485 function mode.
+//! <ul>
+//! <li>Support hardware or software direct enable control provided by RTS pin</li>
+//! </ul>
+//!
+//! The data on the RS485 interface is transmitted over a 2-wire twisted pair bus. 
+//! The RS485 transceiver interprets the voltage levels of the differential signals 
+//! with respect to a third common voltage. Without this common reference, the transceiver
+//! may interpret the differential signals incorrectly. This enhances the noise rejection 
+//! capabilities of the RS485 interface. The UR_RTS pin is used to control the external 
+//! RS485 transceiver whose polarity can be selected by configuring the TXENP bit in the  
+//! operates in RS485 Control Register, named RS485CR, when the USART module the RS485 mode.
+//!
+//! \n
+//! \subsection HT32F125x_UART_Interrupt 2.6 UART Interrupt
+//!
+//! The UART can generate interrupts when the following conditions are observed:
+//! Overrun Error
+//! Break Error
+//! Parity Error
+//! Framing Error
+//! Receive Timeout
+//! Transmit
+//! Receive 
+//! 
+//! \n
+//! \section HT32F125x_UART_API_Group 3. API Groups
+//! 
+//! \n
+//! \subsection HT32F125x_UART_API_Group_Config 3.1 UART Config APIs
+//! 
+//! -  UARTParityModeSet()
+//! -  UARTParityModeGet()
+//! -  UARTConfigSetExpClk()
+//! -  UARTConfigGetExpClk()
+//! -  UARTEnable()
+//! -  UARTCharGetNonBlocking()
+//! -  UARTCharGet()
+//! -  UARTCharPutNonBlocking()
+//! -  UARTCharPut()
+//! -  UARTBreakCtl()
+//! -  UARTRxErrorGet()
+//! -  UARTRxErrorClear()
+//! -  UARTRxTimeOutSet()
+//! -  UARTTransferModeSet()
+//! -  UARTModeSet()
+//! .
+//!
+//! \n
+//! \subsection HT32F125x_UART_API_Group_FIFO 3.2 UART FIFO APIs
+//!
+//! -  UARTFIFOTriggerLevelSet()
+//! -  UARTFIFOTriggerLevelGet()
+//! -  UARTFIFOTxIsEmpty()
+//! -  UARTFIFOTxIsFull()
+//! -  UARTFIFOTxLength()
+//! -  UARTFIFORxIsEmpty()
+//! -  UARTFIFORxIsFull()
+//! -  UARTFIFORxLength()
+//! .
+//!
+//! \n
+//! \subsection HT32F125x_UART_API_Group_SIR 3.3 UART IrDA APIs
+//!
+//! -  UARTIrDAConfig()
+//! -  UARTEnableIrDA()
+//! .
+//!
+//! \n
+//! \subsection HT32F125x_UART_API_Group_RS485 3.4 UART RS-485 APIs
+//!
+//! -  UART485Config()
+//! .
+//!
+//! \n
+//! \subsection HT32F125x_UART_API_Group_Modem 3.5 UART Modem APIs
+//!
+//! -  UARTModemControlSet()
+//! -  UARTModemControlGet()
+//! .
+//!
+//!
+//! \n
+//! \subsection HT32F125x_UART_API_Group_SYNC 3.6 UART SYNC APIs
+//!
+//! -  UARTSYNCConfig()
+//! .
+//!
+//! \n
+//! \subsection HT32F125x_UART_API_Group_Interrupt 3.7 UART Interrupt APIs
+//!
+//! -  UARTIntEnable()
+//! -  UARTIntDisable()
+//! -  UARTIntStatusGet()
+//! -  UARTIntEnableGet()
+//! -  UARTIntCallbackInit()
+//! -  UARTIntClear()
+//! .
+//! 
+//! \n
+//! \section HT32F125x_UART_Usage 4. Usage & Program Examples
+//! 
+//! - \ref xUART_App_NormalMode
+//! - \ref xUART_App_IrDA
+//! - \ref xUART_App_Modem
+//! - \ref xUART_App_Synchronous
+//! .
+//! 
+//! \note 
+//! 
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
+//! \defgroup HT32F125x_UART_INT_Type HT32F125x UART Interrupt type
+//! 
+//! \brief HT32F125x UART Interrupt type
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup HT32F125x_UART_Enable_Blocks HT32F125x UART Enable Blocks
+//! 
+//! \brief HT32F125x UART Enable Blocks
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup HT32F125x_UART_FIFO_Level HT32F125x UART FIFO Level
+//! 
+//! \brief HT32F125x UART FIFO Level
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup HT32F125x_UART_Transfer_Mode HT32F125x UART Transfer Mode
+//!
+//! \brief HT32F125x UART Transfer Mode
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup HT32F125x_UART_Error HT32F125x UART Error
+//!
+//! \brief HT32F125x UART Error
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup HT32F125x_USART_Synchronous_Config HT32F125x UART Synchronous Mode Config
+//! 
+//! \brief HT32F125x UART SYNC Config
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup HT32F125x_UART_Exported_APIs HT32F125x UART Exported APIs
+//! 
+//! \brief HT32F125x UART Exported APIs
+//!
+//
+//*****************************************************************************

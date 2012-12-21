@@ -1,0 +1,45 @@
+<?xml version="2.0" ?>
+<Component>
+    <Name>CoX.Peripheral.HT32F125x.xGPIO</Name>
+    <Description>HT32F125x GPIO Driver</Description>
+    <Category>Peripheral.CoX</Category>
+    <Version>2.1.1.0</Version>
+    <Tags>CoX, xGPIO, GPIO, IO</Tags>
+
+    <Files>
+        <File>..\..\libcox\xgpio.h</File>
+        <File>..\..\libcox\xgpio.c</File>
+    </Files>
+
+    <FilesCoIDE>
+        <File>$PROJECT_ROOT$\CoX\CoX_Peripheral\inc\xgpio.h</File>
+        <File>$PROJECT_ROOT$\CoX\CoX_Peripheral\src\xgpio.c</File>
+    </FilesCoIDE>
+
+    <Dependencys>
+        <Dependency>CoX.Peripheral.HT32F125x.xStartup</Dependency>
+        <Dependency>CoX.Peripheral.HT32F125x.xLowLayer</Dependency>
+        <Dependency>CoX.Peripheral.HT32F125x.xSysCtl</Dependency>
+    </Dependencys>
+
+    <SupportDevices>
+        <Series>
+            <Serie exclude="">HT32F125x</Serie>
+        </Series>
+        <Devices>
+            <Device></Device>
+        </Devices>
+    </SupportDevices>
+
+    <Micros>
+        <Comm>
+            <Define></Define>
+        </Comm>
+        <Device name="">
+            <Define></Define>
+        </Device>   
+    </Micros>
+
+    <Help>$DOCUMENT_ROOT$\xGPIO</Help>
+
+</Component>

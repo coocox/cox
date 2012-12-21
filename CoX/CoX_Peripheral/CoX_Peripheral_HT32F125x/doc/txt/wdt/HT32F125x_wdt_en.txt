@@ -1,0 +1,103 @@
+//*****************************************************************************
+//
+//! \defgroup HT32F125x_WDT HT32F125x WDT
+//! 
+//! \brief HOLTEK HT32F125x WDT Peripheral Driver.
+//!
+//! The CoX Peripheral Library also provides APIs for full functions of Holtek
+//! HT32F125x WDT. This module supports the whole HT32F125x Series.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref HT32F125x_WDT_Blcok
+//! - \ref HT32F125x_WDT_Function_Desc
+//! - \ref HT32F125x_WDT_API_Group
+//!   - \ref HT32F125x_WDT_API_Group_Config
+//!   - \ref HT32F125x_WDT_API_Group_Function
+//!   - \ref HT32F125x_WDT_API_Group_Control
+//!   .
+//! - \ref HT32F125x_WDT_Usage
+//! .
+//!
+//! <br />
+//! \section HT32F125x_WDT_Blcok 1. WDT Physical Block
+//! <img src="HT32F125x_watchdog_block.png" />
+//! 
+//! <br />
+//! \section HT32F125x_WDT_Function_Desc 2. Functional Description
+//! WDT includes the following functions:
+//! - Interrupt
+//! - Reset
+//! .
+//! 
+//! <br />
+//! \section HT32F125x_WDT_API_Group 3. API Groups
+//! 
+//! The WDT API is broken into two groups of functions : 
+//! - those that deal with configuration the WDT
+//! - those that deal with functions
+//! - those that deal with control
+//! .
+//!
+//! <br />
+//! \subsection HT32F125x_WDT_API_Group_Config 3.1 WDT Config APIs
+//! 
+//! The WDT are configured with :
+//! - WDTimerInit()
+//! - WDTimerDeltaSet()
+//! .
+//! 
+//! <br />
+//! \subsection HT32F125x_WDT_API_Group_Function 3.2 WDT Function APIs
+//! 
+//! The WDT function are set with : 
+//! - WDTimerIntCallbackInit()
+//! - WDTimerFunctionEnable()
+//! - WDTimerFunctionDisable() 
+//! .
+//! <br />
+//! \subsection HT32F125x_WDT_API_Group_Control 3.3 WDT Control APIs
+//! 
+//! The WDT function are set with : 
+//! - WDTimerRestart()
+//! - WDTimerStatusGet().
+//! .
+//!
+//! <br />
+//! \section HT32F125x_WDT_Usage 4. Usage & Program Examples
+//! The following example shows how to use the WDT API to initialize the 
+//! WDT, achieve the WDT interrupt function.
+//! 
+//! \code
+//!
+//! // Set WDT Clock Source.
+//!
+//! SysCtlPeripheralClockSourceSet(SYSCTL_PERIPH_WDG_S_INTER);
+//!
+//! // Enable WDT periperal. 
+//!
+//! SysCtlPeripheralEnable(SYSCTL_PERIPH_WDT);
+//!
+//! //
+//! // Set WDT time-out interval.
+//! //
+//! WDTimerInit(256);
+//!                   
+//! //
+//! // Set interrupt function.
+//! //
+//! WDTimerFunctionEnable(WATCHDOG_INT_FUNCTION);
+//!
+//! //
+//! //Initialize callback function.
+//! //
+//! WDTimerIntCallbackInit(user_Callback);
+//!
+//! //
+//! // Enable WDT interrupt in NVIC.
+//! //
+//! xIntEnable(INT_WDT);
+//! \endcode
+//! 
+//
+//*****************************************************************************

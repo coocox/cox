@@ -1,0 +1,156 @@
+//*****************************************************************************
+//
+//! \defgroup HT32F125x_RTC HT32F125x RTC
+//! 
+//! \brief HT32F125x RTC Peripheral Driver.
+//!
+//! The CoX Peripheral Library also provides APIs for full functions of HT32F125x RTC.
+//! 
+//! \n
+//! <h1>Contents</h1>
+//! - \ref HT32F125x_RTC_Block
+//! - \ref HT32F125x_RTC_Function_Desc
+//! - \ref HT32F125x_RTC_API_Group
+//!   - \ref HT32F125x_RTC_API_Group_Config
+//!   - \ref HT32F125x_RTC_API_Group_Time
+//!   - \ref HT32F125x_RTC_API_Group_Interrupt
+//!   .
+//! .
+//!
+//! \n
+//! \section HT32F125x_RTC_Block 1. RTC Physical Block
+//! <img src="HT32F125x_RTC_block.png" />
+//! 
+//! \n
+//! \section HT32F125x_RTC_Function_Desc 2. Functional Description
+//!
+//! The Real Time Clock, RTC, circuitry includes the APB interface, a 32-bit  
+//! up-counter, a control register, a prescaler, a compare register and a status  
+//! register. Most of the RTC circuits is located in the Backup Domain except  for
+//! the APB interface. The APB interface is located in the VDD18 domain. Therefore, 
+//! it is necessary to be isolated  from  the ISO signal that comes from the power. 
+//! 
+//! \n
+//! \section HT32F125x_RTC_API_Group 3. API Groups
+//! 
+//! The RTC API is broken into three groups of functions: 
+//! - those that deal with RTC initialization , 
+//! - those that deal with time reading and writing, 
+//! - those that deal with interrupt.
+//! - those that deal with wakeup
+//! .
+//!
+//! \n
+//! \subsection HT32F125x_RTC_API_Group_Config 3.1 RTC Config APIs
+//! 
+//! The RTC pins are configured with :
+//! - RTCTimeInit()
+//! - RTCOutputConfig()
+//! - RTCOutputEnable()
+//! - RTCStart()
+//! - RTCStop()
+//! - RTCOutputDisable().
+//! .
+//! 
+//! \n
+//! \subsection HT32F125x_RTC_API_Group_Time 3.2 RTC time reading and writing APIs
+//! 
+//! The RTC write and read are through APIS below:
+//! - RTCTimeRead()
+//! - RTCTimeWrite().
+//! .
+//!
+//! \n
+//! \subsection HT32F125x_RTC_API_Group_Interrupt 3.3 RTC interrupt APIs
+//! 
+//! The RTC interrupt can be handled with:
+//! - RTCIntCallbackInit()
+//! - RTCIntEnable()
+//! - RTCIntDisable()
+//! .
+//!
+/! \n
+//! \subsection HT32F125x_RTC_API_Group_WakeUp 3.3 RTC wakeup APIs
+//! 
+//! The RTC wakeup can be handled with:
+//! - RTCWakeupEnable()
+//! - RTCWakeupDisable()
+//! .
+//!
+//! \n
+//! \section HT32F125x_RTC_Usage 4. Usage & Program Examples
+//! The following example shows how to use the RTC APIs to initialize the 
+//! RTC, enable interrupts,read data from pins, and write data to pins.
+//! 
+//! \code
+//!tTime tTimeExam;
+//!unsigned long ulCount;
+//!unsigned long ulTimeAlarm[2] = {RTC_TIME_CURRENT, RTC_TIME_ALARM};
+//!
+//!unsigned long xRTCCallback(void *pvCBData, 
+//!                                       unsigned long ulEvent,
+//!                                       unsigned long ulMsgParam,
+//!                                       void *pvMsgData)
+//!{
+//!    xIntMasterDisable();
+//!    ulCount++;
+//!    return 0;
+//!}
+//!static void xrtc001Int()
+//!{
+//!    RTCTimeInit();
+//!    
+//!    tTimeExam.ulSecond = 40;     
+//!    
+//!    tTimeExam.ulMinute = 20; 
+//!    
+//!    tTimeExam.ulHour = 17; 
+//!    
+//!    tTimeExam.ulMDay = 11;  
+//!    
+//!    tTimeExam.ulMonth = 8;   
+//!    
+//!    tTimeExam.ulYear = 2011;    
+//!    
+//!    tTimeExam.ulWDay = 3; 
+//!    
+//!    //
+//!    //write current time to corresponding register.
+//!    //
+//!    RTCTimeWrite(&tTimeExam, ulTimeAlarm[0]);
+//!    
+//!    RTCWriteEnable();
+//!    
+//!    //
+//!    //alarm interrupt after 20 seconds.
+//!    //
+//!    tTimeExam.ulSecond +=10;
+//!    
+//!    //
+//!    //write current time to corresponding register.
+//!    //
+//!    RTCTimeWrite(&tTimeExam, ulTimeAlarm[1]);
+//!    
+//!    RTCWriteEnable();
+//!    
+//!    RTCIntCallbackInit(xRTCCallback);
+//!    
+//!    xIntEnable(INT_RTC);
+//!    xIntMasterEnable();
+//!    //
+//!    //enable alarm interrupt.
+//!    //
+//!    RTCIntEnable(RTC_INT_ALARM);
+//!   
+//!    while(ulCount !=1);
+//!    //
+//!    //enable tick interrupt.
+//!    //
+//!    RTCIntEnable(RTC_INT_TIME_TICK);
+//!
+//!}
+//! \endcode
+//! 
+//! 
+//
+//*****************************************************************************
