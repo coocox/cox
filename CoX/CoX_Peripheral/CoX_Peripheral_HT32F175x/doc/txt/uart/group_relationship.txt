@@ -1,0 +1,43 @@
+//******************************************************
+//
+//!
+//! \addtogroup UART
+//! @{
+//! \addtogroup HT32F175x_275x_UART_Register 
+//! @{
+//! @}
+//! \addtogroup xUART
+//! @{
+//! @}
+//! \addtogroup HT32F175x_275x_UART
+//! @{
+//! @}
+//! \addtogroup xUART_Apps
+//! @{
+//! @}
+//! @}
+//
+//******************************************************
+
+//******************************************************
+//
+//! \addtogroup UART
+//! @{
+//! \addtogroup xUART_Apps
+//! @{
+//! \addtogroup xUART_App_NormalMode
+//! @{
+//! @}
+//! \addtogroup xUART_App_IrDA
+//! @{
+//! @}
+//! \addtogroup xUART_App_Modem
+//! @{
+//! @}
+//! \addtogroup xUART_App_Synchronous
+//! @{
+//! @}
+//! @}
+//! @}
+//
+//******************************************************

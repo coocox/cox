@@ -1,0 +1,153 @@
+//*****************************************************************************
+//
+//! \defgroup HT32F175x_275x_PWM HT32F175x_275x PWM
+//! 
+//! \brief Holtek HT32F175x_275x PWM Peripheral Driver.
+//!
+//! The CoX Peripheral Library also provides APIs for full functions of Holtek
+//! HT32F175x_275x PWM. This module supports the whole HT32F175x_275x Series.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref HT32F175x_275x_PWM_Blcok
+//! - \ref HT32F175x_275x_PWM_Function_Desc
+//! - \ref HT32F175x_275x_PWM_API_Group
+//!   - \ref HT32F175x_275x_PWM_API_Group_Config
+//!   - \ref HT32F175x_275x_PWM_API_Group_Function
+//!     - \ref HT32F175x_275x_PWM_API_Group_Output
+//!     - \ref HT32F175x_275x_PWM_API_Group_Interrupt
+//!     - \ref HT32F175x_275x_PWM_API_Group_Control
+//!   .
+//! - \ref HT32F175x_275x_PWM_Usage
+//! .
+//!
+//! <br />
+//! \section HT32F175x_275x_PWM_Blcok 1. PWM Physical Block
+//! <img src="HT32F175x275x_pwm_block.png" />
+//! 
+//! <br />
+//! \section HT32F175x_275x_PWM_Function_Desc 2. Functional Description
+//! PWM includes the following functions:
+//! - Interrupt
+//! - Output
+//! .
+//! 
+//! <br />
+//! \section HT32F175x_275x_PWM_API_Group 3. API Groups
+//! 
+//! The PWM API is broken into two groups of functions : 
+//! - those that deal with configuring the PWM
+//! - those that deal with functions
+//! .
+//!
+//! <br />
+//! \subsection HT32F175x_275x_PWM_API_Group_Config 3.1 PWM Configuration APIs 
+//! 
+//! The PWM are configured with :
+//! - PWMFrequencyConfig()
+//! - PWMInitConfigure()
+//! - PWMFrequencySet()
+//! - PWMFrequencyGet()
+//! - PWMDutySet()
+//! - PWMDutyGet()
+//! - PWMCRRSet()
+//! - PWMCRRGet()
+//! .
+//! 
+//! <br />
+//! \subsection HT32F175x_275x_PWM_API_Group_Function 3.2 PWM Function APIs
+//! 
+//! <br />
+//! \subsubsection HT32F175x_275x_PWM_API_Group_Output 3.2.1 PWM Output APIs
+//!
+//! The PWM Output are set with : 
+//! - PWMOutputEnable()
+//! - PWMOutputDisable() 
+//! .
+//!
+//! <br />
+//! \subsubsection HT32F175x_275x_PWM_API_Group_Interrupt 3.2.2 PWM Interrupt APIs
+//!
+//! The PWM Interrupt are set with : 
+//! - PWMIntEnable()
+//! - PWMIntDisable()
+//! - PWMIntFlagGet()
+//! - PWMIntFlagClear()
+//! .
+//!
+//! <br />
+//! \subsubsection HT32F175x_275x_PWM_API_Group_Control 3.2.3 PWM Control APIs
+//!
+//! The PWM Control are set with : 
+//! - PWMStart()
+//! - PWMStop()
+//! .
+//!
+//! <br />
+//! \section HT32F175x_275x_PWM_Usage 4. Usage & Program Examples
+//! The following example shows how to use the PWM APIs to initialize 
+//! the PWM as output toggle mode.
+//! 
+//! \code
+//!
+//! #include "xhw_types.h"
+//! #include "xhw_memmap.h"
+//! #include "xhw_ints.h"
+//! #include "xhw_nvic.h"
+//! #include "xcore.h"
+//! #include "xdebug.h"
+//! #include "xhw_sysctl.h"
+//! #include "xsysctl.h"
+//! #include "xgpio.h"
+//! #include "xpwm.h"
+//!
+//! //*****************************************************************************
+//! //
+//! // \brief PWM output function example. 
+//! // Configure the pwm channel0 as output toggle mode, the duty is 40. This code
+//! // is tested on the HT32F175x_275x Development Board.
+//! //
+//! // \return None.
+//! //
+//! //*****************************************************************************
+//! void PWM_Output()
+//! {
+//!     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_PWMA);
+//!     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOA);
+//!     SysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);
+//!     
+//!     //
+//!     // Set GPIO Pin as PWM and enable PWM
+//!     //
+//!     xSPinTypePWM(TIMCCP0, PA0);
+//!                                              
+//!     //
+//!     // Set invert, dead zone and mode
+//!     //
+//!     xPWMInitConfigure(xPWMA_BASE, xPWM_CHANNEL0, xPWM_TOGGLE_MODE);
+//! 	
+//!     // Set CNR, Prescale and Divider
+//!     xPWMFrequencyConfig( xPWMA_BASE, xPWM_CHANNEL0, 0x3FF1111 );
+//! 	
+//!     //    
+//!     // Set CMR
+//!     //
+//!     xPWMDutySet(xPWMA_BASE, xPWM_CHANNEL0, 40);
+//! 	
+//! 	//    
+//!     // Set output enable
+//!     //
+//!     xPWMOutputEnable(xPWMA_BASE, xPWM_CHANNEL0);   
+//! 	
+//!     //    
+//!     // start pwm
+//!     //
+//!     xPWMStart(xPWMA_BASE, xPWM_CHANNEL0);
+//! }
+//!
+//! \endcode
+//! 
+//! \note 
+//! 
+//
+//*****************************************************************************

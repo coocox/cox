@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<Component>
+    <Name>CoX.Peripheral.HT32F175x.xADC</Name>
+    <Description>CoX HT32F175x/275x ADC Driver</Description>
+    <Category>Peripheral.CoX</Category>
+    <Version>2.2.10</Version>
+    <Tags>CoX, ADC, AD, A/D</Tags>
+
+    <Files>
+        <File>..\..\libcox\xadc.h</File>
+        <File>..\..\libcox\xadc.c</File>
+    </Files>
+
+    <FilesCoIDE>
+        <File>$PROJECT_ROOT$\CoX\CoX_Peripheral\src\xadc.h</File>
+        <File>$PROJECT_ROOT$\CoX\CoX_Peripheral\inc\xadc.c</File>
+    </FilesCoIDE>
+
+    <Dependencys>
+        <Dependency>CoX.Peripheral.HT32F175x.xStartup</Dependency>
+        <Dependency>CoX.Peripheral.HT32F175x.xLowLayer</Dependency>
+        <Dependency>CoX.Peripheral.HT32F175x.xSysCtl</Dependency>
+        <Dependency>CoX.Peripheral.HT32F175x.xGPIO</Dependency>
+    </Dependencys>
+
+    <SupportDevices>
+        <Series>
+            <Serie exclude="">HT32F175x</Serie>
+        </Series>
+        <Devices>
+            <Device></Device>
+        </Devices>
+    </SupportDevices>
+
+    <Micros>
+        <Comm>
+            <Define></Define>
+        </Comm>
+        <Device name="">
+            <Define></Define>
+        </Device>   
+    </Micros>
+
+    <Help>$DOCUMENT_ROOT$\ADC</Help>
+
+</Component>
