@@ -1,0 +1,40 @@
+<?xml version="2.1" ?>
+<Component>
+    <Name>CoX.Peripheral.KLx.xStartup</Name>
+    <Description>CoX KLx Startup Code</Description>
+    <Category>Peripheral.CoX</Category>
+    <Version>2.1.1.0</Version>
+    <Tags>Startup, Boot</Tags>
+
+    <Files>
+        <File>..\..\startup\startup_coide.c</File>
+    </Files>
+
+    <FilesCoIDE>
+        <File>$PROJECT_ROOT$\startup_coide.c</File>
+    </FilesCoIDE>
+
+    <Dependencys>
+    </Dependencys>
+
+    <SupportDevices>
+        <Series>
+            <Serie exclude="">KLx</Serie>
+        </Series>
+        <Devices>
+            <Device></Device>
+        </Devices>
+    </SupportDevices>
+
+    <Micros>
+        <Comm>
+            <Define></Define>
+        </Comm>
+        <Device name="">
+            <Define></Define>
+        </Device>   
+    </Micros>
+
+    <Help>$DOCUMENT_ROOT$\Startup</Help>
+
+</Component>

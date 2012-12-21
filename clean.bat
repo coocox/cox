@@ -4,6 +4,7 @@ echo -----------------------------------
 echo clean project/coide_gen/rvmdk/ewarm
 @for /r . %%a in (.) do (
     @if exist "%%a\coide_gen" rd /s /q "%%a\coide_gen"
+	@if exist "%%a\coide" rd /s /q "%%a\coide"
     @if exist "%%a\Debug_Flash" rd /s /q "%%a\Debug_Flash"
     @if exist "%%a\Debug_Ram" rd /s /q "%%a\Debug_Ram"
     @if exist "%%a\ewarm\settings" rd /s /q "%%a\ewarm\settings"
@@ -16,6 +17,7 @@ echo clean project/coide_gen/rvmdk/ewarm
     @if exist "%%a\*.bak" del /q "%%a\*.bak" 
     @if exist "%%a\*.o" del /q "%%a\*.o" 
     @if exist "%%a\*.d" del /q "%%a\*.d"
+	@if exist "%%a\*.tmp" del /q "%%a\*.tmp"
 )
 @echo completed
 echo -----------------------------------

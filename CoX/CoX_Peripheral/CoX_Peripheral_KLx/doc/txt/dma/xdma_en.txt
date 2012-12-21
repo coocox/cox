@@ -1,0 +1,299 @@
+//***************************************************************************************
+//
+//! \defgroup DMA
+//!
+//! \brief Peripheral direct memory access (DMA) controller that transfers data to and from 
+//! memory or transfer data to and from APB devices. The DMA has four channels of  DMA 
+//! (Peripheral-to-Memory , Memory-to-Peripheral or Memory-to-Memory). For each DMA
+//! channel (DMA CH0~CH3), there is one word buffer as transfer buffer between the
+//! Peripherals APB devices and Memory. 
+//!
+//! - Set the control parameters for a DMA channel such as width of data, address mode and
+//!   transfer direction .
+//! - Each DMA channel can generates an individual interrupt when data transfer isfinished
+//!   target abort interrupt generation during DMA transfer,you can use it if you need. 
+//! - Trig DMA transfer which is in your mode
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref DMA_Function_Desc
+//!   - \ref DMA_Configure_Control
+//!   - \ref DMA_Interrupt_Control
+//!   - \ref DMA_TrigTransfer_Control
+//!   .
+//! - \ref DMA_Applications
+//! .
+//!
+//! <br />
+//! \section DMA_Function_Desc 1. DMA Function Desc
+//!
+//! <br /> 
+//! \subsection DMA_Configure_Control 1.1 DMA controller configuration
+//!
+//! Set the control parameters for a DMA channel such as width of data, address mode and
+//! transfer direction .
+//! 
+//! Assign the channel through the Source request or Destination request.
+//!
+//! <br />
+//! \subsection DMA_Interrupt_Control 1.2 DMA interrupt control
+//! 
+//! Each DMA channel can generates an individual interrupt when data transfer is finished  
+//! target abort interrupt generation during DMA transfer,you can use it if you need. 
+//! The interrupt event flag will generates an interrupt to CPU if the 
+//! interrupt enable bit IE is set.
+//!
+//! <br />
+//! \subsection DMA_TrigTransfer_Control 1.3 DMA trigger transfer control
+//!
+//!  After set all the configuration, you may start the DMA by trigger a transfer.
+//! 
+//! <br />
+//! \section DMA_Applications 2. DMA Applications
+//! add in the future
+//!
+//! <br />
+//! \note Here describe the common function of the DMA. The CoX DMA Interface base on 
+//! the functions above
+//
+//***************************************************************************************
+
+
+//***************************************************************************************
+//
+//! \defgroup xDMA xDMA
+//! \brief CoX DMA Peripheral Interface
+//!
+//! The xDMA is the DMA Peripheral Interface of CoX.It defines some common macros and APIs
+//!  
+//! <h1>Contents</h1>
+//! - \ref CoX_DMA_How_Define
+//! - \ref xDMA_API_Group_Peripheral
+//!   - \ref xDMA_API_Group_Configure
+//!   - \ref xDMA_API_Group_Interrupt
+//!   - \ref xDMA_API_Group_TrigControl
+//!   .
+//! - \ref xDMA_Usage
+//! .
+//!
+//! <br />
+//!
+//! \section CoX_DMA_How_Define 1. How is the DMA API Standard Defined?
+//! CoX DMA defines the APIs based on the following common functions:
+//! 
+//! - DMA Configure Control
+//!   - Transfer direction
+//!   - Address mode
+//!   - Width of data
+//!   .
+//! - DMA Interrupt Control
+//!   - Enable Interrupt
+//!   - ISR and Callback Function
+//!   .
+//! - DMA Trig Control 
+//!   - Transfer trig
+//! .
+//!
+//! <br />
+//! \section xDMA_API_Group_Peripheral 2. DMA API Group Peripheral
+//!
+//! The CoX DMA API is broken into three groups of functions
+//! The DMA API is broken into three groups of functions:
+//! - those that deal with DMA mode configure,
+//! - those that deal with DMA interrupt control,
+//! - those that deal with DMA trig transfer control.
+//! .
+//! <br />
+//! \subsection xDMA_API_Group_Configure 2.1 DMA configure control APIs
+//!
+//! The DMA configure control are dealt with:
+//! - xDMAEnable()
+//! - xDMADisable()
+//! - xDMAChannelDynamicAssign()
+//! - xDMAChannelAssignmentGet()
+//! - xDMAChannelDeAssign()
+//! - xDMAChannelControlSet()
+//! .
+//!
+//! <br />
+//! \subsection xDMA_API_Group_Interrupt 2.2 DMA Interrupt Control APIs
+//! - xDMAChannelIntCallbackInit()
+//! - xDMAChannelIntCallbackGet()
+//! - xDMAChannelIntEnable()
+//! - xDMAChannelIntDisable()
+//! - xDMAIntEnable()
+//! - xDMAIntDisable()
+//! .
+//!
+//! <br />
+//! \subsection xDMA_API_Group_TrigControl 2.3 DMA Trig Control
+//!
+//! - xDMAChannelTransferSet()
+//! .
+//! <br />
+//! \section xDMA_Usage  3. DMA Usage and Program Examples
+//! The following example shows how to use the DMA API to configure DMA and implement the
+//! function transfer and receive.
+//! \code
+//! #include "xhw_types.h"
+//! #include "xhw_memmap.h"
+//! #include "Xsysctl.h"
+//! #include "Xhw_sysctl.h"
+//! #include "test.h"
+//! #include "xhw_dma.h"
+//! #include "xdma.h"
+//! 
+//! unsigned long ulSrcArray[64] = {0x01020304, 0x05060708, 0x090A0B0C, 0x0D0E0F10,
+//!                                 0x11121314, 0x15161718, 0x191A1B1C, 0x1D1E1F20,
+//!                                 0x21222324, 0x25262728, 0x292A2B2C, 0x2D2E2F30,
+//!                                 0x31323334, 0x35363738, 0x393A3B3C, 0x3D3E3F40,
+//!                                 0x41424344, 0x45464748, 0x494A4B4C, 0x4D4E4F50,
+//!                                 0x51525354, 0x55565758, 0x595A5B5C, 0x5D5E5F60,
+//!                                 0x61626364, 0x65666768, 0x696A6B6C, 0x6D6E6F70,
+//!                                 0x71727374, 0x75767778, 0x797A7B7C, 0x7D7E7F80};
+//! unsigned char IntMessage[] = "The DMA transfer over!";
+//! unsigned long ulDestArray[64];
+//! unsigned long i;
+//! unsigned long ulAssignChannel;
+//! unsigned long TransferOver(void *pvCBData, 
+//!                                       unsigned long ulEvent,
+//!                                       unsigned long ulMsgParam,
+//!                                       void *pvMsgData)
+//! {
+//!    for(i=0;i<25;i++)
+//!    {
+//!        TestIOPut(IntMessage[i]);
+//!	       TestIOPut('\n');
+//!        TestIOPut('\r');
+//!    }
+//!    return 0;
+//! }
+//!//*****************************************************************************
+//!
+//!//Prints a decimal unsigned number.
+//!
+//!//param n is the number to be printed
+//!
+//!// Prints a decimal unsigned number.
+//!
+//!//return None.
+//!
+//!//*****************************************************************************
+//! static 
+//! void PrintN(unsigned long n)
+//! {
+//!    char buf[16], *p;
+//!
+//!    if (n == 0)
+//!    {
+//!        TestIOPut('0');
+//!    }
+//!    else
+//!    {
+//!        p = buf;
+//!        while (n != 0)
+//!        {
+//!            *p++ = (n % 10) + '0';
+//!            n /= 10;
+//!        }
+//!
+//!        while (p > buf)
+//!            TestIOPut(*--p);
+//1    }
+//! }
+//!//*****************************************************************************
+//!
+//!// Ininite the DMA case which is needed
+//!
+//!//param None
+//!
+//!// This function ininite the DMA including clock source and enable DMA 
+//!
+//!//return none
+//!
+//!//*****************************************************************************
+//! void DMAInit(void)
+//! {
+//!    unsigned long ulTemp;
+//!
+//!    //
+//!    // Enable Peripheral DMA
+//!    //
+//!    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_DMA);
+//!    xSysCtlPeripheralDisable(xSYSCTL_PERIPH_DMAMUX);
+//!    ulAssignChannel = xDMAChannelDynamicAssign(xDMA_REQUEST_MEM, xDMA_REQUEST_MEM);
+//!    
+//!    xDMAEnable(ulAssignChannel);
+//!    //
+//!    // Enable DMA interrupt
+//!    //
+//!    xIntEnable(INT_DMA0);
+//!    xIntEnable(INT_DMA1);
+//!    xIntEnable(INT_DMA2);
+//!    xIntEnable(INT_DMA3);
+//!   
+//!    xDMAChannelIntEnable(ulAssignChannel, xDMA_EVENT_TC);
+//!    xDMAChannelIntCallbackInit(ulAssignChannel, TransferOver);
+//! }
+//!//*****************************************************************************
+//!
+//!// DMA Configure and Trig transfer
+//!
+//!//param None
+//!
+//!// This function configure DMA and Trig transfer
+//!
+//!//return None
+//!
+//!//*****************************************************************************
+//! void DMAConfigAndTrigTransfer(void)
+//! {
+//!    unsigned long uli;
+//!
+//!    //
+//!    // Set Channel control  parameter
+//!    //
+//!    xDMAChannelControlSet(ulAssignChannel, xDMA_WIDTH_32BIT                   
+//!                                          | xDMA_SRC_DIR_INC                   
+//!                                          | xDMA_DST_DIR_INC);
+//!    //
+//!    // Trig DMA Transfer
+//!    //
+//!    xDMAChannelTransferSet(ulAssignChannel, ulSrcArray, ulDestArray, 64*4);
+//!
+//!    DMAChannelRequest(ulAssignChannel);
+//!		
+//!    //
+//!    // Check Transfer is over or not
+//!    //
+//!    uli = 1000;
+//!    while(uli--);   
+//!
+//!    for(uli = 0; uli < 64; uli++)
+//!    {
+//!        PrintN(ulDestArray[uli]);
+//!        TestIOPut('\n');
+//!        TestIOPut('\r');
+//!	       SysCtlDelay(5000000);
+//!    }
+//! }
+//!//*****************************************************************************
+//!
+//!//main function
+//!
+//!//param None
+//!
+//!//return None
+//!//*****************************************************************************
+//! int main(void)
+//! {
+//!    DMAInit();
+//!    while(1)
+//!    {
+//!        DMAConfigAndTrigTransfer();
+//!    }
+//! }
+//! \endcode
+//! \note 
+//!
+//**************************************************************************

@@ -1,0 +1,45 @@
+<?xml version="2.0" ?>
+<Component>
+    <Name>COX.Peripheral.KLx.xGPIO</Name>
+    <Description>KLx GPIO Driver</Description>
+    <Category>Peripheral.COX</Category>
+    <Version>2.0.0</Version>
+    <Tags>COX, xGPIO, GPIO, IO</Tags>
+
+    <Files>
+        <File>..\..\libcox\xgpio.h</File>
+        <File>..\..\libcox\xgpio.c</File>
+    </Files>
+
+    <FilesCoIDE>
+        <File>$PROJECT_ROOT$\COX\COX_Peripheral\src\xgpio.h</File>
+        <File>$PROJECT_ROOT$\COX\COX_Peripheral\inc\xgpio.c</File>
+    </FilesCoIDE>
+
+    <Dependencys>
+        <Dependency>COX.Peripheral.KLx.xStartup</Dependency>
+        <Dependency>COX.Peripheral.KLx.xLowLayer</Dependency>
+        <Dependency>COX.Peripheral.KLx.xSysCtl</Dependency>
+    </Dependencys>
+
+    <SupportDevices>
+        <Series>
+            <Serie exclude="">KLx</Serie>
+        </Series>
+        <Devices>
+            <Device></Device>
+        </Devices>
+    </SupportDevices>
+
+    <Micros>
+        <Comm>
+            <Define></Define>
+        </Comm>
+        <Device name="">
+            <Define></Define>
+        </Device>   
+    </Micros>
+
+    <Help>$DOCUMENT_ROOT$\xGPIO</Help>
+
+</Component>

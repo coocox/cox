@@ -1,0 +1,215 @@
+//*****************************************************************************
+//
+//! \defgroup ACMP
+//! 
+//! \brief Analog Comparators (ACMP) Peripheral Driver.
+//!
+//! An analog comparator is a peripheral that compares two analog voltages
+//! and provides a logical output that signals the comparison result.
+//! 
+//! CoX defines the comparator \b output is:
+//! - a logical one(H) when positive input greater than negative input(C+ > C-).
+//! - a logical zer(L). when (C+ < C-) .o
+//!
+//! Each comparator can be configured to cause an interrupt when the 
+//! comparator output value \b changes.
+//!
+//! The comparator can provide its output to a device pin, acting as a 
+//! replacement for an analog comparator on the board. In addition, 
+//! the comparator can signal the application via interrupts.
+//!
+//! The Analog Comparators (ACMP) API provides a set of functions for 
+//! dealing with the ACMP.
+//!
+//! Functions are provided to configure the ACMP, and handle the interrupt.
+//!
+//! \n
+//! <h1>Contents</h1>
+//! - \ref ACMP_Blcok
+//! - \ref ACMP_Function_Desc
+//!   - \ref ACMP_Pin_Desc
+//!   - \ref ACMP_Analog_Input_Src
+//!   - \ref ACMP_Output
+//!   - \ref ACMP_Event
+//!   .
+//! .
+//! \n
+//! \section ACMP_Blcok 1. ACMP Physical Block
+//! <img src="comp_block.png" />
+//!
+//! \n
+//! \section ACMP_Function_Desc 2. ACMP Functional Description
+//!
+//! \n
+//! \subsection ACMP_Pin_Desc 2.1 ACMP Peripheral Pin Description 
+//! 
+//! \verbatim
+//! +----------------+------------------------------------------------+
+//! |Pin Name        |Pin Description                                 |
+//! |----------------|------------------------------------------------|
+//! |CMPnN(Cn-)      |Analog Comparator n Negative input Pin.         |
+//! |----------------|------------------------------------------------|
+//! |CMPnP(Cn+)      |Analog Comparator n Positive input Pin.         |
+//! |----------------|------------------------------------------------|
+//! |CMPnO(Cno)      |Analog Comparator n Output Pin.                 |
+//! +----------------+------------------------------------------------+
+//! \endverbatim
+//!
+//! \subsection ACMP_Analog_Input_Src 2.2 ACMP Analog Input Source
+//! The ACMP- input can be:
+//! - Cn- (external pin).
+//! - one of the internal Vref.
+//! .
+//! The ACMP+ input can be:
+//! - Cn+ (exernal pin).
+//! - one of the internal Vref.
+//! .
+//!
+//! \subsection ACMP_Output 2.3 ACMP Output
+//! CoX defines the comparator \b output(Cno):
+//! - <b> Cn+ > Cn- </b> Cno output logic 1 (H).
+//! - <b> Cn+ < Cn- </b> Cno output logic 0 (L).
+//! .
+//!
+//! \subsection ACMP_Event 2.4 ACMP Interrupt and Event
+//! CoX defines the comparator interrupt:
+//! only when the Cno output \b changed, the moudle generates an interrupt.
+//!
+//! \n
+//! \note Here describes the common function of the ACMP Peripheral. The CoX
+//! Peripheral Interface is base on the functions above.
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
+//! \defgroup xACMP xACMP
+//! 
+//! \brief CoX ACMP Peripheral Interface
+//!
+//! The xACMP is the ACMP Peripheral Interface of CoX. It defines some common
+//! macros and APIs.
+//! 
+//! <h1>Contents</h1>
+//! - \ref CoX_ACMP_How_Define
+//! - \ref xACMP_API_Group
+//!   - \ref xACMP_API_Group_Config
+//!   - \ref xACMP_API_Group_Int
+//!   .
+//! - \ref xACMP_Usage
+//! .
+//! \n
+//! 
+//! \section CoX_ACMP_How_Define 1. How is the xACMP Standard Defined?
+//! CoX ACMP defines the APIs based on the common functions,
+//! Refrence \ref ACMP_Function_Desc.
+//!
+//! \section xACMP_API_Group 2. API Groups
+//!
+//! The CoX ACMP API is broken into 2 groups of functions: 
+//! - those that deal with the ACMP config, 
+//! - those that deal with interrupts.
+//! .
+//! \subsection xACMP_API_Group_Config 2.1 ACMP Config APIs
+//!
+//! The ACMP is configured with:
+//! - xACMPConfigure() - configure the analog input source.
+//!
+//! They are enabled and disabled with:
+//! - xACMPEnable()
+//! - xACMPDisable()
+//! .
+//!
+//! \subsection xACMP_API_Group_Int 2.2 ADC Interrupt APIs
+//! Event callback function init with:
+//! - xACMPIntCallbackInit()
+//! .
+//! Interrupt are enabled and disabled with:
+//! - xACMPIntEnable()
+//! - xACMPIntDisable()
+//! .
+//!
+//! \section xACMP_Usage 3. Usage & Example
+//! The following show how to use the ACMP APIs to initialize the ACMP.
+//!
+//! \code
+//!
+//! #include "xhw_types.h"
+//! #include "xhw_memmap.h"
+//! #include "xhw_ints.h"
+//! #include "xhw_nvic.h"
+//! #include "xcore.h"
+//! #include "xhw_sysctl.h"
+//! #include "xsysctl.h"
+//! #include "xgpio.h"
+//! #include "xuart.h"
+//! #include "xpwm.h"
+//!
+//!
+//! //*****************************************************************************
+//! //
+//! //  Ininite the ACMP 
+//! //
+//! // \param None
+//! //
+//! // This function ininite the ACMP including clock source and enable DAC 
+//! //
+//! // \return none
+//!
+//! //*****************************************************************************
+//! void ACMPCompare(void)
+//! {
+//!     //
+//!     // disable the watchdog
+//!     //
+//!     xHWREG(SIM_COPC) = 0x00;
+//!     
+//!     //
+//!     // Set SysClk 36MHz using Extern 12M oscillator
+//!     //
+//!     xSysCtlClockSet(48000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
+//!     
+//!     //
+//!     // Enable Peripheral SPI0
+//!     //
+//!     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_ACMP0);
+//!     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOC);
+//!     //
+//!     // Configure the ACMP pin
+//!     //
+//!     xSPinTypeACMP(CMP0IN0, PC6);
+//!     xSPinTypeACMP(CMP0O, PC0);
+//!     
+//!     //
+//!     // Congigure Comp-(Analog source negative input) is CPN pin
+//!     //
+//!     xACMPConfigure(xACMP0_BASE, 0, xACMP_ASRCP_PIN_IN0 | xACMP_ASRCN_PIN_IN1);
+//!     
+//!     //
+//!     // Enable the comparator output pin
+//!     //
+//!     ACMPComparatorOutputPinEnable(xACMP0_BASE);
+//!     
+//!     //
+//!     // Enable the DAC for ACMP negative input
+//!     //
+//!     ACMPDACEnable(xACMP0_BASE);
+//!     
+//!     //
+//!     // DAC reference voltage is 1.6V
+//!     //
+//!     CMPDACOutputVoltageSet(xACMP0_BASE, 0x19);
+//! 
+//!     //
+//!     // Enable ACMP
+//!     //
+//!     xACMPEnable(xACMP0_BASE, 0);    
+//! }
+//!
+//!
+//! \endcode
+//! \todo 
+//!
+//
+//*****************************************************************************

@@ -1,0 +1,59 @@
+//*****************************************************************************
+//
+//! \defgroup Startup Start-up Code
+//! \brief Default Start-up Code.
+//!
+//! \section Startup_Why Why does CoX include a startup code?
+//! The new version CoX standard adds the interrupt support, and unified defines 
+//! the interruption. User use the callback function with the Event ID to define 
+//! in CoX instead of an interrupt service function.
+//! 
+//! In the CoX implement, CoX implement the interrupt service function, such as 
+//! UART0IntHander(). Users must confirm that the vector of UART0 in the 
+//! vector table is UART0IntHander.
+//! 
+//! So, we provide the default start-up code to ensure that.
+//!
+//! If user do not want to use the CoX interrupt feature, He can just modify the
+//! vector in the vector table.
+//!
+//! We provide start-up code for different compilers, startup_*.
+//! \verbatim
+//! +----------------+------------------+
+//! | CoIDE          | startup_coide.c  |
+//! |----------------|------------------|
+//! | IAR            | startup_ewarm.s  |
+//! |----------------|------------------|
+//! | MDK            | startup_rvmdk.s  |
+//! |----------------|------------------|
+//! \endverbatim
+//! 
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup CoX_Peripheral_Lib
+//! @{
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup Startup
+//! @{
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+

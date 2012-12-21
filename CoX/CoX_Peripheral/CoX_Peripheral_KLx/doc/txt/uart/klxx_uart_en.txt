@@ -1,0 +1,233 @@
+//*****************************************************************************
+//
+//! \defgroup KLxx_UART KLxx UART
+//! 
+//! \brief KLxx UART Peripheral Driver.
+//!
+//! The CoX Peripheral Library also provide APIs for full functions of 
+//! KLxx UART. This module supports the whole KLxx Series.
+//!
+//! \n
+//! <h1>Contents</h1>
+//! - \ref KLxx_UART_Blcok
+//! - \ref KLxx_UART_Function_Desc
+//!   - \ref KLxx_UART_Data_Transmission
+//!     - \ref KLxx_UART_RxTx
+//!     - \ref KLxx_UART_Baudrate
+//!     - \ref KLxx_UART_FIFO
+//!     - \ref KLxx_UART_DMA
+//!     .
+//!   - \ref KLxx_UART_Interrupt
+//!   .
+//! - \ref KLxx_UART_API_Group
+//!   - \ref KLxx_UART_API_Group_Config
+//!   - \ref KLxx_UART_API_Group_FIFO
+//!   - \ref KLxx_UART_API_Group_LIN
+//!   - \ref KLxx_UART_API_Group_Interrupt
+//!   .
+//! - \ref KLxx_UART_Usage
+//! .
+//!
+//! \n
+//! \section KLxx_UART_Blcok 1. UART Physical Block
+//! <img src="KLxx_UART_Receive_block.png" />
+//! <img src="KLxx_UART_Transmit_block.png" />
+//! 
+//! \n
+//! \section KLxx_UART_Function_Desc 2. Functional Description
+//! 
+//!
+//! \n
+//! \subsection KLxx_UART_Data_Transmission 2.1 UART Data Transmission
+//!
+//! \subsubsection KLxx_UART_RxTx 2.1.1 UART Data Transmit and Receive
+//! 
+//! Full duplex, asynchronous communications. Separate receive/transmit 64/16/16 bytes(UART0,UART1,UART2) entry FIFO
+//! for data payloads. 
+//!
+//! \subsubsection KLxx_UART_Baudrate 2.1.2 UART Baudrate Generation
+//! 
+//! The UART includes a programmable baud rate generator that is capable of dividing clock input by divisors to produce
+//! the serial clock that transmitter and receiver need.
+//!
+//! \subsubsection KLxx_UART_FIFO 2.1.3 UART FIFO
+//!
+//! The UART0 is built-in with a 64-byte transmitter FIFO(TX_FIFO) and a 64-byte receiver FIFO(RX_FIFO) that
+//! reduces the number of interrupts presented to the CPU and the UART1~2 are equipped 16-byte transmitter FIFO
+//! (TX_FIFO) and 16-byte receiver FIFO(RX_FIFO). 
+//!
+//!
+//! \subsubsection KLxx_UART_DMA 2.1.4 UART DMA
+//!
+//! UART0/UART1 can be served by the DMA controller.
+//!
+//!
+//! \n
+//! \subsection KLxx_UART_LIN 2.2 UART LIN Support
+//!
+//! Support LIN function mode.
+//! <ul>
+//! <li>Support LIN slave mode</li>
+//! <li>Support programmable break generation function for transmitter</li>
+//! <li>Support break detect function for receiver</li>
+//! </ul>
+//! The UART supports LIN function, and LIN mode is selected by setting the LIN_EN bit in UA_FUN_SEL register.
+//! In LIN mode, each byte field is initialed by a start bit with value zero(dominant), followed by 8 data bits
+//! (LSB first) and ended by 1 stop bit with value one(recessive) in accordance with the LIN standard.
+//!
+//!
+//! \n
+//! \subsection KLxx_UART_Interrupt 2.3 UART Interrupt
+//!
+//! The UART can generate interrupts when the following conditions are observed:
+//! Overrun Error
+//! Break Error
+//! Parity Error
+//! Framing Error
+//! Receive Timeout
+//! Transmit
+//! Receive 
+//! 
+//! \n
+//! \section KLxx_UART_API_Group 3. API Groups
+//! 
+//! \n
+//! \subsection KLxx_UART_API_Group_Config 3.1 UART Config APIs
+//! 
+//! -  UARTParityModeSet()
+//! -  UARTParityModeGet()
+//! -  UARTConfigSetExpClk()
+//! -  UARTConfigGetExpClk()
+//! -  UARTEnable()
+//! -  UARTCharGetNonBlocking()
+//! -  UARTCharGet()
+//! -  UARTCharPutNonBlocking()
+//! -  UARTCharPut()
+//! -  UARTBreakCtl()
+//! -  UARTDMAEnable()
+//! -  UARTDMADisable()
+//! -  UARTRxErrorGet()
+//! -  UARTRxErrorClear()
+//! .
+//!
+//! \n
+//! \subsection KLxx_UART_API_Group_LIN 3.2 UART LIN APIs
+//!
+//! -  UARTLINConfig()
+//! -  UARTEnableLIN()
+//! -  UARTDisableLIN()
+//! .
+//!
+//! \n
+//! \subsection KLxx_UART_API_Group_Interrupt 3.3 UART Interrupt APIs
+//!
+//! -  UARTIntEnable()
+//! -  UARTIntDisable()
+//! -  UARTIntStatus()
+//! -  UARTIntEnableGet()
+//! -  UARTIntCallbackInit()
+//! -  UARTIntClear()
+//! .
+//! 
+//! <br />
+//! \n
+//! \section KLxx_UART_Usage 4. Usage & Program Examples
+//!
+//! The following example shows how to send chars , and receive chars.
+//! 
+//! \code
+//!
+//! #include <stdint.h>
+//! #include <stdio.h>
+//! #include <string.h>
+//! #include <stdarg.h>
+//! #include "xhw_types.h"
+//! #include "xhw_ints.h"
+//! #include "xhw_nvic.h"
+//! #include "xhw_memmap.h"
+//! #include "xdebug.h"
+//! #include "xcore.h"
+//! #include "xsysctl.h"
+//! #include "xhw_sysctl.h"
+//! #include "xhw_gpio.h"
+//! #include "xgpio.h"
+//! #include "xhw_uart.h"
+//! #include "xuart.h"
+//! 
+//! const unsigned char Begin[] = "Welcome, here is Freescale uart example\r\n, \
+//!                                Now you can input your word,end with 'enter'\r\n";
+//! const unsigned char End[] = "Ok, Example is over, bye\r\n";
+//! 
+//! void UART_example(void)
+//! {
+//!     unsigned int i = 0;
+//! 
+//!     //
+//!     // Configure System clock
+//!     //
+//!     xSysCtlClockSet(48000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
+//!     SysCtlDelay(1000000);
+//! 
+//!     //
+//!     // Enable GPIO/UART Clock
+//!     //
+//!     SysCtlPeripheralEnable(SYSCTL_PERIPH_UART1);
+//!     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOC);
+//! 
+//!     //
+//!     // Remap UART pin to GPIO Port UART1_RX --> PC3 UART1_TX --> PC4
+//!     xSPinTypeUART(UART1RX, PC3);
+//!     xSPinTypeUART(UART1TX, PC4);
+//! 
+//!     //
+//!     // Disable UART Receive/Transmit
+//!     //
+//!     UARTDisable(UART1_BASE, UART_TX | UART_RX);
+//! 
+//!     //
+//!     // Configure UART Baud 9600 8-N-1
+//!     //
+//!     UARTConfigSet(UART1_BASE, 9600, UART_CONFIG_WLEN_8 | UART_CONFIG_PAR_NONE |
+//!             UART_CONFIG_STOP_1);
+//! 
+//!     //
+//!     // Enable UART Receive/Transmit
+//!     //
+//!     UARTEnable(UART1_BASE, UART_TX | UART_RX);
+//! 
+//!     //
+//!     // print out welcome information
+//!     //
+//! 
+//!     i = 0;
+//!     while(Buf[i] != '\0')
+//!     {
+//!         UARTCharPut(UART1_BASE, Buf[i++]);
+//!     }
+//! 
+//!     //
+//!     // Echo user's input information
+//!     //
+//!     while((Rec = UARTCharGet(UART1_BASE)) != '\n')
+//!     {
+//!         UARTCharPut(UART1_BASE, Rec);
+//!     }
+//! 
+//!     //
+//!     // print out run over information
+//!     //
+//!     i = 0;
+//!     while(Buf[i] != '\0')
+//!     {
+//!         UARTCharPut(UART1_BASE, End[i++]);
+//!     }
+//! 
+//!     while(1);                  
+//! }
+//! 
+//!
+//! \endcode
+//! 
+//
+//*****************************************************************************
+

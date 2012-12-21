@@ -1,0 +1,46 @@
+<?xml version="2.0" ?>
+<Component>
+    <Name>COX.Peripheral.KLxx.xUART</Name>
+    <Description>KLxx UART Driver</Description>
+    <Category>Peripheral.COX</Category>
+    <Version>2.0.0</Version>
+    <Tags>COX, xUART, UART, LIN, RS232, RS485 </Tags>
+
+    <Files>
+        <File>..\..\libcox\xuart.h</File>
+        <File>..\..\libcox\xuart.c</File>
+    </Files>
+
+    <FilesCoIDE>
+        <File>$PROJECT_ROOT$\COX\COX_Peripheral\src\xuart.h</File>
+        <File>$PROJECT_ROOT$\COX\COX_Peripheral\inc\xuart.c</File>
+    </FilesCoIDE>
+
+    <Dependencys>
+        <Dependency>COX.Peripheral.KLxx.xStartup</Dependency>
+        <Dependency>COX.Peripheral.KLxx.xLowLayer</Dependency>
+        <Dependency>COX.Peripheral.KLxx.xSysCtl</Dependency>
+        <Dependency>COX.Peripheral.KLxx.xGPIO</Dependency>
+    </Dependencys>
+
+    <SupportDevices>
+        <Series>
+            <Serie exclude="">KLxx</Serie>
+        </Series>
+        <Devices>
+            <Device></Device>
+        </Devices>
+    </SupportDevices>
+
+    <Micros>
+        <Comm>
+            <Define></Define>
+        </Comm>
+        <Device name="">
+            <Define></Define>
+        </Device>   
+    </Micros>
+
+    <Help>$DOCUMENT_ROOT$\xUART</Help>
+
+</Component>

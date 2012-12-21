@@ -1,0 +1,158 @@
+//*****************************************************************************
+//
+//! \defgroup WDT
+//! 
+//! \brief WDT Timer Peripheral Driver.
+//!
+//! The purpose of WDT Timer is to perform a system reset when system runs into
+//! an unknown state. This prevents system from hanging for an infinite period of
+//! time. Besides, this WDT Timer supports another function of wake-up chip from
+//! power down mode. The WDT includes an 18-bit free running counter with
+//! programmed time-out intervals.    
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref WDT_Function_Desc
+//! - \ref WDT_Applications
+//! .
+//! 
+//! <br />
+//! \section WDT_Function_Desc 1. WDT Functional Description
+//! When WDT counter reaches the selected time-out interval and user hasn't reset
+//! the ounter in a specified delay time, the chip will be resetted after restart
+//! function enables. 
+//!
+//! <br />
+//! \section WDT_Applications 2. WDT Applications
+//! The WDT can be used to reset chip.
+//! \note Here describes the common functions of the WDT Peripheral. The CoX
+//! Peripheral Interface is based on the functions above. 
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
+//! \defgroup xWDT xWDT
+//! 
+//! \brief CoX WDT Peripheral Interface
+//!
+//! The XWDT is the WDT Peripheral Interface of CoX. It defines some common
+//! macros and APIs.
+//! 
+//! <h1>Contents</h1>
+//! - \ref CoX_WDT_How_Define
+//! - \ref XWDT_API_Group
+//!   - \ref XWDT_API_Group_Config
+//!   - \ref XWDT_API_Group_Function
+//!     - \ref XWDT_API_Group_Interrupt
+//!     - \ref XWDT_API_Group_Wakeup
+//!     - \ref XWDT_API_Group_Restart
+//!     - \ref XWDT_API_Group_HoldInICE
+//!     .
+//!   .
+//! - \ref XWDT_Usage 
+//! .
+//!
+//! <br />
+//!
+//! \section CoX_WDT_How_Define 1. How is the XWDT Standard Defined?
+//! CoX WDT defines the APIs based on the following common functions:
+//! - Set clock source and time-out interval
+//! - Set WDT function.
+//!   - Interrupt
+//!   - Wake-up
+//!   - Restart
+//!   - Hold in ICE
+//!   .
+//! .
+//!
+//! <br />
+//! \section XWDT_API_Group 2. API Groups
+//! 
+//! The CoX WDT API is broken into two groups of functions: 
+//! - those that deal with configuring the WDT time-out interval
+//! - those that deal with interrupts, wakeup, restart, hold in ICE 
+//! .
+//!
+//! <br />
+//! \subsection XWDT_API_Group_Config 2.1 WDT Configuration
+//! 
+//! The WDT clock source and time-out intervals are configured with :
+//! - xWDTInit()  
+//! .
+//! 
+//! <br />
+//! \subsection XWDT_API_Group_Function 2.2 WDT Function APIs
+//!
+//! \subsubsection XWDT_API_Group_Interrupt 2.2.1 WDT Interrupt APIs
+//!
+//! The WDT interrupt function can be configured with :
+//! - xWDTIntCallbackInit()
+//! - xWDTFunctionEnable()
+//! - xWDTFunctionDisable() 
+//! .
+//!
+//! <br />
+//! \subsubsection XWDT_API_Group_Wakeup 2.2.2 WDT Wakeup APIs
+//! 
+//! The WDT wakeup function can be configured with :
+//! - xWDTIntCallbackInit()
+//! - xWDTFunctionEnable()
+//! - xWDTFunctionDisable()
+//! .
+//!
+//! <br />
+//! \subsubsection XWDT_API_Group_Restart 2.2.3 WDT Restart APIs
+//! 
+//! The WDT restart function can be configured with :
+//! - xWDTFunctionEnable()
+//! - xWDTFunctionDisable()
+//! .
+//!
+//! <br />
+//! \subsubsection XWDT_API_Group_HoldInICE 2.2.4 WDT Hold In ICE APIs
+//! 
+//! The WDT HoldInICE function can be configured with :
+//! - xWDTFunctionEnable()
+//! - xWDTFunctionDisable()
+//! .
+//!
+//! <br />
+//! \section XWDT_Usage 3. Usage & Program Examples
+//! The following example shows how to use the WDT API to initialize the 
+//! WDT, achieve interrupt functions with the WDT.
+//!
+//! \code
+//!
+//! //
+//! // Initialize the WDT pin configuration.
+//! //
+//! xWDTInit(xWDT_BASE, xWDT_S_INTSL, xWDT_INTERVAL_2_10T);
+//!                   
+//! //
+//! // Set interrupt function.
+//! //
+//! xWDTFunctionEnable(xWDT_BASE, xWDT_INT_FUNCTION);
+//!
+//! //
+//! //Initialize callback function.
+//! //
+//! xWDTIntCallbackInit(xWDT_BASE, user_Callback);
+//!
+//! //
+//! // Enable WDT interrupt in NVIC.
+//! //
+//! xIntEnable(INT_WDT);
+//!
+//! //
+//! // Start the WDT Timer.
+//! //
+//! xWDTEnable(xWDT_BASE);
+//!
+//! \endcode
+//!
+//
+//*****************************************************************************
+
+

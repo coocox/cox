@@ -1,0 +1,201 @@
+//*****************************************************************************
+//
+//! \defgroup KLx_PWM KLx PWM
+//! 
+//! \brief Nuvoton KLx PWM Peripheral Driver.
+//!
+//! The CoX Peripheral Library also provides APIs for full functions of Nuvoton
+//! KLx PWM. This module supports the whole KLx Series.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref KLx_PWM_Blcok
+//! - \ref KLx_PWM_Function_Desc
+//! - \ref KLx_PWM_API_Group
+//!   - \ref KLx_PWM_API_Group_Config
+//!   - \ref KLx_PWM_API_Group_Function
+//!     - \ref KLx_PWM_API_Group_Output
+//!     - \ref KLx_PWM_API_Group_Interrupt
+//!   .
+//! - \ref KLx_PWM_Usage
+//! .
+//!
+//! <br />
+//! \section KLx_PWM_Blcok 1. PWM Physical Block
+//! <img src="KLx_pwm_block.png" />
+//! 
+//! <br />
+//! \section KLx_PWM_Function_Desc 2. Functional Description
+//! PWM includes the following functions:
+//! - Interrupt
+//! - Output
+//! - Capture
+//! .
+//! 
+//! <br />
+//! \section KLx_PWM_API_Group 3. API Groups
+//! 
+//! The PWM API is broken into two groups of functions : 
+//! - those that deal with configuring the PWM
+//! - those that deal with functions
+//! .
+//!
+//! <br />
+//! \subsection KLx_PWM_API_Group_Config 3.1 PWM Configuration APIs 
+//! 
+//! The PWM are configured with :
+//! - PWMInitConfigure()
+//! - PWMFrequencySet()
+//! - PWMFrequencyConfig()
+//! - PWMDutySet()
+//! .
+//! 
+//! <br />
+//! \subsection KLx_PWM_API_Group_Function 3.2 PWM Function APIs
+//! 
+//! <br />
+//! \subsubsection KLx_PWM_API_Group_Output 3.2.1 PWM Output APIs
+//!
+//! The PWM Output are set with : 
+//! - PWMOutputEnable()
+//! - PWMOutputDisable() 
+//! .
+//!
+//! <br />
+//! \subsubsection KLx_PWM_API_Group_Interrupt 3.2.2 PWM Interrupt APIs
+//!
+//! The PWM Interrupt are set with : 
+//! - PWMIntEnable()
+//! - PWMIntDisable()
+//! - PWMIntFlagClear()
+//! - PWMIntFlagGet()
+//! .
+//!
+//! <br />
+//! \section KLx_PWM_Usage 4. Usage & Program Examples
+//! The following example shows how to use the PWM APIs to initialize 
+//! the PWM and to achieve the PWM interrupt function.
+//! 
+//! \code
+//!
+//! unsigned long ulBase = xPWMA_BASE;
+//! unsigned long ulChannel = xPWM_CHANNEL2;
+//! unsigned long ulConfig = xPWM_TOGGLE_MODE;
+//!                                         
+//! //
+//! // Set invert, dead zone and mode.
+//! //
+//! xPWMInitConfigure(ulBase, ulChannel, ulConfig);
+//!                   
+//! //
+//! // Set CNR, Prescale and Divider.FHz = 100k
+//! //
+//! xPWMFrequencySet(ulBase, ulChannel, 100000);
+//!
+//! //
+//! // Set CMR.
+//! //
+//! xPWMDutySet(ulBase, ulChannel, 40);
+//!
+//! //
+//! // Set GPIO Pin as PWM.
+//! //
+//! xSPinTypePWM(TIM0CH2, PE29);
+//!
+//! //
+//! // Set output enable and capture disable.
+//! //
+//! xPWMOutputEnable(ulBase, ulChannel);
+//!
+//! //
+//! // Start PWM.
+//! //
+//! xPWMStart(ulBase, ulChannel);
+//!
+//! \endcode
+//! 
+//! \note 
+//! 
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup KLx_PWM_Exported_APIs PWM Exported APIs Refrence
+//!
+//! \brief Nuvoton KLx PWM Driver Exported APIs.
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup KLx_PWM_Int_Type PWM Interrupt Type
+//! 
+//! \brief Values that can be passed to \b PWMIntEnable(), \b PWMIntDisable().
+//!
+//! All the four macros:
+//! -\ref PWM_INT_PWM
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup KLx_PWM_Int_Type PWM Event Type
+//! 
+//!
+//! \brief Values that can be passed to \b PWMIntEnable(), \b PWMIntDisable(). 
+//! 
+//! All the two macros:
+//! -\ref PWM_EVENT_PWM
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup KLx_PWM_Channel PWM Channel
+//! 
+//!
+//! \brief Values that can be passed to all the function. 
+//! 
+//! All the eight macros:
+//! -\ref PWM_CHANNEL0
+//! -\ref PWM_CHANNEL1
+//! -\ref PWM_CHANNEL2
+//! -\ref PWM_CHANNEL3
+//! -\ref PWM_CHANNEL4
+//! -\ref PWM_CHANNEL5
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup KLx_PWM_Prescale KLx PWM Prescale
+//! 
+//!
+//! \brief Values that can be passed to all the function. 
+//! 
+//! All the eight macros:
+//! -\ref PWM_CLOCK_DIV_1
+//! -\ref PWM_CLOCK_DIV_2
+//! -\ref PWM_CLOCK_DIV_4
+//! -\ref PWM_CLOCK_DIV_8
+//! -\ref PWM_CLOCK_DIV_16
+//! -\ref PWM_CLOCK_DIV_32
+//! -\ref PWM_CLOCK_DIV_64
+//! -\ref PWM_CLOCK_DIV_128
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup KLx_PWM_Config PWM Clock Configure
+//! 
+//!
+//! \brief Values that can be passed to \b PWMInitConfigure().. 
+//! 
+//! All the eight macros:
+//! -\ref PWM_ONE_SHOT_MODE
+//! -\ref PWM_TOGGLE_MODE
+//
+//*****************************************************************************

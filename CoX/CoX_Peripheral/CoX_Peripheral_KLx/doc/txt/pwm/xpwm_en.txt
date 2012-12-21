@@ -1,0 +1,217 @@
+//*****************************************************************************
+//
+//! \defgroup PWM
+//! 
+//! \brief PWM Peripheral Driver.
+//!
+//! PWM is to generate continous pulse output signals or to capture pin's input signals.
+//! The PWM Generator has prescaler, clock  divider, providing divided frequency, PWM Timer
+//! including clock selector, PWM counter for PWM period control, comparators for PWM duty 
+//! control and dead-zone generator. Its interrupt flags will be set by hardware when the
+//! corresponding PWM period down counter reaches zero. And its interrupt source with its 
+//! enable bit can cause CPU to request PWM interrupt. The PWM generators can be configured
+//! in different modes.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref PWM_Blcok
+//! - \ref PWM_Function_Desc
+//!   - \ref PWM_Output
+//!   - \ref PWM_Capture
+//!   - \ref PWM_Interrupt
+//!   .
+//! - \ref PWM_Applications
+//! .
+//! 
+//! <br />
+//! \section PWM_Blcok 1. PWM Physical Block
+//! <img src="pwm_block.png" />
+//!
+//! <br />
+//! \section PWM_Function_Desc 2. PWM Functional Description
+//! 
+//! <br />
+//! \subsection PWM_Output 2.1 PWM Output 
+//! When PWM channel output is enabled, PWM generator will output low level if 
+//! current count value is larger than the CMR value, or high level if less. 
+//! 
+//! <br />
+//! \subsection PWM_Capture 2.2 PWM Capture 
+//! If Capture function is enabled, the PWM output pin will switch to captured input mode. 
+//! After capture feature is enabled, the capture will always latch PWM counter to 
+//! capture rising register when input channel has a rising transition, or to capture 
+//! falling latch register when input channel has a falling transition.  
+//! 
+//! <br />
+//! \subsection PWM_Interrupt 2.3 PWM Interrupt
+//! If output function is enabled, the PWM interrupt request will generate with 
+//! the corresponding bit enabled when the down counter reaches zero. And if capture
+//! function is enabled, the PWM interrupt request will generate with the corresponding
+//! bit enabled when input channel has a rising transition or a falling transition.
+//!
+//! <br />
+//! \section PWM_Applications 3. PWM Applications
+//! The PWM can be used to generate output, capture input, etc.
+//! \note Here are descriptions of the common functions of the PWM Peripheral. 
+//! The CoX Peripheral Interface is based on the functions above. 
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
+//! \defgroup xPWM xPWM
+//! 
+//! \brief CoX PWM Peripheral Interface
+//!
+//! The xPWM is the PWM Peripheral Interface of CoX. It defines some common
+//! macros and APIs.
+//! 
+//! <h1>Contents</h1>
+//! - \ref CoX_PWM_How_Define
+//! - \ref xPWM_API_Group
+//!   - \ref xPWM_API_Group_Config
+//!   - \ref xPWM_API_Group_Function
+//!     - \ref xPWM_API_Group_Output
+//!     - \ref xPWM_API_Group_Interrupt
+//!     .
+//!   .
+//! - \ref xPWM_Usage 
+//! .
+//!
+//! <br />
+//!
+//! \section CoX_PWM_How_Define 1. How is the xPWM Standard Defined? 
+//! CoX PWM defines the APIs based on the following common functions:
+//! - Set clock prescaler, divider and CNR
+//! - Set mode, output inversion and deadzone
+//! - Set duty
+//! - Set PWM function.
+//!   - Output
+//!   - Interrupt
+//!   .
+//! .
+//!
+//! <br />
+//! \section xPWM_API_Group 2. API Groups
+//! 
+//! The CoX PWM API is broken into two groups of functions: 
+//! - those that deal with configuring PWM
+//! - those that deal with PWM output and interrupt
+//! .
+//!
+//! <br />
+//! \subsection xPWM_API_Group_Config 2.1 PWM Configuration APIs
+//! 
+//! The PWM clock prescale, CNR and divider are configured with :
+//! - xPWMInitConfigure() 
+//! - xPWMFrequencyConfig()
+//! - xPWMFrequencySet() 
+//! .
+//! 
+//! The PWM duty is configured with :
+//! - xPWMDutySet()
+//! .
+//!
+//! <br />
+//! \subsection xPWM_API_Group_Function 2.2 PWM Function APIs
+//!
+//! \subsubsection xPWM_API_Group_Output 2.2.1 PWM Output APIs
+//!
+//! The PWM output function can be configured with :
+//! - xPWMOutputEnable()
+//! - xPWMOutputDisable() 
+//! .
+//!
+//! <br />
+//! \subsubsection xPWM_API_Group_Interrupt 2.2.2 PWM Interrupt APIs
+//! 
+//! The PWM Interrupt function can be configured with :
+//! - xPWMIntCallbackInit()
+//! - xPWMIntEnable()
+//! - xPWMIntDisable()
+//! .
+//!
+//! <br />
+//! \section xPWM_Usage 3. Usage & Program Examples
+//! The following example shows how to use the PWM APIs to 
+//! initialize the PWM, achieve interrupt functions with the PWM.
+//!
+//! \code
+//!
+//! #include "xhw_types.h"
+//! #include "xhw_memmap.h"
+//! #include "xhw_ints.h"
+//! #include "xhw_nvic.h"
+//! #include "xcore.h"
+//! #include "xhw_sysctl.h"
+//! #include "xsysctl.h"
+//! #include "xgpio.h"
+//! #include "xuart.h"
+//! #include "xpwm.h"
+//!
+//!
+//! //*****************************************************************************
+//! //
+//! // \brief PWM output function example. 
+//! //
+//! // \return None.
+//! //
+//! //*****************************************************************************
+//! void PWM_Output()
+//! {
+//!     //
+//!     // Disable the watchdog
+//!     //
+//!     xHWREG(SIM_COPC) = 0x00;
+//!
+//!     //
+//!     // Configure System clock
+//!     //
+//!     xSysCtlClockSet(48000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
+//!	
+//! 	//
+//!     // Select the peripheral clock source
+//!     //
+//!     xSysCtlPeripheralClockSourceSet(xSYSCTL_PWMA_MAIN, 1);
+//!    
+//!     xSysCtlPeripheralEnable(SYSCTL_PERIPH_PWMA);
+//!     xSysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
+//!
+//!     //
+//!     // Set GPIO Pin as PWM and enable PWM
+//!     //
+//!     xSPinTypePWM( TIM0CH2, PE29 );
+//!                                              
+//!     //
+//!     // Set invert, dead zone and mode
+//!     //
+//!     xPWMInitConfigure( xPWMA_BASE, xPWM_CHANNEL2, xPWM_TOGGLE_MODE );
+//! 
+//!     //	
+//!     // Set CNR, Prescale and Divider. FHz = 100k
+//!     //
+//!     xPWMFrequencySet(xPWMA_BASE, xPWM_CHANNEL2, 100000);
+//! 	
+//!     //    
+//!     // Set CMR
+//!     //
+//!     xPWMDutySet( xPWMA_BASE, xPWM_CHANNEL2, 40 );
+//! 	
+//! 	//    
+//!     // Set output enable
+//!     //
+//!     xPWMOutputEnable( xPWMA_BASE, xPWM_CHANNEL2 );   
+//! 	
+//!     //    
+//!     // start pwm
+//!     //
+//!     xPWMStart( xPWMA_BASE, xPWM_CHANNEL2 );
+//! }
+//!
+//!
+//! \endcode
+//! \todo 
+//!
+//
+//*****************************************************************************

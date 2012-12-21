@@ -1,0 +1,141 @@
+//*****************************************************************************
+//
+//! \defgroup KLx_ACMP KLx ACMP
+//! 
+//! \brief Nuvoton KLx Analog Comparator Peripheral Driver
+//!
+//! The CoX Peripheral Library also provides APIs for full functions of Nuvoton
+//! KLx Analog Comparator.
+//! \n
+//!
+//! <h1>Contents</h1>
+//! - \ref KLx_ACMP_Introduction
+//! - \ref KLx_ACMP_Block
+//! - \ref KLx_ACMP_Function_Desc
+//!   - \ref KLx_ACMP_Pin_Desc
+//!   - \ref KLx_ACMP_Func_Comparator
+//!   - \ref KLx_ACMP_Func_Int
+//!   .
+//! - \ref KLx_ACMP_API_Group
+//!   - \ref KLx_ACMP_API_Group_Config
+//!   - \ref KLx_ACMP_API_Group_Int
+//!   .
+//! - \ref KLx_ACMP_Usage
+//! .
+//! \n
+//!
+//! \section KLx_ACMP_Introduction 1. KLx ACMP Introduction
+//! Nuvoton KLx Series contains \b two comparators. The comparators can 
+//! be used in a number of different configurations. The comparator output is 
+//! a logical one when positive input greater than negative input, otherwise 
+//! the output is a zero. Each comparator can be configured to cause an
+//! interrupt when the comparator output value changes.
+//!
+//! \section KLx_ACMP_Block 2. KLx ACMP Physical Block
+//! <img src="KLx_acmp_block.png" />
+//!
+//! \section KLx_ACMP_Function_Desc 3. KLx ACMP Function Description
+//!
+//! \subsection KLx_ACMP_Pin_Desc 3.1 KLx ACMP Peripheral Pin Description
+//! \verbatim
+//! +--------------------+------------------+-----------------------+
+//! |Peripheral Pin Name |GPIO Pin multiplex|Pin Description        |
+//! |--------------------|------------------|-----------------------|
+//! |xACMP_ASRCP_PIN_IN0 |PC6               |CMP0 N/P input         |
+//! |--------------------|------------------|-----------------------|
+//! |xACMP_ASRCP_PIN_IN1 |PC7               |CMP0 N/P input         |
+//! |--------------------|------------------|-----------------------|
+//! |xACMP_ASRCP_PIN_IN2 |PC8               |CMP0 N/P input         |
+//! |--------------------|------------------|-----------------------|
+//! |xACMP_ASRCP_PIN_IN3 |PC9               |CMP0 N/P input         |
+//! |--------------------|------------------|-----------------------|
+//! |xACMP_ASRCP_PIN_IN4 |PE29              |CMP0 N/P input         |
+//! |--------------------|------------------|-----------------------|
+//! |xACMP_ASRCP_PIN_IN5 |PE30              |CMP0 N/P input         |
+//! +--------------------+------------------+-----------------------+
+//! |CMP0O               |PC0               |CMP0 output            |
+//! +--------------------+------------------+-----------------------+
+//! \endverbatim
+//!
+//! \subsection KLx_ACMP_Func_Comparator 3.2 KLx ACMP Comparator
+//! The CMP- input can be:
+//! - Cn- (external pin).
+//! - internal Vref(1.2V).
+//! .
+//!
+//! the comparator \b output(Cno):
+//! - <b> Cn+ > Cn- </b> Cno output logic 1 (H).
+//! - <b> Cn+ < Cn- </b> Cno output logic 0 (L).
+//! .
+//! \subsection KLx_ACMP_Func_Int 3.3 KLx ACMP Interrupt and Event
+//! The comparator interrupt:
+//! when the Cno output \b changed, the moudle generates an interrupt.
+//!
+//! \section KLx_ACMP_API_Group 4. KLx ACMP API Group
+//!
+//! \subsection KLx_ACMP_API_Group_Config 4.1 KLx ACMP Config API
+//! The positive and negative input source select: 
+//! - CMPInputMuxSet().
+//! .
+//! The hysteresis function are set by:
+//! - CMPHystersisLevelSet().
+//! .
+//!
+//! The sample function are enabled/disabled and set by:
+//! - ACMPSampleEnable().
+//! - ACMPSampleDisable().
+//! - CMPFilterSamplePeriodSet().
+//! .
+//!
+//! The window mode function are enabled/disabled by:
+//! - ACMPWindowingModeEnable().
+//! - ACMPWindowingModeDisable().
+//! .
+//!
+//! The trigger function are enabled/disabled by:
+//! - ACMPTriggerModeEnable().
+//! - ACMPTriggerModeDisable().
+//! .
+//!
+//! The output function are enabled/disabled by:
+//! - ACMPComparatorOutputPinEnable().
+//! - ACMPComparatorOutputPinDisable().
+//! .
+//!
+//! The invert function are enabled/disabled by:
+//! - ACMPInvertEnable().
+//! - ACMPInvertDisable().
+//! .
+//!
+//! The DMA function are enabled/disabled by:
+//! - CMPDMAEnable().
+//! - CMPDMADisable().
+//! .
+//!
+//! The comparators are enabled/disabled by:
+//! - ACMPEnable().
+//! - ACMPDisable().
+//! - ACMPEnable2().
+//! - ACMPDisable2().
+//! .
+//!
+//! \subsection KLx_ACMP_API_Group_Int 4.2 KLx ACMP Interrupt API
+//! The interrupt is enabled/disabled by:
+//! - ACMPIntEnable().
+//! - ACMPIntDisable().
+//! .
+//! The interrupt are managed by:
+//! - ACMPIntStatus().
+//! - ACMPIntClear().
+//! .
+//! \section KLx_ACMP_Usage 5. KLx ACMP Usage & Example
+//! The following shows how to use the ACMP APIs to initialize the ACMP.
+//! -# xSysCtlPeripheralEnable() to enable to GPIO, ACMP Peripheral clock.
+//! -# Configure the ACMP pin in the GPIO moudle.
+//! -# ACMPNegativeSrcSet() to configure the analog negative input source.
+//! -# ACMPEnable() to enable the ADC.
+//! -# ACMPIntEnable(), IntEnable() to enable the interrupt.
+//! . 
+//!
+//
+//*****************************************************************************

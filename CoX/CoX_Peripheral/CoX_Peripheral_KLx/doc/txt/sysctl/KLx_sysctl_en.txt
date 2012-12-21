@@ -1,0 +1,133 @@
+//********************************************************************************
+//
+//! \defgroup KLx_SysCtl KLx SysCtl
+//!
+//! \brief KLx SysCtl Peripheral Driver
+//! 
+//! The CoX Peripheral Library also provide APIs for function full functions of
+//! Nuvoton KLx SysCtl.This module supports the whole KLx Series.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref KLx_SysCtl_Block
+//! - \ref KLx_SysCtl_Function_Desc
+//! - \ref KLx_SysCtl_API_Group
+//!   - \ref KLx_API_Group_Reset_Control
+//!   - \ref KLx_API_Group_Clock_Control
+//!   - \ref KLx_API_Group_Power_Control
+//!   .
+//! - \ref KLx_SysCtl_Usage
+//! .
+//!
+//! <br />
+//! \section KLx_SysCtl_Block 1. SysCtl Physical Block
+//! <img src="KLx_sysctl_block.png" />
+//!
+//! <br />
+//! \section KLx_SysCtl_Function_Desc 2. Functional Description
+//! The system control block has the following functions:
+//! - The perpheral can be individual reset by software
+//! - The multipurpose clock generator (MCG) module provides several clock source choices for
+//!   the MCU. The module contains a frequency-locked loop (FLL) and a phase-locked loop (PLL).
+//!   The FLL is controllable by either an internal or an external reference clock.The PLL is
+//!   controllable by the external reference clock. The module can select either of the FLL or 
+//!   PLL output clocks, or either of the internal or external reference clocks as a source for
+//!   the MCU system clock. The MCG operates in conjuction with a crystal oscillator, which
+//!   allows an external crystal, ceramic resonator, or another external clock source to produce
+//!   the external reference clock.
+//! - When chip enters into power down mode, system clocks, some clock sources, and some 
+//!   peripheral clocks will be disabled. Some clock sources and peripherals  clock are 
+//!   still active in power down mode.
+//! .
+//!
+//! <br />
+//! \subsection KLx_SysCtl_API_Group 2. API Groups
+//!
+//! The SysCtl API is broken into three groups of functions:
+//! - those that deal with Clock control,
+//! - those that deal with Reset control,
+//! - those that deal with Power control.
+//! .
+//! <br />
+//! \subsection KLx_API_Group_Clock_Control 2.1 SysCtl clock control APIs
+//!
+//! The SysCtl clock control are dealed with :
+//! - SysCtlPWMAndUART0ClkGet(),
+//! - SysCtlClkOututSrcSet(),
+//! - SysCtlBusClkGet(),
+//! - SysCtlBusClkSet(),
+//! - SysCtlPeripheralClockSourceSet(),
+//! - SysCtlHClockSourceSet(),
+//! - SysCtlHClockGet(),
+//! - SysCtlHClockSet(),
+//! .
+//! 
+//! <br />
+//! \subsection KLx_API_Group_Reset_Control 2.2 SysCtl Reset Control APIs
+//! - SysCtlPeripheralDisable(),
+//! - SysCtlPeripheralEnable(),
+//! - SysCtlResetSrcGet(),
+//! - SysCtlResetSrcClear().
+//! .
+//!
+//! <br />
+//! \subsection KLx_API_Group_Power_Control 2.3 SysCtl power control
+//!
+//! - The SysCtl power control are dealed with : 
+//! - SysCtlRegulatorStatusGet(),
+//! - SysCtlBandgapBufferEnable(),
+//! - SysCtlBandgapEnable(),
+//! - SysCtlLVDWarningFlagClear(),
+//! - SysCtlLVDWaringFlagGet(),
+//! - SysCtlLVDEventFlagClear(),
+//! - SysCtlLVDEventFlagGet(),
+//! - SysCtlLVDResetEnable(),
+//! - SysCtlLVDWarningIntEnable(),
+//! - SysCtlLVDIntEnable(),
+//! - SysCtlLVDVolSet(),
+//! - SysCtlLVDWarningVolSet(),
+//! - SysCtlWakeupModuleEnable(),
+//! - SysCtlStopModeSet(),
+//! - SysCtlVeryLowPowerRunModeEnable(),
+//! - SysCtlResetPinFilterRunModeSelect(),
+//! - SysCtlResetPinFilterBusClkWidthSet(),
+//! - SysCtlWakeupModuleFlagGet(),
+//! - SysCtlWakeupPinFilterFlagGet(),
+//! - SysCtlResetPinFilterStopModeEnable(),
+//! - SysCtlWakeupPinFlagGet(),
+//! - SysCtlWakeupFilterConfig(),
+//! - SysCtlWakeupPinConfig(),
+
+//! - .
+//!
+//! <br />
+//! \section SYSCTL_Usage & Program Examples
+//! The following example shows how to use the SysCtl API to configure the
+//! system clock
+//! \code
+//! #include "xhw_types.h"
+//! #include "xhw_memmap.h"
+//! #include "xcore.h"
+//! #include "Xhw_sysctl.h"
+//! #include "Xsysctl.h"
+//!
+//! //*****************************************************************************
+//! //
+//! // Use the SysCtl API to configure the system clock.
+//!  
+//! // return None
+//! //
+//! //*****************************************************************************
+//! void SysCtl(void)
+//! {
+//!     //
+//!     // Configure System clock
+//!     //
+//!     xSysCtlClockSet(48000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
+//!    
+//!     //
+//!     // Get Bus Clock
+//!     //
+//!     ulBusClock = SysCtlBusClkGet();
+//!    
+//! }

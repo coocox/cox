@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>FeedWDT</Name>
+  <Description>The following example shows how to use the WDT.
+  </Description>
+  <Version>2.2.1.0</Version>
+  <Tags>WDT<Tags>
+  <EVKit>Freedom Development Board</EVKit>
+  
+  <Files>
+      <File>$REPO_ROOT$\CoX\CoX_Peripheral\CoX_Peripheral_KLxx\wdt\example\Watchdog\watchdog_example.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CoX.Peripheral.CoX_Peripheral_KLxx.xStartup</Dependency>
+    <Dependency>CoX.Peripheral.CoX_Peripheral_KLxx.xLowLayer</Dependency>
+    <Dependency>CoX.Peripheral.CoX_Peripheral_KLxx.xCORE</Dependency>
+  </Dependencys>
+  
+   
+</Example>
+

@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>PWM_Output.c</Name>
+  <Description>The following example shows how to use the PWM APIs to 
+         initialize the PWM and to achieve the PWM output function.
+  </Description>
+  <Version>1.0.0</Version>
+  <Tags>PWM</Tags>
+  <EVKit>KL25Z128 Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\CoX\CoX_Peripheral\CoX_Peripheral_KLx\pwm\example\output\src\PWM_Output.c</File>
+  </Files>
+  
+  <Dependencys>
+        <Dependency>CoX.Peripheral.KLx.xStartup</Dependency>
+        <Dependency>CoX.Peripheral.KLx.xLowLayer</Dependency>
+        <Dependency>CoX.Peripheral.KLx.xCORE</Dependency>
+        <Dependency>CoX.Peripheral.KLx.xSysCtl</Dependency>
+	    <Dependency>CoX.Peripheral.KLx.xGPIO</Dependency>
+  </Dependencys>
+  
+   
+</Example>

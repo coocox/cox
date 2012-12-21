@@ -1,0 +1,46 @@
+<?xml version="2.0" ?>
+<Component>
+    <Name>CoX.Peripheral.KLx.xADC</Name>
+    <Description>CoX KLx ADC Driver</Description>
+    <Category>Peripheral.CoX</Category>
+    <Version>2.0.0</Version>
+    <Tags>CoX, ADC, AD, A/D, Comparator</Tags>
+
+    <Files>
+        <File>..\..\libcox\xadc.h</File>
+        <File>..\..\libcox\xadc.c</File>
+    </Files>
+
+    <FilesCoIDE>
+        <File>$PROJECT_ROOT$\CoX\CoX_Peripheral\src\xadc.h</File>
+        <File>$PROJECT_ROOT$\CoX\CoX_Peripheral\inc\xadc.c</File>
+    </FilesCoIDE>
+
+    <Dependencys>
+        <Dependency>CoX.Peripheral.KLx.xStartup</Dependency>
+        <Dependency>CoX.Peripheral.KLx.xLowLayer</Dependency>
+        <Dependency>CoX.Peripheral.KLx.xSysCtl</Dependency>
+        <Dependency>CoX.Peripheral.KLx.xGPIO</Dependency>
+    </Dependencys>
+
+    <SupportDevices>
+        <Series>
+            <Serie exclude="">KLx</Serie>
+        </Series>
+        <Devices>
+            <Device></Device>
+        </Devices>
+    </SupportDevices>
+
+    <Micros>
+        <Comm>
+            <Define></Define>
+        </Comm>
+        <Device name="">
+            <Define></Define>
+        </Device>   
+    </Micros>
+
+    <Help>$DOCUMENT_ROOT$\ADC</Help>
+
+</Component>

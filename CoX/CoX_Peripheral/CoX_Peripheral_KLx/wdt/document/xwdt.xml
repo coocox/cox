@@ -1,0 +1,45 @@
+<?xml version="2.0" ?>
+<Component>
+    <Name>COX.Peripheral.KLxx.xWDT</Name>
+    <Description>KLxx WDT Driver</Description>
+    <Category>Peripheral.COX</Category>
+    <Version>2.0.0</Version>
+    <Tags>COX, xWDT, WDT, Clock, Timer, WatchDog</Tags>
+
+    <Files>
+        <File>..\..\libcox\xwdt.h</File>
+        <File>..\..\libcox\xwdt.c</File>
+    </Files>
+
+    <FilesCoIDE>
+        <File>$PROJECT_ROOT$\COX\COX_Peripheral\src\xwdt.h</File>
+        <File>$PROJECT_ROOT$\COX\COX_Peripheral\inc\xwdt.c</File>
+    </FilesCoIDE>
+
+    <Dependencys>
+        <Dependency>COX.Peripheral.KLxx.xStartup</Dependency>
+        <Dependency>COX.Peripheral.KLxx.xLowLayer</Dependency>
+        <Dependency>COX.Peripheral.KLxx.xSysCtl</Dependency>
+    </Dependencys>
+
+    <SupportDevices>
+        <Series>
+            <Serie exclude="">KLxx</Serie>
+        </Series>
+        <Devices>
+            <Device></Device>
+        </Devices>
+    </SupportDevices>
+
+    <Micros>
+        <Comm>
+            <Define></Define>
+        </Comm>
+        <Device name="">
+            <Define></Define>
+        </Device>   
+    </Micros>
+
+    <Help>$DOCUMENT_ROOT$\WDT</Help>
+
+</Component>
