@@ -1,0 +1,46 @@
+<?xml version="2.0" ?>
+<Component>
+    <Name>COX.Peripheral.STM32F1xx.xDMA</Name>
+    <Description>STM32F1xx DMA Driver</Description>
+    <Category>Peripheral.COX</Category>
+    <Version>2.0.0</Version>
+    <Tags>COX, xDMA, DMA</Tags>
+
+    <Files>
+        <File>..\..\libcox\xdma.h</File>
+        <File>..\..\libcox\xdma.c</File>
+    </Files>
+
+    <FilesCoIDE>
+        <File>$PROJECT_ROOT$\COX\COX_Peripheral\src\xdma.h</File>
+        <File>$PROJECT_ROOT$\COX\COX_Peripheral\inc\xdma.c</File>
+    </FilesCoIDE>
+
+    <Dependencys>
+        <Dependency>COX.Peripheral.STM32F1xx.xStartup</Dependency>
+        <Dependency>COX.Peripheral.STM32F1xx.xLowLayer</Dependency>
+		<Dependency>COX.Peripheral.STM32F1xx.xSysCtl</Dependency>
+		<Dependency>COX.Peripheral.STM32F1xx.xGPIO</Dependency>
+    </Dependencys>
+
+    <SupportDevices>
+        <Series>
+            <Serie exclude="">STM32F1xx</Serie>
+        </Series>
+        <Devices>
+            <Device></Device>
+        </Devices>
+    </SupportDevices>
+
+    <Micros>
+        <Comm>
+            <Define></Define>
+        </Comm>
+        <Device name="">
+            <Define></Define>
+        </Device>   
+    </Micros>
+
+    <Help>$DOCUMENT_ROOT$\xDMA</Help>
+
+</Component>

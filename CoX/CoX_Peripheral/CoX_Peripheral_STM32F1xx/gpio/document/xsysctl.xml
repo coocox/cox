@@ -1,0 +1,44 @@
+<?xml version="2.1" ?>
+<Component>
+    <Name>COX.Peripheral.STM32F1xx.xSysCtl</Name>
+    <Description>STM32F1xx System Ctrl Driver</Description>
+    <Category>Peripheral.COX</Category>
+    <Version>2.1.1.0</Version>
+    <Tags>COX, xSysCtl, SysCtl, SysCtrl, RCC, PMC, CG</Tags>
+
+    <Files>
+        <File>..\..\libcox\xsysctl.h</File>
+        <File>..\..\libcox\xsysctl.c</File>
+    </Files>
+
+    <FilesCoIDE>
+        <File>$PROJECT_ROOT$\COX\COX_Peripheral\src\xsysctl.h</File>
+        <File>$PROJECT_ROOT$\COX\COX_Peripheral\inc\xsysctl.c</File>
+    </FilesCoIDE>
+
+    <Dependencys>
+        <Dependency>COX.Peripheral.STM32F1xx.xStartup</Dependency>
+        <Dependency>COX.Peripheral.STM32F1xx.xLowLayer</Dependency>
+    </Dependencys>
+
+    <SupportDevices>
+        <Series>
+            <Serie exclude="">STM32F1xx</Serie>
+        </Series>
+        <Devices>
+            <Device></Device>
+        </Devices>
+    </SupportDevices>
+
+    <Micros>
+        <Comm>
+            <Define></Define>
+        </Comm>
+        <Device name="">
+            <Define></Define>
+        </Device>   
+    </Micros>
+
+    <Help>$DOCUMENT_ROOT$\xSysCtl</Help>
+
+</Component>

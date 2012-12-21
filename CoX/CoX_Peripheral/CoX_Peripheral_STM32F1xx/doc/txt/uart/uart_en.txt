@@ -1,0 +1,88 @@
+//*****************************************************************************
+//
+//! \defgroup UART
+//!
+//! \brief Universal Asynchronous Receivers/Transmitters (UART) Peripheral Driver.
+//!
+//! The Universal Asynchronous Receiver/Transmitter (UART) performs a serial-to-parallel
+//! conversion on data received from the peripheral, and a parallel-to-serial conversion 
+//! on data transmitted from the CPU.
+//!
+//! The UART controller also supports SYNC master mode, IrDA SIR, Flow Control, and Modem.
+//! \n
+//! <h1>Contents</h1>
+//! - \ref UART_Blcok
+//! - \ref UART_Function_Desc
+//!   - \ref UART_Data_Transmission
+//!   - \ref UART_SIR
+//!   - \ref UART_Modem
+//!   - \ref UART_LIN
+//!   - \ref UART_SYNC
+//!   - \ref UART_Interrupt
+//!   .
+//! - \ref UART_Applications
+//! .
+//!
+//! \n
+//! \section UART_Blcok 1. UART Physical Block
+//! <img src="STM32F1xx_UART_block.jpg" />
+//!
+//! \n
+//! \section UART_Function_Desc 2. UART Functional Description
+//!
+//! \n
+//! \subsection UART_Data_Transmission 2.1 UART Data Transmission
+//!
+//! The transmit logic performs parallel-to-serial conversion on the data
+//! read from the transmit FIFO.The control logic outputs the serial bit 
+//! stream beginning with a start bit and followed by the data bits(LSB first),
+//! parity bit, and the stop bits according to the programmed configuration in
+//! the control registers.
+//! \n
+//! \subsection UART_SIR 2.2 UART Serial IR
+//! The UART supports IrDA SIR(Serial Infrared) Transmit Encoder and Receive Decoder,
+//! and IrDA mode is selected by setting the IrDA_EN bit in UA_FUN_SEL register. 
+//! \n
+//! \subsection UART_Modem 2.3 UART Modem Support
+//! 
+//! Support hardware auto flow control/flow control funciton(DTR, RTS) and programmable
+//! RTS flow control trigger level.
+//! \n
+//! \subsection UART_SYNC 2.4 UART SYNC Support
+//! Support SYNC function mode.
+//! <ul>
+//! <li>Support SYNC master mode</li>
+//! </ul>
+//! \n
+//! \subsection UART_LIN 2.5 UART LIN Support(Low Density only)
+//! Support LIN function mode.
+//! <ul>
+//! <li>LIN Master Synchronous Break send capability and LIN slave break detection capability</li>
+//! </ul>
+//! \n
+//! \subsection UART_Interrupt 2.6 UART Interrupt
+//! The UART can generate interrupts when the following conditions are observed:
+//! Noise flag, Overrun error and Framing error in multibuffer communication
+//! Received data ready to be read
+//! Transmit data register empty
+//! Overrun error detected
+//! Transmission complete
+//! Idle line detected
+//! Break Error
+//! Parity Error
+//! CTS flag
+//! .
+//!
+//! \n
+//! \section UART_Applications 3. UART Applications
+//! - \ref xUART_App_NormalMode
+//! - \ref xUART_App_IrDA
+//! - \ref xUART_App_Modem
+//! .
+//!
+//! \n
+//! \note Here describes the common functions of the UART Peripheral. The CoX
+//! Peripheral Interface is based on the functions above. 
+//
+//*****************************************************************************
+

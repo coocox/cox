@@ -1,0 +1,248 @@
+//*****************************************************************************
+//
+//! \defgroup STM32F1xx_TIMER STM32F1xx TIMER
+//! 
+//! \brief HOLTEK STM32F1xx TIMER Peripheral Driver.
+//!
+//! The CoX Peripheral Library also provides APIs for full functions of Holtek
+//! STM32F1xx TIMER. This module supports the whole STM32F1xx Series.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref STM32F1xx_TIMER_Blcok
+//! - \ref STM32F1xx_TIMER_Function_Desc
+//! - \ref STM32F1xx_TIMER_API_Group
+//!   - \ref TIMER_API_Config
+//!   - \ref TIMER_API_Start_Stop
+//!   - \ref TIMER_API_Value_Set
+//!   - \ref TIMER_API_Inerrupt
+//!   .
+//! - \ref STM32F1xx_TIMER_Usage
+//! .
+//!
+//! <br />
+//! \section STM32F1xx_TIMER_Blcok 1. TIMER Physical Block
+//! <img src="STM32F1xx_Timer_Controller_Block.png" />
+//! 
+//! <br />
+//! \section STM32F1xx_TIMER_Function_Desc 2. Functional Description
+//! 
+//! - Up-Counting:
+//!
+//! In this mode the counter counts continuously from 0 to the counter-reload value,
+//! in a count-up direction. Once the counter reaches the counter-reload value, the
+//! Timer Module generates an overflow event and the counter restarts to count once
+//! again from 0. This action will continue repeatedly.
+//!
+//! - Down-Counting:
+//!
+//! In this mode the counter counts continuously from the counter-reload value, 
+//! to 0 in a count-down direction. Once the counter reaches 0, the Timer module
+//! generates an underflow event and the counter restarts to count once again 
+//! from the counter-reloadvalue. 
+//!
+//! - Center-Align Counting:
+//!
+//! In the center-aligned counting mode, the counter counts up from 0 to the 
+//! counter-reload value and then counts down to 0 alternatively. The Timer  
+//! module generates an overflow event when the counter counts to the counter-reload   
+//! value in the up-counting mode and generates an underflow event when the counter    
+//! counts to 0 in down-counting mode. The counting direction is updated by hardware
+//! automatically.
+//! 
+//! - Repetition counter
+//!
+//! Time-base unit describes how the update event (UEV) is generated with respect to 
+//! the counter overflows/underflows. It is actually generated only when the repetition 
+//! counter has reached zero. This can be useful when generating PWM signals
+//!
+//! - Clock selection
+//!
+//! Timer clock select internal clock source, or external clock source mode 1 count at 
+//! each rising or falling edge on a selected input, or external clock source mode 2 
+//! count at each rising or falling edge on the external trigger input ETR.
+//!
+//! - Input Signal Pulse Width Measurement
+//!
+//! The input capture mode can be also used for pulse width measurement from 
+//! signals on the TIMn_CHx pins (TIx). 
+//!
+//! - Output Waveform Generation
+//!
+//! The Timer has four channels for compare match, single pulse or PWM output  
+//! function. 
+//!
+//! - Complementary outputs and dead-time insertion
+//!
+//! The advanced-control timers (TIM1&TIM8) can output two complementary signals and 
+//! manage the switching-off and the switching-on instants of the outputs.
+//! This time is generally known as dead-time and you have to adjust it depending on the 
+//! devices you have connected to the outputs and their characteristics (intrinsic delays 
+//! of level-shifters, delays due to power switches...).
+//!
+//! - Using the break function
+//!
+//! When using the break function, the output enable signals and inactive levels are 
+//! modified when break input pin or a clock failure event happen.
+//!
+//! - Encoder Interface Using a Quadrature Decoder
+//!
+//! The two inputs TI1 and TI2 are used to interface to an incremental encoder. You can 
+//! select counting on TI2 edges only, TI1 edges only, or on both TI1 and TI2 edges.
+//!
+//! <br />
+//! \section STM32F1xx_TIMER_API_Group 3. STM32F1xx TIMER API Group
+//!
+//! <br />
+//! \subsection TIMER_API_Config 3.1 TIMER API Mode Config
+//! 
+//! The TIMER are configured with:
+//! - TimerBaseConfigure(),
+//! - TimerOC1Configure(),
+//! - TimerOC2Configure(),
+//! - TimerOC3Configure(),
+//! - TimerOC4Configure(),
+//! - TimerICConfigure(),
+//! - TimerBDTRConfigure(),
+//! - TimerMainOutputConfigure(),
+//! - TimerInternalClkConfigure(),
+//! - TimerInputTriggerSelect(),
+//! - TimerTIxExternalClockConfigure(),
+//! - TimerETRClockMode1Configure(),
+//! - TimerETRClockMode2Configure(),
+//! - TimerETRConfigure(),
+//! - TimerCNTModeConfigure(),
+//! - TimerEncoderInterfaceConfigure(),
+//! - TimerForcedOC1Configure(),
+//! - TimerForcedOC2Configure(),
+//! - TimerForcedOC3Configure(),
+//! - TimerForcedOC4Configure(),
+//! - TimerCCUSelect(),
+//! - TimerCCDSelect(),
+//! - TimerCCPreloadControl(),
+//! - TimerOC1PreloadConfigure(),
+//! - TimerOC2PreloadConfigure(),
+//! - TimerOC3PreloadConfigure(),
+//! - TimerOC4PreloadConfigure(),
+//! - TimerOC1FastConfigure(),
+//! - TimerOC2FastConfigure(),
+//! - TimerOC3FastConfigure(),
+//! - TimerOC4FastConfigure(),
+//! - TimerOCxRefClear(),
+//! - TimerOC1PolarityConfigure(),
+//! - TimerOC1NPolarityConfigure(),
+//! - TimerOC2PolarityConfigure(),
+//! - TimerOC2NPolarityConfigure(),
+//! - TimerOC3PolarityConfigure(),
+//! - TimerOC3NPolarityConfigure(),
+//! - TimerOC4PolarityConfigure(),
+//! - TimerCHConfigure(),
+//! - TimerCHNConfigure(),
+//! - TimerOCxModeSelect(),
+//! - TimerUpdateConfigure(),
+//! - TimerUpdateRequestConfigure(),
+//! - TimerOnePulseModeConfigure(),
+//! - TimerOutputSrcSelect(),
+//! - TimerSlaveModeConfigure(),
+//! - TimerSyncConfigure(),
+//! - TimerPrescalerConfigure(),
+//! - TimerARRPreloadConfigure(),
+//! - TimerCKDivConfigure(),
+//! .
+//! 
+//! <br />
+//! \subsection TIMER_API_Start_Stop 3.2 TIMER API Start Stop
+//! 
+//! The TIMER start or stop handled with: 
+//! - TimerStart(),
+//! - TimerStop()
+//! .
+//!
+//! <br />
+//! \subsection TIMER_API_Value_Set 3.3 TIMER API Value Set
+//!
+//! Some value register are accessed with:
+//! - TimerAutoReloadSet(),
+//! - TimerCounterSet(),
+//! - TimerCompare1Set(),
+//! - TimerCompare2Set(),
+//! - TimerCompare3Set(),
+//! - TimerCompare4Set(),
+//! - TimerPrescalerConfigure(),
+//! - TimerIC1PrescalerSet(),
+//! - TimerIC2PrescalerSet(),
+//! - TimerIC3PrescalerSet(),
+//! - TimerIC4PrescalerSet(),
+//! .
+//!
+//! <br />
+//! \subsection TIMER_API_Inerrupt 3.4 TIMER API Inerrupt
+//!
+//! Timer interrupt are handed with:
+//! - TimerIntCallbackInit(),
+//! - TimerIntEnable(),
+//! - TimerIntDisable(),
+//! - TimerIntStatus(),
+//! - TimerIntClear().
+//! .
+//! 
+//! <br />
+//! \section STM32F1xx_TIMER_Usage 4. Usage & Program Examples
+//!
+//! \code
+//!
+//! //*****************************************************************************
+//! //
+//! // \file one_second_clock.c
+//! // \brief Use the timer to make a one second clock.
+//! // \date 4/8/2012
+//! // \author CooCox
+//! // 
+//! // \copy
+//! //
+//! //*****************************************************************************
+//! #include "xhw_types.h"
+//! #include "xcore.h"
+//! #include "xhw_ints.h"
+//! #include "xhw_memmap.h"
+//! #include "xhw_nvic.h"
+//! #include "xgpio.h"
+//! #include "xsysctl.h"
+//! #include "xtimer.h"
+//!
+//! //*****************************************************************************
+//! //
+//! // \biref The main example function
+//! // Enable the timer0, and it's interrupt, the overfolw interrupt will happen 
+//! // every 1 second. It is tested on the STM32F1xx Development board.
+//! // \return  none
+//! //
+//! //*****************************************************************************
+//! void OneSecondClock(void)
+//! {   
+//!     //
+//!     // Clear the flag first
+//!     //
+//!     TimerIntClear(TIMER0_BASE, TIMER_INT_UEV1);
+//!     
+//!     //
+//!     // Config as periodic mode
+//!     //
+//!     xTimerInitConfig(xTIMER0_BASE, xTIMER_CHANNEL0, xTIMER_MODE_PERIODIC | xTIMER_COUNT_UP, 1000); 
+//!     xTimerMatchSet(xTIMER0_BASE, xTIMER_CHANNEL0, 10000);
+//!     xTimerPrescaleSet(xTIMER0_BASE, xTIMER_CHANNEL0, 800);
+//!        
+//!     xTimerIntCallbackInit(xTIMER0_BASE, Timer0Callback);
+//!     xTimerIntEnable(xTIMER0_BASE, xTIMER_CHANNEL0, xTIMER_INT_MATCH);
+//!     xIntEnable(xINT_TIMER0);
+//!
+//!     xTimerStart(xTIMER0_BASE, xTIMER_CHANNEL0);
+//!     
+//!     while(1); 
+//!
+//! }
+//!
+//! \endcode
+//!
+//
+//*****************************************************************************
