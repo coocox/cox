@@ -1,13 +1,13 @@
 <?xml version="1.0" ?>
 <Example>
-  <Name>ADConvert.c</Name>
-  <Description>This example is to configure the ADC Channel0 as Single cycle scan mode, enable the end of convert interrupt, save the convert value.</Description>
+  <Name>SpiSlave</Name>
+  <Description>This example is to configure the spi as slave mode, configure the mode as Tx changed at falling edge, Rx latched at rising edge, 8 bits data length, MSB first, Set the slave high level trigger, then read and write the data.</Description>
   <Version>1.0.0</Version>
-  <Tags>ADC</Tags>
-  <EVKit>STM32F1xx Development Board</EVKit>
+  <Tags>SPI</Tags>
+  <EVKit>EMSTM32F10C</EVKit>
   
   <Files>
-    <File>$REPO_ROOT$\CoX\CoX_Peripheral\CoX_Peripheral_STM32F1xx\adc\example\ADConvert\src\ADConvert.c</File>
+    <File>$REPO_ROOT$\CoX\CoX_Peripheral\CoX_Peripheral_STM32F1xx\spi\example\SpiMaster\src\SpiSlave.c</File>
   </Files>
   
   <Dependencys>

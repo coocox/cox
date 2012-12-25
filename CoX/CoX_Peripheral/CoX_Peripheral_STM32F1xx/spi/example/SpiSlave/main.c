@@ -10,9 +10,14 @@
 //! Copyright (c) 2009-2011 CooCox.  All rights reserved.
 //
 //*****************************************************************************
-void PWMLedControl(void);
+extern void SpiReceiveTransferInit(void);
+extern void SpiSlaveModeConfig(void);
 
 int main()
 {
-    PWMLedControl();
+    SpiReceiveTransferInit();
+ 	while(1)
+    {
+        SpiSlaveModeConfig();
+    }
 }

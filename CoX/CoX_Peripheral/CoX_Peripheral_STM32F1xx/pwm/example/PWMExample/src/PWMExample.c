@@ -66,7 +66,7 @@ void PWMLedControl(void)
     //
     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOA);
     SysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);
-    xSPinTypeTimer(TIM1CH1, PA8);
+    xSPinTypeTimer(TIM1CH1(APP), PA8);
     
     //
     // Configure PWM 

@@ -267,10 +267,8 @@ xRTCConvertCounterToTime(xtTime *xtTime, unsigned long ultimeCounter)
 //! \return None.
 //
 //*****************************************************************************
-//void 
-//RTCIntHandler(void)
 void 
-RTC_IRQHandler(void)
+RTCIntHandler(void)
 {
     unsigned long ulEventFlags;
     

@@ -1,17 +1,14 @@
 <?xml version="1.0" ?>
 <Example>
-  <Name>uartprintf</Name>
-  <Description>Use UART0 to print some characters to terminal.Step 1: You should 
-    set system clock and enable the uart. Step 2: You should set multiplex GPIO 
-    and UART clock source. Step 3: You should configure UART. Step 4: You should
-    send data to FIFO.
+  <Name>RTCTickInt</Name>
+  <Description>Get the RTC time.
   </Description>
   <Version>1.0.0</Version>
-  <Tags>UART</Tags>
+  <Tags>RTC</Tags>
   <EVKit>STM32F1xx Development Board</EVKit>
   
   <Files>
-    <File>$REPO_ROOT$\CoX\CoX_Peripheral\CoX_Peripheral_STM32F1xx\uart\example\uartprintf\src\UartPrintf.c</File>
+    <File>$REPO_ROOT$\CoX\CoX_Peripheral\CoX_Peripheral_STM32F1xx\rtc\example\RTCTickInt\src\RTCTickInt.c</File>
   </Files>
   
   <Dependencys>
@@ -20,6 +17,7 @@
 	<Dependency>COX.Peripheral.STM32F1xx.xCORE</Dependency>
 	<Dependency>COX.Peripheral.STM32F1xx.xSysCtl</Dependency>
 	<Dependency>COX.Peripheral.STM32F1xx.xGPIO</Dependency>
+	<Dependency>COX.Peripheral.STM32F1xx.xUART</Dependency>
   </Dependencys>
 
 </Example>
