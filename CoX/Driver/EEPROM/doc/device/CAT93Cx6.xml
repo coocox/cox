@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>CAT93Cx6</Name>
+    <Description>
+        A CAT93Cx6 is a EEPROM device that can be write and read.
+    </Description>
+    <Manufacturer>Semiconductor</Manufacturer>
+    
+    <Category>EEPROM</Category>
+    <SubCategory>CAT93Cx6</SubCategory>
+    
+    <KeyWord>EEPROM, CAT93Cx6</KeyWord>
+    
+    <Communication>
+        <Interface>GPIO</Interface>
+    </Communication>
+    
+    <WebPage></WebPage>
+    <Datasheet></Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>
