@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>24LC16</Name>
+    <Description>
+    	  I2C-compatible electrically erasable pro-grammable memory (EEPROM) devices are orga-nized as 16K bits (24LC16)
+    </Description>
+    <Manufacturer>ARTSCHIP</Manufacturer>
+    
+    <Category>Memory</Category>
+    <SubCategory>Eeprom</SubCategory>
+    
+    <KeyWord>Eeprom, I2C, 24LC16, COX</KeyWord>
+    
+    <Communication>
+        <Interface>Eeprom</Interface>
+    </Communication>
+    
+    <WebPage>http://www.artschip.com/product.asp?BigClassName=IIC%20Serial%20EEPROMs%20and%20MCU</WebPage>
+    <Datasheet>http://www.chinaelite.com/pdf/24lc16.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</DoC>
+</Device>
