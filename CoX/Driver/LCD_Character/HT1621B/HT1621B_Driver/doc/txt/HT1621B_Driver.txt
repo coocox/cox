@@ -1,0 +1,191 @@
+//******************************************************
+//
+//!
+//! \addtogroup HT1621B_LCD_Driver
+//! @{
+//!
+//! The HT1621B is a 128 pattern (32*4), memory mapping,
+//! and multi-function LCD driver. The S/W configuration
+//! feature of the HT1621 makes it suitable for multiple LCD
+//! applications including LCD modules and display subsystems.
+//! Only three or four lines are required for the interface 
+//! between the host controller and the HT1621.The HT1621 contains 
+//! a power down command to reduce power consumption.
+//!
+//! <h1>Contents</h1>
+//! - \ref HT1621B_Features
+//! - \ref HT1621B_API
+//! - \ref HT1621B_APP
+//! .
+//!
+//! <br />
+//!
+//! \section HT1621B_Features 1.HT1621B Features
+//! Operating voltage: 2.4V~5.2V
+//! Built-in 256kHz RC oscillator
+//! External 32.768kHz crystal or 256kHz frequency source input
+//! Selection of 1/2 or 1/3 bias, and selection of 1/2 or 1/3 or1/4 duty LCD applications
+//! Internal time base frequency sources
+//! Two selectable buzzer frequencies (2kHz/4kHz)
+//! Power down command reduces power consumption
+//! Built-in time base generator and WDT
+//! Time base or WDT overflow output
+//! 8 kinds of time base/WDT clock sources
+//! 32*4 LCD driver
+//! Built-in 32*4 bit display RAM
+//! 3-wire serial interface
+//! Internal LCD driving frequency source
+//! Software configuration feature
+//! Data mode and command mode instructions
+//! R/W address auto increment
+//! Three data accessing modes
+//!
+//! <br />
+//!
+//! \section HT1621B_API 2.HT1621B API
+//! extern void send_lcd_command(unsigned char command);
+//! extern void send_lcd_data(unsigned short int address,unsigned short int data);
+//! extern void flood_lcd_data(void);
+//! extern void lcd_init(void);
+//! extern void lcd_char(unsigned short int name,unsigned short int display);
+//! extern void lcd_clr();
+//! extern void lcd_number(unsigned short int number,unsigned short int position,unsigned short int );
+//! extern int DisplayEFSNum( int iEFSIndex );
+//! extern int Display5Power(int IntPower, int FracPower );
+//! extern int DisplaydORs( char cdORs );
+//!
+//! <br />
+//!
+//! \section HT1621B_APP 3.HT1621B Applications
+//!
+//! Here we introduce how to get use HT1621B.
+//!
+//! \code
+//! void lcd_test( void )
+//! {
+//! 	int i=0;
+//! 	unsigned int j =0;
+//! 	int k=0;
+//! 	  lcd_init();
+//! 	  flood_lcd_data();
+//!
+//!
+//! 	  //decimal point
+//! 	  /*lcd_char(_lcd_DOT0,1);
+//! 	  lcd_char(_lcd_DOT1,1);*/
+//! 	  lcd_char(_lcd_DOT2,1);
+//! 	  /*lcd_char(_lcd_DOT3,1);
+//! 	  lcd_char(_lcd_DOT4,1);*/
+//!
+//! 	  //colon
+//! 	  //lcd_char(_lcd_COLON0,1);
+//! 	  //lcd_char(_lcd_COLON1,1);
+//!
+//! 	  //signal strength
+//! 	  lcd_char(_lcd_AT0,1);
+//! 	  lcd_char(_lcd_AT1,1);
+//! 	  lcd_char(_lcd_AT2,1);
+//! 	  lcd_char(_lcd_AT3,1);
+//!
+//! 	  //w
+//! 	  lcd_char(_lcd_W,1);
+//!
+//! 	  //battery
+//! 	  lcd_char(_lcd_BAT,1);
+//!
+//! 	  //number
+//! 	  DisplayEFSNum(12);
+//! 	  //Display5Power(1234);
+//!
+//! 	  DisplaydORs('S');
+//! 	  DisplaydORs('d');
+//! 	  DisplaydORs('E');
+//! 	  DisplaydORs('F');
+//! 	  DisplaydORs('T');
+//! 	  DisplaydORs('P');
+//! 	  DisplaydORs('O');
+//! 	  DisplaydORs('U');
+//! 	  DisplaydORs('R');
+//! 	  DisplaydORs('C');
+//! 	 
+//! 	  //DisplaydORs(' ');
+//!
+//! 	  return;
+//!
+//! 	  while(1);
+//!
+//! 	  for( i=0;i<=9;i++)
+//! 	  {
+//! 		  lcd_number(9,i,1);
+//! 	  }
+//!
+//! 	  while(1)
+//! 	  {
+//! 	     for(i=0;i<=127;i++)
+//! 	     {
+//! 			lcd_char(i,1);
+//! 			for (j =0;j<=50000;j++);
+//! 	     }
+//! 	     for (i =0;i<=50000;i++)
+//! 	     {
+//! 	     	//for (j =0;j<=50000;j++);
+//! 	     }
+//!
+//! 	     lcd_clr();
+//! 	     for( k=0;k<=3;k++)
+//! 	     {
+//! 			for( i=0;i<=9;i++)
+//! 			{
+//! 			  lcd_number(i,0,1);
+//! 			  lcd_number(i,1,1);
+//! 			  lcd_number(i,2,1);
+//! 			  lcd_number(i,3,1);
+//! 			  lcd_number(i,4,1);
+//! 			  lcd_number(i,5,1);
+//! 			  lcd_number(i,6,1);
+//! 			  lcd_number(i,7,1);
+//! 			  lcd_number(i,8,1);
+//! 			  lcd_number(i,9,1);
+//! 			  for (j =0;j<=50000;j++);
+//! 			}
+//! 		}
+//!
+//! 	     for (i =0;i<=50000;i++)
+//! 	    	{
+//! 	    	  // 	for (j =0;j<=50000;j++);
+//! 	    	}
+//! 	     lcd_clr();
+//!
+//! 	}
+//! }
+//! \endcode
+//!
+//! @}
+//
+//******************************************************
+
+
+
+//******************************************************
+//
+//!
+//! \addtogroup CoX_Driver_Lib
+//! @{
+//! \addtogroup LCD 
+//! @{
+//! \addtogroup LCD_Character 
+//! @{
+//! \addtogroup HT1621B_LCD_Driver 
+//! @{
+//! \addtogroup HT1621B_Register_Config
+//! @{
+//! @}
+//! \addtogroup HT1621B_IO_Config
+//! @{
+//! @}
+//! @}
+//! @}
+//! @}
+//! @}
+//
+//******************************************************

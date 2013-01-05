@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Device>
+    <Name>HT1621B</Name>
+    <Description>HT1621B Character LCD </Description>
+    <Manufacturer>Analog Devices</Manufacturer>
+    
+    <Category>LCD</Category>
+    <SubCategory>LCD Character</SubCategory>
+    
+    <KeyWord>HT1621B，LCD</KeyWord>
+    
+    <Communication>
+        <Interface>GPIO</Interface>
+    </Communication>
+    
+    <WebPage>http://www.led-ics.com/pddetaildate/product/detail/20100422_8663810.html</WebPage>
+    <Datasheet>http://file.yizimg.com/328625/2010042223213782.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

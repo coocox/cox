@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>HT1621B_Display</Name>
+  <Description>HT1621B example</Description>
+  <Version>1.0.0.0</Version>
+  <Tags>HT1621B</Tags>
+  <EVKit>NUC140VE3CN and HT1621B</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\CoX\Driver\LCD_Character\HT1621B\HT1621B_Driver\example\HT1621B_Display\src\example.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CoX.GPIO</Dependency>
+    <Dependency>CoX.SysCtl</Dependency>
+  </Dependencys>
+  
+   
+</Example>
