@@ -1,7 +1,7 @@
 //*****************************************************************************
 //
-//! \file coshing_cfg.h
-//! \brief Configuration of Co-Shining board.
+//! \file cookie_cfg.h
+//! \brief Configuration of Cookie board.
 //! \version V2.1.1.0
 //! \date 12/29/2011
 //! \author CooCox
@@ -37,8 +37,8 @@
 //
 //*****************************************************************************
 
-#ifndef __CO_SHINING_CFG_H__
-#define __CO_SHINING_CFG_H__
+#ifndef __COOKIE_CFG_H__
+#define __COOKIE_CFG_H__
 
 //*****************************************************************************
 //
@@ -53,7 +53,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup Co-Shining
+//! \addtogroup Cookie
 //! @{
 //
 //*****************************************************************************
@@ -85,7 +85,7 @@
 //! - \ref sD10_FUNC_PWM to set D10 as PWM
 //! please refrence \ref CS_B_Arduino_Pin_D10_Map.
 //
-#define sD10_FUNC_MAP           sD10_FUNC_SPI_SS    
+#define sD10_FUNC_MAP           sD10_FUNC_PWM
 
 //
 //! Arduino compatible Pin D11 Peripheral Function select, it can be set :
@@ -211,4 +211,4 @@
 //}
 #endif
 
-#endif // __CO_SHINING_CFG_H__    
+#endif // __COOKIE_CFG_H__

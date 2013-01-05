@@ -1,7 +1,7 @@
 //*****************************************************************************
 //
-//! \file coshining.h
-//! \brief Defines and Macros for Co-Shining Board.
+//! \file cookie.h
+//! \brief Defines and Macros for cookie Board.
 //! \version V2.1.1.0
 //! \date 12/29/2011
 //! \author CooCox
@@ -37,10 +37,10 @@
 //
 //*****************************************************************************
 
-#ifndef __CO_SHINING_H__
-#define __CO_SHINING_H__
+#ifndef __COOKIE_H__
+#define __COOKIE_H__
 
-#include "coshining_cfg.h"
+#include "cookie_cfg.h"
 #include "xhw_types.h"
 #include "xhw_memmap.h"
 #include "xgpio.h"
@@ -59,7 +59,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup Co-Shining Co-Shining
+//! \addtogroup Cookie Cookie
 //! @{
 //
 //*****************************************************************************
@@ -277,6 +277,7 @@
 
 #define sD3PinTypePWM()         xSPinTypePWM(PWM1, sD3)
 #define sD5PinTypePWM()         xSPinTypePWM(PWM3, sD5)
+#define sD6PinTypePWM()         xSPinTypePWM(PWM4, sD6)
 #define sD9PinTypePWM()         xSPinTypePWM(PWM5, sD9)
 #define sD10PinTypePWM()        xSPinTypePWM(PWM6, sD10)
 #define sD11PinTypePWM()        xSPinTypePWM(PWM7, sD11)
@@ -308,4 +309,4 @@
 //}
 #endif
 
-#endif // __CO_SHINING_H__  
+#endif // __COOKIE_H__
