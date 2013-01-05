@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Device>
+    <Name>LED_3COLOR</Name>
+    <Description>LED_3COLOR EEPROM </Description>
+    <Manufacturer>Analog Devices</Manufacturer>
+    
+    <Category>LED</Category>
+    <SubCategory>LED_COLOR</SubCategory>
+    
+    <KeyWord>LED,COLOR</KeyWord>
+    
+    <Communication>
+        <Interface>GPIO</Interface>
+    </Communication>
+    
+    <WebPage></WebPage>
+    <Datasheet></Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>
