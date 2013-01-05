@@ -73,8 +73,8 @@
     <Component id="538" name="STMPE811_Driver" path="" type="1"/>
   </Components>
   <Files>
-    <File name="CoX/CoX_Peripheral/inc/xadc.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xadc.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xi2c.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xi2c.h" type="1"/>
+    <File name="CoX/CoX_Peripheral/inc/xadc.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xadc.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_spi.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_spi.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/src/xcore.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xcore.c" type="1"/>
@@ -85,8 +85,8 @@
     <File name="CoX/CoX_Peripheral/inc/xhw_ints.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_ints.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xadc.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xadc.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xsysctl.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xsysctl.h" type="1"/>
-    <File name="CoX/CoX_Peripheral/inc/xhw_adc.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_adc.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc" path="" type="2"/>
+    <File name="CoX/CoX_Peripheral/inc/xhw_adc.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_adc.h" type="1"/>
     <File name="CoX_Driver/BH1750FVI_Driver" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_i2c.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_i2c.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_pwm.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_pwm.h" type="1"/>
@@ -96,11 +96,11 @@
     <File name="Example/bh1750read.h" path="../src/bh1750read.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_nvic.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_nvic.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xuart.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xuart.c" type="1"/>
-    <File name="CoX/CoX_Peripheral/inc/xhw_gpio.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_gpio.h" type="1"/>
     <File name="Example/main.c" path="../main.c" type="1"/>
+    <File name="CoX/CoX_Peripheral/inc/xhw_gpio.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_gpio.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_timer.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_timer.h" type="1"/>
-    <File name="CoX/CoX_Peripheral/inc/xhw_acmp.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_acmp.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xtimer.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xtimer.c" type="1"/>
+    <File name="CoX/CoX_Peripheral/inc/xhw_acmp.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_acmp.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xspi.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xspi.c" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xgpio.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xgpio.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xtimer.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xtimer.h" type="1"/>
