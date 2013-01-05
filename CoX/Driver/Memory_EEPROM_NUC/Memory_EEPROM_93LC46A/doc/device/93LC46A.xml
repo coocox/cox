@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Device>
+    <Name>93LC46A</Name>
+    <Description>93LC46A EEPROM </Description>
+    <Manufacturer>Analog Devices</Manufacturer>
+    
+    <Category>Memory</Category>
+    <SubCategory>EEPROM</SubCategory>
+    
+    <KeyWord>93LC46A, EEPROM</KeyWord>
+    
+    <Communication>
+        <Interface>GPIO</Interface>
+    </Communication>
+    
+    <WebPage>http://www.1632bit.com/microchip/%E5%AD%98%E5%82%A8%E5%99%A8/93LC46A.htm</WebPage>
+    <Datasheet>http://ww1.microchip.com/downloads/en/DeviceDoc/21749J.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

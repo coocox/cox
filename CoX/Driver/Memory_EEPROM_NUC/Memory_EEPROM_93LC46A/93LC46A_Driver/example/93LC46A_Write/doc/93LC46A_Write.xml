@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>93LC46A_Write</Name>
+  <Description>93LC46A example</Description>
+  <Version>1.0.0.0</Version>
+  <Tags>93LC46A</Tags>
+  <EVKit>NUC140VE3CN and 93LC46A</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\CoX\Driver\Memory_EEPROM_93LC46A\93LC46A_Driver\example\93LC46A_Write\src\example.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CoX.GPIO</Dependency>
+    <Dependency>CoX.SysCtl</Dependency>
+  </Dependencys>
+  
+   
+</Example>

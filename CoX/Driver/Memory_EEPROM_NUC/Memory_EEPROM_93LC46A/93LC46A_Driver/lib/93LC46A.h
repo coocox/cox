@@ -71,12 +71,6 @@ extern "C"
 //*****************************************************************************
 
 //*****************************************************************************
-//
-//! \addtogroup 93LC46A
-//! @{
-//
-//*****************************************************************************
-//*****************************************************************************
 
 //*****************************************************************************
 //! \addtogroup 93LC46A_Driver
@@ -95,11 +89,12 @@ extern "C"
 //! @{
 //
 //*****************************************************************************
-#define _93LC46A_PIN_PORT       xGPIO_PORTB_BASE
-#define _93LC46A_PIN_SEL			xGPIO_PIN_12
-#define _93LC46A_PIN_CLOCK		xGPIO_PIN_13
-#define _93LC46A_PIN_DI				xGPIO_PIN_14
-#define _93LC46A_PIN_DO			xGPIO_PIN_15
+#define _93LC46A_PIN_PORT                      xGPIO_PORTB_BASE
+#define _93LC46A_PERIPH_PORT                   xSYSCTL_PERIPH_GPIOB
+#define _93LC46A_PIN_SEL                       xGPIO_PIN_12
+#define _93LC46A_PIN_CLOCK                     xGPIO_PIN_13
+#define _93LC46A_PIN_DI                        xGPIO_PIN_14
+#define _93LC46A_PIN_DO                        xGPIO_PIN_15
 //*****************************************************************************
 //
 //! @}
@@ -111,14 +106,14 @@ extern "C"
 //! @{
 //
 //*****************************************************************************
-#define _93LC46A_WriteEnable	0x0260
-#define _93LC46A_WriteDisable	0x0200
-#define _93LC46A_EraseAll			0x0240
+#define _93LC46A_WriteEnable                    0x0260
+#define _93LC46A_WriteDisable                   0x0200
+#define _93LC46A_EraseAll                       0x0240
 
-#define _93LC46A_WriteAll			0x0220
-#define _93LC46A_Write				0x0280
-#define _93LC46A_Read				0x0300
-#define _93LC46A_Erase				0x0380
+#define _93LC46A_WriteAll                       0x0220
+#define _93LC46A_Write                          0x0280
+#define _93LC46A_Read                           0x0300
+#define _93LC46A_Erase                          0x0380
 //*****************************************************************************
 //
 //! @}
@@ -158,12 +153,6 @@ void eep_93LC46A_Cmd(short cmd);
 void eep_93LC46A_Read(char* data, unsigned char addr);
 void eep_93LC46A_Init();
 void eep_93LC46A_Erase(unsigned char addr);
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
 //*****************************************************************************
 //
 //! @}
