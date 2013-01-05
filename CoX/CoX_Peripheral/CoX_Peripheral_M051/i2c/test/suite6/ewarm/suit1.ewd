@@ -3,7 +3,7 @@
 <project>
   <fileVersion>2</fileVersion>
   <configuration>
-    <name>Debug_Flash</name>
+    <name>Debug</name>
     <toolchain>
       <name>ARM</name>
     </toolchain>
@@ -45,7 +45,7 @@
         </option>
         <option>
           <name>MemFile</name>
-          <state>$TOOLKIT_DIR$\CONFIG\debugger\Nuvoton\iom0516.ddf</state>
+          <state>$TOOLKIT_DIR$\CONFIG\debugger\Nuvoton\ionuc100_v1.ddf</state>
         </option>
         <option>
           <name>RunToEnable</name>
@@ -89,7 +89,7 @@
         </option>
         <option>
           <name>OCLastSavedByProductVersion</name>
-          <state>5.50.0.51907</state>
+          <state>5.50.6.52043</state>
         </option>
         <option>
           <name>OCDownloadAttachToProgram</name>
@@ -117,7 +117,7 @@
         </option>
         <option>
           <name>FlashLoadersV3</name>
-          <state>$TOOLKIT_DIR$\config\flashloader\Nuvoton\M0516_APROM.board</state>
+          <state>$TOOLKIT_DIR$\config\flashloader\Nuvoton\NUC100_APROM.board</state>
         </option>
         <option>
           <name>OCImagesSuppressCheck1</name>
@@ -715,6 +715,10 @@
         <loadFlag>0</loadFlag>
       </plugin>
       <plugin>
+        <file>$TOOLKIT_DIR$\plugins\rtos\MQX\MQXRtosPlugin.ewplugin</file>
+        <loadFlag>0</loadFlag>
+      </plugin>
+      <plugin>
         <file>$TOOLKIT_DIR$\plugins\rtos\OSE\OseEpsilonPlugin.ewplugin</file>
         <loadFlag>0</loadFlag>
       </plugin>
@@ -761,18 +765,18 @@
     </debuggerPlugins>
   </configuration>
   <configuration>
-    <name>Debug_Ram</name>
+    <name>Release</name>
     <toolchain>
       <name>ARM</name>
     </toolchain>
-    <debug>1</debug>
+    <debug>0</debug>
     <settings>
       <name>C-SPY</name>
       <archiveVersion>2</archiveVersion>
       <data>
         <version>22</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>CInput</name>
           <state>1</state>
@@ -803,7 +807,7 @@
         </option>
         <option>
           <name>MemFile</name>
-          <state>$TOOLKIT_DIR$\CONFIG\debugger\TexasInstruments\iolm3sxxxx.ddf</state>
+          <state></state>
         </option>
         <option>
           <name>RunToEnable</name>
@@ -843,11 +847,11 @@
         </option>
         <option>
           <name>OCDynDriverList</name>
-          <state>LMIFTDI_ID</state>
+          <state>ARMSIM_ID</state>
         </option>
         <option>
           <name>OCLastSavedByProductVersion</name>
-          <state>5.50.6.52043</state>
+          <state></state>
         </option>
         <option>
           <name>OCDownloadAttachToProgram</name>
@@ -875,7 +879,7 @@
         </option>
         <option>
           <name>FlashLoadersV3</name>
-          <state>$TOOLKIT_DIR$\config\flashloader\TexasInstruments\FlashLM3Sx8xx.board</state>
+          <state></state>
         </option>
         <option>
           <name>OCImagesSuppressCheck1</name>
@@ -937,7 +941,7 @@
       <data>
         <version>1</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>OCSimDriverInfo</name>
           <state>1</state>
@@ -962,7 +966,7 @@
       <data>
         <version>0</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>CCAngelHeartbeat</name>
           <state>1</state>
@@ -1005,7 +1009,7 @@
       <data>
         <version>0</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>OCDriverInfo</name>
           <state>1</state>
@@ -1042,7 +1046,7 @@
       <data>
         <version>0</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>CRomLogFileCheck</name>
           <state>0</state>
@@ -1077,7 +1081,7 @@
       <data>
         <version>11</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>JLinkSpeed</name>
           <state>32</state>
@@ -1236,7 +1240,7 @@
       <data>
         <version>2</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>OCDriverInfo</name>
           <state>1</state>
@@ -1269,7 +1273,7 @@
       <data>
         <version>3</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>jtag</name>
           <version>0</version>
@@ -1358,7 +1362,7 @@
       <data>
         <version>1</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>CRDIDriverDll</name>
           <state>###Uninitialized###</state>
@@ -1419,7 +1423,7 @@
       <data>
         <version>1</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>OCDriverInfo</name>
           <state>1</state>
@@ -1440,7 +1444,7 @@
       <data>
         <version>0</version>
         <wantNonLocal>1</wantNonLocal>
-        <debug>1</debug>
+        <debug>0</debug>
         <option>
           <name>CThirdPartyDriverDll</name>
           <state>###Uninitialized###</state>
@@ -1470,6 +1474,10 @@
       </plugin>
       <plugin>
         <file>$TOOLKIT_DIR$\plugins\rtos\embOS\embOSPlugin.ewplugin</file>
+        <loadFlag>0</loadFlag>
+      </plugin>
+      <plugin>
+        <file>$TOOLKIT_DIR$\plugins\rtos\MQX\MQXRtosPlugin.ewplugin</file>
         <loadFlag>0</loadFlag>
       </plugin>
       <plugin>

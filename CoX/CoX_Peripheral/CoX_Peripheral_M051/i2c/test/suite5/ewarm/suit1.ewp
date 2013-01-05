@@ -147,8 +147,6 @@
         <option>
           <name>CCDefines</name>
           <state>ewarm</state>
-          <state>XDEBUG</state>
-          <state>DEBUG</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -308,7 +306,7 @@
         </option>
         <option>
           <name>CCOptLevel</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCOptStrategy</name>
@@ -317,7 +315,7 @@
         </option>
         <option>
           <name>CCOptLevelSlave</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CompilerMisraRules98</name>
@@ -527,7 +525,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state></state>
+          <state>suit1.srec</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -617,7 +615,7 @@
         </option>
         <option>
           <name>IlinkMapFile</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IlinkLogFile</name>
@@ -847,7 +845,7 @@
         <option>
           <name>Variant</name>
           <version>16</version>
-          <state>34</state>
+          <state>0</state>
         </option>
         <option>
           <name>GEndianMode</name>
@@ -860,7 +858,7 @@
         </option>
         <option>
           <name>Input description</name>
-          <state>Full formatting.</state>
+          <state></state>
         </option>
         <option>
           <name>Output variant</name>
@@ -869,7 +867,7 @@
         </option>
         <option>
           <name>Output description</name>
-          <state>Full formatting.</state>
+          <state></state>
         </option>
         <option>
           <name>GOutputBinary</name>
@@ -882,7 +880,7 @@
         </option>
         <option>
           <name>OGCoreOrChip</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>GRuntimeLibSelect</name>
@@ -896,7 +894,7 @@
         </option>
         <option>
           <name>RTDescription</name>
-          <state>Use the normal configuration of the C/C++ runtime library. No locale interface, C locale, no file descriptor support, no multibytes in printf and scanf, and no hex floats in strtod.</state>
+          <state></state>
         </option>
         <option>
           <name>RTConfigPath</name>
@@ -908,7 +906,7 @@
         </option>
         <option>
           <name>OGLastSavedByProductVersion</name>
-          <state>5.50.6.52043</state>
+          <state></state>
         </option>
         <option>
           <name>GeneralEnableMisra</name>
@@ -920,15 +918,15 @@
         </option>
         <option>
           <name>OGChipSelectEditMenu</name>
-          <state>NUC140xE	Nuvoton NUC140xE</state>
+          <state></state>
         </option>
         <option>
           <name>GenLowLevelInterface</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>GEndianModeBE</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>OGBufferedTerminalOutput</name>
@@ -963,7 +961,7 @@
         <debug>0</debug>
         <option>
           <name>CCDefines</name>
-          <state>ewarm</state>
+          <state>NDEBUG</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -1024,11 +1022,11 @@
         <option>
           <name>CCAllowList</name>
           <version>1</version>
-          <state>0000000</state>
+          <state>1111111</state>
         </option>
         <option>
           <name>CCDebugInfo</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>IEndianMode</name>
@@ -1098,7 +1096,7 @@
           <name>CCIncludePath2</name>
           <state>$PROJ_DIR$/../../../../../../../../CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx\libcox</state>
           <state>$PROJ_DIR$/../../../../../../../../CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx\testframe</state>
-          <state>$PROJ_DIR$/../../../../../../../../CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx\gpio\test\suite1\src</state>
+          <state>$PROJ_DIR$/../../../../../../../../CoX\CoX_Peripheral\CoX_Peripheral_NUC1xx\sysctl\test\suite1\src</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1122,7 +1120,7 @@
         </option>
         <option>
           <name>CCOptLevel</name>
-          <state>0</state>
+          <state>3</state>
         </option>
         <option>
           <name>CCOptStrategy</name>
@@ -1131,7 +1129,7 @@
         </option>
         <option>
           <name>CCOptLevelSlave</name>
-          <state>0</state>
+          <state>3</state>
         </option>
         <option>
           <name>CompilerMisraRules98</name>
@@ -1203,7 +1201,7 @@
         </option>
         <option>
           <name>ADebug</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>AltRegisterNames</name>
@@ -1459,7 +1457,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$TOOLKIT_DIR$\CONFIG\generic_cortex.icf</state>
+          <state>lnk0t.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -1519,7 +1517,7 @@
         </option>
         <option>
           <name>IlinkProgramEntryLabel</name>
-          <state>__iar_program_start</state>
+          <state></state>
         </option>
         <option>
           <name>DoFill</name>
@@ -1652,6 +1650,9 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_gpio.h</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_i2c.h</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_ints.h</name>
         </file>
         <file>
@@ -1670,6 +1671,9 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xhw_uart.h</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xi2c.h</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xsysctl.h</name>
         </file>
         <file>
@@ -1682,10 +1686,10 @@
           <name>$PROJ_DIR$\..\..\..\..\libcox\xcore.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\xdebug.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xgpio.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\libcox\xgpio.c</name>
+          <name>$PROJ_DIR$\..\..\..\..\libcox\xi2c.c</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\libcox\xsysctl.c</name>
@@ -1713,13 +1717,7 @@
         <name>$PROJ_DIR$\..\src\testcase.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\src\xgpiotest1.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\src\xgpiotest2.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\src\xgpiotest3.c</name>
+        <name>$PROJ_DIR$\..\src\xi2ctest2.c</name>
       </file>
     </group>
     <group>
