@@ -1,0 +1,86 @@
+//*****************************************************************************
+//
+//! \defgroup CAT93Cx6 CAT93Cx6 EEPROM
+//!
+//! \brief CAT93Cx6 EEPROM
+//!
+//! The CAT93Cx6 is a 1K/2K/2K/4K/16K Serial EEPROM memory device which is configured 
+//! as either registers of 16 bits (ORG pin at V CC) or 8 bits (ORG pin at GND). 
+//! 
+//! <h1>Contents</h1>
+//! - \ref CAT93Cx6_Block_Diagram
+//! - \ref CAT93Cx6_Func_Desc
+//!   - \ref CAT93Cx6_Func_Pin
+//!   .
+//! - \ref CAT93Cx6_API_Group
+//! - \ref CAT93Cx6_Usage
+//! .
+//!
+//!
+//! \section CAT93Cx6_Block_Diagram 1. CAT93Cx6 connection Circuitry Diagram
+//! <img src="CAT93Cx6_system.png" />
+//!
+//! \section CAT93Cx6_Func_Desc 2. CAT93Cx6 Function Description
+//! \subsection CAT93Cx6_Func_Pin 2.1 CAT93Cx6 Pin Description
+//!
+//! <img src="CAT93Cx6.png" />
+//! \verbatim
+//! +---+-------+--------------------------------+
+//! |No.|PinName|Pin Description                 |
+//! |---|-------|--------------------------------|
+//! | 1 |  CS   |Chip Select                     |
+//! | 2 |  SK   |Clock Input                     |
+//! | 3 |  DI   |Serial Data Input               |
+//! | 4 |  DO   |Serial Data Output              |
+//! | 7 |  ORG  |Memory Organization             |
+//! +---+-------+--------------------------------+
+//! \endverbatim
+//!
+//! \section CAT93Cx6_API_Group 3. API Group
+//! - CAT93Cx6_Init() - to initialize.
+//! - CAT93Cx6_ProgrammOpen() - to enable the Programm.
+//! - CAT93Cx6_ProgrammClose() - to close the Programm.
+//! - CAT93Cx6_ReadFromAddress() - to read a data
+//! - CAT93Cx6_WriteToAddress() - to write a data 
+//! - CAT93Cx6_EraseToAddress() - to erase address
+//! - CAT93Cx6_EraseToAll() - to erase whole chip
+//! - CAT93Cx6_WriteToAll() - to write a data to whole chip.
+//! .
+//!
+//! \section CAT93Cx6_Usage 4. CAT93Cx6 Usage
+//! 
+//! Before Using the CAT93Cx6's driver, you should configure 
+//! the CAT93Cx6, the CAT93Cx6's driver, such as pin map,Please reference
+//! \ref CAT93Cx6_Config.
+//!
+//! \code
+//! #include "test.h"
+//! #include "CAT93Cx6.h"
+//! 
+//! void CAT93Cx6Test(void)
+//! {   
+//!     unsigned long address;
+//! 	unsigned long dat;
+
+//! 	xSysCtlClockSet(80000000, SYSCTL_XTAL_16MHZ | SYSCTL_OSC_MAIN);
+	
+//!     CAT93Cx6_EraseToAll();
+//! 	address = 2;
+//! 	dat = 0;
+//! 	dat = CAT93Cx6_ReadFromAddress(address);
+//! 	dat = 0x1234;
+//! 	CAT93Cx6_WriteToAddress(address, dat);
+//! 	dat = 0;
+//! 	dat = CAT93Cx6_ReadFromAddress(address);
+//! 	CAT93Cx6_EraseToAddress(address);
+//! 	dat = 0;
+//! 	dat = CAT93Cx6_ReadFromAddress(address);
+//! 	dat = 0x5678;
+//! 	CAT93Cx6_WriteToAll(dat);
+//! 	address = 8;
+//! 	dat = 0;
+//! 	dat = CAT93Cx6_ReadFromAddress(address);
+//!  }
+//! \endcode
+//
+//*****************************************************************************

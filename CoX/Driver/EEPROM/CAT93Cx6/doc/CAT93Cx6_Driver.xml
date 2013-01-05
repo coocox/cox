@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Component>
+    <Name>CAT93Cx6 Controller-Driver</Name>
+    <Category>CoX.Driver</Category>
+    <Version>2.1.1.0</Version>
+    <KeyWord>CAT93Cx6, EEPROM, Driver, CoX</KeyWord>
+
+      <Filter>
+         <Interface>GPIO</Interface> 
+         <CoXBased>true</CoXBased> 
+      </Filter>
+          
+      <Categorys>
+          <Layer name="Driver">
+              <Cate name="Driver" />
+           </Layer>
+      </Categorys> 
+ 
+
+    
+    <SupportDevices>
+        <Device>CAT93Cx6</Device>
+    </SupportDevices>
+  
+    <Files>
+        <File>$Driver_ROOT$\lib\*</File>
+    </Files>
+    
+    <CoIDEFiles>
+        <File>PROJECT_ROOT$\CoX\Driver\EEPROM\lib\CAT93Cx6.h</File>
+        <File>PROJECT_ROOT$\CoX\Driver\EEPROM\lib\CAT93Cx6.c</File>
+    </CoIDEFiles>
+    
+    <DependentComponentInterfaceTag>
+        <Tag>CoX.SysCtl</Tag>
+        <Tag>CoX.GPIO</Tag>
+    </DependentComponentInterfaceTag>
+    
+    <SupportMCUs>
+        <MCU>All</MCU>
+    </SupportMCUs>
+    
+    <SupportMCUSeries>
+        <Series>All</Series>
+    </SupportMCUSeries>
+    
+    <Doc>$Driver_ROOT$\doc\</Doc>
+  
+</Component>
