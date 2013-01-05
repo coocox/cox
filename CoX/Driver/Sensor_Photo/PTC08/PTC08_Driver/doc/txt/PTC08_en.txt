@@ -1,348 +1,166 @@
 //*****************************************************************************
 //
-//! \defgroup STLM75 STLM75
+//! \defgroup PTC08 PTC08
 //!
 //! \brief Digital temperature sensor and thermal watchdog.
 //!
-//! The STLM75 is a high-precision digital CMOS temperature sensor IC with a sigma-delta
-//! temperature-to-digital converter and an I2C-compatible serial digital interface. It is targeted
-//! for general applications such as personal computers, system thermal management,
-//! electronics equipment, and industrial controllers, and is packaged in the industry standard
-//! 8-lead TSSOP and SO8 packages.
+//! PTC08 is a production of a new set of image acquisition, the photography control, data
+//! Compression, serial transmission in an industrial-strength image acquisition and processing module. 
+//! With its built-in high-performance digital signal processing chip to realize
+//! The high compression of the original image. The product image output using standard JPEG format, can easily compatible with all kinds of image place
+//! Richard software; The standard three line type RS - 232 communication interface and simple image transfer protocol makes the camera can be real
+//! Now with computers and all kinds of embedded system connection; Reserved for the infrared light function interface can external infrared lamp board, in various
+//! Lighting conditions can super clear image.
 //!
-//! The device contains a band gap temperature sensor and 9-bit ADC which monitor and
-//! digitize the temperature to a resolution up to 0.5 °„C. The STLM75 is typically accurate to
-//! (°¿3 °„C - max) over the full temperature measurement range of ®C55 °„C to 125 °„C with °¿2 °„C
-//! accuracy in the ®C25 °„C to +100 °„C range. The STLM75 is pin-for-pin and software
-//! compatible with the LM75B.
+//! This product default baud rate for 38400, other optional baud rate is 9600, 19200, 57600 and 115200.
 //!
-//! The STLM75 is specified for operating at supply voltages from 2.7 V to 5.5 V. Operating at
-//! 3.3 V, the supply current is typically (125 ¶ÃA).
 //!
 //! <h1>Contents</h1>
-//! - \ref STLM75_Block
-//! - \ref STLM75_Func_Desc
-//!   - \ref STLM75_Func_Pin
-//!   - \ref STLM75_Func_TRF
-//!   - \ref STLM75_Func_APP
-//!   - \ref STLM75_Func_Mode
-//!   - \ref STLM75_Func_Reg
-//!     - \ref STLM75_Func_Command
-//!     - \ref STLM75_Func_Configuration
-//!     - \ref STLM75_Func_Temperature
+//! - \ref PTC08_Block
+//! - \ref PTC08_Func_Desc
+//!   - \ref PTC08_Func_Pin
+//!   - \ref PTC08_Func_CP
+//!     - \ref PTC08_Func_Reset
+//!     - \ref PTC08_Func_Take
+//!     - \ref PTC08_Func_Read_Len
+//!     - \ref PTC08_Func_Read_Data
 //!     .
 //!   .
-//! - \ref STLM75_API_Group
-//!   - \ref STLM75_API_Config
-//!   - \ref STLM75_API_Set
-//!   - \ref STLM75_API_Read
+//! - \ref PTC08_API_Group
+//!   - \ref PTC08_API_Config
+//!   - \ref PTC08_API_Set
+//!   - \ref PTC08_API_Read
 //!   .
-//! - \ref STLM75_Usage
+//! - \ref PTC08_Usage
 //! .
 //!
-//! \section STLM75_Block 1. STLM75 Block Diagram
-//! <img src="STLM75_Block.png" />
+//! \section PTC08_Block 1. PTC08 Block Diagram
+//! <img src="PTC08_Block.png" />
 //!
-//! \section STLM75_Func_Desc 2. STLM75 Function Description
-//! \subsection STLM75_Func_Pin 2.1 STLM75 Pin Description
+//! \section PTC08_Func_Desc 2. PTC08 Function Description
+//! \subsection PTC08_Func_Pin 2.1 PTC08 Pin Description
 //! 
-//! <img src="STLM75_Pin.png" />
+//! <img src="PTC08_Pin.png" />
 //!
-//! \subsection STLM75_Func_TRF 2.2 Temperature Register Format
+//! \subsection PTC08_Func_CP 2.2 communication protocol
 //!
-//! Table shows the relationship between the output digital data and the external temperature.
-//! Temperature data for the temperature, TOS, and THYS registers is represented as a 9-bit,
-//! two°Øs complement word.
-//! The left-most bit in the output data stream contains temperature polarity information for
-//! each conversion. If the sign bit is '0', the temperature is positive and if the sign bit is '1,' the
-//! temperature is negative.
-//! <img src="STLM75_TRF.png" />
+//! \subsubsection PTC08_Func_Reset 2.2.1 Reset instruction:
 //! 
-//! \subsection STLM75_Func_APP 2.3 Applications information
-//!
-//! STLM75 digital temperature sensors are optimal for thermal management and thermal
-//! protection applications. They require no external components for operations except for pullup
-//! resistors on SCL, SDA, and OS/INT outputs. A 0.1 ¶ÃF bypass capacitor on VDD is
-//! recommended. The sensing device of STLM75 is the chip itself. The typical interface
-//! connection for this type of digital sensor is shown in Figure. 
-//!
-//! <img src="STLM75_APP.png" />
-//!
-//! \subsection STLM75_Func_Mode 2.4 Comparator mode and Interrupt mode
-//! OS output temperature response diagram.
-//!
-//! <img src="STLM75_Mode.png" />
-//!
-//! \subsection STLM75_Func_Reg 2.5 Registers and register set formats
+//! Reset instruction: <br>
+//! Send: 56 00 26 00  <br>
+//! return: 76 00 26 00 +DSP version information <br>
+//! Note :Just to make sure the first 4 bytes is correct, ignore version information <br>
 //! 
 //!
-//! \subsubsection STLM75_Func_Command 2.5.1 Command/pointer register
+//! \subsubsection PTC08_Func_Take 2.2.2 Take Photo instruction:
 //! 
-//! The most significant bits (MSBs) of the command register must always be zero. Writing a '1'
-//! into any of these bits will cause the current operation to be terminated (bit 2 through bit 7
-//! must be kept '0', see Table
+//! Take Photo instruction: <br>
+//! Send: 56 00 36 01 00  <br>
+//! return: 76 00 36 00 00 <br>
 //!
-//! <img src="STLM75_Command.png" />
-//! <img src="STLM75_summary.png" />
-//!
-//! \subsubsection STLM75_Func_Configuration 2.5.2 Configuration register
+//! \subsubsection PTC08_Func_Read_Len 2.2.3 Read image lenth instruction:
 //! 
-//! The configuration register is used to store the device settings such as device operation
-//! mode, OS operation mode, OS polarity, and OS fault queue.
-//! The configuration register allows the user to program various options such as thermostat
-//! fault tolerance, thermostat polarity, thermostat operating mode, and shutdown mode. The
-//! user has READ/WRITE access to all of the bits in the configuration register except the MSB
-//! (Bit7), which is reserved as a °∞Read only°± bit (see Table 6). The entire register is volatile and
-//! thus powers-up in its default state only.
+//! Read image lenth instruction: <br>
+//! Send: 56 00 34 01 00 <br>
+//! return:76 00 34 00 04 00 00 XX YY <br>
+//! XX YY -------Image data length, XX for high byte, YY for low byte
 //!
-//! <img src="STLM75_Configuration.png" />
+//! \subsubsection PTC08_Func_Read_Data 2.2.4 Read image data instruction:
+//! 
+//! Read image data instruction: <br>
+//! Send: 56 00 32 0C 00 0A 00 00 XX XX 00 00 YY YY 00 FF <br>
+//! 00 00 XX XX --- Starting address (first high byte, low byte. Must be in multiples of 8)<br>
+//! 00 00 YY YY --- Read data length (first high byte, low byte) <br>
+//! return:76 00 32 00 00 FF D8 ...... FF D9 76 00 32 00 00 <br>
+//! Note: TODO::
 //!
-//! \subsubsection STLM75_Func_Temperature 2.5.3 Temperature register
-//! Temperature register, Overlimit temperature register (TOS) and Hysteresis temperature register (THYS) is same.
+//! \subsubsection PTC08_Func_Clear 2.2.5 Clear image cache instruction:
+//! 
+//! Clear image cache instruction: <br>
+//! Send: 56 00 36 01 03 <br>
+//! return:76 00 36 00 00 <br>
 //!
-//! <img src="STLM75_Temperature.png" />
+//! \subsubsection PTC08_Func_Rate 2.2.6 Set photo image compression rate instruction
+//! 
+//! Set photo image compression rate instruction: <br>
+//! Send: 56 00 31 05 01 01 12 04 XX <br>
+//! XX Generally choose 36 (range: 00 - FF) <br>
+//! return:76 00 31 00 00 <br>.
 //!
+//! \subsubsection PTC08_Func_Size 2.2.7 Set photo picture size instruction
+//! 
+//! Set photo picture size instruction: <br>
+//! Send: 56 00 31 05 04 01 00 19 XX <br>
+//! - XX      size
+//! - 11      320*240
+//! - 00      640*480
+//! - 22      160*120
+//! .
+//! return:76 00 31 00 00 <br>.
+//! Note: Set the picture size instruction, The new setting will only take effect after a reset 
 //!
-//! \section STLM75_API_Group 3. API Group
-//! \subsection STLM75_API_Config 3.1 Config API
-//! - STLM75Init() to initialize.
-//! - STLM75ConfigSet() to Configuration.
+//! \subsubsection PTC08_Func_TRate 2.2.8 Modify com temporary baud rate instruction
+//! 
+//! Modify com temporary baud rate instruction: <br>
+//! Send: 56 00 24 03 01 XX YY <br>
+//! - XX  YY   baud rate
+//! - AE  C8    9600
+//! - 56  E4    19200
+//! - 2A  F2    38400
+//! - 1C  4C    57600
+//! - 0D  A6    115200
+//! .
+//! return:76 00 24 00 00 <br>.
+//! Note: 
+//! - 1.The default baud rate: 38400  <br>
+//! - 2. Use this command modify baud rate, to power on, and will resume for 38400.
+//! .
+//!
+//! \subsubsection PTC08_Func_Rate 2.2.8 Modify com baud rate instruction
+//! 
+//! Modify com baud rate instruction: <br>
+//! Send: 56 00 31 06 04 02 00 08 XX YY <br>
+//! - XX  YY   baud rate
+//! - AE  C8    9600
+//! - 56  E4    19200
+//! - 2A  F2    38400
+//! - 1C  4C    57600
+//! - 0D  A6    115200
+//! .
+//! return:76 00 31 00 <br>.
+//! Note: Modify com initial baud rate,The new setting will only take effect after a reset 
+//!
+//! \section PTC08_API_Group 3. API Group
+//! \subsection PTC08_API_Config 3.1 Config API
+//! - PTC08Init() to initialize.
+//! - PTC08SavePowerSet() to Save Power.
+//! - PTC08PhotoSizeSet() to Set image size.
+//! - PTC08ZipRateSet() to set Zip rate.
+//! - PTC08BaudRateSet() to set band rate.
 //! .
 //! 
-//! \subsection STLM75_API_Set 3.2 Temperature control API
-//! The Temperature can be controled by:
-//! - STLM75LimitSet()
-//! - STLM75ConfigSet()
+//! \subsection PTC08_API_Set 3.2 Temperature control API
+//! The Photo can be controled by:
+//! - PTC08PhotoStart()
+//! - PTC08PhotoStop()
+//! - PTC08PhotoReset()
 //! .
 //!
 //!
-//! \subsection STLM75_API_Read 3.3 Read API
+//! \subsection PTC08_API_Read 3.3 Read API
 //!
-//! - STLM75TempRead()
-//! - STLM75LimitRead()
-//! - STLM75ConfigRead()
+//! - PTC08PhotoLenGet()
+//! - PTC08PhotoDataGet()
 //! .
 //! 
 //!
-//! \section STLM75_Usage STLM75 Usage
+//! \section PTC08_Usage PTC08 Usage
 //! 
-//! Before Using the STLM75 driver, you should do like this.
+//! Before Using the PTC08 driver, you should do like this.
 //!
 //! Below is some example code:
 //!
 //! \code
-//! #include "xhw_ints.h"
-//! #include "xhw_nvic.h"
-//! #include "xhw_memmap.h"
-//! #include "xhw_types.h"
-//! #include "xdebug.h"
-//! #include "xcore.h"
-//! #include "xsysctl.h"
-//! #include "xhw_sysctl.h"
-//! #include "xhw_gpio.h"
-//! #include "xgpio.h"
-//! #include "xhw_uart.h"
-//! #include "xuart.h"
-//! #include "xi2c.h"
-//! #include "hw_STLM75.h"
-//! #include "STLM75.h"
-//! 
-//! //
-//! //! STLM75 Init callback.
-//! //
-//! void Dev1GPIOInit(void);
-//! 
-//! //
-//! //! STLM75 Device' OS/INT pin callback.
-//! //
-//! unsigned long UserCallback(void *pvCBData, unsigned long ulEvent, 
-//!                            unsigned long ulMsgParam, void *pvMsgData);
-//! 
-//! //
-//! //! Redefined the STLM75 Device's I2C pins.
-//! //
-//! #define STLM75_Dev1_SDA         PA8
-//! #define STLM75_Dev1_SCK         PA9
-//! 
-//! //
-//! //! STLM75 Device.
-//! //
-//! tSTLM75Dev Dev1={
-//!     //
-//!     // DQ is GPIO 
-//!     //
-//!     xGPIOSPinToPortPin(STLM75_Dev1_SCK),
-//!     xGPIOSPinToPortPin(STLM75_Dev1_SDA),
-//!     xGPIOSPinToPortPin(PA0),
-//!     xI2C0_BASE,
-//!    
-//!     //
-//!     // GPIO A.0 Init
-//!     //
-//!     Dev1GPIOInit,
-//!     UserCallback,
-//!     STLM75_ADDRESS_MASK,
-//! };
-//! 
-//! unsigned char ucTemp1[]="Temperature Overlimit";
-//! unsigned char ucTemp2[]="Temperature not Overlimit";
-//! 
-//! //*****************************************************************************
-//! //
-//!//!  \brief Init uart to print.
-//!//! 
-//!//!  \param None
-//!//! 
-//!//!  \details uart config as (115200, 8 data bit, 1 stop bit , no partiy)
-//!//! 
-//!//!  \return None.
-//! //
-//! //*****************************************************************************
-//! static 
-//! void UartInit(void)
-//! {
-//!     xSPinTypeUART(UART0RX,PB0);
-//!     xSPinTypeUART(UART0TX,PB1);
-//! 
-//!     xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART0);
-//!     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART0);
-//!     
-//!     xSysCtlPeripheralClockSourceSet(xSYSCTL_UART0_MAIN, 1);
-//! 
-//!     xUARTConfigSet(UART0_BASE, 115200, (UART_CONFIG_WLEN_8 |
-//!                                         UART_CONFIG_STOP_ONE | 
-//!                                         UART_CONFIG_PAR_NONE));
-//! }
-//! 
-//! //*****************************************************************************
-//! //
-//!//!  \brief print a char.
-//!//! 
-//!//!  \param None
-//!//! 
-//! //! \return None.
-//! //
-//! //*****************************************************************************
-//! void 
-//! UartPrintfChar(char ch)
-//! {
-//!     unsigned char c;
-//!     c = ch;
-//!     while(!xUARTSpaceAvail(xUART0_BASE));
-//!     
-//!     //
-//!     // Write this character to the transmit FIFO.
-//!     //
-//!     xUARTCharPut(xUART0_BASE, c);
-//! }
-//! 
-//! //*****************************************************************************
-//! //
-//!//!  \brief Prints a decimal unsigned number.
-//!//! 
-//!//!  \param n is the number to be printed
-//!//! 
-//!//!  \details Prints a decimal unsigned number.
-//!//! 
-//!//!  \return None.
-//! //
-//! //*****************************************************************************
-//! static 
-//! void UartPrintfNumber(unsigned long n)
-//! {
-//!     char buf[16], *p;
-//! 
-//!     if (n == 0)
-//!     {
-//!         UartPrintfChar('0');
-//!     }
-//!     else
-//!     {
-//!         p = buf;
-//!         while (n != 0)
-//!         {
-//!             *p++ = (n % 10) + '0';
-//!             n /= 10;
-//!         }
-//! 
-//!         while (p > buf)
-//!             UartPrintfChar(*--p);
-//!     }
-//! }
-//! 
-//! //*****************************************************************************
-//! //
-//! //! \breif STLM75 Init callback.
-//! //!
-//! //! \return None
-//! //
-//! //*****************************************************************************
-//! void Dev1GPIOInit(void)                                        
-//! {
-//!     //
-//!     // Congigure the i2c pin
-//!     //
-//!     xSPinTypeI2C(I2C0SCL, STLM75_Dev1_SCK);
-//!     xSPinTypeI2C(I2C0DATA, STLM75_Dev1_SDA); 
-//! }
-//! //*****************************************************************************
-//! //! \breif GPIO External interrupt handler.
-//! //!
-//! //! \return None
-//! //
-//! //*****************************************************************************
-//! unsigned long UserCallback(void *pvCBData, unsigned long ulEvent, 
-//!                            unsigned long ulMsgParam, void *pvMsgData)                                        
-//! {
-//!     float fTemp,fTos,fThys;
-//!     int i;
-//!     fTemp = STLM75TempRead(&Dev1);
-//!     fTos = STLM75LimitRead(&Dev1, 1);
-//!     fThys = STLM75LimitRead(&Dev1, 0);
-//! 
-//!     if(fTemp > fTos)
-//!     {
-//!         for(i=0; ucTemp1[i]!=0; i++)
-//!             UartPrintfChar(ucTemp1[i]);
-//!     }
-//!     else if(fTemp < fThys)
-//!     {
-//!         for(i=0; ucTemp2[i]!=0; i++)
-//!             UartPrintfChar(ucTemp1[i]);
-//!     } 
-//!     
-//!     return 0;
-//! }
-//! 
-//! //*****************************************************************************
-//! //
-//! //! \brief 001 test execute main body.
-//! //!
-//! //! \return None.
-//! //
-//! //*****************************************************************************
-//! static void Example1(void)
-//! {
-//!     float fTemp;
-//!     
-//!     UartInit();
-//!     STLM75Init(&Dev1, 100000);
-//!     
-//!     STLM75ConfigSet(&Dev1, STLM75_CFG_SHUTDOWN_OFF | STLM75_CFG_MODE_INT |
-//!                            STLM75_CFG_POL_LOW | STLM75_CFG_FT1);
-//!     
-//!     fTemp = STLM75TempRead(&Dev1);
-//!     UartPrintfNumber((unsigned long)fTemp);
-//!     STLM75LimitSet(&Dev1, 25, 0);
-//!     STLM75LimitSet(&Dev1, 27, 1);
-//!     SysCtlDelay(100000);  
-//!     while(1);
-//! 
-//! }
-//! int main(void)
-//! {
-//!     Example1();
-//! }
 //!     
 //! \endcode
 //

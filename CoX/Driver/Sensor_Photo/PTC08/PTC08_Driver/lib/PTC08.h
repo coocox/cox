@@ -82,6 +82,11 @@
 //! PTC08 config
 //
 #define PTC08_UART              xUART1_BASE
+#define PTC08_PIN_UART_TX       PA0
+#define PTC08_UART_TX           UART1TX
+#define PTC08_PIN_UART_RX       PA1
+#define PTC08_UART_RX           UART1RX
+#define PTC08_UART_GPIO         0
 
 //*****************************************************************************
 //
