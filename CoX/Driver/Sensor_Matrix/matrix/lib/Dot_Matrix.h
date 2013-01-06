@@ -56,6 +56,13 @@
 
 //*****************************************************************************
 //
+//! \addtogroup DM163 
+//! @{
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
 //! \addtogroup DMShield_Move_Dir DMShield move direction 
 //!  Values that can be passed to DotMatrixRun().
 //! @{
@@ -143,6 +150,12 @@ extern void DotMatrixOpenLine(unsigned char ucLine);
 extern void DotMatrixShowChar(char ch, unsigned char R, unsigned char G, 
                                unsigned char B, long lBias);
 extern void DotMatrixShowPic(unsigned char ucIndex);
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
 //*****************************************************************************
 //
 //! @}

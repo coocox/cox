@@ -27,18 +27,20 @@ copy %v_repo_root_self%\CoX\Driver\Sensor_Temp_Microchip\TC74\TC74_I2C_Driver\do
 copy %v_repo_root_self%\CoX\Driver\Sensor_Temp_Microchip\TC77\TC77_SPI_Driver\doc\images\* ..\en\html >>nul
 copy %v_repo_root_self%\CoX\Driver\Sensor_Temp_Microchip\TCN75\TCN75_I2C_Driver\doc\images\* ..\en\html >>nul
 copy %v_repo_root_self%\CoX\Driver\Sensor_Temp_ST\STLM75\STLM75_Driver\doc\images\* ..\en\html >>nul
-
-echo 1
 copy %v_repo_root_self%\CoX\Driver\LCD_Character\HX8347-G\Character_LCD_HX8347-G_Driver\doc\images\* ..\en\html >>nul
-echo 2
 copy %v_repo_root_self%\CoX\Driver\Memory_EEPROM_ST\M24Cxx\M24Cxx_Single\doc\images\* ..\en\html >>nul
-echo 3
 copy %v_repo_root_self%\CoX\Driver\Sensor_Touch_ST\STMPE811\STMPE811_Driver\doc\images\* ..\en\html >>nul
-echo 4
 copy %v_repo_root_self%\CoX\Driver\Seven_Segment\Seven_Segment\Seven_Segment\doc\images\* ..\en\html >>nul
-
 copy %v_repo_root_self%\CoX\Driver\LCD_Character\SSD2119\Character_LCD_SSD2119_Driver\doc\images\* ..\en\html >>nul
 
+copy %v_repo_root_self%\CoX\Driver\Sensor_Light_ROHM\BH1750FVI\BH1750FVI_I2C_Driver\doc\images\* ..\en\html >>nul
+copy %v_repo_root_self%\CoX\Driver\Sensor_Photo\PTC08\PTC08_Driver\doc\images\* ..\en\html >>nul
+copy %v_repo_root_self%\CoX\Driver\Memory_Flash_Atmel\AT45DB161\AT45DB161_Single\doc\images\* ..\en\html >>nul
+copy %v_repo_root_self%\CoX\Driver\LCD_Graphic\SSD1298\SSD1298_Single\doc\images\* ..\en\html >>nul
+copy %v_repo_root_self%\CoX\Driver\Memory_EEPROM_ARTSCHIP\M24LCxx\M24LCxx_Single\doc\images\* ..\en\html >>nul
+copy %v_repo_root_self%\CoX\Driver\Memory_EEPROM_ZLG\CAT93Cx6\doc\images\* ..\en\html >>nul
+copy %v_repo_root_self%\CoX\Driver\GPS\GPS\doc\images\* ..\en\html >>nul
+copy %v_repo_root_self%\CoX\Driver\Sensor_Matrix\matrix\doc\images\* ..\en\html >>nul
 
 copy %v_cox_peripheral_manual%\doc\images\* ..\en\html >>nul
 copy %v_repo_root_self%\resource\doxygen\css\* ..\en\html >>nul
