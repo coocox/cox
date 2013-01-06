@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>Timer_Clock</Name>
+  <Description>Use the timer to make a one second clock.
+  </Description>
+  <Version>1.0.0</Version>
+  <Tags>timer</Tags>
+  <EVKit>STM32F103VB Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\CoX\CoX_Peripheral\CoX_Peripheral_STM32F1xx\timer\example\Timer_Clock\src\Timer_Clock.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>COX.Peripheral.STM32F1xx.xStartup</Dependency>
+    <Dependency>COX.Peripheral.STM32F1xx.xLowLayer</Dependency>
+	<Dependency>COX.Peripheral.STM32F1xx.xCORE</Dependency>
+	<Dependency>COX.Peripheral.STM32F1xx.xSysCtl</Dependency>
+	<Dependency>COX.Peripheral.STM32F1xx.xGPIO</Dependency>
+  </Dependencys>
+
+</Example>

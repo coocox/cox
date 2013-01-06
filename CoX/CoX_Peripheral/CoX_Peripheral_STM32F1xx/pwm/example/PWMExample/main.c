@@ -10,9 +10,9 @@
 //! Copyright (c) 2009-2011 CooCox.  All rights reserved.
 //
 //*****************************************************************************
-void ADConvert(void);
+void PWMLedControl(void);
 
 int main()
 {
-    ADConvert();
+    PWMLedControl();
 }

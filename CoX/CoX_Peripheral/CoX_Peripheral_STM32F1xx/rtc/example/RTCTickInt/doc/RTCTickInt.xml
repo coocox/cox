@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>RTCTickInt</Name>
+  <Description>Get the RTC time.
+  </Description>
+  <Version>1.0.0</Version>
+  <Tags>RTC</Tags>
+  <EVKit>STM32F1xx Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\CoX\CoX_Peripheral\CoX_Peripheral_STM32F1xx\rtc\example\RTCTickInt\src\RTCTickInt.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>COX.Peripheral.STM32F1xx.xStartup</Dependency>
+    <Dependency>COX.Peripheral.STM32F1xx.xLowLayer</Dependency>
+	<Dependency>COX.Peripheral.STM32F1xx.xCORE</Dependency>
+	<Dependency>COX.Peripheral.STM32F1xx.xSysCtl</Dependency>
+	<Dependency>COX.Peripheral.STM32F1xx.xGPIO</Dependency>
+	<Dependency>COX.Peripheral.STM32F1xx.xUART</Dependency>
+  </Dependencys>
+
+</Example>

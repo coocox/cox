@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>mem2mem.c</Name>
+  <Description>This example is to configure the DMA to transimit from memory to memory.</Description>
+  <Version>1.0.0</Version>
+  <Tags>DMA</Tags>
+  <EVKit>STM32F1xx Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\CoX\CoX_Peripheral\CoX_Peripheral_STM32F1xx\adc\example\mem2mem\src\mem2mem.c</File>
+  </Files>
+  
+  <Dependencys>
+        <Dependency>CoX.Peripheral.STM32F1xx.xStartup</Dependency>
+        <Dependency>CoX.Peripheral.STM32F1xx.xLowLayer</Dependency>
+        <Dependency>CoX.Peripheral.STM32F1xx.xCORE</Dependency>
+        <Dependency>CoX.Peripheral.STM32F1xx.xSysCtl</Dependency>
+	<Dependency>CoX.Peripheral.STM32F1xx.xGPIO</Dependency>
+  </Dependencys>
+  
+   
+</Example>
