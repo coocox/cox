@@ -1,9 +1,9 @@
 //*****************************************************************************
 //
-//! \file sdcard.h
-//! \brief Prototypes for SDCard Driver(Based on CoX Peripheral Interface).
+//! \file cookie_cfg.h
+//! \brief Configuration of Cookie board.
 //! \version V2.1.1.0
-//! \date 11/15/2011
+//! \date 12/29/2011
 //! \author CooCox
 //! \copy
 //!
@@ -36,8 +36,9 @@
 //! THE POSSIBILITY OF SUCH DAMAGE.
 //
 //*****************************************************************************
-#ifndef __SDCARD_H__
-#define __SDCARD_H__
+
+#ifndef __COOKIE_CFG_H__
+#define __COOKIE_CFG_H__
 
 //*****************************************************************************
 //
@@ -46,111 +47,81 @@
 //
 //*****************************************************************************
 #ifdef __cplusplus
-extern "C"
-{
+//extern "C"
+//{
 #endif
-    
+
 //*****************************************************************************
 //
-//! \addtogroup CoX_Driver_Lib
+//! \addtogroup Cookie
 //! @{
 //
 //*****************************************************************************
 
 //*****************************************************************************
 //
-//! \addtogroup Memory
-//! @{
-//
-//*****************************************************************************
-    
-//*****************************************************************************
-//
-//! \addtogroup Memory_SDCard
+//! \addtogroup CS_Board_Res
 //! @{
 //
 //*****************************************************************************
 
 //*****************************************************************************
 //
-//! \addtogroup SDCard_SDSC_SDHC_SDXC
+//! \addtogroup CS_B_Arduino_Compatible 
 //! @{
 //
 //*****************************************************************************
 
 //*****************************************************************************
 //
-//! \addtogroup SDCard_Config SD Card SPI Driver Configurtion
+//! \addtogroup CS_B_Arduino_Config  
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Arduino compatible Pin D10 Peripheral Function select, it can be set :
+//! - \ref sD10_FUNC_SPI_SS  to set D10 as an SlaveSelect signal of SPI, 
+//! - \ref sD10_FUNC_PWM to set D10 as PWM
+//! please refrence \ref CS_B_Arduino_Pin_D10_Map.
+//
+#define sD10_FUNC_MAP           sD10_FUNC_PWM
+
+//
+//! Arduino compatible Pin D11 Peripheral Function select, it can be set :
+//! - \ref sD11_FUNC_SPI_MOSI  to set D10 as an MOSI signal of SPI, 
+//! - \ref sD11_FUNC_PWM to set D11 as PWM
+//! please refrence \ref CS_B_Arduino_Pin_D11_Map.
+//
+#define sD11_FUNC_MAP           sD11_FUNC_PWM    
+
+//
+//! Arduino compatible Pin A4 Peripheral Function select, it can be set :
+//! - \ref sA4_FUNC_AIN  to set A4 as an Analog input of ADC, 
+//! - \ref sA4_FUNC_I2C_SDA to set A4 as SDA signal of I2C
 //!
-//! \brief Configurtions such as the GPIO Pin used should be set before using
-//! this driver.
-//!    
+//! please refrence \ref CS_B_Arduino_Pin_A4_Map.
+//
+#define sA4_FUNC_MAP            sA4_FUNC_AIN
+
+//
+//! Arduino compatible Pin A4 Peripheral Function select, it can be set :
+//! - \ref sA4_FUNC_AIN  to set A4 as an Analog input of ADC
+//! - \ref sA4_FUNC_I2C_SDA to set A4 as SDA signal of I2C
+//!
+//!please refrence \ref CS_B_Arduino_Pin_A4_Map.
+//
+#define sA5_FUNC_MAP            sA5_FUNC_AIN
+
+//*****************************************************************************
+//
+//! \addtogroup CS_B_Arduino_Pin_D10_Map  
 //! @{
 //
 //*****************************************************************************
 
-//
-//! if enable CRC
-//
-#define SD_CRC_EN               0
-
-//
-//! if enable multi block read function
-//
-#define SD_READ_MULTI_BLOCK_EN  1
-
-//
-//! if enable multi block write function
-//
-#define SD_WRITE_MULTI_BLOCK_EN 1
-
-//
-//! if enable block erase function
-//
-#define SD_ERASE_BLOCK_EN       1
-
-//
-//! SD Card Power Pin
-//
-#define SD_PIN_POWER            sD0
-
-//
-//! SD Card Power Pin Active State
-//
-#define SD_PIN_POWER_ACTIVE     0
-
-//
-//! SD Card Pin1 - CS(Chip Select (active low))
-//
-#define SD_PIN_CS               sD4
-
-//
-//! SD Card Pin2 - DataIn(Host-to-card Commands and Data)
-//
-#define SD_PIN_DATAIN           sICSP_4_MOSI
-
-//
-//! SD Card Pin5 - CLK(Clock)
-//
-#define SD_PIN_CLK              sICSP_3_SCK
-
-//
-//! SD Card Pin7 - DataOut(Card-to-host Data and Status)
-//
-#define SD_PIN_DATAOUT          sICSP_1_MISO
-
-//
-//! SD SPI max(normal) clock freq
-//
-#define SD_SPI_CLOCK            1000000
-
-//
-//! SD Card Host SPI Port
-//
-#define SD_HOST_SPI_PORT        sICSP_SPI_BASE
-#define SD_HOST_SPI_PIN_CLK     SPI0CLK
-#define SD_HOST_SPI_PIN_MOSI    SPI0MOSI
-#define SD_HOST_SPI_PIN_MISO    SPI0MISO
+#define sD10_FUNC_SPI_SS        0
+#define sD10_FUNC_PWM           1
 
 //*****************************************************************************
 //
@@ -158,67 +129,31 @@ extern "C"
 //
 //*****************************************************************************
 
-
 //*****************************************************************************
 //
-//! \addtogroup SDCard_Info_Struct SD Card Info Struct   
+//! \addtogroup CS_B_Arduino_Pin_D11_Map  
 //! @{
 //
 //*****************************************************************************
 
+#define sD11_FUNC_SPI_MOSI      0
+#define sD11_FUNC_PWM           1
+
 //*****************************************************************************
 //
-//! \addtogroup SDCard_Type SD Card Type
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup CS_B_Arduino_Pin_A4_Map  
 //! @{
 //
 //*****************************************************************************
 
-#define SD_TYPE_SDSC_V1         0
-#define SD_TYPE_SDSC_V2         1
-#define SD_TYPE_SDHC_SDXC       2
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//
-//! SD Card Block Size, should be 512
-//
-#define SD_BLOCK_SIZE           512        
-
-//
-//! SD Card Block bit length, 9 means 512byte
-//
-#define SD_BLOCK_SIZE_NBITS     9 
-
-typedef struct 
-{
-    //
-    // Card Type
-    //
-    unsigned long ulCardType;
-    
-    //
-    //! Total Block Number(Block size is 512)
-    //
-    unsigned long ulBlockNumber;
-    
-    //
-    // Erase Unit(Block Number)
-    //
-    unsigned long ulEraseUnit;
-    
-    unsigned long ulReadTimeout;
-    unsigned long ulWriteTimeout;
-    unsigned long ulEraseTimeout;
-    
-    //
-    //! CID register
-    //
-    unsigned char pucCID[16];
-}tSDCardDeviceInfo;
+#define sA4_FUNC_AIN            0
+#define sA4_FUNC_I2C_SDA        1
 
 //*****************************************************************************
 //
@@ -228,92 +163,13 @@ typedef struct
 
 //*****************************************************************************
 //
-//! \addtogroup SDCard_Error_Code SD Card Error Code  
+//! \addtogroup CS_B_Arduino_Pin_A5_Map  
 //! @{
 //
 //*****************************************************************************
 
-//
-// No error occurs
-//
-#define SD_NO_ERR               0x00
-#define SD_ERR_NO_CARD          0x01
-#define SD_ERR_USER_PARAM       0x02
-#define SD_ERR_CARD_PARAM       0x03
-
-//
-//! voltage is not support 
-//
-#define SD_ERR_VOL_NOT_SUSP     0x04
-#define SD_ERR_OVER_CARD_RANGE                                                \
-                                0x05
-//
-// SD Card Command error code
-//
-#define SD_ERR_CMD_RESP_TYPE    0x10
-#define SD_ERR_CMD_TIMEOUT      0x11
-#define SD_ERR_CMD_RESP         0x12
-
-//
-// Data error code
-//
-#define SD_ERR_DATA_CRC16       0x20
-#define SD_ERR_DATA_START_TOK   0x21
-#define SD_ERR_DATA_RESP        0x22
-
-//
-// Wait error code
-//
-#define SD_ERR_TIMEOUT_WAIT     0x30
-#define SD_ERR_TIMEOUT_READ     0x31
-#define SD_ERR_TIMEOUT_WRITE    0x32
-#define SD_ERR_TIMEOUT_ERASE    0x33
-#define SD_ERR_TIMEOUT_WAIT_IDLE                                              \
-                                0x34
-
-//
-// Write error code
-//
-#define SD_ERR_WRITE_BLK        0x40
-#define SD_ERR_WRITE_BLK_NUMS   0x41
-#define SD_ERR_WRITE_PROTECT    0x42
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup SDCard_API SD Card API
-//!    
-//! @{
-//
-//*****************************************************************************
-extern unsigned char SDInit(void);
-extern unsigned char SDBlockRead(unsigned char *pucDestBuf, 
-                                 unsigned long ulBlockIndex);
-extern unsigned char SDBlockWrite(const unsigned char *pucSrcBuf, 
-                                  unsigned long ulBlockIndex);
-#if SD_READ_MULTI_BLOCK_EN
-extern unsigned char SDMultiBlockRead(unsigned char *pucDestBuf, 
-                                      unsigned long ulStartBlockIndex,
-                                      unsigned long ulRdBlockNumber);
-#endif
-
-#if SD_WRITE_MULTI_BLOCK_EN
-extern unsigned char SDMultiBlockWrite(const unsigned char* pucSrcBuf, 
-                                       unsigned long ulStartBlockIndex,
-                                       unsigned long ulWrBlockNumber);
-#endif
-
-#if SD_ERASE_BLOCK_EN
-extern unsigned char SDBlockErase(unsigned long ulStartBlockIndex, 
-                                  unsigned long ulBlockNumber);
-#endif
-
-extern const tSDCardDeviceInfo* SDCardInfoGet(void);
+#define sA5_FUNC_AIN            0
+#define sA5_FUNC_I2C_SCL        1
 
 //*****************************************************************************
 //
@@ -345,13 +201,14 @@ extern const tSDCardDeviceInfo* SDCardInfoGet(void);
 //
 //*****************************************************************************
 
+     
 //*****************************************************************************
 //
 // Mark the end of the C bindings section for C++ compilers.
 //
 //*****************************************************************************
 #ifdef __cplusplus
-}
+//}
 #endif
 
-#endif
+#endif // __COOKIE_CFG_H__
