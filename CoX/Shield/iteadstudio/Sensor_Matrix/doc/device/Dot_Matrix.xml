@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>Dot_Matrix</Name>
+    <Description>
+        A Dot Matrix is a device that can display all the available digital parameters, range 0~9, and a Engliash latter.
+    </Description>
+    <Manufacturer>COMPUL</Manufacturer>
+    
+    <Category>LED</Category>
+    <SubCategory>Dot_Matrix_LED</SubCategory>
+    
+    <KeyWord>DotMatrix, display</KeyWord>
+    
+    <Communication>
+        <Interface>GPIO</Interface>
+    </Communication>
+    
+    <WebPage></WebPage>
+    <Datasheet></Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

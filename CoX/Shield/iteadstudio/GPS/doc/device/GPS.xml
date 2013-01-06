@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>GPS</Name>
+    <Description>
+        A EB-365 is a GPS device that can get the position, height, speed and other information that you want.
+    </Description>
+    <Manufacturer>GLOBALSAT</Manufacturer>
+    
+    <Category>GPS</Category>
+    <SubCategory>EB-365</SubCategory>
+    
+    <KeyWord>GPS</KeyWord>
+    
+    <Communication>
+        <Interface>GPIO</Interface>
+    </Communication>
+    
+    <WebPage></WebPage>
+    <Datasheet></Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

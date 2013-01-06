@@ -1,0 +1,104 @@
+//*****************************************************************************
+//
+//! \defgroup Sensor_Shield Sensor_Shield
+//!
+//! \brief Shield used for drive Sensor.
+//!
+//! The Sensor Shield v.2 allows you to hook up the TinkerKit SENSORS and ACTUATORS directly to the
+//! Arduino, without the use of the breadboard.
+//! It has 12 standard TinkeKit 3pin connectors. The 6 labeled I0 through I5 are Analog Inputs. The ones
+//! labeled O0 through O5 are Analog Outputs connected to the PWM capable outputs of the Arduino Board
+//! (it is possible to change these to Digital Inputs, in which case they will report either HIGH or LOW, but
+//! nothing in between).
+//!
+//! <h1>Contents</h1>
+//! - \ref Sensor_Shield_SCH
+//! - \ref Sensor_Shield_Func_Desc
+//! - \ref Sensor_Shield_NOTE
+//! - \ref Sensor_Shield_API_Group
+//!   - \ref Sensor_Shield_API_I2C
+//!   - \ref Sensor_Shield_API_UART
+//!   - \ref Sensor_Shield_API_GPIO
+//!   .
+//! - \ref Sensor_Shield_Usage
+//! .
+//!
+//! \section Sensor_Shield_SCH 1. Sensor_Shield Board
+//! <img src="Sensor_Shield.png" />
+//!
+//! \section Sensor_Shield_Func_Desc 2. Sensor_Shield Func Desc
+//! Module description: A green LED signals that the shield is correctly powered, a standard 6mm
+//! pushbutton allows you to RESET the board.
+//! The 4pin TWI socket allows communication to any device supporting the I2C protocol through the Wire
+//! library on Arduino. 5V and Ground are provided on the socket. Note that on Arduino the I2C bus uses
+//! Analog Input 4 and 5, using the TWI connection precludes the use of those analog inputs.
+//! The 4pin SERIAL socket allows the board to communicate with other devices that support serial
+//! communication. 5V and Ground are provided on the socket for your convenience.
+//! Note: If you¡¯re sending or receiving data to and from the computer this serial connector is not available.
+//! Two mounting holes are provided in the same position found on the Arduino board. A third hole allows
+//! you to see the led connected to pin 13 of the Arduino.
+//!
+//! \section Sensor_Shield_NOTE 3. Sensor_Shield NOTE
+//! 
+//!
+//! On a Standard Arduino DuemilaNove board the pins are:
+//! Pin 11 on the Arduino is O0 on the shield.
+//! Pin 10 on the Arduino is O1 on the shield.
+//! Pin 9 on the Arduino is O2 on the shield.
+//! Pin 6 on the Arduino is O3 on the shield.
+//! Pin 5 on the Arduino is O4 on the shield.
+//! Pin 3 on the Arduino is O5 on the shield.
+//! 
+//! \section Sensor_Shield_API_Group 3. Sensor_Shield API Group
+//! 
+//! \subsection Sensor_Shield_API_I2C 3.1 Sensor_Shield I2C API 
+//! The I2C is controled by:
+//! - ...
+//! .
+//! 
+//! \subsection Sensor_Shield_API_UART 3.2 Sensor_Shield UART API 
+//! The UARTis controled by:
+//! - SensorShieldUARTBufferGet()
+//! - SensorShieldUARTBufferPut()
+//! .
+//!
+//! \subsection Sensor_Shield_API_GPIO 3.3 Sensor_Shield GPIO API 
+//! The GPIO is controled by:
+//! - SensorShieldInit()
+//! - SensorShieldIOInit()
+//! - SensorShieldInGet()
+//! - SensorShieldAInGet()
+//! - SensorShieldOutWrite()
+//! .
+//!
+//! \section Sensor_Shield_Usage Sensor_Shield Usage
+//! 
+//! Before Using the sensor shield driver, you should configure the which IO
+//! and I2C, UART is used or not. 
+//! Please reference \ref Sensor_Shield_Configs
+//!
+//! Below is some example code:
+//!
+//! \code
+//!
+//! void StepMotorContorl(void)
+//! {
+//!    unsigned long ulTemp[3];
+//!
+//!    //
+//!    // System init
+//!    // 
+//!    xSysCtlClockSet(12000000, (xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_12MHZ));
+//!
+//!    
+//! SensorShieldInit();
+//! SensorShieldIOInit();
+//! SensorShieldAInGet(SENSOR_SHIELD_AI1, &ulTemp[0]);
+//! SensorShieldAInGet(SENSOR_SHIELD_AI2, &ulTemp[1]);
+//! SensorShieldAInGet(SENSOR_SHIELD_AI3, &ulTemp[2]);
+//!         
+//! }
+//!     
+//! \endcode
+//
+//*****************************************************************************

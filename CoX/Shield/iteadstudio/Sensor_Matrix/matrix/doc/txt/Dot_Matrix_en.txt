@@ -1,0 +1,98 @@
+//*****************************************************************************
+//
+//! \defgroup DM163 DM163 Dot Matrix
+//!
+//! \brief 8*8 dot matrix
+//!
+//! Seven Segment tubes is a digital display device that can only display all 
+//! the available digital parameters, range 0~9, and a Engliash latter.
+//! 
+//! <h1>Contents</h1>
+//! - \ref Dot_Matrix_Block_Diagram
+//! - \ref Dot_Matrix_Func_Desc
+//!   - \ref Dot_Matrix_Func_Pin
+//!   .
+//! - \ref Dot_Matrix_API_Group
+//! - \ref Dot_Matrix_Usage
+//! .
+//!
+//!
+//! \section Dot_Matrix_Block_Diagram 1. Dot Matrix connection Circuitry Diagram
+//! <img src="Dot_Matrix_system.png" />
+//!
+//! \section Dot_Matrix_Func_Desc 2. Dot Matrix Function Description
+//! \subsection Dot_Matrix_Func_Pin 2.1 Dot Matrix Pin Description
+//!
+//! <img src="Dot_Matrix.png" />
+//! \verbatim
+//! +---+-------+--------------------------------+
+//! |No.|PinName|Pin Description                 |
+//! |---|-------|--------------------------------|
+//! | 1 |  SB   |Switch control Pin              |
+//! | 2 |  LAT  |Ltach Pin                       |
+//! | 3 | RSTn  |Reset Pin                       |
+//! | 4 |  SDA  |Serial input for grayscale data |
+//! | 5 |  SCK  |Synchronous clock               |
+//! | 6 |  C0   |Select Pin 0(output)            |
+//! | 7 |  C1   |Select Pin 1(output)            |
+//! | 8 |  C2   |Select Pin 2(output)            |
+//! | 9 |  C3   |Select Pin 3(output)            |
+//! |10 |  C4   |Select Pin 4(output)            |
+//! |11 |  C5   |Select Pin 5(output)            |
+//! |12 |  C6   |Select Pin 6(output)            |
+//! |13 |  C7   |Select Pin 7(output)            |
+//! +---+-------+--------------------------------+
+//! \endverbatim
+//!
+//! \section Dot_Matrix_API_Group 3. API Group
+//! - DM163PinInit() - to initialize.
+//! - DotMatrixScanTimerInit() - to enable the timer for scanning.
+//! - DotMatrixShowChar() - to show the English latter.
+//! - DotMatrixOpenLine() - to open the LED
+//! .
+//!
+//! \section Dot_Matrix_Usage 4. Dot Matrix Usage
+//! 
+//! Before Using the Dot Matrix's driver, you should configure 
+//! the DM163, the dot matrix's driver, such as pin map,Please reference
+//! \ref Dot_Matrix_Config.
+//!
+//! \code
+//! #include "test.h"
+//! #include "Dot_Matrix.h"
+//! 
+//! void DotMatrixTest(void)
+//! {   
+//!     long i;    
+//!     
+//!     //
+//!     // Step1: Dot Matrix's driver Init
+//!     //
+//!     DM163PinInit();
+//!     
+//!     //
+//!     // Enable the timer and use for scanning.
+//!     //
+//!     DotMatrixScanTimerInit(100);
+//!
+//!     //
+//!     // After initialize complete, you can use the dot matrix to display.
+//!     //  
+//!     while(1)
+//!     {
+//!       DM163ShowChar('A',255,0,0,0);
+//!       xSysCtlDelay(0x3fffff);
+//!       DM163ShowChar('B',0,255,0,0);
+//!       xSysCtlDelay(0x3fffff);
+//!       DM163ShowChar('C',0,0,255,0);
+//!       xSysCtlDelay(0x3fffff);
+//!       for(i = 7; i > -8; i--)
+//!       {
+//!         DM163ShowChar('s',255,255,255,i);
+//!	        xSysCtlDelay(0x3fffff);
+//!       }
+//!    }
+//! }
+//! \endcode
+//
+//*****************************************************************************
