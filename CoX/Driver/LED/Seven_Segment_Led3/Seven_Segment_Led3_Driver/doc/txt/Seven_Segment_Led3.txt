@@ -1,0 +1,65 @@
+//******************************************************
+//
+//!
+//! \addtogroup Seven_Segment_Led3_Driver
+//! @{
+//!
+//! <h1>Contents</h1>
+//! - \ref Seven_Segment_Led3_API
+//! - \ref Seven_Segment_Led3_APP
+//! .
+//!
+//! <br />
+//!
+//! \section Seven_Segment_Led3_API 1.Seven_Segment_Led3 API
+//! extern void xled3_Init (void);
+//! extern void xled3_Clear (void);
+//! extern void xled3_Off(void);
+//! extern xtBoolean xled3_ShowSingle (unsigned char ucSel,
+//! 		unsigned char ucData);
+//! extern xtBoolean xled3_Scan (unsigned long ulData,
+//! 		unsigned char ucDotPos);
+//!
+//! <br />
+//!
+//! \section Seven_Segment_Led3_APP 2.Seven_Segment_Led3 Applications
+//!
+//! Here we introduce how to get use Seven_Segment_Led3.
+//!
+//! \code
+//! #include "xled_3.h"
+//!
+//!
+//! int test(void)
+//! {
+//!     xled3_Init();
+//!     xled3_Scan(123,-1);
+//! }
+//! \endcode
+//!
+//! @}
+//
+//******************************************************
+
+
+
+//******************************************************
+//
+//!
+//! \addtogroup CoX_Driver_Lib
+//! @{
+//! \addtogroup LED
+//! @{
+//! \addtogroup Seven_Segment_LED
+//! @{
+//! \addtogroup Seven_Segment_Led3_Driver 
+//! @{
+//! \addtogroup Seven_Segment_Config
+//! @{
+//! @}
+//! @}
+//! @}
+//! @}
+//! @}
+//
+//******************************************************

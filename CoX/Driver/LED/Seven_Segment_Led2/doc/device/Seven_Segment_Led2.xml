@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Device>
+    <Name>Seven_Segment_Led2</Name>
+    <Description>\Seven Segment led, there are two numbers.</Description>
+    <Manufacturer>Analog Devices</Manufacturer>
+    
+    <Category>LED</Category>
+    <SubCategory>\Seven_Segment</SubCategory>
+    
+    <KeyWord>LED,Seven Segment</KeyWord>
+    
+    <Communication>
+        <Interface>GPIO</Interface>
+    </Communication>
+    
+    <WebPage></WebPage>
+    <Datasheet></Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>
