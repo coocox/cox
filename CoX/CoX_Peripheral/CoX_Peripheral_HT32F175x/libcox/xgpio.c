@@ -1990,3 +1990,58 @@ GPIOPinFunctionSet(unsigned long ulFunction, unsigned long ulPort,
     }
 }
 
+//*****************************************************************************
+//
+//! \brief Get the GPIO Peripheral Id from a short Pin.
+//!
+//! \param eShortPin is the base address of the GPIO port
+//!
+//! \note For M051,all GPIO port use the some Peripheral clock.
+//!
+//! \return GPIO port code which is used by \ref xSysCtlPeripheralEnable,
+//! \ref xSysCtlPeripheralDisable, \ref xSysCtlPeripheralReset.
+//
+//*****************************************************************************
+unsigned long
+GPIOPinToPeripheralId(unsigned long ulPort, unsigned long ulPin)
+{
+
+    //
+    // Check the arguments.
+    //
+    xASSERT(GPIOBaseValid(ulPort));
+    switch (ulPort)
+    {
+    case GPIO_PORTA_BASE:
+    {
+    	return SYSCTL_PERIPH_GPIOA;
+    	break;
+    }
+    case GPIO_PORTB_BASE:
+    {
+    	return SYSCTL_PERIPH_GPIOB;
+    	break;
+    }
+    case GPIO_PORTC_BASE:
+    {
+    	return SYSCTL_PERIPH_GPIOC;
+    	break;
+    }
+    case GPIO_PORTD_BASE:
+    {
+    	return SYSCTL_PERIPH_GPIOD;
+    	break;
+    }
+    case GPIO_PORTE_BASE:
+    {
+    	return SYSCTL_PERIPH_GPIOE;
+    	break;
+    }
+    default:
+    {
+        xASSERT(0);
+        break;
+    }
+    }
+    return 0;
+}

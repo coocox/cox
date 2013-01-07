@@ -20,19 +20,9 @@
 #include "xsysctl.h"
 #include "xtimer.h"
 
-//
-// Install callback function
-//
 unsigned long Timer0Callback(void *pvCBData,  unsigned long ulEvent,
                                        unsigned long ulMsgParam,
-                                       void *pvMsgData)
-{
-     //
-     // Clear the status
-     //
-     TimerFlagStatusClear(TIMER0_BASE, TIMER_FLAG_UEV1);
-     return 0;
-}
+                                       void *pvMsgData);
 
 //*****************************************************************************
 //
@@ -47,21 +37,34 @@ void OneSecondClock(void)
     //
     // Clear the flag first
     //
-    TimerIntClear(TIMER0_BASE, TIMER_INT_UEV1);
+    TimerIntClear(xTIMER1_BASE, TIMER_INT_UEV);
     
     //
     // Config as periodic mode
     //
-    xTimerInitConfig(xTIMER0_BASE, xTIMER_CHANNEL0, xTIMER_MODE_PERIODIC | xTIMER_COUNT_UP, 1000); 
-    xTimerMatchSet(xTIMER0_BASE, xTIMER_CHANNEL0, 1000);
-    xTimerPrescaleSet(xTIMER0_BASE, xTIMER_CHANNEL0, 8);
+    xTimerInitConfig(xTIMER1_BASE, xTIMER_CHANNEL0, xTIMER_MODE_PERIODIC | xTIMER_COUNT_UP, 1000); 
+    xTimerMatchSet(xTIMER1_BASE, xTIMER_CHANNEL0, 1000);
+    xTimerPrescaleSet(xTIMER1_BASE, xTIMER_CHANNEL0, 8);
        
-    xTimerIntCallbackInit(xTIMER0_BASE, Timer0Callback);
-    xTimerIntEnable(xTIMER0_BASE, xTIMER_CHANNEL0, xTIMER_INT_MATCH);
-    xIntEnable(xINT_TIMER0);
+    xTimerIntCallbackInit(xTIMER1_BASE, Timer0Callback);
+    xTimerIntEnable(xTIMER1_BASE, xTIMER_CHANNEL0, xTIMER_INT_MATCH);
+    xIntEnable(xTIMER1_BASE);
 
-    xTimerStart(xTIMER0_BASE, xTIMER_CHANNEL0);
+    xTimerStart(xTIMER1_BASE, xTIMER_CHANNEL0);
     
     while(1); 
 
+}
+//
+// Install callback function
+//
+unsigned long Timer0Callback(void *pvCBData,  unsigned long ulEvent,
+                                       unsigned long ulMsgParam,
+                                       void *pvMsgData)
+{
+     //
+     // Clear the status
+     //
+     TimerFlagStatusClear(xTIMER1_BASE, TIMER_FLAG_UPDATE);
+     return 0;
 }

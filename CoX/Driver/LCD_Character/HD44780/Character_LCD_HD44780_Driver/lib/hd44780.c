@@ -45,6 +45,7 @@
 #include "xgpio.h"
 #include "hw_hd44780.h"
 #include "hd44780.h"
+#include "coshining.h"
 
 //*****************************************************************************
 //
@@ -265,9 +266,10 @@ HD44780Busy(void)
 {
     unsigned ucState;
 
-    ucState = HD44780ReadState();
+    //ucState = HD44780ReadState();
+	  xSysCtlDelay(1000);
 
-    return (ucState & HD44780_READ_STATE_BUSY) ? xtrue : xfalse;
+    return xfalse;
 }
 
 //*****************************************************************************
@@ -465,6 +467,7 @@ HD44780DisplayClear(void)
     //
     HD44780WriteCmd(HD44780_CMD_CLS); 
     
+	  xSysCtlDelay(10000);
 }
 
 //*****************************************************************************

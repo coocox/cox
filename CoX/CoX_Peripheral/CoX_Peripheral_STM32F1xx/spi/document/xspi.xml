@@ -1,14 +1,14 @@
 <?xml version="2.0" ?>
 <Component>
-    <Name>CoX.Peripheral.HT32F125x.xSPI</Name>
-    <Description>HT32F125x SPI Driver</Description>
+    <Name>CoX.Peripheral.STM32F1xx.xSPI</Name>
+    <Description>STM32F1xx SPI Driver</Description>
     <Category>Peripheral.CoX</Category>
     <Version>2.1.1.0</Version>
     <Tags>CoX, xSPI, SPI, SSI</Tags>
 
     <Files>
-        <File>..\..\libCoX\xspi.h</File>
-        <File>..\..\libCoX\xspi.c</File>
+        <File>..\..\libcox\xspi.h</File>
+        <File>..\..\libcox\xspi.c</File>
     </Files>
 
     <FilesCoIDE>
@@ -17,15 +17,15 @@
     </FilesCoIDE>
 
     <Dependencys>
-        <Dependency>CoX.Peripheral.HT32F125x.xStartup</Dependency>
-        <Dependency>CoX.Peripheral.HT32F125x.xLowLayer</Dependency>
-	<Dependency>CoX.Peripheral.HT32F125x.xSysCtl</Dependency>
-	<Dependency>CoX.Peripheral.HT32F125x.xGPIO</Dependency>
+        <Dependency>CoX.Peripheral.STM32F1xx.xStartup</Dependency>
+        <Dependency>CoX.Peripheral.STM32F1xx.xLowLayer</Dependency>
+	<Dependency>CoX.Peripheral.STM32F1xx.xSysCtl</Dependency>
+	<Dependency>CoX.Peripheral.STM32F1xx.xGPIO</Dependency>
     </Dependencys>
 
     <SupportDevices>
         <Series>
-            <Serie exclude="">HT32F125x</Serie>
+            <Serie exclude="">STM32F1xx</Serie>
         </Series>
         <Devices>
             <Device></Device>

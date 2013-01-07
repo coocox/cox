@@ -29,7 +29,7 @@
         </option>
         <option>
           <name>Variant</name>
-          <version>17</version>
+          <version>16</version>
           <state>34</state>
         </option>
         <option>
@@ -91,7 +91,7 @@
         </option>
         <option>
           <name>OGLastSavedByProductVersion</name>
-          <state>5.50.6.52043</state>
+          <state>5.50.0.51907</state>
         </option>
         <option>
           <name>GeneralEnableMisra</name>
@@ -103,7 +103,7 @@
         </option>
         <option>
           <name>OGChipSelectEditMenu</name>
-          <state>M051 series	Nuvoton M051 series (M052,M054,M058,M0516)</state>
+          <state>M0516	Nuvoton M0516</state>
         </option>
         <option>
           <name>GenLowLevelInterface</name>
@@ -841,7 +841,7 @@
         </option>
         <option>
           <name>Variant</name>
-          <version>17</version>
+          <version>16</version>
           <state>34</state>
         </option>
         <option>

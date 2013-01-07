@@ -660,9 +660,9 @@ SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
     // Reset SW, HPRE, PPRE1, PPRE2, ADCPRE and MCO bits
     //
 #if (STM32F1xx_DEVICE == STM32F10X_CL)    
-    xHWREG(RCC_CFGR) &= 0xF8FF0000;
-#else
     xHWREG(RCC_CFGR) &= 0xF0FF0000;
+#else
+    xHWREG(RCC_CFGR) &= 0xF8FF0000;
 #endif /* STM32F10X_CL */
     
     //
@@ -717,7 +717,7 @@ SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
     // Calc oscillator freq
     //
     if((((ulConfig & SYSCTL_XTAL_MASK) >> 8) >=4) && 
-       (((ulConfig & SYSCTL_XTAL_MASK) >> 8) <=16))
+       (((ulConfig & SYSCTL_XTAL_MASK) >> 8) <=25))
     {
         s_ulExtClockMHz = ((ulConfig & SYSCTL_XTAL_MASK) >> 8);
     }

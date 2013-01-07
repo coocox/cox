@@ -88,7 +88,6 @@ static void I2CStartSend (unsigned long ulBase)
 
 //*****************************************************************************
 //
-//! \internal
 //! \brief Generate a stop condition on I2C bus. 
 //!
 //! \param ulBase specifies the I2C module base address.
@@ -104,7 +103,8 @@ static void I2CStartSend (unsigned long ulBase)
 //! \return None.
 //
 //*****************************************************************************
-static void I2CStopSend (unsigned long ulBase)
+void
+I2CStopSend (unsigned long ulBase)
 {
     //
     // Check the arguments.
@@ -326,49 +326,6 @@ I2C2EVIntHandler(void)
     {
         g_pfnI2CHandlerCallbacks[1](0, 0, xI2C_SLAVE_EVENT_STOP, 0);
     }
-}
-
-//*****************************************************************************
-//
-//! \brief Initialize the I2C controller.
-//!
-//! \param ulBase is the I2C module base address.
-//! \param ulI2CClk is the I2C clock bit rate.
-//!
-//! This function initializes operation of the I2C Master block.  Upon
-//! successful initialization of the I2C block, this function will have set the
-//! bus speed for the master, and will have enabled the I2C Master block.
-//!
-//! The parameter \e ulBase can be:
-//! - \ref xI2C2_BASE
-//! - \ref xI2C1_BASE
-//!
-//! The parameter \e ulI2CClk can only be:
-//! - \b 100000 - I2C works under standard-mode (Sm), with a bit rate up to 
-//!               100 kbit/s
-//! - \b 400000 - I2C works under fast-mode (Fm), with a bit rate up to 
-//!               400 kbit/s
-//!
-//! \return None.
-//
-//*****************************************************************************
-void
-xI2CMasterInit(unsigned long ulBase, unsigned long ulI2CClk)
-{
-    //
-    // Check the arguments.
-    //
-    xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
-    if(ulI2CClk == 100000)
-    {
-        xHWREG(ulBase + I2C_CCR) &= ~I2C_CCR_F_S;        
-    }
-    else
-    {
-        xHWREG(ulBase + I2C_CCR) |= I2C_CCR_F_S;      
-    }
-
-    I2CEnable(ulBase);
 }
 
 //*****************************************************************************
@@ -2354,4 +2311,3 @@ I2CMasterReadBufS2(unsigned long ulBase, unsigned char *pucDataBuf,
     return ulLen; 
     
 }
-

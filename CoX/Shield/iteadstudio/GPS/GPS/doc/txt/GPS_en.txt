@@ -1,0 +1,102 @@
+//*****************************************************************************
+//
+//! \defgroup GPS EB-365 GPS
+//!
+//! \brief EB-365 GPS
+//!
+//! 
+//! <h1>Contents</h1>
+//! - \ref GPS_Block_Diagram
+//! - \ref GPS_Func_Desc
+//!   - \ref GPS_Func_Pin
+//!   .
+//! - \ref GPS_API_Group
+//! - \ref GPS_Usage
+//! .
+//!
+//!
+//! \section GPS_Block_Diagram 1. GPS connection Circuitry Diagram
+//! <img src="GPS_system.png" />
+//!
+//! \section GPS_Func_Desc 2. GPS Function Description
+//! \subsection GPS_Func_Pin 2.1 GPS Pin Description
+//!
+//! <img src="GPS_Pin.png" />
+//! \verbatim
+//! +---+-------+--------------------------------+
+//! |No.|PinName|Pin Description                 |
+//! |---|-------|--------------------------------|
+//! | 20|  TxD  |UART Transfer data Pin          |
+//! | 21|  RxD  |UART Receive data Pin           |
+//! +---+-------+--------------------------------+
+//! \endverbatim
+//!
+//! \section GPS_API_Group 3. API Group
+//! - GPS_Init() - to initialize.
+//! - GPS_GPGGA() - to analyze the GPGGA data stream.
+//! - GPS_GPGLL() - to analyze the GPGLL data stream.
+//! - GPS_GPGSA() - to analyze the GPGSA data stream.
+//! - GPS_GPRMC() - to analyze the GPRMC data stream.
+//! - GPS_GPVTG() - to analyze the GPVTG data stream.
+//! - GPS_GPGSV() - to analyze the GPGSV data stream.
+//! .
+//!
+//! \section GPS_Usage 4. GPS Usage
+//! 
+//! <img src="gpsshield.jpg" />
+//!
+//! Before Using the GPS's driver, you should configure 
+//! the GPS, the GPS's driver, such as UART, Please reference
+//! \ref GPS_Config.
+//!
+//! \code
+//! #include "test.h"
+//! #include "GPS.h"
+//! 
+//! void GPSTest(void)
+//! {   
+//!     unsigned char error_num = 0;
+//!    GPS_INFO GPS;
+//!	
+//!    rev_stop=0;
+//!    while(1)
+//!    {
+//!        if(rev_stop)
+//!        {
+//!            UART_Send_Str(rev_buf);
+//!
+//!            if(GPS_GPRMC(rev_buf, &GPS))
+//!            {
+//!                xGPIOSPinWrite(sD13, 1);
+//!                UART_Put_Inf("Latitude: ", GPS.latitude);
+//!                UART_Put_Inf("Longitude: ", GPS.longitude);
+//!                UART_Put_Inf("Year: ", GPS.D.year);
+//!                UART_Put_Inf("Month: ", GPS.D.month);
+//!                UART_Put_Inf("Day: ", GPS.D.day);
+//!                UART_Put_Inf("Hour: ", GPS.D.hour);
+//!                UART_Put_Inf("minute: ", GPS.D.minute);
+//!                UART_Put_Inf("South or North: ", GPS.NS);
+//!                UART_Put_Inf("East or West: ", GPS.EW);
+//!                rev_stop = 0;
+//!                gps_flag = 0;
+//!                error_num = 0;
+//!            }
+//!            else
+//!            {
+//!                UART_Send_Str("Analysis is invalid and reinitialize\n");
+//!                error_num++;
+//!                if (error_num >= 20)
+//!                {
+//!					          xGPIOSPinWrite(sD13, 0);
+//!					          error_num = 20;
+//!					          //GPS_Init();
+//!                }
+//!                rev_stop = 0;
+//!                gps_flag = 0;
+//!            }
+//!        }
+//!    }			
+//! }
+//! \endcode
+//
+//*****************************************************************************

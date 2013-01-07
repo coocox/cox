@@ -1,140 +1,99 @@
 //******************************************************
 //
-//! \addtogroup TC72 TC72
+//! \addtogroup BH1750FVI BH1750FVI
 //!
-//! \brief Temperature sensor TC72 operate.
+//! \brief Light sensor BH1750FVI operate.
 //!
-//! The TC72 is a digital temperature sensor capable of reading temperatures from   
+//! The BH1750FVI is a digital Light sensor capable of reading Lights from   
 //! -55 degree Celsius to +125 degree Celsius. This sensor features a serial 
 //! interface that allows communication with a host controller or other peripherals.
-//! The TC72 interface is compatible with the SPI protocol.
+//! The BH1750FVI interface is compatible with the SPI protocol.
 //!
-//! The CoX Driver Library provides the driver of temperature such as sensor tc72
+//! The CoX Driver Library provides the driver of Light such as sensor BH1750FVI
 //! and so on,it is convenient for you to transplant the driver to other mcu that 
 //! the cox support.
 //! 
 //! <br />
 //! <h2>Contents</h2>
-//! - \ref CoX_TC72_BLOCK
-//! - \ref CoX_TC72_TYPICAL_APPLICATION
-//! - \ref CoX_TC72_Driver_Desc
-//! - \ref CoX_TC72_Driver_API_Group
-//!   - \ref CoX_TC72_API_Group_Initialization
-//!   - \ref CoX_TC72_API_Group_Read
-//!   - \ref CoX_TC72_API_Group_Configure
-//!   - \ref CoX_TC72_API_Group_ID_Check
-//!   - \ref CoX_TC72_API_Group_Disable
-//! - \ref TC72_Usage
+//! - \ref CoX_BH1750FVI_BLOCK
+//! - \ref CoX_BH1750FVI_TYPICAL_APPLICATION
+//! - \ref CoX_BH1750FVI_Driver_API_Group
+//!   - \ref CoX_BH1750FVI_API_Group_Initialization
+//!   - \ref CoX_BH1750FVI_API_Group_Read
+//!   - \ref CoX_BH1750FVI_API_Group_Configure
+//!   - \ref CoX_BH1750FVI_API_Group_Disable
+//! - \ref BH1750FVI_Usage
 //!
 //! <br />
-//! \section CoX_TC72_BLOCK 1. TC72 Block Diagram
-//! <img src="TC72_Block_Diagram.png" />
+//! \section CoX_BH1750FVI_BLOCK 1. BH1750FVI Block Diagram
+//! <img src="BH1750FVI_Block_Diagram.png" />
 //!
 //! <br />
-//! \section CoX_TC72_TYPICAL_APPLICATION 2. Connection Diagram
-//! <img src="TC72_Typical_Application.png" />
-//! As is shown in diagram,you should connect CS with a GPIO pin in MCU,connect 
-//! SCK with SPIx_CLK in MCU, connect SDI and SDOU with SPIx_MISO and SPIx_MOSI.
-//! Sometimes if the GPIO pin connecting with CS doesn't have pull-up resistor 
-//! in MCU,it is recommended that a decoupling capacitor of 0.1 uF to 1 uF be 
-//! provided between the VCC and GND pins (a high frequency ceramic capacitor 
-//! should be used).It is necessary for the capacitor to be located as possible 
-//! to the integrated circuit power pins in order close as to provide effective.
-//! noise protection to the TC72.
+//! \section CoX_BH1750FVI_TYPICAL_APPLICATION 2. Connection Diagram
+//! <img src="BH1750FVI_Typical_Application.png" />
+//! Application circuit example of DVI terminal
+//! The DVI terminal is an asynchronous reset terminal. Please note that there is a possibility that IC doesn't operate normally
+//! if the reset section is not installed after the start-up of VCC.
+//! (Please refer to the paragraph of "Timing chart for VCC and DVI power supply sequence" )
+//! The description concerning SDA and the terminal SCL is omitted in this application circuit example. Please design the
+//! application the standard of the I2C bus as it finishes being satisfactory. Moreover, the description concerning the terminal
+//! ADDR is omitted. Please refer to the paragraph of "Timing chart for VCC and DVI power supply sequence" about the terminal
+//! ADDR design.
+//! - The control signal line such as CPU is connected.
+//!   <img src="BH1750FVI_Typical_Application1.png" />
+//! - Reset IC is used.
+//!   - For Reset IC of the Push-Pull type
+//!     <img src="BH1750FVI_Typical_Application21.png" />
+//!   - For Reset IC of the Open drain output.
+//!     <img src="BH1750FVI_Typical_Application22.png" />
+//!   .
+//! - A different power supply is used.
+//!   <img src="BH1750FVI_Typical_Application3.png" />
+//! - LPF using CR is inserted between VCC and DVI.
+//!   <img src="BH1750FVI_Typical_Application4.png" />
+//! .
 //! 
+//!
 //! <br />
-//! \section CoX_TC72_Driver_Desc 3. Driver Desrction
-//! The CoX TC72 driver has the following functions:
-//! - Get temperature value at any time using two different modes.
-//! - Shundown mode can be used to reduce supply current for power sensitive
-//!   applications. 
-//! - A Manufacturer's ID register identifies the TC72 is a Microchip Technology 
-//!   product.
+//! \section CoX_BH1750FVI_Driver_API_Group 4. API Groups
+//!
+//! The CoX BH1750FVI API is broken into five groups of functions:
+//! - those that deal with SPI_BH1750FVI Initialization
+//! - those that deal with Read Light or Read ID
+//! - those that deal with Configure
+//! .
+//! <br />
+//! \subsection CoX_BH1750FVI_API_Group_Initialization 4.1 BH1750FVI initialize
+//! SPI_BH1750FVI initialization are dealed with:
+//! - BH1750Init()
 //! .
 //!
 //! <br />
-//! \section CoX_TC72_Driver_API_Group 4. API Groups
-//!
-//! The CoX TC72 API is broken into five groups of functions:
-//! - those that deal with SPI_TC72 Initialization
-//! - those that deal with Read temperature or Read ID
-//! - those that deal with Mode Configure
-//! - those that deal with Over ID Check
-//! - those that deal with Diasble TC72
-//! .
-//! <br />
-//! \subsection CoX_TC72_API_Group_Initialization 4.1 TC72 initialize
-//! SPI_TC72 initialization are dealed with:
-//! - TC72Init()
+//! \subsection CoX_BH1750FVI_API_Group_Read 4.2 BH1750FVI Read Light 
+//! Read Light value are dealed with:
+//! - BH1750LightRead().
 //! .
 //!
 //! <br />
-//! \subsection CoX_TC72_API_Group_Read 4.2 TC72 Read temperature or id 
-//! Read temperature,ID or control register value are dealed with:
-//! - TC72TemperReadDec(),
-//! - TC72IDcodeGet(),
-//! - TC72TemperRead(),
-//! - TC72TemperReadFloat(),
-//! - TC72ControlRegValGet().
+//! \subsection CoX_BH1750FVI_API_Group_Configure 4.3 BH1750FVI Mode Configure
+//! BH1750FVI Mode Configure are dealed with:
+//! - BH1750Configure()
+//! - BH1750SensitivityAdjust()
 //! .
 //!
 //! <br />
-//! \subsection CoX_TC72_API_Group_Configure 4.3 TC72 Mode Configure
-//! TC72 Mode Configure are dealed with:
-//! - TC72Configure()
+//! \subsection CoX_BH1750FVI_API_Group_Disable 4.5 BH1750FVI Disable
+//! BH1750FVI disable and conversely initialize are dealed with:
+//! - BH1750DeInit()
 //! .
 //!
-//! <br />
-//! \subsection CoX_TC72_API_Group_ID_Check 4.4 TC72 ID check
-//! TC72 ID check are dealed with:
-//! - TC72IDCheck()
-//! .
-//!
-//! <br />
-//! \subsection CoX_TC72_API_Group_Disable 4.5 TC72 Disable
-//! TC72 disable and conversely initialize are dealed with:
-//! - TC72DeInit()
-//! .
-//!
-//! \section TC72_Usage TC72 Usage
+//! \section BH1750FVI_Usage BH1750FVI Usage
 //! Step 1, you should select the CoX implment according to the mcu that you select. \n
-//! Step 2, you should transplant the driver according to your MCU if you use the SPIx 
-//! port which is different from in the tc72 driver. \n
+//! Step 2, you should transplant the driver according to your MCU if you use the I2Cx 
+//! port which is different from in the BH1750FVI driver. \n
 //! Below is some example code:
 //!
 //! \code
-
-//! void TC72TemperGet()
-//! {   
-//!     short sTemperInDec;
-//! 
-//!     //
-//!     // Step 3, you should set system clock.
-//!     // 
-//!     xSysCtlClockSet(50000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_12MHZ);
-//!     
-//!     //
-//!     // Step 4, you should initialize TC72
-//!     // 
-//!     TC72Init(1000000);
-//!     
-//!     //
-//!     // Step 5, you should check whether TC72 is existent and usable or not
-//!     // 
-//!     
-//!     if(xtrue == TC72IDCheck())
-//!     {
-//!     //
-//!     // Step 6, you should configure the mode of temperature convertion.
-//!     //
-//!         TC72Configure(TC72_MODE_CONTINUOUS);
-//!         
-//!     //
-//!     // Step 7, you can get temperature value from TC72.
-//!     //
-//!         sTemperInDec = TC72TemperReadDec();
-//!     }
-//! }
 //!     
 //! \endcode
 //

@@ -1,0 +1,45 @@
+<?xml version="2.0" ?>
+<Component>
+    <Name>CoX.Peripheral.STM32F1xx.xGPIO</Name>
+    <Description>STM32F1xx GPIO Driver</Description>
+    <Category>Peripheral.CoX</Category>
+    <Version>2.1.1.0</Version>
+    <Tags>CoX, xGPIO, GPIO, IO</Tags>
+
+    <Files>
+        <File>..\..\libcox\xgpio.h</File>
+        <File>..\..\libcox\xgpio.c</File>
+    </Files>
+
+    <FilesCoIDE>
+        <File>$PROJECT_ROOT$\CoX\CoX_Peripheral\inc\xgpio.h</File>
+        <File>$PROJECT_ROOT$\CoX\CoX_Peripheral\src\xgpio.c</File>
+    </FilesCoIDE>
+
+    <Dependencys>
+        <Dependency>CoX.Peripheral.STM32F1xx.xStartup</Dependency>
+        <Dependency>CoX.Peripheral.STM32F1xx.xLowLayer</Dependency>
+        <Dependency>CoX.Peripheral.STM32F1xx.xSysCtl</Dependency>
+    </Dependencys>
+
+    <SupportDevices>
+        <Series>
+            <Serie exclude="">STM32F1xx</Serie>
+        </Series>
+        <Devices>
+            <Device></Device>
+        </Devices>
+    </SupportDevices>
+
+    <Micros>
+        <Comm>
+            <Define></Define>
+        </Comm>
+        <Device name="">
+            <Define></Define>
+        </Device>   
+    </Micros>
+
+    <Help>$DOCUMENT_ROOT$\xGPIO</Help>
+
+</Component>

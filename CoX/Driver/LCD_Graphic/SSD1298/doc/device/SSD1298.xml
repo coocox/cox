@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>SSD1298</Name>
+    <Description>262k color TFT LCD Controller Driver with 172,800 bytes (240 x 320 x 18 / 8) Graphic Display Data RAM</Description>
+    <Manufacturer>Solomon Systech</Manufacturer>
+    
+    <Category>Display</Category>
+    <SubCategory>SSD1298</SubCategory>
+    
+    <KeyWord>SSD1298, TFT, Display, LCD</KeyWord>
+    
+    <Communication>
+        <Interface>16-bit 6800-series / 8080-series parallel ports</Interface>
+		<Interface>GPIO</Interface>
+    </Communication>
+    
+    <WebPage>http://www.solomon-systech.com/</WebPage>
+    <Datasheet>http://www.solomon-systech.com/</Datasheet>
+</Device>

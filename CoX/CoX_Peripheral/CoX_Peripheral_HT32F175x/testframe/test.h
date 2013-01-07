@@ -73,15 +73,6 @@ extern "C" {
 #define TEST_ERROR_BUF_SIZE     512
 
 //
-<<<<<<< HEAD
-// Test Port MCU platform(board), default is M051.
-//
-#ifdef TEST_IO_PORT
-//
-// Test Board is NUC1xx
-//
-#define TEST_IO_PORT_Mini51     1
-=======
 // Test Port MCU platform(board), default is HT32F125x.
 //
 #ifdef TEST_IO_PORT
@@ -89,17 +80,12 @@ extern "C" {
 // Test Board is HT32F125x
 //
 #define TEST_IO_PORT_HT32F125x     1
->>>>>>> remotes/jack/HT32F175x_275x
 
 //
 // Default Test Board is NUC1xx
 //
 #if !defined(TEST_IO_PORT_BOARD)    
-<<<<<<< HEAD
-#define TEST_IO_PORT_BOARD      TEST_IO_PORT_Mini51
-=======
 #define TEST_IO_PORT_BOARD      TEST_IO_PORT_HT32F125x
->>>>>>> remotes/jack/HT32F175x_275x
 #endif
 
 #endif
@@ -114,11 +100,7 @@ typedef struct
     //
     //! \brief Test case name get function. 
     //
-<<<<<<< HEAD
-    const char* (*GetTest)(void);
-=======
     char* (*GetTest)(void);
->>>>>>> remotes/jack/HT32F175x_275x
 
     //
     //! \brief Test case preparation function.

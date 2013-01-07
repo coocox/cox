@@ -17,42 +17,37 @@ unsigned long ulj = 0;
 unsigned long ulTimeAlarm[2] = {RTC_TIME_CURRENT, RTC_TIME_ALARM};
 
 unsigned long xRTCCallback(void *pvCBData, 
-                                       unsigned long ulEvent,
-                                       unsigned long ulMsgParam,
-                                       void *pvMsgData)
-{
-   //xIntMasterDisable();
-    ulj++;
-    UARTBufferWrite(xUART1_BASE, "RTC tick interrupt test!", sizeof("RTC tick interrupt test!")-1);
-    return 0;
-}
+                           unsigned long ulEvent,
+                           unsigned long ulMsgParam,
+                           void *pvMsgData);
+
 
 void RTCTickInt()
 {   
     xSysCtlClockSet(72000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
 
-		xSysCtlPeripheralEnable(SYSCTL_PERIPH_PWR);
+    xSysCtlPeripheralEnable(SYSCTL_PERIPH_PWR);
 
-		xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOA);
+    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOA);
 		
-		SysCtlBackupAccessEnable();
+    SysCtlBackupAccessEnable();
 	
     SysCtlLSEConfig(SYSCTL_LSE_OSC_EN);
-    SysCtlPeripheralClockSourceSet(SYSCTL_RTC_LSE); 
-		xSysCtlPeripheralEnable(SYSCTL_PERIPH_RTC);
+    SysCtlPeripheralClockSourceSet(SYSCTL_RTC_LSE, 1); 
+    xSysCtlPeripheralEnable(SYSCTL_PERIPH_RTC);
 	
     SysCtlDelay(10000);
 		
     xSPinTypeUART(UART1RX,PA10);   
     xSPinTypeUART(UART1TX,PA9);
-		xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART1);
-		xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART1);	 
+    xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART1);
+    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART1);	 
     xUARTConfigSet(xUART1_BASE, 115200, (UART_CONFIG_WLEN_8 | 
-                                          UART_CONFIG_STOP_ONE | 
-                                            UART_CONFIG_PAR_NONE));		
-		xUARTEnable(xUART1_BASE, UART_BLOCK_UART | UART_BLOCK_RX | UART_BLOCK_TX);
+                                         UART_CONFIG_STOP_ONE | 
+                                         UART_CONFIG_PAR_NONE));		
+    xUARTEnable(xUART1_BASE, UART_BLOCK_UART | UART_BLOCK_RX | UART_BLOCK_TX);
 
-		UARTBufferWrite(xUART1_BASE, "usart init is ok!", sizeof("usart init is ok!")-1);
+    UARTBufferWrite(xUART1_BASE, "usart init is ok!", sizeof("usart init is ok!")-1);
 		
     RTCTimeInit(0X7FFF);
 			
@@ -75,7 +70,7 @@ void RTCTickInt()
     //
     RTCTimeWrite(&tTime1, ulTimeAlarm[0]);
 		
-		SysCtlDelay(10000);
+    SysCtlDelay(10000);
 
     RTCIntCallbackInit(xRTCCallback);  
 		
@@ -88,5 +83,16 @@ void RTCTickInt()
     xIntMasterEnable();
     while(ulj < 2);
     xIntMasterDisable(); 
-		RTCTimeRead(&tTime1, ulTimeAlarm[0]);
- }
+    RTCTimeRead(&tTime1, ulTimeAlarm[0]);
+ }									   
+
+unsigned long xRTCCallback(void *pvCBData, 
+                           unsigned long ulEvent,
+                           unsigned long ulMsgParam,
+                           void *pvMsgData)
+{
+   //xIntMasterDisable();
+    ulj++;
+    UARTBufferWrite(xUART1_BASE, "RTC tick interrupt test!", sizeof("RTC tick interrupt test!")-1);
+    return 0;
+}

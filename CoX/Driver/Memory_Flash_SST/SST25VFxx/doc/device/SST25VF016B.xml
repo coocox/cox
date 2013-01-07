@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>SST25VF016B</Name>
+    <Description>16 Mbit SPI Serial Flash,SST's 25 series Serial Flash family features a four-wire, SPI-compatible interface that allows for a low pin-count package which occupies less board space and ultimately lowers total system costs. The SST25VF016B devices are enhanced with improved operating frequency which lowers power consumption. SST25VF016B SPI serial flash memories are manufactured with SST's proprietary, high-performance CMOS SuperFlash technology. The split-gate cell design and thick-oxide tunneling injector attain better reliability and manufacturability compared with alternate approaches.</Description>
+    <Manufacturer>SST A Microchip Technology Company</Manufacturer>
+    
+    <Category>Memory</Category>
+    <SubCategory>SPI Flash</SubCategory>
+    
+    <KeyWord>SST25VF016B, SST25VFxx,SST25VF016,SPI Flash, Memory</KeyWord>
+    
+    <Communication>
+        <Interface>SPI</Interface>
+    </Communication>
+    
+    <WebPage>http://www.microchip.com/wwwproducts/Devices.aspx?dDocName=en548647</WebPage>
+    <Datasheet>http://ww1.microchip.com/downloads/en/DeviceDoc/25044A.pdf</Datasheet>
+</Device>

@@ -655,7 +655,189 @@ SPITxRegisterSet(unsigned long ulBase, unsigned long *pulData,
     
 }
 
+//*****************************************************************************
+//
+//! \brief Write data element to the SPI interface with block.
+//!
+//! \param ulBase specifies the SPI module base address.
+//! \param pulWData is data that was transmitted over the SPI interface.
+//!
+//! This function transmitted data to the interface of the specified
+//! SPI module with block. when the TX and TX shift are both empty or in FIFO
+//! mode the TX FIFO depth is equal to or less than the trigger level, the 
+//! data element can be transmitted, otherwise the data element will be blocked
+//! until can be transmitted. 
+//!
+//! \note Only the lower N bits of the value written to \e pulData contain
+//! valid data, where N is the data width as configured by
+//! SPIConfig().  For example, if the interface is configured for
+//! 8-bit data width, only the lower 8 bits of the value written to \e pulData
+//! contain valid data.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void 
+xSPIDataPut(unsigned long ulBase, unsigned long ulData)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE));
 
+    //
+    // Wait until there is space.
+    //
+    while((xHWREG(ulBase + SPI_CNTRL) & SPI_CNTRL_GO_BUSY))
+    {
+    }
+
+    //
+    // Write the data to the SPI.
+    //
+    xHWREG(ulBase + SPI_TX0) = ulData;
+}
+
+//*****************************************************************************
+//
+//! \brief Write data element to the SPI interface with Noblock.
+//!
+//! \param ulBase specifies the SPI module base address.
+//! \param pulWData is data that was transmitted over the SPI interface.
+//!
+//! This function transmitted data to the interface of the specified
+//! SPI module with Noblock. 
+//!
+//! \note Only the lower N bits of the value written to \e pulData contain
+//! valid data, where N is the data width as configured by
+//! SPIConfig().  For example, if the interface is configured for
+//! 8-bit data width, only the lower 8 bits of the value written to \e pulData
+//! contain valid data.
+//!
+//! \return the number of data that has been transfered.
+//
+//*****************************************************************************
+long 
+xSPIDataPutNonBlocking(unsigned long ulBase, unsigned long ulData)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE));
+
+    //
+    // Check for space to write.
+    //
+    if(!((xHWREG(ulBase + SPI_CNTRL) & SPI_CNTRL_GO_BUSY)))
+    {
+        xHWREG(ulBase + SPI_TX0) = ulData;
+        return(1);
+    }
+    else
+    {
+        return(0);
+    }
+}
+
+//*****************************************************************************
+//
+//! \brief Gets a data element from the SPI interface with block.
+//!
+//! \param ulBase specifies the SPI module base address.
+//! \param pulData is a pointer to a storage location for data that was
+//! received over the SPI interface.
+//!
+//! This function gets received data from the interface of the specified
+//! SPI module with block. when the RX not empty flag is set, the data element 
+//! can be transmitted, otherwise the data element will be blocked until can be
+//! transmitted. 
+//!
+//! \note Only the lower N bits of the value written to \e pulData contain
+//! valid data, where N is the data width as configured by
+//! SPIConfig().  For example, if the interface is configured for
+//! 8-bit data width, only the lower 8 bits of the value written to \e pulData
+//! contain valid data.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void 
+xSPIDataGet(unsigned long ulBase, unsigned long *pulData)
+{
+    unsigned char ucBitLength = SPIBitLengthGet(ulBase);
+
+    //
+    // Check the arguments.
+    //
+    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE));
+
+    //
+    // Wait until there is data to be read.
+    // 
+    while((xHWREG(ulBase + SPI_CNTRL) & SPI_CNTRL_GO_BUSY))
+    {
+    }
+
+    //
+    // write data to SPI.
+    //
+    if (ucBitLength <= 8 && ucBitLength != 0 )
+    {
+        *pulData = xHWREG(ulBase + SPI_RX0) & 0xFF;
+    }
+    else
+    {
+        *pulData = xHWREG(ulBase + SPI_RX0) & 0xFFFF;
+    } 
+}
+
+//*****************************************************************************
+//
+//! \brief Gets a data element from the SPI interface with Noblock.
+//!
+//! \param ulBase specifies the SPI module base address.
+//! \param pulData is a pointer to a storage location for data that was
+//! received over the SPI interface.
+//!
+//! This function gets received data from the interface of the specified
+//! SPI module with Noblock.
+//!
+//! \note Only the lower N bits of the value written to \e pulData contain
+//! valid data, where N is the data width as configured by
+//! SPIConfig().  For example, if the interface is configured for
+//! 8-bit data width, only the lower 8 bits of the value written to \e pulData
+//! contain valid data.
+//!
+//! \return the number of data that has been received.
+//
+//*****************************************************************************
+long 
+xSPIDataGetNonBlocking(unsigned long ulBase, unsigned long *pulData)
+{
+    unsigned long ulTemp;
+    unsigned char ucBitLength = SPIBitLengthGet(ulBase);
+
+    //
+    // Check the arguments.
+    //
+    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE));
+    ulTemp = xHWREG(ulBase + SPI_CNTRL) & SPI_CNTRL_GO_BUSY;
+    if(!ulTemp)
+    {
+        return 0;
+    }
+
+    if(ucBitLength <= 8 && ucBitLength != 0)
+    {
+        *pulData = xHWREG(ulBase + SPI_RX0);
+    }
+    else
+    {
+        *pulData = xHWREG(ulBase + SPI_RX0);
+    }
+
+    return 1;
+}
 //*****************************************************************************
 //
 //! \brief Set the GO_BUSY bit to trigger a SPI data transfer.

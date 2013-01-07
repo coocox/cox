@@ -1,0 +1,218 @@
+//*****************************************************************************
+//
+//!
+//! \defgroup M24LCxx
+//!
+//! \brief This is the M24LCxx series Driver.
+//! 
+//! M24LCxx devices are I2C-compatible electrically erasable programmale memories(EEPROM).  
+//! M24LCxx series containing 7 chips:M24LC01,M24LC02,M24LC04,M24LC08,M24LC16,M24LC32,M24LC64.
+//! The chip size is from 1 Kbit (128 bit * 8), to 64 Kbit (8192 bit * 8).
+//!
+//! <h1>Contents</h1>
+//! - \ref M24LCxx_Blcok
+//! - \ref M24LCxx_Pins
+//! - \ref M24LCxx_Operating_Modes
+//! .
+//!
+//! \section M24LCxx_Blcok 1. M24LCxx Physical Block
+//! <img src="M24LCxx.png" />
+//!
+//! \section M24LCxx_Pins 2. M24LCxx Signal names
+//! <img src="M24LCxx_Pins.png" />
+//!
+//! \section M24LCxx_Operating_Modes 3. M24LCxx Operating modes
+//! <img src="M24LCxx_Operating_Modes.png" />
+//!
+//! \defgroup M24LCxx_Driver_Single  
+//!  
+//! \brief This is the AT25FS0x series Driver can be used in the condition which
+//! the system only have one M24LCxx series device.
+//!
+//! This driver is implemented by using defines and global variables.It can only 
+//! use on one device because all the APIs use the some macros and global variables.
+//!
+//! <h1>Contents</h1>
+//! - \ref M24LCxx_How_Define
+//! - \ref M24LCxx_API_Group
+//!   .
+//! - \ref M24LCxx_Usage 
+//! .
+//!
+//! \section M24LCxx_How_Define 1. How is the M24LCxx Driver implemented?
+//! Use define to config some Fixing things,such as I2C base and I2C pins
+//! SCl,is used to strobe all data in and out of the device , SDA ,this 
+//! bi-directional signal is used to transfer data in or out of the device,
+//! M24LCxx_ADDRESS is to config the Device select code.
+//!
+//! Use global variables to save variables use by the APIs.
+//!
+//! \section M24LCxx_API_Group 2. API Groups
+//! 
+//! The AT25FS0x API :
+//! - M24LCxxInit() 
+//! - M24LCxxByteWrite() 
+//! - M24LCxxPageWrite() 
+//! - M24LCxxBufferWrite() 
+//! - M24LCxxBufferRead() 
+//! - M24LCxxWaitEepromStandbyState() 
+//!
+//! \section M24LCxx_Usage 1. Usage & Program Examples
+//! 
+//! 
+//! \code
+//!//*****************************************************************************
+//!//
+//!//! \file Example.c
+//!//! \brief the M24LCxx Example.
+//!//! \version 1.0
+//!//! \date 6/15/2011
+//!//! \author CooCox
+//!//! \copy
+//!//!
+//!//! Copyright (c)  2011, CooCox 
+//!//! All rights reserved.
+//!//! 
+//!//! Redistribution and use in source and binary forms, with or without 
+//!//! modification, are permitted provided that the following conditions 
+//!//! are met: 
+//!//! 
+//!//!     * Redistributions of source code must retain the above copyright 
+//!//! notice, this list of conditions and the following disclaimer. 
+//!//!     * Redistributions in binary form must reproduce the above copyright
+//!//! notice, this list of conditions and the following disclaimer in the
+//!//! documentation and/or other materials provided with the distribution. 
+//!//!     * Neither the name of the <ORGANIZATION> nor the names of its 
+//!//! contributors may be used to endorse or promote products derived 
+//!//! from this software without specific prior written permission. 
+//!//! 
+//!//! THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+//!//! AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//!//! IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+//!//! ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+//!//! LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+//!//! CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+//!//! SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+//!//! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+//!//! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+//!//! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+//!//! THE POSSIBILITY OF SUCH DAMAGE.
+//!//*****************************************************************************
+//!#include "M24LCxx.h"
+//!#include "hw_M24LCxx.h"
+//!#include "xhw_ints.h"
+//!#include "xhw_nvic.h"
+//!#include "xhw_memmap.h"
+//!#include "xhw_types.h"
+//!#include "xdebug.h"
+//!#include "xcore.h"
+//!#include "xsysctl.h"
+//!#include "xhw_sysctl.h"
+//!#include "xhw_gpio.h"
+//!#include "xgpio.h"
+//!#include "xhw_uart.h"
+//!#include "xuart.h"
+//!unsigned char ucWriteData[]="STM32F107 M24LCxx Example";
+//!//
+//!//! Get the Length of data will be oparated
+//!//
+//!#define Length                 32
+//!#define WriteAddress           0x20
+//!
+//!unsigned char ucReadData[Length];
+//!
+//!
+//!//*****************************************************************************
+//!//
+//!//! \brief Init uart to print.
+//!//!
+//!//! \param None
+//!//!
+//!//! \details uart config as (115200, 8 data bit, 1 stop bit , no partiy)
+//!//!
+//!//! \return None.
+//!//
+//!//*****************************************************************************
+//!static 
+//!void UartInit(void)
+//!{
+//!    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOD);
+//!    xSysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);
+//!
+//!    //xSPinTypeUART(UART2RX,PD6);
+//!    xSPinTypeUART(UART2TX,PD5);
+//!    
+//!
+//!    xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART2);
+//!    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART2);
+//!    //SysCtlPeripheralClockSourceSet(SYSCTL_PERIPH_UART_S_EXT12M);
+//!
+//!    xUARTConfigSet(USART2_BASE, 115200, (UART_CONFIG_WLEN_8 |
+//!                                         UART_CONFIG_STOP_ONE | 
+//!                                         UART_CONFIG_PAR_NONE));
+//!
+//!    xUARTEnable(USART2_BASE, (UART_BLOCK_UART | UART_BLOCK_TX | UART_BLOCK_RX));
+//!}
+//!
+//!//*****************************************************************************
+//!//
+//!//! \brief print a char.
+//!//!
+//!//! \param None
+//!//!
+//!//! \return None.
+//!//
+//!//*****************************************************************************
+//!void 
+//!UartPrintfChar(char ch)
+//!{
+//!   
+//!    unsigned char c;
+//!    c = ch;
+//!    
+//!    //
+//!    // Write this character to the transmit FIFO.
+//!   //
+//!    xUARTCharPut(USART2_BASE, c);
+//!  
+//!}
+//!
+//!//*****************************************************************************
+//!//
+//!//! \brief The example of the function of read and write.
+//!//!
+//!//! \param None
+//!//!
+//!//! \details The example of the function of read and write.
+//!//! \return None.
+//!//
+//!//*****************************************************************************
+//!void M24LCxxReadWrite(void)
+//!{
+//!    
+//!    unsigned long i; 
+//! 
+//!    xSysCtlClockSet(72000000, xSYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
+//!    UartInit(); 
+//!    M24LCxxInit();
+//!
+//!    UartPrintfChar('\r'); 
+//!    UartPrintfChar('\n');
+//!    //
+//!    // write data to M24LCxx
+//!    //
+//!    M24LCxxBufferWrite(ucWriteData, WriteAddress, Length);
+//!    //
+//!    // Read data from M24LCxx
+//!    //
+//!    M24LCxxBufferRead(ucReadData, WriteAddress, Length);
+//!    
+//!    for(i = 0; i < Length; i++)
+//!    {
+//!        UartPrintfChar(ucReadData[i]);      
+//!    }
+//!}
+//!//! \endcode
+//!//!
+//!//
+//!//*****************************************************************************

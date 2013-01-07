@@ -895,6 +895,9 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //*****************************************************************************
 #define xGPIOPinIntCallbackInit(ulPort, ulPin, pfnCallback)                    \
         GPIOPinIntCallbackInit(ulPort, ulPin, pfnCallback)
+
+#define xGPIOSPinIntCallbackInit(eShortPin, pfnCallback)                      \
+        GPIOSPinIntCallbackInit(eShortPin, pfnCallback)
         
 //*****************************************************************************
 //
@@ -2324,6 +2327,9 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //! @{
 //
 //*****************************************************************************
+
+#define GPIOSPinIntCallbackInit(eShortPin, pfnCallback)                       \
+		GPIOPinIntCallbackInit(G##eShortPin, pfnCallback)
 
 #define GPIOSPinFunctionSet(ulFunction, eShortPin)                            \
         GPIOPinFunctionSet(ulFunction, G##eShortPin)

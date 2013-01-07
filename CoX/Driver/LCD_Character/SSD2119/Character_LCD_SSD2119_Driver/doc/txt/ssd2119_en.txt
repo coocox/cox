@@ -239,6 +239,8 @@
 //! - SSD2119Read()
 //! .
 //!
+//! <img src="logo.png" />
+//!
 //! \section SSD2119_Usage SSD2119 Usage
 //! 
 //! Before Using the LCD driver, you should configure the LCD moudle, function,

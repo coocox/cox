@@ -1,0 +1,125 @@
+//*****************************************************************************
+//
+//! \defgroup MShield MShield
+//!
+//! \brief Shield used for drive motors.
+//!
+//! Full-featured motor control shield that will be able to power many simple to //! //! medium-complexity projects.
+//! 2 connections for 5V "hobby" servos connected to the Arduino's high-resolution //! dedicated timer.
+//!
+//! <h1>Contents</h1>
+//! - \ref MShield_SCH
+//! - \ref MShield_Func_Desc
+//! - \ref MShield_NOTE
+//! - \ref MShield_API_Group
+//!   - \ref MShield_API_74HC595
+//!   - \ref MShield_API_DCMotor
+//!   - \ref MShield_API_StepMotor
+//!   .
+//! - \ref MShield_Usage
+//! .
+//!
+//! \section MShield_SCH 1. MShield Schematic
+//! <img src="mshield.jpg" />
+//!
+//! \section MShield_Func_Desc 2. MShield Func Desc
+//!
+//! <LI>4 H-Bridges: L293D chipset provides 0.6A per bridge (1.2A peak) with thermal //! shutdown protection, internal kickback protection diodes. Can run motors on 
+//! 4.5VDC to 36VDC.</LI>
+//! <LI>Up to 4 bi-directional DC motors with individual 8-bit speed selection</LI>
+//! <LI>Up to 2 stepper motors (unipolar or bipolar) with single coil, double coil or //! interleaved stepping.</LI>
+//! <LI>Big terminal block connectors to easily hook up wires (10-22AWG) and //! //! //! power.</LI>
+//! <LI>Arduino reset button brought up top.</LI>
+//! <LI>2-pin terminal block and jumper to connect external power, for seperate //! //! logic/motor supplies.</LI>
+//! <LI>Tested compatible with Arduino Mega, Diecimila & Duemilanove.</LI>
+//! <LI>Easy-to-use cox software library.</LI>
+//!
+//! \section MShield_NOTE 3. MShield NOTE
+//! 
+//! <img src="mshield_pins.jpg" />
+//! The following pins are in use only if the DC/Stepper noted is in use:
+//! D11: DC Motor #1 / Stepper #1 (activation/speed control)
+//! D3: DC Motor #2 / Stepper #1 (activation/speed control)
+//! D5: DC Motor #3 / Stepper #2 (activation/speed control)
+//! D6: DC Motor #4 / Stepper #2 (activation/speed control)
+//!
+//! The following pins are in use if any DC/steppers are used:
+//! D4, D7, D8 and D12 are used to drive the DC/Stepper motors via the 74HC595 //! //! serial-to-parallel latch.
+//!
+//! The following pins are used only if that particular servo is in use:
+//! D9: Servo #1 control.
+//! D10: Servo #2 control.
+//! 
+//! \section MShield_API_Group 3. MShield API Group
+//! 
+//! \subsection MShield_API_74HC595 3.1 MShield API 74HC595
+//! The 74HC595 is controled by:
+//! - MS74HC595PinInit()
+//! - MS74HC595DataSend()
+//! .
+//! 
+//! The DC Motor shield is controled by:
+//! - MSDCMotorPWMInit()
+//! - MSDCMotorRun()
+//! - MSDCMotorSpeedSet()
+//! - MSDCMotorStop()
+//! .
+//!
+//! The DC Motor shield is controled by:
+//! - MSStepMotorInit()
+//! - MSStepsDelaySet()
+//! - MSStepMotorRun()
+//! - MSStepMotorStop()
+//! .
+//! 
+//! A accurate delay is provide:
+//! - MSDelay()
+//! .
+//!
+//! \section MShield_Usage MShield Usage
+//! 
+//! Before Using the Motor shield driver, you should configure the PWM 
+//! Initialization related, the timer used for delay, the timer channel,
+//! and the timer clock source. 
+//! Please reference \ref MShield_Software_Cfg
+//!
+//! Below is some example code:
+//!
+//! \code
+//!
+//! void StepMotorContorl(void)
+//! {
+//!    unsigned long i, j;
+//!
+//!    //
+//!    // System init
+//!    // 
+//!    xSysCtlClockSet(12000000, (xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_12MHZ));
+//!
+//!    //
+//!    // Step motor init
+//!    // 
+//!    MSStepMotorInit(MS_STEPPER_NUM1);
+//!    
+//!    //
+//!    // Set the Step delay
+//!    // 
+//!    MSStepsDelaySet(1);
+//!    for(i = 0; i < 50; i++)
+//!    {
+//!        //
+//!        // 50,  the 42DC step motor will rov one cycle
+//!        // 
+//!        MSStepMotorRun(MS_RUN_FORWARD, 50);
+//!    }
+//! 
+//!    //
+//!    // Motor stop
+//!    // 
+//!    MSStepMotorStop();
+//!         
+//! }
+//!     
+//! \endcode
+//
+//*****************************************************************************

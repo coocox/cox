@@ -1656,8 +1656,8 @@ UARTModemControlSet(unsigned long ulBase, unsigned long ulControl)
     // Check the arguments.
     //
     xASSERT((ulBase == USART1_BASE) || (ulBase == USART2_BASE) || (ulBase == USART3_BASE));
-    xASSERT((ulMode == UART_MODEM_RTS) || (ulMode == UART_MODEM_CTS) || 
-            (ulMode == (UART_MODEM_RTS | UART_MODEM_CTS)));
+    xASSERT((ulControl == UART_MODEM_RTS) || (ulControl == UART_MODEM_CTS) || 
+            (ulControl == (UART_MODEM_RTS | UART_MODEM_CTS)));
     //
     // Set the USART's modem mode.
     //
@@ -1684,8 +1684,8 @@ UARTModemControlClear(unsigned long ulBase, unsigned long ulControl)
     // Check the arguments.
     //
     xASSERT((ulBase == USART1_BASE) || (ulBase == USART2_BASE) || (ulBase == USART3_BASE));
-    xASSERT((ulMode == UART_MODEM_RTS) || (ulMode == UART_MODEM_CTS) || 
-            (ulMode == (UART_MODEM_RTS | UART_MODEM_CTS)));
+    xASSERT((ulControl == UART_MODEM_RTS) || (ulControl == UART_MODEM_CTS) || 
+            (ulControl == (UART_MODEM_RTS | UART_MODEM_CTS)));
     //
     // Clear the USART's modem mode.
     //
