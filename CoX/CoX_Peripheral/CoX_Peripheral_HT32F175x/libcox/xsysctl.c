@@ -276,7 +276,7 @@ BODIntHandler(void)
 void __attribute__((naked))
 SysCtlDelay(unsigned long ulCount)
 {
-    __asm("    sub     r0, #1\n"
+    __asm("    subs     r0, #1\n"
           "    bne     SysCtlDelay\n"
           "    bx      lr");
 }

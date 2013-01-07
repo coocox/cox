@@ -2915,6 +2915,8 @@ extern unsigned long  GPIOPinToPort(unsigned long ulPort,
                                     unsigned long ulPin);
 extern unsigned long  GPIOPinToPin(unsigned long ulPort, 
                                    unsigned long ulPin);
+extern unsigned long GPIOPinToPeripheralId(unsigned long ulPort,
+		                                   unsigned long ulPin);
 
 //*****************************************************************************
 //
