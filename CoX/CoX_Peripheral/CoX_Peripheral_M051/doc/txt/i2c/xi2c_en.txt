@@ -143,12 +143,31 @@
 //! - xI2CMasterTransfer()
 //! - xI2CMasterTransferComplete()
 //! - xI2CMasterStatusGet()
+//! - xI2CMasterWriteRequestS1()
+//! - xI2CMasterWriteRequestS2()
+//! - xI2CMasterWriteS1()
+//! - xI2CMasterWriteS2()
+//! - xI2CMasterWriteBufS1()
+//! - xI2CMasterWriteBufS2()
+//! - xI2CMasterReadRequestS1()
+//! - xI2CMasterReadRequestS2()
+//! - xI2CMasterReadLastRequestS2()
+//! - xI2CMasterReadS1()
+//! - xI2CMasterReadS2()
+//! - xI2CMasterReadBufS1()
+//! - xI2CMasterReadBufS2()
+//! - xI2CMasterStop()
+//! - xI2CMasterError()
+//! - xI2CMasterDataPut()
+//! - xI2CMasterDataGet()
 //! .
 //! 
 //! Slave transfer API includes:
 //! - xI2CSlaveTransferComplete()
 //! - xI2CSlaveTransfer()
 //! - xI2CSlaveStatusGet()
+//! - xI2CSlaveDataPut()
+//! - xI2CSlaveDataGet()
 //! .
 //! 
 //! <br />

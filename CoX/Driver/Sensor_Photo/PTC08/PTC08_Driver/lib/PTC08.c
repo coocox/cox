@@ -108,6 +108,20 @@ UARTBufferGet(unsigned long ulBase, unsigned char *pucBuf, unsigned long  ulLen)
 xtBoolean 
 PTC08Init(void)
 {
+    xSysCtlPeripheralEnable2(PTC08_UART);
+    xSysCtlPeripheralEnable2(xGPIOSPinToPeripheralId(PTC08_PIN_UART_RX));
+    xSysCtlPeripheralEnable2(xGPIOSPinToPeripheralId(PTC08_PIN_UART_TX));
+    xSysCtlPeripheralClockSourceSet(xSYSCTL_UART1_MAIN, 1);
+
+    xSPinTypeUART(PTC08_UART_RX, PTC08_PIN_UART_RX);
+    xSPinTypeUART(PTC08_UART_TX, PTC08_PIN_UART_TX);
+
+    xUARTConfigSet(PTC08_UART, 38400, (xUART_CONFIG_WLEN_8 |
+    		                           xUART_CONFIG_STOP_1 |
+                                       xUART_CONFIG_PAR_NONE));
+
+    xUARTEnable(PTC08_UART, (xUART_BLOCK_UART | xUART_BLOCK_TX | xUART_BLOCK_RX));
+
     //
     // Must wait for 2.5s before the camera can received Command
     //

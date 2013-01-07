@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Component>
+    <Name>uc1601 single LCD Controller-Driver</Name>
+    <Category>CoX.Driver</Category>
+    <Version>2.1.1.0</Version>
+    <KeyWord>uc1601, Text LCD, LCD, Display, SPI, Driver, CoX</KeyWord>
+
+      <Filter>
+         <Interface>SPI</Interface> 
+         <CoXBased>true</CoXBased> 
+      </Filter>
+          
+      <Categorys>
+          <Layer name="Driver">
+              <Cate name="Driver" />
+           </Layer>
+      </Categorys> 
+ 
+
+    
+    <SupportDevices>
+        <Device>uc1601</Device>
+    </SupportDevices>
+  
+    <Files>
+        <File>$Driver_ROOT$\lib\*</File>
+    </Files>
+    
+    <CoIDEFiles>
+        <File>PROJECT_ROOT$\CoX\M25Pxx_single\hw_uc1601.h</File>
+        <File>PROJECT_ROOT$\CoX\M25Pxx_single\uc1601.h</File>
+        <File>PROJECT_ROOT$\CoX\M25Pxx_single\uc1601.c</File>
+    </CoIDEFiles>
+    
+    <DependentComponentInterfaceTag>
+        <Tag>CoX.SPI</Tag>
+		<Tag>CoX.I2C</Tag>
+        <Tag>CoX.GPIO</Tag>
+    </DependentComponentInterfaceTag>
+    
+    <SupportMCUs>
+        <MCU>All</MCU>
+    </SupportMCUs>
+    
+    <SupportMCUSeries>
+        <Series>All</Series>
+    </SupportMCUSeries>
+    
+    <Doc>$Driver_ROOT$\doc\</Doc>
+  
+</Component>

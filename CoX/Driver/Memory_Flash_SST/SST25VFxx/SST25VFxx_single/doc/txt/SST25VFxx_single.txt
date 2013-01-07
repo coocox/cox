@@ -1,0 +1,256 @@
+//*****************************************************************************
+//
+//!
+//! \defgroup SST25VFxx
+//!
+//! \brief This is the SST25VFxx series Driver.
+//! 
+//! SST's 25 series Serial Flash family features a four-wire, SPI-compatible interface
+//! that allows for a low pin-count package which occupies less board space
+//! and ultimately lowers total system costs. The SST25VF016B devices are
+//! enhanced with improved operating frequency which lowers power consumption.
+//! SST25VF016B SPI serial flash memories are manufactured with SST's
+//! proprietary, high-performance CMOS SuperFlash technology. The split-gate
+//! cell design and thick-oxide tunneling injector attain better reliability and manufacturability
+//! compared with alternate approaches
+//!
+//! <h1>Contents</h1>
+//! - \ref SST25VFxx_Blcok
+//! - \ref SST25VFxx_Pins
+//! - \ref SST25VFxx_SPI_MODE
+//! - \ref SST25VFxx_Function_Desc
+//! .
+//!
+//! \section SST25VFxx_Blcok 1. SST25VFxx Physical Block
+//! <img src="SST25VFxx.png" />
+//!
+//! \section SST25VFxx_Pins 2. SST25VFxx Signal names
+//! <img src="SST25VFxx_Pins.png" />
+//!
+//! \section SST25VFxx_SPI_MODE 3. SST25VFxx supported SPI mode
+//! These devices can be driven by a microcontroller with its SPI peripheral 
+//! running in either of the two following modes:
+//! - CPOL=0, CPHA=0    \ref xSPI_MOTO_FORMAT_MODE_0
+//! - CPOL=1, CPHA=1    \ref xSPI_MOTO_FORMAT_MODE_3
+//! .
+//! For these two modes, input data is latched in on the rising edge of Serial
+//! Clock (C), and output data is available from the falling edge of Serial Clock (C).
+//!
+//! \section SST25VFxx_Function_Desc 4. SST25VFxx Instructions
+//! - Read Memory at 25 MHz                \ref SST25VFxx_CMD_RD25
+//! - Read Memory at 80 MHz                \ref SST25VFxx_CMD_RD80
+//! - Erase 4 KByte memory array           \ref SST25VFxx_CMD_ER4K
+//! - Erase 32 KByte block of memory array \ref SST25VFxx_CMD_ER32K
+//! - Erase 64 KByte block of memory array \ref SST25VFxx_CMD_ER64K
+//! - Erase Full Memory Array              \ref SST25VFxx_CMD_ERALL_0 \ref SST25VFxx_CMD_ERALL_1
+//! - To Program One Data Byte             \ref SST25VFxx_CMD_WRBYTE
+//! - Auto Address Increment Programming   \ref SST25VFxx_CMD_AAI
+//! - Read-Status-Register                 \ref SST25VFxx_CMD_RDSR
+//! - Enable-Write-Status-Register         \ref SST25VFxx_CMD_EWSR
+//! - Write-Status-Register                \ref SST25VFxx_CMD_WRSR
+//! .
+//!
+//! \defgroup SST25VFxx_Driver_Single  
+//!  
+//! \brief This is the SST25VFxx series Driver can be used in the condition which
+//! the system only have one SST25VFxx series device.
+//!
+//! This driver is implemented by using defines and global variables.It can only 
+//! use on one device because all the APIs use the some macros and global variables.
+//!
+//! <h1>Contents</h1>
+//! - \ref SST25VFxx_How_Define
+//! - \ref SST25VFxx_API_Group
+//!   - \ref SST25VFxx_API_Group_CMD
+//!   - \ref SST25VFxx_API_Group_AttriGet
+//!   - \ref SST25VFxx_API_Group_Special
+//!   .
+//! - \ref SST25VFxx_Usage 
+//! .
+//!
+//! \section SST25VFxx_How_Define 1. How is the SST25VFxx Driver implemented?
+//! Use define to config some Fixing things,such as SPI base and SPI pins
+//! CS pin,use hold input or not,use write protect or not and which device
+//! to use(This contains chip information).
+//!
+//! Use global variables to save variables use by the APIs.
+//!
+//! \section SST25VFxx_API_Group 2. API Groups
+//! 
+//! The SST25VFxx API is broken into three groups of functions: 
+//! - those that deal with SST25VFxx CMD , 
+//! - those that deal with SST25VFxx chip information and init, 
+//! - those that deal with SST25VFxx hold input and write protect function.
+//! .
+//!
+//! \n
+//! \subsection SST25VFxx_API_Group_CMD 2.1 SST25VFxx CMD APIs
+//! 
+//! The SST25VFxx CMD is implemented by :
+//! - SST25VFxxIDGet() 
+//! - SST25VFxxJedecIDGet() 
+//! - SST25VFxxStatusRegRead()
+//! - SST25VFxxWaitNotBusy() 
+//! - SST25VFxxWriteEnable() 
+//! - SST25VFxxWriteDisable() 
+//! - SST25VFxxByteWrite() 
+//! - SST25VFxxAAIWriteA() 
+//! - SST25VFxxAAIWriteB() 
+//! - SST25VFxxAAIEBusyWriteA() 
+//! - SST25VFxxAAIEBusyWriteB() 
+//! - SST25VFxxWrite() 
+//! - SST25VFxxDataRead() 
+//! - SST25VFxxDataFastRead() 
+//! - SST25VFxxChipErase() 
+//! - SST25VFxxSectorErase() 
+//! - SST25VFxxBlock32Erase() 
+//! - SST25VFxxBlock64Erase() 
+//! - SST25VFxxStatusRegWrite() 
+//! .
+//!
+//! \n
+//! \subsection SST25VFxx_API_Group_AttriGet 2.2 SST25VFxx chip information get APIs
+//! 
+//! The SST25VFxx chip information is get by :
+//! - SST25VFxxChipSizeGet() 
+//! .
+//!
+//! \n
+//! \subsection SST25VFxx_API_Group_Special 2.3 SST25VFxx Special functions APIs
+//! 
+//! The SST25VFxx chip information is get by :
+//! - SST25VFxxHoldEnable() 
+//! - SST25VFxxHoldDisable() 
+//! - SST25VFxxWriteProtectEnable() 
+//! - SST25VFxxWriteProtectDisable() 
+//! .
+//!
+//! \section SST25VFxx_Usage 1. Usage & Program Examples
+//! 
+//! \code
+//!//*****************************************************************************
+//!//
+//!//! \file Example.c
+//!//! \brief the SST25VFxx Example.
+//!//! \version 1.0
+//!//! \date 10/15/2011
+//!//! \author CooCox
+//!//! \copy
+//!//!
+//!//! Copyright (c)  2011, CooCox 
+//!//! All rights reserved.
+//!//! 
+//!//! Redistribution and use in source and binary forms, with or without 
+//!//! modification, are permitted provided that the following conditions 
+//!//! are met: 
+//!//! 
+//!//!     * Redistributions of source code must retain the above copyright 
+//!//! notice, this list of conditions and the following disclaimer. 
+//!//!     * Redistributions in binary form must reproduce the above copyright
+//!//! notice, this list of conditions and the following disclaimer in the
+//!//! documentation and/or other materials provided with the distribution. 
+//!//!     * Neither the name of the <ORGANIZATION> nor the names of its 
+//!//! contributors may be used to endorse or promote products derived 
+//!//! from this software without specific prior written permission. 
+//!//! 
+//!//! THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+//!//! AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//!//! IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+//!//! ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+//!//! LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+//!//! CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+//!//! SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+//!//! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+//!//! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+//!//! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+//!//! THE POSSIBILITY OF SUCH DAMAGE.
+//!//*****************************************************************************
+//!#include "xhw_types.h"
+//!#include "xhw_memmap.h"
+//!#include "xhw_ints.h"
+//!#include "xhw_nvic.h"
+//!#include "xcore.h"
+//!#include "xsysctl.h"
+//!#include "SST25VFxx.h"
+//!#include <stdio.h>
+//!
+//!void UartPrintf(void);
+//!unsigned long ucIDcode;
+//!#define BUFFER_LEN     21
+//!unsigned char ucBuffer[BUFFER_LEN];
+//!
+//!//!*****************************************************************************
+//!//!
+//!//! \brief main
+//!//!
+//!//! \return None.
+//!//!
+//!//!*****************************************************************************
+//!int main(void)
+//!{
+//!	int i=0;
+//!    //!
+//!    //! Initionalize system clock.
+//!    //!
+//!    xSysCtlClockSet(8000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
+//!    xSysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);
+//!    UartPrintf();
+//!    printf("Hello World\r\n");
+//!
+//!    for(i=0;i<BUFFER_LEN;i++)
+//!    {
+//!    	ucBuffer[i] = i;
+//!    }
+//!	SST25VFxxInit(20000000);
+//!	ucIDcode = 0xAB;
+//!	ucIDcode = SST25VFxxIDGet(0x10);
+//!	printf("ucIDcode = 0x%X\r\n",ucIDcode);
+//!	ucIDcode = SST25VFxxJedecIDGet();
+//!    printf("ucIDcode = 0x%X\r\n",ucIDcode);
+//!    ucIDcode = SST25VFxxStatusRegRead();
+//!    printf("ucIDcode = 0x%X\r\n",ucIDcode);
+//!    SST25VFxxWaitNotBusy();
+//!    printf("Not Busy\r\n");
+//!
+//!    SST25VFxxWriteEnable();
+//!    ucIDcode = SST25VFxxStatusRegRead();
+//!    printf("ucIDcode = 0x%X\r\n",ucIDcode);
+//!
+//!    SST25VFxxWriteDisable();
+//!    ucIDcode = SST25VFxxStatusRegRead();
+//!    printf("ucIDcode = 0x%X\r\n",ucIDcode);
+//!
+//!    SST25VFxxChipErase();
+//!    printf("SST25VFxxChipErase \r\n");
+//!
+//!    SST25VFxxWrite(ucBuffer, 0, BUFFER_LEN);
+//!    printf("SST25VFxxWrite(ucBuffer, 0, BUFFER_LEN) \r\n");
+//!
+//!    for(i=0;i<BUFFER_LEN;i++)
+//!    {
+//!    	ucBuffer[i] = 0;
+//!    }
+//!    printf("ucBuffer clear \r\n");
+//!    for(i=0;i<BUFFER_LEN;i++)
+//!    {
+//!    	printf("ucBuffer[%d] = 0x%X\r\n",i,ucBuffer[i]);
+//!    }
+//!
+//!    SST25VFxxDataRead(ucBuffer, 0, BUFFER_LEN);
+//!    printf("SST25VFxxDataRead(ucBuffer, 0, BUFFER_LEN) \r\n");
+//!
+//!    for(i=0;i<BUFFER_LEN;i++)
+//!    {
+//!    	printf("ucBuffer[%d] = 0x%X\r\n",i,ucBuffer[i]);
+//!    }
+//!    printf("float=%10.9f\r\n",3.1415926);
+//!	while(1)
+//!    {
+//!
+//!    }
+//!}
+//!
+//! \endcode
+//!
+//
+//*****************************************************************************

@@ -1,0 +1,197 @@
+//*****************************************************************************
+//
+//!
+//! \defgroup SSD1298
+//!
+//! \brief This is the SSD1298 series Driver.
+//! 
+//! SSD1298s is an advanced high-voltage mixedsignal
+//! CMOS IC, especially designed for the
+//! display needs of ultra-low power hand-held
+//! devices.This chip employs UltraChip¡¯s unique DCC
+//! (Direct Capacitor Coupling) driver architecture to
+//! achieve near crosstalk free images.
+//!
+//! <h1>Contents</h1>
+//! - \ref SSD1298_Blcok
+//! - \ref SSD1298_Pins
+//!
+//! - \ref SSD1298_8080_series_System_Bus_Interface 
+//! - \ref SSD1298_Function_Desc
+//! .
+//!
+//! \section SSD1298_Blcok 1. SSD1298 Physical Block
+//! <img src="SSD1298.png" />
+//!
+//! \section SSD1298_Pins 2. SSD1298 Signal names
+//! <img src="SSD1298_Pins.png" />
+//!
+//! \section SSD1298_8080_series_System_Bus_Interface 3. SSD1298 8080-series(16bit) System Bus Interface
+//! <img src="SSD1298_Interface.png" />
+//!
+//! \section SSD1298_Function_Desc 4. SSD1298 Instructions
+//! - Set the oscillator switch          \ref SSD1298_OSC_START
+//! - Control the output sequence        \ref SSD1298_DRIVER_OUTPUT_CONTROL
+//! - configuration about display        \ref SSD1298_DISPLAY_CONTROL
+//! - Set power control mode             \ref SSD1298_POWER_CONTROL_1
+//! - Set start position of gatescan     \ref SSD1298_GATESCAN_START_POS
+//! - Set sleep mode                     \ref SSD1298_SLEEP_MODE
+//! - Set color mode,bus mode,scan mode  \ref SSD1298_ENTRY_MODE_1
+//! - Set HSYNC VSYNC mode               \ref SSD1298_ENTRY_MODE_2
+//! - Read Write data ready              \ref SSD1298_RAM_DATA_RW
+//! - Set gama control register 1        \ref SSD1298_GAMA_CONTROL_1
+//! - Set gama control register 10       \ref SSD1298_GAMA_CONTROL_10
+//! - Set the start/end positions of the window address in the horizontal direction    \ref SSD1298_HORIZ_RAM_ADDR_POS
+//! - Set the start positions of the window address in the vertical direction          \ref SSD1298_VERTC_RAM_ADDR_START_POS
+//! - Set the end positions of the window address in the vertical direction            \ref SSD1298_VERTC_RAM_ADDR_END_POS
+//! - Make initial settings for the GDDRAM X address in the address counter (AC).      \ref SSD1298_SET_GDDRAM_X_ADDR_CNT
+//! - Make initial settings for the GDDRAM Y address in the address counter (AC).      \ref SSD1298_SET_GDDRAM_Y_ADDR_CNT
+//!
+//! \defgroup SSD1298_Driver_Single  
+//!  
+//! \brief This is the SSD1298 series Driver can be used in the condition which
+//! the system only have one SSD1298 series device.
+//!
+//! This driver is implemented by using defines and global variables.It can only 
+//! use on one device because all the APIs use the some macros and global variables.
+//!
+//! <h1>Contents</h1>
+//! - \ref SSD1298_How_Define
+//! - \ref SSD1298_API_Group
+//!   - \ref SSD1298_API_Group_CMD
+//!   - \ref SSD1298_API_Group_Display
+//!   - \ref SSD1298_API_Group_Special
+//!   .
+//! - \ref SSD1298_Usage 
+//! .
+//!
+//! \section SSD1298_How_Define 1. How is the SSD1298 Driver implemented?
+//! Use define to config some Fixing things,such as data IO port and control 
+//! pins.
+//!
+//! Use global variables to save variables use by the APIs.
+//!
+//! \section SSD1298_API_Group 2. API Groups
+//! 
+//! The SSD1298 API is broken into three groups of functions: 
+//! - those that deal with SSD1298 CMD ,  
+//! - those that deal with SSD1298 dispaly,
+//! - those that deal with SSD1298 special.
+//! .
+//!
+//! \n
+//! \subsection SSD1298_API_Group_CMD 2.1 SSD1298 CMD APIs
+//! 
+//! The SSD1298 CMD is implemented by :
+//! - LCD_DisplayOn() 
+//! - LCD_DisplayOff() 
+//! - LCD_Clear() 
+//! - LCD_SetWindow() 
+//! - LCD_ReadPiont() 
+//! - LCD_Init()
+//! .
+//!
+//! \n
+//! \subsection SSD1298_API_Group_Display 2.2 SSD1298 init APIs
+//! 
+//! The SSD1298 dispaly by :
+//! - LCD_DrawDot() 
+//! - LCD_Fill() 
+//! - LCD_DrawLine() 
+//! - LCD_DrawCircle()
+//! - LCD_ShowChar()
+//! - LCD_ShowString()
+//! - LCD_ShowNumber()
+//! .
+//!
+//! \n
+//! \subsection SSD1298_API_Group_Special 2.3 SSD1298 special functions APIs
+//! 
+//! The SSD1298 special function :
+//! - LCD_RotateScreen() 
+//! .
+//!
+//! \section SSD1298_Usage 1. Usage & Program Examples
+//! 
+//! \code
+//! //*****************************************************************************
+//! //
+//! //! \file Example.c
+//! //! \brief the SSD1298 Example.
+//! //! \version 1.0
+//! //! \date 12/21/2012
+//! //! \author CooCox
+//! //! \copy
+//! //!
+//! //! Copyright (c)  2012, CooCox 
+//! //! All rights reserved.
+//! //! 
+//! //! Redistribution and use in source and binary forms, with or without 
+//! //! modification, are permitted provided that the following conditions 
+//! //! are met: 
+//! //! 
+//! //!     * Redistributions of source code must retain the above copyright 
+//! //! notice, this list of conditions and the following disclaimer. 
+//! //!     * Redistributions in binary form must reproduce the above copyright
+//! //! notice, this list of conditions and the following disclaimer in the
+//! //! documentation and/or other materials provided with the distribution. 
+//! //!     * Neither the name of the <ORGANIZATION> nor the names of its 
+//! //! contributors may be used to endorse or promote products derived 
+//! //! from this software without specific prior written permission. 
+//! //! 
+//! //! THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+//! //! AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//! //! IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+//! //! ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+//! //! LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+//! //! CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+//! //! SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+//! //! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+//! //! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+//! //! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+//! //! THE POSSIBILITY OF SUCH DAMAGE.
+//! //*****************************************************************************
+//! #include "SSD1298.h"
+//! #include "colors.h"
+//! #include "xhw_types.h"
+//! #include "xhw_memmap.h"
+//! #include "xhw_sysctl.h"
+//! #include "xsysctl.h"
+//!
+//! //*****************************************************************************
+//! //
+//! //! \brief The example of the function of Dispaly.
+//! //!
+//! //! \param None
+//! //!
+//! //! \details The example of the function of Dispaly.
+//! //! \return None.
+//! //
+//! //*****************************************************************************
+//! void SSD1298DispalyExample(void)
+//! {
+//!     //
+//!     // Set SysClk 72MHz using Extern 8M oscillator
+//!     //
+//!     xSysCtlClockSet(72000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
+//!     LCD_Init();
+//!     LCD_Clear(COLOR_WHITE);
+//!     g_usPointColor = COLOR_GREEN;
+//!     LCD_Fill(150, 250, 230, 300, COLOR_BLUE);
+//!     LCD_DrawLine(0, 60, 200, 60);
+//!     LCD_DrawLine(0, 300, 230, 100);
+//!     LCD_DrawCircle(150, 150, 30);
+//!     LCD_DrawCircle(150, 150, 40);
+//!     LCD_DrawCircle(150, 150, 50);
+//!     LCD_DrawCircle(150, 150, 60);
+//!     LCD_DrawCircle(150, 150, 70);
+//!     g_usPointColor = COLOR_RED;
+//!     LCD_ShowString(10, 0, "SSD1298 Display Example\n\r\t\tMerry Christmas!!", 16);
+//!     LCD_ShowNumber(0, 16,2012,10,16);
+//!     xSysCtlDelay(30000000);
+//! }
+//!
+//! \endcode
+//!
+//
+//*****************************************************************************

@@ -57,7 +57,7 @@ extern const tTestCase * const* g_psPatterns[];
 // testcases(extern the testcases)
 //
 //*****************************************************************************
-extern const tTestCase * const psPatternTC72[];
+extern const tTestCase * const psPatternBH1750FVI[];
 
 
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" ?> 
   <Component>
-    <Name>STLM75 Temperature Driver using I2C interface</Name> 
+    <Name>PTC08 Photo Driver using I2C interface</Name> 
     <Version>1.0.0</Version> 
-    <KeyWord>STLM75, Temperature, Sensor, 2-wire, Driver, CoX, ST, I2C,STxx75</KeyWord> 
+    <KeyWord>PTC08, Photo, Sensor, 2-wire, Driver, CoX, UART</KeyWord> 
     <Filter>
-        <Interface>I2C</Interface>
+        <Interface>UART</Interface>
         <CoXBased>true</CoXBased>
     </Filter>
 
@@ -14,20 +14,20 @@
         </Layer>
     </Categorys> 
     <SupportDevices>
-      <Device>STLM75, STCN75, STDS75, STTS75</Device> 
+      <Device>PTC08</Device> 
     </SupportDevices>
     <Files>
       <File>$Driver_ROOT$\lib\*</File> 
     </Files>
     <CoIDEFiles>
-      <File>PROJECT_ROOT$\CoX\STLM75\xhw_STLM75.h</File> 
-      <File>PROJECT_ROOT$\CoX\STLM75\STLM75.h</File> 
-      <File>PROJECT_ROOT$\CoX\STLM75\STLM75.c</File> 
+      <File>PROJECT_ROOT$\CoX\PTC08\xhw_PTC08.h</File> 
+      <File>PROJECT_ROOT$\CoX\PTC08\PTC08.h</File> 
+      <File>PROJECT_ROOT$\CoX\PTC08\PTC08.c</File> 
     </CoIDEFiles>
     <DependentComponentInterfaceTag>
       <Tag>CoX.GPIO</Tag> 
       <Tag>CoX.SysCtl</Tag> 
-	  <Tag>CoX.I2C</Tag> 
+	  <Tag>CoX.UART</Tag> 
     </DependentComponentInterfaceTag>
     <SupportMCUs>
       <MCU /> 

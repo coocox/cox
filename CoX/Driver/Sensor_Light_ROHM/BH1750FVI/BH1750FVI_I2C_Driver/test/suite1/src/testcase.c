@@ -23,7 +23,7 @@ const tTestCase * const* g_psPatterns[] =  {
     //
     // xcore test
     //
-    psPatternTC72,
+		psPatternBH1750FVI,
 
     //
     // end

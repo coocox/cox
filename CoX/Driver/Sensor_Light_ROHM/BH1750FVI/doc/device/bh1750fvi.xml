@@ -1,27 +1,25 @@
 <?xml version="1.0"?>
 <Device>
     <Name>
-    	TC72-2.8MMF,TC72-2.8MMFTR,TC72-2.8MUA,TC72-2.8MUATR,TC72-3.3MMF,TC72-3.3MMFTR,
-    	TC72-3.3MUA,TC72-3.3MUATR,TC72-5.0MMF,TC72-5.0MMFTR,TC72-5.0MUA,TC72-5.0MUATR
+    	BH1750FVI
     </Name>
     <Description>
-    	The TC72 is a digital temperature sensor capable of reading temperatures from -55 to +125 degree celsius⁮ 
-      It consists of a temperature sensor, a 10-bit Sigma Delta Analog-to-Digital and its interface is compatible 
-      with the SPI protocol. 
+    	Digital output type ambient light sensor IC is composed of photodiodes, current-voltage converter circuit,
+		A / D converter, control logic circuits, interface circuits and etc.It connects with I2C Bus in an equipment.
     </Description>
-    <Manufacturer>Microchip</Manufacturer>
+    <Manufacturer>ROHM</Manufacturer>
     
     <Category>Sensor</Category>
-    <SubCategory>Temperature</SubCategory>
+    <SubCategory>Light</SubCategory>
     
-    <KeyWord>TC72, Temp, Temperature, Sensor, SPI, ADC</KeyWord>
+    <KeyWord>BH1750FVI, Light, Digital ALS, Sensor, I2C, ADC</KeyWord>
     
     <Communication>
-        <Interface>SPI</Interface>
+        <Interface>I2C</Interface>
     </Communication>
     
-    <WebPage>http://cn.element14.com/jsp/search/productdetail.jsp?id=1852305&Ntt;=1852305</WebPage>
-    <Datasheet>http://ww1.microchip.com/downloads/en/devicedoc/21743a.pdf</Datasheet>
+    <WebPage>http://www.rohm.com/web/global/products/-/product/BH1750FVI</WebPage>
+    <Datasheet>http://rohmfs.rohm.com/en/products/databook/datasheet/ic/sensor/light/bh1750fvi-e.pdf</Datasheet>
     
     <Doc>$Device_ROOT$\doc\</Doc>
 </Device>

@@ -1,7 +1,7 @@
 //*****************************************************************************
 //
 //! \file Example1.c
-//! \brief the STLM75 Example.
+//! \brief the PTC08 Example.
 //! \version 1.0
 //! \date 10/15/2011
 //! \author CooCox
@@ -48,203 +48,31 @@
 #include "xhw_uart.h"
 #include "xuart.h"
 #include "xi2c.h"
-#include "hw_STLM75.h"
-#include "STLM75.h"
+#include "PTC08.h"
 
-//
-//! STLM75 Init callback.
-//
-void Dev1GPIOInit(void);
-
-//
-//! STLM75 Device' OS/INT pin callback.
-//
-unsigned long UserCallback(void *pvCBData, unsigned long ulEvent, 
-                           unsigned long ulMsgParam, void *pvMsgData);
-
-//
-//! Redefined the STLM75 Device's I2C pins.
-//
-#define STLM75_Dev1_SDA         PA8
-#define STLM75_Dev1_SCK         PA9
-
-//
-//! STLM75 Device.
-//
-tSTLM75Dev Dev1={
-    //
-    // DQ is GPIO 
-    //
-    xGPIOSPinToPortPin(STLM75_Dev1_SCK),
-    xGPIOSPinToPortPin(STLM75_Dev1_SDA),
-    xGPIOSPinToPortPin(PA0),
-    xI2C0_BASE,
-    
-    //
-    // GPIO A.0 Init
-    //
-    Dev1GPIOInit,
-    UserCallback,
-    STLM75_ADDRESS_MASK,
-};
-
-unsigned char ucTemp1[]="Temperature Overlimit";
-unsigned char ucTemp2[]="Temperature not Overlimit";
+unsigned long ulPhotoLen = 0;
+unsigned char ucPhotoBuf[20];
 
 //*****************************************************************************
 //
-//! \brief Init uart to print.
-//!
-//! \param None
-//!
-//! \details uart config as (115200, 8 data bit, 1 stop bit , no partiy)
-//!
-//! \return None.
-//
-//*****************************************************************************
-static 
-void UartInit(void)
-{
-    xSPinTypeUART(UART0RX,PB0);
-    xSPinTypeUART(UART0TX,PB1);
-
-    xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART0);
-    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART0);
-    
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_UART0_MAIN, 1);
-
-    xUARTConfigSet(UART0_BASE, 115200, (UART_CONFIG_WLEN_8 |
-                                        UART_CONFIG_STOP_ONE | 
-                                        UART_CONFIG_PAR_NONE));
-}
-
-//*****************************************************************************
-//
-//! \brief print a char.
-//!
-//! \param None
-//!
-//! \return None.
-//
-//*****************************************************************************
-void 
-UartPrintfChar(char ch)
-{
-    unsigned char c;
-    c = ch;
-    while(!xUARTSpaceAvail(xUART0_BASE));
-    
-    //
-    // Write this character to the transmit FIFO.
-    //
-    xUARTCharPut(xUART0_BASE, c);
-}
-
-//*****************************************************************************
-//
-//! \brief Prints a decimal unsigned number.
-//!
-//! \param n is the number to be printed
-//!
-//! \details Prints a decimal unsigned number.
-//!
-//! \return None.
-//
-//*****************************************************************************
-static 
-void UartPrintfNumber(unsigned long n)
-{
-    char buf[16], *p;
-
-    if (n == 0)
-    {
-        UartPrintfChar('0');
-    }
-    else
-    {
-        p = buf;
-        while (n != 0)
-        {
-            *p++ = (n % 10) + '0';
-            n /= 10;
-        }
-
-        while (p > buf)
-            UartPrintfChar(*--p);
-    }
-}
-
-//*****************************************************************************
-//
-//! \breif STLM75 Init callback.
-//!
-//! \return None
-//
-//*****************************************************************************
-void Dev1GPIOInit(void)                                        
-{
-    //
-    // Congigure the i2c pin
-    //
-    xSPinTypeI2C(I2C0SCL, STLM75_Dev1_SCK);
-    xSPinTypeI2C(I2C0DATA, STLM75_Dev1_SDA); 
-}
-//*****************************************************************************
-//! \breif GPIO External interrupt handler.
-//!
-//! \return None
-//
-//*****************************************************************************
-unsigned long UserCallback(void *pvCBData, unsigned long ulEvent, 
-                           unsigned long ulMsgParam, void *pvMsgData)                                        
-{
-    float fTemp,fTos,fThys;
-    int i;
-    fTemp = STLM75TempRead(&Dev1);
-    fTos = STLM75LimitRead(&Dev1, 1);
-    fThys = STLM75LimitRead(&Dev1, 0);
-
-    if(fTemp > fTos)
-    {
-        for(i=0; ucTemp1[i]!=0; i++)
-            UartPrintfChar(ucTemp1[i]);
-    }
-    else if(fTemp < fThys)
-    {
-        for(i=0; ucTemp2[i]!=0; i++)
-            UartPrintfChar(ucTemp1[i]);
-    } 
-    
-    return 0;
-}
-
-//*****************************************************************************
-//
-//! \brief 001 test execute main body.
+//! \brief example main body.
 //!
 //! \return None.
 //
 //*****************************************************************************
 static void Example1(void)
 {
-    float fTemp;
-    
-    UartInit();
-    STLM75Init(&Dev1, 100000);
-    
-    STLM75ConfigSet(&Dev1, STLM75_CFG_SHUTDOWN_OFF | STLM75_CFG_MODE_INT |
-                           STLM75_CFG_POL_LOW | STLM75_CFG_FT1);
-    
-    fTemp = STLM75TempRead(&Dev1);
-    UartPrintfNumber((unsigned long)fTemp);
-    STLM75LimitSet(&Dev1, 25, 0);
-    STLM75LimitSet(&Dev1, 27, 1);
-    SysCtlDelay(100000);  
-    while(1);
+
+    PTC08Init();
+    PTC08PhotoStart();
+    PTC08PhotoLenGet(&ulPhotoLen);
+    PTC08PhotoDataGet(ucPhotoBuf, 0, 20);
+    PTC08PhotoDataGet(ucPhotoBuf, ulPhotoLen-8, 20);
 
 }
 int main(void)
 {
     Example1();
+    while(1);
 }
 
