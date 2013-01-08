@@ -126,7 +126,7 @@
 //! config your HSE external crystal value.It can be one of the following values: 
 //! 4-16Mhz
 //
-#define STM32F1xx_HSE_VAL       8
+#define STM32F1xx_HSE_VAL       25
 
 
 //
