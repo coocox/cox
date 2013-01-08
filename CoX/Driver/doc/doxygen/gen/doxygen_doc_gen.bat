@@ -43,6 +43,7 @@ copy %v_repo_root_self%\CoX\Driver\GPS\GPS\doc\images\* ..\en\html >>nul
 copy %v_repo_root_self%\CoX\Driver\Sensor_Matrix\matrix\doc\images\* ..\en\html >>nul
 
 copy %v_repo_root_self%\CoX\Driver\Memory_Flash_SST\SST25VFxx\SST25VFxx_single\doc\images\* ..\en\html >>nul
+copy %v_repo_root_self%\CoX\Driver\Sensor_Accelerometer\LIS302DL\Driver\doc\images\* ..\en\html >>nul
 
 
 copy %v_cox_peripheral_manual%\doc\images\* ..\en\html >>nul
