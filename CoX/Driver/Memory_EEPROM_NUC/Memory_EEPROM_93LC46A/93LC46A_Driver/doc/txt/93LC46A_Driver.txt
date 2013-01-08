@@ -1,0 +1,169 @@
+//******************************************************
+//
+//!
+//! \addtogroup 93LC46A_Driver
+//! @{
+//!
+//! The Microchip Technology Inc. 93LC46AX/BX are 1K-bit, 
+//! low voltage serial Electrically Erasable PROMs.
+//! The device memory is configured as x8 (93LC46A) or
+//! x16 bits (93LC46B). Advanced CMOS technology
+//! makes these devices ideal for low power nonvolatile
+//! memory applications. The 93LC46AX/BX is available
+//! in standard 8-pin DIP, 8-pin surface mount SOIC, and
+//! TSSOP packages. The 93LC46AX/BX are offered only
+//! in a 150-mil SOIC package. 
+//!
+//! <h1>Contents</h1>
+//! - \ref 93LC46A_Features
+//! - \ref 93LC46A_API
+//! - \ref 93LC46A_APP
+//! .
+//!
+//! <br />
+//!
+//! \section 93LC46A_Features 1.93LC46A Features
+//! Single supply with operation down to 2.5V 
+//! Low power CMOS technology
+//! - 1 mA active current (typical)
+//! - 1 ¦ÌA standby current (maximum)
+//! .
+//! 128*8 bit organization (93LC46A)
+//! 64*16 bit organization (93LC46B)
+//! Self-timed ERASE and WRITE cycles          
+//! (including auto-erase)
+//! Automatic ERAL before WRAL
+//! Power on/off data protection circuitry
+//! Industry standard 3-wire serial interface
+//! Device status signal during ERASE/WRITE cycles
+//! Sequential READ function
+//! 1,000,000 E/W cycles guaranteed 
+//! Data retention > 200 years
+//! 8-pin PDIP/SOIC and 8-pin TSSOP packages
+//!
+//! <br />
+//!
+//! \section 93LC46A_API 2.93LC46A API
+//! void eep_93LC46A_Write(const char data, char addr);
+//! void eep_93LC46A_Cmd(short cmd);
+//! void eep_93LC46A_Read(char* data, unsigned char addr);
+//! void eep_93LC46A_Init();
+//! void eep_93LC46A_Erase(unsigned char addr);
+//!
+//! <br />
+//!
+//! \section 93LC46A_APP 3.93LC46A Applications
+//!
+//! Here we introduce how to get use 93LC46A.
+//!
+//! \code
+//! #include "xhw_memmap.h"
+//! #include "xhw_types.h"
+//! #include "xcore.h"
+//! #include "xsysctl.h"
+//! #include "xhw_sysctl.h"
+//! #include "xgpio.h"
+//! #include "93LC46A.h"
+//!
+//! int main(void)
+//! {
+//! 	eep_93LC46A_Init();
+//! 	char data_w[3] = {26, 37, 99};
+//! 	char data_r[3] = {0, 0, 0 };
+//! 	char addr[3] = {16, 45, 11};
+//! 	int  result=1;
+//! 	int i;
+//! 	for(i=0; i<3; i++)
+//! 	{
+//! 		eep_93LC46A_Write(data_w[i], addr[i]);
+//! 	}
+//!
+//! 	for(i=0; i<3; i++)
+//! 	{
+//! 		eep_93LC46A_Read(&data_r[i], addr[i]);
+//! 	}
+//!
+//! 	for(i=0; i<3; i++)
+//! 	{
+//! 		if(data_w[i] != data_r[i])
+//! 		{
+//! 			result = 0;
+//! 			break;
+//! 		}
+//! 	}
+//!
+//! 	//erase all
+//! 	eep_93LC46A_Cmd(_93LC46A_EraseAll);
+//! 	eep_93LC46A_Read(&data_r[0], addr[0]);
+//!
+//! 	//erase
+//! 	eep_93LC46A_Write(data_w[0], addr[0]);
+//! 	eep_93LC46A_Read(&data_r[0], addr[0]);
+//! 	eep_93LC46A_Erase(addr[0]);
+//! 	eep_93LC46A_Read(&data_r[0], addr[0]);
+//!
+//! 	//write all
+//! 	eep_93LC46A_Write(56, -1);
+//!
+//! 	for(i=0; i<3; i++)
+//! 	{
+//! 		eep_93LC46A_Read(&data_r[i], addr[i]);
+//! 	}
+//!
+//! 	if(result==1)
+//! 	{
+//! 		xSysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
+//! 		GPIOSDirModeSet(PA5, GPIO_DIR_MODE_OUT);
+//! 		while(1)
+//! 		{
+//! 			GPIOSPinWrite(PA5, 0);
+//! 			for(i=0;i<1000000;i++);
+//! 			GPIOSPinWrite(PA5, 1);
+//! 			for(i=0;i<1000000;i++);
+//! 		}
+//! 	}
+//!
+//!     while(1)
+//!     {
+//!     }
+//! }
+//! \endcode
+//!
+//! @}
+//
+//******************************************************
+
+
+
+//******************************************************
+//
+//!
+//! \addtogroup CoX_Driver_Lib
+//! @{
+//! \addtogroup Memory
+//! @{
+//! \addtogroup GPIO_Eeprom
+//! @{
+//! \addtogroup 93LC46A_Driver 
+//! @{
+//! \addtogroup 93LC46A_Attribute
+//! @{
+//! @}
+//! \addtogroup 93LC46A_User_Config
+//! @{
+//! @}
+//! \addtogroup 93LC46A_OP_CODE
+//! @{
+//! @}
+//! \addtogroup 93LC46A_DELAYTIME
+//! @{
+//! @}
+//! \addtogroup COX_93LC46A_Exported_APIs
+//! @{
+//! @}
+//! @}
+//! @}
+//! @}
+//! @}
+//
+//******************************************************

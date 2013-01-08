@@ -1,0 +1,79 @@
+//******************************************************
+//
+//!
+//! \addtogroup RGB_LED_Driver
+//! @{
+//!
+//! <h1>Contents</h1>
+//! - \ref RGB_LED_API
+//! - \ref RGB_LED_APP
+//! .
+//!
+//! <br />
+//!
+//! \section RGB_LED_API 1.RGB_LED API
+//! void rgbled_init();
+//! void rgbled_turnOn(char num);
+//! void rgbled_turnOff(char num);
+//!
+//! <br />
+//!
+//! \section RGB_LED_APP 2.RGB_LED Applications
+//!
+//! Here we introduce how to get use RGB_LED.
+//!
+//! \code
+//! #include "RGBLed.h"
+//!
+//! int main(void)
+//! {
+//!
+//! 	int i;
+//! 	rgbled_init();
+//! 	while(1)
+//! 	{
+//! 		for(i=0; i<100000; i++);
+//! 		rgbled_turnOn(RGBLED_R);
+//! 		for(i=0; i<100000; i++);
+//! 		rgbled_turnOn(RGBLED_G);
+//! 		for(i=0; i<100000; i++);
+//! 		rgbled_turnOn(RGBLED_B);
+//! 		for(i=0; i<100000; i++);
+//! 		rgbled_turnOff(RGBLED_R);
+//! 		for(i=0; i<100000; i++);
+//! 		rgbled_turnOff(RGBLED_G);
+//! 		for(i=0; i<100000; i++);
+//! 		rgbled_turnOff(RGBLED_B);
+//! 	}
+//! }
+//! \endcode
+//!
+//! @}
+//
+//******************************************************
+
+
+
+//******************************************************
+//
+//!
+//! \addtogroup CoX_Driver_Lib
+//! @{
+//! \addtogroup LED
+//! @{
+//! \addtogroup RGB_LED
+//! @{
+//! \addtogroup RGB_LED_Driver 
+//! @{
+//! \addtogroup RGBLED_PIN_CONFIG
+//! @{
+//! @}
+//! \addtogroup RGBLED_Type
+//! @{
+//! @}
+//! @}
+//! @}
+//! @}
+//! @}
+//
+//******************************************************
