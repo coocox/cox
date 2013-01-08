@@ -1,0 +1,555 @@
+//*****************************************************************************
+//
+//! \defgroup LIS302DL LIS302DL
+//!
+//! \brief 3-axis accelerometer driver.
+//!
+//! The LIS302DL is an ultra compact low-power three axes linear accelerometer. It
+//! includes a sensing element and an IC interface able to provide the measured
+//! acceleration to the external world through I2C/SPI serial interface.
+//! 
+//! The sensing element, capable of detecting the acceleration, is manufactured
+//! using a dedicated process developed by ST to produce inertial sensors and
+//! actuators in silicon.  The IC interface is manufactured using a CMOS process
+//! that allows to design a dedicated circuit which is trimmed to better match the
+//! sensing element characteristics.
+//! 
+//! The LIS302DL has dynamically user selectable full scales of ㊣ 2g/㊣ 8g and it
+//! is capable of measuring accelerations with an output data rate of 100 Hz or 400
+//! Hz.
+//! 
+//! A self-test capability allows the user to check the functioning of the sensor in
+//! the final application.  The device may be configured to generate inertial
+//! wake-up/free-fall interrupt signals when a programmable acceleration threshold
+//! is crossed at least in one of the three axes. Thresholds and timing of interrupt
+//! generators are programmable by the end user on the fly.
+//! 
+//! The LIS302DL is available in plastic Thin Land Grid Array package (TLGA) and it
+//! is guaranteed to operate over an extended temperature range from -40 C to +85 C.
+//! 
+//! The LIS302DL belongs to a family of products suitable for a variety of applications: 
+//! 每 Free-fall detection
+//! 每 Motion activated functions 
+//! 每 Gaming and virtual reality input devices
+//! 每 Vibration monitoring and compensation
+//!
+//! <h1>Contents</h1>
+//! - \ref LIS302DL_Description
+//!   - \ref Sytem_Block
+//!   - \ref Pin_Description
+//!   .
+//! - \ref LIS302DL_Driver_API
+//!   - \ref General_API
+//!   - \ref WUFF_API
+//!   - \ref CLICK_API
+//!   .
+//! - \ref LIS302DL_Example
+//!   - \ref Example_ReadAccData
+//!   - \ref Example_WakeUp
+//!   - \ref Example_SingleClick
+//! .
+//!
+//! \section LIS302DL_Description 1. LIS302DL System block and pin description.
+//! <img src="system_block.PNG" />
+//! <img src="pin_desc.PNG" />
+//!
+//! \section LIS302DL_Driver_API 2. API Group
+//! \subsection General_API 2.1 General Functions
+//! - extern Result LIS302DLInit(void);
+//! - extern Result LIS302DLRegWriteByte(uint8_t RegAddr, uint8_t Data);
+//! - extern Result LIS302DLRegReadByte(uint8_t RegAddr, uint8_t * DataRecvBuf);
+//! - extern Result LIS302DLCfg(uint64_t Cfg);
+//! - extern Result LIS302DLHPFilterReset(void);
+//! - extern Result LIS302DLAccDataRead(uint8_t Axis, uint8_t * DataRecvBuf);
+//! - extern Result LIS302DLIDGet(uint8_t * ID);
+//! - extern Result LIS302DLStart(void);
+//! - extern Result LIS302DLStop(void);
+//! .
+//! 
+//! \subsection WUFF_API 2.2 Wake-Up/Free-Fall Functions
+//! - extern Result LIS302DLWUFFCfg(uint32_t Cfg);
+//! - extern Result LIS302DLWUFFEventCheck(uint32_t Event);
+//! - extern Result LIS302DLWUFFThresHoldSet(uint8_t ID, uint8_t ThresHold);
+//! - extern Result LIS302DLWUFFDurValueSet(uint8_t ID, uint8_t DurValue);
+//! .
+//!
+//! \subsection CLICK_API 2.3 Click Functions
+//! - extern Result LIS302DLWUFFCfg(uint32_t Cfg);
+//! - extern Result LIS302DLWUFFEventCheck(uint32_t Event);
+//! - extern Result LIS302DLWUFFThresHoldSet(uint8_t ID, uint8_t ThresHold);
+//! - extern Result LIS302DLWUFFDurValueSet(uint8_t ID, uint8_t DurValue);
+//! .
+//! 
+//! \section LIS302DL_Example 3. Example
+//! 
+//!
+//! Below is some example code:
+//!
+//! \subsection Example_ReadAccData 3.1 ReadAccData Example
+//! \code
+//! 
+//! #include <stdio.h>
+//! 
+//! #include "xhw_ints.h"
+//! #include "xhw_nvic.h"
+//! #include "xhw_memmap.h"
+//! #include "xhw_types.h"
+//! #include "xdebug.h"
+//! #include "xcore.h"
+//! #include "xsysctl.h"
+//! #include "xhw_sysctl.h"
+//! #include "xhw_gpio.h"
+//! #include "xgpio.h"
+//! #include "xhw_i2c.h"
+//! #include "xi2c.h"
+//! #include "xuart.h"
+//! #include "LIS302DL.h"
+//! 
+//! #define TICK_S 0xFFFFF
+//! #define TICK_L 0x2FFFFF
+//! 
+//! //*****************************************************************************
+//! //
+//! //! Internal Function (Used in this file only!)
+//! //
+//! //*****************************************************************************
+//! 
+//! static void SysInit(void);
+//! static void UartInit(void);
+//! 
+//! char * WelcomeInfo =
+//! {
+//! "\t---------------------------------------------------------\r\n"
+//! "\t|  CooCox Open Source Driver Project                    |\r\n"
+//! "\t|  Module : Accelerometer KIS302DL Driver               |\r\n"
+//! "\t|  author : CooCox Cedar                                |\r\n"
+//! "\t|  version: V1.0                                        |\r\n"
+//! "\t|  More information, please visit www.coocox.org        |\r\n"
+//! "\t---------------------------------------------------------\r\n"
+//! "\r\nSelftest Beginning!\r\n"
+//! };
+//! 
+//! int putchar(int c)
+//! {
+//!     xUARTCharPut(USART2_BASE, (char)c);
+//!     return (1);
+//! }
+//! 
+//! void ReadAccData(void)
+//! {
+//!     uint8_t value = 0;
+//!     Result   retv = SUCCESS;
+//! 
+//!     //
+//!     // Init the LED
+//!     //
+//!     //xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOD);
+//!     //xGPIODirModeSet(xGPIO_PORTD_BASE, xGPIO_PIN_3, xGPIO_DIR_MODE_OUT);
+//! 
+//!     SysInit();
+//!     UartInit();
+//! 
+//!     printf("%s\r\n", WelcomeInfo);
+//! 
+//!     //Initialize low hardware interface
+//!     retv = LIS302DLInit();
+//!     if(retv != SUCCESS)
+//!     {
+//!         printf("LIS302 Init Failure\r\n");
+//!         return;
+//!     }
+//! 
+//!     //Wait LIS302DL boot, this time must be >= 3ms
+//!     SysCtlDelay(TICK_L);
+//! 
+//!     //Running LIS302DL
+//!     LIS302DLStart();
+//! 
+//!     printf("Initial success, Now begin to read data\r\n");
+//! 
+//!     while (1)
+//!     {
+//!         //Read X Axis Accelerometer data
+//!         retv = LIS302DLAccDataRead(AXIS_X, &value);
+//!         if(retv != SUCCESS)
+//!         {
+//!             printf("Read X Axis data Failure\r\n");
+//!         }
+//!         else
+//!         {
+//!             printf("X Axis data:%d\r\n", (int8_t)value);
+//!         }
+//! 
+//!         //Read Y Axis Accelerometer data
+//!         retv = LIS302DLAccDataRead(AXIS_Y, &value);
+//!         if(retv != SUCCESS)
+//!         {
+//!             printf("Read Y Axis data Failure\r\n");
+//!         }
+//!         else
+//!         {
+//!             printf("Y Axis data:%d\r\n", (int8_t)value);
+//!         }
+//! 
+//!         //Read Z Axis Accelerometer data
+//!         retv = LIS302DLAccDataRead(AXIS_Z, &value);
+//!         if(retv != SUCCESS)
+//!         {
+//!             printf("Read Z Axis data Failure\r\n");
+//!         }
+//!         else
+//!         {
+//!             printf("Z Axis data:%d\r\n\r\n", (int8_t)value);
+//!         }
+//!         
+//!         SysCtlDelay(TICK_S);
+//!     }
+//! }
+//! 
+//! 
+//! ////////////////////////////////////////////////////////////////////////////////
+//! static void SysInit(void)
+//! {
+//!     xSysCtlClockSet(72000000,  xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_25MHZ);
+//!     SysCtlDelay(10000);
+//! }
+//! 
+//! static void UartInit(void)
+//! {
+//!     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOD);
+//!     xSysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);
+//! 
+//!     //xSPinTypeUART(UART2RX,PD6);
+//!     xSPinTypeUART(UART2TX,PD5);
+//! 
+//!     xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART2);
+//!     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART2);
+//! 
+//!     xUARTConfigSet(USART2_BASE, 115200, (UART_CONFIG_WLEN_8 |
+//!                                          UART_CONFIG_STOP_ONE |
+//!                                          UART_CONFIG_PAR_NONE));
+//! 
+//!     xUARTEnable(USART2_BASE, (UART_BLOCK_UART | UART_BLOCK_TX | UART_BLOCK_RX));
+//! }
+//! 
+//! \endcode
+//!
+//! \subsection Example_WakeUp 3.2 WakeUp Example
+//! \code
+//! 
+//! #include <stdio.h>
+//! 
+//! #include "xhw_ints.h"
+//! #include "xhw_nvic.h"
+//! #include "xhw_memmap.h"
+//! #include "xhw_types.h"
+//! #include "xdebug.h"
+//! #include "xcore.h"
+//! #include "xsysctl.h"
+//! #include "xhw_sysctl.h"
+//! #include "xhw_gpio.h"
+//! #include "xgpio.h"
+//! #include "xhw_i2c.h"
+//! #include "xi2c.h"
+//! #include "xuart.h"
+//! #include "LIS302DL.h"
+//! 
+//! #define TICK_S 0xFFFFF
+//! #define TICK_L 0x2FFFFF
+//! 
+//! //*****************************************************************************
+//! //
+//! //! Internal Function (Used in this file only!)
+//! //
+//! //*****************************************************************************
+//! 
+//! static void SysInit(void);
+//! static void UartInit(void);
+//! 
+//! char * WelcomeInfo =
+//! {
+//! "\t---------------------------------------------------------\r\n"
+//! "\t|  CooCox Open Source Driver Project                    |\r\n"
+//! "\t|  Module : Accelerometer KIS302DL Driver               |\r\n"
+//! "\t|  author : CooCox Cedar                                |\r\n"
+//! "\t|  version: V1.0                                        |\r\n"
+//! "\t|  More information, please visit www.coocox.org        |\r\n"
+//! "\t---------------------------------------------------------\r\n"
+//! "\r\nSelftest Beginning!\r\n"
+//! };
+//! 
+//! int putchar(int c)
+//! {
+//!     xUARTCharPut(USART2_BASE, (char)c);
+//!     return (1);
+//! }
+//! 
+//! void WakeUp(void)
+//! {
+//!     uint32_t cnt  = 0;
+//!     Result   retv       = SUCCESS;
+//! 
+//!     //
+//!     // Init the LED
+//!     //
+//!     //xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOD);
+//!     //xGPIODirModeSet(xGPIO_PORTD_BASE, xGPIO_PIN_3, xGPIO_DIR_MODE_OUT);
+//! 
+//!     SysInit();
+//!     UartInit();
+//! 
+//!     printf("%s\r\n", WelcomeInfo);
+//! 
+//!     //Initialize low hardware interface
+//!     retv = LIS302DLInit();
+//!     if(retv != SUCCESS)
+//!     {
+//!         printf("LIS302 Init Failure\r\n");
+//!         return;
+//!     }
+//! 
+//!     //Wait LIS302DL boot, this time must be >= 3ms
+//!     SysCtlDelay(TICK_L);
+//! 
+//!     //Configure WakeUp
+//!     //1: X axis High wakeup
+//!     //2: INT1 output pin
+//!     //3: Output high when wakeup occurs
+//!     //4: high pass filter bypassed
+//!     retv = LIS302DLCfg( LIS302DL_INT_HIGH | LIS302DL_FILTER_DIS | LIS302DL_INT1_FF_WU_1);
+//!     if(retv != SUCCESS)
+//!     {
+//!         printf("Configure LIS302DL Failure\r\n");
+//!         return;
+//!     }
+//! 
+//!     retv = LIS302DLWUFFCfg( WUFF1_INT_EVENT_OR | WUFF1_INT_LATCH_EN | WUFF1_INT_X_HIGH_EN);
+//!     if(retv != SUCCESS)
+//!     {
+//!         printf("Configure LIS302DL WUFF Failure\r\n");
+//!         return;
+//!     }
+//! 
+//!     //If X data > 80, then wakeup MCU
+//!     retv = LIS302DLWUFFThresHoldSet(WUFF_ID_1, 80);
+//!     if(retv != SUCCESS)
+//!     {
+//!         printf("Configure LIS302DL ThresHold Failure\r\n");
+//!         return;
+//!     }
+//! 
+//!     //Running LIS302DL
+//!     retv = LIS302DLStart();
+//!     if(retv != SUCCESS)
+//!     {
+//!         printf("Start LIS302DL Failure\r\n");
+//!         return;
+//!     }
+//! 
+//!     printf("Initial success, Now begin to monitor INT1 pin level\r\n");
+//! 
+//!     while (1)
+//!     {
+//!         printf("------------------%d----------------\r\n", cnt++);
+//!         printf("Waitting INT1 Pin turn high\r\n");
+//! 
+//!         //Here, we check register directly by poll
+//!         //You can poll pin value or configure pin interrupt instead
+//!         while(LIS302DLWUFFEventCheck(WUFF1_INT_EVENT_XH) == FAILURE);
+//! 
+//!         //Read to clear event flag
+//!         LIS302DLWUFFEventCheck(WUFF1_INT_EVENT_XH);
+//!         printf("Wake-Up Event occurs!\r\n\r\n");
+//!     }
+//! 
+//! }
+//! 
+//! 
+//! ////////////////////////////////////////////////////////////////////////////////
+//! static void SysInit(void)
+//! {
+//!     xSysCtlClockSet(72000000,  xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_25MHZ);
+//!     SysCtlDelay(10000);
+//! }
+//! 
+//! static void UartInit(void)
+//! {
+//!     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOD);
+//!     xSysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);
+//! 
+//!     //xSPinTypeUART(UART2RX,PD6);
+//!     xSPinTypeUART(UART2TX,PD5);
+//! 
+//!     xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART2);
+//!     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART2);
+//! 
+//!     xUARTConfigSet(USART2_BASE, 115200, (UART_CONFIG_WLEN_8 |
+//!                                          UART_CONFIG_STOP_ONE |
+//!                                          UART_CONFIG_PAR_NONE));
+//! 
+//!     xUARTEnable(USART2_BASE, (UART_BLOCK_UART | UART_BLOCK_TX | UART_BLOCK_RX));
+//! }
+//! 
+//! \endcode
+//!
+//! \subsection Example_SingleClick 3.3 SingleClick Example
+//! \code
+//! 
+//! #include <stdio.h>
+//! 
+//! #include "xhw_ints.h"
+//! #include "xhw_nvic.h"
+//! #include "xhw_memmap.h"
+//! #include "xhw_types.h"
+//! #include "xdebug.h"
+//! #include "xcore.h"
+//! #include "xsysctl.h"
+//! #include "xhw_sysctl.h"
+//! #include "xhw_gpio.h"
+//! #include "xgpio.h"
+//! #include "xhw_i2c.h"
+//! #include "xi2c.h"
+//! #include "xuart.h"
+//! #include "LIS302DL.h"
+//! 
+//! #define TICK_S 0xFFFFF
+//! #define TICK_L 0x2FFFFF
+//! 
+//! //*****************************************************************************
+//! //
+//! //! Internal Function (Used in this file only!)
+//! //
+//! //*****************************************************************************
+//! 
+//! static void SysInit(void);
+//! static void UartInit(void);
+//! 
+//! char * WelcomeInfo =
+//! {
+//! "\t---------------------------------------------------------\r\n"
+//! "\t|  CooCox Open Source Driver Project                    |\r\n"
+//! "\t|  Module : Accelerometer KIS302DL Driver               |\r\n"
+//! "\t|  author : CooCox Cedar                                |\r\n"
+//! "\t|  version: V1.0                                        |\r\n"
+//! "\t|  More information, please visit www.coocox.org        |\r\n"
+//! "\t---------------------------------------------------------\r\n"
+//! "\r\nSelftest Beginning!\r\n"
+//! };
+//! 
+//! int putchar(int c)
+//! {
+//!     xUARTCharPut(USART2_BASE, (char)c);
+//!     return (1);
+//! }
+//! 
+//! void SingleClick(void)
+//! {
+//!     uint32_t cnt  = 0;
+//!     Result   retv       = SUCCESS;
+//! 
+//!     //
+//!     // Init the LED
+//!     //
+//!     //xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOD);
+//!     //xGPIODirModeSet(xGPIO_PORTD_BASE, xGPIO_PIN_3, xGPIO_DIR_MODE_OUT);
+//! 
+//!     SysInit();
+//!     UartInit();
+//! 
+//!     printf("%s\r\n", WelcomeInfo);
+//! 
+//!     //Initialize low hardware interface
+//!     retv = LIS302DLInit();
+//!     if(retv != SUCCESS)
+//!     {
+//!         printf("LIS302DL Init Failure\r\n");
+//!         return;
+//!     }
+//! 
+//!     //Wait LIS302DL boot, this time must be >= 3ms
+//!     SysCtlDelay(TICK_L);
+//! 
+//!     //Configure single click
+//!     //1: z axis High wakeup
+//!     //2: INT1 output pin
+//!     //3: Output high when wakeup occurs
+//!     //4: scale +-8G
+//!     retv  = LIS302DLCfg( LIS302DL_INT_HIGH | LIS302DL_SCALE_8G |
+//!                          LIS302DL_INT1_CLICK_INT);
+//!     if(retv != SUCCESS)
+//!     {
+//!         printf("Configure LIS302DL Failure\r\n");
+//!         return;
+//!     }
+//! 
+//!     // Enable Z single event and latch flag
+//!     retv = LIS302DLClickCfg(CLK_INT_REQ_LATCH_EN | CLK_INT_SIG_Z_EN);
+//!     if(retv != SUCCESS)
+//!     {
+//!         printf("Configure Click register Failure\r\n");
+//!         return;
+//!     }
+//! 
+//!     retv = LIS302DLClickThresholdSet(THRESHOLD_Z_4_0_G);
+//!     if(retv != SUCCESS)
+//!     {
+//!         printf("Set ThresHold value Failure\r\n");
+//!         return;
+//!     }
+//! 
+//!     retv = LIS302DLClickTimeLimitSet(80);
+//!     if(retv != SUCCESS)
+//!     {
+//!         printf("Set Click time limit Failure\r\n");
+//!         return;
+//!     }
+//! 
+//!     //Running LIS302DL
+//!     LIS302DLStart();
+//! 
+//!     printf("Initial success\r\n");
+//! 
+//!     while (1)
+//!     {
+//!         printf("------------------%d----------------\r\n", cnt++);
+//!         printf("Waitting single click\r\n");
+//! 
+//!         //Here, we check register directly by poll
+//!         //You can poll pin value or configure pin interrupt instead
+//!         while(LIS302DLClickEventCheck(CLICK_EVENT_SIG_Z) == FAILURE);
+//! 
+//!         //Read to clear event flag
+//!         LIS302DLClickEventCheck(CLICK_EVENT_SIG_Z);
+//!         printf("single click occurs!\r\n\r\n");
+//!     }
+//! }
+//! 
+//! 
+//! ////////////////////////////////////////////////////////////////////////////////
+//! static void SysInit(void)
+//! {
+//!     xSysCtlClockSet(72000000,  xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_25MHZ);
+//!     SysCtlDelay(10000);
+//! }
+//! 
+//! static void UartInit(void)
+//! {
+//!     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOD);
+//!     xSysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);
+//! 
+//!     //xSPinTypeUART(UART2RX,PD6);
+//!     xSPinTypeUART(UART2TX,PD5);
+//! 
+//!     xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART2);
+//!     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART2);
+//! 
+//!     xUARTConfigSet(USART2_BASE, 115200, (UART_CONFIG_WLEN_8 |
+//!                                          UART_CONFIG_STOP_ONE |
+//!                                          UART_CONFIG_PAR_NONE));
+//! 
+//!     xUARTEnable(USART2_BASE, (UART_BLOCK_UART | UART_BLOCK_TX | UART_BLOCK_RX));
+//! }
+//! 
+//! \endcode
+//
+//*****************************************************************************

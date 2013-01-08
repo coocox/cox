@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>LIS302DL</Name>
+    <Description>
+        The LIS302DL is an ultra compact low-power three axes linear accelerometer.
+        It includes a sensing element and an IC interface able to provide the measured acceleration
+        to the external world through I2C/SPI serial interface. 
+        The sensing element, capable of detecting the acceleration, is manufactured using a dedicated
+        process developed by ST to produce inertial sensors and actuators in silicon.
+        The IC interface is manufactured using a CMOS process that allows to design a dedicated circuit
+        which is trimmed to better match the sensing element characteristics. 
+        The LIS302DL has dynamically user selectable full scales of +-2g/+-8g and it is capable of
+        measuring accelerations with an output data rate of 100 Hz or 400 Hz.
+        A self-test capability allows the user to check the functioning of the sensor in the final application. 
+        The device may be configured to generate inertial wake-up/free-fall interrupt signals when a
+        programmable acceleration threshold is crossed at least in one of the three axes.
+        Thresholds and timing of interrupt generators are programmable by the end user on the fly.
+    </Description>
+    <Manufacturer>ST</Manufacturer>
+
+    <Category>Sensor</Category>
+    <SubCategory>Accelerometer</SubCategory>
+
+    <KeyWord>ST, Accelerometer, LIS302DL, 3-Axis, I2C, SPI, FreeFall, Click</KeyWord>
+
+    <Communication>
+        <Interface>I2C</Interface>
+        <Interface>SPI</Interface>
+    </Communication>
+
+    <WebPage>
+        http://www.st.com/internet/analog/product/152913.jsp
+    </WebPage>
+
+    <Datasheet>
+        http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/DATASHEET/CD00135460.pdf
+    </Datasheet>
+
+    <APPLICATION_NOTES>
+        AN2579: LIS302DL 3-axis digital MEMS accelerometer translates finger taps into actions
+        http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/APPLICATION_NOTE/CD00163557.pdf
+
+        AN2335: LIS302DL: 3-Axis - +-2g/+-8g digital output ultracompact linear accelerometer
+        http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/APPLICATION_NOTE/CD00098549.pdf
+    </APPLICATION_NOTES>
+
+    <Doc>$Device_ROOT$\doc\</Doc>
+
+</Device>

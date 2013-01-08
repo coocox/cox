@@ -1114,5 +1114,4 @@ GPIOPinToPeripheralId(unsigned long ulPort, unsigned long ulPin)
     	break;
     }
     }
-
 }
