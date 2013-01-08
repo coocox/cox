@@ -78,8 +78,8 @@
     <File name="CoX/CoX_Peripheral/inc/xi2c.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xi2c.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_spi.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_spi.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src" path="" type="2"/>
-    <File name="CoX/CoX_Peripheral/src/xcore.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xcore.c" type="1"/>
     <File name="CoX/Cookie/Cookie_cfg.h" path="../../../../../../Cookie/Cookie_NuMicro/libCookie/Cookie_cfg.h" type="1"/>
+    <File name="CoX/CoX_Peripheral/src/xcore.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xcore.c" type="1"/>
     <File name="startup_coide.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_M051/startup/src/startup_coide.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xgpio.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xgpio.h" type="1"/>
     <File name="CoX/Cookie" path="" type="2"/>
@@ -104,12 +104,12 @@
     <File name="CoX/CoX_Peripheral/inc/xhw_acmp.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_acmp.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xtimer.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xtimer.c" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xspi.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xspi.c" type="1"/>
-    <File name="CoX/CoX_Peripheral/src/xgpio.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xgpio.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xtimer.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xtimer.h" type="1"/>
+    <File name="CoX/CoX_Peripheral/src/xgpio.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xgpio.c" type="1"/>
     <File name="CoX" path="" type="2"/>
-    <File name="CoX/CoX_Peripheral/inc/xuart.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xuart.h" type="1"/>
-    <File name="SensorShield" path="" type="2"/>
     <File name="SensorShield/Sensor_Shield.c" path="../../../lib/Sensor_Shield.c" type="1"/>
+    <File name="SensorShield" path="" type="2"/>
+    <File name="CoX/CoX_Peripheral/inc/xuart.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xuart.h" type="1"/>
     <File name="Example" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xwdt.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xwdt.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_sysctl.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_sysctl.h" type="1"/>
