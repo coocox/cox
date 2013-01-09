@@ -23,7 +23,7 @@
 
 
 //
-// MCP9800 test suits.
+// HT1621B test suits.
 //
 const tTestCase * const psPatternXmcp[] =
 {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Project version="2G" name="ledcolor">
-  <Target name="ledcolor" isCurrent="1">
+<Project version="2G" name="Seven_Segment">
+  <Target name="Seven_Segment" isCurrent="1">
     <Device manufacturerId="8" manufacturerName="Nuvoton" chipId="220" chipName="NUC140VE3CN" boardId="" boardName=""/>
     <BuildOption>
       <Compile>
@@ -27,12 +27,12 @@
           <Memory name="IROM2" type="ReadOnly" size="" startValue=""/>
           <Memory name="IRAM2" type="ReadWrite" size="" startValue=""/>
         </MemoryAreas>
-        <LocateLinkFile path="c:/coocox/coide/configuration/programdata/ledcolor/arm-gcc-link.ld" type="0"/>
+        <LocateLinkFile path="c:/coocox/coide/configuration/programdata/seven_segment/arm-gcc-link.ld" type="0"/>
       </Link>
       <Output>
         <Option name="OutputFileType" value="0"/>
         <Option name="Path" value="./"/>
-        <Option name="Name" value="ledcolor"/>
+        <Option name="Name" value="Seven_Segment"/>
         <Option name="HEX" value="1"/>
         <Option name="BIN" value="1"/>
       </Output>
@@ -71,44 +71,40 @@
     <Component id="312" name="CORE" path="" type="2"/>
   </Components>
   <Files>
-    <File name="test/testport.c" path="../../../../../../../resource/testframe/testport.c" type="1"/>
-    <File name="Driver/RGBLed.h" path="../../../lib/RGBLed.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_acmp.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xhw_acmp.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_spi.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xhw_spi.h" type="1"/>
-    <File name="test/xledcolortest.c" path="../src/xledcolortest.c" type="1"/>
     <File name="CoX/CoX_Peripheral/src" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/src/xgpio.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xgpio.c" type="1"/>
-    <File name="Driver/hw_RGBLed.h" path="../../../lib/hw_RGBLed.h" type="1"/>
+    <File name="example/example.c" path="../src/example.c" type="1"/>
     <File name="startup_coide.c" path="startup_coide.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xgpio.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xgpio.h" type="1"/>
-    <File name="test/test.c" path="../../../../../../../resource/testframe/test.c" type="1"/>
+    <File name="Driver/xled_3.h" path="../../../lib/xled_3.h" type="1"/>
     <File name="CoX" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_wdt.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xhw_wdt.h" type="1"/>
-    <File name="test/testcase.c" path="../src/testcase.c" type="1"/>
-    <File name="Driver" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_ints.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xhw_ints.h" type="1"/>
+    <File name="Driver" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xuart.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xuart.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xsysctl.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xsysctl.h" type="1"/>
-    <File name="CoX/CoX_Peripheral/inc/xhw_adc.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xhw_adc.h" type="1"/>
-    <File name="CoX/CoX_Peripheral/inc" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_sysctl.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xhw_sysctl.h" type="1"/>
+    <File name="CoX/CoX_Peripheral/inc" path="" type="2"/>
+    <File name="CoX/CoX_Peripheral/inc/xhw_adc.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xhw_adc.h" type="1"/>
+    <File name="Driver/xled_3.c" path="../../../lib/xled_3.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xdebug.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xdebug.h" type="1"/>
+    <File name="example" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_i2c.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xhw_i2c.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xdebug.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xdebug.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_pwm.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xhw_pwm.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_types.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xhw_types.h" type="1"/>
+    <File name="Driver/hw_xled_3.h" path="../../../lib/hw_xled_3.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_dma.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xhw_dma.h" type="1"/>
-    <File name="Driver/RGBLed.c" path="../../../lib/RGBLed.c" type="1"/>
-    <File name="test/testcase.h" path="../src/testcase.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_nvic.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xhw_nvic.h" type="1"/>
+    <File name="CoX/CoX_Peripheral/inc/xcore.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xcore.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xuart.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xuart.c" type="1"/>
     <File name="CoX/CoX_Peripheral" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/src/xsysctl.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xsysctl.c" type="1"/>
-    <File name="test" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_gpio.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xhw_gpio.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_memmap.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xhw_memmap.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_uart.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xhw_uart.h" type="1"/>
-    <File name="test/test.h" path="../../../../../../../resource/testframe/test.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_timer.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xhw_timer.h" type="1"/>
     <File name="main.c" path="../src/main.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_rtc.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_NUC1xx/libcox/xhw_rtc.h" type="1"/>

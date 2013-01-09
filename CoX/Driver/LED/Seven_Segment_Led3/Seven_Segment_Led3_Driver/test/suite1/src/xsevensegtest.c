@@ -1,8 +1,8 @@
 //*****************************************************************************
 //
-//! @page LED_3COLOR test
+//! @page Seven_Segment_Led3 test
 //!  
-//! File: @ref xledcolortest.c
+//! File: @ref xsevensegtest.c
 //! 
 //! <h2>Description</h2>
 //! This module implements the test sequence for the Xcore sub component.<br><br>
@@ -11,19 +11,19 @@
 //! In case some of the required options are not enabled then some or all tests
 //! may be skipped or result FAILED.<br>
 //! 
-//! \file xledcolortest.c
-//! \brief LED_3COLOR  test source file
+//! \file xsevensegtest.c
+//! \brief Seven_Segment_Led3 test source file
 //
 //*****************************************************************************
 
 #include "test.h"
 #include "testcase.h"
-#include "RGBLed.h"
+#include "xled_3.h"
 
 
 
 //
-// LED_3COLOR test suits.
+// Seven_Segment_Led3 test suits.
 //
 const tTestCase * const psPatternXmcp[] =
 {
