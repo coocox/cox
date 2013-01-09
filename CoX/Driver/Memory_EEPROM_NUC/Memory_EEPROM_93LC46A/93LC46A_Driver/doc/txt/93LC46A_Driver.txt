@@ -28,27 +28,28 @@
 //! - 1 mA active current (typical)
 //! - 1 ¦ÌA standby current (maximum)
 //! .
-//! 128*8 bit organization (93LC46A)
-//! 64*16 bit organization (93LC46B)
-//! Self-timed ERASE and WRITE cycles          
-//! (including auto-erase)
-//! Automatic ERAL before WRAL
-//! Power on/off data protection circuitry
-//! Industry standard 3-wire serial interface
-//! Device status signal during ERASE/WRITE cycles
-//! Sequential READ function
-//! 1,000,000 E/W cycles guaranteed 
-//! Data retention > 200 years
-//! 8-pin PDIP/SOIC and 8-pin TSSOP packages
+//! 128*8 bit organization (93LC46A)<br />
+//! 64*16 bit organization (93LC46B)<br />
+//! Self-timed ERASE and WRITE cycles   <br />       
+//! (including auto-erase)<br />
+//! Automatic ERAL before WRAL<br />
+//! Power on/off data protection circuitry<br />
+//! Industry standard 3-wire serial interface<br />
+//! Device status signal during ERASE/WRITE cycles<br />
+//! Sequential READ function<br />
+//! 1,000,000 E/W cycles guaranteed <br />
+//! Data retention > 200 years<br />
+//! 8-pin PDIP/SOIC and 8-pin TSSOP packages <br />
 //!
 //! <br />
 //!
 //! \section 93LC46A_API 2.93LC46A API
-//! void eep_93LC46A_Write(const char data, char addr);
-//! void eep_93LC46A_Cmd(short cmd);
-//! void eep_93LC46A_Read(char* data, unsigned char addr);
-//! void eep_93LC46A_Init();
-//! void eep_93LC46A_Erase(unsigned char addr);
+//! - void eep_93LC46A_Write(const char data, char addr);
+//! - void eep_93LC46A_Cmd(short cmd);
+//! - void eep_93LC46A_Read(char* data, unsigned char addr);
+//! - void eep_93LC46A_Init();
+//! - void eep_93LC46A_Erase(unsigned char addr);
+//! .
 //!
 //! <br />
 //!

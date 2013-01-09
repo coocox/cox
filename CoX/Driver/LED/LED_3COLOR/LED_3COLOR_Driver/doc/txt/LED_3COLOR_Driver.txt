@@ -12,9 +12,10 @@
 //! <br />
 //!
 //! \section RGB_LED_API 1.RGB_LED API
-//! void rgbled_init();
-//! void rgbled_turnOn(char num);
-//! void rgbled_turnOff(char num);
+//! - void rgbled_init();
+//! - void rgbled_turnOn(char num);
+//! - void rgbled_turnOff(char num);
+//! .
 //!
 //! <br />
 //!

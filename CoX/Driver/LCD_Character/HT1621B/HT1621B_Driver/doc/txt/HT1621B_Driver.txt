@@ -21,38 +21,39 @@
 //! <br />
 //!
 //! \section HT1621B_Features 1.HT1621B Features
-//! Operating voltage: 2.4V~5.2V
-//! Built-in 256kHz RC oscillator
-//! External 32.768kHz crystal or 256kHz frequency source input
-//! Selection of 1/2 or 1/3 bias, and selection of 1/2 or 1/3 or1/4 duty LCD applications
-//! Internal time base frequency sources
-//! Two selectable buzzer frequencies (2kHz/4kHz)
-//! Power down command reduces power consumption
-//! Built-in time base generator and WDT
-//! Time base or WDT overflow output
-//! 8 kinds of time base/WDT clock sources
-//! 32*4 LCD driver
-//! Built-in 32*4 bit display RAM
-//! 3-wire serial interface
-//! Internal LCD driving frequency source
-//! Software configuration feature
-//! Data mode and command mode instructions
-//! R/W address auto increment
+//! Operating voltage: 2.4V~5.2V<br />
+//! Built-in 256kHz RC oscillator<br />
+//! External 32.768kHz crystal or 256kHz frequency source input<br />
+//! Selection of 1/2 or 1/3 bias, and selection of 1/2 or 1/3 or1/4 duty LCD applications<br />
+//! Internal time base frequency sources<br />
+//! Two selectable buzzer frequencies (2kHz/4kHz)<br />
+//! Power down command reduces power consumption<br />
+//! Built-in time base generator and WDT<br />
+//! Time base or WDT overflow output<br />
+//! 8 kinds of time base/WDT clock sources<br />
+//! 32*4 LCD driver<br />
+//! Built-in 32*4 bit display RAM<br />
+//! 3-wire serial interface<br />
+//! Internal LCD driving frequency source<br />
+//! Software configuration feature<br />
+//! Data mode and command mode instructions<br />
+//! R/W address auto increment<br />
 //! Three data accessing modes
-//!
+//!<br />
 //! <br />
 //!
 //! \section HT1621B_API 2.HT1621B API
-//! extern void send_lcd_command(unsigned char command);
-//! extern void send_lcd_data(unsigned short int address,unsigned short int data);
-//! extern void flood_lcd_data(void);
-//! extern void lcd_init(void);
-//! extern void lcd_char(unsigned short int name,unsigned short int display);
-//! extern void lcd_clr();
-//! extern void lcd_number(unsigned short int number,unsigned short int position,unsigned short int );
-//! extern int DisplayEFSNum( int iEFSIndex );
-//! extern int Display5Power(int IntPower, int FracPower );
-//! extern int DisplaydORs( char cdORs );
+//! - extern void send_lcd_command(unsigned char command);
+//! - extern void send_lcd_data(unsigned short int address,unsigned short int data);
+//! - extern void flood_lcd_data(void);
+//! - extern void lcd_init(void);
+//! - extern void lcd_char(unsigned short int name,unsigned short int display);
+//! - extern void lcd_clr();
+//! - extern void lcd_number(unsigned short int number,unsigned short int position,unsigned short int );
+//! - extern int DisplayEFSNum( int iEFSIndex );
+//! - extern int Display5Power(int IntPower, int FracPower );
+//! - extern int DisplaydORs( char cdORs );
+//! .
 //!
 //! <br />
 //!
