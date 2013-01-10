@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Device>
+    <Name>24LC64</Name>
+    <Description>24LC64 EEPROM </Description>
+    <Manufacturer>Analog Devices</Manufacturer>
+    
+    <Category>Memory</Category>
+    <SubCategory>I2C_Eeprom</SubCategory>
+    
+    <KeyWord>24LC64,EEPROM,I2C</KeyWord>
+    
+    <Communication>
+        <Interface>I2C</Interface>
+    </Communication>
+    
+    <WebPage>http://www.microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&nodeId=1335&dDocName=en010831</WebPage>
+    <Datasheet>http://ww1.microchip.com/downloads/en/devicedoc/21189f.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>
