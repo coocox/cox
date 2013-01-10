@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>LED_3COLOR_Blink</Name>
+  <Description>LED_3COLOR Blink</Description>
+  <Version>1.0.0.0</Version>
+  <Tags>LED_3COLOR</Tags>
+  <EVKit>NUC140VE3CN and LED_3COLOR</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\CoX\Driver\LED\LED_3COLOR\LED_3COLOR_Driver\example\LED_3COLOR_Blink\src\example.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CoX.GPIO</Dependency>
+    <Dependency>CoX.SysCtl</Dependency>
+  </Dependencys>
+  
+   
+</Example>
