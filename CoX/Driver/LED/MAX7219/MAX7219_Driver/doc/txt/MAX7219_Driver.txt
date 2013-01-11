@@ -1,0 +1,113 @@
+//******************************************************
+//
+//!
+//! \addtogroup MAX7219_Driver
+//! @{
+//!
+//! <h1>Contents</h1>
+//! - \ref MAX7219_Feature
+//! - \ref MAX7219_API
+//! - \ref MAX7219_APP
+//! .
+//!
+//! <br />
+//!
+//! \section MAX7219_Feature 1.MAX7219 Feature
+//! The MAX7219/MAX7221 are compact, serial input/out-put common-cathode display drivers that interface
+//! microprocessors (¦ÌPs) to 7-segment numeric LED dis-plays of up to 8 digits, bar-graph displays, or 64 indi-vidual LEDs. Included 
+//!
+//! on-chip are a BCD code-B
+//! decoder, multiplex scan circuitry, segment and digit
+//! drivers, and an 8x8 static RAM that stores each digit.
+//! Only one external resistor is required to set the seg-ment current for all LEDs. The MAX7221 is compatible
+//! with SPI?, QSPI?, and Microwire?, and has slew-rate-limited segment drivers to reduce EMI.
+//! A convenient 3-wire serial interface connects to all
+//! common ¦ÌPs. Individual digits may be addressed and
+//! updated without rewriting the entire display. The
+//! MAX7219/MAX7221 also allow the user to select code-B decoding or no-decode for each digit.
+//! The devices include a 150¦ÌA low-power shutdown
+//! mode, analog and digital brightness control, a scan-limit register that allows the user to display from 1 to 8
+//! digits, and a test mode that forces all LEDs on.
+//! 
+//! <br />
+//!
+//! \section MAX7219_API 2.MAX7219 API
+//! extern void MAX7219_Init(void);
+//! extern void MAX7219_Write(unsigned char ctlByte,
+//!                       unsigned char ucdata);
+//!
+//! <br />
+//!
+//! \section MAX7219_APP 3.MAX7219 Applications
+//!
+//! Here we introduce how to get use MAX7219.
+//!
+//! \code
+//! #include "xhw_types.h"
+//! #include "xhw_memmap.h"
+//! #include "xsysctl.h"
+//! #include "xgpio.h"
+//! #include "xspi.h"
+//! #include "MAX7219.h"
+//!
+//! int test(void)
+//! {
+//! 	unsigned short data[] = {0x0108, 0x0207, 0x0306, 0x0405,
+//!                     0x0504, 0x0603, 0x0702, 0x0801};
+//! 	int i,j;
+//! 	int intensity=0x0f;
+//!
+//! 	//
+//!     // Set SysClk 36MHz using Extern 12M oscillator
+//!     //
+//!     xSysCtlClockSet(36000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_12MHZ);
+//!
+//! 	MAX7219_Init();
+//!
+//! 	for(i=0;i<8;i++)
+//! 	{
+//! 		MAX7219_Write(data[i]>>8,data[i]);
+//! 	}
+//!
+//! 	while(1)
+//! 	{
+//! 		if(intensity>0x0f)
+//! 			intensity = 0;
+//! 		for(i=0;i<300000;i++);
+//! 		MAX7219_Write(MAX7219_INTENSITY_ADDR, intensity);
+//! 		intensity++;
+//! 	}
+//! }
+//! \endcode
+//!
+//! @}
+//
+//******************************************************
+
+
+
+//******************************************************
+//
+//!
+//! \addtogroup CoX_Driver_Lib
+//! @{
+//! \addtogroup LED
+//! @{
+//! \addtogroup SPI_Seven_Segment
+//! @{
+//! \addtogroup MAX7219
+//! @{
+//! \addtogroup MAX7219_Driver
+//! @{
+//! \addtogroup MAX7219_Hardware_Config
+//! @{
+//! @}
+//! \addtogroup MAX7219_Control_Address
+//! @{
+//! @}
+//! @}
+//! @}
+//! @}
+//! @}
+//
+//******************************************************
