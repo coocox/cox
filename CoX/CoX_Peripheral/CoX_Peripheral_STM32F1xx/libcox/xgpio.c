@@ -834,6 +834,32 @@ GPIOPinRead(unsigned long ulPort, unsigned long ulPins)
 
 //*****************************************************************************
 //
+//! \brief Reads the values present of the specified Port.
+//!
+//! \param ulPort is the base address of the GPIO port.
+//!
+//! The values at the specified Port are read
+//!
+//! \return Returns a bit-packed byte providing the state of the specified
+//! Port
+//
+//*****************************************************************************
+long
+GPIOPortRead(unsigned long ulPort)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT(GPIOBaseValid(ulPort));
+
+    //
+    // Return the pin value(s).
+    //
+    return(xHWREG(ulPort +GPIO_IDR ));
+}
+
+//*****************************************************************************
+//
 //! \brief Writes a value to the specified pin(s).
 //!
 //! \param ulPort is the base address of the GPIO port.
@@ -864,6 +890,32 @@ GPIOPinWrite(unsigned long ulPort, unsigned long ulPins, unsigned char ucVal)
     xHWREG(ulPort + GPIO_ODR) = ((ucVal & 1) ?
                                 (xHWREG(ulPort + GPIO_ODR) | ulPins) :
                                 (xHWREG(ulPort + GPIO_ODR) & ~(ulPins)));
+}
+
+//*****************************************************************************
+//
+//! \brief Writes a value to the specified Port.
+//!
+//! \param ulPort is the base address of the GPIO port.
+//! \param ucVal is the value to write to the Port.
+//!
+//! Writes the corresponding bit values to the output Port
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+GPIOPortWrite(unsigned long ulPort, unsigned long ulVal)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT(GPIOBaseValid(ulPort));
+
+    //
+    // Write the pins.
+    //
+    xHWREG(ulPort + GPIO_ODR) = ulVal;
 }
 
 //*****************************************************************************
@@ -1113,6 +1165,9 @@ GPIOPinToPeripheralId(unsigned long ulPort, unsigned long ulPin)
     	return SYSCTL_PERIPH_IOPF;
     	break;
     }
+    default:
+    	return 0;
+    	break;
     }
-
+    return 0;
 }
