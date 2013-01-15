@@ -4,8 +4,13 @@
 //!
 //! \brief Shield used for drive motors.
 //!
-//! Full-featured motor control shield that will be able to power many simple to //! //! medium-complexity projects.
-//! 2 connections for 5V "hobby" servos connected to the Arduino's high-resolution //! dedicated timer.
+//! Full-featured motor control shield that will be able to power many simple to medium-complexity projects.
+//! 2 connections for 5V "hobby" servos connected to the Arduino's high-resolution dedicated timer.
+//!
+//! <h1>Webpage</h1>
+//!  <a href="http://shieldlist.org"> Home page of the shield list. </a>
+//! 
+//!  <a href="http://shieldlist.org/adafruit/motor"> Product page of the motor shield module</a>
 //!
 //! <h1>Contents</h1>
 //! - \ref MShield_SCH
@@ -24,13 +29,17 @@
 //!
 //! \section MShield_Func_Desc 2. MShield Func Desc
 //!
-//! <LI>4 H-Bridges: L293D chipset provides 0.6A per bridge (1.2A peak) with thermal //! shutdown protection, internal kickback protection diodes. Can run motors on 
+//! <LI>4 H-Bridges: L293D chipset provides 0.6A per bridge (1.2A peak) with thermal
+//! shutdown protection, internal kickback protection diodes. Can run motors on 
 //! 4.5VDC to 36VDC.</LI>
 //! <LI>Up to 4 bi-directional DC motors with individual 8-bit speed selection</LI>
-//! <LI>Up to 2 stepper motors (unipolar or bipolar) with single coil, double coil or //! interleaved stepping.</LI>
-//! <LI>Big terminal block connectors to easily hook up wires (10-22AWG) and //! //! //! power.</LI>
+//! <LI>Up to 2 stepper motors (unipolar or bipolar) with single coil, double coil or 
+//! interleaved stepping.</LI>
+//! <LI>Big terminal block connectors to easily hook up wires (10-22AWG) and 
+//! power.</LI>
 //! <LI>Arduino reset button brought up top.</LI>
-//! <LI>2-pin terminal block and jumper to connect external power, for seperate //! //! logic/motor supplies.</LI>
+//! <LI>2-pin terminal block and jumper to connect external power, for seperate 
+//! logic/motor supplies.</LI>
 //! <LI>Tested compatible with Arduino Mega, Diecimila & Duemilanove.</LI>
 //! <LI>Easy-to-use cox software library.</LI>
 //!
@@ -58,6 +67,7 @@
 //! - MS74HC595DataSend()
 //! .
 //! 
+//! \subsection MShield_API_DCMotor 3.2 MShield API 74HC595
 //! The DC Motor shield is controled by:
 //! - MSDCMotorPWMInit()
 //! - MSDCMotorRun()
@@ -65,6 +75,7 @@
 //! - MSDCMotorStop()
 //! .
 //!
+//! \subsection MShield_API_StepMotor 3.3 MShield API 74HC595
 //! The DC Motor shield is controled by:
 //! - MSStepMotorInit()
 //! - MSStepsDelaySet()

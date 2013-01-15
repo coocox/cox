@@ -32,7 +32,6 @@ copy %v_repo_root_self%\CoX\Driver\Memory_EEPROM_ST\M24Cxx\M24Cxx_Single\doc\ima
 copy %v_repo_root_self%\CoX\Driver\Sensor_Touch_ST\STMPE811\STMPE811_Driver\doc\images\* ..\en\html >>nul
 copy %v_repo_root_self%\CoX\Driver\Seven_Segment\Seven_Segment\Seven_Segment\doc\images\* ..\en\html >>nul
 copy %v_repo_root_self%\CoX\Driver\LCD_Character\SSD2119\Character_LCD_SSD2119_Driver\doc\images\* ..\en\html >>nul
-
 copy %v_repo_root_self%\CoX\Driver\Sensor_Light_ROHM\BH1750FVI\BH1750FVI_I2C_Driver\doc\images\* ..\en\html >>nul
 copy %v_repo_root_self%\CoX\Driver\Sensor_Photo\PTC08\PTC08_Driver\doc\images\* ..\en\html >>nul
 copy %v_repo_root_self%\CoX\Driver\Memory_Flash_Atmel\AT45DB161\AT45DB161_Single\doc\images\* ..\en\html >>nul
@@ -41,9 +40,13 @@ copy %v_repo_root_self%\CoX\Driver\Memory_EEPROM_ARTSCHIP\M24LCxx\M24LCxx_Single
 copy %v_repo_root_self%\CoX\Driver\Memory_EEPROM_ZLG\CAT93Cx6\doc\images\* ..\en\html >>nul
 copy %v_repo_root_self%\CoX\Driver\GPS\GPS\doc\images\* ..\en\html >>nul
 copy %v_repo_root_self%\CoX\Driver\Sensor_Matrix\matrix\doc\images\* ..\en\html >>nul
-
 copy %v_repo_root_self%\CoX\Driver\Memory_Flash_SST\SST25VFxx\SST25VFxx_single\doc\images\* ..\en\html >>nul
 copy %v_repo_root_self%\CoX\Driver\Sensor_Accelerometer\LIS302DL\Driver\doc\images\* ..\en\html >>nul
+
+copy %v_repo_root_self%\CoX\Shield\TinkerKIT\Sensor_Shield\doc\images\* ..\en\html >>nul
+copy %v_repo_root_self%\CoX\Shield\AdafruitIndustries\Motor_Shield\doc\images\* ..\en\html >>nul
+copy %v_repo_root_self%\CoX\Shield\DFRobot\LCDShield\doc\images\* ..\en\html >>nul
+
 
 
 copy %v_cox_peripheral_manual%\doc\images\* ..\en\html >>nul
