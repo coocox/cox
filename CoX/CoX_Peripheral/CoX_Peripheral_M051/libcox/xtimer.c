@@ -316,7 +316,7 @@ TimerInitConfig(unsigned long ulBase, unsigned long ulConfig,
             break;
     }
     xHWREG(ulBase + TIMER_O_TCMPR) = ulTCMPRValue;
-    xHWREG(ulBase + TIMER_O_TCSR) = ulPreScale | ulConfig;
+    xHWREG(ulBase + TIMER_O_TCSR) = (ulPreScale - 1) | ulConfig;
 }
 
 //*****************************************************************************
