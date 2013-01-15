@@ -1,0 +1,265 @@
+//*****************************************************************************
+//
+//! \file WakeUp.c
+//! \brief Show how to configure LIS302DL module WakeUp Mode
+//! \version V2.1.1.0
+//! \date 4/1/2013
+//! \author CooCox
+//! \copy
+//!
+//! Copyright (c)  2011, CooCox
+//! All rights reserved.
+//!
+//! Redistribution and use in source and binary forms, with or without
+//! modification, are permitted provided that the following conditions
+//! are met:
+//!
+//!     * Redistributions of source code must retain the above copyright
+//! notice, this list of conditions and the following disclaimer.
+//!     * Redistributions in binary form must reproduce the above copyright
+//! notice, this list of conditions and the following disclaimer in the
+//! documentation and/or other materials provided with the distribution.
+//!     * Neither the name of the <ORGANIZATION> nor the names of its
+//! contributors may be used to endorse or promote products derived
+//! from this software without specific prior written permission.
+//!
+//! THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+//! AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+//! IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+//! ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+//! LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+//! CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+//! SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+//! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+//! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+//! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+//! THE POSSIBILITY OF SUCH DAMAGE.
+//
+//*****************************************************************************
+
+#include <stdio.h>
+
+#if defined(gcc) || defined(__GNUC__) || defined(coide)
+#include <stdio.h>
+#include <stdarg.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#undef errno
+extern int errno;
+extern int  _end;
+#endif
+
+#include "xhw_ints.h"
+#include "xhw_nvic.h"
+#include "xhw_memmap.h"
+#include "xhw_types.h"
+#include "xdebug.h"
+#include "xcore.h"
+#include "xsysctl.h"
+#include "xhw_sysctl.h"
+#include "xhw_gpio.h"
+#include "xgpio.h"
+#include "xhw_i2c.h"
+#include "xi2c.h"
+#include "xuart.h"
+#include "MMA7455.h"
+
+#define TICK_S 0xFFFFF
+#define TICK_L 0x2FFFFF
+
+//*****************************************************************************
+//
+//! Internal Function (Used in this file only!)
+//
+//*****************************************************************************
+
+static void SysInit(void);
+static void UartInit(void);
+
+char * WelcomeInfo =
+{
+"\r\n"
+"\t---------------------------------------------------------\r\n"
+"\t|  CooCox Open Source Driver Project                    |\r\n"
+"\t|  Module : Accelerometer MMA7455 Driver                |\r\n"
+"\t|  author : CooCox Cedar                                |\r\n"
+"\t|  version: V1.0                                        |\r\n"
+"\t|  More information, please visit www.coocox.org        |\r\n"
+"\t---------------------------------------------------------\r\n"
+"\r\n"
+};
+
+#if defined(gcc) || defined(__GNUC__) || defined(coide)
+caddr_t _sbrk ( int incr )
+{
+  static unsigned char *heap = NULL;
+  unsigned char *prev_heap;
+
+  if (heap == NULL) {
+    heap = (unsigned char *)&_end;
+  }
+  prev_heap = heap;
+
+  heap += incr;
+
+  return (caddr_t) prev_heap;
+}
+
+int link(char *old, char *new) {
+return -1;
+}
+
+int _close(int file)
+{
+  return -1;
+}
+
+int _fstat(int file, struct stat *st)
+{
+  st->st_mode = S_IFCHR;
+  return 0;
+}
+
+int _isatty(int file)
+{
+  return 1;
+}
+
+int _lseek(int file, int ptr, int dir)
+{
+  return 0;
+}
+
+int _read(int file, char *ptr, int len)
+{
+  return 0;
+}
+
+int _write(int file, char *ptr, int len)
+{
+
+	int i = 0;
+	(void) file;
+
+	for(i = 0; i < len; i++)
+	{
+		xUARTCharPut(USART2_BASE,*ptr++);
+	}
+
+	return len;
+}
+
+void abort(void)
+{
+  /* Abort called */
+  while(1);
+}
+#endif
+
+#if defined(ewarm) || defined(__ICCARM__)
+int putchar(int c)
+{
+    xUARTCharPut(USART2_BASE, (char)c);
+    return (1);
+}
+#endif
+
+
+void MotionDetect(void)
+{
+    int32_t cnt = 0;
+    Result retv = SUCCESS;
+
+    SysInit();
+    UartInit();
+
+    printf("%s\r\n", WelcomeInfo);
+    printf("Example: Motion Recognition\r\n");
+
+    //Initialize MMA7455 module
+    retv = MMA7455_Init();
+    if(retv != SUCCESS)
+    {
+        printf("Init Error\r\n");
+        return ;
+    }
+
+    //MMA7455 Boot time, about 10ms
+    SysCtlDelay(TICK_L);
+
+    retv = MMA7455_Cfg(
+                        CFG_DATA_RDY_OUT_DIS       |
+                        CFG_RANGE_4G               |
+                        CFG_MODE_STANDBY           |
+                        CFG_FILTER_BAND_125        |
+                        CFG_THRESHOLD_VALUE_ABS    |
+                        CFG_AXIS_X_EN              |
+                        CFG_AXIS_Y_DIS             |
+                        CFG_AXIS_Z_DIS             |
+                        CFG_INT_MODE_0             |
+                        CFG_LEVEL_DETECTION_OR      
+                        );
+    if(retv != SUCCESS)
+    {
+        printf("Configure Error\r\n");
+        return;
+    }
+
+    //Set Threshold to +-2G, if detect X axis data is over +-2G, then triggle
+    //Interrupt signal.
+    retv = MMA7455_LevelThresHoldSet(64);
+    if(retv != SUCCESS)
+    {
+        printf("Configure Threshold Failure\r\n");
+        return;
+    }
+
+    //Begin monitor x axis data.
+    retv = MMA7455_Cfg( CFG_MODE_LEVEL );
+    if(retv != SUCCESS)
+    {
+        printf("Start MMA Failure\r\n");
+        return;
+    }
+
+    printf("Configure OK, begin to monitor X axis\r\n");
+    while (1)
+    {
+        cnt++;
+
+        //Waitting X axis event occur
+        while(MMA7455_EventCheck(ENEVT_LEVEL_X) != SUCCESS);
+
+        printf("%d\tDetect X axis motion\r\n", cnt);
+
+        //Clear Interrupt flag
+        MMA7455_IntFlagClear(INT_ID_1);
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+static void SysInit(void)
+{
+    xSysCtlClockSet(72000000,  xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
+    SysCtlDelay(10000);
+}
+
+static void UartInit(void)
+{
+    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOA);
+    xSysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);
+
+    //xSPinTypeUART(UART2RX,PD6);
+    xSPinTypeUART(UART2TX,PA2);
+
+    xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART2);
+    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART2);
+
+    xUARTConfigSet(USART2_BASE, 115200, (UART_CONFIG_WLEN_8 |
+                                         UART_CONFIG_STOP_ONE |
+                                         UART_CONFIG_PAR_NONE));
+
+    xUARTEnable(USART2_BASE, (UART_BLOCK_UART | UART_BLOCK_TX));
+}
+
