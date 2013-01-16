@@ -54,7 +54,7 @@ copy %v_repo_root_self%\resource\doxygen\css\* ..\en\html >>nul
 echo completed.
 echo --------------------------------------------
 
-if not defined v_repo_root pause
+
 
 
 
