@@ -11,6 +11,12 @@
 //! (it is possible to change these to Digital Inputs, in which case they will report either HIGH or LOW, but
 //! nothing in between).
 //!
+//! <h1>Webpage</h1>
+//!  <a href="http://shieldlist.org"> Home page of the shield list. </a>
+//! 
+//!  <a href="http://store.arduino.cc/ww/index.php?main_page=product_info&cPath=16&products_id=89"> Product page of the sensor shield module</a>
+//!
+//!
 //! <h1>Contents</h1>
 //! - \ref Sensor_Shield_SCH
 //! - \ref Sensor_Shield_Func_Desc

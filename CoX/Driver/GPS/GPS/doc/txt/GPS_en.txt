@@ -4,6 +4,11 @@
 //!
 //! \brief EB-365 GPS
 //!
+//!
+//! <h1>Webpage</h1>
+//!  <a href="http://shieldlist.org"> Home page of the shield list. </a>
+//! 
+//!  <a href="http://store.iteadstudio.com/index.php?main_page=product_info&cPath=18&products_id=500"> Product page of the GPS shield module</a>
 //! 
 //! <h1>Contents</h1>
 //! - \ref GPS_Block_Diagram

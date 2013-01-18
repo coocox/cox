@@ -6,6 +6,11 @@
 //!
 //! Seven Segment tubes is a digital display device that can only display all 
 //! the available digital parameters, range 0~9, and a Engliash latter.
+//!
+//! <h1>Webpage</h1>
+//!  <a href="http://shieldlist.org"> Home page of the shield list. </a>
+//! 
+//!  <a href="http://shieldlist.org/itead-studio/colors"> Product page of the Colors shield module</a>
 //! 
 //! <h1>Contents</h1>
 //! - \ref Dot_Matrix_Block_Diagram
