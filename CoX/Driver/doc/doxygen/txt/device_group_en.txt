@@ -17,6 +17,7 @@
 //! \defgroup Memory Memory
 //! \defgroup SPI_Flash SPI Flash
 //! \defgroup Memory_SDCard SDCard
+//! \defgroup GYROSCOPE GYROSCOPE
 //!
 //
 //*****************************************************************************

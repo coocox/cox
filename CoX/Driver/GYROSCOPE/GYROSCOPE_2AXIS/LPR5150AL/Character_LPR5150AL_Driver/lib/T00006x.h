@@ -215,13 +215,22 @@ typedef struct LPR5150ALData
 //
 //! XAxis in pin configure
 //
-#define XAXIS_PIN_IN_CFG()      xSPinTypeADC(ADC2, sA2)
+#define XAXIS_PIN_IN_CFG()      xSPinTypeADC(ADC2, PB2)
 
 //
 //! YAxis in pin configure
 //
-#define YAXIS_PIN_IN_CFG()      xSPinTypeADC(ADC3, sA3)
+#define YAXIS_PIN_IN_CFG()      xSPinTypeADC(ADC3, PB3)
 
+//
+//! Timer select, used for delay.
+//
+#define LPR5150AL_TIMER_BASE    xTIMER0_BASE
+
+//
+//! Timer clock source select
+//
+#define LPR5150AL_TIMER_CLK     xSYSCTL_TIMER0_MAIN
 
 //*****************************************************************************
 //

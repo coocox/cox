@@ -19,8 +19,9 @@
         <Option name="UseCLib" value="0"/>
         <Option name="UserEditLinkder" value=""/>
         <Option name="UseMemoryLayout" value="1"/>
-        <Option name="Library" value="0"/>
+        <Option name="Library" value="Use nano C Library"/>
         <Option name="UserEditLinker" value="-u;_printf_float;"/>
+        <Option name="Printf" value="1"/>
         <LinkedLibraries/>
         <MemoryAreas debugInFlashNotRAM="1">
           <Memory name="IROM1" type="ReadOnly" size="0x00010000" startValue="0x00000000"/>
@@ -28,7 +29,7 @@
           <Memory name="IROM2" type="ReadOnly" size="" startValue=""/>
           <Memory name="IRAM2" type="ReadWrite" size="" startValue=""/>
         </MemoryAreas>
-        <LocateLinkFile path="d:/coocox/coide1.6.2/configuration/programdata/t000060/arm-gcc-link.ld" type="0"/>
+        <LocateLinkFile path="d:/coocox/coide1.7.0/configuration/programdata/t000060/arm-gcc-link.ld" type="0"/>
       </Link>
       <Output>
         <Option name="OutputFileType" value="0"/>
@@ -63,11 +64,7 @@
     </DebugOption>
     <ExcludeFile/>
   </Target>
-  <Components path="./">
-    <Component id="30" name="C Library" path="" type="2"/>
-    <Component id="31" name="Retarget printf" path="" type="2"/>
-    <Component id="581" name="LCD4884" path="" type="2"/>
-  </Components>
+  <Components path="./"/>
   <Files>
     <File name="CoX/CoX_Peripheral/inc/xadc.h" path="../../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xadc.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xtimer.c" path="../../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xtimer.c" type="1"/>
@@ -102,8 +99,8 @@
     <File name="CoX/Cookie_M051/Cookie.h" path="../../../../../../../../Cookie/Cookie_NuMicro/libCookie/Cookie.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xcore.h" path="../../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xcore.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xuart.c" path="../../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xuart.c" type="1"/>
-    <File name="CoX/CoX_Peripheral/src/xsysctl.c" path="../../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xsysctl.c" type="1"/>
     <File name="CoX/CoX_Peripheral" path="" type="2"/>
+    <File name="CoX/CoX_Peripheral/src/xsysctl.c" path="../../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xsysctl.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_gpio.h" path="../../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_gpio.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_memmap.h" path="../../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_memmap.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_timer.h" path="../../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_timer.h" type="1"/>

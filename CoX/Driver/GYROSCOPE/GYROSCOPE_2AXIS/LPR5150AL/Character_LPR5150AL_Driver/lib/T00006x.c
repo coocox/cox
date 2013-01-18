@@ -45,7 +45,6 @@
 #include "xgpio.h"
 #include "xadc.h"
 #include "xtimer.h"
-#include "cookie.h"
 #include "T00006x.h"
 
 unsigned char g_ucCount = 3;
@@ -287,37 +286,37 @@ DelayMS(unsigned long ulDelay)
     //
     // Set the timer clock
     //
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_TIMER0_MAIN, 1);
+    xSysCtlPeripheralClockSourceSet(LPR5150AL_TIMER_CLK, 1);
 
-    xSysCtlPeripheralEnable2(xTIMER0_BASE);
+    xSysCtlPeripheralEnable2(LPR5150AL_TIMER_BASE);
 
 	//
 	// Clear the status first
 	//
-	xTimerStatueClear(xTIMER0_BASE, xTIMER_CHANNEL0, xTIMER_INT_MATCH);
+	xTimerStatueClear(LPR5150AL_TIMER_BASE, xTIMER_CHANNEL0, xTIMER_INT_MATCH);
 
     //
     // Config as periodic mode
     //
-    xTimerInitConfig(xTIMER0_BASE, xTIMER_CHANNEL0, xTIMER_MODE_PERIODIC, 1000);
-    xTimerIntEnable(xTIMER0_BASE, xTIMER_CHANNEL0, xTIMER_INT_MATCH);
-    xTimerStart(xTIMER0_BASE, xTIMER_CHANNEL0);
+    xTimerInitConfig(LPR5150AL_TIMER_BASE, xTIMER_CHANNEL0, xTIMER_MODE_PERIODIC, 1000);
+    xTimerIntEnable(LPR5150AL_TIMER_BASE, xTIMER_CHANNEL0, xTIMER_INT_MATCH);
+    xTimerStart(LPR5150AL_TIMER_BASE, xTIMER_CHANNEL0);
 
     //
     // Delay ulDelay cycles, one cycle delay is 1ms.
     //
     while(ulDelay)
 	{
-	    while(!xTimerStatusGet(xTIMER0_BASE, xTIMER_CHANNEL0, xTIMER_INT_MATCH));
-		xTimerStatueClear(xTIMER0_BASE, xTIMER_CHANNEL0, xTIMER_INT_MATCH);
+	    while(!xTimerStatusGet(LPR5150AL_TIMER_BASE, xTIMER_CHANNEL0, xTIMER_INT_MATCH));
+		xTimerStatueClear(LPR5150AL_TIMER_BASE, xTIMER_CHANNEL0, xTIMER_INT_MATCH);
 		ulDelay--;
 	}
 
     //
     // Stop the timer
     //
-	xTimerStop(xTIMER0_BASE, xTIMER_CHANNEL0);
-	xSysCtlPeripheralDisable2(xTIMER0_BASE);
+	xTimerStop(LPR5150AL_TIMER_BASE, xTIMER_CHANNEL0);
+	xSysCtlPeripheralDisable2(LPR5150AL_TIMER_BASE);
 
 }
 
