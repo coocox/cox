@@ -120,13 +120,13 @@
 //! config your device series.It can be one of the following values: 
 //! STM32F10X_LD_VL, STM32F10X_MD_VL, STM32F10X_HD_VL, STM32F10X_XL, STM32F10X_CL
 //
-#define STM32F1xx_DEVICE        STM32F10X_CL
+#define STM32F1xx_DEVICE        STM32F10X_HD_VL
 
 //
 //! config your HSE external crystal value.It can be one of the following values: 
 //! 4-16Mhz
 //
-#define STM32F1xx_HSE_VAL       25
+#define STM32F1xx_HSE_VAL       8
 
 
 //

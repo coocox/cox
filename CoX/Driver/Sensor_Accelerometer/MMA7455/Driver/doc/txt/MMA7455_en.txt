@@ -1,0 +1,209 @@
+//*****************************************************************************
+//
+//! \defgroup MMA7455 MMA7455
+//!
+//! \brief 3-axis accelerometer driver.
+//!
+//! <h1>Contents</h1>
+//! - \ref MMA7455_Description
+//!   .
+//! - \ref MMA7455_Driver_API
+//!   .
+//! - \ref MMA7455_Example
+//!   - \ref Example_ReadAccData
+//!   - \ref Example_MotionDetect
+//! .
+//!
+//! \section MMA7455_Description 1. MMA7455 System description.
+//!
+//! The MMA7455L is a Digital Output (I2C/SPI), low power, low profile
+//! capacitive micromachined accelerometer featuring signal conditioning, a low
+//! pass filter, temperature compensation, self-test, configurable to detect 0g
+//! through interrupt pins (INT1 or INT2), and pulse detect for quick motion
+//! detection. 0g offset and sensitivity are factory set and require no external
+//! devices. The 0g offset can be customer calibrated using assigned 0g registers
+//! and g-Select which allows for command selection for 3 acceleration ranges
+//! (2g/4g/8g). The MMA7455L includes a Standby Mode that makes it ideal for
+//! handheld battery powered electronics.
+//!
+//! \b Features
+//!     * Digital Output (I2C/SPI)
+//!     * 3mm x 5mm x 1mm LGA-14 Package
+//!     * Self-Test for Z-Axis
+//!     * Low Voltage Operation: 2.4 V ¨C 3.6 V
+//!     * User Assigned Registers for Offset Calibration
+//!     * Programmable Threshold Interrupt Output
+//!     * Level Detection for Motion Recognition (Shock, Vibration, Freefall)
+//!     * Pulse Detection for Single or Double Pulse Recognition
+//!     * Sensitivity (64 LSB/g @ 2g and @ 8g in 10-Bit Mode)
+//!     * Selectable Sensitivity (+-2g, +-4g, +-8g) for 8-bit Mode
+//!     * Robust Design, High Shocks Survivability (5,000g)
+//!     * RoHS Compliant
+//!     * Environmentally Preferred Product
+//!     * Low Cost
+//! \b Typical \b Applications
+//!     * Cell Phone/PMP/PDA: Image Stability, Text Scroll, Motion Dialing, Tap to Mute
+//!     * HDD: Freefall Detection
+//!     * Laptop PC: Freefall Detection, Anti-Theft
+//!     * Pedometer
+//!     * Motion Sensing, Event Recorder
+//! .
+//!
+//! \section MMA7455_Driver_API 2. API Group
+//!
+//! Result MMA7455_Init(void);
+//! Result MMA7455_ReadAccData_8(uint32_t Axis, int8_t * DataRecvBuf);
+//! Result MMA7455_ReadAccData_10(uint32_t Axis, int16_t * DataRecvBuf);
+//! Result MMA7455_EventCheck(uint16_t Event);
+//! Result MMA7455_GetID(uint8_t * ID);
+//! Result MMA7455_OffSetWrite(uint32_t Axis, uint16_t OffSet);
+//! Result MMA7455_Cfg(uint64_t Cfg);
+//! Result MMA7455_IntFlagClear(uint8_t IntID);
+//! Result MMA7455_LevelThresHoldSet(uint8_t ThresHold);
+//! Result MMA7455_PulseThresHoldSet(uint8_t ThresHold);
+//! Result MMA7455_PulseDurationSet(uint8_t Dur);
+//! Result MMA7455_LatencyTimeSet(uint8_t Latency);
+//! Result MMA7455_WindowsSet(uint8_t Windows);
+//! Result MMA7455_RegReadByte(uint8_t RegAddr, uint8_t * DataRecvBuf);
+//! Result MMA7455_RegWriteByte(uint8_t RegAddr, uint8_t Data);
+//! .
+//! 
+//! \section MMA7455_Example 3. Example
+//! 
+//! Below is some example code:
+//!
+//! \subsection Example_ReadAccData 3.1 ReadAccData Example
+//! \code
+//!
+//! void ReadAccData(void)
+//! {
+//!     int8_t AccData = 0;
+//!     Result retv    = SUCCESS;
+//! 
+//!     //
+//!     // Init the LED
+//!     //
+//!     //xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOD);
+//!     //xGPIODirModeSet(xGPIO_PORTD_BASE, xGPIO_PIN_3, xGPIO_DIR_MODE_OUT);
+//! 
+//!     SysInit();
+//!     UartInit();
+//! 
+//!     printf("%s\r\n", WelcomeInfo);
+//! 
+//!     printf("Example: Read Accelerometer Data\r\n");
+//! 
+//!     //Initialize MMA7455 module
+//!     retv = MMA7455_Init();
+//!     if(retv != SUCCESS)
+//!     {
+//!         printf("Init Error\r\n");
+//!         return ;
+//!     }
+//! 
+//!     //MMA7455 Boot time, about 10ms
+//!     SysCtlDelay(TICK_L);
+//! 
+//!     //Configure range: +-4G,then begin measurement
+//!     retv = MMA7455_Cfg( CFG_MODE_MEASUREMENT | CFG_RANGE_4G );
+//!     if(retv != SUCCESS)
+//!     {
+//!         printf("Configure Error\r\n");
+//!         return ;
+//!     }
+//! 
+//!     while (1)
+//!     {
+//!         retv = MMA7455_ReadAccData_8(AXIS_Y, &AccData);
+//!         if(retv != SUCCESS)
+//!         {
+//!             printf("Read error\r\n");
+//!         }
+//!         else
+//!         {
+//!             printf("Y Axis Data:  %d\r\n", AccData);
+//!         }
+//! 
+//!         SysCtlDelay(TICK_S);
+//!     }
+//! }
+//!
+//! \endcode
+//!
+//! \subsection Example_MotionDetect 3.1 MotionDetect Example
+//! \code
+//!
+//! void MotionDetect(void)
+//! {
+//!     int32_t cnt = 0;
+//!     Result retv = SUCCESS;
+//! 
+//!     SysInit();
+//!     UartInit();
+//! 
+//!     printf("%s\r\n", WelcomeInfo);
+//!     printf("Example: Motion Recognition\r\n");
+//! 
+//!     //Initialize MMA7455 module
+//!     retv = MMA7455_Init();
+//!     if(retv != SUCCESS)
+//!     {
+//!         printf("Init Error\r\n");
+//!         return ;
+//!     }
+//! 
+//!     //MMA7455 Boot time, about 10ms
+//!     SysCtlDelay(TICK_L);
+//! 
+//!     retv = MMA7455_Cfg(
+//!                         CFG_DATA_RDY_OUT_DIS       |
+//!                         CFG_RANGE_4G               |
+//!                         CFG_MODE_STANDBY           |
+//!                         CFG_FILTER_BAND_125        |
+//!                         CFG_THRESHOLD_VALUE_ABS    |
+//!                         CFG_AXIS_X_EN              |
+//!                         CFG_AXIS_Y_DIS             |
+//!                         CFG_AXIS_Z_DIS             |
+//!                         CFG_INT_MODE_0             |
+//!                         CFG_LEVEL_DETECTION_OR      
+//!                         );
+//!     if(retv != SUCCESS)
+//!     {
+//!         printf("Configure Error\r\n");
+//!         return;
+//!     }
+//! 
+//!     //Set Threshold to +-2G, if detect X axis data is over +-2G, then triggle
+//!     //Interrupt signal.
+//!     retv = MMA7455_LevelThresHoldSet(64);
+//!     if(retv != SUCCESS)
+//!     {
+//!         printf("Configure Threshold Failure\r\n");
+//!         return;
+//!     }
+//! 
+//!     //Begin monitor x axis data.
+//!     retv = MMA7455_Cfg( CFG_MODE_LEVEL );
+//!     if(retv != SUCCESS)
+//!     {
+//!         printf("Start MMA Failure\r\n");
+//!         return;
+//!     }
+//! 
+//!     printf("Configure OK, begin to monitor X axis\r\n");
+//!     while (1)
+//!     {
+//!         cnt++;
+//! 
+//!         //Waitting X axis event occur
+//!         while(MMA7455_EventCheck(ENEVT_LEVEL_X) != SUCCESS);
+//! 
+//!         printf("%d\tDetect X axis motion\r\n", cnt);
+//! 
+//!         //Clear Interrupt flag
+//!         MMA7455_IntFlagClear(INT_ID_1);
+//!     }
+//! }
+//!
+//! \endcode
+//!
