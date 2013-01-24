@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>DSCH376S, CH376T</Name>
+    <Description>CH376 USB disk and SD card file management controller</Description>
+    <Manufacturer>WCH</Manufacturer>
+    
+    <Category>USB</Category>
+    <SubCategory>Controller</SubCategory>
+    
+    <KeyWord>CH376, USB, disk, SDCard, WCH</KeyWord>
+    
+    <Communication>
+        <Interface>SPI, Parallel, UART, USB</Interface>
+    </Communication>
+    
+    <WebPage>http://wch.cn/download/list.asp?id=124</WebPage>
+    <Datasheet>
+        http://wch.cn/download/down.asp?id=124
+        http://wch.cn/download/down.asp?id=125
+        http://wch.cn/download/down.asp?id=126
+    </Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

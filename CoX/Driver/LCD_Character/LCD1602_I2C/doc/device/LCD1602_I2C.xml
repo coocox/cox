@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>I2C LCD1602</Name>
+    <Description>IIC interface 16*2 characters dot matrix LCD display module</Description>
+    <Manufacturer>DFRobot</Manufacturer>
+    
+    <Category>Display</Category>
+    <SubCategory>LCD1602</SubCategory>
+    
+    <KeyWord>LCD1602, I2C, PCF8574, HD44780,LCD</KeyWord>
+    
+    <Communication>
+        <Interface>I2C</Interface>
+		<Interface>GPIO</Interface>
+    </Communication>
+    
+    <WebPage>http://www.dfrobot.com/index.php?route=product/product&path=53_130&product_id=135</WebPage>
+    <Datasheet>http://www.dfrobot.com/image/data/DFR0009/HD44780.pdf</Datasheet>
+	<Datasheet>http://pdf1.alldatasheet.com/datasheet-pdf/view/18212/PHILIPS/PCF8574.html</Datasheet>
+	<Datasheet>http://www.dfrobot.com.cn/image/data/TOY0046/I2C%20LCD%20Module%20V1.1%20SCH.pdf</Datasheet>
+</Device>
