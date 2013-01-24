@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>MAX7219</Name>
+  <Description>MAX7219 Example</Description>
+  <Version>1.0.0.0</Version>
+  <Tags>MAX7219</Tags>
+  <EVKit>NUC140VE3CN and MAX7219</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\CoX\Driver\LED\MAX7219\MAX7219_Driver\example\MAX7219\src\example.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CoX.GPIO</Dependency>
+    <Dependency>CoX.SysCtl</Dependency>
+  </Dependencys>
+  
+   
+</Example>

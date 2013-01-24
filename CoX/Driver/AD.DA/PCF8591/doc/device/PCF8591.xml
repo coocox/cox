@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Device>
+    <Name>PCF8591</Name>
+    <Description>PCF8591 A/D, D/A </Description>
+    <Manufacturer>Analog Devices</Manufacturer>
+    
+    <Category>ADDA</Category>
+    <SubCategory>ADDA_I2C</SubCategory>
+    
+    <KeyWord>A/D, D/A, I2C</KeyWord>
+    
+    <Communication>
+        <Interface>I2C</Interface>
+    </Communication>
+    
+    <WebPage>http://www.nxp.com/products/interface_and_connectivity/i2c/i2c_dacs_and_adcs/series/PCF8591.html</WebPage>
+    <Datasheet>http://www.nxp.com/documents/data_sheet/PCF8591.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

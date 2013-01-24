@@ -1,0 +1,123 @@
+//******************************************************
+//
+//!
+//! \addtogroup PCF8591_Driver
+//! @{
+//!
+//! <h1>Contents</h1>
+//! - \ref PCF8591_Feature
+//! - \ref PCF8591_API
+//! - \ref PCF8591_APP
+//! .
+//!
+//! <br />
+//!
+//! \section PCF8591_Feature 1.PCF8591 Feature
+//! The PCF8591 is a single-chip, single-supply low power
+//! 8-bit CMOS data acquisition device with four analog
+//! inputs, one analog output and a serial I2C-bus interface.
+//! Three address pins A0, A1 and A2 are used for
+//! programming the hardware address, allowing the use of
+//! up to eight devices connected to the I2C-bus without
+//! additional hardware. Address, control and data to and from
+//! the device are transferred serially via the two-line
+//! bidirectional I2C-bus.
+//! The functions of the device include analog input
+//! multiplexing, on-chip track and hold function, 8-bit
+//! analog-to-digital conversion and an 8-bit digital-to-analog
+//! conversion. The maximum conversion rate is given by the
+//! maximum speed of the I2C-bus.
+//!
+//! <br />
+//!
+//! \section PCF8591_API 2.PCF8591 API
+//! extern void PCF8591_Init(unsigned long ulRate);
+//! extern unsigned char  PCF8591_DA_OUT(unsigned char* data,
+//!         unsigned long data_len);
+//! extern void  PCF8591_AD_Trans(char* data, unsigned long data_len,
+//!         unsigned char mode);
+//! extern void  PCF8591_AD_Vol(float* vol, char* data,
+//!         unsigned long data_len );
+//!
+//! <br />
+//!
+//! \section PCF8591_APP 3.PCF8591 Applications
+//!
+//! Here we introduce how to get use PCF8591.
+//!
+//! \code
+//! #include "xhw_types.h"
+//! #include "xhw_memmap.h"
+//! #include "xcore.h"
+//! #include "xsysctl.h"
+//! #include "xgpio.h"
+//! #include "xi2c.h"
+//! #include "PCF8591.h"
+//!
+//! int test(void)
+//! {
+//!
+//!     unsigned char SendBuf[] = {0x40, 0x00, 0x0f, 0x80, 0xf0, 0xff};
+//!     unsigned char ucdata[11] = {0x00, 0x0f, 0x80, 0xf0, 0xff,
+//!     0x00, 0x0f, 0x80, 0xf0, 0xff,0x78};
+//!
+//!     char data[11] = {0x00, 0x0f, 0x80, 0xf0, 0xff,
+//!         0x00, 0x0f, 0x80, 0xf0, 0xff,0x78};
+//!
+//!     float vol[11] = {0.0};
+//!     unsigned long SendLength = 11;
+//!
+//!     unsigned char suc = 0;
+//!     int i,j;
+//!
+//!     PCF8591_Init(50000);
+//!
+//!     for(i=0; i<SendLength; i++)
+//!     {
+//!        SendBuf[1] = ucdata[i];
+//!        suc = PCF8591_DA_OUT(SendBuf,2);
+//!        for(j=0;j<1000000;j++);
+//!     }
+//!
+//!
+//!     PCF8591_AD_Trans(data, 11 ,PCF8591_INPUT_FOUR_SINGLE |
+//!                     PCF8591__INPUT_INC_ENABLE |
+//!                     PCF8591_CHANNEL_0);
+//!
+//!     PCF8591_AD_Vol(vol, data, 11);
+//!
+//! }
+//! \endcode
+//!
+//! @}
+//
+//******************************************************
+
+
+
+//******************************************************
+//
+//!
+//! \addtogroup CoX_Driver_Lib
+//! @{
+//! \addtogroup ADDA
+//! @{
+//! \addtogroup ADDA_I2C
+//! @{
+//! \addtogroup PCF8591
+//! @{
+//! \addtogroup PCF8591_Driver 
+//! @{
+//! \addtogroup PCF8591_PIN_CONFIG
+//! @{
+//! @}
+//! \addtogroup PCF8591_CONTROL_CONFIG
+//! @{
+//! @}
+//! @}
+//! @}
+//! @}
+//! @}
+//! @}
+//
+//******************************************************

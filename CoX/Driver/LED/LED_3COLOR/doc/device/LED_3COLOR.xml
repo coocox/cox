@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <Device>
     <Name>LED_3COLOR</Name>
-    <Description>LED_3COLOR EEPROM </Description>
+    <Description>LED_3COLOR</Description>
     <Manufacturer>Analog Devices</Manufacturer>
     
     <Category>LED</Category>
