@@ -46,6 +46,7 @@ copy %v_repo_root_self%\CoX\Driver\Sensor_Accelerometer\LIS302DL\Driver\doc\imag
 copy %v_repo_root_self%\CoX\Shield\TinkerKIT\Sensor_Shield\doc\images\* ..\en\html >>nul
 copy %v_repo_root_self%\CoX\Shield\AdafruitIndustries\Motor_Shield\doc\images\* ..\en\html >>nul
 copy %v_repo_root_self%\CoX\Shield\DFRobot\LCDShield\doc\images\* ..\en\html >>nul
+copy %v_repo_root_self%\CoX\Driver\Memory_EEPROM_Holtek\HT24Cxx\HT24Cxx_Single\doc\images\* ..\en\html >>nul
 
 
 

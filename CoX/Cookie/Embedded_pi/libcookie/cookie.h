@@ -162,6 +162,8 @@
 #define sADC_BASE               xADC1_BASE
 #define sUART_BASE              xUART3_BASE
 #define sUART_DBG_BASE          xUART2_BASE
+#define sPWMA_BASE              xPWMA_BASE
+#define sPWMB_BASE              xPWMD_BASE
 
 //*****************************************************************************
 //
@@ -334,12 +336,21 @@
 #define sA4PinTypeADC()         xSPinTypeADC(ADC14, sA4)
 #define sA5PinTypeADC()         xSPinTypeADC(ADC15, sA5)
 
-#define sD3PinTypePWM()         xSPinTypePWM(PWM4, sD3)
-#define sD5PinTypePWM()         xSPinTypePWM(PWM2, sD5)
-#define sD6PinTypePWM()         xSPinTypePWM(PWM4, sD6)
-#define sD9PinTypePWM()         xSPinTypePWM(PWM5, sD9)
-#define sD10PinTypePWM()        xSPinTypePWM(PWM6, sD10)
-#define sD11PinTypePWM()        xSPinTypePWM(PWM7, sD11)
+#define sD3PinTypePWM()         xSPinTypeTimer(TIM3CH1(APP), sD3)
+#define sD5PinTypePWM()         xSPinTypeTimer(TIM3CH3(APP), sD5)
+#define sD6PinTypePWM()         xSPinTypeTimer(TIM3CH4(APP), sD6)
+#define sD9PinTypePWM()         xSPinTypeTimer(TIM1CH1(APP), sD9)
+//#define sD10PinTypePWM()        xSPinTypeTimer(PWM6, sD10)
+#define sD11PinTypePWM()        xSPinTypeTimer(TIM1CH3N , sD11)
+
+#define sD8PinTypeOUT()                                                       \
+        do                                                                    \
+        {                                                                     \
+     		xGPIOPinConfigure(PA15(APP), PA15);                               \
+            xGPIOSPinDirModeSet(sD8,xGPIO_DIR_MODE_OUT);                      \
+        }                                                                     \
+        while(0)
+
 
 //*****************************************************************************
 //

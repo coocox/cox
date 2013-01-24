@@ -168,12 +168,12 @@
 //
 //! STM32F1xx Timer1 function select
 //
-#define TIM1_FUNCTION_SELECT    TIM_TIMER
+#define TIM1_FUNCTION_SELECT    TIM_PWM
 
 //
 //! STM32F1xx Timer2 function select
 //
-#define TIM2_FUNCTION_SELECT    TIM_PWM
+#define TIM2_FUNCTION_SELECT    TIM_TIMER
 
 //
 //! STM32F1xx Timer3 function select
@@ -193,7 +193,7 @@
 //
 //! STM32F1xx Timer8 function select
 //
-#define TIM8_FUNCTION_SELECT    TIM_TIMER
+#define TIM8_FUNCTION_SELECT    TIM_PWM
 
 //
 //! STM32F1xx Timer9 function select
