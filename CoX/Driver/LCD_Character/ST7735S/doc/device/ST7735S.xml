@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>ST7735S</Name>
+    <Description>
+        An ST7735S Character LCD is a factory industry standard thin film transistor (TFT) LCD display device designed for interfacing with embedded systems. These screens come in a variety of configurations including 128x160, which has two kinds of color mode, 65k-color and 262k-color mode, some include backlight provided by a LED.
+    </Description>
+    <Manufacturer>SOLOMON SYSTECH</Manufacturer>
+    
+    <Category>LCD</Category>
+    <SubCategory>Character-LCD</SubCategory>
+    
+    <KeyWord>ST7735S, LCD, TFT, Character LCD, Text LCD, 320x240, display</KeyWord>
+    
+    <Communication>
+        <Interface>GPIO</Interface>
+    </Communication>
+    
+    <WebPage></WebPage>
+    <Datasheet></Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

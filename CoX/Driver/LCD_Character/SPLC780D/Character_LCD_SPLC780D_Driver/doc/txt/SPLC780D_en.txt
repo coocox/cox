@@ -1,0 +1,319 @@
+//*****************************************************************************
+//
+//! \defgroup SPLC780D SPLC780D
+//!
+//! \brief Character LCD control.
+//!
+//! An SPLC780D Character LCD is a de facto industry standard liquid crystal 
+//! display (LCD) display device designed for interfacing with embedded systems.
+//! These screens come in a variety of configurations including 8x1, which is 
+//! one row of eight characters, 16x2,20¡Á2 and 20x4, some include backlight 
+//! provided by a LED.
+//!
+//! Any parallelly interfaced character LCD you get these days will have a 
+//! Sunplus SPLC780D chip or a different one compatible with the SPLC780D. These 
+//! usually have 14 pins.
+//!
+//! <h1>Contents</h1>
+//! - \ref SPLC780D_SCH
+//! - \ref SPLC780D_Func_Desc
+//!   - \ref SPLC780D_Func_Pin
+//!   - \ref SPLC780D_Func_DDRAM
+//!   - \ref SPLC780D_Func_Register
+//!   - \ref SPLC780D_Func_BF
+//!   - \ref SPLC780D_Func_AC
+//!   - \ref SPLC780D_Func_Display
+//!   - \ref SPLC780D_Func_Command
+//!   .
+//! - \ref SPLC780D_API_Group
+//!   - \ref SPLC780D_API_Config
+//!   - \ref SPLC780D_API_Display
+//!   - \ref SPLC780D_API_Location
+//!   - \ref SPLC780D_API_Cursor
+//!   - \ref SPLC780D_API_Lowlayer
+//!   .
+//! - \ref SPLC780D_Usage
+//! .
+//!
+//! \section SPLC780D_SCH 1. SPLC780D Schematic
+//! <img src="ldc1.gif" />
+//!
+//! \section SPLC780D_Func_Desc 2. SPLC780D Function Description
+//! \subsection SPLC780D_Func_Pin 2.1 SPLC780D Pin Description
+//! 
+//! \verbatim
+//! +----------------+------------------------------------------------+
+//! |Pin Name        |Pin Description                                 |
+//! |----------------|------------------------------------------------|
+//! |     SDA        | Data input and output.(I2C)                    |
+//! |----------------|------------------------------------------------|
+//! |     SCL        | Clock input.(I2C)                              |
+//! +----------------+------------------------------------------------+
+//! \endverbatim
+//!
+//! \subsection SPLC780D_Func_DDRAM 2.2 Display Data RAM (DDRAM)
+//!
+//! Display data RAM (DDRAM) is where you send the characters (ASCII code) you
+//! want to see on the LCD screen. It stores display data represented in 8-bit
+//! character codes. Its capacity is 80 characters (bytes). Bonus: The area in
+//! display data RAM (DDRAM) that is not used for display can be used as general
+//! data RAM. DD RAM address is the position of the cursor (i.e. where the data
+//! you sent will be displayed). Below you see DD RAM address layout of a 2*16
+//! LCD.
+//! <img src="SPLC780D_ddramaddress.gif" />
+//! 
+//! \subsection SPLC780D_Func_Register 2.3 Registers
+//!
+//! The SPLC780D has two 8-bit registers, an instruction register (IR) and a data
+//! register (DR). The IR stores instruction codes, such as display clear and 
+//! cursor shift, and address information for display data RAM (DDRAM) and 
+//! character generator RAM (CGRAM). The DR temporarily stores data to be 
+//! written into DDRAM or CGRAM and temporarily stores data to be read from 
+//! DDRAM or CGRAM. Data written into the DR is automatically written into DDRAM
+//! or CGRAM by an internal operation. The DR is also used for data storage 
+//! when reading data from DDRAM or CGRAM. These two registers can be selected
+//! by the register selector (RS) signal. 
+//!
+//! \verbatim
+//! +----+----+---------------------------------------------------------+
+//! |RS  |R/W |Operation                                                |
+//! |----|----|---------------------------------------------------------|
+//! |0   |0   |R write as an internal operation (display clear, etc.)   |
+//! |0   |1   |Read busy flag (DB7) and address counter (DB0 to DB6)    |
+//! |1   |0   |DR write as an internal operation (DR to DDRAM or CGRAM) |
+//! |1   |1   |DR read as an internal operation (DDRAM or CGRAM to DR)  |
+//! +----+----+---------------------------------------------------------+
+//! \endverbatim
+//!
+//! \subsection SPLC780D_Func_BF 2.4 Busy Flag(BF)
+//! When the busy flag is 1, the SPLC780D is in the internal operation mode, 
+//! and the next instruction will not be accepted. When RS = 0 and R/W = 1 
+//! (see the table above), the busy flag is output to DB7 (MSB of LCD data bus).
+//! The next instruction must be written after ensuring that the busy flag is 0.
+//!
+//! \subsection SPLC780D_Func_AC 2.5 Address Counter (AC)
+//! 
+//! The address counter (AC) assigns addresses to both DDRAM and CGRAM. When 
+//! a "set DD RAM/CG RAM address" instruction is written into the IR, the 
+//! address information is sent from the IR to the AC. Selection of either 
+//! DDRAM or CGRAM is also determined concurrently by the instruction. After 
+//! writing into (or reading from) DDRAM or CGRAM, the AC is automatically 
+//! incremented (or decremented) by 1 . The AC contents are output to DB0 to DB6
+//! when RS = 0 and R/W = 1 (see the table above). To see the effects of setting
+//! the address counter to increment or decrement.
+//!
+//! \subsection SPLC780D_Func_Display 2.6 To display a character
+//!
+//! positional data is written into IR (DDRAM address). A character code is then
+//! written into DR and the LCD unit displays the corresponding pattern at the
+//! specified location. The LCD unit can either increment or decrement the 
+//! display position after each character entry, so that only successive 
+//! character codes need to be entered to display a continuos character string.
+//!
+//! \subsection SPLC780D_Func_Command 2.7 Commands
+//! <img src="SPLC780D_commands.gif" />
+//!
+//! \section SPLC780D_API_Group 3. API Group
+//! \subsection SPLC780D_API_Config 3.1 Config API
+//! - SPLC780Init() to initialize.
+//! - SPLC780EntryModeSet() to set the entry mode.
+//! .
+//! 
+//! \subsection SPLC780D_API_Display 3.2 Display API
+//! The display is turned on/off by:
+//! - SPLC780DisplayOn()
+//! - SPLC780DisplayOff()
+//! .
+//! 
+//! The display is cleared by SPLC780DisplayClear().
+//!
+//! Print something on the LCD:
+//! - SPLC780DisplayString()
+//! - SPLC780DisplayN()
+//! .
+//!
+//! Shift the entire display by:
+//! - SPLC780DisplayLeftShift()
+//! - SPLC780DisplayRightShift()
+//! .
+//!
+//! \subsection SPLC780D_API_Location 3.3 Location API
+//! - SPLC780Home() - return (0,0)
+//! - SPLC780LocationSet() - move to (x, y)
+//! .
+//! 
+//! \subsection SPLC780D_API_Cursor 3.4 Cursor API
+//! Cursor is turned on/off:
+//! - SPLC780CursorOn() - set the cursor style and turn on the cursor.
+//! - SPLC780CursorOff()
+//! .
+//! Move the curosr:
+//! - SPLC780CursorLeftMove()
+//! - SPLC780CursorRightMove().
+//! .
+//!
+//! \subsection SPLC780D_API_Lowlayer 3.5 Lowlayer API
+//! If the LCD API can not meet your need, you can use the API below operated 
+//! on the lowlayer.
+//! - SPLC780Busy()
+//! - SPLC780WriteCmd()
+//! - SPLC780WriteData()
+//! - SPLC780ReadState()
+//! - SPLC780ReadData()
+//! .
+//!
+//! \section SPLC780D_Usage SPLC780D Usage
+//! 
+//! Before Using the LCD driver, you should configure the LCD moudle, function,
+//! character font, data interface length, pin remap. Please reference
+//! \ref SPLC780D_Config.
+//!
+//! Below is some example code:
+//!
+//! \code
+
+//! void SPLC780DTest(void)
+//! {
+//!     int i , j;
+//!     
+//!     SPLC780Init();
+//!     
+//!     //
+//!     // Location Set & Display string, number Test
+//!     //
+//!     SPLC780LocationSet(0, 0);
+//!     SPLC780DisplayString("Hello SPLC780!");
+//!     SPLC780LocationSet(0, 1);
+//!     SPLC780DisplayString("Number:");
+//!     SPLC780DisplayN(10086);
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     SPLC780LocationSet(0,1);
+//!     SPLC780DisplayString("Display off/on");
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     SPLC780DisplayOff();    
+//!     xSysCtlDelay(xSysCtlClockGet() / 4 );
+//!     SPLC780DisplayOn();
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     //
+//!     // Cursor style
+//!     //
+//!     SPLC780DisplayClear();
+//!     SPLC780DisplayString("Cursor Test");
+//!     SPLC780CursorOn(xfalse);
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     SPLC780CursorOff();
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     
+//!     //
+//!     // Cursor will blink at the end of line
+//!     //
+//!     SPLC780CursorOn(xtrue);
+//!     SPLC780CursorRightMove(1);
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     SPLC780CursorRightMove(5);
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     SPLC780CursorLeftMove(4);
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     
+//!     for(i = 0; i < 10; i++)
+//!     {
+//!         SPLC780CursorRightMove(1);
+//!         xSysCtlDelay(xSysCtlClockGet() / 10);     
+//!     }
+//!     
+//!     for(i = 0; i < 10; i++)
+//!     {
+//!         SPLC780CursorLeftMove(1);
+//!         xSysCtlDelay(xSysCtlClockGet() / 10);     
+//!     }    
+//! 
+//!     SPLC780LocationSet(0, 1);
+//!     SPLC780DisplayString("Cursor Home");
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     
+//!     SPLC780Home();
+//!     
+//!     //
+//!     // Display Right shift
+//!     //
+//!     SPLC780DisplayClear();
+//!     SPLC780DisplayString("Right scrolling string");
+//!     SPLC780LocationSet(0, 1);
+//!     SPLC780DisplayString("        Line 2         ");
+//!     for(i = 0; i < 20; i++)
+//!     {
+//!         SPLC780DisplayRightShift(1);
+//!         xSysCtlDelay(xSysCtlClockGet() / 10);
+//!     }
+//!     
+//!     //
+//!     // Display Left shift
+//!     //
+//!     SPLC780DisplayClear();
+//!     SPLC780DisplayString("Left scrolling string");
+//!     SPLC780LocationSet(0, 1);
+//!     SPLC780DisplayString("        Line 2         ");
+//!     for(i = 0; i < 20; i++)
+//!     {
+//!         SPLC780DisplayLeftShift(1);
+//!         xSysCtlDelay(xSysCtlClockGet() / 10);
+//!     }
+//!     
+//!     //
+//!     // Display Right Left shift    
+//!     //
+//!     SPLC780DisplayClear();
+//!     SPLC780DisplayString("Left Right scrolling string");
+//!     SPLC780LocationSet(0, 1);
+//!     SPLC780DisplayString("        Line 2         ");    
+//!     for(j = 0; j < 2; j++)
+//!     {  
+//!         for(i = 0; i < 10; i++)
+//!         {
+//!             SPLC780DisplayRightShift(1);
+//!             xSysCtlDelay(xSysCtlClockGet() / 10);
+//!         }
+//!         for(i = 0; i < 10; i++)
+//!         {
+//!             SPLC780DisplayLeftShift(1);
+//!             xSysCtlDelay(xSysCtlClockGet() / 10);
+//!         } 
+//!     }
+//!     SPLC780Home();
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     
+//!     //
+//!     // Cursor Move Direction
+//!     //
+//!     SPLC780DisplayClear();
+//!     SPLC780LocationSet(10, 1);
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     SPLC780EntryModeSet(SPLC780_MOVE_DIRECTION_DEC, xfalse);
+//!     SPLC780DisplayString("DEC");
+//!     
+//!     SPLC780LocationSet(10, 2);
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     SPLC780EntryModeSet(SPLC780_MOVE_DIRECTION_DEC, xtrue);
+//!     SPLC780DisplayString("DEC shift");
+//!     
+//!     SPLC780DisplayClear();
+//!     SPLC780LocationSet(10, 1);
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     SPLC780EntryModeSet(SPLC780_MOVE_DIRECTION_INC, xfalse);
+//!     SPLC780DisplayString("INC");
+//!     
+//!     SPLC780LocationSet(10, 2);
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     SPLC780EntryModeSet(SPLC780_MOVE_DIRECTION_INC, xtrue);
+//!     SPLC780DisplayString("INC shift");
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     
+//!     SPLC780DisplayClear();
+//!     SPLC780EntryModeSet(SPLC780_MOVE_DIRECTION_INC, xfalse);
+//!     SPLC780DisplayString("Complete");
+//!         
+//! }
+//!     
+//! \endcode
+//
+//*****************************************************************************

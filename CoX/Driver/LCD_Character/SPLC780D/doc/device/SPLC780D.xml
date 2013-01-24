@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>SPLC780D</Name>
+    <Description>
+        An SPLC780D Character LCD is a de facto industry standard liquid crystal display (LCD) display device designed for interfacing with embedded systems. These screens come in a variety of configurations including 8x1, which is one row of eight characters, 16x2,20¡Á2 and 20x4, some include backlight provided by a LED.
+    </Description>
+    <Manufacturer></Manufacturer>
+    
+    <Category>LCD</Category>
+    <SubCategory>Character-LCD</SubCategory>
+    
+    <KeyWord>SPLC780D, LCD, LCD1602, Character LCD, Text LCD, 16x2, 20x2, 20x4, display</KeyWord>
+    
+    <Communication>
+        <Interface>GPIO</Interface>
+    </Communication>
+    
+    <WebPage></WebPage>
+    <Datasheet></Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>
