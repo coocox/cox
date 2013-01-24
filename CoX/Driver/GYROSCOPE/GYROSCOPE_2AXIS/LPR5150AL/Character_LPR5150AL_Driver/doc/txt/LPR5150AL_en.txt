@@ -1,0 +1,110 @@
+//*****************************************************************************
+//
+//! \defgroup LPR5150AL LPR5150AL
+//!
+//! \brief Two-axis micromachined gyroscope driver.
+//!
+//! The LPR5150AL is a low-power two-axis micromachined gyroscope able to measure
+//! angular rate along pitch and roll axes. It provides excellent temperature 
+//! stability and high resolution over extended operating temperature range 
+//! (-40буC +85буC).
+//!
+//! <h1>Contents</h1>
+//! - \ref LPR5150AL_Feature
+//! - \ref LPR5150AL_Block
+//! - \ref LPR5150AL_API_Group
+//!   - \ref LPR5150AL_API_Init
+//!   - \ref LPR5150AL_API_VoltageGet
+//!   - \ref LPR5150AL_API_RateGet
+//!   - \ref LPR5150AL_API_AngleGet
+//!   - \ref LPR5150AL_API_ulDelay
+//!   .
+//! - \ref LPR5150AL_Usage
+//! .
+//!
+//! \section LPR5150AL_Feature 1. LPR5150AL_Feature
+//! - The LPR5150AL has a full scale of б└1500 бу/s and is capable of detecting 
+//!   rates with a -3 dB bandwidth up to 140 Hz.
+//! - Measurement range: 4x OUT (amplified):б└1500 бу/s, OUT (not amplified):
+//!   б└6000 бу/s.
+//! - Sensitivity: 4x OUT (amplified):0.67 mV/ бу/s, OUT (not amplified):
+//!   0.167 mV/ бу/s
+//!
+//! \section LPR5150AL_Block 2. LPR5150AL Block
+//! <img src="LPR5150AL.png" />
+//!
+//! \section LPR5150AL_API_Group 3. LPR5150AL API Group
+//! \subsection LPR5150AL_API_Init 3.1 LPR5150AL API Init
+//! - LPR5150ALInit().
+//! .
+//! 
+//! \subsection LPR5150AL_API_VoltageGet 3.2 LPR5150AL API VoltageGet
+//! The XYAxis voltage is Get by:
+//! - LPR5150ALXYAxisCurVoltageGet()
+//! - LPR5150ALXYAxisNullVoltageGet()
+//! .
+//!
+//! \subsection LPR5150AL_API_RateGet 3.3 LPR5150AL API RateGet
+//! - LPR5150ALXYAxisRateGet()
+//! .
+//! 
+//! \subsection LPR5150AL_API_AngleGet 3.4 LPR5150AL API AngleGet
+//! - LPR5150ALXYAxisAngleGet()
+//! .
+//!
+//! \subsection LPR5150AL_API_ulDelay 3.5 LPR5150AL API ulDelay
+//! - DelayMS()
+//! .
+//!
+//! \section LPR5150AL_Usage LPR5150AL Usage
+//! 
+//! Below is some example code:
+//!
+//! \code
+//! #include "xhw_types.h"
+//! #include "xhw_memmap.h"
+//! #include "cookie.h"
+//! #include "xgpio.h"
+//! #include "xuart.h"
+//! #include "xsysctl.h"
+//! #include "T00006x.h"
+//! #include "stdio.h"
+//!
+//! void DeltaAngleGet()
+//! {
+//!     tLPR5150ALData g_XYAxisCurrentVoltage;
+//!     tLPR5150ALData g_XYAxisNullVoltage;
+//!     tLPR5150ALData g_XYAxisAngle;
+//!     tLPR5150ALData g_XYAxisRate;
+//!
+//!     xSysCtlClockSet(12000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_12MHZ);
+//!     xSysCtlDelay(1000);
+//!
+//!     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART0);
+//!     xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(sD13));
+//!     xSysCtlPeripheralClockSourceSet(xSYSCTL_UART0_MAIN, 1);
+//!
+//!     sPinTypeUART(sUART_DBG_BASE);
+//!     xUARTConfigSet(sUART_DBG_BASE, 115200, (UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE | UART_CONFIG_PAR_NONE));
+//!     xUARTEnable(sUART_DBG_BASE, (UART_BLOCK_UART | UART_BLOCK_RX));
+//!
+//!     //automatically added by CoIDE
+//! 	//ADConvert();
+//!
+//!
+//!     xSysCtlClockSet(12000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_12MHZ);
+//!
+//!     LPR5150ALInit();
+//!
+//!     while(1)
+//!     {
+//! 		g_XYAxisAngle = LPR5150ALXYAxisAngleGet();
+//! 		printf("The roll angle is: %f   ", g_XYAxisAngle.fXAxisData);
+//! 		printf("The pitch angle is: %f \r\n", g_XYAxisAngle.fYAxisData);
+//! 		//DelayMS(500);
+//!     }
+//! }
+//!     
+//! \endcode
+//
+//*****************************************************************************

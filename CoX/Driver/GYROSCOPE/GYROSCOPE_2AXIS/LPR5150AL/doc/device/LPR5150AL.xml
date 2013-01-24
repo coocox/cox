@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>LPR5150AL</Name>
+    <Description>
+        The LPR5150AL is a low-power two-axis micromachined gyroscope able to measure angular rate along pitch and roll axes.
+    </Description>
+    <Manufacturer>ST</Manufacturer>
+    
+    <Category>GYROSCOPE</Category>
+    <SubCategory>GYROSCOPE_2AXIS</SubCategory>
+    
+    <KeyWord>GYROSCOPE,lpr5150AL</KeyWord>
+    
+    <Communication>
+        <Interface>ADC</Interface>
+    </Communication>
+    
+    <WebPage></WebPage>
+    <Datasheet>http://www.farnell.com/datasheets/1581457.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>
