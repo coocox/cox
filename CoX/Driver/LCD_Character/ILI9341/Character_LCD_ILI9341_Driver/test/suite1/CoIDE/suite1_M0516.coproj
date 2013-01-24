@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Project version="2G" name="suite1_M0516">
+  <Target name="suite1_M0516" isCurrent="1">
+    <Device manufacturerId="8" manufacturerName="Nuvoton" chipId="225" chipName="M0516LBN" boardId="" boardName=""/>
+    <BuildOption>
+      <Compile>
+        <Option name="OptimizationLevel" value="0"/>
+        <Option name="UseFPU" value="0"/>
+        <Option name="UserEditCompiler" value=""/>
+        <Includepaths>
+          <Includepath path="."/>
+        </Includepaths>
+        <DefinedSymbols>
+          <Define name="M0516LBN"/>
+        </DefinedSymbols>
+      </Compile>
+      <Link useDefault="0">
+        <Option name="DiscardUnusedSection" value="0"/>
+        <Option name="UserEditLinkder" value=""/>
+        <Option name="UseMemoryLayout" value="1"/>
+        <Option name="Library" value="Not use C Library"/>
+        <LinkedLibraries/>
+        <MemoryAreas debugInFlashNotRAM="1">
+          <Memory name="IROM1" type="ReadOnly" size="0x00010000" startValue="0x00000000"/>
+          <Memory name="IRAM1" type="ReadWrite" size="0x00001000" startValue="0x20000000"/>
+          <Memory name="IROM2" type="ReadOnly" size="" startValue=""/>
+          <Memory name="IRAM2" type="ReadWrite" size="" startValue=""/>
+        </MemoryAreas>
+        <LocateLinkFile path="d:/coocox/coide/configuration/programdata/suite1_m0516/arm-gcc-link.ld" type="0"/>
+      </Link>
+      <Output>
+        <Option name="OutputFileType" value="0"/>
+        <Option name="Path" value="./"/>
+        <Option name="Name" value="suite1_M0516"/>
+        <Option name="HEX" value="1"/>
+        <Option name="BIN" value="1"/>
+      </Output>
+      <User>
+        <UserRun name="Run#1" type="Before" checked="0" value=""/>
+        <UserRun name="Run#1" type="After" checked="0" value=""/>
+      </User>
+    </BuildOption>
+    <DebugOption>
+      <Option name="org.coocox.codebugger.gdbjtag.core.adapter" value="Nu-Link"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.debugMode" value="SWD"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.clockDiv" value="1M"/>
+      <Option name="org.coocox.codebugger.gdbjtag.corerunToMain" value="1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.jlinkgdbserver" value=""/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.userDefineGDBScript" value=""/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.targetEndianess" value="0"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.jlinkResetMode" value="Type 0: Normal"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.resetMode" value="SYSRESETREQ"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.ifSemihost" value="0"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.ifCacheRom" value="1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.ipAddress" value="127.0.0.1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.portNumber" value="2009"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.autoDownload" value="1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.verify" value="1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.downloadFuction" value="Erase Effected"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.defaultAlgorithm" value="M051_64.elf"/>
+    </DebugOption>
+    <ExcludeFile/>
+  </Target>
+  <Components path="./"/>
+  <Files>
+    <File name="startup/startup_coide.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/startup/src/startup_coide.c" type="1"/>
+    <File name="source/testcase.c" path="../src/testcase.c" type="1"/>
+    <File name="Cox/inc/xcore.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xcore.h" type="1"/>
+    <File name="Cox/inc/xgpio.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xgpio.h" type="1"/>
+    <File name="Cox/inc" path="" type="2"/>
+    <File name="ili9341/ili9341.h" path="../../../lib/ili9341.h" type="1"/>
+    <File name="ili9341/GB3232.h" path="../../../lib/GB3232.h" type="1"/>
+    <File name="Cox" path="" type="2"/>
+    <File name="Cox/src/xcore.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xcore.c" type="1"/>
+    <File name="testframe" path="" type="2"/>
+    <File name="Cox/inc/xhw_types.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_types.h" type="1"/>
+    <File name="ili9341" path="" type="2"/>
+    <File name="source" path="" type="2"/>
+    <File name="Cox/inc/xhw_uart.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_uart.h" type="1"/>
+    <File name="Cox/inc/xuart.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xuart.h" type="1"/>
+    <File name="testframe/testport.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/testframe/testport.c" type="1"/>
+    <File name="ili9341/8X16.h" path="../../../lib/8X16.h" type="1"/>
+    <File name="Cox/inc/xhw_gpio.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_gpio.h" type="1"/>
+    <File name="source/testcase.h" path="../src/testcase.h" type="1"/>
+    <File name="testframe/test.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/testframe/test.h" type="1"/>
+    <File name="Cox/src/xsysctl.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xsysctl.c" type="1"/>
+    <File name="ili9341/GB1616.h" path="../../../lib/GB1616.h" type="1"/>
+    <File name="source/ili9341test.c" path="../src/ili9341test.c" type="1"/>
+    <File name="Cox/inc/xdebug.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xdebug.h" type="1"/>
+    <File name="Cox/src/xgpio.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xgpio.c" type="1"/>
+    <File name="Cox/inc/xhw_sysctl.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_sysctl.h" type="1"/>
+    <File name="testframe/main.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/testframe/main.c" type="1"/>
+    <File name="Cox/src/xdebug.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xdebug.c" type="1"/>
+    <File name="ili9341/ili9341.c" path="../../../lib/ili9341.c" type="1"/>
+    <File name="Cox/src" path="" type="2"/>
+    <File name="Cox/inc/xsysctl.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xsysctl.h" type="1"/>
+    <File name="Cox/src/xuart.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xuart.c" type="1"/>
+    <File name="ili9341/hw_ili9341.h" path="../../../lib/hw_ili9341.h" type="1"/>
+    <File name="Cox/inc/xhw_memmap.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_memmap.h" type="1"/>
+    <File name="Cox/inc/xhw_nvic.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_nvic.h" type="1"/>
+    <File name="startup" path="" type="2"/>
+    <File name="Cox/inc/xhw_ints.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_ints.h" type="1"/>
+    <File name="testframe/test.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/testframe/test.c" type="1"/>
+  </Files>
+</Project>

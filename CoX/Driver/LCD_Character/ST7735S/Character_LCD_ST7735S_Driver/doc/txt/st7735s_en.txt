@@ -1,0 +1,210 @@
+//*****************************************************************************
+//
+//! \defgroup ST7735S ST7735S
+//!
+//! \brief Character LCD control.
+//!
+//! An ST7735S Character LCD is a de facto industry standard thin film transistor 
+//! (TFT) LCD display device designed for interfacing with embedded systems.
+//! These screens come in a variety of configurations including 128*160, which has 
+//! two kinds of color mode, 65k-color and 262k-color mode, some include backlight 
+//! provided by a LED.
+//!
+//! Any parallelly interfaced character LCD you get these days will have a 
+//! Solomon Systech ST7735S chip or a different one compatible with the ST7735S. These 
+//! usually have 60 pins.
+//!
+//!
+//! <h1>Contents</h1>
+//! - \ref ST7735S_Pin
+//! - \ref ST7735S_Func_Desc
+//!   - \ref ST7735S_Func_GDDRAM
+//!   - \ref ST7735S_Func_Register
+//!   - \ref ST7735S_Func_AC
+//!   - \ref ST7735S_Func_Display
+//!   - \ref ST7735S_Func_Command
+//!   .
+//! - \ref ST7735S_API_Group
+//!   - \ref ST7735S_API_Config
+//!   - \ref ST7735S_API_Display
+//!   - \ref ST7735S_API_Location
+//!   - \ref ST7735S_API_Lowlayer
+//!   .
+//! - \ref ST7735S_Usage
+//! .
+//!
+//! \section ST7735S_Pin 1. ST7735S Pin Map
+//! 
+//! \verbatim
+//! +----------------+------------------------------------------------+
+//! |Pin Name        |Pin Description                                 |
+//! |----------------|------------------------------------------------|
+//! |D7 - D0         |Bi-directional data bus.                        |
+//! |----------------|------------------------------------------------|
+//! |WR              |Write strobe signal.                            |
+//! |----------------|------------------------------------------------|
+//! |RS              |Register select.                                |
+//! |                |0: instruction register; 1:  data register      |
+//! |----------------|------------------------------------------------|
+//! |RD              |Read strobe signal.                             |
+//! |----------------|------------------------------------------------|
+//! |CSn             |LCD Select Pin.                                 |
+//! |----------------|------------------------------------------------|
+//! |RSTn            |LCD Reset Pin.                                  |
+//! +----------------+------------------------------------------------+
+//! \endverbatim
+//!
+//! \section ST7735S_Func_Desc 2. ST7735S Function Description
+//! \subsection ST7735S_Func_GDDRAM 2.1 Display Data RAM (GDDRAM)
+//!
+//! Display data RAM (GDDRAM) is where you send the characters (ASCII code) you
+//! want to see on the LCD screen. It stores display data represented in 8-bit
+//! character codes. Its capacity is 80 characters (bytes). Bonus: The area in
+//! display data RAM (GDDRAM) that is not used for display can be used as general
+//! data RAM. DD RAM address is the position of the cursor (i.e. where the data
+//! you sent will be displayed). Below you see DD RAM address layout of a 2*16
+//! LCD.
+//! <img src="ST7735S_gddramaddress.png" />
+//! 
+//! \subsection ST7735S_Func_Register 2.2 Registers
+//!
+//! The ST7735S has two 16-bit registers, an instruction register (IR) and a 
+//! Device Code Read(DCR). The IR specifies the RAM control indexes (R00h to RFFh).  
+//! It sets the register number in the range of 00000000 to 11111 111 in binary  
+//! form. But do not access to Index register and instruction bits which do not 
+//! have it¡¯s own index register. The DCR stores the device code, We can read the 
+//! ST7735S's device num from this register.
+//! The instruction and data registers can be selected
+//! by the register selector (DC) signal. 
+//!
+//! \verbatim
+//! +----+---------------------------------------------------------+
+//! |DC  |Operation                                                |
+//! |----|---------------------------------------------------------|
+//! |0   | write as an instruction operation                       |
+//! |1   | write as an data operation (DR to DDRAM or CGRAM)       |
+//! +----+---------------------------------------------------------+
+//! \endverbatim
+//!
+//! \subsection ST7735S_Func_AC 2.3 Address Counter (AC)
+//! 
+//! The address counter (AC) assigns address to the GDDRAM. When an address 
+//! set instruction is written into the IR, the address information is sent
+//! from the IR to the AC. 
+//! 
+//! After writing into the GRAM, the AC is automatically  incremented by 1 
+//! (or decremented by 1). After reading the data, the AC is not updated. 
+//! A window addr ess function allows for data to be written only to a 
+//! window area specified by GRAM. 
+//!
+//! \subsection ST7735S_Func_Display 2.4 To display a character
+//!
+//! positional data is written into IR (DDRAM address). A character code is then
+//! written into DR and the LCD unit displays the corresponding pattern at the
+//! specified location. The LCD unit can either increment or decrement the 
+//! display position after each character entry, so that only successive 
+//! character codes need to be entered to display a continuos character string.
+//!
+//! \subsection ST7735S_Func_Command 2.5 Commands
+//! <img src="ST7735S_commands.jpg" />
+//!
+//! \section ST7735S_API_Group 3. API Group
+//! \subsection ST7735S_API_Config 3.1 Config API
+//! - ST7735Init() to initialize.
+//! .
+//! 
+//! \subsection ST7735S_API_Display 3.2 Display API
+//! The display is entered sleep mode on/off by:
+//! - ST7735EnterSleepMode()
+//! - ST7735ExitSleepMode()
+//! - ST7735DisplayOn()
+//! - ST7735DisplayOff()
+//! - ST7735DisplayInversionOn()
+//! - ST7735DisplayInversionOff()
+//!
+//! .
+//! 
+//! The display is cleared by ST7735SDisplayClear().
+//!
+//! Print something on the LCD:
+//! - ST7735DrawOnePixel()
+//! - ST7735DrawHorizontalLine()
+//! - ST7735DrawVerticalLine()
+//! - ST7735DisplayString()
+//! - ST7735DisplayNum()
+//! - ST7735DisplayBmp()
+//! .
+//!
+//! \subsection ST7735S_API_Location 3.3 Location API
+//! - ST7735SetCurPos() - move to (s_x, e_s, s_y, e_y)
+//! .
+//!
+//! \subsection ST7735S_API_Lowlayer 3.4 Lowlayer API
+//! If the LCD API can not meet your need, you can use the API below operated 
+//! on the lowlayer.
+//! - ST7735WriteCmd()
+//! - ST7735WriteData()
+//! - ST7735WritePixelData()
+//! - ST7735Read()
+//! .
+//!
+//! \section ST7735S_Usage ST7735S Usage
+//! 
+//! Before Using the LCD driver, you should configure the LCD moudle, function,
+//! character font, data interface length, pin remap. Please reference
+//! \ref ST7735S_Config.
+//!
+//! Below is some example code:
+//!
+//! \code
+//!
+//! void ST7735STest(void)
+//! {
+//!     int i , j;
+//!     
+//!     ST7735SInit();
+//!     
+//!     //
+//!     // Location Set & Display string, number Test
+//!     //
+//!     ST7735DisplayClear(0x07E0);
+//!    ST7735DisplayString(15, 15, "Hello ST7735!", MAGENTA, GREEN);
+//!    ST7735DisplayString(15, 31, "Number: ", BLUE, WHITE);
+//!    ST7735DisplayNum(79, 31, 10086, BLUE, WHITE);
+//!    xSysCtlDelay(xSysCtlClockGet() / 4);
+//!    
+//!    ST7735DisplayString(7, 47, "BL Leds off/on", BLUE, WHITE);
+//!    xSysCtlDelay(xSysCtlClockGet() / 4);
+//!    ST7735BackLightOff();   
+//!    xSysCtlDelay(xSysCtlClockGet() / 4 );
+//!    ST7735BackLightOn();
+//!    xSysCtlDelay(xSysCtlClockGet() / 4);
+//!	   
+//!    ST7735DisplayString(0, 63, "Display sleep off/on", BLUE, WHITE);
+//!    xSysCtlDelay(xSysCtlClockGet() / 4);
+//!    ST7735EnterSleepMode();    
+//!    xSysCtlDelay(xSysCtlClockGet() / 4 );
+//!    ST7735ExitSleepMode();
+//!    xSysCtlDelay(xSysCtlClockGet() / 4);
+//!		
+//!		ST7735DisplayString(7, 79, "Display off/on", BLUE, WHITE);
+//!    xSysCtlDelay(xSysCtlClockGet() / 4);
+//!    ST7735DisplayOff();    
+//!    xSysCtlDelay(xSysCtlClockGet() / 4 );
+//!    ST7735DisplayOn();
+//!    xSysCtlDelay(xSysCtlClockGet() / 4);
+		
+//!		ST7735DisplayString(7, 95, "Display Inversion", BLUE, WHITE);
+//!    xSysCtlDelay(xSysCtlClockGet() / 4);
+//!    ST7735DisplayInversionOn();    
+//!    xSysCtlDelay(xSysCtlClockGet() / 4 );
+//!    ST7735DisplayInversionOff();
+//!    xSysCtlDelay(xSysCtlClockGet() / 4);
+//!  
+//!    ST7735DisplayString(31, 127, "Complete", BLUE, WHITE);
+//!         
+//! }
+//!     
+//! \endcode
+//
+//*****************************************************************************
