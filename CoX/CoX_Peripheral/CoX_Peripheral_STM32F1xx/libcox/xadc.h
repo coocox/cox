@@ -743,8 +743,8 @@ extern void xADCIntDisable(unsigned long ulBase, unsigned long ulIntFlags);
 //!         Else returns the number of samples copied to the buffer.
 //
 //*****************************************************************************
-#define xADCDataGet(ulBase)                                                   \
-        ADCDataRegularGet(ulBase)
+#define xADCDataGet(ulBase,pulBuffer)                                         \
+		*pulBuffer = ADCDataRegularGet(ulBase, ADC_MODE_NORMAL)
 
 //*****************************************************************************
 //

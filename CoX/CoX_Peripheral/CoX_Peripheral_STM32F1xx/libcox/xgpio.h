@@ -1522,20 +1522,6 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 #define xGPIOPinRead(ulPort, ulPins)                                          \
         GPIOPinRead(ulPort, ulPins)
 
-//*****************************************************************************
-//
-//! \brief Reads the values present of the specified Port.
-//!
-//! \param ulPort is the base address of the GPIO port.
-//!
-//! The values at the specified Port are read
-//!
-//! \return Returns a bit-packed byte providing the state of the specified
-//! Port
-//
-//*****************************************************************************
-#define xGPIOPortRead(ulPort)                                                 \
-        GPIOPortRead(ulPort)
 
 //*****************************************************************************
 //
@@ -1584,21 +1570,6 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 
 //*****************************************************************************
 //
-//! \brief Writes a value to the specified Port.
-//!
-//! \param ulPort is the base address of the GPIO port.
-//! \param ucVal is the value to write to the Port.
-//!
-//! Writes the corresponding bit values to the output Port
-//!
-//! \return None.
-//
-//*****************************************************************************
-#define xGPIOPortWrite(ulPort, ulVal)                                         \
-        GPIOPortWrite(ulPort, ulVal)
-
-//*****************************************************************************
-//
 //! \brief Write a value to the specified pin.
 //!
 //! \param eShortPin Specified port and pin.
@@ -1636,7 +1607,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //*****************************************************************************        
 #define xGPIOPinConfigure(eShortPin, ulPinConfig)                                        \
-        GPIOPinConfigure(eShortPin, ulPinConfig)
+        GPIOSPinConfigure(eShortPin, ulPinConfig)
 
 //*****************************************************************************
 //
@@ -3525,10 +3496,7 @@ extern unsigned long GPIOPinIntStatus(void);
 extern void GPIOPinIntClear(unsigned long ulPort, unsigned long ulPins);
 extern long GPIOPinRead(unsigned long ulPort, unsigned long ulPins);
 extern void GPIOPinWrite(unsigned long ulPort, unsigned long ulPins,
-                         unsigned char ucVal);
-extern long GPIOPortRead(unsigned long ulPort);
-extern void GPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
-
+		                 unsigned char ucVal);
 extern void GPIOPinSet(unsigned long ulPort, unsigned long ulPins);	
 extern void GPIOPinReset(unsigned long ulPort, unsigned long ulPins);
 extern void GPIOPinLockConfig(unsigned long ulPort, unsigned long ulPins);
@@ -3542,6 +3510,10 @@ extern void GPIOPinConfigure(unsigned long ulPort, unsigned long ulPins,
                              unsigned long ulPinConfig);
 extern unsigned long  GPIOPinToPeripheralId(unsigned long ulPort, 
                                             unsigned long ulPin);
+extern unsigned long  GPIOPinToPort(unsigned long ulPort, 
+                                    unsigned long ulPin);
+extern unsigned long  GPIOPinToPin(unsigned long ulPort, 
+                                   unsigned long ulPin);
 
 //*****************************************************************************
 //
@@ -3578,3 +3550,4 @@ extern unsigned long  GPIOPinToPeripheralId(unsigned long ulPort,
 #endif
 
 #endif //  __xGPIO_H__
+
