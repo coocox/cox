@@ -206,22 +206,22 @@ extern "C"
 //
 //! Moto Format, polarity 0, phase 0
 //
-#define xSPI_MOTO_FORMAT_MODE_0 SPI_FORMAT_MODE_1
+#define xSPI_MOTO_FORMAT_MODE_0 SPI_FORMAT_MODE_0
 
 //
 //! Moto Format, polarity 0, phase 1
 //  
-#define xSPI_MOTO_FORMAT_MODE_1 SPI_FORMAT_MODE_2  
+#define xSPI_MOTO_FORMAT_MODE_1 SPI_FORMAT_MODE_1
                                              
 //
 //! Moto Format, polarity 1, phase 0
 //  
-#define xSPI_MOTO_FORMAT_MODE_2 SPI_FORMAT_MODE_6  
+#define xSPI_MOTO_FORMAT_MODE_2 SPI_FORMAT_MODE_2
                                            
 //
 //! Moto Format, polarity 1, phase 1
 //
-#define xSPI_MOTO_FORMAT_MODE_3 SPI_FORMAT_MODE_5
+#define xSPI_MOTO_FORMAT_MODE_3 SPI_FORMAT_MODE_3
                                             
 //
 //!  TI frame format
@@ -993,14 +993,14 @@ extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
 //! Tx changed at falling edge
 //! Rx latched at rising edge
 //
-#define SPI_FORMAT_MODE_4       0x00000003  
+#define SPI_FORMAT_MODE_3       0x00000003
 
 //
 //! Moto Format, polarity 1, phase 0  M3
 //! Tx changed at rising edge
 //! Rx latched at falling edge
 //
-#define SPI_FORMAT_MODE_3       0x00000002  
+#define SPI_FORMAT_MODE_2       0x00000002
 
 //
 //£¡ SPI master
