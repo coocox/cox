@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>MT008-A</Name>
+    <Description>Five direction joystick key</Description>
+    <Manufacturer>东莞市利丰塑胶电子有限公司</Manufacturer>
+    
+    <Category>Other</Category>
+    <SubCategory>Key</SubCategory>
+    
+    <KeyWord>key, button, joystick</KeyWord>
+    
+    <Communication>
+        <Interface>GPIO</Interface>
+    </Communication>
+    
+    <WebPage>http://dglfkg.net114.com/</WebPage>
+    <Datasheet>...</Datasheet>
+</Device>

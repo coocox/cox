@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Project version="2G" name="CH376_Example">
-  <Target name="CH376_Example" isCurrent="1">
+<Project version="2G" name="suite1.STM32F1xx">
+  <Target name="suite1.STM32F1xx" isCurrent="1">
     <Device manufacturerId="9" manufacturerName="ST" chipId="324" chipName="STM32F103VE" boardId="" boardName=""/>
     <BuildOption>
       <Compile>
@@ -27,12 +27,12 @@
           <Memory name="IROM2" type="ReadOnly" size="" startValue=""/>
           <Memory name="IRAM2" type="ReadWrite" size="" startValue=""/>
         </MemoryAreas>
-        <LocateLinkFile path="c:/coocox/coide/configuration/programdata/ch376_example/arm-gcc-link.ld" type="0"/>
+        <LocateLinkFile path="c:/coocox/coide/configuration/programdata/suite1.stm32f1xx/arm-gcc-link.ld" type="0"/>
       </Link>
       <Output>
         <Option name="OutputFileType" value="0"/>
         <Option name="Path" value="./"/>
-        <Option name="Name" value="CH376_Example"/>
+        <Option name="Name" value="suite11.STM32F1xx"/>
         <Option name="HEX" value="1"/>
         <Option name="BIN" value="1"/>
       </Output>
@@ -42,19 +42,19 @@
       </User>
     </BuildOption>
     <DebugOption>
-      <Option name="org.coocox.codebugger.gdbjtag.core.adapter" value="ST-Link"/>
-      <Option name="org.coocox.codebugger.gdbjtag.core.debugMode" value="SWD"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.adapter" value="J-Link"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.debugMode" value="JTAG"/>
       <Option name="org.coocox.codebugger.gdbjtag.core.clockDiv" value="1M"/>
       <Option name="org.coocox.codebugger.gdbjtag.corerunToMain" value="1"/>
       <Option name="org.coocox.codebugger.gdbjtag.core.jlinkgdbserver" value="C:\Program Files\SEGGER\JLinkARM_V422g\JLinkGDBServerCL.exe"/>
       <Option name="org.coocox.codebugger.gdbjtag.core.userDefineGDBScript" value=""/>
       <Option name="org.coocox.codebugger.gdbjtag.core.targetEndianess" value="0"/>
       <Option name="org.coocox.codebugger.gdbjtag.core.jlinkResetMode" value="Type 0: Normal"/>
-      <Option name="org.coocox.codebugger.gdbjtag.core.resetMode" value="SYSRESETREQ"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.resetMode" value="Type 0: Normal"/>
       <Option name="org.coocox.codebugger.gdbjtag.core.ifSemihost" value="0"/>
       <Option name="org.coocox.codebugger.gdbjtag.core.ifCacheRom" value="1"/>
       <Option name="org.coocox.codebugger.gdbjtag.core.ipAddress" value="127.0.0.1"/>
-      <Option name="org.coocox.codebugger.gdbjtag.core.portNumber" value="2009"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.portNumber" value="2331"/>
       <Option name="org.coocox.codebugger.gdbjtag.core.autoDownload" value="1"/>
       <Option name="org.coocox.codebugger.gdbjtag.core.verify" value="1"/>
       <Option name="org.coocox.codebugger.gdbjtag.core.downloadFuction" value="Erase Effected"/>
@@ -65,8 +65,9 @@
   <Components path="./"/>
   <Files>
     <File name="CoX_Driver/CH376_Driver/CH376.h" path="../../../lib/CH376.h" type="1"/>
-    <File name="CoX/CoX_Peripheral/inc/xadc.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xadc.h" type="1"/>
+    <File name="testframe/testcase.c" path="../src/testcase.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xi2c.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xi2c.h" type="1"/>
+    <File name="CoX/CoX_Peripheral/inc/xadc.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xadc.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_spi.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_spi.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_config.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_config.h" type="1"/>
@@ -79,41 +80,46 @@
     <File name="CoX_Driver/CH376_Driver/hw_CH376INC.h" path="../../../lib/hw_CH376INC.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_ints.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_ints.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xsysctl.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xsysctl.h" type="1"/>
+    <File name="testframe/test.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/testframe/test.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_adc.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_adc.h" type="1"/>
     <File name="syscalls/syscalls.c" path="../src/syscalls.c" type="1"/>
-    <File name="example" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_i2c.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_i2c.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_types.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_types.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_nvic.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_nvic.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xuart.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xuart.c" type="1"/>
-    <File name="stdio/printf.c" path="../src/printf.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_gpio.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_gpio.h" type="1"/>
+    <File name="stdio/printf.c" path="../src/printf.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xdma.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xdma.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_timer.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_timer.h" type="1"/>
     <File name="stdio" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/src/xspi.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xspi.c" type="1"/>
+    <File name="CH376_Test.c" path="../src/CH376_Test.c" type="1"/>
     <File name="CoX_Driver/CH376_Driver" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/src/xgpio.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xgpio.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xtimer.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xtimer.h" type="1"/>
+    <File name="testframe" path="" type="2"/>
+    <File name="testframe/testport.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/testframe/testport.c" type="1"/>
     <File name="CoX" path="" type="2"/>
+    <File name="testframe/testcase.h" path="../src/testcase.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xuart.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xuart.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xwdt.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xwdt.h" type="1"/>
-    <File name="CoX/CoX_Peripheral/inc/xrtc.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xrtc.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_sysctl.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_sysctl.h" type="1"/>
+    <File name="CoX/CoX_Peripheral/inc/xrtc.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xrtc.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xdebug.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xdebug.h" type="1"/>
+    <File name="CoX/CoX_Peripheral/src/xdebug.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xdebug.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_dma.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_dma.h" type="1"/>
-    <File name="example/Example.c" path="../src/Example.c" type="1"/>
     <File name="syscalls" path="" type="2"/>
     <File name="CoX_Driver/CH376_Driver/CH376.c" path="../../../lib/CH376.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xacmp.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xacmp.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xspi.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xspi.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xcore.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xcore.h" type="1"/>
-    <File name="CoX/CoX_Peripheral" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/src/xsysctl.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xsysctl.c" type="1"/>
+    <File name="CoX/CoX_Peripheral" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xpwm.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xpwm.h" type="1"/>
     <File name="CoX_Driver/CH376_Driver/CH376_FS.h" path="../../../lib/CH376_FS.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_memmap.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_memmap.h" type="1"/>
+    <File name="testframe/test.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/testframe/test.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_uart.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_uart.h" type="1"/>
     <File name="main.c" path="../main.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_rtc.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_rtc.h" type="1"/>

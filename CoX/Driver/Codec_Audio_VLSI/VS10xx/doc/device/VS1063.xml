@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>VS1063</Name>
+    <Description>VS1063 - MP3 / OGG / AAC / WMA / FLAC / G.711 / G.722 Audio Codec</Description>
+    <Manufacturer>VLSI</Manufacturer>
+    
+    <Category>CODEC</Category>
+    <SubCategory>AUDIO CODEC</SubCategory>
+    
+    <KeyWord>VS1063, VS10xx, AUDIO CODEC, VLSI</KeyWord>
+    
+    <Communication>
+        <Interface>SPI, GPIO</Interface>
+    </Communication>
+    
+    <WebPage>http://www.vlsi.fi/en/products/vs1063.html</WebPage>
+    <Datasheet>http://www.vlsi.fi/fileadmin/datasheets/vlsi/vs1063.pdf</Datasheet>
+</Device>

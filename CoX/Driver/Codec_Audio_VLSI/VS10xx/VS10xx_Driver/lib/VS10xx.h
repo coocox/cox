@@ -1,14 +1,14 @@
 //*****************************************************************************
 //
-//! \file LCD1602IIC.h
-//! \brief Prototypes for I2C Character LCD HD44780 Driver.
-//! \version 2.1.1.0
-//! \date 1/15/2013
-//! \author CooCox
+//! \file VS10xx.h
+//! \brief header file of  driver for VS10xx
+//!        Configure this file to apply this driver to your application
+//! \version V1.0.0
+//! \date 1/23/2013
+//! \author CooCoX
 //! \copy
 //!
-//! Copyright (c)  2012, CooCox
-//! All rights reserved.
+//! Copyright (c)  2012, CooCoX All rights reserved.
 //!
 //! Redistribution and use in source and binary forms, with or without
 //! modification, are permitted provided that the following conditions
@@ -37,9 +37,8 @@
 //
 //*****************************************************************************
 
-#ifndef __LCD1602IIC_H__
-#define __LCD1602IIC_H__
-
+#ifndef __VS10XX_H__
+#define __VS10XX_H__
 //*****************************************************************************
 //
 // If building with a C++ compiler, make all of the definitions in this header
@@ -55,66 +54,50 @@ extern "C"
 //
 //! \addtogroup CoX_Driver_Lib
 //! @{
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup LCD
+//! \addtogroup CODECs
+//! @{
+//! \addtogroup Audio_Decoder
+//! @{
+//! \addtogroup VS10xx
+//! @{
+//! \addtogroup VS10xx_Driver_Single
 //! @{
 //
 //*****************************************************************************
 
 //*****************************************************************************
 //
-//! \addtogroup LCD_Character
+//! \addtogroup VS10xx_User_Config
+//! VS10xx Interface Configure
 //! @{
 //
 //*****************************************************************************
 
-//*****************************************************************************
-//
-//! \addtogroup LCD1602_With_PCA8574_I2C
-//! @{
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup LCD1602_I2C_Config LCD1602_I2C Driver Configuration
-//!
-//! \brief Configurations such as the GPIO Pin used should be set before using
-//! this driver.
-//!
-//! @{
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup LCD1602_I2C_Config_Pins LCD1602_I2C Driver Pin Configuration
-//!
-//! \brief GPIO Pins Configurations that communication with the LCD should be
-//! set before using this driver.
-//!
-//! @{
-//
-//*****************************************************************************
+#define SPI_CLK                 SPI2CLK(APP)
+#define SPI_MOSI                SPI2MOSI(APP)
+#define SPI_MISO                SPI2MISO(FIN)
+#define VS10xx_SPI_PORT         xSPI2_BASE
+#define VS10xx_SCK_PIN          PB13
+#define VS10xx_MOSI_PIN         PB15
+#define VS10xx_MISO_PIN         PB14
 
 //
-//! Select hardware IIC or software IIC
+//! Command CS
 //
-#define USE_SOFTWARE_IIC
-//#define USE_HARDWARE_IIC
+#define VS10xx_XCS_PIN          PC10
+//
+//! Hardware reset pin
+//
+#define VS10xx_RST_PIN          PD9
+//
+//! Data CS
+//
+#define VS10xx_XDCS_PIN         PC11
+//
+//! Data request output
+//
+#define VS10xx_DREQ_PIN         PC3
 
-#define LCD1602_IIC_PIN_SCL     PB6
-#define LCD1602_IIC_PIN_SDA     PB7
-
-#ifdef USE_HARDWARE_IIC
-#define LCD1602_IIC_SCL I2C1SCK
-#define LCD1602_IIC_SDA I2C1SDA
-#define LCD1602_IIC_PORT I2C1_BASE
-#endif
 //*****************************************************************************
 //
 //! @}
@@ -123,24 +106,45 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup LCD1602_I2C_Config_Module LCD1602_I2C Configuration structure
-//!
-//! \brief Configure the LCD module. such as 1602, 1601, 20*2.
-//! set before using this driver.
-//!
+//! \addtogroup VS10xx_SPI_Clock_Rate_Define
 //! @{
 //
 //*****************************************************************************
-typedef struct LCD1602
+#define VS10xx_XTAL                    12288000
+
+#define VS10xx_SPI_CLK_FAST            4500000
+#define VS10xx_SPI_CLK_MEDIUM          2250000
+#define VS10xx_SPI_CLK_SLOW            1125000
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup Audio_File_Information
+//! @{
+//
+//*****************************************************************************
+typedef enum
 {
-    unsigned char ucDevAddr;            //device address
-    unsigned char ucDispalyFunction;    //display function configuration data
-    unsigned char ucDisplayControl;     //display control configuration data
-    unsigned char ucDisplayMode;        //display mode configuration data
-    unsigned char ucNumCols;            //characters one line can display
-    unsigned char ucNumRows;            //lines LCD can display
-    unsigned char ucBackLightEn;        //LCD back light configuration data
-}LCD1602Conf;
+        wav,
+        wma,
+        midi,
+        mp3,
+        other
+}tFileType;
+
+typedef struct
+{
+    tFileType eFileType;
+    unsigned short usBitRate;
+    unsigned char ucMp3ID;
+    unsigned char ucMp3Layer;
+    unsigned short ucSampleRate;
+    unsigned char ucOtherInfo;
+}AudioFileInfo;
 //*****************************************************************************
 //
 //! @}
@@ -149,31 +153,27 @@ typedef struct LCD1602
 
 //*****************************************************************************
 //
-//! \addtogroup LCD1602_I2C_Exported_APIs  LCD1602_I2C Driver APIs
-//! \brief API Refrence of LCD1602IIC Driver.
+//! \addtogroup VS10xx_Driver_API
+//! Exported VS10xx Driver APIs
 //! @{
 //
 //*****************************************************************************
-extern void LCD1602Clear(void);
-extern void LCD1602Home(void);
-extern void LCD1602DisplayOff(void);
-extern void LCD1602DisplayOn(void);
-extern void LCD1602BlinkOff(void);
-extern void LCD1602BlinkOn(void);
-extern void LCD1602CursorOff(void);
-extern void LCD1602CursorOn(void);
-extern void LCD1602ScrollDisplayLeft(void);
-extern void LCD1602ScrollDisplayRight(void);
-extern void LCD1602BacklightOff(void);
-extern void LCD1602BacklightOn(void);
-extern void LCD1602AutoScrollOff(void);
-extern void LCD1602AutoScrollOn(void);
-extern void LCD1602CreateChar(unsigned char ucLocation, unsigned char ucCharMap[]);
-extern void LCD1602Init(unsigned long ulCLK);
-extern void LCD1602SetCursor(unsigned char ucRow, unsigned char ucCol);
-extern void LCD1602ShowChar(unsigned char ucRow, unsigned char ucCol, char ch);
-extern void LCD1602PrintString(unsigned char ucRow, unsigned char ucCol, char *pStr);
-
+extern unsigned short VS10xxReadReg(unsigned char ucAddr);
+extern void VS10xxWriteCmd(unsigned char ucAddr, unsigned short usValue);
+extern void VS10xxWriteData(unsigned char *pucBuffer);
+extern void VS10xxInit(void);
+extern void VS10xxHardReset(void);
+extern void VS10xxSoftReset(void);
+extern void VS10xxSineTest(unsigned char ucFreq, unsigned long ulTestTime);
+extern unsigned short VS10xxGetDecodeTime(void);
+extern void VS10xxResetDecodeTime(void);
+extern void VS10xxGetAudioInfo(AudioFileInfo *AudioInfo);
+extern void VS10xxSetBalance(short sVolBalance);
+extern void VS10xxSetVolume(unsigned char ucVol);
+extern void VS10xxSetVolume2(unsigned short usVol);
+extern unsigned short VS10xxGetVolume( void );
+extern void VS10xxBassTrebleEnhance(short sTrebleAmplitude, unsigned short usTrebleLimit,
+                             unsigned short usBassAmplitude, unsigned short usBassLimit);
 //*****************************************************************************
 //
 //! @}
@@ -181,6 +181,7 @@ extern void LCD1602PrintString(unsigned char ucRow, unsigned char ucCol, char *p
 //*****************************************************************************
 
 //*****************************************************************************
+//
 //! @}
 //! @}
 //! @}
@@ -192,4 +193,7 @@ extern void LCD1602PrintString(unsigned char ucRow, unsigned char ucCol, char *p
 }
 #endif
 
-#endif //__HD44780_H__
+#endif
+
+
+
