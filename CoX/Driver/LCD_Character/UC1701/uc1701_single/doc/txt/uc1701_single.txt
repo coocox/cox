@@ -16,7 +16,6 @@
 //! - \ref UC1701_Block
 //! - \ref UC1701_Pins
 //! - \ref UC1701_SPI_MODE
-//! - \ref UC1701_Function_Desc
 //! .
 //!
 //! \section UC1701_Block 1. UC1701 Physical Block

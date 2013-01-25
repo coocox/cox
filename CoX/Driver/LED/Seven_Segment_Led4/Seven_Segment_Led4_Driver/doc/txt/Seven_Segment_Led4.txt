@@ -1,7 +1,7 @@
 //******************************************************
 //
 //!
-//! \addtogroup Seven_Segment_Led4_Driver
+//! \defgroup Seven_Segment_Led4_Driver
 //! @{
 //!
 //! <h1>Contents</h1>
@@ -43,25 +43,3 @@
 //
 //******************************************************
 
-
-
-//******************************************************
-//
-//!
-//! \addtogroup CoX_Driver_Lib
-//! @{
-//! \addtogroup LED
-//! @{
-//! \addtogroup Seven_Segment_LED
-//! @{
-//! \addtogroup Seven_Segment_Led4_Driver 
-//! @{
-//! \addtogroup Seven_Segment_Config
-//! @{
-//! @}
-//! @}
-//! @}
-//! @}
-//! @}
-//
-//******************************************************

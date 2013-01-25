@@ -60,7 +60,7 @@ extern "C"
 //! @{
 //! \addtogroup Seven_Segment_LED
 //! @{
-//! \addtogroup  Seven_Segment_Led1_Driver
+//! \addtogroup  Seven_Segment_Led4_Driver
 //! @{
 //
 //*****************************************************************************

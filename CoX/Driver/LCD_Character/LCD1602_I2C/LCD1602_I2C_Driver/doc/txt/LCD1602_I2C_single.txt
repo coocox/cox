@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-//! \defgroup LCD1602_I2C
+//! \defgroup LCD1602_With_PCA8574_I2C LCD1602_With PCA8574 I2C
 //!
 //! \brief LCD1602_I2C driver.
 //!
@@ -43,7 +43,6 @@
 //! <img src="hd44780_commands.gif">
 //! .
 //!
-//! \defgroup LCD1602_I2C_Driver_Single  
 //! 
 //! \brief This is the LCD1602_I2C series Driver can be used in the condition which
 //! the system only have one LCD1602_I2C series device.
@@ -111,7 +110,7 @@
 //! - LCD1602CreateChar()
 //! .
 //!
-//! \section LCD1602_I2C Usage
+//! \section LCD1602_I2C_Usage Usage
 //! 
 //! Before Using the LCD driver, you should configure the LCD moudle, function,
 //! data interface pin remap. 
