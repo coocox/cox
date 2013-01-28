@@ -1,0 +1,177 @@
+//*****************************************************************************
+//
+//!
+//! \defgroup UC1701
+//!
+//! \brief This is the UC1701 series Driver.
+//! 
+//! UC1701s is an advanced high-voltage mixedsignal
+//! CMOS IC, especially designed for the
+//! display needs of ultra-low power hand-held
+//! devices.This chip employs UltraChip¡¯s unique DCC
+//! (Direct Capacitor Coupling) driver architecture to
+//! achieve near crosstalk free images.
+//!
+//! <h1>Contents</h1>
+//! - \ref UC1701_Block
+//! - \ref UC1701_Pins
+//! - \ref UC1701_SPI_MODE
+//! .
+//!
+//! \section UC1701_Block 1. UC1701 Physical Block
+//! <img src="UC1701.png" />
+//!
+//! \section UC1701_Pins 2. UC1701 Signal names
+//! <img src="UC1701_Pins.png" />
+//!
+//! \section UC1701_SPI_MODE 3. UC1701 supported SPI mode
+//! These devices can be driven by a microcontroller with its SPI peripheral 
+//! running in either of the two following modes:
+//! - CPOL=0, CPHA=0    \ref xSPI_MOTO_FORMAT_MODE_0
+//! - CPOL=1, CPHA=1    \ref xSPI_MOTO_FORMAT_MODE_3
+//! .
+//!
+//! \defgroup UC1701_Driver_Single  
+//!  
+//! \brief This is the UC1701 series Driver can be used in the condition which
+//! the system only have one UC1701 series device.
+//!
+//! This driver is implemented by using defines and global variables.It can only 
+//! use on one device because all the APIs use the some macros and global variables.
+//!
+//! <h1>Contents</h1>
+//! - \ref UC1701_How_Define
+//! - \ref UC1701_API_Group
+//! - \ref UC1701_Usage 
+//! .
+//!
+//! \section UC1701_How_Define 1. How is the UC1701 Driver implemented?
+//! Use define to config some Fixing things,such as SPI base and SPI pins
+//! CS pin,use hold input or not,use write protect or not and which device
+//! to use(This contains chip information).
+//!
+//! Use global variables to save variables use by the APIs.
+//!
+//! \section UC1701_API_Group 2. API Groups
+//! extern void UC1701Init(unsigned long ulSpiClock);
+//! extern void UC1701DataWrite(unsigned char ucData);
+//! extern void UC1701CmdWrite(unsigned char ucCmd);
+//! extern void UC1701DoubleCmdWrite(unsigned char ucCmd, unsigned char ucData);
+//! extern void UC1701AddressSet(unsigned char ucPA, unsigned char ucCA);
+//! extern void UC1701Dispaly(unsigned char ucLine, unsigned char ucRow,
+//!                           unsigned char ucAsciiWord);
+//! extern void UC1701InverseDispaly(unsigned char ucLine, unsigned char ucRow,
+//!                                  unsigned char ucAsciiWord);
+//! extern void UC1701CharDispaly(unsigned char ucLine, unsigned char ucRow,
+//!                               char *pcChar);
+//! extern void UC1701ChineseDispaly(unsigned char ucLine, unsigned char ucRow,
+//!                                  unsigned char ucLength, char *pcChar);
+//! extern void UC1701DisplayN(unsigned char ucLine, unsigned char ucRow,
+//!                             unsigned long n);
+//! extern void UC1701Clear(void);
+//! extern void UC1701InverseEnable(void);
+//! extern void UC1701InverseDisable(void);
+//! extern void UC1701AllPixelOnEnable(void);
+//! extern void UC1701AllPixelOnDisable(void);
+//! extern void UC1701DisplayOn(void);
+//! extern void UC1701DisplayOff(void);
+//! extern void UC1701ScrollLineSet(unsigned char ucLine);
+//! extern void UC1701PMSet(unsigned char ucPM);
+//! extern void UC1701BRSet(unsigned char ucBR);
+//! extern void UC1701SegDirSet(unsigned char ucSegDir);
+//! extern void UC1701ComDirSet(unsigned char ucComDir);
+//!
+//! \section UC1701_Usage 3. Usage & Program Examples
+//! 
+//! \code
+//! //*****************************************************************************
+//! //
+//! //! \file Example.c
+//! //! \brief the uc1701 Example.
+//! //! \version 1.0
+//! //! \date 10/15/2011
+//! //! \author CooCox
+//! //! \copy
+//! //!
+//! //! Copyright (c)  2011, CooCox 
+//! //! All rights reserved.
+//! //! 
+//! //! Redistribution and use in source and binary forms, with or without 
+//! //! modification, are permitted provided that the following conditions 
+//! //! are met: 
+//! //! 
+//! //!     * Redistributions of source code must retain the above copyright 
+//! //! notice, this list of conditions and the following disclaimer. 
+//! //!     * Redistributions in binary form must reproduce the above copyright
+//! //! notice, this list of conditions and the following disclaimer in the
+//! //! documentation and/or other materials provided with the distribution. 
+//! //!     * Neither the name of the <ORGANIZATION> nor the names of its 
+//! //! contributors may be used to endorse or promote products derived 
+//! //! from this software without specific prior written permission. 
+//! //! 
+//! //! THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+//! //! AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//! //! IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+//! //! ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+//! //! LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+//! //! CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+//! //! SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+//! //! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+//! //! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+//! //! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+//! //! THE POSSIBILITY OF SUCH DAMAGE.
+//! //*****************************************************************************
+//! #include "uc1701.h"
+//! #include "xhw_ints.h"
+//! #include "xhw_nvic.h"
+//! #include "xhw_memmap.h"
+//! #include "xhw_types.h"
+//! #include "xdebug.h"
+//! #include "xcore.h"
+//! #include "xsysctl.h"
+//! #include "xhw_sysctl.h"
+//! #include "xhw_gpio.h"
+//! #include "xgpio.h"
+//! #include "xhw_uart.h"
+//! #include "xuart.h"
+//!
+//! /*  ÐÂÄê¿ìÀÖ(16x16,Z)*/
+//! char HZ[]={
+//! 0x20,0x24,0x2C,0x35,0xE6,0x34,0x2C,0x24,0x00,0xFC,0x24,0x24,0xE2,0x22,0x22,0x00,
+//! 0x21,0x11,0x4D,0x81,0x7F,0x05,0x59,0x21,0x18,0x07,0x00,0x00,0xFF,0x00,0x00,0x00,
+//! 0x40,0x20,0x10,0x0C,0xE3,0x22,0x22,0x22,0xFE,0x22,0x22,0x22,0x22,0x02,0x00,0x00,
+//! 0x04,0x04,0x04,0x04,0x07,0x04,0x04,0x04,0xFF,0x04,0x04,0x04,0x04,0x04,0x04,0x00,
+//! 0x70,0x00,0xFF,0x08,0xB0,0x88,0x88,0x88,0xFF,0x88,0x88,0x88,0xF8,0x80,0x80,0x00,
+//! 0x00,0x00,0xFF,0x00,0x80,0x40,0x30,0x0E,0x01,0x06,0x08,0x30,0x60,0xC0,0x40,0x00,
+//! 0x00,0x00,0x40,0xFC,0x44,0x44,0x44,0x46,0xFA,0x42,0x43,0x43,0x42,0x40,0x00,0x00,
+//! 0x00,0x20,0x18,0x0C,0x07,0x12,0x20,0x40,0x3F,0x00,0x00,0x02,0x0C,0x38,0x10,0x00};
+//!
+//! //*****************************************************************************
+//! //
+//! //! \brief The example of the function of Dispaly.
+//! //!
+//! //! \param None
+//! //!
+//! //! \details The example of the function of Dispaly.
+//! //! \return None.
+//! //
+//! //*****************************************************************************
+//! void UC1701DispalyExample(void)
+//! {
+//!     //
+//!     // Set SysClk 50MHz using Extern 12M oscillator
+//!     //
+//!     xSysCtlClockSet(50000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_12MHZ);
+//!     UC1701Init(60000);
+//!
+//!     UC1701Clear();
+//!     UC1701CharDispaly(0, 1, "I love google?");
+//!     UC1701CharDispaly(1, 1, "Yes,I love!");
+//!     UC1701ChineseDispaly(3, 1, 4, (char *)&HZ);
+//!     UC1701DisplayN(2,1,5201314);
+//!     xSysCtlDelay(1000000);
+//! }
+//! \endcode
+//!
+//
+//*****************************************************************************

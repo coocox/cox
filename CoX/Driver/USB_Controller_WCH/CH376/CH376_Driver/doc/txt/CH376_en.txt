@@ -1,0 +1,89 @@
+//*****************************************************************************
+//
+//! \defgroup CH376 CH376
+//!
+//! \brief CH376 USB disk and SD card file management controller.
+//!
+//! CH376 is a file management controller. MCU can use it to read and write USB disk
+//! or SD card. CH376 support USB device and USB host mode. It has embeded USB massive
+//! storage device and SD card communication protocol firmware and FAT12/FAT16/FAT32
+//! file system management firmware. CH376 support frequently used USB storage device
+//! like USB flash disk, USB hard disk, USB SD card reader and SD card include standard
+//! SD card and SD-HC.
+//!
+//! CH376 support 3 kinds of communication interfaces: 8bit parallel port, SPI interface
+//! and UART interface. MCU/DSP/MPU can control CH376 through any kind of these interfaces
+//! to communicate with USB disk SD card or computer.
+//! When CH376 works in USB device mode, it is compatible with CH372.
+//! When CH376 works in USB host mode, it is compatible with CH375.
+//!
+//! <h1>Contents</h1>
+//! - \ref CH376_Block
+//! - \ref CH376_Pins
+//!   .
+//! - \ref CH376_API_Group
+//!   - \ref CH376_API_Config
+//!   - \ref CH376_API_QueryInfo
+//!   - \ref CH376_API_FUNCTION
+//!   .
+//! - \ref CH376_Application
+//! - \ref CH376_Usage
+//! .
+//!
+//! \section CH376_Block 1. CH376 Block Diagram
+//! <img src="CH376_Block.png" />
+//!
+//! \section CH376_Pins 2. CH376 Pin Description
+//! <img src="CH376_Pins.png" />
+//!
+//! \section CH376_API_Group 3. API Group
+//! \subsection CH376_API_Config 3.1 Config API
+//! - mInitCH376Host( ) to initialize CH376 to work in host mode.
+//! - CH376DiskConnect( ) to check disk connect.
+//! - CH376DiskMount( ) to initialize the disk.
+//! .
+//! 
+//! \subsection CH376_API_QueryInfo 3.2 Query disk information API
+//! - CH376DiskCapacity() to get disk capacity
+//! - CH376DiskQuery() to get disk remain volume
+//! - CH376GetDiskStatus() to get disk and file system status
+//! - CH376GetIntStatus() to get interrupt status and cancel interrupt request
+//! .
+//!
+//! \subsection CH376_API_FUNCTION 3.3 FUNCTION control API
+//!
+//! - CH376ReadBlock()
+//! - CH376SetFileName()
+//! - CH376GetFileSize()
+//! - CH376FileOpen()
+//! - CH376FileCreate()
+//! - CH376DirCreate()
+//! - CH376FileOpenDir()
+//! - CH376FileOpenPath()
+//! - CH376FileCreatePath()
+//! - CH376FileErase()
+//! - CH376FileClose()
+//! - CH376DirInfoRead()
+//! - CH376DirInfoSave()
+//! - CH376ByteLocate()
+//! - CH376ByteRead()
+//! - CH376ByteWrite()
+//! .
+//!
+//! \section CH376_Application 4. CH376 Application
+//! <img src="CH376_Application.png" />
+//!
+//! \section CH376_Usage 5. CH376 Usage
+//! 
+//! Before Using the CH376 driver, you should do like this.
+//! First add the driver files to your project. Then configure pins
+//! and select interface and working mode in "CH376.h" file.
+//! Now you can call the related function to control disk or SD card
+//! Below is some example code:
+//!
+//! \code
+//! //Please see example folder
+//!     
+//! \endcode
+//
+//*****************************************************************************

@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>MMA7455</Name>
+    <Description>
+        The MMA745xL series is a digital output (I2C/SPI), low-power, low-profile capacitive micromachined
+        accelerometer featuring signal conditioning, a low pass filter, temperature compensation, self-test
+        configurable to detect zero-g through interrupt pins (INT1 or INT2) and pulse detect for quick motion
+        detection. Zero-g offset and sensitivity are factory set and require no external devices. The zero-g
+        offset can be customer calibrated using assigned zero-g registers and g-select which allows for command
+        selection for three acceleration ranges (2g/4g/8g). The MMA745xL series includes a standby mode that
+        makes it ideal for handheld battery-powered electronics..
+    </Description>
+    <Manufacturer>ST</Manufacturer>
+
+    <Category>Sensor</Category>
+    <SubCategory>Accelerometer</SubCategory>
+
+    <KeyWord>
+        Freescale, Accelerometer, MMA7455, 3-Axis, I2C, SPI, Pulse detect, Quick motion detection, Click
+    </KeyWord>
+
+    <Communication>
+        <Interface>I2C</Interface>
+        <Interface>SPI</Interface>
+    </Communication>
+
+    <WebPage>
+        http://www.freescale.com/webapp/sps/site/prod_summary.jsp?code=MMA745xL
+    </WebPage>
+
+    <Datasheet>
+        http://cache.freescale.com/files/sensors/doc/data_sheet/MMA7455L.pdf?fpsp=1&WT_TYPE=Data%20Sheets&WT_VENDOR=FREESCALE&WT_FILE_FORMAT=pdf&WT_ASSET=Documentation
+    </Datasheet>
+
+    <APPLICATION_NOTES>
+        http://www.freescale.com/webapp/sps/site/prod_summary.jsp?code=MMA745xL&fpsp=1&tab=Documentation_Tab
+    </APPLICATION_NOTES>
+
+    <Doc>$Device_ROOT$\doc\</Doc>
+
+</Device>

@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>HT24LC02 </Name>
+    <Description>
+    	  The HT24LC02 is a 2K-bit serial read/write non-volatile memory device using the CMOS floating gate process. 
+		  Its 2048 bits of memory are organized into 256 words and each word is 8 bits. The device is optimized for use 
+		  in many industrial and commercial applications where low power and low voltage operation are essential.
+		  Up to eight HT24LC02 devices may be connected to the same two-wire bus. The HT24LC02 is guaranteed 
+		  for 1M erase/write cycles and 40-year data retention.
+    </Description>
+    <Manufacturer>Holtek</Manufacturer>
+    
+    <Category>Memory</Category>
+    <SubCategory>Eeprom</SubCategory>
+    
+    <KeyWord>Eeprom, I2C, HT24LC02, COX</KeyWord>
+    
+    <Communication>
+        <Interface>I2C</Interface>
+    </Communication>
+    
+    <WebPage>http://www.holtek.com.cn/china/docum/memory/24lc02.htm</WebPage>
+    <Datasheet>http://www.holtek.com.cn/pdf/memory/24lc02v170.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</DoC>
+</Device>

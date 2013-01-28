@@ -1,0 +1,45 @@
+//******************************************************
+//
+//!
+//! \defgroup Seven_Segment_Led2_Driver
+//! @{
+//!
+//! <h1>Contents</h1>
+//! - \ref Seven_Segment_Led2_API
+//! - \ref Seven_Segment_Led2_APP
+//! .
+//!
+//! <br />
+//!
+//! \section Seven_Segment_Led2_API 1.Seven_Segment_Led2 API
+//! extern void xled2_Init (void);
+//! extern void xled2_Clear (void);
+//! extern void xled2_Off(void);
+//! extern xtBoolean xled2_ShowSingle (unsigned char ucSel,
+//! 		unsigned char ucData);
+//! extern xtBoolean xled2_Scan (unsigned long ulData,
+//! 		unsigned char ucDotPos);
+//!
+//! <br />
+//!
+//! \section Seven_Segment_Led2_APP 2.Seven_Segment_Led2 Applications
+//!
+//! Here we introduce how to get use Seven_Segment_Led2.
+//!
+//! \code
+//! #include "xled_2.h"
+//!
+//!
+//! int test(void)
+//! {
+//!     xled2_Init();
+//!     xled2_Scan(12,-1);
+//! }
+//! \endcode
+//!
+//! @}
+//
+//******************************************************
+
+
+

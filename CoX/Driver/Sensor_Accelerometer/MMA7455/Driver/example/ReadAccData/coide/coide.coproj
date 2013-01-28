@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Project version="2G" name="coide">
+  <Target name="coide_Flash" isCurrent="1">
+    <Device manufacturerId="9" manufacturerName="ST" chipId="324" chipName="STM32F103VE" boardId="" boardName=""/>
+    <BuildOption>
+      <Compile>
+        <Option name="OptimizationLevel" value="0"/>
+        <Option name="UseFPU" value="0"/>
+        <Option name="UserEditCompiler" value=""/>
+        <Includepaths>
+          <Includepath path="."/>
+        </Includepaths>
+        <DefinedSymbols>
+          <Define name="coide"/>
+          <Define name="STM32F103VE"/>
+          <Define name="STM32F10X_HD"/>
+        </DefinedSymbols>
+      </Compile>
+      <Link useDefault="0">
+        <Option name="DiscardUnusedSection" value="0"/>
+        <Option name="UseCLib" value="0"/>
+        <Option name="UserEditLinkder" value=""/>
+        <Option name="UseMemoryLayout" value="1"/>
+        <Option name="Library" value="0"/>
+        <LinkedLibraries>
+          <Libset dir="c:\program files\gnu tools arm embedded\4.7 2012q4\arm-none-eabi\lib\armv7-m\" libs="c_s"/>
+          <Libset dir="c:\program files\gnu tools arm embedded\4.7 2012q4\arm-none-eabi\lib\armv7-m\" libs="g_s"/>
+        </LinkedLibraries>
+        <MemoryAreas debugInFlashNotRAM="1">
+          <Memory name="IROM1" type="ReadOnly" size="0x00080000" startValue="0x08000000"/>
+          <Memory name="IRAM1" type="ReadWrite" size="0x00010000" startValue="0x20000000"/>
+          <Memory name="IROM2" type="ReadOnly" size="" startValue=""/>
+          <Memory name="IRAM2" type="ReadWrite" size="" startValue=""/>
+        </MemoryAreas>
+        <LocateLinkFile path="c:/coocox/coide/configuration/programdata/coide/arm-gcc-link.ld" type="0"/>
+      </Link>
+      <Output>
+        <Option name="OutputFileType" value="0"/>
+        <Option name="Path" value="./"/>
+        <Option name="Name" value="coide_Flash"/>
+        <Option name="HEX" value="1"/>
+        <Option name="BIN" value="1"/>
+      </Output>
+      <User>
+        <UserRun name="Run#1" type="Before" checked="0" value=""/>
+        <UserRun name="Run#1" type="After" checked="0" value=""/>
+      </User>
+    </BuildOption>
+    <DebugOption>
+      <Option name="org.coocox.codebugger.gdbjtag.core.adapter" value="J-Link"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.debugMode" value="JTAG"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.clockDiv" value="1M"/>
+      <Option name="org.coocox.codebugger.gdbjtag.corerunToMain" value="1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.jlinkgdbserver" value="C:\Program Files\SEGGER\JLinkARM_V442a\JLinkGDBServerCL.exe"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.userDefineGDBScript" value=""/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.targetEndianess" value="0"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.jlinkResetMode" value="Type 0: Normal"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.resetMode" value="Type 0: Normal"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.ifSemihost" value="0"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.ifCacheRom" value="0"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.ipAddress" value="127.0.0.1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.portNumber" value="2331"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.autoDownload" value="1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.verify" value="1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.downloadFuction" value="Erase Effected"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.defaultAlgorithm" value="STM32F10x_HD_512.elf"/>
+    </DebugOption>
+    <ExcludeFile/>
+  </Target>
+  <Target name="coide_RAM" isCurrent="0">
+    <Device manufacturerId="9" manufacturerName="ST" chipId="324" chipName="STM32F103VE" boardId="" boardName=""/>
+    <BuildOption>
+      <Compile>
+        <Option name="OptimizationLevel" value="0"/>
+        <Option name="UseFPU" value="0"/>
+        <Option name="UserEditCompiler" value=""/>
+        <Includepaths>
+          <Includepath path="."/>
+        </Includepaths>
+        <DefinedSymbols>
+          <Define name="STM32F107VC"/>
+          <Define name="STM32F10X_CL"/>
+          <Define name="STM32F103VE"/>
+          <Define name="STM32F10X_HD"/>
+        </DefinedSymbols>
+      </Compile>
+      <Link useDefault="0">
+        <Option name="DiscardUnusedSection" value="0"/>
+        <Option name="UseCLib" value="0"/>
+        <Option name="UserEditLinkder" value=""/>
+        <LinkedLibraries/>
+        <MemoryAreas debugInFlashNotRAM="0">
+          <Memory name="IROM1" type="ReadOnly" size="0x00080000" startValue="0x08000000"/>
+          <Memory name="IRAM1" type="ReadWrite" size="0x00010000" startValue="0x20000000"/>
+          <Memory name="IROM2" type="ReadOnly" size="" startValue=""/>
+          <Memory name="IRAM2" type="ReadWrite" size="" startValue=""/>
+        </MemoryAreas>
+        <LocateLinkFile path="link.ld" type="0"/>
+      </Link>
+      <Output>
+        <Option name="OutputFileType" value="0"/>
+        <Option name="Path" value="D:/Cox/cox/CoX/Driver/Sensor_Accelerometer/LIS302DL/Driver/example/ReadAccData/coide"/>
+        <Option name="Name" value="coide_RAM"/>
+        <Option name="HEX" value="1"/>
+        <Option name="BIN" value="1"/>
+      </Output>
+      <User>
+        <UserRun name="Run#1" type="Before" checked="0" value=""/>
+        <UserRun name="Run#1" type="After" checked="0" value=""/>
+      </User>
+    </BuildOption>
+    <DebugOption>
+      <Option name="org.coocox.codebugger.gdbjtag.core.adapter" value="J-Link"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.debugMode" value="SWD"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.clockDiv" value="1M"/>
+      <Option name="org.coocox.codebugger.gdbjtag.corerunToMain" value="1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.jlinkgdbserver" value=""/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.userDefineGDBScript" value=""/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.targetEndianess" value="0"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.jlinkResetMode" value="Type 0: Normal"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.resetMode" value="SYSRESETREQ"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.ifSemihost" value="0"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.ifCacheRom" value="1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.ipAddress" value="127.0.0.1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.portNumber" value="2331"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.autoDownload" value="1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.verify" value="1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.downloadFuction" value="Erase Effected"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.defaultAlgorithm" value="STM32F10x_HD_512.elf"/>
+    </DebugOption>
+    <ExcludeFile/>
+  </Target>
+  <Components path="./"/>
+  <Files>
+    <File name="libcox/xi2c.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xi2c.c" type="1"/>
+    <File name="libcox/xgpio.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xgpio.c" type="1"/>
+    <File name="startup/startup_coide.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/startup/src/startup_coide.c" type="1"/>
+    <File name="libcox/xhw_types.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_types.h" type="1"/>
+    <File name="app" path="" type="2"/>
+    <File name="libcox/xcore.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xcore.c" type="1"/>
+    <File name="app/ReadAccData.c" path="../src/ReadAccData.c" type="1"/>
+    <File name="driver/MMA7455.c" path="../../../lib/MMA7455.c" type="1"/>
+    <File name="libcox/xhw_config.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_config.h" type="1"/>
+    <File name="driver/hw_MMA7455.h" path="../../../lib/hw_MMA7455.h" type="1"/>
+    <File name="libcox/xhw_uart.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_uart.h" type="1"/>
+    <File name="libcox/xhw_ints.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_ints.h" type="1"/>
+    <File name="libcox/xi2c.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xi2c.h" type="1"/>
+    <File name="app/main.c" path="../main.c" type="1"/>
+    <File name="libcox/xsysctl.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xsysctl.h" type="1"/>
+    <File name="libcox/xuart.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xuart.c" type="1"/>
+    <File name="libcox/xhw_i2c.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_i2c.h" type="1"/>
+    <File name="app/ReadAccData.h" path="../src/ReadAccData.h" type="1"/>
+    <File name="libcox/xgpio.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xgpio.h" type="1"/>
+    <File name="libcox/xhw_gpio.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_gpio.h" type="1"/>
+    <File name="libcox/xcore.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xcore.h" type="1"/>
+    <File name="driver" path="" type="2"/>
+    <File name="libcox" path="" type="2"/>
+    <File name="startup" path="" type="2"/>
+    <File name="libcox/xhw_memmap.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_memmap.h" type="1"/>
+    <File name="libcox/xsysctl.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xsysctl.c" type="1"/>
+    <File name="driver/MMA7455.h" path="../../../lib/MMA7455.h" type="1"/>
+    <File name="libcox/xhw_sysctl.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_sysctl.h" type="1"/>
+    <File name="libcox/xuart.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xuart.h" type="1"/>
+  </Files>
+</Project>

@@ -1,8 +1,8 @@
 //*****************************************************************************
 //
-//! @page HT1621B test
+//! @page LED_3COLOR test
 //!  
-//! File: @ref xHT1621Btest.c
+//! File: @ref xledcolortest.c
 //! 
 //! <h2>Description</h2>
 //! This module implements the test sequence for the Xcore sub component.<br><br>
@@ -11,8 +11,8 @@
 //! In case some of the required options are not enabled then some or all tests
 //! may be skipped or result FAILED.<br>
 //! 
-//! \file xHT1621Btest.c
-//! \brief HT1621B test source file
+//! \file xledcolortest.c
+//! \brief LED_3COLOR  test source file
 //
 //*****************************************************************************
 
@@ -23,7 +23,7 @@
 
 
 //
-// MCP9800 test suits.
+// LED_3COLOR test suits.
 //
 const tTestCase * const psPatternXmcp[] =
 {

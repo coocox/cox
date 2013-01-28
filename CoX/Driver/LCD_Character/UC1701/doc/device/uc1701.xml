@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>uc1701</Name>
+    <Description>Single-Chip,Ultra-Low Power 65COM by 132SEG Passive Matrix LCD Controller-Driver</Description>
+    <Manufacturer>UltraChip</Manufacturer>
+    
+    <Category>Display</Category>
+    <SubCategory>LCD_Character</SubCategory>
+    
+    <KeyWord>uc1701,SPI,Display,LCD</KeyWord>
+    
+    <Communication>
+        <Interface>SPI</Interface>
+	<Interface>GPIO</Interface>
+    </Communication>
+    
+    <WebPage>http://www.ultrachip.com/english/02_products/01_date_sheet.asp?fid=8</WebPage>
+    <Datasheet>http://www.ultrachip.com/upfiles/ADUpload/pro1405687527.pdf</Datasheet>
+</Device>

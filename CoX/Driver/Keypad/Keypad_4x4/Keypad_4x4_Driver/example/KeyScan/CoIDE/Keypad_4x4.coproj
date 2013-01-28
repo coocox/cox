@@ -64,14 +64,7 @@
     </DebugOption>
     <ExcludeFile/>
   </Target>
-  <Components path="./">
-    <Component id="30" name="C Library" path="" type="2"/>
-    <Component id="376" name="xStartup" path="" type="2"/>
-    <Component id="377" name="xLowLayer" path="" type="2"/>
-    <Component id="378" name="xCORE" path="" type="2"/>
-    <Component id="379" name="xSysCtl" path="" type="2"/>
-    <Component id="380" name="xGPIO" path="" type="2"/>
-  </Components>
+  <Components path="./"/>
   <Files>
     <File name="CoX/CoX_Driver/keypad_4x4.h" path="../../../lib/keypad_4x4.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_acmp.h" path="CoX/CoX_Peripheral/inc/xhw_acmp.h" type="1"/>

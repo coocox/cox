@@ -412,7 +412,7 @@ void xI2CMasterInit(unsigned long ulBase, unsigned long ulI2CClk);
 //
 //*****************************************************************************
 #define xI2CMasterEnable(ulBase)                                              \
-        I2CMasterEnable(ulBase)
+		I2CEnable(ulBase)
 
 //*****************************************************************************
 //
@@ -426,7 +426,7 @@ void xI2CMasterInit(unsigned long ulBase, unsigned long ulI2CClk);
 //
 //*****************************************************************************            
 #define xI2CMasterDisable(ulBase)                                             \
-        I2CMasterDisable(ulBase)
+        I2CDisable(ulBase)
 
 //*****************************************************************************
 //
@@ -1550,6 +1550,7 @@ extern void I2CSlaveOwnAddressMaskSet(unsigned long ulBase,
                                       unsigned char ucSlaveAddrMask);
 extern void I2CDMAEnable(unsigned long ulBase, unsigned long ulDmaMode);
 extern void I2CDMADisable(unsigned long ulBase, unsigned long ulDmaMode);
+extern void I2CStopSend (unsigned long ulBase);
 //*****************************************************************************
 //
 //! @}

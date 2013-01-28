@@ -1,0 +1,209 @@
+//*****************************************************************************
+//
+//! \defgroup ILI9341S ILI9341S
+//!
+//! \brief Character LCD control.
+//!
+//! An ILI9341 Character LCD is a de facto industry standard thin film transistor 
+//! (TFT) LCD display device designed for interfacing with embedded systems.
+//! These screens come in a variety of configurations including 320*240, which has 
+//! two kinds of color mode, 65k-color and 262k-color mode, some include backlight 
+//! provided by a LED.
+//!
+//! Any parallelly interfaced character LCD you get these days will have a 
+//! Solomon Systech ILI9341 chip or a different one compatible with the ILI9341. These 
+//! usually have 60 pins.
+//!
+//!
+//! <h1>Contents</h1>
+//! - \ref ILI9341_Pin
+//! - \ref ILI9341_Func_Desc
+//!   - \ref ILI9341_Func_GDDRAM
+//!   - \ref ILI9341_Func_Register
+//!   - \ref ILI9341_Func_AC
+//!   - \ref ILI9341_Func_Display
+//!   - \ref ILI9341_Func_Command
+//!   .
+//! - \ref ILI9341_API_Group
+//!   - \ref ILI9341_API_Config
+//!   - \ref ILI9341_API_Display
+//!   - \ref ILI9341_API_Location
+//!   - \ref ILI9341_API_Lowlayer
+//!   .
+//! - \ref ILI9341_Usage
+//! .
+//!
+//! \section ILI9341_Pin 1. ILI9341 Pin Map
+//! 
+//! \verbatim
+//! +----------------+------------------------------------------------+
+//! |Pin Name        |Pin Description                                 |
+//! |----------------|------------------------------------------------|
+//! |D7 - D0         |Bi-directional data bus.                        |
+//! |----------------|------------------------------------------------|
+//! |WR              |Write strobe signal.                            |
+//! |----------------|------------------------------------------------|
+//! |RS              |Register select.                                |
+//! |                |0: instruction register; 1:  data register      |
+//! |----------------|------------------------------------------------|
+//! |RD              |Read strobe signal.                             |
+//! |----------------|------------------------------------------------|
+//! |CSn             |LCD Select Pin.                                 |
+//! |----------------|------------------------------------------------|
+//! |RSTn            |LCD Reset Pin.                                  |
+//! +----------------+------------------------------------------------+
+//! \endverbatim
+//!
+//! \section ILI9341_Func_Desc 2. ILI9341 Function Description
+//! \subsection ILI9341_Func_GDDRAM 2.1 Display Data RAM (GDDRAM)
+//!
+//! Display data RAM (GDDRAM) is where you send the characters (ASCII code) you
+//! want to see on the LCD screen. It stores display data represented in 8-bit
+//! character codes. Its capacity is 80 characters (bytes). Bonus: The area in
+//! display data RAM (GDDRAM) that is not used for display can be used as general
+//! data RAM. DD RAM address is the position of the cursor (i.e. where the data
+//! you sent will be displayed). Below you see DD RAM address layout of a 2*16
+//! LCD.
+//! 
+//! \subsection ILI9341_Func_Register 2.2 Registers
+//!
+//! The ILI9341 has two 16-bit registers, an instruction register (IR) and a 
+//! Device Code Read(DCR). The IR specifies the RAM control indexes (R00h to RFFh).  
+//! It sets the register number in the range of 00000000 to 11111 111 in binary  
+//! form. But do not access to Index register and instruction bits which do not 
+//! have it¡¯s own index register. The DCR stores the device code, We can read the 
+//! ILI9341's device num from this register.
+//! The instruction and data registers can be selected
+//! by the register selector (DC) signal. 
+//!
+//! \verbatim
+//! +----+---------------------------------------------------------+
+//! |DC  |Operation                                                |
+//! |----|---------------------------------------------------------|
+//! |0   | write as an instruction operation                       |
+//! |1   | write as an data operation (DR to DDRAM or CGRAM)       |
+//! +----+---------------------------------------------------------+
+//! \endverbatim
+//!
+//! \subsection ILI9341_Func_AC 2.3 Address Counter (AC)
+//! 
+//! The address counter (AC) assigns address to the GDDRAM. When an address 
+//! set instruction is written into the IR, the address information is sent
+//! from the IR to the AC. 
+//! 
+//! After writing into the GRAM, the AC is automatically  incremented by 1 
+//! (or decremented by 1). After reading the data, the AC is not updated. 
+//! A window addr ess function allows for data to be written only to a 
+//! window area specified by GRAM. 
+//!
+//! \subsection ILI9341_Func_Display 2.4 To display a character
+//!
+//! positional data is written into IR (DDRAM address). A character code is then
+//! written into DR and the LCD unit displays the corresponding pattern at the
+//! specified location. The LCD unit can either increment or decrement the 
+//! display position after each character entry, so that only successive 
+//! character codes need to be entered to display a continuos character string.
+//!
+//! \subsection ILI9341_Func_Command 2.5 Commands
+//! <img src="ILI9341_commands.png" />
+//!
+//! \section ILI9341_API_Group 3. API Group
+//! \subsection ILI9341_API_Config 3.1 Config API
+//! - ILI9341Init() to initialize.
+//! .
+//! 
+//! \subsection ILI9341_API_Display 3.2 Display API
+//! The display is entered sleep mode on/off by:
+//! - ILI9341EnterSleepMode()
+//! - ILI9341ExitSleepMode()
+//! - ILI9341DisplayOn()
+//! - ILI9341DisplayOff()
+//! - ILI9341DisplayInversionOn()
+//! - ILI9341DisplayInversionOff()
+//!
+//! .
+//! 
+//! The display is cleared by ILI9341DisplayClear().
+//!
+//! Print something on the LCD:
+//! - ILI9341DrawOnePixel()
+//! - ILI9341DrawHorizontalLine()
+//! - ILI9341DrawVerticalLine()
+//! - ILI9341DisplayString()
+//! - ILI9341DisplayNum()
+//! - ILI9341DisplayBmp()
+//! .
+//!
+//! \subsection ILI9341_API_Location 3.3 Location API
+//! - ILI9341etCurPos() - move to (s_x, e_s, s_y, e_y)
+//! .
+//!
+//! \subsection ILI9341_API_Lowlayer 3.4 Lowlayer API
+//! If the LCD API can not meet your need, you can use the API below operated 
+//! on the lowlayer.
+//! - ILI9341WriteCmd()
+//! - ILI9341WriteData()
+//! - ILI9341WritePixelData()
+//! - ILI9341Read()
+//! .
+//!
+//! \section ILI9341_Usage ILI9341 Usage
+//! 
+//! Before Using the LCD driver, you should configure the LCD moudle, function,
+//! character font, data interface length, pin remap. Please reference
+//! \ref ILI9341_Config.
+//!
+//! Below is some example code:
+//!
+//! \code
+//!
+//! void ILI9341Test(void)
+//! {
+//!     int i , j;
+//!     
+//!     ILI9341Init();
+//!     
+//!     //
+//!     // Location Set & Display string, number Test
+//!     //
+//!     ILI9341DisplayClear(0x07E0);
+//!    ILI9341DisplayString(15, 15, "Hello ILI9341!", MAGENTA, GREEN);
+//!    ILI9341DisplayString(15, 31, "Number: ", BLUE, WHITE);
+//!    ILI9341DisplayNum(79, 31, 10086, BLUE, WHITE);
+//!    xSysCtlDelay(xSysCtlClockGet() / 4);
+//!    
+//!    ILI9341DisplayString(7, 47, "BL Leds off/on", BLUE, WHITE);
+//!    xSysCtlDelay(xSysCtlClockGet() / 4);
+//!    ILI9341BackLightOff();   
+//!    xSysCtlDelay(xSysCtlClockGet() / 4 );
+//!    ILI9341BackLightOn();
+//!    xSysCtlDelay(xSysCtlClockGet() / 4);
+//!	   
+//!    ILI9341DisplayString(0, 63, "Display sleep off/on", BLUE, WHITE);
+//!    xSysCtlDelay(xSysCtlClockGet() / 4);
+//!    ILI9341EnterSleepMode();    
+//!    xSysCtlDelay(xSysCtlClockGet() / 4 );
+//!    ILI9341ExitSleepMode();
+//!    xSysCtlDelay(xSysCtlClockGet() / 4);
+//!		
+//!		ILI9341DisplayString(7, 79, "Display off/on", BLUE, WHITE);
+//!    xSysCtlDelay(xSysCtlClockGet() / 4);
+//!    ILI9341DisplayOff();    
+//!    xSysCtlDelay(xSysCtlClockGet() / 4 );
+//!    ILI9341DisplayOn();
+//!    xSysCtlDelay(xSysCtlClockGet() / 4);
+		
+//!		ILI9341DisplayString(7, 95, "Display Inversion", BLUE, WHITE);
+//!    xSysCtlDelay(xSysCtlClockGet() / 4);
+//!    ILI9341DisplayInversionOn();    
+//!    xSysCtlDelay(xSysCtlClockGet() / 4 );
+//!    ILI9341DisplayInversionOff();
+//!    xSysCtlDelay(xSysCtlClockGet() / 4);
+//!  
+//!    ILI9341DisplayString(31, 127, "Complete", BLUE, WHITE);
+//!         
+//! }
+//!     
+//! \endcode
+//
+//*****************************************************************************

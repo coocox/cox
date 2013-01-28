@@ -463,17 +463,17 @@ UART1_Init(unsigned long ulBaudrate)
 {
     xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART1);
     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART1);
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_UART0_MAIN, 1);
+//    xSysCtlPeripheralClockSourceSet(xSYSCTL_UART0_MAIN, 1);
     xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(sD0));
 
     sPinTypeUART(sUART_BASE);
 	
-    xUARTConfigSet(sUART_BASE, ulBaudrate, (UART_CONFIG_WLEN_8   |
-                                            UART_CONFIG_STOP_ONE |
-                                            UART_CONFIG_PAR_NONE));
+    xUARTConfigSet(sUART_BASE, ulBaudrate, (xUART_CONFIG_WLEN_8   |
+                                            xUART_CONFIG_STOP_1 |
+                                            xUART_CONFIG_PAR_NONE));
     xUARTIntEnable(sUART_BASE, xUART_INT_RX);
     UARTIntCallbackInit(sUART_BASE, uart1CallbackFunc);
-    xUARTEnable(sUART_BASE, (UART_BLOCK_UART | UART_BLOCK_TX | UART_BLOCK_RX));
+    xUARTEnable(sUART_BASE, (xUART_BLOCK_UART | xUART_BLOCK_TX | xUART_BLOCK_RX));
     xIntEnable(xINT_UART1);
 }
 

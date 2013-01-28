@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>Seven_Segment</Name>
+  <Description>show two number</Description>
+  <Version>1.0.0.0</Version>
+  <Tags>Seven_Segment</Tags>
+  <EVKit>NUC140VE3CN and Seven_Segment</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\CoX\Driver\LED\Seven_Segment_Led3\Seven_Segment_Led3_Driver\example\Seven_Segment\src\example.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>CoX.GPIO</Dependency>
+    <Dependency>CoX.SysCtl</Dependency>
+  </Dependencys>
+  
+   
+</Example>

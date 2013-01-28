@@ -1,0 +1,45 @@
+//******************************************************
+//
+//!
+//! \defgroup Seven_Segment_Led4_Driver
+//! @{
+//!
+//! <h1>Contents</h1>
+//! - \ref Seven_Segment_Led4_API
+//! - \ref Seven_Segment_Led4_APP
+//! .
+//!
+//! <br />
+//!
+//! \section Seven_Segment_Led4_API 1.Seven_Segment_Led4 API
+//! extern void xled4_Init (void);
+//! extern void xled4_Clear (void);
+//! extern void xled4_Off(void);
+//! extern xtBoolean xled4_ShowSingle (unsigned char ucSel,
+//! 		unsigned char ucData);
+//! extern xtBoolean xled4_Scan (unsigned long ulData,
+//! 		unsigned char ucDotPos);
+//! extern void xled4_ShowTime (unsigned char h,
+//! 		unsigned char m);
+//!
+//! <br />
+//!
+//! \section Seven_Segment_Led4_APP 2.Seven_Segment_Led4 Applications
+//!
+//! Here we introduce how to get use Seven_Segment_Led4.
+//!
+//! \code
+//! #include "xled_4.h"
+//!
+//!
+//! int test(void)
+//! {
+//!     xled4_Init();
+//!     xled4_Scan(1234, -1);
+//! }
+//! \endcode
+//!
+//! @}
+//
+//******************************************************
+

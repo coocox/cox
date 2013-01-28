@@ -1,0 +1,228 @@
+//*****************************************************************************
+//
+//! \defgroup LCD1602_With_PCA8574_I2C LCD1602_With PCA8574 I2C
+//!
+//! \brief LCD1602_I2C driver.
+//!
+//! The  LCD1602_I2C  is  designed  to  provide  a  two-wire  solution  that   
+//! combines  a  LCD driver HD44780, a I2C to  8-bit I/O expander PCA8574, power 
+//! supply circuit for LCD and back light. 
+//!
+//!
+//! <h1>Contents</h1>
+//! - \ref LCD1602_I2C_Schemetic
+//! - \ref PCA8574_Block
+//! - \ref PCA8574_Addr
+//! - \ref PCA8574_Write
+//! - \ref HD44780_Commands
+//! .
+//!
+//! \section LCD1602_I2C_Schemetic 1. LCD1602 I2C communication schemetic
+//! <img src="LCD1602_I2C_SCH.png">
+//!
+//! \section PCA8574_Block  2. PCA8574 block and signals name.
+//! <img src="PCA8574_Block.png">
+//!
+//! \section PCA8574_Addr 3. PCA8574 device address.
+//! LCD1602_I2C is driven by PCA8574 with its I2C interface.
+//! It supports up to 400kHz clock frequency.
+//! The device address can be changed according to your configuration. 
+//! of A0,A1,A2 connected to the jumper1 and jumper2.
+//! <img src="PCA8574_Addr.png">
+//! .
+//! 
+//! \section PCA8574_Write 4. PCA8574 write sequence.
+//! You need to send a start signal to start I2C transmit.
+//! Then send the 7 bit device address and 1 bit of read/write flag,
+//! after receive ack signal you can read or write one or more bytes
+//! to read or write I/O status.
+//!
+//! <img src="PCA8574_Write.png">
+//! .
+//! \section HD44780_Commands 5. LCD1602 controller HD44780 Instructions
+//! <img src="hd44780_commands.gif">
+//! .
+//!
+//! 
+//! \brief This is the LCD1602_I2C series Driver can be used in the condition which
+//! the system only have one LCD1602_I2C series device.
+//!
+//! This driver is implemented by using defines and global variables.It can only 
+//! use on one device because all the APIs use the same macros and global variables.
+//!
+//! <h1>Contents</h1>
+//! - \ref LCD1602_I2C_How_Define
+//! - \ref LCD1602_I2C_API_Group
+//!   - \ref LCD1602_I2C_API_Config
+//!   - \ref LCD1602_I2C_API_DisplayCtrl
+//!   - \ref LCD1602_I2C_API_Display
+//!   .
+//! - \ref LCD1602_I2C_Usage 
+//! .
+//!
+//! \section LCD1602_I2C_How_Define 1. How is the LCD1602_I2C Driver implemented?
+//! Use define to config some Fixing things,such as I2C base and I2C pins.
+//!
+//! Use global variables to save variables use by the APIs.
+//!
+//! \section LCD1602_I2C_API_Group 2. API Groups
+//! 
+//! The LCD1602_I2C API is broken into three groups of functions: 
+//! - those that deal with LCD1602_I2C config , 
+//! - those that deal with LCD1602_I2C display control, 
+//! - those that deal with LCD1602_I2C display
+//! .
+//!
+//! \n
+//! \subsection LCD1602_I2C_API_Config 2.1 LCD1602_I2C config functions
+//! 
+//! The LCD1602_I2C init is implemented by :
+//! - LCD1602Init()
+//! - LCD1602BacklightOff()
+//! - LCD1602BacklightOn()
+//! .
+//!
+//! \n
+//! \subsection LCD1602_I2C_API_DisplayCtrl 2.2 LCD1602_I2C display control functions
+//! 
+//! The LCD1602_I2C display is set by :
+//! - LCD1602BlinkOff() 
+//! - LCD1602BlinkOn() 
+//! - LCD1602CursorOff() 
+//! - LCD1602CursorOn() 
+//! - LCD1602ScrollDisplayLeft()
+//! - LCD1602ScrollDisplayRight()
+//! - LCD1602DisplayOff()
+//! - LCD1602DisplayOn()
+//! - LCD1602AutoScrollOff()
+//! - LCD1602AutoScrollOn()
+//! .
+//!
+//! \n
+//! \subsection LCD1602_I2C_API_Display 2.3 LCD1602_IIC display functions
+//! If the LCD API can not meet your need, you can use the API below operated 
+//! on the lowlayer.
+//! - LCD1602Clear()
+//! - LCD1602Home()
+//! - LCD1602SetCursor()
+//! - LCD1602ShowChar()
+//! - LCD1602PrintString()
+//! - LCD1602CreateChar()
+//! .
+//!
+//! \section LCD1602_I2C_Usage Usage
+//! 
+//! Before Using the LCD driver, you should configure the LCD moudle, function,
+//! data interface pin remap. 
+//!
+//! Below is some example code:
+//!
+//! \code
+//! //*****************************************************************************
+//! //
+//! //! \file Example.c
+//! //! \brief the LCD1602_I2C Example.
+//! //! \version 1.0
+//! //! \date 1/15/2013
+//! //! \author CooCox
+//! //! \copy
+//! //!
+//! //! Copyright (c)  2012, CooCox 
+//! //! All rights reserved.
+//! //! 
+//! //! Redistribution and use in source and binary forms, with or without 
+//! //! modification, are permitted provided that the following conditions 
+//! //! are met: 
+//! //! 
+//! //!     * Redistributions of source code must retain the above copyright 
+//! //! notice, this list of conditions and the following disclaimer. 
+//! //!     * Redistributions in binary form must reproduce the above copyright
+//! //! notice, this list of conditions and the following disclaimer in the
+//! //! documentation and/or other materials provided with the distribution. 
+//! //!     * Neither the name of the <ORGANIZATION> nor the names of its 
+//! //! contributors may be used to endorse or promote products derived 
+//! //! from this software without specific prior written permission. 
+//! //! 
+//! //! THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+//! //! AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//! //! IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+//! //! ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+//! //! LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+//! //! CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+//! //! SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+//! //! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+//! //! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+//! //! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+//! //! THE POSSIBILITY OF SUCH DAMAGE.
+//! //*****************************************************************************
+//! 
+//! #include "xhw_types.h"
+//! #include "xhw_memmap.h"
+//! #include "xhw_nvic.h"
+//! #include "xsysctl.h"
+//! #include "LCD1602IIC.h"
+//! 
+//! //*****************************************************************************
+//! //
+//! //! \brief The example of the LCD display.
+//! //!
+//! //! \param None
+//! //!
+//! //! \details The example of the LCD1602_I2C APIs usage.
+//! //! \return None.
+//! //
+//! //*****************************************************************************
+//! void LCD1602IICExample(void)
+//! {
+//!     unsigned long ulSysClk;
+//!     unsigned char i=0;
+//!     xSysCtlClockSet(72000000,  xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
+//!     xSysCtlDelay(10000);
+//!     LCD1602Init(100000);
+//!     ulSysClk = xSysCtlClockGet();
+//!     LCD1602PrintString(0,0,"Back Light test!");
+//!     xSysCtlDelay(ulSysClk/4);
+//!     LCD1602BacklightOff();
+//!     xSysCtlDelay(ulSysClk/4);
+//!     LCD1602BacklightOn();
+//!     LCD1602PrintString(1,5,"OK!");
+//!     xSysCtlDelay(ulSysClk/4);
+//! 	
+//!     LCD1602Clear();
+//!     LCD1602PrintString(0,0,"IIC LCD1602 display test!");
+//!     xSysCtlDelay(ulSysClk/2);
+//!     LCD1602Clear();
+//! 	
+//!     LCD1602PrintString(0,0,"LCD1602 Scroll  test!");
+//!     LCD1602BlinkOn();
+//!     while(i<16)
+//!     {
+//!         if(i<8)
+//!         {
+//!             LCD1602ScrollDisplayRight();
+//!             xSysCtlDelay(ulSysClk/7);
+//!             i++;
+//!         }
+//!         else
+//!         {
+//!             LCD1602ScrollDisplayLeft();
+//!             xSysCtlDelay(ulSysClk/7);
+//!             i++;
+//!         }	
+//!     }
+//!     LCD1602Clear();
+//!     LCD1602PrintString(0,0,"function test!");
+//!     xSysCtlDelay(ulSysClk/4);
+//!     LCD1602PrintString(1,3,"display off!");
+//!     xSysCtlDelay(ulSysClk/4);
+//!     LCD1602BlinkOff();
+//!     LCD1602DisplayOff();
+//!     xSysCtlDelay(ulSysClk/2);
+//!     LCD1602DisplayOn();
+//!     LCD1602CursorOff();
+//!     LCD1602PrintString(1,11,"     ");
+//!     LCD1602PrintString(1,3,"display on!");
+//! }
+//! \endcode
+//  
+//*****************************************************************************

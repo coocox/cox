@@ -1607,7 +1607,7 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 //
 //*****************************************************************************        
 #define xGPIOPinConfigure(eShortPin, ulPinConfig)                                        \
-        GPIOPinConfigure(eShortPin, ulPinConfig)
+        GPIOSPinConfigure(eShortPin, ulPinConfig)
 
 //*****************************************************************************
 //

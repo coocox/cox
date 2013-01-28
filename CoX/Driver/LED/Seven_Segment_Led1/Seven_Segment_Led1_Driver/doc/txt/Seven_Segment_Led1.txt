@@ -1,0 +1,42 @@
+//******************************************************
+//
+//!
+//! \defgroup Seven_Segment_Led1_Driver
+//! @{
+//!
+//! <h1>Contents</h1>
+//! - \ref Seven_Segment_Led1_API
+//! - \ref Seven_Segment_Led1_APP
+//! .
+//!
+//! <br />
+//!
+//! \section Seven_Segment_Led1_API 1.Seven_Segment_Led1 API
+//! extern void xled1_Init (void);
+//! extern void xled1_Clear (void);
+//! extern void xled1_Off(void);
+//! extern xtBoolean xled1_Show (unsigned char ucData);
+//!
+//! <br />
+//!
+//! \section Seven_Segment_Led1_APP 2.Seven_Segment_Led1 Applications
+//!
+//! Here we introduce how to get use Seven_Segment_Led1.
+//!
+//! \code
+//! #include "xled_1.h"
+//!
+//!
+//! int test(void)
+//! {
+//!     xled1_Init();
+//!     xled1_Show(5);
+//! }
+//! \endcode
+//!
+//! @}
+//
+//******************************************************
+
+
+

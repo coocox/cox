@@ -72,7 +72,7 @@ static xtEventCallback g_pfnI2CHandlerCallbacks[2]={0};
 //! \return None.
 //
 //*****************************************************************************
-static void I2CStopSend (unsigned long ulBase)
+void I2CStopSend (unsigned long ulBase)
 {
     //
     // Check the arguments.
@@ -571,7 +571,7 @@ I2CFlagStatusClear(unsigned long ulBase, unsigned long ulFlag)
     //
     // Clear the I2C flag status.
     //
-    xHWREG(ulBase + I2C_CSR) &= ~(ulFlag);
+    xHWREG(ulBase + I2C_CSR) |= (ulFlag);
 }
 
 //*****************************************************************************
