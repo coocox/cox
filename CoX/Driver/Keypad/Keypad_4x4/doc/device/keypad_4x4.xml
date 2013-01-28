@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>keypad_4x4</Name>
+    <Description>
+        A keypad 4x4 is an input device for the embeded system.
+    </Description>
+    <Manufacturer></Manufacturer>
+    
+    <Category>keypad</Category>
+    <SubCategory>keypad 4x4</SubCategory>
+    
+    <KeyWord>keypad, 4x4, keyboard</KeyWord>
+    
+    <Communication>
+        <Interface>GPIO</Interface>
+    </Communication>
+    
+    <WebPage></WebPage>
+    <Datasheet></Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>
