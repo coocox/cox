@@ -481,8 +481,8 @@ void    mInitSTDIO( void )
     xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART1);
     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART1);
     xUARTConfigSet(xUART1_BASE, 115200, (xUART_CONFIG_WLEN_8 |
-                                         xUART_CONFIG_STOP_1 |
-                                         xUART_CONFIG_PAR_NONE));
+    									 xUART_CONFIG_STOP_1 |
+    									 xUART_CONFIG_PAR_NONE));
 
     xUARTEnable(xUART1_BASE, (xUART_BLOCK_UART | xUART_BLOCK_TX | xUART_BLOCK_RX));
     xSysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);

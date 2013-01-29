@@ -2,12 +2,12 @@
 //
 //! \defgroup CH376 CH376
 //!
-//! \brief CH376 USB disk and SD card file management controller.
+//! \brief CH376 USB flash disk and SD card file management controller.
 //!
-//! CH376 is a file management controller. MCU can use it to read and write USB disk
-//! or SD card. CH376 support USB device and USB host mode. It has embeded USB massive
-//! storage device and SD card communication protocol firmware and FAT12/FAT16/FAT32
-//! file system management firmware. CH376 support frequently used USB storage device
+//! CH376 is a file management controller. MCU can use it to read and write USB flash 
+//! disk or SD card. CH376 support USB device and USB host mode. It has embeded USB 
+//! massive storage device and SD card communication protocol firmware and FAT12/FAT16/
+//! FAT32 file system management firmware. CH376 support frequently used USB storage device
 //! like USB flash disk, USB hard disk, USB SD card reader and SD card include standard
 //! SD card and SD-HC.
 //!

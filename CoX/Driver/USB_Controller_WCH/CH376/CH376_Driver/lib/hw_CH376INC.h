@@ -778,22 +778,22 @@ extern "C" {
 //*****************************************************************************
 #ifndef	ATTR_DIRECTORY
 
-    /* FAT数据区中文件目录信息 */
-    typedef struct _FAT_DIR_INFO
-    {
-        UINT8	DIR_Name[11];					/* 00H,文件名,共11字节,不足处填空格 */
-        UINT8	DIR_Attr;						/* 0BH,文件属性,参考后面的说明 */
-        UINT8	DIR_NTRes;						/* 0CH */
-        UINT8	DIR_CrtTimeTenth;				/* 0DH,文件创建的时间,以0.1秒单位计数 */
-        UINT16	DIR_CrtTime;					/* 0EH,文件创建的时间 */
-        UINT16	DIR_CrtDate;					/* 10H,文件创建的日期 */
-        UINT16	DIR_LstAccDate;					/* 12H,最近一次存取操作的日期 */
-        UINT16	DIR_FstClusHI;					/* 14H */
-        UINT16	DIR_WrtTime;					/* 16H,文件修改时间,参考前面的宏MAKE_FILE_TIME */
-        UINT16	DIR_WrtDate;					/* 18H,文件修改日期,参考前面的宏MAKE_FILE_DATE */
-        UINT16	DIR_FstClusLO;					/* 1AH */
-        UINT32	DIR_FileSize;					/* 1CH,文件长度 */
-    } FAT_DIR_INFO, *P_FAT_DIR_INFO;			/* 20H */
+/* FAT数据区中文件目录信息 */
+typedef struct _FAT_DIR_INFO
+{
+   UINT8	DIR_Name[11];					/* 00H,文件名,共11字节,不足处填空格 */
+   UINT8	DIR_Attr;						/* 0BH,文件属性,参考后面的说明 */
+   UINT8	DIR_NTRes;						/* 0CH */
+   UINT8	DIR_CrtTimeTenth;				/* 0DH,文件创建的时间,以0.1秒单位计数 */
+   UINT16	DIR_CrtTime;					/* 0EH,文件创建的时间 */
+   UINT16	DIR_CrtDate;					/* 10H,文件创建的日期 */
+   UINT16	DIR_LstAccDate;					/* 12H,最近一次存取操作的日期 */
+   UINT16	DIR_FstClusHI;					/* 14H */
+   UINT16	DIR_WrtTime;					/* 16H,文件修改时间,参考前面的宏MAKE_FILE_TIME */
+   UINT16	DIR_WrtDate;					/* 18H,文件修改日期,参考前面的宏MAKE_FILE_DATE */
+   UINT16	DIR_FstClusLO;					/* 1AH */
+   UINT32	DIR_FileSize;					/* 1CH,文件长度 */
+} FAT_DIR_INFO, *P_FAT_DIR_INFO;			/* 20H */
 
     /* 文件属性 */
 #define ATTR_READ_ONLY			0x01		/* 文件为只读属性 */
@@ -835,53 +835,53 @@ extern "C" {
 #define SPC_CMD_MODESENSE10		0x5A
 #define SPC_CMD_START_STOP		0x1B
 
-    /* BulkOnly协议的命令块 */
-    typedef struct _BULK_ONLY_CBW
-    {
-        UINT32	CBW_Sig;
-        UINT32	CBW_Tag;
-        UINT8	CBW_DataLen0;					/* 08H,输入: 数据传输长度,对于输入数据其有效值是0到48,对于输出数据其有效值为0到33 */
-        UINT8	CBW_DataLen1;
-        UINT16	CBW_DataLen2;
-        UINT8	CBW_Flag;						/* 0CH,输入: 传输方向等标志,位7为1则输入数据,位为0则输出数据或者没有数据 */
-        UINT8	CBW_LUN;
-        UINT8	CBW_CB_Len;						/* 0EH,输入: 命令块的长度,有效值是1到16 */
-        UINT8	CBW_CB_Buf[16];					/* 0FH,输入: 命令块,该缓冲区最多为16个字节 */
-    } BULK_ONLY_CBW, *P_BULK_ONLY_CBW;			/* BulkOnly协议的命令块, 输入CBW结构 */
+/* BulkOnly协议的命令块 */
+typedef struct _BULK_ONLY_CBW
+{
+    UINT32	CBW_Sig;
+    UINT32	CBW_Tag;
+    UINT8	CBW_DataLen0;					/* 08H,输入: 数据传输长度,对于输入数据其有效值是0到48,对于输出数据其有效值为0到33 */
+    UINT8	CBW_DataLen1;
+    UINT16	CBW_DataLen2;
+    UINT8	CBW_Flag;						/* 0CH,输入: 传输方向等标志,位7为1则输入数据,位为0则输出数据或者没有数据 */
+    UINT8	CBW_LUN;
+    UINT8	CBW_CB_Len;						/* 0EH,输入: 命令块的长度,有效值是1到16 */
+    UINT8	CBW_CB_Buf[16];					/* 0FH,输入: 命令块,该缓冲区最多为16个字节 */
+} BULK_ONLY_CBW, *P_BULK_ONLY_CBW;			/* BulkOnly协议的命令块, 输入CBW结构 */
 
     /* INQUIRY命令的返回数据 */
-    typedef struct _INQUIRY_DATA
-    {
-        UINT8	DeviceType;					/* 00H, 设备类型 */
-        UINT8	RemovableMedia;				/* 01H, 位7为1说明是移动存储 */
-        UINT8	Versions;					/* 02H, 协议版本 */
-        UINT8	DataFormatAndEtc;			/* 03H, 指定返回数据格式 */
-        UINT8	AdditionalLength;			/* 04H, 后续数据的长度 */
-        UINT8	Reserved1;
-        UINT8	Reserved2;
-        UINT8	MiscFlag;					/* 07H, 一些控制标志 */
-        UINT8	VendorIdStr[8];				/* 08H, 厂商信息 */
-        UINT8	ProductIdStr[16];			/* 10H, 产品信息 */
-        UINT8	ProductRevStr[4];			/* 20H, 产品版本 */
-    } INQUIRY_DATA, *P_INQUIRY_DATA;		/* 24H */
+typedef struct _INQUIRY_DATA
+{
+    UINT8	DeviceType;					/* 00H, 设备类型 */
+    UINT8	RemovableMedia;				/* 01H, 位7为1说明是移动存储 */
+    UINT8	Versions;					/* 02H, 协议版本 */
+    UINT8	DataFormatAndEtc;			/* 03H, 指定返回数据格式 */
+    UINT8	AdditionalLength;			/* 04H, 后续数据的长度 */
+    UINT8	Reserved1;
+    UINT8	Reserved2;
+    UINT8	MiscFlag;					/* 07H, 一些控制标志 */
+    UINT8	VendorIdStr[8];				/* 08H, 厂商信息 */
+    UINT8	ProductIdStr[16];			/* 10H, 产品信息 */
+    UINT8	ProductRevStr[4];			/* 20H, 产品版本 */
+} INQUIRY_DATA, *P_INQUIRY_DATA;		/* 24H */
 
-    /* REQUEST SENSE命令的返回数据 */
-    typedef struct _SENSE_DATA
-    {
-        UINT8	ErrorCode;					/* 00H, 错误代码及有效位 */
-        UINT8	SegmentNumber;
-        UINT8	SenseKeyAndEtc;				/* 02H, 主键码 */
-        UINT8	Information0;
-        UINT8	Information1;
-        UINT8	Information2;
-        UINT8	Information3;
-        UINT8	AdditSenseLen;				/* 07H, 后续数据的长度 */
-        UINT8	CmdSpecInfo[4];
-        UINT8	AdditSenseCode;				/* 0CH, 附加键码 */
-        UINT8	AddSenCodeQual;				/* 0DH, 详细的附加键码 */
-        UINT8	FieldReplaUnit;
-        UINT8	SenseKeySpec[3];
-    } SENSE_DATA, *P_SENSE_DATA;			/* 12H */
+/* REQUEST SENSE命令的返回数据 */
+typedef struct _SENSE_DATA
+{
+    UINT8	ErrorCode;					/* 00H, 错误代码及有效位 */
+    UINT8	SegmentNumber;
+    UINT8	SenseKeyAndEtc;				/* 02H, 主键码 */
+    UINT8	Information0;
+    UINT8	Information1;
+    UINT8	Information2;
+    UINT8	Information3;
+    UINT8	AdditSenseLen;				/* 07H, 后续数据的长度 */
+    UINT8	CmdSpecInfo[4];
+    UINT8	AdditSenseCode;				/* 0CH, 附加键码 */
+    UINT8	AddSenCodeQual;				/* 0DH, 详细的附加键码 */
+    UINT8	FieldReplaUnit;
+    UINT8	SenseKeySpec[3];
+} SENSE_DATA, *P_SENSE_DATA;			/* 12H */
 
 #endif
 
