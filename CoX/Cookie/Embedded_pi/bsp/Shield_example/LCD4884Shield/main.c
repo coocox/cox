@@ -69,9 +69,11 @@ int main(void)
 //
 //	AMSDCMotorRun(AMS_MOTOR_B, AMS_RUN_FORWARD);
 //	embeddedpiTest();
+//
+//	AMSStepMotorInit();
+//	AMSStepMotorRun(AMS_RUN_FORWARD, 100);
+//	DotMatrixExecute();
 
-	AMSStepMotorInit();
-	AMSStepMotorRun(AMS_RUN_FORWARD, 100);
 	while(1);
 }
 
