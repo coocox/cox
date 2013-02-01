@@ -3455,6 +3455,9 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
         GPIOPinIntEnable(G##eShortPin, ulIntType)
 
 #define xGPIOSDirModeSet(eShortPin, ulPinIO)                                  \
+        xGPIODirModeSet1(eShortPin, ulPinIO)
+
+#define xGPIODirModeSet1(eShortPin, ulPinIO)                                  \
         xGPIODirModeSet(G##eShortPin, ulPinIO)
 
 #define GPIOSPinIntDisable(eShortPin)                                         \
