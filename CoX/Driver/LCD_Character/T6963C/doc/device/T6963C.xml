@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>T6963C</Name>
+    <Description>126x64, 8K RAM LCD Controller-Driver</Description>
+    <Manufacturer>Toshiba</Manufacturer>
+    
+    <Category>Display</Category>
+    <SubCategory>LCD_Character</SubCategory>
+    
+    <KeyWord>T6963C,GPIO,Display,LCD</KeyWord>
+    
+    <Communication>
+	<Interface>GPIO</Interface>
+    </Communication>
+    
+    <WebPage>http://robotics.ee.uwa.edu.au/eyebot/doc/DataSheets/T6963CDS.pdf</WebPage>
+    <Datasheet>http://robotics.ee.uwa.edu.au/eyebot/doc/DataSheets/T6963CDS.pdf</Datasheet>
+</Device>

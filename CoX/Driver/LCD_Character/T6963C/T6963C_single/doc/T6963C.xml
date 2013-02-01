@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <Component>
-    <Name>uc1701 single LCD Controller-Driver</Name>
+    <Name>T6963C single LCD Controller-Driver</Name>
     <Category>CoX.Driver</Category>
     <Version>2.1.1.0</Version>
-    <KeyWord>uc1701, Text LCD, LCD, Display, SPI, Driver, CoX</KeyWord>
+    <KeyWord>T6963C, Text LCD, LCD, Display, GPIO, Driver, CoX</KeyWord>
 
       <Filter>
-         <Interface>SPI</Interface> 
+         <Interface>GPIO</Interface> 
          <CoXBased>true</CoXBased> 
       </Filter>
           
@@ -19,7 +19,7 @@
 
     
     <SupportDevices>
-        <Device>uc1701</Device>
+        <Device>T6963C</Device>
     </SupportDevices>
   
     <Files>
@@ -27,13 +27,12 @@
     </Files>
     
     <CoIDEFiles>
-        <File>PROJECT_ROOT$\CoX\uc1701_single\hw_uc1701.h</File>
-        <File>PROJECT_ROOT$\CoX\uc1701_single\uc1701.h</File>
-        <File>PROJECT_ROOT$\CoX\uc1701_single\uc1701.c</File>
+        <File>PROJECT_ROOT$\CoX\T6963C_single\T6963C.h</File>
+        <File>PROJECT_ROOT$\CoX\T6963C_single\T6963C.c</File>
+        <File>PROJECT_ROOT$\CoX\T6963C_single\test_charCode.c</File>
     </CoIDEFiles>
     
     <DependentComponentInterfaceTag>
-        <Tag>CoX.SPI</Tag>
         <Tag>CoX.GPIO</Tag>
     </DependentComponentInterfaceTag>
     

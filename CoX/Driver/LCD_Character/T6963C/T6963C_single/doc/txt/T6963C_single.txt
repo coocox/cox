@@ -1,0 +1,157 @@
+//*****************************************************************************
+//
+//!
+//! \defgroup T6963C
+//!
+//! \brief This is the T6963C Driver.
+//! 
+//! Product Highlight 
+//! 1) TCB6963 is a LCD Module Controller Board using Toshiba T6963C LCD controller  
+//! 2) On board 64k byte memory 
+//! 3) Speed up the development of using T6963 controller 
+//! 3) Suitable for medium size (serial data stream) LCD module 
+//! 4) Direct interface between MCU and LCD module 
+//! 5) Designed for TOPWAY LM24064B or equivalent 
+//! 6) Built in 128-word character generator ROM 
+//! 7) 8bit MCU interface 
+//! 8) Hardware selectable font size 5x8 or 8x8 dots
+//!
+//! <h1>Contents</h1>
+//! - \ref T6963C_Block
+//! - \ref T6963C_Pins
+//! - \ref T6963C_Function_Desc
+//! .
+//!
+//! \section T6963C_Block 1. T6963C Physical Block
+//! <img src="T6963C.png" />
+//!
+//! \section T6963C_Pins 2. T6963C Signal names
+//! <img src="T6963C_Pins.png" />
+//!
+//! \defgroup T6963C_Driver_Single  
+//!
+//! <h1>Contents</h1>
+//! - \ref T6963C_How_Define
+//! - \ref T6963C_API_Group
+//! - \ref T6963C_Usage 
+//! .
+//!
+//! \section T6963C_How_Define 1. How is the T6963C Driver implemented?
+//!
+//! You can connect the pins according to the header file, or define the pins by youself.
+//!
+//! \section T6963C_API_Group 2. API Groups
+//! extern void T6963C_Init(void);
+//! extern void T6963C_WriteData(unsigned char data);
+//! extern void T6963C_WriteCMD(unsigned char cmd);
+//! extern void T6963C_WriteOnePara(unsigned char data,
+//! 							unsigned char cmd);
+//! extern void T6963C_WriteDoublePara(unsigned char data1,
+//! 				unsigned char data2, unsigned char cmd);
+//! extern void T6963C_StatusCheck(unsigned char mode);
+//! extern void T6963C_ShowString(unsigned char row, unsigned char col,
+//! 									unsigned char *pDataCode, unsigned char len);
+//! extern void T6963C_Clear_RAM(void);
+//! extern void T6963C_CGRAM(void);
+//! extern void T6963C_Reset(void);
+//! extern void T6963C_Text_Display_Chinese(unsigned char row, unsigned char col,
+//!         unsigned char *pDataCode, unsigned char len);
+//! extern void T6963C_Gph_Display_Chinese(unsigned char row, unsigned char col,
+//!         unsigned char data[][32], unsigned char len);
+//! extern void T6963C_Line(unsigned char y1,unsigned char x1,
+//! 		unsigned char y2,unsigned char x2,  unsigned char Mode);
+//! extern void T6963C_Pixel(unsigned char row,unsigned char col,
+//! 		unsigned char Mode);
+//! extern void T6963C_Gph_Display_BMP(unsigned char data[]);
+//!
+//! \section T6963C_Usage 3. Usage & Program Examples
+//! 
+//! \code
+//! //*****************************************************************************
+//! //
+//! //! \file Example.c
+//! //! \brief the T6963C Example.
+//! //! \version 1.0
+//! //! \date 01/30/2013
+//! //! \author CooCox
+//! //! \copy
+//! //!
+//! //! Copyright (c)  2011, CooCox 
+//! //! All rights reserved.
+//! //! 
+//! //! Redistribution and use in source and binary forms, with or without 
+//! //! modification, are permitted provided that the following conditions 
+//! //! are met: 
+//! //! 
+//! //!     * Redistributions of source code must retain the above copyright 
+//! //! notice, this list of conditions and the following disclaimer. 
+//! //!     * Redistributions in binary form must reproduce the above copyright
+//! //! notice, this list of conditions and the following disclaimer in the
+//! //! documentation and/or other materials provided with the distribution. 
+//! //!     * Neither the name of the <ORGANIZATION> nor the names of its 
+//! //! contributors may be used to endorse or promote products derived 
+//! //! from this software without specific prior written permission. 
+//! //! 
+//! //! THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+//! //! AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//! //! IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+//! //! ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+//! //! LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+//! //! CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+//! //! SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+//! //! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+//! //! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+//! //! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+//! //! THE POSSIBILITY OF SUCH DAMAGE.
+//! //*****************************************************************************
+//! #include "T6963C.h"
+//! #include "xhw_ints.h"
+//! #include "xhw_nvic.h"
+//! #include "xhw_memmap.h"
+//! #include "xhw_types.h"
+//! #include "xdebug.h"
+//! #include "xcore.h"
+//! #include "xsysctl.h"
+//! #include "xhw_sysctl.h"
+//! #include "xhw_gpio.h"
+//! #include "xgpio.h"
+//! #include "xhw_uart.h"
+//! #include "xuart.h"
+//!
+//! extern unsigned char apple[];
+//! extern unsigned char clear_bmp[];
+//!
+//!
+//! //*****************************************************************************
+//! //
+//! //! \brief The example of the function of Dispaly.
+//! //!
+//! //! \param None
+//! //!
+//! //! \details The example of the function of Dispaly.
+//! //! \return None.
+//! //
+//! //*****************************************************************************
+//! void T6963C_DispalyExample(void)
+//! {
+//! 	//
+//! 	// Set SysClk 1MHz using Extern 12M oscillator
+//! 	//
+//! 	xSysCtlClockSet(1000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_12MHZ);
+//! 	
+//! 	T6963C_Init();
+//!
+//! //	T6963C_Clear_RAM();
+//!
+//! 	 //display graphic
+//! 	T6963C_WriteCMD(0x98);
+//! 	
+//!
+//! 	T6963C_Gph_Display_BMP(clear_bmp);
+//! 	T6963C_Gph_Display_BMP(apple);
+//!
+//! }
+//! \endcode
+//!
+//
+//*****************************************************************************
