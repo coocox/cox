@@ -1,0 +1,283 @@
+//*****************************************************************************
+//
+//! \defgroup LCD1602_With_74HC595_SPI LCD1602_With 74HC595 SPI
+//!
+//! \brief LCD1602_SPI driver.
+//!
+//! The  LCD1602_SPI  is  designed  to  provide  a  two-wire  solution  that   
+//! combines  a  LCD driver HD44780, a SPI to  8-bit I/O expander 74HC595, power 
+//! supply circuit for LCD and back light. 
+//!
+//!
+//! <h1>Contents</h1>
+//! - \ref LCD1602_SPI_Schemetic
+//! - \ref 74HC595_Block
+//! - \ref 74HC595_Addr
+//! - \ref 74HC595_Write
+//! - \ref HD44780_Commands
+//! .
+//!
+//! \section LCD1602_SPI_Schemetic 1. LCD1602 SPI communication schemetic
+//! <img src="LCD1602_SPI_SCH.png">
+//!
+//! \section 74HC595_Block  2. 74HC595 block and signals name.
+//! <img src="74HC595_Block.png">
+//!
+//! \section 74HC595_Addr 3. 74HC595 device address.
+//! LCD1602_SPI is driven by 74HC595 with its SPI interface.
+//! It supports up to 400kHz clock frequency.
+//! The device address can be changed according to your configuration. 
+//! of A0,A1,A2 connected to the jumper1 and jumper2.
+//! <img src="74HC595_Addr.png">
+//! .
+//! 
+//! \section 74HC595_Write 4. 74HC595 write sequence.
+//! You need to send a start signal to start SPI transmit.
+//! Then send the 7 bit device address and 1 bit of read/write flag,
+//! after receive ack signal you can read or write one or more bytes
+//! to read or write I/O status.
+//!
+//! <img src="74HC595_Write.png">
+//! .
+//! \section HD44780_Commands 5. LCD1602 controller HD44780 Instructions
+//! <img src="hd44780_commands.gif">
+//! .
+//!
+//! 
+//! \brief This is the LCD1602_SPI series Driver can be used in the condition which
+//! the system only have one LCD1602_SPI series device.
+//!
+//! This driver is implemented by using defines and global variables.It can only 
+//! use on one device because all the APIs use the same macros and global variables.
+//!
+//! <h1>Contents</h1>
+//! - \ref LCD1602_SPI_How_Define
+//! - \ref LCD1602_SPI_API_Group
+//!   - \ref LCD1602_SPI_API_Config
+//!   - \ref LCD1602_SPI_API_Display
+//!   - \ref LCD1602_SPI_API_Location
+//!   - \ref LCD1602_SPI_API_Cursor
+//!   - \ref LCD1602_SPI_API_Lowlayer
+//!   .
+//! - \ref LCD1602_SPI_Usage 
+//! .
+//!
+//! \section LCD1602_SPI_How_Define 1. How is the LCD1602_SPI Driver implemented?
+//! Use define to config some Fixing things,such as SPI base and SPI pins.
+//!
+//! Use global variables to save variables use by the APIs.
+//!
+//! \section LCD1602_SPI_API_Group 2. API Groups
+//! 
+//! The LCD1602_SPI API is broken into three groups of functions: 
+//! - those that deal with LCD1602_SPI config , 
+//! - those that deal with LCD1602_SPI display control, 
+//! - those that deal with LCD1602_SPI display
+//! .
+//!
+//! \n
+//! \subsection LCD1602_SPI_API_Config 2.1 LCD1602_SPI config functions
+//! 
+//! \subsection HD44780_API_Config 3.1 Config API
+//! - HD44780Init() to initialize.
+//! - HD44780EntryModeSet() to set the entry mode.
+//! .
+//! 
+//! \subsection LCD1602_SPI_API_Display 3.2 Display API
+//! The display is turned on/off by:
+//! - HD44780DisplayOn()
+//! - HD44780DisplayOff()
+//! .
+//! 
+//! The display is cleared by HD44780DisplayClear().
+//!
+//! Print something on the LCD:
+//! - HD44780DisplayString()
+//! - HD44780DisplayN()
+//! .
+//!
+//! Shift the entire display by:
+//! - HD44780DisplayLeftShift()
+//! - HD44780DisplayRightShift()
+//! .
+//!
+//! \subsection LCD1602_SPI_API_Location 3.3 Location API
+//! - HD44780Home() - return (0,0)
+//! - HD44780LocationSet() - move to (x, y)
+//! .
+//! 
+//! \subsection LCD1602_SPI_API_Cursor 3.4 Cursor API
+//! Cursor is turned on/off:
+//! - HD44780CursorOn() - set the cursor style and turn on the cursor.
+//! - HD44780CursorOff()
+//! .
+//! Move the curosr:
+//! - HD44780CursorLeftMove()
+//! - HD44780CursorRightMove().
+//! .
+//!
+//! \subsection LCD1602_SPI_API_Lowlayer 3.5 Lowlayer API
+//! If the LCD API can not meet your need, you can use the API below operated 
+//! on the lowlayer.
+//! - HD44780Busy()
+//! - HD44780WriteCmd()
+//! - HD44780WriteData()
+//! - HD44780ReadState()
+//! - HD44780ReadData()
+//! .
+//!
+//! \section HD44780_Usage HD44780 Usage
+//! 
+//! Before Using the LCD driver, you should configure the LCD moudle, function,
+//! character font, data interface length, pin remap. Please reference
+//! \ref HD44780_Config.
+//!
+//! Below is some example code:
+//!
+//! \code
+
+//! void HD44780Test(void)
+//! {
+//!     int i , j;
+//!     
+//!     HD44780Init();
+//!     
+//!     //
+//!     // Location Set & Display string, number Test
+//!     //
+//!     HD44780LocationSet(0, 0);
+//!     HD44780DisplayString("Hello HD44780!");
+//!     HD44780LocationSet(0, 1);
+//!     HD44780DisplayString("Number:");
+//!     HD44780DisplayN(10086);
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     HD44780LocationSet(0,1);
+//!     HD44780DisplayString("Display off/on");
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     HD44780DisplayOff();    
+//!     xSysCtlDelay(xSysCtlClockGet() / 4 );
+//!     HD44780DisplayOn();
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     //
+//!     // Cursor style
+//!     //
+//!     HD44780DisplayClear();
+//!     HD44780DisplayString("Cursor Test");
+//!     HD44780CursorOn(xfalse);
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     HD44780CursorOff();
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     
+//!     //
+//!     // Cursor will blink at the end of line
+//!     //
+//!     HD44780CursorOn(xtrue);
+//!     HD44780CursorRightMove(1);
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     HD44780CursorRightMove(5);
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     HD44780CursorLeftMove(4);
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     
+//!     for(i = 0; i < 10; i++)
+//!     {
+//!         HD44780CursorRightMove(1);
+//!         xSysCtlDelay(xSysCtlClockGet() / 10);     
+//!     }
+//!     
+//!     for(i = 0; i < 10; i++)
+//!     {
+//!         HD44780CursorLeftMove(1);
+//!         xSysCtlDelay(xSysCtlClockGet() / 10);     
+//!     }    
+//! 
+//!     HD44780LocationSet(0, 1);
+//!     HD44780DisplayString("Cursor Home");
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     
+//!     HD44780Home();
+//!     
+//!     //
+//!     // Display Right shift
+//!     //
+//!     HD44780DisplayClear();
+//!     HD44780DisplayString("Right scrolling string");
+//!     HD44780LocationSet(0, 1);
+//!     HD44780DisplayString("        Line 2         ");
+//!     for(i = 0; i < 20; i++)
+//!     {
+//!         HD44780DisplayRightShift(1);
+//!         xSysCtlDelay(xSysCtlClockGet() / 10);
+//!     }
+//!     
+//!     //
+//!     // Display Left shift
+//!     //
+//!     HD44780DisplayClear();
+//!     HD44780DisplayString("Left scrolling string");
+//!     HD44780LocationSet(0, 1);
+//!     HD44780DisplayString("        Line 2         ");
+//!     for(i = 0; i < 20; i++)
+//!     {
+//!         HD44780DisplayLeftShift(1);
+//!         xSysCtlDelay(xSysCtlClockGet() / 10);
+//!     }
+//!     
+//!     //
+//!     // Display Right Left shift    
+//!     //
+//!     HD44780DisplayClear();
+//!     HD44780DisplayString("Left Right scrolling string");
+//!     HD44780LocationSet(0, 1);
+//!     HD44780DisplayString("        Line 2         ");    
+//!     for(j = 0; j < 2; j++)
+//!     {  
+//!         for(i = 0; i < 10; i++)
+//!         {
+//!             HD44780DisplayRightShift(1);
+//!             xSysCtlDelay(xSysCtlClockGet() / 10);
+//!         }
+//!         for(i = 0; i < 10; i++)
+//!         {
+//!             HD44780DisplayLeftShift(1);
+//!             xSysCtlDelay(xSysCtlClockGet() / 10);
+//!         } 
+//!     }
+//!     HD44780Home();
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     
+//!     //
+//!     // Cursor Move Direction
+//!     //
+//!     HD44780DisplayClear();
+//!     HD44780LocationSet(10, 1);
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     HD44780EntryModeSet(HD44780_MOVE_DIRECTION_DEC, xfalse);
+//!     HD44780DisplayString("DEC");
+//!     
+//!     HD44780LocationSet(10, 2);
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     HD44780EntryModeSet(HD44780_MOVE_DIRECTION_DEC, xtrue);
+//!     HD44780DisplayString("DEC shift");
+//!     
+//!     HD44780DisplayClear();
+//!     HD44780LocationSet(10, 1);
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     HD44780EntryModeSet(HD44780_MOVE_DIRECTION_INC, xfalse);
+//!     HD44780DisplayString("INC");
+//!     
+//!     HD44780LocationSet(10, 2);
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     HD44780EntryModeSet(HD44780_MOVE_DIRECTION_INC, xtrue);
+//!     HD44780DisplayString("INC shift");
+//!     xSysCtlDelay(xSysCtlClockGet() / 4);
+//!     
+//!     HD44780DisplayClear();
+//!     HD44780EntryModeSet(HD44780_MOVE_DIRECTION_INC, xfalse);
+//!     HD44780DisplayString("Complete");
+//!         
+//! }
+//!     
+//! \endcode
+//
+//*****************************************************************************
