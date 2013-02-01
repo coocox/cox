@@ -138,23 +138,22 @@
     <File name="libcox/xhw_types.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_types.h" type="1"/>
     <File name="app" path="" type="2"/>
     <File name="libcox/xcore.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xcore.c" type="1"/>
-    <File name="app/ReadAccData.c" path="../src/ReadAccData.c" type="1"/>
-    <File name="driver/ADXL345.c" path="../../../lib/ADXL345.c" type="1"/>
-    <File name="driver/ADXL345.h" path="../../../lib/ADXL345.h" type="1"/>
+    <File name="driver/PCF8574.h" path="../../../lib/PCF8574.h" type="1"/>
     <File name="libcox/xhw_config.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_config.h" type="1"/>
+    <File name="app/ReadWritePort.h" path="../src/ReadWritePort.h" type="1"/>
     <File name="libcox/xhw_uart.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_uart.h" type="1"/>
-    <File name="libcox/xhw_ints.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_ints.h" type="1"/>
+    <File name="driver/PCF8574.c" path="../../../lib/PCF8574.c" type="1"/>
     <File name="libcox/xi2c.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xi2c.h" type="1"/>
+    <File name="libcox/xhw_ints.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_ints.h" type="1"/>
     <File name="app/main.c" path="../main.c" type="1"/>
     <File name="libcox/xsysctl.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xsysctl.h" type="1"/>
     <File name="libcox/xuart.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xuart.c" type="1"/>
-    <File name="driver/hw_ADXL345.h" path="../../../lib/hw_ADXL345.h" type="1"/>
+    <File name="app/ReadWritePort.c" path="../src/ReadWritePort.c" type="1"/>
     <File name="libcox/xhw_i2c.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_i2c.h" type="1"/>
-    <File name="app/ReadAccData.h" path="../src/ReadAccData.h" type="1"/>
     <File name="libcox/xgpio.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xgpio.h" type="1"/>
     <File name="libcox/xhw_gpio.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_gpio.h" type="1"/>
-    <File name="driver" path="" type="2"/>
     <File name="libcox/xcore.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xcore.h" type="1"/>
+    <File name="driver" path="" type="2"/>
     <File name="libcox" path="" type="2"/>
     <File name="startup" path="" type="2"/>
     <File name="libcox/xhw_memmap.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_memmap.h" type="1"/>
