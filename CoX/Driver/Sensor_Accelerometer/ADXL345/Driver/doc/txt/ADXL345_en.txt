@@ -1,0 +1,156 @@
+//*****************************************************************************
+//
+//! \defgroup ADXL345 ADXL345
+//!
+//! \brief 3-axis accelerometer driver.
+//!
+//! <h1>Contents</h1>
+//! - \ref ADXL345_Description
+//!   .
+//! - \ref ADXL345_Driver_API
+//!   .
+//! - \ref ADXL345_Example
+//!   - \ref Example_ReadAccData
+//! .
+//!
+//! \section ADXL345_Description 1. ADXL345 System description.
+//!
+//! The ADXL345 is a small, thin, ultralow power, 3-axis accelerometer with high
+//! resolution (13-bit) measurement at up to +/-16 g. Digital output data is
+//! formatted as 16-bit twos complement and is acces-sible through either a SPI (3-
+//! or 4-wire) or I2C digital interface.  The ADXL345 is well suited for mobile
+//! device applications. It measures the static acceleration of gravity in
+//! tilt-sensing appli-cations, as well as dynamic acceleration resulting from
+//! motion or shock. Its high resolution (3.9 m g /LSB) enables measurement of
+//! inclination changes less than 1.0 degree. 
+//! Several special sensing functions are provided. Activity and inactivity sensing
+//! detect the presence or lack of motion by comparing the acceleration on any axis
+//! with user-set thresholds. 
+//! Tap sensing detects single and double taps in any direction. Free-fall sensing
+//! detects if the device is falling. These functions can be mapped individually to
+//! either of two interrupt output pins.  An integrated, patent pending memory
+//! management system with a 32-level first in, first out (FIFO) buffer can be used
+//! to store data to minimize host processor activity and lower overall system
+//! power consumption.  
+//! Low power modes enable intelligent motion-based power management with threshold
+//! sensing and active acceleration measurement at extremely low power dissipation.
+//! 
+//! .
+//!
+//! \section ADXL345_Driver_API 2. API Group
+//!
+//! Result ADXL345_Init(void);
+//! Result ADXL345_ReadAccData(uint8_t Axis, int16_t * DataRecvBuf);
+//! Result ADXL345_OffSetWrite(uint8_t Axis, uint8_t OffSet);
+//! Result ADXL345_RegWriteByte(uint8_t RegAddr, uint8_t Data);
+//! Result ADXL345_RegReadByte(uint8_t RegAddr, uint8_t * DataRecvBuf);
+//! Result ADXL345_TapThresholdSet(uint8_t ThresHold);
+//! Result ADXL345_WindowSet(uint8_t Window);
+//! Result ADXL345_LatencySet(uint8_t Latency);
+//! Result ADXL345_DurationSet(uint8_t Duration);
+//! Result ADXL345_ActThresholdSet(uint8_t ThresHold);
+//! Result ADXL345_InactThresholdSet(uint8_t ThresHold);
+//! Result ADXL345_InactTimeSet(uint8_t Time);
+//! Result ADXL345_ActCfg(uint32_t Cfg);
+//! Result ADXL345_FFThresholdSet(uint8_t ThresHold);
+//! Result ADXL345_FFTimeSet(uint8_t Time);
+//! Result ADXL345_TapCfg(uint32_t Cfg);
+//! Result ADXL345_StatusCheck(uint32_t Event);
+//! Result ADXL345_PowerCfg(uint32_t Cfg);
+//! Result ADXL345_IntCfg(uint32_t Cfg);
+//! Result ADXL345_DataCfg(uint32_t Cfg);
+//! Result ADXL345_FIFOCfg(uint32_t Cfg, uint8_t Sample);
+//! Result ADXL345_EntryGet(uint8_t * pEntry);
+//! 
+//! .
+//! 
+//! \section ADXL345_Example 3. Example
+//! 
+//! Below is some example code:
+//!
+//! \subsection Example_ReadAccData 3.1 ReadAccData Example
+//! \code
+//! void ReadAccData(void)
+//! {
+//!     int16_t AccData = 0;
+//!     Result retv     = SUCCESS;
+//! 
+//!     //
+//!     // Init the LED
+//!     //
+//!     //xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOD);
+//!     //xGPIODirModeSet(xGPIO_PORTD_BASE, xGPIO_PIN_3, xGPIO_DIR_MODE_OUT);
+//! 
+//!     SysInit();
+//!     UartInit();
+//! 
+//!     SysCtlDelay(TICK_L);
+//!     printf("%s\r\n", WelcomeInfo);
+//! 
+//!     printf("Example: Read Accelerometer Data\r\n");
+//! 
+//!     //Initialize ADXL345 module
+//!     retv = ADXL345_Init();
+//!     if(retv != SUCCESS)
+//!     {
+//!         printf("Init Error\r\n");
+//!         return ;
+//!     }
+//! 
+//!     //ADXL345 Boot time, about 10ms
+//!     SysCtlDelay(TICK_L);
+//! 
+//!     //Measure range +/- 4G, data right-justify, and full resolution
+//!     ADXL345_DataCfg( RANGE_4_G | JUSTIFY_RIGHT | FULL_RES_EN );
+//!     if(retv != SUCCESS)
+//!     {
+//!         printf("Configure Error\r\n");
+//!         return ;
+//!     }
+//! 
+//!     //Enable Measure
+//!     retv =  ADXL345_PowerCfg( MEASURE_EN ); 
+//!     if(retv != SUCCESS)
+//!     {
+//!         printf("Configure Error\r\n");
+//!         return ;
+//!     }
+//!     //Read Accelerometer data
+//!     while(1)
+//!     {
+//!         //Read X axis data
+//!         retv = ADXL345_ReadAccData(AXIS_X, &AccData);
+//!         if(retv != SUCCESS)
+//!         {
+//!             printf("Read Data Failure\r\n");
+//!         }
+//! 
+//!         printf("X axis Data:%X\t", AccData);
+//! 
+//!         SysCtlDelay(TICK_S);
+//! 
+//!         //Read Y axis data
+//!         retv = ADXL345_ReadAccData(AXIS_Y, &AccData);
+//!         if(retv != SUCCESS)
+//!         {
+//!             printf("Read Data Failure\r\n");
+//!         }
+//! 
+//!         printf("Y axis Data:%X\t", AccData);
+//! 
+//!         SysCtlDelay(TICK_S);
+//! 
+//!         //Read Z axis data
+//!         retv = ADXL345_ReadAccData(AXIS_Z, &AccData);
+//!         if(retv != SUCCESS)
+//!         {
+//!             printf("Read Data Failure\r\n");
+//!         }
+//! 
+//!         printf("Z axis Data:%X\r\n", AccData);
+//! 
+//!         SysCtlDelay(TICK_S);
+//!     }
+//! }
+//! \endcode
+
