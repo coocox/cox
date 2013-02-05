@@ -111,7 +111,7 @@ extern "C"
 //! \brief If use hardware SPI this two macro is need while analog SPI no use.
 //!
 #define HD44780_SPI             xSPI2_BASE
-#define HD44780_SPI_BAUDRATE 200000
+#define HD44780_SPI_BAUDRATE    100000
 #define HD44780_CLK             SPI2CLK(APP)
 #define HD44780_MOSI            SPI2MOSI(APP)
 #define HD44780_CS              SPI2CS(APP)

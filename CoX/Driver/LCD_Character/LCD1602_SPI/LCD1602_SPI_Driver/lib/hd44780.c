@@ -293,7 +293,7 @@ HD44780Init(void)
     // Configure SPI  SPI1,ulRate
     //
     xSPIConfigSet((HD44780_SPI), HD44780_SPI_BAUDRATE,
-    	SPI_FORMAT_MODE_4 | SPI_DATA_WIDTH8 | SPI_MSB_FIRST | SPI_MODE_MASTER);
+    	SPI_FORMAT_MODE_3 | SPI_DATA_WIDTH8 | SPI_MSB_FIRST | SPI_MODE_MASTER);
 
     //
     //! \note Enanble SPI SS,test on M0516LBN.other mcu there may need modify.

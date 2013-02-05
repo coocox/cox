@@ -11,13 +11,13 @@ int main()
     xSysCtlClockSet(72000000, (xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ));
 
 
-	AMSDCMotorPWMInit(AMS_MOTOR_B, 10, 50);
-	AMSDCMotorPWMInit(AMS_MOTOR_A, 10, 50);
+	AMSDCMotorPWMInit(AMS_MOTOR_B, 100000, 50);
+	AMSDCMotorPWMInit(AMS_MOTOR_A, 100000, 50);
 
 	AMSDCMotorRun(AMS_MOTOR_B, AMS_RUN_FORWARD);
 
-	AMSStepMotorInit();
-	AMSStepMotorRun(AMS_RUN_FORWARD, 100);
+//	AMSStepMotorInit();
+//	AMSStepMotorRun(AMS_RUN_FORWARD, 100);
 
 	while(1);
 }			  	

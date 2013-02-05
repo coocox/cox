@@ -63,51 +63,56 @@
     </DebugOption>
     <ExcludeFile/>
   </Target>
-  <Components path="./"/>
+  <Components path="./">
+    <Component id="616" name="CoX.Embedded_PI.Config" path="" type="2"/>
+  </Components>
   <Files>
     <File name="CoX_Driver/LCD1602_I2C_Driver/LCD1602IIC.h" path="../../../lib/LCD1602IIC.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xadc.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xadc.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xi2c.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xi2c.h" type="1"/>
+    <File name="CoX/cookie/cookie.h" path="CoX/cookie/cookie.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_spi.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_spi.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src" path="" type="2"/>
     <File name="CoX_Driver/LCD1602_I2C_Driver/hw_LCD1602IIC.h" path="../../../lib/hw_LCD1602IIC.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_config.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_config.h" type="1"/>
-    <File name="CoX/CoX_Peripheral/src/xgpio.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xgpio.c" type="1"/>
-    <File name="CoX/CoX_Peripheral/inc/xtimer.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xtimer.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xcore.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xcore.c" type="1"/>
     <File name="startup_coide.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/startup/src/startup_coide.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xgpio.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xgpio.h" type="1"/>
-    <File name="LCD1602_I2C_Example/Example.c" path="../src/Example.c" type="1"/>
-    <File name="CoX" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_wdt.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_wdt.h" type="1"/>
     <File name="CoX_Driver" path="" type="2"/>
     <File name="LCD1602_I2C_Example" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_ints.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_ints.h" type="1"/>
     <File name="CoX_Driver/LCD1602_I2C_Driver" path="" type="2"/>
-    <File name="CoX/CoX_Peripheral/inc/xuart.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xuart.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xsysctl.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xsysctl.h" type="1"/>
-    <File name="CoX/CoX_Peripheral/inc/xwdt.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xwdt.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_adc.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_adc.h" type="1"/>
+    <File name="CoX/CoX_Peripheral/inc" path="" type="2"/>
+    <File name="CoX/CoX_Peripheral/inc/xhw_i2c.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_i2c.h" type="1"/>
+    <File name="CoX/CoX_Peripheral/inc/xhw_types.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_types.h" type="1"/>
+    <File name="CoX/CoX_Peripheral/inc/xhw_nvic.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_nvic.h" type="1"/>
+    <File name="CoX/CoX_Peripheral/inc/xhw_gpio.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_gpio.h" type="1"/>
+    <File name="CoX/CoX_Peripheral/inc/xdma.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xdma.h" type="1"/>
+    <File name="CoX/CoX_Peripheral/inc/xhw_timer.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_timer.h" type="1"/>
+    <File name="CoX/cookie/cookie_cfg.h" path="CoX/cookie/cookie_cfg.h" type="1"/>
+    <File name="CoX/CoX_Peripheral/src/xgpio.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xgpio.c" type="1"/>
+    <File name="CoX/CoX_Peripheral/inc/xtimer.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xtimer.h" type="1"/>
+    <File name="LCD1602_I2C_Example/Example.c" path="../src/Example.c" type="1"/>
+    <File name="CoX" path="" type="2"/>
+    <File name="CoX/CoX_Peripheral/inc/xuart.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xuart.h" type="1"/>
+    <File name="CoX/CoX_Peripheral/inc/xwdt.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xwdt.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_sysctl.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_sysctl.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xrtc.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xrtc.h" type="1"/>
-    <File name="CoX/CoX_Peripheral/inc" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xdebug.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xdebug.h" type="1"/>
-    <File name="CoX/CoX_Peripheral/inc/xhw_i2c.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_i2c.h" type="1"/>
     <File name="CoX_Driver/LCD1602_I2C_Driver/LCD1602IIC.c" path="../../../lib/LCD1602IIC.c" type="1"/>
-    <File name="CoX/CoX_Peripheral/inc/xhw_types.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_types.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_dma.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_dma.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xacmp.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xacmp.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xspi.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xspi.h" type="1"/>
-    <File name="CoX/CoX_Peripheral/inc/xhw_nvic.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_nvic.h" type="1"/>
+    <File name="CoX/cookie" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/src/xi2c.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xi2c.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xcore.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xcore.h" type="1"/>
-    <File name="CoX/CoX_Peripheral" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/src/xsysctl.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xsysctl.c" type="1"/>
-    <File name="CoX/CoX_Peripheral/inc/xhw_gpio.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_gpio.h" type="1"/>
+    <File name="CoX/CoX_Peripheral" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xpwm.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xpwm.h" type="1"/>
-    <File name="CoX/CoX_Peripheral/inc/xdma.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xdma.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_memmap.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_memmap.h" type="1"/>
-    <File name="CoX/CoX_Peripheral/inc/xhw_timer.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_timer.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_uart.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_uart.h" type="1"/>
     <File name="main.c" path="../main.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_rtc.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_rtc.h" type="1"/>

@@ -41,6 +41,7 @@
 #include "xhw_gpio.h"
 #include "xcore.h"
 #include "xsysctl.h"
+#include "xdebug.h"
 #include "xgpio.h"
 #include "hw_LCD1602IIC.h"
 #include "LCD1602IIC.h"

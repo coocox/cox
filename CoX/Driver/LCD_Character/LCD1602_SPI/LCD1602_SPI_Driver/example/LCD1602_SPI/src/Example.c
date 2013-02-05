@@ -48,7 +48,7 @@
 void LCD1602IICExample(void)
 {
 	int i,j;
-    xSysCtlClockSet(72000000,  xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
+    xSysCtlClockSet(8000000,  xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
 
 	HD44780Init();
 	HD44780Init();
