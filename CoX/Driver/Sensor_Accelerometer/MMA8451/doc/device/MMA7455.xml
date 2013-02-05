@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>MMA8451</Name>
+    <Description>
+
+    </Description>
+    <Manufacturer>Freescale</Manufacturer>
+
+    <Category>Sensor</Category>
+    <SubCategory>Accelerometer</SubCategory>
+
+    <KeyWord>
+        Freescale, Accelerometer, MMA8451, 3-Axis, I2C, SPI, Pulse detect, Quick motion detection, Click, origin detect
+    </KeyWord>
+
+    <Communication>
+        <Interface>I2C</Interface>
+        <Interface>SPI</Interface>
+    </Communication>
+
+    <WebPage>
+        http://www.freescale.com/webapp/sps/site/prod_summary.jsp?code=MMA8451Q&amp;fsrch=1&amp;sr=1
+    </WebPage>
+
+    <Datasheet>
+        http://cache.freescale.com/files/sensors/doc/data_sheet/MMA8451Q.pdf?fpsp=1&WT_TYPE=Data%20Sheets&WT_VENDOR=FREESCALE&WT_FILE_FORMAT=pdf&WT_ASSET=Documentation
+    </Datasheet>
+
+    <APPLICATION_NOTES>
+        http://www.freescale.com/webapp/sps/site/prod_summary.jsp?code=MMA8451Q&tab=Documentation_Tab&pspll=1&SelectedAsset=Documentation&ProdMetaId=PID/DC/MMA8451Q&fromPSP=true&assetLockedForNavigation=true&componentId=2&leftNavCode=1&pageSize=25&Documentation=Documentation/00610Ksd1nd%60%60Data%20Sheets&fpsp=1&linkline=Data%20Sheets
+    </APPLICATION_NOTES>
+
+    <Doc>$Device_ROOT$\doc\</Doc>
+
+</Device>
