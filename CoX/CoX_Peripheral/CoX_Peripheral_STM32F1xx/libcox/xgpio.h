@@ -1522,6 +1522,20 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 #define xGPIOPinRead(ulPort, ulPins)                                          \
         GPIOPinRead(ulPort, ulPins)
 
+//*****************************************************************************
+//
+//! \brief Reads the values present of the specified Port.
+//!
+//! \param ulPort is the base address of the GPIO port.
+//!
+//! The values at the specified Port are read
+//!
+//! \return Returns a bit-packed byte providing the state of the specified
+//! Port
+//
+//*****************************************************************************
+#define xGPIOPortRead(ulPort)                                                 \
+        GPIOPortRead(ulPort)
 
 //*****************************************************************************
 //
@@ -1568,6 +1582,22 @@ extern unsigned long xGPIODirModeGet(unsigned long ulPort,
 #define xGPIOPinWrite(ulPort, ulPins, ucVal)                                  \
         GPIOPinWrite(ulPort, ulPins, ucVal)
 
+//*****************************************************************************
+//
+//! \brief Writes a value to the specified Port.
+//!
+//! \param ulPort is the base address of the GPIO port.
+//! \param ucVal is the value to write to the Port.
+//!
+//! Writes the corresponding bit values to the output Port
+//!
+//! \return None.
+//
+//*****************************************************************************
+#define xGPIOPortWrite(ulPort, ulVal)                                         \
+        GPIOPortWrite(ulPort, ulVal)
+
+		
 //*****************************************************************************
 //
 //! \brief Write a value to the specified pin.
