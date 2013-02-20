@@ -217,20 +217,21 @@ void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
     xASSERT((ulSlaveSel == xSPI_SS0));
     
     xHWREG(ulBase + SPI_CR1) &= ~SPI_CR1_SSM;
-    xHWREG(ulBase + SPI_CR1) |= ulSSMode;
 	
 	  ulTemp = xHWREG(ulBase + SPI_CR1) & SPI_CR1_MSTR;
 	  if(ulTemp == SPI_CR1_MSTR)
 		{
 			  if(ulSSMode == SPI_SS_HARDWARE)
 				{
-					  xHWREG(ulBase + SPI_CR1) &= ~SPI_CR1_SSM;
-            xHWREG(ulBase + SPI_CR2) |= SPI_CR2_SSOE;
+					xHWREG(ulBase + SPI_CR1) &= ~SPI_CR1_SSM;
+                  //  xHWREG(ulBase + SPI_CR2) |= SPI_CR2_SSOE;
         }
 				else if(ulSSMode == SPI_SS_SOFTWARE)
 				{
+					xHWREG(ulBase + SPI_CR1) |= SPI_CR1_SSM;
+					xHWREG(ulBase + SPI_CR1) |= SPI_CR1_SSI;
 					  
-        }
+                }
     }
 		else if(ulTemp == 0)
 		{
@@ -423,10 +424,7 @@ SPISingleDataReadWrite(unsigned long ulBase, unsigned long ulWData)
     while((xHWREG(ulBase + SPI_SR) & SPI_SR_BSY))
     {
     }
-    while(!(xHWREG(ulBase + SPI_SR) & SPI_SR_RXNE))
-    {
-    } 
-
+    
     //
     // write data to SPI.
     //

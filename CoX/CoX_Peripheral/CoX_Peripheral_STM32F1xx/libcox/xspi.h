@@ -206,7 +206,7 @@ extern "C"
 //
 //! Moto Format, polarity 0, phase 0
 //
-#define xSPI_MOTO_FORMAT_MODE_0 SPI_FORMAT_MODE_1
+#define xSPI_MOTO_FORMAT_MODE_0 SPI_FORMAT_MODE_0
 
 //
 //! Moto Format, polarity 0, phase 1
