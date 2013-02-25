@@ -1257,4 +1257,3 @@ extern void SPICRCDisble(unsigned long ulBase);
 
 #endif // __xSPI_H__
 
-

@@ -149,10 +149,10 @@
     <File name="libcox/xhw_i2c.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_i2c.h" type="1"/>
     <File name="app/ReadAccData.h" path="../src/ReadAccData.h" type="1"/>
     <File name="libcox/xgpio.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xgpio.h" type="1"/>
-    <File name="driver/hw_MMA8451.h" path="../../../lib/hw_MMA8451.h" type="1"/>
     <File name="libcox/xhw_gpio.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_gpio.h" type="1"/>
-    <File name="libcox/xcore.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xcore.h" type="1"/>
+    <File name="driver/hw_MMA8451.h" path="../../../lib/hw_MMA8451.h" type="1"/>
     <File name="driver" path="" type="2"/>
+    <File name="libcox/xcore.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xcore.h" type="1"/>
     <File name="driver/MMA8451.h" path="../../../lib/MMA8451.h" type="1"/>
     <File name="libcox" path="" type="2"/>
     <File name="driver/MMA8451.c" path="../../../lib/MMA8451.c" type="1"/>
