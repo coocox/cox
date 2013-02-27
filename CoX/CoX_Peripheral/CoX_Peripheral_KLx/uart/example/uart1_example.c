@@ -15,14 +15,18 @@
 #include "xhw_uart.h"
 #include "xuart.h"
 
-const unsigned char Begin[] = "Welcome, here is Freescale uart example\r\n, \
-                               Now you can input your word,end with 'enter'\r\n";
-const unsigned char End[] = "Ok, Example is over, bye\r\n";
+const unsigned char Begin[] = {"Welcome, here is Freescale uart example\r\n"
+                               "Now you can input your word,end with 'Enter'\r\n"};
+const unsigned char End[] = {"Ok, Example is over, bye\r\n"};
 
 void UART_example(void)
 {
     unsigned int i = 0;
+    unsigned char Rec = 0;
 
+    //Close watchdog
+    (*((volatile unsigned long *)(0x40048100))) = 0x00;
+    
     //
     // Configure System clock
     //
@@ -55,21 +59,22 @@ void UART_example(void)
     // Enable UART Receive/Transmit
     //
     UARTEnable(UART1_BASE, UART_TX | UART_RX);
+    
+    SysCtlDelay(1000000);
 
     //
     // print out welcome information
     //
-
     i = 0;
-    while(Buf[i] != '\0')
+    while(Begin[i] != '\0')
     {
-        UARTCharPut(UART1_BASE, Buf[i++]);
-    }
+        UARTCharPut(UART1_BASE, Begin[i++]);
+    }  
 
     //
     // Echo user's input information
     //
-    while((Rec = UARTCharGet(UART1_BASE)) != '\n')
+    while((Rec = UARTCharGet(UART1_BASE)) != 0x0D)
     {
         UARTCharPut(UART1_BASE, Rec);
     }
@@ -78,10 +83,16 @@ void UART_example(void)
     // print out run over information
     //
     i = 0;
-    while(Buf[i] != '\0')
+    while(End[i] != '\0')
     {
         UARTCharPut(UART1_BASE, End[i++]);
     }
 
+    while(1);    
+    
+    
+    
+    
+    
     while(1);                  
 }
