@@ -68,8 +68,8 @@
     <File name="Cox Lib/inc/xgpio.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xgpio.h" type="1"/>
     <File name="Cox Lib/inc/xhw_memmap.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_memmap.h" type="1"/>
     <File name="Cox Lib/inc/xhw_timer.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_timer.h" type="1"/>
-    <File name="Cox Lib/inc/xhw_spi.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_spi.h" type="1"/>
     <File name="Cox Lib/src/xwdt.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xwdt.c" type="1"/>
+    <File name="Cox Lib/inc/xhw_spi.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_spi.h" type="1"/>
     <File name="Cox Lib/inc/xhw_wdt.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_wdt.h" type="1"/>
     <File name="Example/WifiWebClient.c" path="../src/WifiWebClient.c" type="1"/>
     <File name="Cox Lib/inc/xhw_ints.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_ints.h" type="1"/>
@@ -79,16 +79,16 @@
     <File name="WiFi Lib/inc/WiFi.h" path="../../../lib/WiFi.h" type="1"/>
     <File name="Cox Lib/src/xadc.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xadc.c" type="1"/>
     <File name="WiFi Lib/inc/server_drv.h" path="../../../lib/server_drv.h" type="1"/>
-    <File name="Cox Lib/inc/xdma.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xdma.h" type="1"/>
     <File name="WiFi Lib/inc/spi_drv.h" path="../../../lib/spi_drv.h" type="1"/>
+    <File name="Cox Lib/inc/xdma.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xdma.h" type="1"/>
     <File name="Cox Lib/inc/xwdt.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xwdt.h" type="1"/>
     <File name="Cox Lib/inc" path="" type="2"/>
     <File name="Cox Lib/inc/xpwm.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xpwm.h" type="1"/>
     <File name="Cox Lib/inc/xspi.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xspi.h" type="1"/>
     <File name="Cox Lib/src/xrtc.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xrtc.c" type="1"/>
     <File name="WiFi Lib/src/wifi_drv.c" path="../../../lib/wifi_drv.c" type="1"/>
-    <File name="Startup/startup_coide.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/startup/src/startup_coide.c" type="1"/>
     <File name="Cox Lib/inc/xtimer.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xtimer.h" type="1"/>
+    <File name="Startup/startup_coide.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/startup/src/startup_coide.c" type="1"/>
     <File name="WiFi Lib/src/server_drv.c" path="../../../lib/server_drv.c" type="1"/>
     <File name="WiFi Lib/inc/wl_definitions.h" path="../../../lib/wl_definitions.h" type="1"/>
     <File name="Cox Lib/src/xcore.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xcore.c" type="1"/>
@@ -104,8 +104,8 @@
     <File name="Cox Lib/src/xgpio.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xgpio.c" type="1"/>
     <File name="Cox Lib" path="" type="2"/>
     <File name="Cox Lib/inc/xhw_gpio.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_gpio.h" type="1"/>
-    <File name="Cox Lib/inc/xrtc.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xrtc.h" type="1"/>
     <File name="Cox Lib/inc/xhw_dma.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_dma.h" type="1"/>
+    <File name="Cox Lib/inc/xrtc.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xrtc.h" type="1"/>
     <File name="Cox Lib/inc/xcore.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xcore.h" type="1"/>
     <File name="Cox Lib/inc/xacmp.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xacmp.h" type="1"/>
     <File name="Cox Lib/inc/xsysctl.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xsysctl.h" type="1"/>
@@ -113,8 +113,8 @@
     <File name="Cox Lib/inc/xhw_sysctl.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_sysctl.h" type="1"/>
     <File name="Cox Lib/inc/xhw_i2c.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_i2c.h" type="1"/>
     <File name="Cox Lib/src/xspi.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xspi.c" type="1"/>
-    <File name="Cox Lib/inc/xuart.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xuart.h" type="1"/>
     <File name="WiFi Lib/inc/wifi_drv.h" path="../../../lib/wifi_drv.h" type="1"/>
+    <File name="Cox Lib/inc/xuart.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xuart.h" type="1"/>
     <File name="Example" path="" type="2"/>
     <File name="Cox Lib/src/xsysctl.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xsysctl.c" type="1"/>
     <File name="Cox Lib/src/xpwm.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xpwm.c" type="1"/>
