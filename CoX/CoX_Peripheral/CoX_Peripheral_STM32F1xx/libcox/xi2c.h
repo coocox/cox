@@ -397,7 +397,6 @@
 #define xI2CMasterInit(ulBase, ulI2CClk)                                      \
         do                                                                    \
         {                                                                     \
-            xASSERT(ulI2CClk == 100000 || ulI2CClk == 400000);                \
             I2CMasterInit(ulBase, SysCtlAPB1ClockGet(),                       \
                 (ulI2CClk == 400000) ? xtrue : xfalse, xtrue);                \
         }while(0)                                     

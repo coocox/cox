@@ -120,7 +120,7 @@
 //! config your device series.It can be one of the following values: 
 //! STM32F10X_LD_VL, STM32F10X_MD_VL, STM32F10X_HD_VL, STM32F10X_XL, STM32F10X_CL
 //
-#define STM32F1xx_DEVICE        STM32F10X_HD_VL
+#define STM32F1xx_DEVICE        STM32F10X_CL
 
 //
 //! config your HSE external crystal value.It can be one of the following values: 
@@ -168,12 +168,12 @@
 //
 //! STM32F1xx Timer1 function select
 //
-#define TIM1_FUNCTION_SELECT    TIM_PWM
+#define TIM1_FUNCTION_SELECT    TIM_TIMER
 
 //
 //! STM32F1xx Timer2 function select
 //
-#define TIM2_FUNCTION_SELECT    TIM_TIMER
+#define TIM2_FUNCTION_SELECT    TIM_PWM
 
 //
 //! STM32F1xx Timer3 function select
@@ -193,7 +193,7 @@
 //
 //! STM32F1xx Timer8 function select
 //
-#define TIM8_FUNCTION_SELECT    TIM_PWM
+#define TIM8_FUNCTION_SELECT    TIM_TIMER
 
 //
 //! STM32F1xx Timer9 function select

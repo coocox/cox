@@ -1239,7 +1239,7 @@ PWMOutputEnable(unsigned long ulBase, unsigned long ulChannel)
     xHWREG(ulBase + TIMER_CCMR1 + (ulChannel/2)*4) |= (TIMER_CCMR1_OC1PE <<
                                                           (ulChannel%2) * 8);
 
-    xHWREG(ulBase + TIMER_CCER) |= (5 << (ulChannel * 4));
+    xHWREG(ulBase + TIMER_CCER) |= (1 << (ulChannel * 4));
 }
 
 //*****************************************************************************
