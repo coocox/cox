@@ -211,17 +211,17 @@ extern "C"
 //
 //! Moto Format, polarity 0, phase 1
 //  
-#define xSPI_MOTO_FORMAT_MODE_1 SPI_FORMAT_MODE_2  
+#define xSPI_MOTO_FORMAT_MODE_1 SPI_FORMAT_MODE_1
                                              
 //
 //! Moto Format, polarity 1, phase 0
 //  
-#define xSPI_MOTO_FORMAT_MODE_2 SPI_FORMAT_MODE_6  
+#define xSPI_MOTO_FORMAT_MODE_2 SPI_FORMAT_MODE_2
                                            
 //
 //! Moto Format, polarity 1, phase 1
 //
-#define xSPI_MOTO_FORMAT_MODE_3 SPI_FORMAT_MODE_5
+#define xSPI_MOTO_FORMAT_MODE_3 SPI_FORMAT_MODE_3
                                             
 //
 //!  TI frame format
@@ -373,17 +373,13 @@ extern "C"
 //! |xSPI_SS_NONE            |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
 //! |xSPI_SSn                |    Mandatory   |        xSPI_SS0        |
-//! |                        |                |------------------------|
-//! |                        |                |        xSPI_SS1        |
-//! |                        |                |------------------------|
-//! |                        |                |        xSPI_SS01       |
 //! +------------------------+----------------+------------------------+
 //! \endverbatim
 //! @{
 //
 //*****************************************************************************
 
-//#define xSPI_SS_NONE            SPI_SS_NONE   
+#define xSPI_SS_NONE            SPI_SS_NONE   
 #define xSPI_SS0                SPI_SS0  
 //#define xSPI_SS1                SPI_SS1 
 //#define xSPI_SS01               SPI_SS0_SS1
@@ -993,14 +989,14 @@ extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
 //! Tx changed at falling edge
 //! Rx latched at rising edge
 //
-#define SPI_FORMAT_MODE_4       0x00000003  
+#define SPI_FORMAT_MODE_3       0x00000003
 
 //
 //! Moto Format, polarity 1, phase 0  M3
 //! Tx changed at rising edge
 //! Rx latched at falling edge
 //
-#define SPI_FORMAT_MODE_3       0x00000002  
+#define SPI_FORMAT_MODE_2       0x00000002
 
 //
 //£¡ SPI master
@@ -1104,6 +1100,7 @@ extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
 //
 //! SPISSx0
 //
+#define SPI_SS_NONE             0x00000000
 #define SPI_SS0                 0x00000100 
 #define SPI_SSSET               0x00000100
 #define SPI_SSRESET             0x00000000
