@@ -49,7 +49,7 @@ static xtEventCallback g_pfnADCHandlerCallbacks[3] = {0};
 
 //*****************************************************************************
 //
-//! \brief ADC1 and ADC2 Interrupt Handler.
+//! \brief ADC1 Interrupt Handler.
 //!
 //! If users want to user the ADC1 Callback feature, Users should promise 
 //! that the ADC0 Handle in the vector table is ADCIntHandler.
@@ -58,43 +58,100 @@ static xtEventCallback g_pfnADCHandlerCallbacks[3] = {0};
 //
 //*****************************************************************************
 void
-ADC12IntHandler(void)
+ADC1IntHandler(void)
 {
-    unsigned long ulIntFlags = 0;
+    unsigned long ulBase = ADC1_BASE;
+    unsigned long ulIntFlags;
+    unsigned long ulEventFlags = 0;
 
     //
-    // Get Int flags of ADC1
+    // Get Int flags
     //
-    ulIntFlags = xHWREG(ADC1_BASE + ADC_SR);
+    ulIntFlags = xHWREG(ulBase + ADC_SR);
 
-    if(ulIntFlags&(ADC_INT_END_CONVERSION|ADC_INT_AWD|ADC_INT_END_JEOC))
+    //
+    // Clear Int flags
+    //
+    xHWREG(ulBase + ADC_SR) = ~ulIntFlags;
+    //
+    // End conversion Interrupt on the sequence
+    //
+    if(ulIntFlags & ADC_INT_END_CONVERSION)
     {
-    	//
-    	// Clear Int flags
-    	//
-    	xHWREG(ADC1_BASE + ADC_SR) = ~ulIntFlags;
-    	if(g_pfnADCHandlerCallbacks[0])
-    	{
-    	    g_pfnADCHandlerCallbacks[0](0, ulIntFlags, 0, 0);
-    	    //return;
-    	}
+        ulEventFlags |= ADC_INT_END_CONVERSION;
+    }
+    //
+    // Watchdog Monitor Interrupt on the sequence
+    //
+    if(ulIntFlags & ADC_INT_AWD)
+    {
+        ulEventFlags |= ADC_INT_AWD;
+    }
+    //
+    // Interrupt after Injected channel end of conversion
+    //    
+    if(ulIntFlags & ADC_INT_END_JEOC)
+    {
+        ulEventFlags |= ADC_INT_END_JEOC;
     }
     
-    //
-    // Get Int flags of ADC2
-    //
-    ulIntFlags = xHWREG(ADC2_BASE + ADC_SR);
-    
-    if(ulIntFlags&(ADC_INT_END_CONVERSION|ADC_INT_AWD|ADC_INT_END_JEOC))
+    if(ulEventFlags && g_pfnADCHandlerCallbacks[0])
     {
-    	//
-    	// Clear Int flags
-    	//
-    	xHWREG(ADC1_BASE + ADC_SR) = ~ulIntFlags;
-    	if(g_pfnADCHandlerCallbacks[1])
-    	{
-    	    g_pfnADCHandlerCallbacks[1](0, ulIntFlags, 0, 0);
-    	}
+        g_pfnADCHandlerCallbacks[0](0, ulEventFlags, 0, 0);
+    }
+}
+
+//*****************************************************************************
+//
+//! \brief ADC2 Interrupt Handler.
+//!
+//! If users want to user the ADC2 Callback feature, Users should promise 
+//! that the ADC2 Handle in the vector table is ADCIntHandler.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+ADC2IntHandler(void)
+{
+    unsigned long ulBase = ADC2_BASE;
+    unsigned long ulIntFlags;
+    unsigned long ulEventFlags = 0;
+
+    //
+    // Get Int flags
+    //
+    ulIntFlags = xHWREG(ulBase + ADC_SR);
+
+    //
+    // Clear Int flags
+    //
+    xHWREG(ulBase + ADC_SR) = ~ulIntFlags;
+    //
+    // End conversion Interrupt on the sequence
+    //
+    if(ulIntFlags & ADC_INT_END_CONVERSION)
+    {
+        ulEventFlags |= ADC_INT_END_CONVERSION;
+    }
+    //
+    // Watchdog Monitor Interrupt on the sequence
+    //
+    if(ulIntFlags & ADC_INT_AWD)
+    {
+        ulEventFlags |= ADC_INT_AWD;
+    }
+    //
+    // Interrupt after Injected channel end of conversion
+    //    
+    if(ulIntFlags & ADC_INT_END_JEOC)
+    {
+        ulEventFlags |= ADC_INT_END_JEOC;
+    }
+    
+    if(ulEventFlags && g_pfnADCHandlerCallbacks[0])
+    {
+        g_pfnADCHandlerCallbacks[0](0, ulEventFlags, 0, 0);
     }
 }
 
@@ -310,18 +367,30 @@ void xADCIntDisable(unsigned long ulBase, unsigned long ulIntFlags)
 //!
 //! \param ulBase is the base address of the ADC module.
 //! \param ulStep is the step to be configured.
-//! \param ulConfig is the channel(\b xADC_CTL_CH0 through \b xADC_CTL_CH15,
-//! or \b xADC_CTL_TS the internal temperature channel(needs to be enabled in
-//! initialize configuration)).
-//! Reference \ref xADC_Step_Config.
+//! \param ulConfig is the configuration of this step; must be a logical OR of
+//! \b xADC_CTL_TS,  \b xADC_CTL_END, \b xADC_CTL_D, and one of the input 
+//! channel selects (\b xADC_CTL_CH0 through \b xADC_CTL_CH7).  For parts
+//! with the digital comparator feature, the follow values may also be OR'd
+//! into the \e ulConfig value to enable the digital comparater feature:
+//! one of the comparater selects (\b xADC_CTL_CMP0 through xADC_CTL_CMP1). 
+//! Refrence \ref xADC_Step_Config.
 //!
 //! This function will set the configuration of the ADC for one step of a
-//! sample sequence. At most, 4 injection group are used for one time ADC.
+//! sample sequence.  The ADC can be configured for single-ended or
+//! differential operation (the \b xADC_CTL_D bit selects differential
+//! operation when set), the channel to be sampled can be chosen (the
+//! \b xADC_CTL_CH0 through \b xADC_CTL_CH7 values), and the internal
+//! temperature sensor can be selected (the \b xADC_CTL_TS bit).  Additionally,
+//! this step can be defined as the last in the sequence (the \b xADC_CTL_END
+//! bit) .If the digital comparators are present on the device, this step may
+//! also be configured send the ADC sample to the selected comparator
+//! (the \b xADC_CTL_CMP0 through \b xADC_CTL_CMP1 values).  The configuration
+//! is used by the ADC at the appropriate time when the trigger for this 
+//! sequence occurs.
 //!
 //! \note It is the responsibility of the caller to ensure that a valid 
 //! configuration is specified; this function does not check the validity of 
-//! the specified configuration. The step of configure must start from 0
-//! and should not jump over a step. The max step is 3.
+//! the specified configuration.
 //!
 //! \return None.
 //
@@ -330,64 +399,26 @@ void
 xADCStepConfigure(unsigned long ulBase, unsigned long ulStep,
                   unsigned long ulConfig)
 {
-	unsigned long ulJSQRChannels;
+    unsigned long ulSeqLen, ulTrigger;
     //
-    // Check the arguments.
+    // Check the arugments.
     //
     xASSERT((ulBase == xADC1_BASE) || (ulBase == xADC2_BASE));
 
-    xASSERT((ulStep >= 0) && (ulStep < 4));
-
-    //
-    // make ulConfig a valid channel number
-    //
-    ulConfig &= 0x1F;
+    xASSERT(ulStep >= 0 && ulStep < 8);
     
     //
-    // Clear the length of A/D Converter Regular Conversion Sequence.
+    // Set the length of A/D Converter Regular Convevsion Sequence.
     //
-    xHWREG(ulBase + ADC_JSQR) &= ~ADC_JSQR_LEN_M;
-
+    xHWREG(ulBase + ADC_SRQ1) &= ~ADC_SQR1_LEN_M;
+    ulSeqLen = ADC_SQR1_LEN_M & ulConfig;
+    xHWREG(ulBase + ADC_SRQ1) |= ((ulSeqLen - 1)<<ADC_SQR1_LEN_S);
+    
     //
-    // Get Current injection channels
+    // Set Trigger Source
     //
-    ulJSQRChannels = xHWREG(ulBase + ADC_JSQR);
-
-    //
-    // Clear the unused channel data
-    //
-    ulJSQRChannels &= (0xFFFFF << ((4-ulStep)*5));
-
-    //
-    // Left shift channel data to make room for new channel
-    //
-    ulJSQRChannels >>= 5;
-
-    //
-    // Write new channel data to the highest position
-    //
-    ulJSQRChannels |= ulConfig << 15;
-
-
-    //
-    // Clear JSQR register.
-    //
-    xHWREG(ulBase + ADC_JSQR) = 0;
-
-    //
-    // Set current JSQR channel data
-    //
-    xHWREG(ulBase + ADC_JSQR) = ulJSQRChannels;
-
-    //
-    // Set convert length
-    //
-    xHWREG(ulBase + ADC_JSQR) |= (0x03 & ulStep) << ADC_JSQR_LEN_S;
-
-    //
-    // Enable auto inject
-    //
-    xHWREG(ulBase + ADC_CR1) |= ADC_CR1_JAUTO;
+    ulTrigger = ulConfig & ADC_CR2_SWSTART;
+    xHWREG(ulBase + ADC_CR2) |= ulTrigger;
 }
 
 //*****************************************************************************
@@ -501,7 +532,7 @@ ADCIntStatus(unsigned long ulBase, unsigned long ulIntFlags)
     ulStatus = xHWREG(ulBase + ADC_SR) & ulIntFlags;
 
     //
-    // Interrupt flag which indicate the has occurred or not.
+    // Interrupt flag which indicate the has occured or not.
     //
     return ulStatus;
 }
@@ -522,7 +553,6 @@ unsigned long
 ADCDataRegularGet(unsigned long ulBase, unsigned long ulADCMode)
 {
     unsigned long ulReturn = 0;
-
     //
     // Check the arguments
     //
@@ -684,9 +714,20 @@ ADCSequenceIndexSet(unsigned long ulBase, unsigned long *pulRegChanNo,
     //
     // Set Injected sequence
     //
-    for(i = 0; i < ulInjSeqLen; i++)
+    if(ulInjSeqLen < 4)
     {
-        xHWREG(ulBase + ADC_JSQR) |= (pulInjectChanNo[i]<<((4-ulInjSeqLen+i)*5));
+        xHWREG(ulBase + ADC_JSQR) |= 4 - ulInjSeqLen;
+        for(i = 1; i < ulInjSeqLen; i++)
+        {
+            xHWREG(ulBase + ADC_JSQR) |= (pulInjectChanNo[i]<<((i%4)*5));
+        }
+    }
+    else
+    {
+        for(i = 0; i < ulInjSeqLen; i++)
+        {
+            xHWREG(ulBase + ADC_JSQR) |= (pulInjectChanNo[i]<<((i%4)*5));
+        }  
     }
 }
 
@@ -1466,7 +1507,7 @@ ADCTemperatureRefVolEnable(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT(ulBase == ADC1_BASE);
+    xASSERT((ulBase == ADC1_BASE) || (ulBase == ADC2_BASE) || (ulBase == ADC3_BASE));
 
     //
     //  Enable temperature sensor and Internal Voltage Reference
@@ -1491,27 +1532,10 @@ ADCTemperatureRefVolDisable(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT(ulBase == ADC1_BASE);
+    xASSERT((ulBase == ADC1_BASE) || (ulBase == ADC2_BASE) || (ulBase == ADC3_BASE));
 
     //
     //  Enable temperature sensor and Internal Voltage Reference
     //
     xHWREG(ulBase + ADC_CR2) &= ~ADC_CR2_TSVREFE;
-}
-
-unsigned long xADCDataGet(unsigned long ulBase, unsigned long *pulBuffer)
-{
-	unsigned char ucChannels = 0;
-	unsigned char ucValidInjectChannels = 1;
-
-	xASSERT((ulBase == ADC1_BASE) || (ulBase == ADC2_BASE));
-
-	ucValidInjectChannels = 1 + ((xHWREG(ulBase + ADC_JSQR) & ADC_JSQR_LEN_M) >> ADC_JSQR_LEN_S);
-
-	while(ucChannels < ucValidInjectChannels)
-	{
-		pulBuffer[ucChannels] = xHWREG(ulBase + ADC_JDR1 + ucChannels*4);
-		ucChannels++;
-	}
-	return ((unsigned long)ucValidInjectChannels);
 }

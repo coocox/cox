@@ -72,24 +72,23 @@ SPI1IntHandler(void)
 {
     unsigned long ulEventFlags, ulCR1;
 
-    ulEventFlags =  xHWREG(SPI1_BASE + SPI_SR);
+	ulEventFlags = 	xHWREG(SPI1_BASE + SPI_SR);
 
-    if((ulEventFlags & SPI_SR_OVR) != 0)
-    {
-        xHWREG(SPI1_BASE + SPI_DR);
-        xHWREG(SPI1_BASE + SPI_SR);
-    }
-    else if((ulEventFlags & SPI_SR_MODF) != 0)
-    {
-        (void)xHWREG(SPI1_BASE + SPI_SR);
-        ulCR1 = xHWREG(SPI1_BASE + SPI_CR1);
-        xHWREG(SPI1_BASE + SPI_CR1) = ulCR1;     
-    }
-    else if((ulEventFlags & SPI_SR_CRCERR) != 0)
-    {
-        xHWREG(SPI1_BASE + SPI_SR) &= ~SPI_SR_CRCERR; 
-    }
-        
+	if((ulEventFlags & SPI_SR_OVR) != 0)
+	{
+	    xHWREG(SPI1_BASE + SPI_DR);
+		xHWREG(SPI1_BASE + SPI_SR);
+	}
+	else if((ulEventFlags & SPI_SR_MODF) != 0)
+	{
+		ulCR1 = xHWREG(SPI1_BASE + SPI_CR1);
+		xHWREG(SPI1_BASE + SPI_CR1) = ulCR1;	 
+	}
+	else if((ulEventFlags & SPI_SR_CRCERR) != 0)
+	{
+	    xHWREG(SPI1_BASE + SPI_SR) &= ~SPI_SR_CRCERR; 
+	}
+		
     //
     // Call Callback function
     //
@@ -117,23 +116,23 @@ SPI2IntHandler(void)
 {
     unsigned long ulEventFlags, ulCR1;
 
-    ulEventFlags =  xHWREG(SPI2_BASE + SPI_SR);
+	ulEventFlags = 	xHWREG(SPI2_BASE + SPI_SR);
 
-    if((ulEventFlags & SPI_SR_OVR) != 0)
-    {
-        xHWREG(SPI2_BASE + SPI_DR);
-        xHWREG(SPI2_BASE + SPI_SR);
-    }
-    else if((ulEventFlags & SPI_SR_MODF) != 0)
-    {
-        ulCR1 = xHWREG(SPI2_BASE + SPI_CR1);
-        xHWREG(SPI2_BASE + SPI_CR1) = ulCR1;     
-    }
-    else if((ulEventFlags & SPI_SR_CRCERR) != 0)
-    {
-        xHWREG(SPI2_BASE + SPI_SR) &= ~SPI_SR_CRCERR; 
-    }
-    
+	if((ulEventFlags & SPI_SR_OVR) != 0)
+	{
+	    xHWREG(SPI2_BASE + SPI_DR);
+		xHWREG(SPI2_BASE + SPI_SR);
+	}
+	else if((ulEventFlags & SPI_SR_MODF) != 0)
+	{
+		ulCR1 = xHWREG(SPI2_BASE + SPI_CR1);
+		xHWREG(SPI2_BASE + SPI_CR1) = ulCR1;	 
+	}
+	else if((ulEventFlags & SPI_SR_CRCERR) != 0)
+	{
+	    xHWREG(SPI2_BASE + SPI_SR) &= ~SPI_SR_CRCERR; 
+	}
+	
     //
     // Call Callback function
     //
@@ -161,23 +160,23 @@ SPI3IntHandler(void)
 {
     unsigned long ulEventFlags, ulCR1;
 
-    ulEventFlags =  xHWREG(SPI3_BASE + SPI_SR);
+	ulEventFlags = 	xHWREG(SPI3_BASE + SPI_SR);
 
-    if((ulEventFlags & SPI_SR_OVR) != 0)
-    {
-        xHWREG(SPI3_BASE + SPI_DR);
-        xHWREG(SPI3_BASE + SPI_SR);
-    }
-    else if((ulEventFlags & SPI_SR_MODF) != 0)
-    {
-        ulCR1 = xHWREG(SPI3_BASE + SPI_CR1);
-        xHWREG(SPI3_BASE + SPI_CR1) = ulCR1;     
-    }
-    else if((ulEventFlags & SPI_SR_CRCERR) != 0)
-    {
-        xHWREG(SPI3_BASE + SPI_SR) &= ~SPI_SR_CRCERR; 
-    }
-    
+	if((ulEventFlags & SPI_SR_OVR) != 0)
+	{
+	    xHWREG(SPI3_BASE + SPI_DR);
+		xHWREG(SPI3_BASE + SPI_SR);
+	}
+	else if((ulEventFlags & SPI_SR_MODF) != 0)
+	{
+		ulCR1 = xHWREG(SPI3_BASE + SPI_CR1);
+		xHWREG(SPI3_BASE + SPI_CR1) = ulCR1;	 
+	}
+	else if((ulEventFlags & SPI_SR_CRCERR) != 0)
+	{
+	    xHWREG(SPI3_BASE + SPI_SR) &= ~SPI_SR_CRCERR; 
+	}
+	
     //
     // Call Callback function
     //
@@ -200,128 +199,52 @@ SPI3IntHandler(void)
 //!
 //! The \e ulSlaveSel can be one of the following values:
 //! \b xSPI_SS0.(only used in SPI_SS_HARDWARE mode)
-//! \b xSPI_SS_NONE used in SPI_SS_SOFTWARE mode.
+//! 
 //!
-//! \NOTE: xSPISSSet usage:
-//! For SPI Master:
-//!     1) Hardware mode: CS must configure into output mode, when SPI master is enable,
-//!     CS is low, when SPI master is disable, CS is High.
-//! 
-//!     Configure example:
-//! 
-//!     xSPinTypeSPI(SPI1CS(3),   PA4);
-//!     xSPinTypeSPI(SPI1CLK(3),  PA5);
-//!     xSPinTypeSPI(SPI1MOSI(3), PA7);
-//!     xSPinTypeSPI(SPI1MISO(1), PA6);
-//! 
-//!     xSPIConfigSet(xSPI2_BASE, 4000000, xSPI_MOTO_FORMAT_MODE_0 |
-//!                                        xSPI_MODE_MASTER        |                                                
-//!                                        xSPI_MSB_FIRST          |
-//!                                        xSPI_DATA_WIDTH8);
-//!     xSPISSSet(SPI2_BASE, SPI_SS_HARDWARE, xSPI_SS0);
-//! 
-//! 
-//!     2) Software mode: CS pin is free for user.
-//! 
-//!     Configure example:
-//! 
-//!     xGPIOSPinTypeGPIOOutput(PA3);          //Free PA4, Use PA3 as SPI CS pin
-//!     //xSPinTypeSPI(SPI1CS(3),   PA4);
-//!     xSPinTypeSPI(SPI1CLK(3),  PA5);
-//!     xSPinTypeSPI(SPI1MOSI(3), PA7);
-//!     xSPinTypeSPI(SPI1MISO(1), PA6);
-//! 
-//!     xSPIConfigSet(xSPI2_BASE, 4000000, xSPI_MOTO_FORMAT_MODE_0 |
-//!                                        xSPI_MODE_MASTER        |                                                
-//!                                        xSPI_MSB_FIRST          |
-//!                                        xSPI_DATA_WIDTH8);
-//!     xSPISSSet(SPI1_BASE, SPI_SS_SOFTWARE, xSPI_SS_NONE);
-//! 
-//! 
-//! 
-//! -----------------------------------------------------------------------------
-//! For SPI Slave :
-//!     only need to set hardware mode. software mode is useless for Slave device.
-//!     Configure example:
-//! 
-//!     xSPinTypeSPI(SPI2CS(1),   PB12);
-//!     xSPinTypeSPI(SPI2CLK(1),  PB13);
-//!     xSPinTypeSPI(SPI2MISO(3), PB14);
-//!     xSPinTypeSPI(SPI2MOSI(1), PB15);
-//!     xSPIConfigSet(xSPI2_BASE, 4000000, xSPI_MOTO_FORMAT_MODE_0 |
-//!                                        xSPI_MODE_SLAVE         |                                                
-//!                                        xSPI_MSB_FIRST          |
-//!                                        xSPI_DATA_WIDTH8);
-//!     xSPISSSet(SPI2_BASE, SPI_SS_HARDWARE, xSPI_SS0);
-//! 
-//! 
 //! \return None.
 //
 //*****************************************************************************
 void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode, 
                       unsigned long ulSlaveSel)
 {
-    //unsigned long ulTemp; 
+	  unsigned long ulTemp; 
     //
     // Check the arguments.
     //
     xASSERT((ulBase == SPI3_BASE) || (ulBase == SPI1_BASE)||
             (ulBase == SPI2_BASE));
     xASSERT((ulSSMode == SPI_SS_HARDWARE) || (ulSSMode == SPI_SS_SOFTWARE));
-    xASSERT((ulSlaveSel == xSPI_SS0) || (ulSlaveSel == xSPI_SS_NONE));
-
-    #if 0   //Commented by Cedar
-
+    xASSERT((ulSlaveSel == xSPI_SS0));
+    
     xHWREG(ulBase + SPI_CR1) &= ~SPI_CR1_SSM;
-    ulTemp = xHWREG(ulBase + SPI_CR1) & SPI_CR1_MSTR;
-    if(ulTemp == SPI_CR1_MSTR)
-    {
-        if(ulSSMode == SPI_SS_HARDWARE)
-        {
-            xHWREG(ulBase + SPI_CR1) &= ~SPI_CR1_SSM;
-            //  xHWREG(ulBase + SPI_CR2) |= SPI_CR2_SSOE;
+	
+	  ulTemp = xHWREG(ulBase + SPI_CR1) & SPI_CR1_MSTR;
+	  if(ulTemp == SPI_CR1_MSTR)
+		{
+			  if(ulSSMode == SPI_SS_HARDWARE)
+				{
+					xHWREG(ulBase + SPI_CR1) &= ~SPI_CR1_SSM;
+                  //  xHWREG(ulBase + SPI_CR2) |= SPI_CR2_SSOE;
         }
-        else if(ulSSMode == SPI_SS_SOFTWARE)
-        {
-            xHWREG(ulBase + SPI_CR1) |= SPI_CR1_SSM;
-            xHWREG(ulBase + SPI_CR1) |= SPI_CR1_SSI;
-
-        }
+				else if(ulSSMode == SPI_SS_SOFTWARE)
+				{
+					xHWREG(ulBase + SPI_CR1) |= SPI_CR1_SSM;
+					xHWREG(ulBase + SPI_CR1) |= SPI_CR1_SSI;
+					  
+                }
     }
-    else if(ulTemp == 0)
-    {
-        if(ulSSMode == SPI_SS_HARDWARE)
-        {
-            xHWREG(ulBase + SPI_CR1) &= ~SPI_CR1_SSM;
+		else if(ulTemp == 0)
+		{
+			  if(ulSSMode == SPI_SS_HARDWARE)
+				{
+					  xHWREG(ulBase + SPI_CR1) &= ~SPI_CR1_SSM;
         }
-        else if(ulSSMode == SPI_SS_SOFTWARE)
-        {
-            xHWREG(ulBase + SPI_CR1) |= SPI_CR1_SSM ;
-            xHWREG(ulBase + SPI_CR1) &= ~SPI_CR1_SSI;
+				else if(ulSSMode == SPI_SS_SOFTWARE)
+				{
+					  xHWREG(ulBase + SPI_CR1) |= SPI_CR1_SSM ;
+				    xHWREG(ulBase + SPI_CR1) &= ~SPI_CR1_SSI;
         }
-    }
-    #endif
-
-    (void) ulSlaveSel; //this parameter is useless
-    if(ulSSMode == SPI_SS_SOFTWARE)
-    {
-        xHWREG(ulBase + SPI_CR1) |= SPI_CR1_SSM;
-        xHWREG(ulBase + SPI_CR1) |= SPI_CR1_SSI;
-    }
-    else
-    {
-        xHWREG(ulBase + SPI_CR1) &= ~SPI_CR1_SSM;
-
-        if(xHWREG(ulBase + SPI_CR1) & SPI_CR1_MSTR)    //Master Mode
-        {
-            xHWREG(ulBase + SPI_CR2) |= SPI_CR2_SSOE;
-        }
-        else                                           //Slave Mode
-        {
-            xHWREG(ulBase + SPI_CR2) &= ~SPI_CR2_SSOE;
-        }
-    }
-
+    }		
 }
 
 //*****************************************************************************
@@ -405,7 +328,7 @@ SPIConfig(unsigned long ulBase, unsigned long ulBitRate,
     //
     // Set the mode.
     //
-        xHWREG(ulBase + SPI_CR1) &= ~0x00000087;
+		xHWREG(ulBase + SPI_CR1) &= ~0x00000087;
     xHWREG(ulBase + SPI_CR1) |= ulConfig;
 
     //
@@ -487,17 +410,25 @@ SPISingleDataReadWrite(unsigned long ulBase, unsigned long ulWData)
             (ulBase == SPI2_BASE));
 
     //
-    // Wait until there is space.
+    // Wait until SPI is not busy,data to be write.
     //
-    while(!(xHWREG(ulBase + SPI_SR) & SPI_SR_TXE));
+    while((xHWREG(ulBase + SPI_SR) & SPI_SR_BSY))
+    {
+    }
     xHWREG(ulBase + SPI_DR) = ulWData;
-
+    
     //
     // Wait until there is data to be read.
     //
-    while(!(xHWREG(ulBase + SPI_SR) & SPI_SR_RXNE));
+    
+    while((xHWREG(ulBase + SPI_SR) & SPI_SR_BSY))
+    {
+    }
+    
+    //
+    // write data to SPI.
+    //
     ulReadTemp = xHWREG(ulBase + SPI_DR);
-
     return ulReadTemp;
 }
 
@@ -699,7 +630,7 @@ SPIDataGet(unsigned long ulBase, unsigned long *pulData)
     //
     while(!(xHWREG(ulBase + SPI_SR) & SPI_SR_RXNE))
     {
-    }
+    } 
 
     //
     // Read data from SSI.
@@ -1066,14 +997,14 @@ SPISSIConfig(unsigned long ulBase, unsigned long ulSSI)
 void 
 SPISSOutputConfig(unsigned long ulBase, unsigned long ulSSOutPut)
 {
-      //
+	  //
     // Check the arguments.
     //
     xASSERT((ulBase == SPI3_BASE) || (ulBase == SPI1_BASE)||
             (ulBase == SPI2_BASE));
     xASSERT((ulSSOutPut == SPI_SSOE_ENABLE) ||
-              (ulSSOutPut == SPI_SSOE_DISABLE)); 
-    
+	          (ulSSOutPut == SPI_SSOE_DISABLE)); 
+	
     xHWREG(ulBase + SPI_CR2) &= ~SPI_CR2_SSOE;
     xHWREG(ulBase + SPI_CR2) |= ulSSOutPut;
 }

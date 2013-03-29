@@ -373,13 +373,17 @@ extern "C"
 //! |xSPI_SS_NONE            |    Mandatory   |            Y           |
 //! |------------------------|----------------|------------------------|
 //! |xSPI_SSn                |    Mandatory   |        xSPI_SS0        |
+//! |                        |                |------------------------|
+//! |                        |                |        xSPI_SS1        |
+//! |                        |                |------------------------|
+//! |                        |                |        xSPI_SS01       |
 //! +------------------------+----------------+------------------------+
 //! \endverbatim
 //! @{
 //
 //*****************************************************************************
 
-#define xSPI_SS_NONE            SPI_SS_NONE   
+//#define xSPI_SS_NONE            SPI_SS_NONE   
 #define xSPI_SS0                SPI_SS0  
 //#define xSPI_SS1                SPI_SS1 
 //#define xSPI_SS01               SPI_SS0_SS1
@@ -1100,7 +1104,6 @@ extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
 //
 //! SPISSx0
 //
-#define SPI_SS_NONE             0x00000000
 #define SPI_SS0                 0x00000100 
 #define SPI_SSSET               0x00000100
 #define SPI_SSRESET             0x00000000
