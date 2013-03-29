@@ -112,7 +112,7 @@ extern "C"
 //
 //! All Error Interrupt Mask
 //
-#define xUART_INT_ERROR         UART_INT_ERR
+#define xUART_INT_ERROR         UART_INT_RLS        
 
 //
 //! Receive Timeout Interrupt Mask
@@ -122,12 +122,12 @@ extern "C"
 //
 //! Transmit Interrupt Mask
 //
-#define xUART_INT_TX            UART_INT_TXE
+#define xUART_INT_TX            UART_INT_THRE       
 
 //
 //! Receive Interrupt Mask
 //
-#define xUART_INT_RX            UART_INT_RXNE
+#define xUART_INT_RX            UART_INT_RDA   
 
 //
 //! DSR Modem Interrupt Mask
@@ -142,7 +142,7 @@ extern "C"
 //
 //! CTS Modem Interrupt Mask
 //
-#define xUART_INT_CTS           UART_INT_CTS
+#define xUART_INT_CTS           0 
 
 //
 //! RI Modem Interrupt Mask
@@ -152,7 +152,7 @@ extern "C"
 //
 //! LIN Mode Sync Break Interrupt Mask
 //
-#define xUART_INT_LMSB          UART_INT_LIN
+#define xUART_INT_LMSB          0
 
 
 //*****************************************************************************
@@ -206,32 +206,32 @@ extern "C"
 //
 //! Transmit Event Mask
 //
-#define xUART_EVENT_TX          UART_INT_TXE
+#define xUART_EVENT_TX          UART_INT_THRE       
 
 //
 //! Receive Event Mask
 //
-#define xUART_EVENT_RX          UART_INT_RXNE
+#define xUART_EVENT_RX          UART_INT_RDA   
 
 //
 //! Overrun Error Event Mask
 //
-#define xUART_EVENT_OE          UART_RXERROR_OVERRUN
+#define xUART_EVENT_OE          UART_INT_RLS       
 
 //
 //! Parity Error Event Mask
 //
-#define xUART_EVENT_PE          UART_RXERROR_PARITY
+#define xUART_EVENT_PE          UART_INT_RLS       
 
 //
 //! Framing Error Event Mask
 //
-#define xUART_EVENT_FE          UART_RXERROR_FRAMING
+#define xUART_EVENT_FE          UART_INT_RLS       
 
 //
 //! Receive Timeout Event Mask
 //
-#define xUART_EVENT_RT          0
+#define xUART_EVENT_RT          UART_INT_RTO       
 
 //
 //! DSR Modem Event Mask
