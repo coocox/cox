@@ -660,9 +660,9 @@ SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
     // Reset SW, HPRE, PPRE1, PPRE2, ADCPRE and MCO bits
     //
 #if (STM32F1xx_DEVICE == STM32F10X_CL)    
-    xHWREG(RCC_CFGR) &= 0xF0FF0000;
-#else
     xHWREG(RCC_CFGR) &= 0xF8FF0000;
+#else
+    xHWREG(RCC_CFGR) &= 0xF0FF0000;
 #endif /* STM32F10X_CL */
     
     //
@@ -717,7 +717,7 @@ SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
     // Calc oscillator freq
     //
     if((((ulConfig & SYSCTL_XTAL_MASK) >> 8) >=4) && 
-       (((ulConfig & SYSCTL_XTAL_MASK) >> 8) <=25))
+       (((ulConfig & SYSCTL_XTAL_MASK) >> 8) <=16))
     {
         s_ulExtClockMHz = ((ulConfig & SYSCTL_XTAL_MASK) >> 8);
     }
@@ -1218,11 +1218,9 @@ SysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc, unsigned long ulDi
     }
     else if(ulPeripheralSrc==SYSCTL_ADC_HCLK)
     {
-        for(ulTemp=0; ulTemp<8; ulTemp++)
-        {
-            if(ulDivide == (1 << ulTemp))
-                break;
-        }
+    	if(ulDivide < 2) ulDivide = 2;
+    	if(ulDivide > 8) ulDivide = 8;
+    	ulTemp = (ulDivide >> 1) - 1;
         xHWREG(RCC_CFGR) &= ~RCC_CFGR_ADCPRE_M;
         xHWREG(RCC_CFGR) |= (ulTemp << RCC_CFGR_ADCPRE_S);
     }
