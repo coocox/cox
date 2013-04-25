@@ -1,0 +1,231 @@
+//*****************************************************************************
+//
+//!
+//! \defgroup VS1838B
+//!
+//! \brief This is the VS1838B Driver.
+//! 
+//! VS1838B is a Infrared Remote-control Receiver Module.
+//! VS1838B can demodulate 38 KHz wave send from Infrared Remote-control 
+//!
+//! <h1>Contents</h1>
+//! - \ref VS1838B_Profile
+//! - \ref VS1838B_Block_App
+//! - \ref VS1838B_Wave
+//! .
+//!
+//! \section VS1838B_Profile 1. VS1838B Profile and Pins
+//! <img src="VS1838B_Profile.png" />
+//!
+//! \section VS1838B_Block_App 2. VS1838B Block Diagram and Application
+//! <img src="VS1838_Block_App.png" />
+//!
+//! \section VS1838B_Wave 3. VS1838B Driver Supported Wave Form
+//! <img src="VS1838_Wave.png" />
+//! .
+//!
+//! \defgroup VS1838B_Driver_Single  
+//!  
+//! \brief This is the  series Driver can be used in the condition which
+//! the system only have one VS1838B device.
+//!
+//! This driver is implemented by using defines and global variables.It can only 
+//! use on one device because all the APIs use the some macros and global variables.
+//!
+//! <h1>Contents</h1>
+//! - \ref VS1838B_How_Define
+//! - \ref VS1838B_API_Group
+//! - \ref VS1838B_Usage 
+//! .
+//!
+//! \section VS1838B_How_Define 1. How is the VS1838B Driver implemented?
+//! Modify the pin and timer port macro if it is not compatible with your system.
+//!
+//! Use global variables to save variables use by the APIs.
+//!
+//! \section VS1838B_API_Group 2. API Groups
+//! 
+//! There are only two functions in the APIs 
+//! - IRInit()
+//! - IRKeyValueGet()
+//! .
+//!
+//! \section VS1838B_Usage 1. Usage & Program Examples
+//! 
+//! 
+//! \code
+//!//*****************************************************************************
+//!//
+//!//! \file Example.c
+//!//! \brief the VS1838B Example.
+//!//! \version 1.0
+//!//! \date 10/15/2011
+//!//! \author CooCox
+//!//! \copy
+//!//!
+//!//! Copyright (c)  2011, CooCox 
+//!//! All rights reserved.
+//!//! 
+//!//! Redistribution and use in source and binary forms, with or without 
+//!//! modification, are permitted provided that the following conditions 
+//!//! are met: 
+//!//! 
+//!//!     * Redistributions of source code must retain the above copyright 
+//!//! notice, this list of conditions and the following disclaimer. 
+//!//!     * Redistributions in binary form must reproduce the above copyright
+//!//! notice, this list of conditions and the following disclaimer in the
+//!//! documentation and/or other materials provided with the distribution. 
+//!//!     * Neither the name of the <ORGANIZATION> nor the names of its 
+//!//! contributors may be used to endorse or promote products derived 
+//!//! from this software without specific prior written permission. 
+//!//! 
+//!//! THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+//!//! AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//!//! IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+//!//! ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+//!//! LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+//!//! CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+//!//! SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+//!//! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+//!//! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+//!//! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+//!//! THE POSSIBILITY OF SUCH DAMAGE.
+//!//*****************************************************************************
+//!#include "xhw_types.h"
+//!#include "xcore.h"
+//!#include "xhw_gpio.h"
+//!#include "xhw_ints.h"
+//!#include "xhw_memmap.h"
+//!#include "xhw_nvic.h"
+//!#include "xhw_sysctl.h"
+//!#include "xuart.h"
+//!#include "xgpio.h"
+//!#include "xsysctl.h"
+//!#include "infrared.h"
+//!
+//!//*****************************************************************************
+//!//
+//!//! \brief UART1 initialize.
+//!//!
+//!//! \param sulBaudRate is the BaudRate of UART1
+//!//!
+//!//! \details UART1 initialize.
+//!//!
+//!//! \return None.
+//!//
+//!//*****************************************************************************
+//!void MyUartInit(unsigned long ulBaudRate)
+//!{
+//!    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOA);
+//!
+//!    xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART1);
+//!    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART1);
+//!    xUARTConfigSet(xUART1_BASE, ulBaudRate, (xUART_CONFIG_WLEN_8 |
+//!                   xUART_CONFIG_STOP_1 |
+//!                   xUART_CONFIG_PAR_NONE));
+//!
+//!    xUARTEnable(xUART1_BASE, (UART_BLOCK_UART | UART_BLOCK_TX | UART_BLOCK_RX));
+//!    xSysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);
+//!    xSPinTypeUART(UART1TX, PA9);
+//!}
+//!
+//!//*****************************************************************************
+//!//
+//!//! \brief Print string through UART1.
+//!//!
+//!//! \param str is the string to be printed
+//!//!
+//!//! \details Print string through UART1.
+//!//!
+//!//! \return None.
+//!//
+//!//*****************************************************************************
+//!static void xUARTPutString(char *str)
+//!{
+//!    char *s = str;
+//!    while(*s != 0)
+//!    {
+//!        xUARTCharPut(xUART1_BASE, *s++);
+//!    }
+//!}
+//!
+//!//*****************************************************************************
+//!//
+//!//! \brief Print hex number through UART1.
+//!//!
+//!//! \param ucHex is the hex byte to be printed
+//!//!
+//!//! \details Print hex number through UART1.
+//!//!
+//!//! \return None.
+//!//
+//!//*****************************************************************************
+//!static void UartPrintHex(unsigned char ucHex)
+//!{
+//!	unsigned char tmp;
+//!	xUARTCharPut(xUART1_BASE, '0');
+//!	xUARTCharPut(xUART1_BASE, 'x');
+//!	tmp = ucHex >> 4;
+//!	if(tmp<10)
+//!	{
+//!		tmp += '0';
+//!	}
+//!	else
+//!	{
+//!		tmp += 'A' - 10;
+//!	}
+//!	xUARTCharPut(xUART1_BASE, tmp);
+//!	tmp = ucHex & 0x0F;
+//!	if(tmp<10)
+//!	{
+//!		tmp += '0';
+//!	}
+//!	else
+//!	{
+//!		tmp += 'A' - 10;
+//!	}
+//!	xUARTCharPut(xUART1_BASE, tmp);
+//!}
+//!
+//!//*****************************************************************************
+//!//
+//!//! \brief Infrared remote controller decode test function.
+//!//!
+//!//! \param None
+//!//!
+//!//! \details Print hex number through UART1.
+//!//!
+//!//! \return None.
+//!//
+//!//*****************************************************************************
+//!void IRDecodeExample(void)
+//!{
+//!	unsigned char ucData[2] = {0};
+//!
+//!	xSysCtlClockSet(72000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
+//!
+//!	MyUartInit(115200);
+//!
+//!	IRInit();
+//!
+//!	xUARTPutString("Infrared remote controller decode test\n\r");
+//!	while(1)
+//!	{
+//!		*(unsigned short *)ucData = IRKeyValueGet();
+//!		if(ucData[0]!=0)
+//!		{
+//!			xUARTPutString("User code is:  ");
+//!			UartPrintHex(ucData[1]);
+//!			xUARTPutString("\t");
+//!			xUARTPutString("The decode data is:  ");
+//!			UartPrintHex(ucData[0]);
+//!			xUARTPutString("\n\r");
+//!		}
+//!		xSysCtlDelay(10000);
+//!	}
+//!}
+//!
+//! \endcode
+//!
+//
+//*****************************************************************************

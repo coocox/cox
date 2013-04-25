@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>K9F1G08U0B</Name>
+    <Description>128M x 8 Bit NAND Flash Memory</Description>
+    <Manufacturer>SAMSUNG Electronics</Manufacturer>
+    
+    <Category>Memory</Category>
+    <SubCategory>NandFlash</SubCategory>
+    
+    <KeyWord>Nand Flash, Memory, GPIO, SAMSUNG</KeyWord>
+    
+    <Communication>
+        <Interface>GPIO</Interface>
+    </Communication>
+    
+    <WebPage>http://www.samsung.com/global/business/semiconductor/product/flash/detail?iaId=159&productId=1735</WebPage>
+    <Datasheet>
+		http://pdf1.alldatasheet.com/datasheet-pdf/view/109725/SAMSUNG/K9F1G08U0A.html
+    </Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

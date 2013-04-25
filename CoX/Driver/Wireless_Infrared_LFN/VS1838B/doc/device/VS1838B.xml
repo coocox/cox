@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>VS1838B</Name>
+    <Description>
+    	  Infrared Remote-control Receiver Module
+    </Description>
+    <Manufacturer>LFN Technology</Manufacturer>
+    
+    <Category>Wireless</Category>
+    <SubCategory>Infrared</SubCategory>
+    
+    <KeyWord>VS1838B, Infrared, GPIO, CoX</KeyWord>
+    
+    <Communication>
+        <Interface>GPIO</Interface>
+    </Communication>
+    
+    <WebPage>http://www.lfn.cc/ProductShow.asp?ID=146</WebPage>
+    <Datasheet>http://www.lfn.cc/UploadProductPic/201114134837799.doc</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

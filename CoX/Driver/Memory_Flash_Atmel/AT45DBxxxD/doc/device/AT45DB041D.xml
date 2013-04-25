@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>AT45DB041D</Name>
+    <Description>4-megabit 2.7-volt SPI DataFlash</Description>
+    <Manufacturer>Atmel</Manufacturer>
+    
+    <Category>Memory</Category>
+    <SubCategory>SPI Flash</SubCategory>
+    
+    <KeyWord>ATMEL, SPI Flash, Memory</KeyWord>
+    
+    <Communication>
+        <Interface>SPI</Interface>
+    </Communication>
+    
+    <WebPage>http://www.alldatasheet.com/datasheet-pdf/pdf/175244/ATMEL/AT45DB041D.html</WebPage>
+    <Datasheet>http://pdf1.alldatasheet.com/datasheet-pdf/view/175244/ATMEL/AT45DB041D.html</Datasheet>
+</Device>

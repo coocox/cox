@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>AT45DB161D</Name>
+    <Description>16-megabit 2.7-volt SPI DataFlash</Description>
+    <Manufacturer>Atmel</Manufacturer>
+    
+    <Category>Memory</Category>
+    <SubCategory>SPI Flash</SubCategory>
+    
+    <KeyWord>AT45DB161, SPI Flash, Memory</KeyWord>
+    
+    <Communication>
+        <Interface>SPI</Interface>
+    </Communication>
+    
+    <WebPage>http://www.atmel.com/devices/at45db161.aspx?tab=documents</WebPage>
+    <Datasheet>http://www.atmel.com/Images/DOC0807.PDF</Datasheet>
+</Device>

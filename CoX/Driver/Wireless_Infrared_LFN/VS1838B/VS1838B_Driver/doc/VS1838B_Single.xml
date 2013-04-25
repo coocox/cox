@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Component>
+    <Name>VS1838B Infrared Remote-control Receiver Module</Name>
+    <Category>CoX.Driver</Category>
+    <Version>0.0.0.1</Version>
+    <KeyWord>VS1838B, Infrared, Wireless, GPIO, Driver, CoX</KeyWord>
+
+      <Filter>
+         <Interface>GPIO</Interface> 
+         <CoXBased>true</CoXBased> 
+      </Filter>
+          
+      <Categorys>
+          <Layer name="Driver">
+              <Cate name="Driver" />
+           </Layer>
+      </Categorys> 
+    
+    <SupportDevices>
+        <Device>VS1838B</Device>
+    </SupportDevices>
+  
+    <Files>
+        <File>$Driver_ROOT$\lib\*</File>
+    </Files>
+    
+    <CoIDEFiles>
+        <File>PROJECT_ROOT$\CoX\AT25FS0x_Driver\infrared.h</File>
+        <File>PROJECT_ROOT$\CoX\AT25FS0x_Driver\infrared.c</File>
+        <File>PROJECT_ROOT$\CoX\AT25FS0x_Driver\AT25FS0x.c</File>
+    </CoIDEFiles>
+    
+    <DependentComponentInterfaceTag>
+	    <Tag>CoX.Timer</Tag>
+        <Tag>CoX.GPIO</Tag>
+    </DependentComponentInterfaceTag>
+    
+    <SupportMCUs>
+        <MCU/>
+    </SupportMCUs>
+    
+    <SupportMCUSeries>
+        <Series>All</Series>
+    </SupportMCUSeries>
+    
+    <Doc>$Driver_ROOT$\doc\</Doc>
+  
+</Component>
