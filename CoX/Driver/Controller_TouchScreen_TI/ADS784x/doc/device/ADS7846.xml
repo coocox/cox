@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>ADS7846</Name>
+    <Description>4-wire Touch Screen controller with SPI interface.</Description>
+    <Manufacturer>TI</Manufacturer>
+    
+    <Category>Controller</Category>
+    <SubCategory>Touch Screen</SubCategory>
+    
+    <KeyWord>ADS7846, Touch Screen, Controller, Sensor, TI</KeyWord>
+    
+    <Communication>
+        <Interface>SPI</Interface>
+		<Interface>GPIO</Interface>
+    </Communication>
+    
+    <WebPage>http://www.ti.com/product/ads7846</WebPage>
+    <Datasheet>http://www.ti.com/lit/ds/symlink/ads7846.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

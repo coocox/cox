@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>TSC2046</Name>
+    <Description>4-Wire Touch Screen Controller with low voltage digital I/O</Description>
+    <Manufacturer>TI</Manufacturer>
+    
+    <Category>Controller</Category>
+    <SubCategory>Touch Screen</SubCategory>
+    
+    <KeyWord>tsc2046, Touch Screen, Controller, Sensor, TI</KeyWord>
+    
+    <Communication>
+        <Interface>SPI</Interface>
+		<Interface>GPIO</Interface>
+    </Communication>
+    
+    <WebPage>http://www.ti.com/product/tsc2046</WebPage>
+    <Datasheet>http://www.ti.com/lit/ds/symlink/tsc2046.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

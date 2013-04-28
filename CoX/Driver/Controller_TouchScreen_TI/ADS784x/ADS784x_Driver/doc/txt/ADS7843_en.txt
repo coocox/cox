@@ -1,0 +1,124 @@
+//******************************************************
+//
+//! \addtogroup ADS784x
+//!
+//! \brief Touch Screen Controller.
+//!
+//! ADS7843/ADS7846 is 12-bit sampling Analog-to-Digital Converter
+//! (ADC) with a synchronous serial interface and low on-resistance
+//! switches for driving touch screens.
+//!
+//! The CoX Driver Library provides the driver of many devices and modules, it is
+//! convenient for you to transplant the driver to other mcu that the cox support.
+//!
+//!
+//! <br />
+//! <h2>Contents</h2>
+//! - \ref CoX_ADS784x_Block
+//! - \ref CoX_ADS784x_Typical_Application
+//! - \ref CoX_ADS784x_Timing_Sequence
+//! - \ref CoX_ADS784x_Driver_Desc
+//! - \ref CoX_ADS784x_Driver_API_Group
+//! - \ref ADS784x_Usage
+//! .
+//!
+//! <br />
+//! \section CoX_ADS784x_Block 1. ADS784x Block Diagram
+//! <img src="ADS7843_Block.png" />
+//!
+//! <br />
+//! \section CoX_ADS784x_Typical_Application 2. ADS784x typical application
+//! <img src="ADS7843_App.png" />
+//!
+//! <br />
+//! \section CoX_ADS784x_Timing_Sequence 3. ADS784x Operating sequence
+//! <img src="ADS7843_Timing_Diagram.png" />
+//!
+//! <br />
+//! \section CoX_ADS784x_Driver_Desc 4. ADS784x Driver Description
+//! This driver is written based on ADS7843, it also can be used on ADS7846,
+//! TSC2046, XPT2046 since they are functional compatible All you need to do
+//! is modifying the pins define and I2C option to adapt to your application.
+//!
+//! <br />
+//! \subsection CoX_ADS784x_Driver_API_Group 5. API Groups
+//!
+//! There are only four easy-to-use functions:
+//! - ADS7843Init()
+//! - ADS7843ReadADXYRaw()
+//! - ADS7843ReadADXY()
+//! - ADS7843ReadPiontXY()
+//! - ADS7843PenInq()
+//! - ADS7843Calibration()
+//! - ADS7843ReadInputChannel()
+//! .
+//!
+//! \section ADS784x_Usage ADS784x Usage
+//! Step 1, you should select the CoX implment according to the mcu that you select. \n
+//! Step 2, you should transplant the driver according to your hardware connection. \n
+//!
+//! Below is some example code:
+//!
+//! \code
+//!void TouchExample(void)
+//!{
+//! unsigned short adx, ady, posx, posy;
+//! unsigned char ucRes;
+//!
+//! //  System clock initialization
+//! xSysCtlClockSet(72000000,  xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
+//! xSysCtlDelay(10000);
+//!
+//! // Configure the UART1 as debug print port
+//! xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOA);
+//! xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART1);
+//! xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART1);
+//! xUARTConfigSet(xUART1_BASE, 115200, (xUART_CONFIG_WLEN_8 |
+//!                                      xUART_CONFIG_STOP_1 |
+//!                                      xUART_CONFIG_PAR_NONE));
+//! xUARTEnable(xUART1_BASE, (xUART_BLOCK_UART | xUART_BLOCK_TX | xUART_BLOCK_RX));
+//! xSysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);
+//! xSPinTypeUART(UART1TX, PA9);
+//!
+//! //  ADS7843 initialization
+//! ADS7843Init();
+//! printf("---------Touch Screen Test----------\n\r");
+//! printf("Waiting for calibrating...\n\rLeave it alone if calibration is not needed.\n\r");
+//! ucRes = ADS7843Calibration();
+//! if(ucRes == 3)
+//! {
+//!     printf("Calibration OK.\n\r");
+//! }
+//! else
+//! {
+//!     if(ucRes == 2)
+//!     {
+//!         printf("Y axis calibration over.\n\r");
+//!     }
+//!     else if(ucRes == 1)
+//!     {
+//!         printf("X axis calibration over.\n\r");
+//!     }
+//!     printf("Calibration time out\n\r");
+//! }
+//!
+//! while(1)
+//! {
+//!     // If pen down
+//!     if(!ADS7843PenInq())
+//!     {
+//!         ADS7843ReadADXY(&adx, &ady);
+//!         ADS7843ReadPiontXY(&posx, &posy);
+//!         printf("The screen was touched!------------------>\n\r");
+//!         printf("Current Touch Point AD Value of X: %d\n\r", adx);
+//!         printf("Current Touch Point AD Value of Y: %d\n\r", ady);
+//!         printf("Current Touch Point X Coordinate: %d\n\r", posx);
+//!         printf("Current Touch Point Y Coordinate: %d\n\r", posy);
+//!         xSysCtlDelay(1000000);
+//!     }
+//! }
+//!}
+//!
+//! \endcode
+//
+//*****************************************************************************
