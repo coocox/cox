@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>Sensor</Name>
+  <Description>This example is to Get ADC value from sensor shield and then print the ad value through UART.</Description>
+  <Version>2.1.1</Version>
+  <Tags>SPI</Tags>
+  <EVKit>Embedded Pi Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\CoX\Shield\TinkerKIT\Sensor_Shield\example\sensor for Embedded Pi\src\Sensor.c</File>
+  </Files>
+  
+  <Dependencys>
+        <Dependency>CoX.Peripheral.KLx.xStartup</Dependency>
+        <Dependency>CoX.Peripheral.KLx.xLowLayer</Dependency>
+        <Dependency>CoX.Peripheral.KLx.xCORE</Dependency>
+        <Dependency>CoX.Peripheral.KLx.xSysCtl</Dependency>
+	<Dependency>CoX.Peripheral.KLx.xGPIO</Dependency>
+  </Dependencys>
+  
+   
+</Example>
