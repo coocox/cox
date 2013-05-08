@@ -1,0 +1,44 @@
+Introduction 
+
+This example is used to get ADC value from sensor shield and then print the ad value through UART.
+
+Background 
+
+(Optional) Is there any background to this code that may be useful
+such as an introduction to the basic ideas presented?
+
+
+Using the code
+
+A brief description of how to use the code. The
+class names, the methods and properties, any tricks or tips.
+
+
+Blocks of code should be set as style "Formatted"
+like this:
+//
+// Any source code blocks look like this
+//
+
+Remember to set the Language of your code snippet using the
+Language dropdown.
+
+Use the "var" button to to wrap Variable or class names in
+<code> tags like this.
+
+Points of interset
+
+Did you learn anything interesting/fun/annoying while writing
+the code? Did you do anything particularly clever or wild or zany?
+
+History
+
+ SensorShieldInit()  Init Sensor interface. 
+ ADCValueGet()       Get the AD value
+ SensorShieldUARTBufferGet()  get a character from UART. 
+ SensorShieldUARTBufferPut()  put a character from sensor to UART. 
+                              we can put the ad value through UART.
+
+
+ 
+

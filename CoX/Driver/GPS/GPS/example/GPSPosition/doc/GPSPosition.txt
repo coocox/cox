@@ -1,0 +1,93 @@
+Introduction 
+This example is used to get GPS location information, and then print it out through UART.
+
+EB-365 datasheet: http://wenku.baidu.com/view/4c538f80e53a580216fcfe55.html
+
+The serial port is configured as 9600,8,1,0, interrupt reception mode, because the GPS data of each frame is only 60-70, so we define a global the array rev_buf [80] to receive GPS information. The detailed is as follows
+
+
+Background
+(Optional) Is there any background to this code that may be useful
+such as an introduction to the basic ideas presented?
+
+
+Using the code 
+A brief description of how to use the code. The
+class names, the methods and properties, any tricks or tips.
+
+
+Blocks of code should be set as style "Formatted"
+like this:
+//
+// Any source code blocks look like this
+//
+
+Remember to set the Language of your code snippet using the
+Language dropdown.
+
+
+Use the "var" button to to wrap Variable or class names in
+<code> tags like this.
+
+
+Points of Interset
+//*****************************************************************************
+//
+//! \brief UART1 Interrupt Receive Service.
+//!
+//! \param None.
+//!
+//! \return None.
+//
+//*****************************************************************************
+unsigned char num = 0;
+//
+//! You need to define these variables in the main.c and initialize to 0.
+//
+extern char rev_buf[80];        //Receive Buffer
+extern unsigned char rev_start, //Receiving start flag
+                     rev_stop,  //Receiving end flag
+                     gps_flag;  //GPS Processed flag
+unsigned long 
+uart1CallbackFunc(void *pvCBData, unsigned long ulEvent,  
+                   unsigned long ulMsgParam, void *pvMsgData)       
+{
+    unsigned char ch;  
+    ch = UARTCharGet(sUART_BASE);
+    if ((ch == '$') && (gps_flag == 0))
+    {
+        rev_start = 1;
+        rev_stop  = 0;    
+    }
+    if (rev_start == 1)
+    {
+        rev_buf[num++] = ch;  
+        if (ch == '\n')       
+        {
+            rev_buf[num] = '\0';
+            rev_start = 0;
+            rev_stop  = 1;   
+            gps_flag = 1;
+            num = 0;
+        }
+    }
+    return 0;
+} 
+
+History
+1. GGA -- Global Positioning System Fixed Data
+
+data format£º$GPGGA,161229.487,3723.2475,N,12158.3416,W,1,07,1.0,9.0,M, , , ,0000*18
+
+function :
+unsigned char
+GPS_GPGGA(char *str, GPS_INFO *GPS)
+
+
+2. RMC ----Recommended Minimum Specific GNSS Data
+
+data format : $GPRMC,161229.487,A,3723.2475,N,12158.3416,W,0.13,309.62,120598, ,*10
+
+function :
+unsigned char
+GPS_GPRMC(char *str, GPS_INFO *GPS)
