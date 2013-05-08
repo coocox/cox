@@ -416,8 +416,8 @@ AMSStepMotorRun(unsigned long ulDir, unsigned long ulSteps)
     xASSERT((ulDir == AMS_RUN_FORWARD) ||
 	        (ulDir == MS_RUN_BACKWARD));
 
-	xGPIOSPinWrite(sD3,0);
-	xGPIOSPinWrite(sD11,0);
+	xGPIOSPinWrite(sD3,1);
+	xGPIOSPinWrite(sD11,1);
 
     if(ulDir == AMS_RUN_FORWARD)
 	{

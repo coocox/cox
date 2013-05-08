@@ -70,11 +70,11 @@
     <Component id="30" name="C Library" path="" type="2"/>
   </Components>
   <Files>
-    <File name="CoX/CoX_Peripheral/inc/xadc.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xadc.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xi2c.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xi2c.h" type="1"/>
+    <File name="CoX/CoX_Peripheral/inc/xadc.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xadc.h" type="1"/>
     <File name="CoX/cookie/cookie.h" path="../../../../libcookie/cookie.h" type="1"/>
-    <File name="CoX/Shield/DotMatrix/Dot_Matrix.h" path="../../../../../../Shield/iteadstudio/Sensor_Matrix/matrix/lib/Dot_Matrix.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_spi.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_spi.h" type="1"/>
+    <File name="CoX/Shield/DotMatrix/Dot_Matrix.h" path="../../../../../../Shield/iteadstudio/Sensor_Matrix/matrix/lib/Dot_Matrix.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src" path="" type="2"/>
     <File name="CoX/Shield/GPS/gps.h" path="../../../../../../Shield/iteadstudio/GPS/GPS/lib/gps.h" type="1"/>
     <File name="CoX/Shield" path="" type="2"/>
@@ -124,8 +124,8 @@
     <File name="CoX/CoX_Peripheral/inc/xuart.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xuart.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xwdt.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xwdt.h" type="1"/>
     <File name="Example" path="" type="2"/>
-    <File name="CoX/CoX_Peripheral/inc/xhw_sysctl.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_sysctl.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xrtc.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xrtc.h" type="1"/>
+    <File name="CoX/CoX_Peripheral/inc/xhw_sysctl.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_sysctl.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xdebug.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xdebug.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xdebug.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xdebug.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_dma.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_dma.h" type="1"/>
@@ -139,9 +139,9 @@
     <File name="CoX/CoX_Peripheral/inc/xcore.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xcore.h" type="1"/>
     <File name="CoX/CoX_Peripheral" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/src/xsysctl.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xsysctl.c" type="1"/>
+    <File name="CoX/Shield/DotMatrix/Dot_Matrix.c" path="../../../../../../Shield/iteadstudio/Sensor_Matrix/matrix/lib/Dot_Matrix.c" type="1"/>
     <File name="CoX/Shield/ArduinoMotor/ArduinoMotorShield.h" path="../../../../../../Shield/Arduino/Motor_Shield/lib/ArduinoMotorShield.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xpwm.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xpwm.c" type="1"/>
-    <File name="CoX/Shield/DotMatrix/Dot_Matrix.c" path="../../../../../../Shield/iteadstudio/Sensor_Matrix/matrix/lib/Dot_Matrix.c" type="1"/>
     <File name="CoX/Shield/DotMatrix" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xpwm.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xpwm.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_memmap.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_memmap.h" type="1"/>

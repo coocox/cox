@@ -28,7 +28,7 @@
           <Memory name="IROM2" type="ReadOnly" size="" startValue=""/>
           <Memory name="IRAM2" type="ReadWrite" size="" startValue=""/>
         </MemoryAreas>
-        <LocateLinkFile path="d:/coocox/coide1.7.0/configuration/programdata/lcd1602_i2c_example/arm-gcc-link.ld" type="0"/>
+        <LocateLinkFile path="d:/coocox/coide1.7.1/configuration/programdata/lcd1602_i2c_example/arm-gcc-link.ld" type="0"/>
       </Link>
       <Output>
         <Option name="OutputFileType" value="0"/>
@@ -67,9 +67,9 @@
     <Component id="616" name="CoX.Embedded_PI.Config" path="" type="2"/>
   </Components>
   <Files>
-    <File name="CoX_Driver/LCD1602_I2C_Driver/LCD1602IIC.h" path="../../../lib/LCD1602IIC.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xadc.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xadc.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xi2c.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xi2c.h" type="1"/>
+    <File name="CoX_Driver/LCD1602_I2C_Driver/LCD1602IIC.h" path="../../../lib/LCD1602IIC.h" type="1"/>
     <File name="CoX/cookie/cookie.h" path="CoX/cookie/cookie.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_spi.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_spi.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src" path="" type="2"/>

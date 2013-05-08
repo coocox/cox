@@ -51,8 +51,8 @@
 #include "xgpio.h"
 #include "xhw_uart.h"
 #include "xuart.h"
-#include "coshining_cfg.h"
-#include "coshining.h"
+#include "cookie_cfg.h"
+#include "cookie.h"
 #include "gps.h"
 
 //*****************************************************************************
@@ -461,9 +461,8 @@ uart1CallbackFunc(void *pvCBData, unsigned long ulEvent,
 void
 UART1_Init(unsigned long ulBaudrate)
 {
-    xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART1);
-    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART1);
-    xSysCtlPeripheralClockSourceSet(xSYSCTL_UART0_MAIN, 1);
+    xSysCtlPeripheralEnable2(sUART_BASE);
+    //xSysCtlPeripheralClockSourceSet(xSYSCTL_UART0_MAIN, 1);
     xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(sD0));
 
     sPinTypeUART(sUART_BASE);
@@ -474,7 +473,7 @@ UART1_Init(unsigned long ulBaudrate)
     xUARTIntEnable(sUART_BASE, xUART_INT_RX);
     UARTIntCallbackInit(sUART_BASE, uart1CallbackFunc);
     xUARTEnable(sUART_BASE, (UART_BLOCK_UART | UART_BLOCK_TX | UART_BLOCK_RX));
-    xIntEnable(xINT_UART1);
+    xIntEnable(xSysCtlPeripheraIntNumGet(sUART_BASE));
 }
 
 //*****************************************************************************
