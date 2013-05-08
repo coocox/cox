@@ -263,7 +263,7 @@ RCCIntCallbackInit(xtEventCallback pfnCallback)
 //
 //*****************************************************************************
 #if defined(gcc) || defined(__GNUC__)
-void __attribute__((naked))
+void __attribute__((used, naked))
 SysCtlDelay(unsigned long ulCount)
 {
     __asm("    subs    r0, #1\n"
