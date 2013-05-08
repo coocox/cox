@@ -22,8 +22,8 @@
 #include "xgpio.h"
 #include "xhw_timer.h"
 #include "xtimer.h"
-#include "coshining.h"
-#include "coshining_cfg.h"
+#include "cookie_cfg.h"
+#include "cookie.h"
 #include "Dot_Matrix.h"
 
 //*****************************************************************************
@@ -397,7 +397,7 @@ DotMatrixScanTimerInit(unsigned long ulSrcFreq, unsigned long ulScanFerq)
     //
     // Set the timer clock
     //
-    xSysCtlPeripheralClockSourceSet(DM_SCAN_CLKSRC, DM_SCANDIV_VALUE);
+    //xSysCtlPeripheralClockSourceSet(DM_SCAN_CLKSRC, DM_SCANDIV_VALUE);
 
     xSysCtlPeripheralEnable2(DM_SCAN_TIMER);
 
@@ -415,7 +415,7 @@ DotMatrixScanTimerInit(unsigned long ulSrcFreq, unsigned long ulScanFerq)
     xTimerMatchSet(DM_SCAN_TIMER, DM_SCAN_CHANNEL, ulMatchVal);
     xTimerIntEnable(DM_SCAN_TIMER, DM_SCAN_CHANNEL, xTIMER_INT_MATCH);
     xTimerIntCallbackInit(DM_SCAN_TIMER, DotMatrixScan);
-    xIntEnable(xSysCtlPeripheralIntNumGet(DM_SCAN_TIMER));
+    xIntEnable(xSysCtlPeripheraIntNumGet(DM_SCAN_TIMER));
 
     //
     // Start the timer
