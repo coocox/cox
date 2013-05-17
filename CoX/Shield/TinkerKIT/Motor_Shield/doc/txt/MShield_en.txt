@@ -1,0 +1,106 @@
+//*****************************************************************************
+//
+//! \defgroup MShield MShield
+//!
+//! \brief Shield used for drive motors.
+//!
+//!
+//! <h1>Contents</h1>
+//! - \ref MShield_Func_Desc
+//! - \ref MShield_NOTE
+//! - \ref MShield_API_Group
+//!   - \ref MShield_API_ULN2003
+//!   - \ref MShield_API_StepMotor
+//!   .
+//! - \ref MShield_Usage
+//! .
+//!
+//! \section MShield_Func_Desc 1. MShield Func Desc
+//!
+//! <LI>ULN2003 are high-voltage, high-current Darlington transistor arrays. 
+//! Each consists of seven npn Darlingtonpairs that feature high-voltage 
+//! outputs with common-cathode clamp diodes for switching inductive loads. 
+//! The collector-current rating of a singleDarlington pair is 500 mA. 
+//! The Darlington pairs can be paralleled for higher current capability. 
+//! Applicationsinclude relay drivers, hammer drivers, lamp drivers, display 
+//! drivers (LED and gas discharge), line drivers, andlogic buffers. </LI>
+//!
+//! \section MShield_NOTE 2. MShield NOTE
+//! 
+//! <img src="mshield_pins.jpg" />
+//! The following pins are in use only if the DC/Stepper noted is in use:
+//! IN1: DC Motor #1 / Stepper #1 (activation/speed control)
+//! IN2: DC Motor #2 / Stepper #1 (activation/speed control)
+//! IN3: DC Motor #3 / Stepper #1 (activation/speed control)
+//! IN4: DC Motor #4 / Stepper #1 (activation/speed control)
+//!
+//! The following pins are in use if any DC/steppers are used:
+//! IN1 ~ IN4 are used to drive the DC/Stepper motors via the ULN2003.
+//!
+//! 
+//! \section MShield_API_Group 3. MShield API Group
+//! 
+//! \subsection MShield_API_74HC595 3.1 MShield API ULN2003
+//! The ULN2003 is controled by:
+//! - MSULN2003PinInit()
+//! .
+//!
+//! \subsection MShield_API_StepMotor 3.3 MShield API Step Motor
+//! The DC Motor shield is controled by:
+//! - MSStepMotorInit()
+//! - MSStepsDelaySet()
+//! - MSStepMotorRun()
+//! - MSStepMotorStop()
+//! .
+//! 
+//! A accurate delay is provide:
+//! - MSDelay()
+//! .
+//!
+//! \section MShield_Usage MShield Usage
+//! 
+//! Before Using the Motor shield driver, you should configure the PWM 
+//! Initialization related, the timer used for delay, the timer channel,
+//! and the timer clock source. 
+//! Please reference \ref MShield_Software_Cfg
+//!
+//! Below is some example code:
+//!
+//! \code
+//!
+//! void StepMotorContorl(void)
+//! {
+//!    unsigned long i, j;
+//!
+//!    //
+//!    // System init
+//!    // 
+//!    xSysCtlClockSet(72000000, (xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ));
+//!
+//!    //
+//!    // Step motor init
+//!    // 
+//!    MSStepMotorInit();
+//!    
+//!    //
+//!    // Set the Step delay
+//!    // 
+//!    MSStepsDelaySet(1);
+//!    for(i = 0; i < 50; i++)
+//!    {
+//!        //
+//!        // 50,  the 42DC step motor will rov one cycle
+//!        // 
+//!        MSStepMotorRun(MS_RUN_FORWARD, 50);
+//!    }
+//! 
+//!    //
+//!    // Motor stop
+//!    // 
+//!    MSStepMotorStop();
+//!         
+//! }
+//!     
+//! \endcode
+//
+//*****************************************************************************

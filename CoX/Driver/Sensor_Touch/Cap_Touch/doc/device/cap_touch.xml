@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>cap_touch</Name>
+    <Description>capacitive touch controller with 1-bit GPIO expander.</Description>
+    <Manufacturer>ST</Manufacturer>
+    
+    <Category>Sensor</Category>
+    <SubCategory>S-Touch</SubCategory>
+    
+    <KeyWord>Temp, Touch, Sensor</KeyWord>
+    
+    <Communication>
+        <Interface>I2C</Interface>
+    </Communication>
+    
+    <WebPage></WebPage>
+    <Datasheet></Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

@@ -1,0 +1,166 @@
+//*****************************************************************************
+//
+//! \defgroup cap_touch
+//!
+//! \brief Cap-Touch controller with 1-bit GPIO.
+//!
+//!
+//! <h1>Contents</h1>
+//! - \ref touch_Block
+//! - \ref touch_Output_Mode
+//! .
+//!
+//! \section touch_Block 1. touch Block Diagram
+//! <img src="touch_Block.png" />
+//!
+//! \section touch_Output_Mode 2. touch output state Description
+//! 
+//! A  B |       Q            OPDO
+//! -----|---------------------------------------------
+//!      |  Direct Mode       Direct Mode
+//! 0  0 |  Active high       Active high
+//!      |  CMOS output       Open Drain output
+//! ---------------------------------------------------
+//!      |  Direct Mode       Direct Mode
+//! 0  1 |  Active low        Active low
+//!      |  CMOS output       Open Drain output
+//! ---------------------------------------------------
+//!      |  Trigger mode      Trigger mode
+//! 1  0 |  Active high       Active high
+//!      |  1(power on)       High-impedance(power on)
+//! ---------------------------------------------------
+//!      |  Trigger mode      Trigger mode
+//! 1  1 |  Active low        Active low
+//!      |  1(power on)       High-impedance(power on)
+//! ---------------------------------------------------
+//! .
+//! 
+//!
+//! \defgroup touch_Driver  
+//!  
+//! \brief This is the Driver of touch with interface of touch.
+//!
+//! This driver is implemented by using defines and global variables.
+//!
+//! <h1>Contents</h1>
+//! - \ref touch_How_Define
+//! - \ref touch_API_Group
+//!   - \ref touch_API_Group_Initialization
+//!   - \ref touch_API_Group_RW
+//!   .
+//! - \ref touch_Usage 
+//! .
+//!
+//! \section touch_How_Define 1. How is the touch Driver implemented?
+//! Use define to config some Fixing things,such as I2C base and I2C pins
+//!
+//! Use global variables to save variables use by the APIs.
+//!
+//! \section touch_API_Group 2. API Groups
+//!
+//! The touch API is broken into two groups of functions: 
+//! - those that deal with touch read gpio state . 
+//! 
+//! .
+//! <br />
+//! \subsection touch_API_Group_Initialization 4.1 touch initialize
+//! I2C initialization are dealed with:
+//! - CapTouchInit()
+//! .
+//!
+//! <br />
+//! \subsection touch_API_Group_RW 4.2 touch Read 
+//! data to register are dealed with:
+//! - CapTouchRead().
+//! .
+//!
+//!
+//! \section touch_Usage touch Usage
+//!  you should select the CoX implment according to the mcu that you select. \n
+//! Below is some example code:
+//!
+//! \code
+//!//*****************************************************************************
+//!//
+//!//! \file Touch_Test.c
+//!//! \brief the touch Example.
+//!//! \version 1.0
+//!//! \date 7/13/2012
+//!//! \author CooCox
+//!//! \copy
+//!//!
+//!//! Copyright (c)  2011, CooCox 
+//!//! All rights reserved.
+//!//! 
+//!//! Redistribution and use in source and binary forms, with or without 
+//!//! modification, are permitted provided that the following conditions 
+//!//! are met: 
+//!//! 
+//!//!     * Redistributions of source code must retain the above copyright 
+//!//! notice, this list of conditions and the following disclaimer. 
+//!//!     * Redistributions in binary form must reproduce the above copyright
+//!//! notice, this list of conditions and the following disclaimer in the
+//!//! documentation and/or other materials provided with the distribution. 
+//!//!     * Neither the name of the <ORGANIZATION> nor the names of its 
+//!//! contributors may be used to endorse or promote products derived 
+//!//! from this software without specific prior written permission. 
+//!//! 
+//!//! THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+//!//! AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//!//! IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+//!//! ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+//!//! LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+//!//! CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+//!//! SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+//!//! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+//!//! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+//!//! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+//!//! THE POSSIBILITY OF SUCH DAMAGE.
+//!//*****************************************************************************
+//!#include "touch.h"
+//!#include "xhw_ints.h"
+//!#include "xhw_nvic.h"
+//!#include "xhw_memmap.h"
+//!#include "xhw_types.h"
+//!#include "xdebug.h"
+//!#include "xcore.h"
+//!#include "xsysctl.h"
+//!#include "xhw_sysctl.h"
+//!#include "xhw_gpio.h"
+//!#include "xgpio.h"
+//!#include "xhw_uart.h"
+//!#include "xuart.h"
+//!
+//!//*****************************************************************************
+//!//
+//!//! \brief The example of touch.
+//!//!
+//!//! \param None
+//!//!
+//!//! \details The example of touch.
+//!//! \return None.
+//!//
+//!//*****************************************************************************
+//!void touchExample(void)
+//!{    
+//!    xSysCtlClockSet(72000000, xSYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
+//!      
+//!    CapTouchInit();
+//!
+//!    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(LED));
+//!    xGPIOSPinTypeGPIOOutput(LED);
+//!    
+//!    xGPIOSPinWrite(LED, 0);
+//!    xSysCtlDelay(xSysCtlClockGet()/4);
+//!    while(1)
+//!    {
+//!        if(CapTouchRead())
+//!            xGPIOSPinWrite(LED, 0);
+//!        else
+//!            xGPIOSPinWrite(LED, 1);
+//!    }
+//!}
+//!//!     
+//!//! \endcode
+//!//
+//!//*****************************************************************************
