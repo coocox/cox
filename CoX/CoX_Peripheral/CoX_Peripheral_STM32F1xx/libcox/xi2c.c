@@ -1181,6 +1181,8 @@ I2CDataPut(unsigned long ulBase, unsigned char ucData)
     //
     xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
 
+    //Should wait for TXE = 1
+
     //
     // Write the byte.
     //
