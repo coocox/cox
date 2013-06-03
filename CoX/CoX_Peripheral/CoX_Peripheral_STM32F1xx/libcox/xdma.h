@@ -7,32 +7,32 @@
 //! \author CooCox
 //! \copy
 //!
-//! Copyright (c)  2011, CooCox 
+//! Copyright (c)  2011, CooCox
 //! All rights reserved.
-//! 
-//! Redistribution and use in source and binary forms, with or without 
-//! modification, are permitted provided that the following conditions 
-//! are met: 
-//! 
-//!     * Redistributions of source code must retain the above copyright 
-//! notice, this list of conditions and the following disclaimer. 
+//!
+//! Redistribution and use in source and binary forms, with or without
+//! modification, are permitted provided that the following conditions
+//! are met:
+//!
+//!     * Redistributions of source code must retain the above copyright
+//! notice, this list of conditions and the following disclaimer.
 //!     * Redistributions in binary form must reproduce the above copyright
 //! notice, this list of conditions and the following disclaimer in the
-//! documentation and/or other materials provided with the distribution. 
-//!     * Neither the name of the <ORGANIZATION> nor the names of its 
-//! contributors may be used to endorse or promote products derived 
-//! from this software without specific prior written permission. 
-//! 
+//! documentation and/or other materials provided with the distribution.
+//!     * Neither the name of the <ORGANIZATION> nor the names of its
+//! contributors may be used to endorse or promote products derived
+//! from this software without specific prior written permission.
+//!
 //! THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-//! AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//! AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 //! IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-//! ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
-//! LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
-//! CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+//! ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+//! LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+//! CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
 //! SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-//! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
-//! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-//! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+//! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+//! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+//! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 //! THE POSSIBILITY OF SUCH DAMAGE.
 //
 //*****************************************************************************
@@ -91,10 +91,10 @@ extern "C"
 //! \brief Values show channel IDs
 //! \n
 //! \section xDMA_Channel_IDs_Section 1. Where to use this group
-//! Values that can be passed to all the API in xdma.c 
-//! as the ulChannel parameter. 
+//! Values that can be passed to all the API in xdma.c
+//! as the ulChannel parameter.
 //! \n
-//! \section xDMA_Channel_IDs_CoX 2.CoX Mandatory and CoX Non-mandatory 
+//! \section xDMA_Channel_IDs_CoX 2.CoX Mandatory and CoX Non-mandatory
 //! \verbatim
 //! +-------------------------+----------------+----------------+
 //! |xDMA Channel IDs         |       CoX      |   STM32F1xx    |
@@ -113,7 +113,7 @@ extern "C"
 //*****************************************************************************
 
 #define xDMA_CHANNEL_COUNT      32
-#define xDMA_CHANNEL_NOT_EXIST  0xFFFFFFFF 
+#define xDMA_CHANNEL_NOT_EXIST  0xFFFFFFFF
 
 #define xDMA_CHANNEL_0          DMA1_CHANNEL_1
 #define xDMA_CHANNEL_1          DMA1_CHANNEL_2
@@ -160,10 +160,10 @@ extern "C"
 //! \brief Values show request connecttions
 //! \n
 //! \section xDMA_Request_Connections_Section 1. Where to use this group
-//! Values that can be passed to XDMAChannelDynamicAssign() 
-//! as the ulDMASrcRequest and ulDMADestRequest parameter. 
+//! Values that can be passed to XDMAChannelDynamicAssign()
+//! as the ulDMASrcRequest and ulDMADestRequest parameter.
 //! \n
-//! \section xDMA_Request_Connections_CoX 2.CoX Mandatory and CoX Non-mandatory 
+//! \section xDMA_Request_Connections_CoX 2.CoX Mandatory and CoX Non-mandatory
 //! \verbatim
 //! +-------------------------+----------------+----------------------+
 //! |xDMA Request Connections |       CoX      |      STM32F1xx       |
@@ -237,9 +237,9 @@ extern "C"
 //! \section xDMA_Ints_Section 1. Where to use this group
 //! Values that can be passed to XDMAChannelIntEnable(),
 //! XDMAChannelIntDisable(), XDMAChannelIntFlagGet(), XDMAChannelIntFlagClear()
-//! as the ulIntFlags  parameter. 
+//! as the ulIntFlags  parameter.
 //! \n
-//! \section xDMA_Ints_CoX 2.CoX Mandatory and CoX Non-mandatory 
+//! \section xDMA_Ints_CoX 2.CoX Mandatory and CoX Non-mandatory
 //! \verbatim
 //! +-------------------------+----------------+----------------+
 //! |xDMA interrupt source    |       CoX      |     STM32F1xx  |
@@ -275,11 +275,11 @@ extern "C"
 //! \brief Values show xDMA Event Flags
 //! \n
 //! \section xDMA_Event_Flags_Section 1. Where to use this group
-//! Uart Event/Error Flag, Used by IntHandle's Event Callback Function as 
-//! ulMsgParam parameter. User Callback function can use this to detect what 
+//! Uart Event/Error Flag, Used by IntHandle's Event Callback Function as
+//! ulMsgParam parameter. User Callback function can use this to detect what
 //! event happened.
 //! \n
-//! \section xDMA_Event_Flags_CoX 2.CoX Mandatory and CoX Non-mandatory 
+//! \section xDMA_Event_Flags_CoX 2.CoX Mandatory and CoX Non-mandatory
 //! \verbatim
 //! +-------------------------+----------------+----------------+
 //! |xDMA event flag          |       CoX      |     STM32F1xx  |
@@ -318,7 +318,7 @@ extern "C"
 //! \section xDMA_Event_Flags_Section 1. Where to use this group
 //! None
 //! \n
-//! \section xDMA_Event_Flags_CoX 2.CoX Mandatory and CoX Non-mandatory 
+//! \section xDMA_Event_Flags_CoX 2.CoX Mandatory and CoX Non-mandatory
 //! \verbatim
 //! +-------------------------+----------------+----------------+
 //! |xDMA channel Attr        |       CoX      |     STM32F1xx  |
@@ -334,9 +334,9 @@ extern "C"
 //
 //*****************************************************************************
 
-#define xDMA_ATTR_PRIORITY_NORMAL                                      
+#define xDMA_ATTR_PRIORITY_NORMAL
 #define xDMA_ATTR_PRIORITY_HIGH DMA_ATTR_PRIORITY_HIGH
-#define xDMA_ATTR_PRIORITY_MASK 
+#define xDMA_ATTR_PRIORITY_MASK
 
 //*****************************************************************************
 //
@@ -351,9 +351,9 @@ extern "C"
 //! \n
 //! \section xDMA_Channel_Control_Config_Section 1. Where to use this group
 //! Values that can be passed to DMAChannelControlSet()
-//! as the ulControl parameter. 
+//! as the ulControl parameter.
 //! \n
-//! \section xDMA_Channel_Control_Config_CoX 2.CoX Mandatory and CoX Non-mandatory 
+//! \section xDMA_Channel_Control_Config_CoX 2.CoX Mandatory and CoX Non-mandatory
 //! \verbatim
 //! +-------------------------+----------------+-----------------+
 //! |xDMA Control Config      |       CoX      |     STM32F1xx   |
@@ -390,13 +390,13 @@ extern "C"
 #define xDMA_DST_INC_16         DMA_PER_DIR_INC
 #define xDMA_DST_INC_32         DMA_PER_DIR_INC
 #define xDMA_DST_INC_NONE       DMA_PER_DIR_FIXED
-#define xDMA_DST_INC(ulDstSize) 
+#define xDMA_DST_INC(ulDstSize)
 
 #define xDMA_SRC_INC_8          DMA_MEM_DIR_INC
 #define xDMA_SRC_INC_16         DMA_MEM_DIR_INC
 #define xDMA_SRC_INC_32         DMA_MEM_DIR_INC
 #define xDMA_SRC_INC_NONE       DMA_MEM_DIR_FIXED
-#define xDMA_SRC_INC(ulSrcSize) 
+#define xDMA_SRC_INC(ulSrcSize)
 
 #define xDMA_SRC_SIZE_8         DMA_MEM_WIDTH_8BIT
 #define xDMA_SRC_SIZE_16        DMA_MEM_WIDTH_16BIT
@@ -409,20 +409,20 @@ extern "C"
 //
 // The unit is not a byte, is a item
 //
-#define xDMA_ARB_1              
-#define xDMA_ARB_2              
-#define xDMA_ARB_4              
-#define xDMA_ARB_8              
-#define xDMA_ARB_16             
-#define xDMA_ARB_32             
-#define xDMA_ARB_64             
-#define xDMA_ARB_128            
-#define xDMA_ARB_256            
-#define xDMA_ARB_512            
-#define xDMA_ARB_1024           
+#define xDMA_ARB_1
+#define xDMA_ARB_2
+#define xDMA_ARB_4
+#define xDMA_ARB_8
+#define xDMA_ARB_16
+#define xDMA_ARB_32
+#define xDMA_ARB_64
+#define xDMA_ARB_128
+#define xDMA_ARB_256
+#define xDMA_ARB_512
+#define xDMA_ARB_1024
 
-#define xDMA_MODE_BASIC         
-#define xDMA_MODE_AUTO          
+#define xDMA_MODE_BASIC
+#define xDMA_MODE_AUTO
 
 //*****************************************************************************
 //
@@ -432,7 +432,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup xDMA_Exported_APIs DMA API 
+//! \addtogroup xDMA_Exported_APIs DMA API
 //! \brief xDMA API Reference
 //!
 //! \section xDMA_Exported_APIs_Port CoX Port Details
@@ -477,7 +477,7 @@ extern "C"
 
 #define xDMAEnable(ulChannelID)                                               \
         DMAEnable(ulChannelID)
-        
+
 //*****************************************************************************
 //
 //! \brief Disables the uDMA controller for use.
@@ -487,7 +487,7 @@ extern "C"
 //!
 //! \return None.
 //
-//*****************************************************************************                                                        
+//*****************************************************************************
 #define xDMADisable(ulChannelID)                                              \
         DMADisable(ulChannelID)
 
@@ -495,7 +495,7 @@ extern "C"
 //
 //! \brief Dynamic assign a channel through the request.
 //!
-//! \param ulDMASrcRequest is the source DMA request signal. for more info 
+//! \param ulDMASrcRequest is the source DMA request signal. for more info
 //! refrence \ref xDMA_Request_Connections.
 //! \param ulDMADestRequest is the destination DMA request signal.
 //! for more info refrence \ref xDMA_Request_Connections.
@@ -580,7 +580,7 @@ extern "C"
 //! \return None.
 //
 //*****************************************************************************
-#define xDMAChannelAttributeSet(ulChannelID, ulAttr) 
+#define xDMAChannelAttributeSet(ulChannelID, ulAttr)
 
 //*****************************************************************************
 //
@@ -600,7 +600,7 @@ extern "C"
 //! .
 //
 //*****************************************************************************
-#define xDMAChannelAttributeGet(ulChannelID) 
+#define xDMAChannelAttributeGet(ulChannelID)
 
 //*****************************************************************************
 //
@@ -618,24 +618,24 @@ extern "C"
 //! arbitration size, and the use burst flag.  The choices available for each
 //! of these values is described below.
 //!
-//! Choose the source data size from one of \b xDMA_SRC_SIZE_8, 
-//! \b xDMA_SRC_SIZE_16,  \b or xDMA_SRC_SIZE_32 to select a data size 
+//! Choose the source data size from one of \b xDMA_SRC_SIZE_8,
+//! \b xDMA_SRC_SIZE_16,  \b or xDMA_SRC_SIZE_32 to select a data size
 //! of 8, 16, or 32 bits.
 //!
-//! Choose the destination data size from one of \b xDMA_DST_SIZE_8, 
-//! \b xDMA_DST_SIZE_16,  \b or xDMA_DST_SIZE_32 to select a data size 
+//! Choose the destination data size from one of \b xDMA_DST_SIZE_8,
+//! \b xDMA_DST_SIZE_16,  \b or xDMA_DST_SIZE_32 to select a data size
 //! of 8, 16, or 32 bits.
 //!
 //! Choose the source address increment from one of \b xDMA_SRC_INC_8,
 //! \b xDMA_SRC_INC_16, \b xDMA_SRC_INC_32, \b xDMA_SRC_INC_NONE, or
-//! xDMA_SRC_INC(ulSrcSize) to selectan address increment of 8-bit bytes, 
-//! 16-bit halfwords, 32-bit words,  select non-incrementing or 
+//! xDMA_SRC_INC(ulSrcSize) to selectan address increment of 8-bit bytes,
+//! 16-bit halfwords, 32-bit words,  select non-incrementing or
 //! source data size.
 //!
 //! Choose the destination address increment from one of \b xDMA_DST_INC_8,
 //! \b xDMA_DST_INC_16, \b xDMA_DST_INC_32, \b xDMA_DST_INC_NONE, or
-//! xDMA_DST_INC(ulSrcSize) to selectan address increment of 8-bit bytes, 
-//! 16-bit halfwords, 32-bit words,  select non-incrementing or 
+//! xDMA_DST_INC(ulSrcSize) to selectan address increment of 8-bit bytes,
+//! 16-bit halfwords, 32-bit words,  select non-incrementing or
 //! destination data size.
 //!
 //! The arbitration size determines how many items are transferred before
@@ -644,7 +644,7 @@ extern "C"
 //! through \b UDMA_ARB_1024 to select the arbitration size from 1 to 1024
 //! items, in powers of 2.
 //!
-//! \note The address increment cannot be smaller than the data size. 
+//! \note The address increment cannot be smaller than the data size.
 //! The transfer may use burst or single.
 //!
 //! \return None.
@@ -662,7 +662,7 @@ extern "C"
                 DMAChannelControlSet(ulChannelID, DMAPTOM(ulControl));        \
             }                                                                 \
         }                                                                     \
-        while(0)    
+        while(0)
 
 //*****************************************************************************
 //
@@ -725,9 +725,9 @@ extern "C"
 //! \param ulChannelID is channel ID.
 //! \param pfnCallback is the callback function.
 //!
-//! When there is any channel interrupt occrus, Interrupt Handler will 
-//! call the callback function. 
-//! 
+//! When there is any channel interrupt occrus, Interrupt Handler will
+//! call the callback function.
+//!
 //! param of pfnCallback
 //! - pvCBData not used, always 0.
 //! - ulEvent is the interrupt event.
@@ -748,8 +748,8 @@ extern "C"
 //! \param ulChannelID is the channel ID.
 //! \param ulIntFlags is the bit mask of the interrupt sources to be enabled.
 //!
-//! Enables the indicated DMA channel interrupt sources.  
-//! Only the sources that are enabled can be reflected to the processor 
+//! Enables the indicated DMA channel interrupt sources.
+//! Only the sources that are enabled can be reflected to the processor
 //! interrupt; disabled sources have no effect on the processor.
 //!
 //! The \e ulIntFlags parameter is the logical OR of any of the following:
@@ -772,8 +772,8 @@ extern "C"
 //! \param ulChannelID is the channel ID.
 //! \param ulIntFlags is the bit mask of the interrupt sources to be enabled.
 //!
-//! Disables the indicated DMA channel interrupt sources.  
-//! Only the sources that are enabled can be reflected to the processor 
+//! Disables the indicated DMA channel interrupt sources.
+//! Only the sources that are enabled can be reflected to the processor
 //! interrupt; disabled sources have no effect on the processor.
 //!
 //! The \e ulIntFlags parameter is the logical OR of any of the following:
@@ -795,7 +795,7 @@ extern "C"
 //!
 //! Enable the DMA interrupt.
 //!
-//! \note In the stellaris implement, this function enables 
+//! \note In the stellaris implement, this function enables
 //! the uDMA Software Transfer, and uDMA Error interrupt.
 //!
 //! \return None.
@@ -815,7 +815,7 @@ extern "C"
 //!
 //! Disables the DMA interrupt.
 //!
-//! \note In the stellaris implement, this function disables 
+//! \note In the stellaris implement, this function disables
 //! the uDMA Software Transfer, and uDMA Error interrupt.
 //!
 //! \return None.
@@ -827,7 +827,7 @@ extern "C"
             xIntDisable(INT_DMA1);                                            \
             xIntDisable(INT_DMA2);                                            \
         }                                                                     \
-        while(0)        
+        while(0)
 
 //*****************************************************************************
 //
@@ -843,7 +843,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup STM32F1xx_DMA 
+//! \addtogroup STM32F1xx_DMA
 //! @{
 //
 //*****************************************************************************
@@ -857,7 +857,7 @@ extern "C"
 //*****************************************************************************
 
 #define DMA_CHANNEL_COUNT       12
-#define DMA_CHANNEL_NOT_EXIST   0xFFFFFFFF 
+#define DMA_CHANNEL_NOT_EXIST   0xFFFFFFFF
 
 #define DMA1_CHANNEL_1          0
 #define DMA1_CHANNEL_2          1
@@ -889,6 +889,11 @@ extern "C"
 //
 //*****************************************************************************
 
+//
+//! Transfer Global interrupt
+//
+#define DMA_INT_TG              0x00000001
+            
 //
 //! Transfer complete interrupt
 //
@@ -948,7 +953,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup STM32F1xx_DMA_Channel_Control_Config STM32F1xx DMA Channel Control 
+//! \addtogroup STM32F1xx_DMA_Channel_Control_Config STM32F1xx DMA Channel Control
 //! Configure
 //! \brief Defines for the STM32F1xx DMA Channel Control Configure
 //! @{
@@ -994,7 +999,7 @@ extern "C"
 #define DMA_REQUEST_NOT_EXIST   0xFFFFFFFF
 #define DMA_REQUEST_MEM         0x0000000F
 
-#define DMA_REQUEST_ADC0_RX     0x00000000
+#define DMA_REQUEST_ADC1_RX     0x00000000
 #define DMA_REQUEST_TIM2_CH3    0x00000000
 #define DMA_REQUEST_TIM4_CH1    0x00000000
 
@@ -1087,7 +1092,7 @@ extern "C"
 //
 //! DMA priority level Low.
 //
-#define DMA_ATTR_PRIORITY_LOW   0x00000000               
+#define DMA_ATTR_PRIORITY_LOW   0x00000000
 
 //
 //! DMA priority level Medium.
@@ -1102,12 +1107,12 @@ extern "C"
 
 //
 //! DMA priority level Very high.
-//                                
+//
 #define DMA_ATTR_PRIORITY_VHIGH 0x00003000
 
 //
 //! DMA priority level mask.
-//                                
+//
 #define DMA_ATTR_PRIORITY_MASK  0x00003000
 
 //*****************************************************************************
@@ -1127,33 +1132,33 @@ extern "C"
 
 extern void DMAEnable(unsigned long ulChannelID);
 extern void DMADisable(unsigned long ulChannelID);
-extern void DMAChannelIntDisable(unsigned long ulChannelID, 
+extern void DMAChannelIntDisable(unsigned long ulChannelID,
                                  unsigned long ulIntFlags);
-extern void DMAChannelIntEnable(unsigned long ulChannelID, 
+extern void DMAChannelIntEnable(unsigned long ulChannelID,
                                 unsigned long ulIntFlags);
-extern unsigned long DMAChannelDynamicAssign(unsigned long ulDMASrcRequest,    
+extern unsigned long DMAChannelDynamicAssign(unsigned long ulDMASrcRequest,
                                             unsigned long ulDMADestRequest);
 extern xtBoolean DMAChannelAssignmentGet(unsigned long ulChannelID);
 extern void DMAChannelDeAssign(unsigned long ulChannelID);
 
-extern void DMAChannelAttributeSet(unsigned long ulChannelID, 
+extern void DMAChannelAttributeSet(unsigned long ulChannelID,
                                 unsigned long ulAttr);
 extern unsigned long DMAChannelAttributeGet(unsigned long ulChannelID);
 
 extern void DMAChannelControlSet(unsigned long ulChannelID,
                                 unsigned long ulControl);
-    
+
 extern void DMAChannelTransferSet(unsigned long ulChannelID,
                                    void *pvSrcAddr,
                                    void *pvDstAddr,
                                    unsigned long ulTransferSize);
 
-extern void DMAChannelIntCallbackInit(unsigned long ulChannelID, 
+extern void DMAChannelIntCallbackInit(unsigned long ulChannelID,
                                 xtEventCallback pfnCallback);
 
-extern xtBoolean DMAChannelIntFlagGet(unsigned long ulChannelID, 
+extern xtBoolean DMAChannelIntFlagGet(unsigned long ulChannelID,
                                        unsigned long ulIntFlags);
-extern void DMAChannelIntFlagClear(unsigned long ulChannelID, 
+extern void DMAChannelIntFlagClear(unsigned long ulChannelID,
                                     unsigned long ulIntFlags);
 
 extern unsigned long DMARemainTransferCountGet(unsigned long ulChannelID);
