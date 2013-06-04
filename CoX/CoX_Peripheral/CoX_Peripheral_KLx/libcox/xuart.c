@@ -2,7 +2,7 @@
 //
 //! \file xuart.c
 //! \brief Driver for the UART
-//! \version V2.2.1.0
+//! \version V2.1.1.1
 //! \date 08/17/2012
 //! \author CooCox
 //! \copy
@@ -158,7 +158,7 @@ static unsigned long GetUartClock(unsigned long ulBase)
 
     if(UART0_BASE == ulBase)
     {
-        ulUartClock = SysCtlPWMAndUART0ClkGet();
+        ulUartClock = SysCtlPWMAndUART0ClkGet(1);
     }
     else if((UART1_BASE == ulBase) || (UART2_BASE == ulBase))
     {
