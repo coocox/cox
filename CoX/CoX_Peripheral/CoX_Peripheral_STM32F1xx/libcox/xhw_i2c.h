@@ -512,6 +512,12 @@
 //*****************************************************************************
 
 //
+//! Just for Test
+//
+#define I2C_CCR_ADD             0x0000FFFF 
+
+
+//
 //! I2C master mode selection
 //
 #define I2C_CCR_F_S             0x00008000 
