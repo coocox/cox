@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>xbee</Name>
+    <Description>Device connectivity using multipoint wireless networks.</Description>
+    <Manufacturer>Digi</Manufacturer>
+    
+    <Category>wireless</Category>
+    <SubCategory>zigbee</SubCategory>
+    
+    <KeyWord>wireless, zigbee, xbee</KeyWord>
+    
+    <Communication>
+        <Interface>UART</Interface>
+    </Communication>
+    
+    <WebPage>http://www.digi.com/products/wireless-wired-embedded-solutions/zigbee-rf-modules/point-multipoint-rfmodules/xbee-series1-module#docs</WebPage>
+	<WebPage>http://bildr.org/2011/04/arduino-xbee-wireless/</WebPage>
+    <Datasheet>http://www.tinyos.net.cn/datasheet/xbee-datasheet.pdf</Datasheet>
+	<Datasheet>http://www.tinyos.net.cn/datasheet/XBee-Manual[1].pdf</Datasheet>
+	<Datasheet>http://www.tinyos.net.cn/datasheet/XBee-Dimensional.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

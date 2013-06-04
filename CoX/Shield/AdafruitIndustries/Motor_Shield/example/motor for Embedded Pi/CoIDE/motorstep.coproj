@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Project version="2G - 1.7.2.1" name="motorstep">
+  <Target name="motorstep" isCurrent="1">
+    <Device manufacturerId="9" manufacturerName="ST" chipId="310" chipName="STM32F103RB" boardId="" boardName=""/>
+    <BuildOption>
+      <Compile>
+        <Option name="OptimizationLevel" value="0"/>
+        <Option name="UseFPU" value="0"/>
+        <Option name="UserEditCompiler" value=""/>
+        <Includepaths>
+          <Includepath path="."/>
+        </Includepaths>
+        <DefinedSymbols>
+          <Define name="STM32F103RB"/>
+          <Define name="STM32F10X_MD"/>
+        </DefinedSymbols>
+      </Compile>
+      <Link useDefault="0">
+        <Option name="DiscardUnusedSection" value="0"/>
+        <Option name="UserEditLinkder" value=""/>
+        <Option name="UseMemoryLayout" value="1"/>
+        <Option name="LTO" value="1"/>
+        <Option name="IsNewStartupCode" value="1"/>
+        <LinkedLibraries/>
+        <MemoryAreas debugInFlashNotRAM="1">
+          <Memory name="IROM1" type="ReadOnly" size="0x00020000" startValue="0x08000000"/>
+          <Memory name="IRAM1" type="ReadWrite" size="0x00005000" startValue="0x20000000"/>
+          <Memory name="IROM2" type="ReadOnly" size="" startValue=""/>
+          <Memory name="IRAM2" type="ReadWrite" size="" startValue=""/>
+        </MemoryAreas>
+        <LocateLinkFile path="d:/coocox/coide/configuration/programdata/motorstep/arm-gcc-link.ld" type="0"/>
+      </Link>
+      <Output>
+        <Option name="OutputFileType" value="0"/>
+        <Option name="Path" value="./"/>
+        <Option name="Name" value="motorstep"/>
+        <Option name="HEX" value="1"/>
+        <Option name="BIN" value="1"/>
+      </Output>
+      <User>
+        <UserRun name="Run#1" type="Before" checked="0" value=""/>
+        <UserRun name="Run#1" type="After" checked="0" value=""/>
+      </User>
+    </BuildOption>
+    <DebugOption>
+      <Option name="org.coocox.codebugger.gdbjtag.core.adapter" value="ST-Link"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.debugMode" value="SWD"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.clockDiv" value="1M"/>
+      <Option name="org.coocox.codebugger.gdbjtag.corerunToMain" value="1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.jlinkgdbserver" value=""/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.userDefineGDBScript" value=""/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.targetEndianess" value="0"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.jlinkResetMode" value="Type 0: Normal"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.resetMode" value="SYSRESETREQ"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.ifSemihost" value="0"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.ifCacheRom" value="1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.ipAddress" value="127.0.0.1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.portNumber" value="2009"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.autoDownload" value="1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.verify" value="1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.downloadFuction" value="Erase Effected"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.defaultAlgorithm" value="STM32F10x_MD_128.elf"/>
+    </DebugOption>
+    <ExcludeFile/>
+  </Target>
+  <Components path="./"/>
+  <Files>
+    <File name="CoX/inc/xhw_ints.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_ints.h" type="1"/>
+    <File name="CoX/inc/xhw_pwm.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_pwm.h" type="1"/>
+    <File name="startup/startup_coide.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/startup/src/startup_coide.c" type="1"/>
+    <File name="CoX/inc/xhw_memmap.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_memmap.h" type="1"/>
+    <File name="CoX/inc/xsysctl.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xsysctl.h" type="1"/>
+    <File name="CoX/src/xdebug.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xdebug.c" type="1"/>
+    <File name="CoX/inc/xhw_timer.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_timer.h" type="1"/>
+    <File name="src" path="" type="2"/>
+    <File name="CoX/src/xsysctl.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xsysctl.c" type="1"/>
+    <File name="CoX/inc" path="" type="2"/>
+    <File name="cookie/cookie_cfg.h" path="../../../../../../Cookie/Embedded_pi/libcookie/cookie_cfg.h" type="1"/>
+    <File name="CoX/src/xtimer.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xtimer.c" type="1"/>
+    <File name="CoX/inc/xhw_types.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_types.h" type="1"/>
+    <File name="driver/MotorShield.h" path="../../../lib/MotorShield.h" type="1"/>
+    <File name="CoX/src/xpwm.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xpwm.c" type="1"/>
+    <File name="CoX" path="" type="2"/>
+    <File name="CoX/src/xgpio.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xgpio.c" type="1"/>
+    <File name="CoX/inc/xgpio.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xgpio.h" type="1"/>
+    <File name="CoX/inc/xhw_config.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_config.h" type="1"/>
+    <File name="CoX/inc/xpwm.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xpwm.h" type="1"/>
+    <File name="CoX/inc/xtimer.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xtimer.h" type="1"/>
+    <File name="src/motorstep.c" path="../src/motorstep.c" type="1"/>
+    <File name="CoX/src" path="" type="2"/>
+    <File name="cookie/cookie.h" path="../../../../../../Cookie/Embedded_pi/libcookie/cookie.h" type="1"/>
+    <File name="driver" path="" type="2"/>
+    <File name="CoX/inc/xhw_nvic.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_nvic.h" type="1"/>
+    <File name="driver/MotorShield.c" path="../../../lib/MotorShield.c" type="1"/>
+    <File name="startup" path="" type="2"/>
+    <File name="cookie" path="" type="2"/>
+    <File name="CoX/inc/xhw_gpio.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_gpio.h" type="1"/>
+    <File name="CoX/src/xcore.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xcore.c" type="1"/>
+    <File name="CoX/inc/xhw_sysctl.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_sysctl.h" type="1"/>
+    <File name="CoX/inc/xdebug.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xdebug.h" type="1"/>
+    <File name="main.c" path="../main.c" type="1"/>
+    <File name="CoX/inc/xcore.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xcore.h" type="1"/>
+  </Files>
+</Project>

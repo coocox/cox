@@ -1,0 +1,208 @@
+//*****************************************************************************
+//
+//! \defgroup wireless_zigbee
+//!
+//! \brief XBee ZB RF modules utilizing the ZigBee PRO Feature Set
+//!
+//!
+//! <h1>Contents</h1>
+//! - \ref xBee_Block
+//! - \ref xBee_Disc
+//! - \ref xBee_Sch
+//! - \ref xBee_resource
+//! .
+//!
+//! \section xBee_Block 1. xBee Block Diagram
+//! <img src="prd-xbee-modules-fam_lg.jpg" />
+//!
+//! \section xBee_Disc 2. xBee  Description
+//! 
+//! XBee and XBee-PRO ZB ZigBee modules provide cost-effective wireless connectivity to 
+//! devices in ZigBee mesh networks. Utilizing the ZigBee PRO Feature Set, these modules are
+//! interoperable with other ZigBee devices, including devices from other vendors?. Programmable
+//! versions of the XBee-PRO ZB ZigBee module make customizing ZigBee applications easy, 
+//! even without wireless design expertise.
+//! Device Manager is a feature of all Digi cellular gateways, routers, devices and components. 
+//! Device Manager provides a robust suite of network management tools including authentication,
+//! configuration management, account management, asynchronous updates and alerts, group and 
+//! individual software updating, network data storage and gateway programming. 
+//! Device Manager empowers IT, network operations and customer support organizations to conquer
+//! the challenges of managing the vast array of cellular equipment in their device networks. 
+//! Network managers can remotely configure, upgrade, monitor and troubleshoot remote devices,
+//! and create applications that improve productivity, speed and efficiency.
+//! Products in the XBee family are easy to use. They require no configuration or additional development; 
+//! users can have their network up and running in a matter of minutes.
+//! Programmable versions of the XBee-PRO ZB module make customizing ZigBee applications easy.
+//! Programming directly on the module eliminates the need for a separate processor. 
+//! Because the wireless software is isolated, applications can be developed with no risk to
+//! RF performance or security.
+//! XBee modules are available in a variety of protocols and frequencies. The common hardware footprint
+//! shared by Digi¡¯s XBee modules means users can substitute one XBee for another with minimal
+//! development time and risk, enabling global deployment.
+//! .
+//! 
+//! \section xBee_Sch 3. xBee  interface sch
+//! <img src="xbee_interface.png" />
+//!  
+//! 
+//! \section xBee_resource 4. xBee resource
+//! Digi XBee page
+//! 
+//! http://www.digi.com/products/wireless-wired-embedded-solutions/zigbee-rf-modules/point-multipoint-rfmodules/xbee-series1-module.jsp#docs
+//! 
+//! datasheet 
+//! 
+//! http://www.tinyos.net.cn/datasheet/xbee-datasheet.pdf
+//! 
+//! user manual 
+//! 
+//! http://www.tinyos.net.cn/datasheet/XBee-Manual[1].pdf
+//! 
+//! size
+//! 
+//! http://www.tinyos.net.cn/datasheet/XBee-Dimensional.pdf
+//! 
+//! help doc
+//! 
+//! http://bildr.org/2011/04/arduino-xbee-wireless/
+//!  
+//!
+//! \defgroup wireless_xbee_Driver  
+//!  
+//! \brief This is the Driver of xBee with interface of UART.
+//!
+//! This driver is implemented by using defines and global variables.
+//!
+//! <h1>Contents</h1>
+//! - \ref xBee_How_Define
+//! - \ref xBee_API_Group
+//!   - \ref xBee_API_Group_Initialization
+//!   - \ref xBee_API_Group_RW
+//!   .
+//! - \ref xBee_Usage 
+//! .
+//!
+//! \section xBee_How_Define 1. How is the xBee Driver implemented?
+//! Use define to config some Fixing things,such as UART base and UART pins
+//!
+//! Use global variables to save variables use by the APIs.
+//!
+//! \section xBee_API_Group 2. API Groups
+//!
+//! The xBee API is broken into 3 groups of functions: 
+//! - those that deal with xBee communication. 
+//! 
+//! .
+//! <br />
+//! \subsection xBee_API_Group_Initialization 2.1 xBee initialize
+//! I2C initialization are dealed with:
+//! - xBeeUartInit()
+//! .
+//!
+//! <br />
+//! \subsection xBee_API_Group_RW 2.2 xBee read write 
+//! communication are dealed with:
+//! - xBeeUartSendBuf().
+//! .
+//!
+//!
+//! <br />
+//! \subsection xBee_API_Group_RW 2.3 xBee AT cmd send
+//! those are dealed with:
+//! - xBeeEnterCmdMode().
+//! - xBeeNodeGet().
+//! - xBeeNodeConnect().
+//! .
+//!
+//!
+//! \section xBee_Usage xBee Usage
+//!  you should select the CoX implment according to the mcu that you select. \n
+//! Below is some example code:
+//!
+//! \code
+//!//*****************************************************************************
+//!//
+//!//! \file xBee_Test.c
+//!//! \brief the xBee Example.
+//!//! \version 1.0
+//!//! \date 7/13/2012
+//!//! \author CooCox
+//!//! \copy
+//!//!
+//!//! Copyright (c)  2011, CooCox 
+//!//! All rights reserved.
+//!//! 
+//!//! Redistribution and use in source and binary forms, with or without 
+//!//! modification, are permitted provided that the following conditions 
+//!//! are met: 
+//!//! 
+//!//!     * Redistributions of source code must retain the above copyright 
+//!//! notice, this list of conditions and the following disclaimer. 
+//!//!     * Redistributions in binary form must reproduce the above copyright
+//!//! notice, this list of conditions and the following disclaimer in the
+//!//! documentation and/or other materials provided with the distribution. 
+//!//!     * Neither the name of the <ORGANIZATION> nor the names of its 
+//!//! contributors may be used to endorse or promote products derived 
+//!//! from this software without specific prior written permission. 
+//!//! 
+//!//! THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+//!//! AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//!//! IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+//!//! ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+//!//! LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+//!//! CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+//!//! SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+//!//! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+//!//! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+//!//! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+//!//! THE POSSIBILITY OF SUCH DAMAGE.
+//!//*****************************************************************************
+//! #include "xhw_ints.h"
+//! #include "xhw_nvic.h"
+//! #include "xhw_memmap.h"
+//! #include "xhw_types.h"
+//! #include "xdebug.h"
+//! #include "xcore.h"
+//! #include "xsysctl.h"
+//! #include "xhw_sysctl.h"
+//! #include "xhw_gpio.h"
+//! #include "xgpio.h"
+//! #include "xhw_uart.h"
+//! #include "xuart.h"
+//! #include "xbee.h"
+//! #include "cookie.h"
+//! 
+//! #define LED  PC3 
+//!
+//!//*****************************************************************************
+//!//
+//!//! \brief The example of xBee.
+//!//!
+//!//! \param None
+//!//!
+//!//! \details The example of xBee.
+//!//! \return None.
+//!//
+//!//*****************************************************************************
+//! void xBeeExample(void)
+//! {  
+//!     xSysCtlClockSet(72000000, xSYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
+//!     xSysCtlDelay(1000000);
+//!     xBeeUartInit();
+//!     while(!xBeeEnterCmdMode());
+//! 
+//!     while(!xBeeNodeGet());
+//!     while(!xBeeNodeConnect("R1"));
+//!     while(1)
+//!     {
+//!     	xGPIOSPinWrite(sD13,0);
+//!     	xSysCtlDelay(1000000);
+//!     	xGPIOSPinWrite(sD13,1);
+//!     	xSysCtlDelay(1000000);
+//!     }
+//!    
+//! }
+//!//!     
+//!//! \endcode
+//!//
+//!//*****************************************************************************

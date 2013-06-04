@@ -1,0 +1,67 @@
+Introduction 
+    Shield used for drive motors.
+    Full-featured motor control shield that will be able to power many simple to medium-complexity projects.
+    2 connections for 5V "hobby" servos connected to the Arduino's high-resolution dedicated timer.
+
+Background
+(Optional) Is there any background to this code that may be useful
+such as an introduction to the basic ideas presented?
+
+
+Using the code 
+A brief description of how to use the code. The
+class names, the methods and properties, any tricks or tips.
+
+
+Blocks of code should be set as style "Formatted"
+like this:
+//
+// Any source code blocks look like this
+//
+
+Remember to set the Language of your code snippet using the
+Language dropdown.
+
+
+Use the "var" button to to wrap Variable or class names in
+<code> tags like this.
+
+
+Points of Interset
+
+Below is some example code:
+void MotorStep(void)
+{
+    unsigned long i, j;
+
+    xSysCtlClockSet(72000000, (xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ));
+    xSysCtlDelay(100000);
+
+    MSStepMotorInit(MS_STEPPER_NUM2);
+    MSStepsDelaySet(1);
+    for(i = 0; i < 50; i++)
+    {
+	MSStepMotorRun(MS_RUN_FORWARD, 50);
+	MSStepMotorStop();
+    }
+}
+
+History
+
+  The 74HC595 is controled by:
+    - MS74HC595PinInit()
+    - MS74HC595DataSend()
+
+
+  The DC Motor shield is controled by:
+    - MSDCMotorPWMInit()
+    - MSDCMotorRun()
+    - MSDCMotorSpeedSet()
+    - MSDCMotorStop()
+
+
+  The Step Motor shield is controled by:
+    - MSStepMotorInit()
+    - MSStepsDelaySet()
+    - MSStepMotorRun()
+    - MSStepMotorStop()
