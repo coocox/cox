@@ -158,7 +158,7 @@ static unsigned long GetUartClock(unsigned long ulBase)
 
     if(UART0_BASE == ulBase)
     {
-        ulUartClock = SysCtlPWMAndUART0ClkGet(1);
+        ulUartClock = SysCtlPWMAndUART0ClkGet();
     }
     else if((UART1_BASE == ulBase) || (UART2_BASE == ulBase))
     {
@@ -223,7 +223,7 @@ void UARTConfigSet(unsigned long ulBase,
     unsigned long ulUartClock  = 0;
     unsigned long ulDivisor    = 0;
     unsigned char ulTmpReg     = 0;
-    unsigned long ulSampleRate = 0;
+    unsigned long ulSampleRate = 16;
 
     //
     // Check the parameters.
@@ -244,12 +244,17 @@ void UARTConfigSet(unsigned long ulBase,
     {
         case UART0_BASE:
         {
+            if(!(ulConfig & UART_CONFIG_SAMPLE_RATE_MASK))
+            {
+                ulConfig |= UART_CONFIG_SAMPLE_RATE_DEFAULT;
+            }
             ulSampleRate = ((ulConfig & UART_CONFIG_SAMPLE_RATE_MASK)
                            >> UART_CONFIG_SAMPLE_RATE_SHIFT);
             ulTmpReg =  xHWREGB(ulBase + UART_0_C4);
             ulTmpReg &= (unsigned char)(~UART_0_C4_OSR_MASK);
             ulTmpReg |= (unsigned char)(ulSampleRate & UART_0_C4_OSR_MASK);
             xHWREGB(ulBase + UART_0_C4)  =  ulTmpReg;
+            ulSampleRate += 1;
             break;
         }
         case UART1_BASE:
@@ -1908,4 +1913,3 @@ void UARTIdleSend(unsigned long ulBase)
     xHWREGB(ulBase + UART_012_C2) |= (unsigned char)(UART_012_C2_TE_MASK);
     xHWREGB(ulBase + UART_012_C2) &= (unsigned char)(~UART_012_C2_TE_MASK);
 }
-

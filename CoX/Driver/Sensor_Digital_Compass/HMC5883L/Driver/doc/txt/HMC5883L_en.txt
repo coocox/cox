@@ -1,0 +1,115 @@
+//*****************************************************************************
+//
+//! \defgroup HMC5883L HMC5883L
+//!
+//! \brief 3-axis digital compass
+//!
+//! <h1>Contents</h1>
+//! - \ref HMC5883L_Description
+//!   .
+//! - \ref HMC5883L_Driver_API
+//!   .
+//! - \ref HMC5883L_Example
+//!   - \ref Example_ReadData
+//! .
+//!
+//! \section HMC5883L_Description 1. HMC5883L System description.
+//!
+//! The HMC5883L utilizes Honeywell¡¯s Anisotropic Magnetoresistive (AMR)
+//! technology that provides advantages over other magnetic  sensor technologies.
+//! These anisotropic, directional sensors feature  precision  in-axis
+//! sensitivity and linearity.  
+//! These sensors' solid-state construction with very low cross-axis sensitivity
+//! is designed to measure both the direction and the magnitude of Earth¡¯s
+//! magnetic fields, from milli-gauss to 8 gauss. Honeywell¡¯s Magnetic Sensors are
+//! among the most sensitive and reliable low-field sensors in the industry. 
+
+//!
+//! \b Features
+//! * 3-Axis Magnetoresistive Sensors and ASIC in a 3.0x3.0x0.9mm LCC Surface Mount Package 
+//! * 12-Bit ADC Coupled with Low Noise AMR Sensors Achieves 5 milli-gauss Resolution
+//!   in +-8 Gauss Fields 
+//! * Built-In Self Test 
+//! * Low Voltage Operations (2.16 to 3.6V) and Low Power Consumption (100 uA)
+//! * Built-In Strap Drive Circuits 
+//! * I2C Digital Interface 
+//! * Lead Free Package Construction 
+//! * Wide Magnetic Field Range (+/-8 Oe) 
+//! * Software and Algorithm Support Available 
+//! * Fast 160 Hz Maximum Output Rate 
+//! .
+//!
+//! \section HMC5883L_Driver_API 2. API Group
+//!
+//! Result HMC5883L_Init(void);
+//! Result HMC5883L_RegWriteByte(uint8_t RegAddr, uint8_t Data);
+//! Result HMC5883L_RegReadByte(uint8_t RegAddr, uint8_t * DataRecvBuf);
+//! Result HMC5883L_Cfg(uint32_t Cfg);
+//! Result HMC5883L_StatusCheck(uint8_t Flag);
+//! Result HMC5883L_DataGet(int16_t * pDataX, int16_t * pDataY, int16_t * pDataZ);
+//! .
+//! 
+//! \section HMC5883L_Example 3. Example
+//! 
+//! Below is some example code:
+//!
+//! \subsection Example_ReadData 3.1 ReadData Example
+//!  Show how to configure digital compass and read data
+//! \code
+//!
+//! void ReadData(void)
+//! {
+//! 
+//!     int16_t Com_Data[3] = {0};
+//!     Result  Res         = SUCCESS;
+//! 
+//!     //
+//!     // Init the LED
+//!     //
+//!     //xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOD);
+//!     //xGPIODirModeSet(xGPIO_PORTD_BASE, xGPIO_PIN_3, xGPIO_DIR_MODE_OUT);
+//! 
+//!     SysInit();
+//!     UartInit();
+//! 
+//!     printf("%s\r\n", WelcomeInfo);
+//! 
+//!     printf("Example: Read digital compass Data\r\n");
+//! 
+//!     //Init Compass
+//!     Res = HMC5883L_Init();  
+//!     if(Res == FAILURE)
+//!     {
+//!         while(1);
+//!     }
+//! 
+//!     //Configure Digital Compass
+//!     Res = HMC5883L_Cfg(MODE_CONT | GAIN_1090 | SAMPLE_8 | DATA_RATE_15);
+//!     if(Res == FAILURE)
+//!     {
+//!         while(1);
+//!     }  
+//!     SysCtlDelay(1000);
+//! 
+//!     while(1)
+//!     {
+//!         Res = HMC5883L_DataGet(&Com_Data[0], &Com_Data[1], &Com_Data[2]);
+//!         if(Res == FAILURE)
+//!         {
+//!             printf("Error\r\n");            
+//!         }
+//!         else
+//!         {
+//!             printf("X: %d\r\n", Com_Data[0]);
+//!             printf("Y: %d\r\n", Com_Data[1]);
+//!             printf("Z: %d\r\n", Com_Data[2]);
+//!             printf("\r\n");
+//!         }
+//!         SysCtlDelay(0xFFFFF);
+//!     }
+//!                    
+//! }
+//! 
+//!
+//! \endcode
+//!

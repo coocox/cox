@@ -7,32 +7,32 @@
 //! \author CooCox
 //! \copy
 //!
-//! Copyright (c)  2011, CooCox 
+//! Copyright (c)  2011, CooCox
 //! All rights reserved.
-//! 
-//! Redistribution and use in source and binary forms, with or without 
-//! modification, are permitted provided that the following conditions 
-//! are met: 
-//! 
-//!     * Redistributions of source code must retain the above copyright 
-//! notice, this list of conditions and the following disclaimer. 
+//!
+//! Redistribution and use in source and binary forms, with or without
+//! modification, are permitted provided that the following conditions
+//! are met:
+//!
+//!     * Redistributions of source code must retain the above copyright
+//! notice, this list of conditions and the following disclaimer.
 //!     * Redistributions in binary form must reproduce the above copyright
 //! notice, this list of conditions and the following disclaimer in the
-//! documentation and/or other materials provided with the distribution. 
-//!     * Neither the name of the <ORGANIZATION> nor the names of its 
-//! contributors may be used to endorse or promote products derived 
-//! from this software without specific prior written permission. 
-//! 
+//! documentation and/or other materials provided with the distribution.
+//!     * Neither the name of the <ORGANIZATION> nor the names of its
+//! contributors may be used to endorse or promote products derived
+//! from this software without specific prior written permission.
+//!
 //! THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-//! AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//! AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 //! IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-//! ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
-//! LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
-//! CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+//! ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+//! LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+//! CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
 //! SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-//! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
-//! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-//! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+//! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+//! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+//! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 //! THE POSSIBILITY OF SUCH DAMAGE.
 //
 //*****************************************************************************
@@ -57,7 +57,7 @@ typedef struct
     unsigned long ulpinID;
 
     //
-    // 
+    //
     //
     xtEventCallback pfnGPIOPinHandlerCallback;
 }
@@ -66,7 +66,7 @@ tGPIOPinIntAsssign;
 //
 // GPIO Pins Interrupt Assignment table.
 //
-static tGPIOPinIntAsssign g_psGPIOPinIntAssignTable[xGPIO_INT_NUMBER] = 
+static tGPIOPinIntAsssign g_psGPIOPinIntAssignTable[xGPIO_INT_NUMBER] =
 {
     {0,0}
 };
@@ -101,10 +101,10 @@ static const unsigned long g_pulRemapRegs[] =
 static xtBoolean
 GPIOBaseValid(unsigned long ulPort)
 {
-    return((ulPort == GPIOA_BASE) || 
-           (ulPort == GPIOB_BASE) || 
-           (ulPort == GPIOC_BASE) || 
-           (ulPort == GPIOD_BASE) || 
+    return((ulPort == GPIOA_BASE) ||
+           (ulPort == GPIOB_BASE) ||
+           (ulPort == GPIOC_BASE) ||
+           (ulPort == GPIOD_BASE) ||
            (ulPort == GPIOE_BASE) ||
            (ulPort == GPIOF_BASE) ||
            (ulPort == GPIOG_BASE) );
@@ -124,7 +124,7 @@ GPIOBaseValid(unsigned long ulPort)
 void EXTI0IntHandler(void)
 {
     unsigned long i, ulTemp;
-    
+
     //
     // Clear the interrupt flag.
     //
@@ -140,7 +140,7 @@ void EXTI0IntHandler(void)
                 g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback(0,ulTemp,0,0);
             }
         }
-    } 	
+    }
 }
 
 //*****************************************************************************
@@ -156,7 +156,7 @@ void EXTI0IntHandler(void)
 void EXTI1IntHandler(void)
 {
     unsigned long i, ulTemp;
-    
+
     // Clear the interrupt flag.
     //
     ulTemp = xHWREG(EXTI_PR);
@@ -170,7 +170,7 @@ void EXTI1IntHandler(void)
                 g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback(0,ulTemp,0,0);
             }
         }
-    } 	
+    }
 }
 
 //*****************************************************************************
@@ -186,13 +186,13 @@ void EXTI1IntHandler(void)
 void EXTI2IntHandler(void)
 {
     unsigned long i, ulTemp;
-    
+
 	//
     // Clear the interrupt flag.
     //
     ulTemp = xHWREG(EXTI_PR);
 	xHWREG(EXTI_PR) |= (0x00000001 << 2);
-    
+
     for(i=0; i<xGPIO_INT_NUMBER; i++)
     {
         if((g_psGPIOPinIntAssignTable[i].ulpinID & 0xffff) == GPIO_PIN_2)
@@ -202,7 +202,7 @@ void EXTI2IntHandler(void)
                 g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback(0,ulTemp,0,0);
             }
         }
-    } 
+    }
 }
 
 //*****************************************************************************
@@ -218,17 +218,17 @@ void EXTI2IntHandler(void)
 void EXTI3IntHandler(void)
 {
     unsigned long i, ulTemp;
-    
+
 	//
     // Clear the interrupt flag.
     //
     ulTemp = xHWREG(EXTI_PR);
 	xHWREG(EXTI_PR) |= (0x00000001 << 3);
-    
+
     //
     // Clear the interrupt flag.
     //
-    
+
     for(i=0; i<xGPIO_INT_NUMBER; i++)
     {
         if((g_psGPIOPinIntAssignTable[i].ulpinID & 0xffff) == GPIO_PIN_3)
@@ -238,7 +238,7 @@ void EXTI3IntHandler(void)
                 g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback(0,ulTemp,0,0);
             }
         }
-    } 	
+    }
 }
 
 //*****************************************************************************
@@ -254,13 +254,13 @@ void EXTI3IntHandler(void)
 void EXTI4IntHandler(void)
 {
     unsigned long i, ulTemp;
-    
+
 	//
     // Clear the interrupt flag.
     //
     ulTemp = xHWREG(EXTI_PR);
 	xHWREG(EXTI_PR) |= (0x00000001 << 4);
-    
+
     for(i=0; i<xGPIO_INT_NUMBER; i++)
     {
         if((g_psGPIOPinIntAssignTable[i].ulpinID & 0xffff) == GPIO_PIN_4)
@@ -270,7 +270,7 @@ void EXTI4IntHandler(void)
                 g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback(0,ulTemp,0,0);
             }
         }
-    } 	
+    }
 }
 
 //*****************************************************************************
@@ -286,7 +286,7 @@ void EXTI4IntHandler(void)
 void EXTI95IntHandler(void)
 {
     unsigned long i, ulTemp, ulShift;
-    
+
 	//
     // Clear the interrupt flag.
     //
@@ -314,7 +314,7 @@ void EXTI95IntHandler(void)
 
 
 	xHWREG(EXTI_PR) |= (0x00000001 << ulShift);
-    
+
 
     for(i=0; i<xGPIO_INT_NUMBER; i++)
     {
@@ -325,7 +325,7 @@ void EXTI95IntHandler(void)
                 g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback(0,0,0,0);
             }
         }
-    } 	
+    }
 
 }
 
@@ -342,7 +342,7 @@ void EXTI95IntHandler(void)
 void EXTI1510IntHandler(void)
 {
     unsigned long i, ulTemp, ulShift;
-    
+
 	//
     // Clear the interrupt flag.
     //
@@ -373,7 +373,7 @@ void EXTI1510IntHandler(void)
 	}
 
 	xHWREG(EXTI_PR) |= (0x00000001 << ulShift);
-    
+
 
     for(i=0; i<xGPIO_INT_NUMBER; i++)
     {
@@ -384,7 +384,7 @@ void EXTI1510IntHandler(void)
                 g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback(0,ulTemp,0,0);
             }
         }
-    } 	
+    }
 }
 
 //*****************************************************************************
@@ -396,8 +396,8 @@ void EXTI1510IntHandler(void)
 //! \param ulPinType is the pin direction and/or pad configuration.
 //! \param ulPinSpeed is input or output speed of specified pin.
 //!
-//! This function will set the specified pin(Only 1 pin) on the selected GPIO 
-//! port as either an input or output under software control, or it will set 
+//! This function will set the specified pin(Only 1 pin) on the selected GPIO
+//! port as either an input or output under software control, or it will set
 //! the pin to be under hardware control.
 //!
 //! The parameter \e ulPinType is an enumerated data type that can be one of
@@ -432,16 +432,16 @@ GPIODirModeSet(unsigned long ulPort, unsigned long ulBit,
     //
     xASSERT(GPIOBaseValid(ulPort));
     xASSERT(ulBit < 16);
-    xASSERT((ulPinType == GPIO_TYPE_IN_ANALOG) || 
+    xASSERT((ulPinType == GPIO_TYPE_IN_ANALOG) ||
             (ulPinType == GPIO_TYPE_IN_FLOATING) ||
-            (ulPinType == GPIO_TYPE_IN_WPU_WPD) || 
+            (ulPinType == GPIO_TYPE_IN_WPU_WPD) ||
             (ulPinType == GPIO_TYPE_OUT_STD) ||
-            (ulPinType == GPIO_TYPE_OUT_OD) || 
+            (ulPinType == GPIO_TYPE_OUT_OD) ||
             (ulPinType == GPIO_TYPE_AFOUT_STD) ||
             (ulPinType == GPIO_TYPE_AFOUT_OD));
-    
-    xASSERT((ulPinSpeed == GPIO_IN_SPEED_FIXED) || 
-            (ulPinSpeed == GPIO_OUT_SPEED_10M) || 
+
+    xASSERT((ulPinSpeed == GPIO_IN_SPEED_FIXED) ||
+            (ulPinSpeed == GPIO_OUT_SPEED_10M) ||
             (ulPinSpeed == GPIO_OUT_SPEED_2M) ||
             (ulPinSpeed == GPIO_OUT_SPEED_50M));
     //
@@ -449,17 +449,17 @@ GPIODirModeSet(unsigned long ulPort, unsigned long ulBit,
     //
     if(ulBit < 8)
     {
-        xHWREG(ulPort + GPIO_CRL) &=                
+        xHWREG(ulPort + GPIO_CRL) &=
         (~((GPIO_CRL_MODE0_M | GPIO_CRL_CNF0_M) << (ulBit * 4)));
-    
+
         xHWREG(ulPort + GPIO_CRL) = (xHWREG(ulPort + GPIO_CRL) |               \
-        (((ulPinSpeed | ulPinType)) << (ulBit * 4)));  
+        (((ulPinSpeed | ulPinType)) << (ulBit * 4)));
     }
     else
     {
-        xHWREG(ulPort + GPIO_CRH) &=                
+        xHWREG(ulPort + GPIO_CRH) &=
         (~((GPIO_CRH_MODE8_M | GPIO_CRH_CNF8_M) << ((ulBit -8) * 4)));
-    
+
         xHWREG(ulPort + GPIO_CRH) = (xHWREG(ulPort + GPIO_CRH) |               \
         (((ulPinSpeed | ulPinType)) << ((ulBit -8) * 4)));
     }
@@ -489,9 +489,9 @@ GPIODirModeSet(unsigned long ulPort, unsigned long ulBit,
 //! a software controlled input, \b GPIO_DIR_MODE_OUT specifies that the pin
 //! will be programmed as a software controlled output, and
 //! \b GPIO_DIR_MODE_HW specifies that the pin will be placed under
-//! hardware control.\b GPIO_DIR_MODE_OD specifies that the pin will be 
-//! programmed as a Open-Drain.\b GPIO_DIR_MODE_QB specifies that the pin 
-//! will be programmed as Quasi-bidirectional 
+//! hardware control.\b GPIO_DIR_MODE_OD specifies that the pin will be
+//! programmed as a Open-Drain.\b GPIO_DIR_MODE_QB specifies that the pin
+//! will be programmed as Quasi-bidirectional
 //!
 //! The pin(s) are specified using a bit-packed byte, where each bit that is
 //! set identifies the pin to be accessed, and where bit 0 of the byte
@@ -505,7 +505,7 @@ xGPIODirModeSet(unsigned long ulPort, unsigned long ulPins,
                unsigned long ulPinIO)
 {
     unsigned long ulBit;
-        
+
     //
     // Check the arguments.
     //
@@ -522,8 +522,8 @@ xGPIODirModeSet(unsigned long ulPort, unsigned long ulPins,
         {
             GPIODirModeSet(ulPort, ulBit, ulPinIO & 0xC, ulPinIO & 0x3);
         }
-       
-    }                              
+
+    }
 }
 
 //*****************************************************************************
@@ -550,18 +550,18 @@ GPIODirModeGet(unsigned long ulPort, unsigned long ulBit)
     //
     xASSERT(GPIOBaseValid(ulPort));
     xASSERT(ulBit < 16);
-    
+
     //
     // Return the pin direction and mode.
     //
     if(ulBit < 8)
     {
-        return((xHWREG(ulPort + GPIO_CRL) & 
+        return((xHWREG(ulPort + GPIO_CRL) &
                (0xF << (ulBit * 4))) >> (ulBit * 4));
     }
     else
     {
-        return((xHWREG(ulPort + GPIO_CRH) & 
+        return((xHWREG(ulPort + GPIO_CRH) &
                (0xF << ((ulBit - 8) * 4))) >> ((ulBit - 8) * 4));
     }
 }
@@ -597,8 +597,8 @@ xGPIODirModeGet(unsigned long ulPort, unsigned long ulPin)
         {
             break;
         }
-    } 
-    
+    }
+
     //
     // Return the pin direction and mode.
     //
@@ -644,21 +644,21 @@ GPIOPinIntEnable(unsigned long ulPort, unsigned long ulPins,
     //
     xASSERT(GPIOBaseValid(ulPort));
     xASSERT((ulIntType == GPIO_FALLING_EDGE) ||
-            (ulIntType == GPIO_RISING_EDGE) || 
+            (ulIntType == GPIO_RISING_EDGE) ||
             (ulIntType == GPIO_BOTH_EDGES));
-    
+
     for(ulBit = 0; ulBit < 16; ulBit++)
     {
         if(((ulPins >> ulBit) & 1) != 0)
-        { 
+        {
             //
             // Set the pin interrupt type.
             //
-            xHWREG(AFIO_EXTICR1 + (ulBit>>2)*4) &= 
+            xHWREG(AFIO_EXTICR1 + (ulBit>>2)*4) &=
                                  ~(AFIO_EXTICR1_EXTI0_M << (ulBit%4)*4);
-            xHWREG(AFIO_EXTICR1 + (ulBit>>2)*4) |= 
+            xHWREG(AFIO_EXTICR1 + (ulBit>>2)*4) |=
                                  ((((ulPort&0xFFFF) >> 10) -2) << (ulBit%4)*4);
-            
+
             xHWREG(EXTI_RTSR) = ((ulIntType & 2) ?
                                  (xHWREG(EXTI_RTSR) | (1 << ulBit)) :
                                  (xHWREG(EXTI_RTSR) & ~(1 << ulBit)));
@@ -721,7 +721,7 @@ GPIOPinIntCallbackInit(unsigned long ulPort, unsigned long ulPin,
     xASSERT(GPIOBaseValid(ulPort));
 
     //
-    // changed ?? (ulPort  << 16) | i ?? to ?? (ulPort  << 16) | ulPin ?? by 
+    // changed ?? (ulPort  << 16) | i ?? to ?? (ulPort  << 16) | ulPin ?? by
     // niuyj 09/09/2011
     //
     ulPinID = (ulPort  << 16) | ulPin;
@@ -744,7 +744,7 @@ GPIOPinIntCallbackInit(unsigned long ulPort, unsigned long ulPin,
                                          xtPortCallback;
             break;
         }
-    } 
+    }
 }
 
 //*****************************************************************************
@@ -988,7 +988,7 @@ GPIOPinReset(unsigned long ulPort, unsigned long ulPins)
 //! \param ulPins is the bit-packed representation of the pin(s).
 //!
 //! Set GPIO port mask register of the specified GPIO pin(s) specified by
-//! \e ucPins.  
+//! \e ucPins.
 //!
 //! The pin(s) are specified using a bit-packed byte, where each bit that is
 //! set identifies the pin to be accessed, and where bit 0 of the byte
@@ -1005,19 +1005,19 @@ GPIOPinLockConfig(unsigned long ulPort, unsigned long ulPins)
     // Check the arguments.
     //
     xASSERT(GPIOBaseValid(ulPort));
-	
+
     //
     // Reset the LCKR
     //
-  	xHWREG(ulPort + GPIO_LCKR) &= ulTemp;  
-	
+  	xHWREG(ulPort + GPIO_LCKR) &= ulTemp;
+
 	  //
 	  // Write the data
 	  //
 	  xHWREG(ulPort + GPIO_LCKR) = ulPins;
-	
+
 	  //
-	  // Write the LCKR 
+	  // Write the LCKR
 	  //
     xHWREG(ulPort + GPIO_LCKR) = (ulPins | ulTemp);
 
@@ -1036,7 +1036,7 @@ GPIOPinLockConfig(unsigned long ulPort, unsigned long ulPins)
     //
     ulTemp = xHWREG(ulPort + GPIO_LCKR);
     ulTemp = xHWREG(ulPort + GPIO_LCKR);
-    
+
 }
 
 //*****************************************************************************
@@ -1058,7 +1058,7 @@ GPIOPinLockConfig(unsigned long ulPort, unsigned long ulPins)
 //
 //*****************************************************************************
 void
-GPIOPinConfigure(unsigned long ulPort, unsigned long ulPins, 
+GPIOPinConfigure(unsigned long ulPort, unsigned long ulPins,
                  unsigned long ulPinConfig)
 {
     unsigned long ulBase, ulShift, ulInout;
@@ -1079,16 +1079,16 @@ GPIOPinConfigure(unsigned long ulPort, unsigned long ulPins,
     // Extract the shift from the input value.
     //
     ulShift = (ulPinConfig ) & 0x0FFFFFFF;
-	
+
     ulInout = (ulPinConfig >> 29) & 0x07;
-	
+
 
     for(i=0; i<16; i++)
     {
         if((ulPins >> i) == 1)
                 break;
     }
-    
+
     if(ulInout == 0)
     {
         GPIODirModeSet(ulPort, i, GPIO_TYPE_IN_ANALOG, GPIO_IN_SPEED_FIXED);
@@ -1136,35 +1136,36 @@ GPIOPinToPeripheralId(unsigned long ulPort, unsigned long ulPin)
     switch (ulPort)
     {
     case GPIOA_BASE:
-    {
-    	return SYSCTL_PERIPH_IOPA;
-    	break;
-    }
+        {
+            return SYSCTL_PERIPH_IOPA;
+            break;
+        }
     case GPIOB_BASE:
-    {
-    	return SYSCTL_PERIPH_IOPB;
-    	break;
-    }
+        {
+            return SYSCTL_PERIPH_IOPB;
+            break;
+        }
     case GPIOC_BASE:
-    {
-    	return SYSCTL_PERIPH_IOPC;
-    	break;
-    }
+        {
+            return SYSCTL_PERIPH_IOPC;
+            break;
+        }
     case GPIOD_BASE:
-    {
-    	return SYSCTL_PERIPH_IOPD;
-    	break;
-    }
+        {
+            return SYSCTL_PERIPH_IOPD;
+            break;
+        }
     case GPIOE_BASE:
-    {
-    	return SYSCTL_PERIPH_IOPE;
-    	break;
-    }
+        {
+            return SYSCTL_PERIPH_IOPE;
+            break;
+        }
     case GPIOF_BASE:
-    {
-    	return SYSCTL_PERIPH_IOPF;
-    	break;
-    }
+        {
+            return SYSCTL_PERIPH_IOPF;
+            break;
+        }
     }
     return 0;
+
 }

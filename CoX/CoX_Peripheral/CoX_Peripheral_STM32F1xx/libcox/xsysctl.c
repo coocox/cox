@@ -717,7 +717,7 @@ SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
     // Calc oscillator freq
     //
     if((((ulConfig & SYSCTL_XTAL_MASK) >> 8) >=4) && 
-       (((ulConfig & SYSCTL_XTAL_MASK) >> 8) <=25))
+       (((ulConfig & SYSCTL_XTAL_MASK) >> 8) <=16))
     {
         s_ulExtClockMHz = ((ulConfig & SYSCTL_XTAL_MASK) >> 8);
     }

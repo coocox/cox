@@ -50,11 +50,11 @@
     </DependentComponentInterfaceTag>
 
     <SupportMCUs>
-        <MCU></MCU>
+        <MCU>ST</MCU>
     </SupportMCUs>
 
     <SupportMCUSeries>
-        <Series>All</Series>
+        <Series>STM32F10x</Series>
     </SupportMCUSeries>
 
     <Doc>$Driver_ROOT$\doc\</Doc>
