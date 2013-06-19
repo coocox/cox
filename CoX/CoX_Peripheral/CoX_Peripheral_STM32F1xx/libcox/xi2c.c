@@ -7,35 +7,36 @@
 //! \author CooCox
 //! \copy
 //!
-//! Copyright (c)  2011, CooCox 
+//! Copyright (c)  2011, CooCox
 //! All rights reserved.
-//! 
-//! Redistribution and use in source and binary forms, with or without 
-//! modification, are permitted provided that the following conditions 
-//! are met: 
-//! 
-//!     * Redistributions of source code must retain the above copyright 
-//! notice, this list of conditions and the following disclaimer. 
+//!
+//! Redistribution and use in source and binary forms, with or without
+//! modification, are permitted provided that the following conditions
+//! are met:
+//!
+//!     * Redistributions of source code must retain the above copyright
+//! notice, this list of conditions and the following disclaimer.
 //!     * Redistributions in binary form must reproduce the above copyright
 //! notice, this list of conditions and the following disclaimer in the
-//! documentation and/or other materials provided with the distribution. 
-//!     * Neither the name of the <ORGANIZATION> nor the names of its 
-//! contributors may be used to endorse or promote products derived 
-//! from this software without specific prior written permission. 
-//! 
+//! documentation and/or other materials provided with the distribution.
+//!     * Neither the name of the <ORGANIZATION> nor the names of its
+//! contributors may be used to endorse or promote products derived
+//! from this software without specific prior written permission.
+//!
 //! THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-//! AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//! AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 //! IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-//! ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
-//! LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
-//! CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+//! ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+//! LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+//! CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
 //! SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-//! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
-//! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-//! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+//! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+//! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+//! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 //! THE POSPIBILITY OF SUCH DAMAGE.
 //
 //*****************************************************************************
+#include <stdint.h>
 
 #include "xhw_types.h"
 #include "xhw_ints.h"
@@ -45,8 +46,10 @@
 #include "xhw_i2c.h"
 #include "xdebug.h"
 #include "xcore.h"
+#include "xsysctl.h"
 #include "xi2c.h"
-
+#include "xhw_dma.h"
+#include "xdma.h"   
 
 //*****************************************************************************
 //
@@ -58,11 +61,11 @@ static xtEventCallback g_pfnI2CHandlerCallbacks[2]={0};
 //*****************************************************************************
 //
 //! \internal
-//! \brief Generate a start condition on I2C bus. 
+//! \brief Generate a start condition on I2C bus.
 //!
 //! \param ulBase specifies the I2C module base address.
 //!
-//! This function is to generate a start condition on 
+//! This function is to generate a start condition on
 //! specified I2C BUS.
 //!
 //! The \e ulBase can be one of the following values:
@@ -73,7 +76,7 @@ static xtEventCallback g_pfnI2CHandlerCallbacks[2]={0};
 //! \return None.
 //
 //*****************************************************************************
-static void I2CStartSend (unsigned long ulBase)
+void I2CStartSend (unsigned long ulBase)
 {
     //
     // Check the arguments.
@@ -88,11 +91,11 @@ static void I2CStartSend (unsigned long ulBase)
 
 //*****************************************************************************
 //
-//! \brief Generate a stop condition on I2C bus. 
+//! \brief Generate a stop condition on I2C bus.
 //!
 //! \param ulBase specifies the I2C module base address.
 //!
-//! This function is to generate a stop condition on 
+//! This function is to generate a stop condition on
 //! specified I2C BUS.
 //!
 //! The \e ulBase can be one of the following values:
@@ -110,14 +113,14 @@ I2CStopSend (unsigned long ulBase)
     // Check the arguments.
     //
     xASSERT((ulBase == I2C2_BASE) || (ulBase == I2C1_BASE));
-    
+
     xHWREG(ulBase + I2C_CR1) |= I2C_CR1_STOP;
 }
 
 //*****************************************************************************
 //
 //! \internal
-//! \brief Send a byte to I2C bus. 
+//! \brief Send a byte to I2C bus.
 //!
 //! \param ulBase specifies the I2C module base address.
 //! \param ucData specifies the data which will send to I2C BUS.
@@ -138,48 +141,48 @@ static void I2CByteSend (unsigned long ulBase, unsigned char ucData)
     // Check the arguments.
     //
     xASSERT((ulBase == I2C2_BASE) || (ulBase == I2C1_BASE));
-            
+
     //
-    // Send i2c address and RW bit 
+    // Send i2c address and RW bit
     //
     xHWREG(ulBase + I2C_DR) = ucData;
 }
 
 //*****************************************************************************
 //
-//! \internal
 //! \brief Checks whether the last I2Cx Event is equal to the one passed
 //! as parameter.
 //!
 //! \param ulBase specifies the I2C module base address.
 //! \param ulEvent is the specifies the event to be checked.
 //!
-//! This function is to checks whether the last I2Cx Event is equal to the one 
+//! This function is to checks whether the last I2Cx Event is equal to the one
 //! passed as parameter.
 //!
 //! The \e ulBase can be one of the following values:
 //! \b I2C1_BASE, \b I2C2_BASE.
 //!
-//! \return An Error Status enumeration value: 
+//! \return An Error Status enumeration value:
 //! xtrue :Last event is equal to the I2C_EVENT
 //! xfalse :Last event is different from the I2C_EVENT
 //
 //*****************************************************************************
-static xtBoolean 
+xtBoolean
 I2CEventCheck (unsigned long ulBase, unsigned long ulEvent)
 {
-    unsigned long ulLastEvent;
-    unsigned long ulSR1,ulSR2;
+    unsigned long ulLastEvent = 0;
+    unsigned long ulSR1       = 0;
+    unsigned long ulSR2       = 0;
+
     //
     // Check the arguments.
     //
     xASSERT((ulBase == I2C2_BASE) || (ulBase == I2C1_BASE));
-    xASSERT((ulEvent == I2C_EVENT_SLAVE_TRANSMITTER_ADDRESS_MATCHED) || 
+    xASSERT((ulEvent == I2C_EVENT_SLAVE_TRANSMITTER_ADDRESS_MATCHED) ||
             (ulEvent == I2C_EVENT_SLAVE_RECEIVER_ADDRESS_MATCHED) ||
             (ulEvent == I2C_EVENT_SLAVE_TRANSMITTER_SECONDADDRESS_MATCHED) ||
             (ulEvent == I2C_EVENT_SLAVE_RECEIVER_SECONDADDRESS_MATCHED) ||
             (ulEvent == I2C_EVENT_SLAVE_GENERALCALLADDRESS_MATCHED) ||
-            (ulEvent == I2C_EVENT_SLAVE_BYTE_RECEIVED) ||
             (ulEvent == I2C_EVENT_SLAVE_BYTE_RECEIVED) ||
             (ulEvent == I2C_EVENT_SLAVE_BYTE_TRANSMITTED) ||
             (ulEvent == I2C_EVENT_SLAVE_ACK_FAILURE) ||
@@ -198,7 +201,7 @@ I2CEventCheck (unsigned long ulBase, unsigned long ulEvent)
     ulSR1 = xHWREG(ulBase + I2C_SR1);
     ulSR2 = (xHWREG(ulBase + I2C_SR2) << 16);
     ulLastEvent = (ulSR1 | ulSR2) & 0x00FFFFFF;
-	
+
     if((ulLastEvent & ulEvent) == ulEvent)
     {
         return xtrue;
@@ -211,12 +214,12 @@ I2CEventCheck (unsigned long ulBase, unsigned long ulEvent)
 
 //*****************************************************************************
 //
-//! \brief I2C1 interrupt handler. Clear the I2C1 interrupt flag and execute the 
+//! \brief I2C1 interrupt handler. Clear the I2C1 interrupt flag and execute the
 //! callback function.
 //!
 //! \param none.
 //!
-//! This function is the I2C1 interrupt handler,it will Clear the I2C1 
+//! This function is the I2C1 interrupt handler,it will Clear the I2C1
 //! interrupt flag and execute the callback function if there be one.
 //!
 //! \note There are many source of this interrupt.
@@ -224,7 +227,7 @@ I2CEventCheck (unsigned long ulBase, unsigned long ulEvent)
 //! \return None.
 //
 //*****************************************************************************
-void 
+void
 I2C1EVIntHandler(void)
 {
     unsigned long ulBase = I2C1_BASE;
@@ -240,9 +243,9 @@ I2C1EVIntHandler(void)
     //
     I2CFlagStatusClear(ulBase, I2C_EVENT_SMBALERT | I2C_EVENT_TIMEOUT |
                                   I2C_EVENT_PECERR | I2C_EVENT_OVR |
-                                  I2C_EVENT_AF | I2C_EVENT_ARLO | 
+                                  I2C_EVENT_AF | I2C_EVENT_ARLO |
                                   I2C_EVENT_BERR);
-    
+
     if((ulStatus == I2C_EVENT_SLAVE_BYTE_RECEIVED))
     {
         g_pfnI2CHandlerCallbacks[0](0, 0, xI2C_SLAVE_EVENT_RREQ, 0);
@@ -271,12 +274,12 @@ I2C1EVIntHandler(void)
 
 //*****************************************************************************
 //
-//! \brief I2C2 interrupt handler. Clear the I2C2 interrupt flag and execute the 
+//! \brief I2C2 interrupt handler. Clear the I2C2 interrupt flag and execute the
 //! callback function.
 //!
 //! \param none.
 //!
-//! This function is the I2C1 interrupt handler,it will Clear the I2C2 
+//! This function is the I2C1 interrupt handler,it will Clear the I2C2
 //! interrupt flag and execute the callback function if there be one.
 //!
 //! \note There are many source of this interrupt.
@@ -284,7 +287,7 @@ I2C1EVIntHandler(void)
 //! \return None.
 //
 //*****************************************************************************
-void 
+void
 I2C2EVIntHandler(void)
 {
     unsigned long ulBase = I2C2_BASE;
@@ -299,9 +302,9 @@ I2C2EVIntHandler(void)
     //
     I2CFlagStatusClear(ulBase, I2C_EVENT_SMBALERT | I2C_EVENT_TIMEOUT |
                                   I2C_EVENT_PECERR | I2C_EVENT_OVR |
-                                  I2C_EVENT_AF | I2C_EVENT_ARLO | 
+                                  I2C_EVENT_AF | I2C_EVENT_ARLO |
                                   I2C_EVENT_BERR);
-    
+
     if((ulStatus == I2C_EVENT_SLAVE_RECEIVER_ADDRESS_MATCHED) ||
        (ulStatus == I2C_EVENT_SLAVE_BYTE_RECEIVED));
     {
@@ -349,8 +352,8 @@ I2C2EVIntHandler(void)
 //! Tlow/Thigh = 2; otherwise, Fast mode speed calculate: Tlow/Thigh = 16/9.
 //!
 //! The peripheral clock will be the same as the PCLK1 clock.  This will be
-//! the value returned by SysCtlAPB1ClockGet(), or it can be explicitly hard 
-//! coded if it is constant and known (to save the code/execution overhead of 
+//! the value returned by SysCtlAPB1ClockGet(), or it can be explicitly hard
+//! coded if it is constant and known (to save the code/execution overhead of
 //! a call to SysCtlAPB1ClockGet()).
 //!
 //! \return None.
@@ -370,7 +373,7 @@ I2CMasterInit(unsigned long ulBase, unsigned long ulI2CClk,
     xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
 
     xHWREG(ulBase + I2C_CR2) &= ~I2C_CR2_FREQ_M;
-    
+
     xHWREG(ulBase + I2C_CR2) |= (ulI2CClk/1000000);
     ulTRISE = (ulI2CClk/1000000);
 
@@ -399,7 +402,7 @@ I2CMasterInit(unsigned long ulBase, unsigned long ulI2CClk,
             //
             ulCCR = ulI2CClk / (ulSCLFreq * 25);
             ulCCR |= I2C_CCR_DUTY;
-            
+
         }
         ulCCR |= I2C_CCR_F_S;
         xHWREG(ulBase + I2C_CCR) = ulCCR;
@@ -432,7 +435,7 @@ I2CMasterInit(unsigned long ulBase, unsigned long ulI2CClk,
 //! \param ucSlaveAddr specifies the slave address.
 //! \param ulGeneralCall specifies enable General Call function or not.
 //!
-//! This function is to Set 4 7-bit slave addresses and enable General Call 
+//! This function is to Set 4 7-bit slave addresses and enable General Call
 //! function of specified I2C port.
 //!
 //! The \e ulBase can be one of the following values:
@@ -453,8 +456,8 @@ I2CMasterInit(unsigned long ulBase, unsigned long ulI2CClk,
 //! \return None.
 //
 //*****************************************************************************
-void 
-I2CSlaveInit(unsigned long ulBase, unsigned long ulAddrConfig, 
+void
+I2CSlaveInit(unsigned long ulBase, unsigned long ulAddrConfig,
              unsigned char ucSlaveAddr, unsigned long ulGeneralCall)
 {
     //
@@ -478,6 +481,7 @@ I2CSlaveInit(unsigned long ulBase, unsigned long ulAddrConfig,
     xHWREG(ulBase + I2C_CR1) |= ulGeneralCall;
 }
 
+
 //*****************************************************************************
 //
 //! Enables the I2C block.
@@ -500,7 +504,7 @@ I2CEnable(unsigned long ulBase)
     //
     // Set the I2C mode.
     //
-    xHWREG(ulBase + I2C_CR1) &= ~I2C_CR1_SMBUS;
+    //xHWREG(ulBase + I2C_CR1) &= ~I2C_CR1_SMBUS;
 
     //
     // Enable the master block.
@@ -595,7 +599,7 @@ I2CMasterDisable(unsigned long ulBase)
 //! \param ulIntType is the interrupt type of the I2C module.
 //!
 //! The \e ulIntType is the interrupt type of the I2C module.
-//! The ulIntType can be "OR" value of \b I2C_INT_BUF, \b I2C_INT_EVT, 
+//! The ulIntType can be "OR" value of \b I2C_INT_BUF, \b I2C_INT_EVT,
 //! \b I2C_INT_ERR.
 //!
 //! Enables the I2C interrupt source.
@@ -610,11 +614,12 @@ I2CIntEnable(unsigned long ulBase, unsigned long ulIntType)
     // Check the arguments.
     //
     xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
+    xASSERT((ulIntType & I2C_INT_ERR & I2C_INT_BUF & I2C_INT_EVT));
 
     //
     // Enable the master interrupt.
     //
-    xHWREG(ulBase + I2C_CR2) = ulIntType;
+    xHWREG(ulBase + I2C_CR2) |= ulIntType;
 }
 
 //*****************************************************************************
@@ -625,7 +630,7 @@ I2CIntEnable(unsigned long ulBase, unsigned long ulIntType)
 //! \param ulIntType is the interrupt type of the I2C module.
 //!
 //! The \e ulIntType is the interrupt type of the I2C module.
-//! The ulIntType can be "OR" value of \b I2C_INT_BUF, \b I2C_INT_EVT, 
+//! The ulIntType can be "OR" value of \b I2C_INT_BUF, \b I2C_INT_EVT,
 //! \b I2C_INT_ERR.
 //!
 //! Disables the I2C interrupt source.
@@ -640,6 +645,7 @@ I2CIntDisable(unsigned long ulBase, unsigned long ulIntType)
     // Check the arguments.
     //
     xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
+    xASSERT((ulIntType & I2C_INT_ERR & I2C_INT_BUF & I2C_INT_EVT));
 
     //
     // Disable the master interrupt.
@@ -660,7 +666,7 @@ I2CIntDisable(unsigned long ulBase, unsigned long ulIntType)
 //
 //*****************************************************************************
 void
-I2CIntCallbackInit(unsigned long ulBase, 
+I2CIntCallbackInit(unsigned long ulBase,
                    xtEventCallback xtI2CCallback)
 {
     //
@@ -703,6 +709,8 @@ I2CIntCallbackInit(unsigned long ulBase,
 void
 I2CDMAEnable(unsigned long ulBase, unsigned long ulDMALast)
 {
+    unsigned long ultmpreg = 0;
+
     //
     // Check the arguments.
     //
@@ -711,9 +719,11 @@ I2CDMAEnable(unsigned long ulBase, unsigned long ulDMALast)
     //
     // Enable the DMA of I2C block.
     //
-    xHWREG(ulBase + I2C_CR2) |= I2C_CR2_DMAEN;
-    xHWREG(ulBase + I2C_CR2) &= ~I2C_CR2_LAST;
-    xHWREG(ulBase + I2C_CR2) |= ulDMALast;
+    ultmpreg =   xHWREG(ulBase + I2C_CR2);
+    ultmpreg |=  I2C_CR2_DMAEN;
+    ultmpreg &= ~I2C_CR2_LAST;
+    ultmpreg |=  ulDMALast;
+    xHWREG(ulBase + I2C_CR2) = ultmpreg;
 }
 
 //*****************************************************************************
@@ -723,6 +733,7 @@ I2CDMAEnable(unsigned long ulBase, unsigned long ulDMALast)
 //! \param ulBase is the base address of the I2C module.
 //!
 //! This will disable DMA operation of the I2C block.
+//! at the same time, this function disable DMA_LAST bit
 //!
 //! \return None.
 //
@@ -738,8 +749,7 @@ I2CDMADisable(unsigned long ulBase)
     //
     // Enable the DMA of I2C block.
     //
-    xHWREG(ulBase + I2C_CR2) &= ~I2C_CR2_DMAEN;
-    xHWREG(ulBase + I2C_CR2) &= ~I2C_CR2_LAST;
+    xHWREG(ulBase + I2C_CR2) &= ~(I2C_CR2_DMAEN | I2C_CR2_LAST);
 }
 
 //*****************************************************************************
@@ -758,7 +768,7 @@ I2CDMADisable(unsigned long ulBase)
 //
 //*****************************************************************************
 void
-I2COwnAddress2Config(unsigned long ulBase, unsigned long ulDual, 
+I2COwnAddress2Config(unsigned long ulBase, unsigned long ulDual,
                      unsigned char ucAddress)
 {
     //
@@ -783,7 +793,7 @@ I2COwnAddress2Config(unsigned long ulBase, unsigned long ulDual,
 //! \return None.
 //
 //*****************************************************************************
-void  
+void
 I2CSoftwareResetEnable(unsigned long ulBase)
 {
     //
@@ -792,10 +802,10 @@ I2CSoftwareResetEnable(unsigned long ulBase)
     xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
 
     //
-    // This bit can be used in case the BUSY bit is set to 1 when no stop 
+    // This bit can be used in case the BUSY bit is set to 1 when no stop
     // condition has been detected on the bus.
     //
-    while ((xHWREG(ulBase + I2C_SR1) & I2C_SR1_STOPF));
+    //while ((xHWREG(ulBase + I2C_SR1) & I2C_SR1_STOPF));
     while (!(xHWREG(ulBase + I2C_SR2) & I2C_SR2_BUSY));
 
     //
@@ -841,28 +851,28 @@ I2CSoftwareResetDisable(unsigned long ulBase)
 //!
 //! Selects the specified I2C NACK position in master receiver mode.
 //! This function is useful in I2C Master Receiver mode when the number
-//! of data to be received is equal to 2. In this case, this function 
-//! should be called (with parameter I2C_NACKPosition_Next) before data 
-//! reception starts,as described in the 2-byte reception procedure 
+//! of data to be received is equal to 2. In this case, this function
+//! should be called (with parameter I2C_NACKPosition_Next) before data
+//! reception starts,as described in the 2-byte reception procedure
 //! recommended in Reference Manual in Section: Master receiver.
 //!
-//! \note This function configures the same bit (POS) as I2CPECPositionConfig() 
-//! but is intended to be used in I2C mode while I2CPECPositionConfig() 
+//! \note This function configures the same bit (POS) as I2CPECPositionConfig()
+//! but is intended to be used in I2C mode while I2CPECPositionConfig()
 //! is intended to used in SMBUS mode.
 //!
 //! \return None.
 //
 //*****************************************************************************
-void 
+void
 I2CNACKPositionConfig(unsigned long ulBase, unsigned long ulNACKPosition)
 {
     //
     // Check the arguments.
     //
     xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
-    xASSERT((ulNACKPosition == I2C_NACKPOS_NEXT) || 
+    xASSERT((ulNACKPosition == I2C_NACKPOS_NEXT) ||
             (ulNACKPosition == I2C_NACKPOS_CURRENT));
-    
+
     xHWREG(ulBase + I2C_CR1) &= ~I2C_CR1_POS;
     xHWREG(ulBase + I2C_CR1) |= ulNACKPosition;
 }
@@ -879,14 +889,14 @@ I2CNACKPositionConfig(unsigned long ulBase, unsigned long ulNACKPosition)
 //!
 //! Selects the specified I2C PEC position in SMBUS mode.
 //!
-//! \note  This function configures the same bit (POS) as 
+//! \note  This function configures the same bit (POS) as
 //! I2CNACKPositionConfig() but is intended to be used in SMBUS mode while
 //! I2CNACKPositionConfig() is intended to used in I2C mode.
 //!
 //! \return None.
 //
 //*****************************************************************************
-void 
+void
 I2CPECPositionConfig(unsigned long ulBase, unsigned long ulPECPosition)
 {
     //
@@ -914,14 +924,14 @@ I2CPECPositionConfig(unsigned long ulBase, unsigned long ulPECPosition)
 //!
 //! Selects the specified I2C PEC position in SMBUS mode.
 //!
-//! \note  This function configures the same bit (POS) as 
+//! \note  This function configures the same bit (POS) as
 //! I2CNACKPositionConfig() but is intended to be used in SMBUS mode while
 //! I2CNACKPositionConfig() is intended to used in I2C mode.
 //!
 //! \return None.
 //
 //*****************************************************************************
-void 
+void
 I2CPECConfig(unsigned long ulBase, unsigned long ulConfig)
 {
     //
@@ -976,7 +986,12 @@ I2CStretchClockEnable(unsigned long ulBase)
     //
     xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
 
-    xHWREG(ulBase + I2C_CR1) |= I2C_CR1_NOSTRETCH;
+    //Modify By Cedar 2013-5-29
+    //When Unset NOSTRETCH, I2C Stretch function is ENABLED
+    //Literal meaning is confused
+    //xHWREG(ulBase + I2C_CR1) |= I2C_CR1_NOSTRETCH;
+    xHWREG(ulBase + I2C_CR1) &= ~I2C_CR1_NOSTRETCH;
+
 }
 
 //*****************************************************************************
@@ -1000,7 +1015,11 @@ I2CStretchClockDisable(unsigned long ulBase)
     //
     xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
 
-    xHWREG(ulBase + I2C_CR1) &= ~I2C_CR1_NOSTRETCH;
+    //Modify By Cedar 2013-5-29
+    //When Set NOSTRETCH, I2C Stretch function is DISABLED
+    //Literal meaning is confused
+    //xHWREG(ulBase + I2C_CR1) &= ~I2C_CR1_NOSTRETCH;
+    xHWREG(ulBase + I2C_CR1) |= I2C_CR1_NOSTRETCH;
 }
 
 //*****************************************************************************
@@ -1009,7 +1028,7 @@ I2CStretchClockDisable(unsigned long ulBase)
 //!
 //! \param ulBase is the base address of the I2C Master module.
 //!
-//! This returns the status for the I2C module. 
+//! This returns the status for the I2C module.
 //!
 //! \return The current status vaules.
 //
@@ -1025,12 +1044,12 @@ I2CStatusGet(unsigned long ulBase)
     xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
 
     //
-    // Return the status 
+    // Return the status
     //
     ulSR1 = xHWREG(ulBase + I2C_SR1);
     ulSR2 = (xHWREG(ulBase + I2C_SR2) << 16);
     ulStatus = (ulSR1 | ulSR2) & 0x00FFFFFF;
-    
+
     return ulStatus;
 }
 
@@ -1050,18 +1069,18 @@ I2CStatusGet(unsigned long ulBase)
 //! \b I2C_EVENT_ARLO: Arbitration lost flag (Master mode)
 //! \b I2C_EVENT_BERR: Bus error flag
 //!
-//! \note 
-//! - STOPF (STOP detection) is cleared by software sequence: a read operation 
-//!   to I2C_SR1 register followed by a write operation 
+//! \note
+//! - STOPF (STOP detection) is cleared by software sequence: a read operation
+//!   to I2C_SR1 register followed by a write operation
 //!   to I2C_CR1 register to re-enable the I2C peripheral).
-//! - ADD10 (10-bit header sent) is cleared by software sequence: a read 
-//!   operation to I2C_SR1 followed by writing the 
+//! - ADD10 (10-bit header sent) is cleared by software sequence: a read
+//!   operation to I2C_SR1 followed by writing the
 //!   second byte of the address in DR register.
-//! - BTF (Byte Transfer Finished) is cleared by software sequence: a read 
-//!   operation to I2C_SR1 register followed by a 
+//! - BTF (Byte Transfer Finished) is cleared by software sequence: a read
+//!   operation to I2C_SR1 register followed by a
 //!   read/write to I2C_DR register .
-//! - ADDR (Address sent) is cleared by software sequence: a read operation to 
-//!   I2C_SR1 register  followed by a read operation to 
+//! - ADDR (Address sent) is cleared by software sequence: a read operation to
+//!   I2C_SR1 register  followed by a read operation to
 //!   I2C_SR2 register .
 //! - SB (Start Bit) is cleared software sequence: a read operation to I2C_SR1
 //!   register followed by a write operation to I2C_DR
@@ -1181,6 +1200,38 @@ I2CDataPut(unsigned long ulBase, unsigned char ucData)
     //
     xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
 
+    //Should wait for TXE = 1
+
+    //
+    // Write the byte.
+    //
+    xHWREG(ulBase + I2C_DR) = ucData;
+}
+
+//*****************************************************************************
+//
+//! Transmits a byte from the I2C Master(Blocking).
+//!
+//! \param ulBase is the base address of the I2C Master module.
+//! \param ucData data to be transmitted from the I2C Master
+//!
+//! This function will place the supplied data into I2C Master Data Register.
+//! First wait for TxE, then send the data
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+I2CDataPutBlocking(unsigned long ulBase, unsigned char ucData)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
+
+    //Should wait for TXE = 1
+    while((xHWREG(ulBase + I2C_SR1) & I2C_SR1_TXE) == 0);
+
     //
     // Write the byte.
     //
@@ -1215,25 +1266,55 @@ I2CDataGet(unsigned long ulBase)
 
 //*****************************************************************************
 //
+//! Receives a byte that has been sent to the I2C Master(Blocking).
+//!
+//! \param ulBase is the base address of the I2C Master module.
+//!
+//! This function reads a byte of data from the I2C Master Data Register.
+//! function will wait for RxNE
+//!
+//! \return Returns the byte received from by the I2C Master, cast as an
+//! unsigned long.
+//
+//*****************************************************************************
+unsigned long
+I2CDataGetBlocking(unsigned long ulBase)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
+
+    //Should wait for RxNE = 1
+    while((xHWREG(ulBase + I2C_SR1) & I2C_SR1_RXNE) == 0);
+
+    //
+    // Read a byte.
+    //
+    return(xHWREG(ulBase + I2C_DR));
+}
+
+//*****************************************************************************
+//
 //! \brief Send a master transmit request when the bus is idle.(Write Step1)
 //!
 //! \param ulBase is the base address of the I2C Master module.
 //! \param ucSlaveAddr is the 7-bit slave address.
 //! \param ucData is the byte to transmit.
 //! \param bEndTransmition is flag to control if transmit the STOP condition and
-//! terminate this transmition. 
+//! terminate this transmition.
 //!
 //! This function init a new write transmition. When the master have not obtained
-//! control of the bus, This function send request to transmit the START 
-//! condition, the slave address and the data, Then it returns immediately, no 
-//! waiting any bus transmition to complete. 
+//! control of the bus, This function send request to transmit the START
+//! condition, the slave address and the data, Then it returns immediately, no
+//! waiting any bus transmition to complete.
 //!
-//! Users can call I2CMasterBusy() to check if all the bus transmition 
-//! complete, the call I2CMasterErr() to check if any error occurs. 
+//! Users can call I2CMasterBusy() to check if all the bus transmition
+//! complete, the call I2CMasterErr() to check if any error occurs.
 //!
-//! After the master obtained control of the bus, and haven't release it, users 
+//! After the master obtained control of the bus, and haven't release it, users
 //! can call I2CMasterWriteRequestS2() to continue transmit data to slave.
-//! Users can also call I2CMasterStop() to terminate this transmition and 
+//! Users can also call I2CMasterStop() to terminate this transmition and
 //! release the I2C bus.
 //!
 //! For this function returns immediately, it is always using in the interrupt
@@ -1242,12 +1323,12 @@ I2CDataGet(unsigned long ulBase)
 //! \return None.
 //
 //*****************************************************************************
-void 
+void
 I2CMasterWriteRequestS1(unsigned long ulBase, unsigned char ucSlaveAddr,
                         unsigned char ucData, xtBoolean bEndTransmition)
 {
     unsigned long ulStatus;
-    
+
     //
     // Check the arguments.
     //
@@ -1256,15 +1337,15 @@ I2CMasterWriteRequestS1(unsigned long ulBase, unsigned char ucSlaveAddr,
 
     //
     // Waitting the I2C Control & I2C bus to idle
-    //    
+    //
     do
     {
         ulStatus = xHWREG(ulBase + I2C_SR2);
     }while((ulStatus & I2C_SR2_BUSY));
-    
+
     //
     // Send start
-    //    
+    //
     I2CStartSend(ulBase);
     while(!I2CEventCheck(ulBase, I2C_EVENT_MASTER_MODE_SELECT))
     {
@@ -1274,11 +1355,11 @@ I2CMasterWriteRequestS1(unsigned long ulBase, unsigned char ucSlaveAddr,
 
     //
     // Send address
-    //    
+    //
     I2CByteSend(ulBase, (ucSlaveAddr << 1) | 0);
     do
     {
-        ulStatus = I2CStatusGet(ulBase);  
+        ulStatus = I2CStatusGet(ulBase);
         if(xHWREG(ulBase + I2C_SR1) & 0x0F00)
             break;
     }
@@ -1286,14 +1367,14 @@ I2CMasterWriteRequestS1(unsigned long ulBase, unsigned char ucSlaveAddr,
 
     //
     // Send data
-    //    
+    //
     I2CByteSend(ulBase, ucData);
 
     if(bEndTransmition)
     {
         do
         {
-            ulStatus = I2CStatusGet(ulBase);  
+            ulStatus = I2CStatusGet(ulBase);
             if(xHWREG(ulBase + I2C_SR1) & 0x0F00)
                 break;
         }
@@ -1304,24 +1385,24 @@ I2CMasterWriteRequestS1(unsigned long ulBase, unsigned char ucSlaveAddr,
 
 //*****************************************************************************
 //
-//! \brief Send a master data transmit request when the master have obtained 
+//! \brief Send a master data transmit request when the master have obtained
 //! control of the bus.(Write Step2)
 //!
 //! \param ulBase is the base address of the I2C Master module.
 //! \param ucData is the byte to transmit.
 //! \param bEndTransmition is flag to control if transmit the STOP condition and
-//! terminate this transmition. 
+//! terminate this transmition.
 //!
-//! After the master obtained control of the bus(have called  
-//! I2CMasterWriteRequestS1() without any error), and haven't release it, users 
+//! After the master obtained control of the bus(have called
+//! I2CMasterWriteRequestS1() without any error), and haven't release it, users
 //! can call this function to continue transmit data to slave.
 //!
-//! This function just send request to transmit the data, and it returns 
-//! immediately, no waiting any bus transmition to complete. 
+//! This function just send request to transmit the data, and it returns
+//! immediately, no waiting any bus transmition to complete.
 //!
-//! Users can call I2CMasterBusy() to check if all the bus transmition 
+//! Users can call I2CMasterBusy() to check if all the bus transmition
 //! complete, the call I2CMasterErr() to check if any error occurs. Users call
-//! also can I2CMasterStop() to terminate this transmition and release the 
+//! also can I2CMasterStop() to terminate this transmition and release the
 //! I2C bus.
 //!
 //! For this function returns immediately, it is always using in the interrupt
@@ -1335,17 +1416,17 @@ I2CMasterWriteRequestS2(unsigned long ulBase, unsigned char ucData,
                         xtBoolean bEndTransmition)
 {
     unsigned long ulStatus;
-    
+
     //
     // Check the arguments.
-    //    
+    //
     xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
-    
+
     //
     // Write the byte.
     //
     xHWREG(ulBase + I2C_DR) = ucData;
-    
+
     //
     // Send the stop if End Transmition.
     //
@@ -1353,28 +1434,28 @@ I2CMasterWriteRequestS2(unsigned long ulBase, unsigned char ucData,
     {
         do
         {
-            ulStatus = I2CStatusGet(ulBase);  
+            ulStatus = I2CStatusGet(ulBase);
             if(xHWREG(ulBase + I2C_SR1) & 0x0F00)
                 break;
         }
         while(!(ulStatus == I2C_EVENT_MASTER_BYTE_TRANSMITTED));
         I2CStopSend(ulBase);
-    }    
+    }
 }
 
 //*****************************************************************************
 //
-//! \brief Write a data to the slave when the bus is idle, and waiting for all 
+//! \brief Write a data to the slave when the bus is idle, and waiting for all
 //! bus transmiton complete.(Write Step1)
 //!
 //! \param ulBase is the base address of the I2C Master module.
 //! \param ucSlaveAddr is the 7-bit slave address.
 //! \param ucData is the byte to transmit.
 //! \param bEndTransmition is flag to control if transmit the STOP condition and
-//! terminate this transmition. 
+//! terminate this transmition.
 //!
 //! This function init a new write transmition. When the master have not obtained
-//! control of the bus, This function transmit the START condition, the slave 
+//! control of the bus, This function transmit the START condition, the slave
 //! address and the data, then waiting for all bus transmition complete.
 //!
 //! Users can then check the return value to see if any error occurs:
@@ -1383,9 +1464,9 @@ I2CMasterWriteRequestS2(unsigned long ulBase, unsigned char ucData,
 //! - \ref I2C_MASTER_ERR_DATA_ACK - The transmitted data was not acknowledged
 //! - \ref I2C_MASTER_ERR_ARB_LOST - The I2C controller lost arbitration.
 //!
-//! After the master obtained control of the bus, and haven't release it, users 
+//! After the master obtained control of the bus, and haven't release it, users
 //! can call I2CMasterWriteS2() to continue transmit data to slave.
-//! Users call also can I2CMasterStop() to terminate this transmition and 
+//! Users call also can I2CMasterStop() to terminate this transmition and
 //! release the I2C bus.
 //!
 //! This function is always used in thread mode.
@@ -1393,29 +1474,29 @@ I2CMasterWriteRequestS2(unsigned long ulBase, unsigned char ucData,
 //! \return Returns the master error status.
 //
 //*****************************************************************************
-unsigned long 
+unsigned long
 I2CMasterWriteS1(unsigned long ulBase, unsigned char ucSlaveAddr,
                  unsigned char ucData, xtBoolean bEndTransmition)
 {
     unsigned long ulStatus;
-    
+
     //
     // Check the arguments.
-    //    
+    //
     xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
     xASSERT(!(ucSlaveAddr & 0x80));
-    
+
     //
     // Send write request
     //
     I2CMasterWriteRequestS1(ulBase, ucSlaveAddr, ucData, xfalse);
-    
+
     //
     // Waiting the I2C controller to be transmited
     //
     do
     {
-        ulStatus = I2CStatusGet(ulBase);  
+        ulStatus = I2CStatusGet(ulBase);
         if(xHWREG(ulBase + I2C_SR1) & 0x0F00)
             break;
     }
@@ -1425,29 +1506,29 @@ I2CMasterWriteS1(unsigned long ulBase, unsigned char ucSlaveAddr,
     {
         I2CStopSend(ulBase);
     }
-    
+
     //
     // return the error status
     //
     return (ulStatus & (I2C_SR1_ARLO | I2C_SR1_AF));
-    
+
 }
 
 //*****************************************************************************
 //
-//! \brief Write a data to the slave, when the master have obtained control of 
+//! \brief Write a data to the slave, when the master have obtained control of
 //! the bus, and waiting for all bus transmiton complete.(Write Step2)
 //!
 //! \param ulBase is the base address of the I2C Master module.
 //! \param ucData is the byte to transmit.
 //! \param bEndTransmition is flag to control if transmit the STOP condition and
-//! terminate this transmition. 
+//! terminate this transmition.
 //!
-//! After the master obtained control of the bus(have called  
-//! I2CMasterWriteS1() without any error), and haven't release it, users 
+//! After the master obtained control of the bus(have called
+//! I2CMasterWriteS1() without any error), and haven't release it, users
 //! can call this function to continue transmit data to slave.
 //!
-//! This function transmit the data to the slave, and waiting for all bus 
+//! This function transmit the data to the slave, and waiting for all bus
 //! transmition complete.
 //!
 //! Users can then check the return value to see if any error occurs:
@@ -1457,7 +1538,7 @@ I2CMasterWriteS1(unsigned long ulBase, unsigned char ucSlaveAddr,
 //! - \ref I2C_MASTER_ERR_ARB_LOST - The I2C controller lost arbitration.
 //!
 //! Then users can call this function to continue transmit data to slave.
-//! Users call also call I2CMasterStop() to terminate this transmition and 
+//! Users call also call I2CMasterStop() to terminate this transmition and
 //! release the I2C bus.
 //!
 //! This function is always used in thread mode.
@@ -1465,48 +1546,48 @@ I2CMasterWriteS1(unsigned long ulBase, unsigned char ucSlaveAddr,
 //! \return Returns the master error status.
 //
 //*****************************************************************************
-unsigned long 
+unsigned long
 I2CMasterWriteS2(unsigned long ulBase, unsigned char ucData,
                  xtBoolean bEndTransmition)
 {
     unsigned long ulStatus;
-    
+
     //
     // Check the arguments.
-    //    
+    //
     xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
-    
+
     //
     // Send write request
     //
     I2CMasterWriteRequestS2(ulBase, ucData, xfalse);
-    
+
     //
     // Waiting the I2C controller to br transmited
     //
     do
     {
-        ulStatus = I2CStatusGet(ulBase);  
+        ulStatus = I2CStatusGet(ulBase);
         if(xHWREG(ulBase + I2C_SR1) & 0x0F00)
             break;
     }
     while(!(ulStatus == I2C_EVENT_MASTER_BYTE_TRANSMITTED));
-    
+
     if(bEndTransmition)
     {
         I2CStopSend(ulBase);
     }
-        
+
     //
     // return the error status
     //
-    return (ulStatus & (I2C_SR1_ARLO | I2C_SR1_AF));    
-    
+    return (ulStatus & (I2C_SR1_ARLO | I2C_SR1_AF));
+
 }
 
 //*****************************************************************************
 //
-//! \brief Write a data buffer to the slave when the bus is idle, and waiting   
+//! \brief Write a data buffer to the slave when the bus is idle, and waiting
 //! for all bus transmiton complete.(Write Buffer Step1)
 //!
 //! \param ulBase is the base address of the I2C Master module.
@@ -1516,19 +1597,19 @@ I2CMasterWriteS2(unsigned long ulBase, unsigned char ucData,
 //! \param bEndTransmition is flag to control if transmit the STOP condition and
 //! terminate this transmition.
 //!
-//! This function init a new data buffer write transmition. When the master have 
-//! not obtained control of the bus, This function transmit the START condition,  
-//! the slave address and the data, then waiting for the data transmition 
-//! complete, and continue next data transmition, until all complete. If there 
+//! This function init a new data buffer write transmition. When the master have
+//! not obtained control of the bus, This function transmit the START condition,
+//! the slave address and the data, then waiting for the data transmition
+//! complete, and continue next data transmition, until all complete. If there
 //! is any error occurs, the remain data will be canceled.
 //!
-//! Users can then check the return value to see how many datas have been 
-//! successfully transmited. if the number != ulLen, user can call 
+//! Users can then check the return value to see how many datas have been
+//! successfully transmited. if the number != ulLen, user can call
 //! I2CMasterErr() to see what error occurs.
 //!
-//! After the master obtained control of the bus, and haven't release it, users 
-//! can call I2CMasterWriteS2() / I2CMasterWriteBufS2() to continue transmit data 
-//! to slave. Users call also call I2CMasterStop() to terminate this transmition 
+//! After the master obtained control of the bus, and haven't release it, users
+//! can call I2CMasterWriteS2() / I2CMasterWriteBufS2() to continue transmit data
+//! to slave. Users call also call I2CMasterStop() to terminate this transmition
 //! and release the I2C bus.
 //!
 //! This function is always used in thread mode.
@@ -1538,10 +1619,10 @@ I2CMasterWriteS2(unsigned long ulBase, unsigned char ucData,
 //*****************************************************************************
 unsigned long
 I2CMasterWriteBufS1(unsigned long ulBase, unsigned char ucSlaveAddr,
-                    const unsigned char *pucDataBuf, unsigned long ulLen, 
+                    const unsigned char *pucDataBuf, unsigned long ulLen,
                     xtBoolean bEndTransmition)
 {
-    
+
     unsigned long ulStatus;
     unsigned long ulWritten;
 
@@ -1551,18 +1632,18 @@ I2CMasterWriteBufS1(unsigned long ulBase, unsigned char ucSlaveAddr,
     xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
     xASSERT(!(ucSlaveAddr & 0x80));
     xASSERT(pucDataBuf);
-    
+
     if(ulLen == 1)
     {
-        ulStatus = I2CMasterWriteS1(ulBase, ucSlaveAddr, 
+        ulStatus = I2CMasterWriteS1(ulBase, ucSlaveAddr,
                                     pucDataBuf[0], bEndTransmition);
-        
+
         return (ulStatus == I2C_MASTER_ERR_NONE) ? 1 : 0;
     }
 
     //
     // Waitting the I2C Control & I2C bus to idle
-    //    
+    //
     do
     {
         ulStatus = xHWREG(ulBase + I2C_SR2);
@@ -1570,7 +1651,7 @@ I2CMasterWriteBufS1(unsigned long ulBase, unsigned char ucSlaveAddr,
 
     //
     // Send start
-    //    
+    //
     I2CStartSend(ulBase);
     while(!I2CEventCheck(ulBase, I2C_EVENT_MASTER_MODE_SELECT))
     {
@@ -1580,7 +1661,7 @@ I2CMasterWriteBufS1(unsigned long ulBase, unsigned char ucSlaveAddr,
 
     //
     // Send address
-    //    
+    //
     I2CByteSend(ulBase, (ucSlaveAddr << 1) | 0);
     while(!I2CEventCheck(ulBase, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED))
     {
@@ -1590,31 +1671,31 @@ I2CMasterWriteBufS1(unsigned long ulBase, unsigned char ucSlaveAddr,
 
     //
     // Send data
-    //    
+    //
     I2CByteSend(ulBase, pucDataBuf[0]);
-    
+
     //
     // Check if any error occurs
     //
     if(ulStatus & (I2C_SR1_ARLO | I2C_SR1_AF | I2C_SR1_BERR))
     {
-        return 0;   
+        return 0;
     }
-    
+
     ulWritten = 1;
-    
-    ulWritten += I2CMasterWriteBufS2(ulBase, 
-                                     &pucDataBuf[1], 
-                                     ulLen - 1, 
+
+    ulWritten += I2CMasterWriteBufS2(ulBase,
+                                     &pucDataBuf[1],
+                                     ulLen - 1,
                                      bEndTransmition);
-    
+
     return ulWritten;
 
 }
 
 //*****************************************************************************
 //
-//! \brief Write a data buffer to the slave, when the master have obtained  
+//! \brief Write a data buffer to the slave, when the master have obtained
 //! control of the bus, and waiting for all bus transmiton complete.(Write
 //! Buffer Step2)
 //!
@@ -1624,20 +1705,20 @@ I2CMasterWriteBufS1(unsigned long ulBase, unsigned char ucSlaveAddr,
 //! \param bEndTransmition is flag to control if transmit the STOP condition and
 //! terminate this transmition.
 //!
-//! After the master obtained control of the bus(have called  
-//! I2CMasterWriteS1() or I2CMasterWriteBufS1() without any error), and haven't 
+//! After the master obtained control of the bus(have called
+//! I2CMasterWriteS1() or I2CMasterWriteBufS1() without any error), and haven't
 //! release it, users can call this function to continue transmit data to slave.
 //!
-//! This function transmit the data one by one to the slave, waiting for every  
-//! data transmition complete, and continue next data transmition, until all  
+//! This function transmit the data one by one to the slave, waiting for every
+//! data transmition complete, and continue next data transmition, until all
 //! complete. If there is any error occurs, the remain data will be canceled.
 //!
-//! Users can then check the return value to see how many datas have been 
-//! successfully transmited. if the number != ulLen, user can call 
+//! Users can then check the return value to see how many datas have been
+//! successfully transmited. if the number != ulLen, user can call
 //! I2CMasterErr() to see what error occurs.
 //!
-//! Then users can call I2CMasterWriteS2() or this function to continue  
-//! transmit data to slave. Users call also call I2CMasterStop() to terminate  
+//! Then users can call I2CMasterWriteS2() or this function to continue
+//! transmit data to slave. Users call also call I2CMasterStop() to terminate
 //! this transmition and release the I2C bus.
 //!
 //! This function is always used in thread mode.
@@ -1645,7 +1726,7 @@ I2CMasterWriteBufS1(unsigned long ulBase, unsigned char ucSlaveAddr,
 //! \return Returns the data number that have been successully tranmited.
 //
 //*****************************************************************************
-unsigned long 
+unsigned long
 I2CMasterWriteBufS2(unsigned long ulBase, const unsigned char *pucDataBuf,
                     unsigned long ulLen, xtBoolean bEndTransmition)
 {
@@ -1657,20 +1738,20 @@ I2CMasterWriteBufS2(unsigned long ulBase, const unsigned char *pucDataBuf,
     //
     xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
     xASSERT(pucDataBuf);
-    
-    for(i = 0; i < ulLen - 1; i++)                              
-    {        
+
+    for(i = 0; i < ulLen - 1; i++)
+    {
         //
         // Write the first byte.
         //
-        xHWREG(ulBase + I2C_DR) = pucDataBuf[i];                                     
+        xHWREG(ulBase + I2C_DR) = pucDataBuf[i];
 
         //
         // Waiting the I2C controller to idle
-        //    
+        //
         do
         {
-            ulStatus = I2CStatusGet(ulBase);  
+            ulStatus = I2CStatusGet(ulBase);
             //
             // Check if any error occurs
             //
@@ -1678,17 +1759,17 @@ I2CMasterWriteBufS2(unsigned long ulBase, const unsigned char *pucDataBuf,
                 return i;
         }
         while(!(ulStatus == I2C_EVENT_MASTER_BYTE_TRANSMITTED));
-               
-    }   
-    
-    xHWREG(ulBase + I2C_DR) = pucDataBuf[i];                        
+
+    }
+
+    xHWREG(ulBase + I2C_DR) = pucDataBuf[i];
 
     //
     // Waiting the I2C controller to idle
-    //    
+    //
     do
     {
-        ulStatus = I2CStatusGet(ulBase);  
+        ulStatus = I2CStatusGet(ulBase);
         //
         // Check if any error occurs
         //
@@ -1696,14 +1777,14 @@ I2CMasterWriteBufS2(unsigned long ulBase, const unsigned char *pucDataBuf,
             return ulLen - 1;
     }
     while(!(ulStatus == I2C_EVENT_MASTER_BYTE_TRANSMITTED));
-    
+
     if(bEndTransmition)
     {
         I2CStopSend(ulBase);
-    }    
-    
+    }
+
     return ulLen;
-    
+
 }
 
 //*****************************************************************************
@@ -1713,23 +1794,23 @@ I2CMasterWriteBufS2(unsigned long ulBase, const unsigned char *pucDataBuf,
 //! \param ulBase is the base address of the I2C Master module.
 //! \param ucSlaveAddr is the 7-bit slave address.
 //! \param bEndTransmition is flag to control if transmit the STOP condition and
-//! terminate this transmition. 
+//! terminate this transmition.
 //!
 //! This function init a new receive transmition. When the master have not obtained
-//! control of the bus, This function send request to transmit the START 
-//! condition, the slave address and the data request, Then it returns  
-//! immediately, no waiting any bus transmition to complete. 
+//! control of the bus, This function send request to transmit the START
+//! condition, the slave address and the data request, Then it returns
+//! immediately, no waiting any bus transmition to complete.
 //!
-//! If bEndTransmition is xtrue, the receive operation will followed by an 
+//! If bEndTransmition is xtrue, the receive operation will followed by an
 //! negative ACK and STOP condition.
 //!
-//! Users can call I2CMasterBusy() to check if all the bus transmition 
-//! complete, then call I2CMasterErr() to check if any error occurs. Then user 
+//! Users can call I2CMasterBusy() to check if all the bus transmition
+//! complete, then call I2CMasterErr() to check if any error occurs. Then user
 //! can get the data by calling I2CMasterDataGet() if there is no error occurs.
 //!
-//! After the master obtained control of the bus, and haven't release it, users 
+//! After the master obtained control of the bus, and haven't release it, users
 //! can call I2CMasterReadRequestS2() to continue receive data from slave.
-//! Users call also can I2CMasterStop() to terminate this transmition and 
+//! Users call also can I2CMasterStop() to terminate this transmition and
 //! release the I2C bus.
 //!
 //! For this function returns immediately, it is always using in the interrupt
@@ -1743,41 +1824,52 @@ I2CMasterReadRequestS1(unsigned long ulBase, unsigned char ucSlaveAddr,
                        xtBoolean bEndTransmition)
 {
     unsigned long ulStatus;
-    
+
     //
     // Check the arguments.
     //
     xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
     xASSERT(!(ucSlaveAddr & 0x80));
-        
+
     //
     // Waitting the I2C Control & I2C bus to idle
-    //    
+    //
     //do
     //{
     //    ulStatus = xHWREG(ulBase + I2C_SR2);
     //}while((ulStatus & I2C_SR2_BUSY));
-    
+
+    //Enable ACK function
     xHWREG(ulBase + I2C_CR1) |= I2C_CR1_ACK;
-    
+
     //
     // Send start
-    //    
+    //
     I2CStartSend(ulBase);
     while(!I2CEventCheck(ulBase, I2C_EVENT_MASTER_MODE_SELECT))
     {
+        //Error occurs
+        //if(xHWREG(ulBase + I2C_SR1) & 0x0F00)
+        //    break;
         if(xHWREG(ulBase + I2C_SR1) & 0x0F00)
-            break;
+        {
+            return;
+        }
     }
 
     //
     // Send address
-    //    
+    //
     I2CByteSend(ulBase, (ucSlaveAddr << 1) | 1);
     while(!I2CEventCheck(ulBase, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED))
     {
+        //Error occurs
+        //if(xHWREG(ulBase + I2C_SR1) & 0x0F00)
+        //    break;
         if(xHWREG(ulBase + I2C_SR1) & 0x0F00)
-            break;
+        {
+            return;
+        }
     }
 
     if(bEndTransmition)
@@ -1788,9 +1880,14 @@ I2CMasterReadRequestS1(unsigned long ulBase, unsigned char ucSlaveAddr,
         //
         do
         {
-            ulStatus = I2CStatusGet(ulBase);  
+            ulStatus = I2CStatusGet(ulBase);
+            //Error occurs
+            //if(xHWREG(ulBase + I2C_SR1) & 0x0F00)
+            //    break;
             if(xHWREG(ulBase + I2C_SR1) & 0x0F00)
-                break;
+            {
+                return;
+            }
         }
         while(!(ulStatus == I2C_EVENT_MASTER_BYTE_RECEIVED));
         I2CStopSend(ulBase);
@@ -1799,26 +1896,22 @@ I2CMasterReadRequestS1(unsigned long ulBase, unsigned char ucSlaveAddr,
 
 //*****************************************************************************
 //
-//! \brief Send a master data receive request when the master have obtained 
+//! \brief Send a master data receive request when the master have obtained
 //! control of the bus.(Write Step2)
 //!
 //! \param ulBase is the base address of the I2C Master module.
 //! \param bEndTransmition is flag to control if transmit the STOP condition and
-//! terminate this transmition. 
+//! terminate this transmition.
 //!
-//! After the master obtained control of the bus(have called  
-//! I2CMasterReadRequestS1() without any error), and haven't release it, users 
-//! can call this function to continue receive data from slave.
-//!
-//! If bEndTransmition is xtrue, the receive operation will followed by an 
+//! If bEndTransmition is xtrue, the receive operation will followed by an
 //! negative ACK and STOP condition.
 //!
-//! Users can call I2CMasterBusy() to check if all the bus transmition 
-//! complete, then call I2CMasterErr() to check if any error occurs. Then user 
+//! Users can call I2CMasterBusy() to check if all the bus transmition
+//! complete, then call I2CMasterErr() to check if any error occurs. Then user
 //! can get the data by calling I2CMasterDataGet() if there is no error occurs.
 //!
 //! Then users can call this function to continue receive data from slave.
-//! Users call also can I2CMasterStop() to terminate this transmition and 
+//! Users call also can I2CMasterStop() to terminate this transmition and
 //! release the I2C bus.
 //!
 //! For this function returns immediately, it is always using in the interrupt
@@ -1831,49 +1924,54 @@ void
 I2CMasterReadRequestS2(unsigned long ulBase, xtBoolean bEndTransmition)
 {
     unsigned long ulStatus;
-    
+
     //
     // Check the arguments.
     //
     xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
-    
+
     //
     // Send the stop if End Transmition.
     //
     if(bEndTransmition)
     {
-        xHWREG(ulBase + I2C_CR1) &= ~I2C_CR1_ACK;
+        //xHWREG(ulBase + I2C_CR1) &= ~I2C_CR1_ACK;
         //
         // Waiting the I2C controller to be transmited
         //
         do
         {
-            ulStatus = I2CStatusGet(ulBase);  
+            ulStatus = I2CStatusGet(ulBase);
+            //Error occurs
+            //if(xHWREG(ulBase + I2C_SR1) & 0x0F00)
+            //    break;
             if(xHWREG(ulBase + I2C_SR1) & 0x0F00)
-                break;
+            {
+                return;
+            }
         }
         while(!(ulStatus == I2C_EVENT_MASTER_BYTE_RECEIVED));
         I2CStopSend(ulBase);
-    }     
+    }
 }
 
 //*****************************************************************************
 //
-//! \brief Send a master data receive request with an NACK when the master have  
+//! \brief Send a master data receive request with an NACK when the master have
 //! obtained control of the bus(Write Step2).
 //!
 //! \param ulBase is the base address of the I2C Master module.
 //!
-//! This function is used to request the last data to receive, and signal the 
+//! This function is used to request the last data to receive, and signal the
 //! end of the transfer to the slave transmitter. Then the master can repeat
 //! START condition, switch to transmit or other slaves without lost control
 //! of the bus.
 //!
-//! Users can call I2CMasterBusy() to check if all the bus transmition 
-//! complete, then call I2CMasterErr() to check if any error occurs. Then user 
+//! Users can call I2CMasterBusy() to check if all the bus transmition
+//! complete, then call I2CMasterErr() to check if any error occurs. Then user
 //! can get the data by calling I2CMasterDataGet() if there is no error occurs.
 //!
-//! Users call also can I2CMasterStop() to terminate this transmition and 
+//! Users call also can I2CMasterStop() to terminate this transmition and
 //! release the I2C bus.
 //!
 //! For this function returns immediately, it is always using in the interrupt
@@ -1889,32 +1987,32 @@ I2CMasterReadLastRequestS2(unsigned long ulBase)
     // Check the arguments.
     //
     xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
-    
+
     //
     // RECEIVE operation with negative ACK(no stop)
     //
-    xHWREG(ulBase + I2C_CR1) &= ~I2C_CR1_ACK;    
-    
+    xHWREG(ulBase + I2C_CR1) &= ~I2C_CR1_ACK;
+
 }
 
 //*****************************************************************************
 //
-//! \brief Read a data from a slave when the bus is idle, and waiting for all 
+//! \brief Read a data from a slave when the bus is idle, and waiting for all
 //! bus transmiton complete.(Read Step1)
 //!
 //! \param ulBase is the base address of the I2C Master module.
 //! \param ucSlaveAddr is the 7-bit slave address.
 //! \param pucData is the buffer where to save the data.
 //! \param bEndTransmition is flag to control if transmit the STOP condition and
-//! terminate this transmition. 
+//! terminate this transmition.
 //!
-//! This function init a new receive transmition. When the master have not obtained
-//! control of the bus, This function send request to transmit the START 
-//! condition, the slave address and the data request, then waiting for all bus
-//! transmition complete.
-//!
-//! If bEndTransmition is xtrue, the receive operation will followed by an 
-//! negative ACK and STOP condition.
+//! When the master have not obtained control of the bus, you can use this function
+//! to receice a data from I2C slave, then this function will realse the I2C bus.
+//! Note: 
+//! 1: this function is only for I2C master.
+//! 2: Parameter bEndTransmition is exist only for complatible.
+//! 3: Function I2CMasterReadS1 and I2CMasterReadBufS1 is suit for the number-fixed
+//!    situation.
 //!
 //! Users can then check the return value to see if any error occurs:
 //! - \ref I2C_MASTER_ERR_NONE     - \b 0, no error
@@ -1922,101 +2020,100 @@ I2CMasterReadLastRequestS2(unsigned long ulBase)
 //! - \ref I2C_MASTER_ERR_DATA_ACK - The transmitted data was not acknowledged
 //! - \ref I2C_MASTER_ERR_ARB_LOST - The I2C controller lost arbitration.
 //!
-//! After the master obtained control of the bus, and haven't release it, users 
-//! can call I2CMasterReadS2() to continue receive data from slave.
-//! Users call also can I2CMasterStop() to terminate this transmition and 
-//! release the I2C bus.
-//!
-//! This function is usually used in thread mode.
-//!
 //! \return Returns the master error status.
 //
 //*****************************************************************************
-unsigned long 
-I2CMasterReadS1(unsigned long ulBase, 
+unsigned long
+I2CMasterReadS1(unsigned long ulBase,
                 unsigned char ucSlaveAddr,
                 unsigned char *pucData,
                 xtBoolean bEndTransmition)
 {
-    unsigned long ulStatus;
-    
+
+    //Here, we don't use parameter bEndTransmition
+    //So we add (void) to avoid compiler warning
+    (void) bEndTransmition;
+
     //
     // Check the arguments.
     //
     xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
-    xASSERT(!(ucSlaveAddr & 0x80));
     xASSERT(pucData);
-    
-    I2CMasterReadRequestS1(ulBase, ucSlaveAddr, xfalse);
 
-    if(bEndTransmition)
-    {
-        xHWREG(ulBase + I2C_CR1) &= ~I2C_CR1_ACK;
-    } 
-    
     //
-    // Waiting the I2C controller to be transmited
+    // Send start
     //
-    do
+    I2CStartSend(ulBase);
+    while(!I2CEventCheck(ulBase, I2C_EVENT_MASTER_MODE_SELECT))
     {
-        ulStatus = I2CStatusGet(ulBase);  
+        //Error occurs
+        //if(xHWREG(ulBase + I2C_SR1) & 0x0F00)
+        //    break;
         if(xHWREG(ulBase + I2C_SR1) & 0x0F00)
-            break;
-    }
-    while(!(ulStatus == I2C_EVENT_MASTER_BYTE_RECEIVED));
-    
-  
-    //
-    // Get the error code
-    //
-    ulStatus &= (I2C_SR1_ARLO | I2C_SR1_AF);
-            
-    if(!ulStatus)
-    {
-        *pucData = xHWREG(ulBase + I2C_DR);
+        {
+            goto Error;
+        }
     }
 
-    if(bEndTransmition)
+    //Clear SB Flag and send i2C slave address
+    (void) xHWREG(ulBase + I2C_SR1);
+    //Receive Mode, Set LSB    
+    I2CByteSend(ulBase, (ucSlaveAddr << 1) | 1);
+
+    //wait for ADDR
+    while((xHWREG(ulBase + I2C_SR1) & I2C_SR1_ADDR) == 0);
+
+    //Disable ACK
+    xHWREG(ulBase + I2C_CR1) &= ~(unsigned long) I2C_CR1_ACK;
+
+    //Enter Cirtical section
+    xIntMasterDisable();
+
+    //Read SR2 to clear ADDR Flag
+    (void) xHWREG(ulBase + I2C_SR2);
+
+    //Program Stop bit
+    xHWREG(ulBase + I2C_CR1) |= I2C_CR1_STOP;
+
+    //Exit Cirtical section
+    xIntMasterEnable();
+
+    //Wait for RxNE bit
+    while(!I2CEventCheck(ulBase, I2C_EVENT_MASTER_BYTE_RECEIVED))
     {
-        I2CStopSend(ulBase);
-    }  
-    
-    //
-    // return the error status
-    //
-    return ulStatus;       
-      
+        //Error occurs
+        //if(xHWREG(ulBase + I2C_SR1) & 0x0F00)
+        //    break;
+        if(xHWREG(ulBase + I2C_SR1) & 0x0F00)
+        {
+            goto Error;
+        }
+    }
+
+    *pucData = xHWREG(ulBase + I2C_DR);
+
+    //Enable ACK again
+    xHWREG(ulBase + I2C_CR1) |= I2C_CR1_ACK;
+
+    // Error part
+    // Returns the error status, as one of I2C_MASTER_ERR_NONE,
+    // I2C_MASTER_ERR_ADDR_ACK, I2C_MASTER_ERR_DATA_ACK or I2C_MASTER_ERR_ARB_LOST.
+Error:
+    return I2CMasterErr(ulBase);
+
 }
 
 //*****************************************************************************
 //
-//! \brief Read a data from a slave when the master have obtained control of 
+//! \brief Read a data from a slave when the master have obtained control of
 //! the bus, and waiting for all bus transmiton complete.(Read Step2)
 //!
 //! \param ulBase is the base address of the I2C Master module.
 //! \param pucData is the buffer where to save the data.
 //! \param bEndTransmition is flag to control if transmit the STOP condition and
-//! terminate this transmition. 
-//!
-//! After the master obtained control of the bus(have called  
-//! I2CMasterReadS1() without any error), and haven't release it, users can 
-//! call this function to continue receive data from the slave.
-//!
-//! If bEndTransmition is xtrue, the receive operation will followed by an 
-//! negative ACK and STOP condition.
-//!
-//! It will be waiting for all bus transmition complete before return.
-//! Users can then check the return value to see if any error occurs:
-//! - \ref I2C_MASTER_ERR_NONE     - \b 0, no error
-//! - \ref I2C_MASTER_ERR_ADDR_ACK - The transmitted address was not acknowledged
-//! - \ref I2C_MASTER_ERR_DATA_ACK - The transmitted data was not acknowledged
-//! - \ref I2C_MASTER_ERR_ARB_LOST - The I2C controller lost arbitration.
-//!
-//! Then useres can call this function to continue receive data from slave.
-//! Users call also can I2CMasterStop() to terminate this transmition and 
-//! release the I2C bus.
-//!
-//! This function is usually used in thread mode.
+//! terminate this transmition.
+//! 
+//! note: This function is no need more in STM32 Cox lib
 //!
 //! \return Returns the master error status.
 //
@@ -2026,8 +2123,13 @@ I2CMasterReadS2(unsigned long ulBase,
                 unsigned char *pucData,
                 xtBoolean bEndTransmition)
 {
+    //Read input parameters but don't use them, only to avoid compiler warning
+    (void) ulBase;
+    (void) pucData;
+    (void) bEndTransmition;
+#if 0
     unsigned long ulStatus;
-    
+
     //
     // Check the arguments.
     //
@@ -2038,24 +2140,24 @@ I2CMasterReadS2(unsigned long ulBase,
     if(bEndTransmition)
     {
         xHWREG(ulBase + I2C_CR1) &= ~I2C_CR1_ACK;
-    } 
-    
+    }
+
     //
     // Waiting the I2C controller to be transmited
     //
     do
     {
-        ulStatus = I2CStatusGet(ulBase);  
+        ulStatus = I2CStatusGet(ulBase);
         if(xHWREG(ulBase + I2C_SR1) & 0x0F00)
             break;
     }
     while(!(ulStatus == I2C_EVENT_MASTER_BYTE_RECEIVED));
-        
+
     //
     // Get the error code
     //
     ulStatus &= (I2C_SR1_ARLO | I2C_SR1_AF);
-            
+
     if(!ulStatus)
     {
         *pucData = xHWREG(ulBase + I2C_DR);
@@ -2064,17 +2166,19 @@ I2CMasterReadS2(unsigned long ulBase,
     if(bEndTransmition)
     {
         I2CStopSend(ulBase);
-    } 
-    
+    }
+
     //
     // return the error status
     //
-    return ulStatus;    
+    return ulStatus;
+#endif
+    return (I2C_MASTER_ERR_NONE);
 }
 
 //*****************************************************************************
 //
-//! \brief Read some data from a slave when the bus is idle, and waiting for all 
+//! \brief Read some data from a slave when the bus is idle, and waiting for all
 //! bus transmiton complete.(Read Buffer Step1)
 //!
 //! \param ulBase is the base address of the I2C Master module.
@@ -2082,71 +2186,62 @@ I2CMasterReadS2(unsigned long ulBase,
 //! \param pucDataBuf is the buffer where to save the data.
 //! \param ulLen is the data number to receive.
 //! \param bEndTransmition is flag to control if transmit the STOP condition and
-//! terminate this transmition. 
+//! terminate this transmition.
 //!
-//! This function init a new data buffer receive transmition. When the master 
-//! have not obtained control of the bus, This function send request to transmit 
-//! the START condition, the slave address and the data request, then waiting for 
-//! the data transmition complete, and continue next data transmition, until all 
-//! complete. If there is any error occurs, the remain data will be canceled.
-//!
-//! If bEndTransmition is xtrue, the receive operation will followed by an 
-//! negative ACK and STOP condition.
-//!
-//! Users can then check the return value to see how many datas have been 
-//! successfully received. if the number != ulLen, user can call 
+//! Note: This function is used to receive block of data from I2C slave, the release
+//!       I2C bus.
+//!       the parameter ulLen MUST be <= 65535
+//
+//! Users can then check the return value to see how many datas have been
+//! successfully received. if the number != ulLen, user can call
 //! I2CMasterErr() to see what error occurs.
-//!
-//! After the master obtained control of the bus, and haven't release it, users 
-//! can call I2CMasterReadS2() or I2CMasterReadBufS2() to continue receive data .
-//! from slave .Users call also can I2CMasterStop() to terminate this transmition
-//! and release the I2C bus.
-//!
-//! This function is usually used in thread mode.
 //!
 //! \return Returns the data number that have been successully received.
 //
 //*****************************************************************************
-unsigned long 
+unsigned long
 I2CMasterReadBufS1(unsigned long ulBase, unsigned char ucSlaveAddr,
                    unsigned char* pucDataBuf, unsigned long ulLen,
                    xtBoolean bEndTransmition)
 {
-    unsigned long ulStatus;
-    unsigned long ulRead;
-    
+    unsigned long ulStatus = 0;    
+    unsigned long ulDMACh  = 0;
+    unsigned long ulDMACCR = 0;
+
     //
     // Check the arguments.
     //
     xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
-    xASSERT(!(ucSlaveAddr & 0x80));
+    //xASSERT(!(ucSlaveAddr & 0x80));
     xASSERT(pucDataBuf);
-    
+
+    //Avoid Compiler warning
+    (void) bEndTransmition;
+
+    //previous code reserved
+    //Comment by cedar
+#if 0
     if(ulLen == 0)
     {
-        return 0;   
+        return 0;
     }
-    
     else if(ulLen == 1)
     {
-        ulStatus = I2CMasterReadS1(ulBase, ucSlaveAddr, 
-                                   pucDataBuf, bEndTransmition); 
-
+        ulStatus = I2CMasterReadS1(ulBase, ucSlaveAddr,
+                                   pucDataBuf, bEndTransmition);
         if (ulStatus == I2C_MASTER_ERR_NONE)
         {
-            pucDataBuf[0] = xHWREG(ulBase + I2C_DR);
-            
             return 1;
         }
         else
         {
-            return 0;   
+            return 0;
         }
     }
-    
+
     //
     // Waitting the I2C Control & I2C bus to idle
-    //    
+    //
     do
     {
         ulStatus = xHWREG(ulBase + I2C_SR2);
@@ -2156,7 +2251,7 @@ I2CMasterReadBufS1(unsigned long ulBase, unsigned char ucSlaveAddr,
 
     //
     // Send start
-    //    
+    //
     I2CStartSend(ulBase);
     while(!I2CEventCheck(ulBase, I2C_EVENT_MASTER_MODE_SELECT))
     {
@@ -2166,7 +2261,7 @@ I2CMasterReadBufS1(unsigned long ulBase, unsigned char ucSlaveAddr,
 
     //
     // Send address
-    //    
+    //
     I2CByteSend(ulBase, (ucSlaveAddr << 1) | 1);
     while(!I2CEventCheck(ulBase, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED))
     {
@@ -2179,32 +2274,123 @@ I2CMasterReadBufS1(unsigned long ulBase, unsigned char ucSlaveAddr,
     //
     do
     {
-        ulStatus = I2CStatusGet(ulBase);  
+        ulStatus = I2CStatusGet(ulBase);
         if(xHWREG(ulBase + I2C_SR1) & 0x0F00)
             break;
     }
     while(!(ulStatus == I2C_EVENT_MASTER_BYTE_RECEIVED));
-    
+
     //
     // Check if any error occurs
     //
     if(ulStatus & (I2C_SR1_ARLO | I2C_SR1_AF | I2C_SR1_BERR))
     {
-        return 0;   
+        return 0;
     }
-    
+
     pucDataBuf[0] = xHWREG(ulBase + I2C_DR);
-    
+
     ulRead = 1;
-    
-    ulRead += I2CMasterReadBufS2(ulBase, 
-                                 &pucDataBuf[1], 
-                                 ulLen - 1, 
-                                 bEndTransmition);    
-    
-    
+
+    ulRead += I2CMasterReadBufS2(ulBase,
+                                 &pucDataBuf[1],
+                                 ulLen - 1,
+                                 bEndTransmition);
+
+
     return ulRead;
+#endif
+
+    //New Code
+    if(ulLen == 0 || ulLen > 65535)   //Error
+    {
+        return (0);
+    }
+    else if(ulLen == 1)
+    {
+        ulStatus = I2CMasterReadS1(ulBase, ucSlaveAddr,
+                                   pucDataBuf, bEndTransmition);
+        if (ulStatus == I2C_MASTER_ERR_NONE)
+        {
+            return (1);
+        }
+        else
+        {
+            return (0);
+        }
+    }
+
+    /*------------------------ N >= 2 and N < 65535 -----------------------------*/
+
+    //Configure DMA I2C Rx channel
+    if(ulBase == I2C1_BASE)       // I2C1 --> DMA Rx Channel 7
+    {
+        ulDMACh  = DMA1_CHANNEL_7;
+        ulDMACCR = DMA_CCR7;
+    }
+    else if(ulBase == I2C2_BASE)  // I2C1 --> DMA Rx Channel 5
+    {
+        ulDMACh  = DMA1_CHANNEL_5;
+        ulDMACCR = DMA_CCR5;
+    }
+    else                          //Error, Return immediatly
+    {
+        return (0);
+    }
+
+    /*--------------------------------DMA Configure-------------------------------*/
+    //Enable DMA1 Peripheral Clock
+    //SysCtlPeripheralReset(SYSCTL_PERIPH_DMA1);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_DMA1);
+
+    //Configure DMA primity
+    DMAChannelAttributeSet(ulDMACh, DMA_ATTR_PRIORITY_VHIGH);
+    //Configure DMA Peripheral/Source Address
+    DMAChannelTransferSet(ulDMACh, (void *)(ulBase + I2C_DR), pucDataBuf, ulLen);
+    // MSIZE --> 8-bit
+    // PSIZE --> 8-bit
+    // MINC  --> Memory address increment mode
+    // PINC  --> Peripheral address fixed mode
+    // CIRC  --> Circular mode disabled     
+    DMAChannelControlSet(ulDMACh, DMA_MEM_WIDTH_8BIT | DMA_PER_WIDTH_8BIT |
+            DMA_MEM_DIR_INC | DMA_PER_DIR_FIXED | DMA_MODE_CIRC_DIS);
+
+    //Configure DMA Direct: Read from peripheral
+    xHWREG(DMA1_BASE + ulDMACCR) &= ~DMA_CCRx_DIR;
+
+    //Enable DMA Channel
+    DMAEnable(ulDMACh);
+
+    /*------------------------------I2C Operate------------------------------------*/
+
+    //Enable LastByte Operate
+    xHWREG(ulBase + I2C_CR2) |= I2C_CR2_LAST;
+
+    // Send start
+    I2CStartSend(ulBase);
+    //Clear SB Flag
+    while(!I2CEventCheck(ulBase, I2C_EVENT_MASTER_MODE_SELECT));
+    /* Send I2C2 slave Address for write */    
+    I2CByteSend(ulBase, (ucSlaveAddr << 1) | 0x01);    
+    /* Test on I2C1 EV6 and clear it */
+    while(!I2CEventCheck(ulBase, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED));
+
+    //Enable I2C DMA
+    xHWREG(ulBase + I2C_CR2) |= I2C_CR2_DMAEN;
+
+    //while((xHWREG(DMA1_BASE + DMA_ISR) & DMA_ISR_TCIF7) == 0);
+    while(DMAChannelIntFlagGet(ulDMACh, DMA_INT_TC) == xfalse);
+
+    //Clear DMA TC/HT/TE Flag and Reset DMA Configure to default value
+    DMAChannelIntFlagClear(ulDMACh, DMA_INT_TG);
+    I2CDMADisable(ulBase);
+    DMADisable(ulDMACh);    
+
+    //Send I2C Stop Signal    
+    I2CStopSend(ulBase);
     
+    return (0);
+
 }
 
 //*****************************************************************************
@@ -2217,29 +2403,12 @@ I2CMasterReadBufS1(unsigned long ulBase, unsigned char ucSlaveAddr,
 //! \param pucDataBuf is the buffer where to save the data.
 //! \param ulLen is the data number to receive.
 //! \param bEndTransmition is flag to control if transmit the STOP condition and
-//! terminate this transmition. 
+//! terminate this transmition.
 //!
-//! After the master obtained control of the bus(have called  
-//! I2CMasterReadS1() or I2CMasterReadBufS1() without any error), and haven't 
-//! release it, users can call this function to continue receive data from slave.
-//!
-//! This function receive data one by one from the slave, waiting for every  
-//! data transmition complete, and continue next data transmition, until all  
-//! complete. If there is any error occurs, the remain data will be canceled.
-//!
-//! If bEndTransmition is xtrue, the receive operation will followed by an 
-//! negative ACK and STOP condition.
-//!
-//! Users can then check the return value to see how many datas have been 
-//! successfully received. if the number != ulLen, user can call 
-//! I2CMasterErr() to see what error occurs.
-//!
-//! After the master obtained control of the bus, and haven't release it, users 
-//! can call I2CMasterReadS2() or I2CMasterReadBufS2() to continue receive data
-//! from slave. Users call also can I2CMasterStop() to terminate this transmition
-//! and release the I2C bus.
-//!
-//! This function is usually used in thread mode.
+//! Note: this function is no avaible in STM32 Cox lib now
+//!       Please use I2CMasterReadBufS1/I2CMasterReadS1  to read block of data
+//!       from I2C Slave. when Number of data N >= 2, call I2CMasterReadBufS1,
+//!       when N = 1, call I2CMasterReadS1 instead.
 //!
 //! \return Returns the data number that have been successully received.
 //
@@ -2248,29 +2417,38 @@ unsigned long
 I2CMasterReadBufS2(unsigned long ulBase, unsigned char *pucDataBuf,
                    unsigned long ulLen, xtBoolean bEndTransmition)
 {
+
+    //Here, we read input parameters simply, just to avoid compiler warning
+    (void) ulBase;
+    (void) pucDataBuf;
+    (void) ulLen;
+    (void) bEndTransmition;
+
+    //Comment by cedar
+#if 0  //Comment Begin
     unsigned long i;
     unsigned long ulStatus;
-    
+
     //
     // Check the arguments.
     //
     xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
     xASSERT(pucDataBuf);
 
-    if(ulLen == 0) 
+    if(ulLen == 0)
     {
         return 0;
     }
-    
 
-    for(i = 0; i < ulLen - 1; i++)                              
-    {                           
+
+    for(i = 0; i < ulLen - 1; i++)
+    {
         //
         // Waiting the I2C controller to idle
-        //    
+        //
         do
         {
-            ulStatus = I2CStatusGet(ulBase);  
+            ulStatus = I2CStatusGet(ulBase);
             //
             // Check if any error occurs
             //
@@ -2278,9 +2456,9 @@ I2CMasterReadBufS2(unsigned long ulBase, unsigned char *pucDataBuf,
                 return i;
         }
         while(!(ulStatus == I2C_EVENT_MASTER_BYTE_RECEIVED));
-        
+
         pucDataBuf[i] = xHWREG(ulBase + I2C_DR);
-    }  
+    }
 
     if(bEndTransmition)
     {
@@ -2289,10 +2467,10 @@ I2CMasterReadBufS2(unsigned long ulBase, unsigned char *pucDataBuf,
 
     //
     // Waiting the I2C controller to idle
-    //    
+    //
     do
     {
-        ulStatus = I2CStatusGet(ulBase);  
+        ulStatus = I2CStatusGet(ulBase);
         //
         // Check if any error occurs
         //
@@ -2300,14 +2478,123 @@ I2CMasterReadBufS2(unsigned long ulBase, unsigned char *pucDataBuf,
             return ulLen - 1;
     }
     while(!(ulStatus == I2C_EVENT_MASTER_BYTE_RECEIVED));
-    
+
     pucDataBuf[i] = xHWREG(ulBase + I2C_DR);
 
     if(bEndTransmition)
     {
         I2CStopSend(ulBase);
     }
-    
-    return ulLen; 
-    
+
+    return ulLen;
+#endif   //End of Comment
+
+    return (0);
 }
+
+
+//*****************************************************************************
+//
+//! \brief Initialize I2C Module
+//! \param ulBase is the base address of the I2C Master module.
+//! \param ulClk is the I2C Clock.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void I2CInit(unsigned long ulBase, unsigned long ulClk)
+{
+    unsigned long ultmpreg = 0;
+    unsigned long ulAPBClk = 0;
+    unsigned long result   = 0;
+
+    //
+    // Check the arguments.
+    //
+    xASSERT((ulBase == I2C1_BASE) || (ulBase == I2C2_BASE));
+    xASSERT(ulClk <= 400000UL);
+
+    /*-----------------Configure I2C Peripheral Frequency-------------*/
+    ultmpreg = xHWREG(ulBase + I2C_CR2);
+    ultmpreg &= ~(unsigned long)I2C_CR2_FREQ_M;
+    ulAPBClk = SysCtlAPB1ClockGet()/1000000;
+    //Peripheral input clock frequency is limit to 2~36 MHz
+    if(ulAPBClk < 2 || ulAPBClk > 36)
+    {
+        //Error
+        while(1);
+    }
+    ultmpreg |= ulAPBClk;
+    xHWREG(ulBase + I2C_CR2) = ultmpreg;
+
+    xHWREG(ulBase + I2C_OAR1) = 0x00004030;
+    
+    /*------------------Configure CCR register(Timing)---------------*/
+    //Disable I2C module before configure CCR/TRISE register
+    xHWREG(ulBase + I2C_CR1) &= ~(unsigned long)I2C_CR1_PE;
+    //Reset CCR register to 0x0000
+    ultmpreg = 0;
+
+    ulAPBClk *= 1000000;
+    //I2C clock < 100K, configure I2C into standard mode.
+    if(ulClk <= 100000)
+    {
+        //Standard mode speed calculate
+        result = ulAPBClk / (ulClk << 1);
+        if(result < 0x04)
+        {
+            result = 0x04;
+        }
+
+        ultmpreg |= result;
+        //Set maximum rise time for standard mode.
+        xHWREG(ulBase + I2C_TRISE) = ulAPBClk/1000000 + 1;
+
+    }
+    else //I2C clock < 400K, configure I2C into fast mode.
+    {
+        //Here, we configure fast mode: Tlow/Thigh = 16:9
+        //if this default configure is not suit for you
+        //you can adjust by yourself
+
+        //Tlow:Thigh = 2:1
+        //result = ulAPBClk / (ulClk * 25);
+
+        //Tlow:Thigh = 16:9
+        result = ulAPBClk / (ulClk * 25);
+        result |= I2C_CCR_DUTY;
+
+        //CCR must >= 0x01
+        if((result & I2C_CCR_CCR_M) == 0)
+        {
+            result |= 0x0001;
+        }
+
+        //Enable Fast mode
+        ultmpreg |= I2C_CCR_F_S;
+
+        //Set speed value
+        ultmpreg |= result;
+
+        //Set maximum rise time for fast mode
+        ulAPBClk /= 1000000;
+        xHWREG(ulBase + I2C_TRISE) = (ulAPBClk * 300)/1000 + 1;
+    }
+
+    //Write back to CCR register
+    xHWREG(ulBase + I2C_CCR) = ultmpreg;
+
+    //Enable I2C peripheral
+    xHWREG(ulBase + I2C_CR1) |= I2C_CR1_PE;
+
+    /*----------------Configure CR1 register---------------------*/
+    //Here, we configure I2C parameter as below:
+    //1:ACK Enable
+    //2:I2C Mode
+    //3:PE Enable
+    //others keep reserved
+    ultmpreg = (I2C_CR1_ACK | I2C_CR1_PE);
+    xHWREG(ulBase + I2C_CR1) = ultmpreg;
+
+}
+
