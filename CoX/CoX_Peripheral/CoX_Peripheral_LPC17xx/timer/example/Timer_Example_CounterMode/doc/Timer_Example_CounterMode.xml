@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>Timer_Example_CounterMode.c</Name>
+  <Description>
+      Show how to configure timer counter mode.
+  </Description>
+  <Version>1.0.0</Version>
+  <Tags>timer</Tags>
+  <EVKit>EM-LPC1700 Development Board</EVKit>
+  
+  <Files>
+      <File>
+          $REPO_ROOT$\CoX\CoX_Peripheral\CoX_Peripheral_LPC17xx\timer\example\Timer_Example_CounterMode\src\Timer_Example_CounterMode.c
+      </File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>COX.Peripheral.LPC17xx.xStartup</Dependency>
+    <Dependency>COX.Peripheral.LPC17xx.xLowLayer</Dependency>
+	<Dependency>COX.Peripheral.LPC17xx.xCORE</Dependency>
+	<Dependency>COX.Peripheral.LPC17xx.xSysCtl</Dependency>
+	<Dependency>COX.Peripheral.LPC17xx.xGPIO</Dependency>
+  </Dependencys>
+
+</Example>

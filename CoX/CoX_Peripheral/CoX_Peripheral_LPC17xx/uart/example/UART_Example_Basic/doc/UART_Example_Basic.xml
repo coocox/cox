@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>UART_Example_Basic.c</Name>
+  <Description>
+      Show how to use uart to print string via serial port.
+  </Description>
+  <Version>1.0.0</Version>
+  <Tags>UART</Tags>
+  <EVKit>EM-LPC1700 Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\CoX\CoX_Peripheral\CoX_Peripheral_LPC17xx\uart\example\UART_Example_Basic\src\UART_Example_Basic.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>COX.Peripheral.LPC17xx.xStartup</Dependency>
+    <Dependency>COX.Peripheral.LPC17xx.xLowLayer</Dependency>
+	<Dependency>COX.Peripheral.LPC17xx.xCORE</Dependency>
+	<Dependency>COX.Peripheral.LPC17xx.xSysCtl</Dependency>
+	<Dependency>COX.Peripheral.LPC17xx.xGPIO</Dependency>
+  </Dependencys>
+
+</Example>

@@ -1,0 +1,48 @@
+<?xml version="2.0" ?>
+<Component>
+    <Name>CoX.Peripheral.LPC17xx.xTimer</Name>
+    <Description>LPC17xx Timer Control Driver</Description>
+    <Category>Peripheral.CoX</Category>
+    <Version>2.0.0</Version>
+    <Tags>CoX, xtimer,timer, TC</Tags>
+
+    <Files>
+        <File>..\..\libCoX\xtimer.h</File>
+        <File>..\..\libCoX\xtimer.c</File>
+    </Files>
+
+    <FilesCoIDE>
+        <File>$PROJECT_ROOT$\CoX\CoX_Peripheral\src\xtimer.h</File>
+        <File>$PROJECT_ROOT$\CoX\CoX_Peripheral\inc\xtimer.c</File>
+    </FilesCoIDE>
+
+    <Dependencys>
+        <Dependency>CoX.Peripheral.LPC17xx.xStartup</Dependency>
+        <Dependency>CoX.Peripheral.LPC17xx.xCORE</Dependency> 
+        <Dependency>CoX.Peripheral.LPC17xx.xLowLayer</Dependency>
+	<Dependency>CoX.Peripheral.LPC17xx.xSysCtl</Dependency>
+	<Dependency>CoX.Peripheral.LPC17xx.xGPIO</Dependency>
+    </Dependencys>
+
+    <SupportDevices>
+        <Series>
+            <Serie include="">LPC175x</Serie>
+            <Serie include="">LPC176x</Serie>
+        </Series>
+        <Devices>
+            <Device></Device>
+        </Devices>
+    </SupportDevices>
+
+    <Micros>
+        <Comm>
+            <Define></Define>
+        </Comm>
+        <Device name="">
+            <Define></Define>
+        </Device>   
+    </Micros>
+
+    <Help>$DOCUMENT_ROOT$\</Help>
+
+</Component>

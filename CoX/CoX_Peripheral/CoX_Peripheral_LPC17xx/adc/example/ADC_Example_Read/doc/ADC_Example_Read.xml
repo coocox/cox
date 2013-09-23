@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>ADC_Example_Read.c</Name>
+  <Description>
+      This example show how to use adc module to read channel2 analog data.
+  </Description>
+  <Version>1.0.0</Version>
+  <Tags>ADC</Tags>
+  <EVKit>EM-LPC1700 Development Board</EVKit>
+  
+  <Files>
+      <File>
+          $REPO_ROOT$\CoX\CoX_Peripheral\CoX_Peripheral_LPC17xx\adc\example\ADC_Example_Read\src\ADC_Example_Read.c
+      </File>
+  </Files>
+  
+  <Dependencys>
+        <Dependency>CoX.Peripheral.LPC17xx.xStartup</Dependency>
+        <Dependency>CoX.Peripheral.LPC17xx.xLowLayer</Dependency>
+        <Dependency>CoX.Peripheral.LPC17xx.xCORE</Dependency>
+        <Dependency>CoX.Peripheral.LPC17xx.xSysCtl</Dependency>
+	<Dependency>CoX.Peripheral.LPC17xx.xGPIO</Dependency>
+  </Dependencys>
+  
+   
+</Example>

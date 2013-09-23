@@ -1,0 +1,271 @@
+//*****************************************************************************
+//
+//! \defgroup STM32F1xx_UART STM32F1xx UART
+//! 
+//! \brief STM32F1xx UART Peripheral Driver.
+//!
+//! The CoX Peripheral Library also provide APIs for full functions of STM32F1xx
+//! UART. This module supports the whole STM32F1xx Series.
+//!
+//! \n
+//! <h1>Contents</h1>
+//! - \ref STM32F1xx_UART_Blcok
+//! - \ref STM32F1xx_UART_Function_Desc
+//!   - \ref STM32F1xx_UART_Data_Transmission
+//!     - \ref STM32F1xx_UART_RxTx
+//!     - \ref STM32F1xx_UART_Baudrate
+//!     .
+//!   - \ref STM32F1xx_UART_SIR
+//!   - \ref STM32F1xx_UART_LIN
+//!   - \ref STM32F1xx_UART_DMA
+//!   - \ref STM32F1xx_UART_SYNC
+//!   - \ref STM32F1xx_UART_Modem
+//!   - \ref STM32F1xx_UART_SmartCard
+//!   - \ref STM32F1xx_UART_Interrupt
+//!   - \ref STM32F1xx_UART_Single_Wire_Half_Duplex
+//!   - \ref STM32F1xx_UART_Multiprocessor_Communication
+//!   .
+//! - \ref STM32F1xx_UART_API_Group
+//!   - \ref STM32F1xx_UART_API_Group_Config
+//!   - \ref STM32F1xx_UART_API_Group_SIR
+//!   - \ref STM32F1xx_UART_API_Group_LIN
+//!   - \ref STM32F1xx_UART_API_Group_DMA
+//!   - \ref STM32F1xx_UART_API_Group_SYNC
+//!   - \ref STM32F1xx_UART_API_Group_Modem
+//!   - \ref STM32F1xx_UART_API_Group_SmartCard
+//!   - \ref STM32F1xx_UART_API_Group_Interrupt
+//!   - \ref STM32F1xx_UART_API_Group_Single_Wire_Half_Duplex
+//!   - \ref STM32F1xx_UART_API_Group_Multiprocessor_Communication
+//!   .
+//! - \ref STM32F1xx_UART_Usage
+//! .
+//!
+//! \n
+//! \section STM32F1xx_UART_Blcok 1. UART Physical Block
+//! <img src="STM32F1xx_UART_block.jpg" />
+//! 
+//! \n
+//! \section STM32F1xx_UART_Function_Desc 2. Functional Description
+//! The universal synchronous asynchronous receiver transmitter (USART)
+//! offers a flexible means of full-duplex data exchange with external 
+//! equipment requiring an industry standard NRZ asynchronous serial data
+//! format.The USART offers a very wide range of baud rates using a fractional
+//! baud rate generator.It supports synchronous one-way communication and 
+//! half-duplex single wire communication. It also supports the LIN (local 
+//! interconnection network), Smartcard Protocol and IrDA (infrared data 
+//! association) SIR ENDEC specifications, and modem operations (CTS/RTS).
+//! It allows multiprocessor communication.High speed data communication is
+//! possible by using the DMA for multibuffer configuration.
+//!
+//! \n
+//! \subsection STM32F1xx_UART_Data_Transmission 2.1 UART Data Transmission
+//!
+//! \subsubsection STM32F1xx_UART_RxTx 2.1.1 UART Data Transmit and Receive
+//!
+//! \subsubsection STM32F1xx_UART_Baudrate 2.1.2 UART Baudrate Generation
+//! 
+//! The UART includes a programmable baud rate generator that is capable
+//! of dividing clock input by divisors to produce the serial clock that
+//! transmitter and receiver need.
+//! <center>
+//! <b>UART Baud Rate Equation</b>
+//! <table>
+//! <tr><td>Baud rate equation</td></tr>
+//! <tr><td>Fck/(16*USARTDIV)</td></tr>
+//! </table>
+//! </center>
+//!
+//! \n
+//! \subsection STM32F1xx_UART_SIR 2.2 UART Serial IR
+//!
+//! The SIR Transmit encoder modulates the NRZ transmit bit stream output from USART. 
+//! The output pulse stream is transmitted to an external output driver and infrared
+//! LED. The SIR receive decoder demodulates the return-to-zero bit stream from the 
+//! infrared detector and outputs the received NRZ serial bit stream to USART. The 
+//! decoder input is normally HIGH in the idle state. The following diagram is IrDA 
+//! encoder/decoder waveform:
+//! <img src="STM32F1xx_IrDA_TimingDiagram.jpg" />
+//!
+//! \n
+//! \subsection STM32F1xx_UART_LIN 2.3 UART LIN Support
+//!
+//! Support LIN Master Synchronous Break send capability and LIN slave break 
+//! detection capability and 13-bit break generation and 10/11 bit break  
+//! detection when USART is hardware configured for LIN.
+//! The following diagram is Break detection in LIN mode vs Framing error detection:
+//! <img src="STM32F1xx_LIN_BreakDetection.jpg" />
+//! 
+//! \n
+//! \subsection STM32F1xx_UART_DMA 2.4 UART DMA Support
+//!
+//! Support The USART is capable of continuing communication using the DMA. 
+//! The DMA requests for Rx buffer and Tx buffer are generated independently.
+//!
+//! \n
+//! \subsection STM32F1xx_UART_SYNC 2.5 UART SYNC Support
+//!
+//! Support SYNC function mode.
+//! The USART allows the user to control a bidirectional synchronous serial 
+//! communications in master mode. The CK pin is the output of the USART  
+//! transmitter clock. No clock pulses are sent to the CK pin during start
+//! bit and stop bit. 
+//! <center>
+//! <b>Structure of SYNC Frame</b>
+//! <img src="STM32F1xx_UART_SYNC_Frame.jpg" />
+//! </center>
+//!
+//! \n
+//! \subsection STM32F1xx_UART_Modem 2.6 UART Modem Support
+//!
+//! Support hardware auto flow control/flow control funciton(DTR, RTS) and programmable
+//! RTS flow control trigger level.
+//! The following diagram is Hardware flow control between two USARTs:
+//! <img src="STM32F1xx_UART_Modem.jpg" />
+//!
+//! \n
+//! \subsection STM32F1xx_UART_SmartCard 2.7 UART SmartCard Support
+//! Support SmartCard function mode.
+//! The Smartcard interface is designed to support asynchronous protocol Smartcards
+//! as defined in the ISO 7816-3 standard.
+//! The following diagram is ISO 7816-3 asynchronous protocol:
+//! <img src="STM32F1xx_UART_SmartCard.jpg" />
+//!
+//! \n
+//! \subsection STM32F1xx_UART_Interrupt 2.8 UART Interrupt
+//!
+//! The UART can generate interrupts when the following conditions are observed:
+//! Noise flag, Overrun error and Framing error in multibuffer communication
+//! Received data ready to be read
+//! Transmit data register empty
+//! Overrun error detected
+//! Transmission complete
+//! Idle line detected
+//! Break Error
+//! Parity Error
+//! CTS flag
+//! The following diagram is USART interrupt mapping diagram:
+//! <img src="STM32F1xx_UART_Interrupt.jpg" />
+//!
+//! \n
+//! \subsection STM32F1xx_UART_Single_Wire_Half_Duplex 2.9 UART Single Wire Half Duplex Support
+//! The USART can be configured to follow a single-wire half-duplex protocol. 
+//! In single-wire half-duplex mode, the TX and RX pins are connected internally.
+//!
+//! \n
+//! \subsection STM32F1xx_UART_Multiprocessor_Communication 2.10 UART Multiprocessor Communication Support
+//!
+//! There is a possibility of performing multiprocessor communication with 
+//! the USART (several USARTs connected in a network). For instance, one of
+//! the USARTs can be the master, its TX output is connected to the RX input
+//! of the other USART. The others are slaves, their respective TX outputs 
+//! are logically ANDed together and connected to the RX input of the master.
+//! The following diagram is Mute mode using Idle line detection:
+//! <img src="STM32F1xx_UART_Mute.jpg" />
+//!
+//! \n
+//! \section STM32F1xx_UART_API_Group 3. API Groups
+//! 
+//! \n
+//! \subsection STM32F1xx_UART_API_Group_Config 3.1 UART Config APIs
+//! 
+//! -  UARTParityModeSet()
+//! -  UARTParityModeGet()
+//! -  UARTConfigSet()
+//! -  UARTEnable()
+//! -  UARTDisable()
+//! -  UARTCharGetNonBlocking()
+//! -  UARTCharGet()
+//! -  UARTCharPutNonBlocking()
+//! -  UARTCharPut()
+//! -  UARTBreakCtl()
+//! .
+//!
+//! \n
+//! \subsection STM32F1xx_UART_API_Group_SIR 3.2 UART IrDA APIs
+//!
+//! -  UARTIrDAConfig()
+//! -  UARTEnableIrDA()
+//! -  UARTDisableIrDA()
+//! .
+//!
+//! \n
+//! \subsection STM32F1xx_UART_API_Group_LIN 3.3 UART LIN APIs
+//!
+//! -  UARTEnableLIN()
+//! -  UARTDisableLIN()
+//! -  UARTLINConfig()
+//! .
+//!
+//! \n
+//! \subsection STM32F1xx_UART_API_Group_DMA 3.4 UART DMA APIs
+//!
+//! -  UARTDMAEnable()
+//! -  UARTDMADisable()
+//! .
+//!
+//! \n
+//! \subsection STM32F1xx_UART_API_Group_SYNC 3.5 UART synchronous mode APIs
+//!
+//! -  UARTSynModeSet()
+//! -  UARTSYNDisable()
+//! .
+//! \n
+//! \subsection STM32F1xx_UART_API_Group_Modem 3.6 UART Modem APIs
+//!
+//! -  UARTModemControlSet()
+//! -  UARTModemControlClear()
+//! .
+//!
+//! \n
+//! \subsection STM32F1xx_UART_API_Group_SmartCard 3.7 UART SmartCard APIs
+//!
+//! -  UARTSmartCardEnable()
+//! -  UARTSmartCardDisable()
+//! -  UARTGuardTimeSet()
+//! .
+//!
+//!
+//! \n
+//! \subsection STM32F1xx_UART_API_Group_SYNC 3.6 UART SYNC APIs
+//!
+//! -  UARTSyncModeConfig()
+//! .
+//!
+//! \n
+//! \subsection STM32F1xx_UART_API_Group_Interrupt 3.7 UART Interrupt APIs
+//!
+//! -  UARTIntEnable()
+//! -  UARTIntDisable()
+//! -  UARTIntCallbackInit()
+//! -  UARTIntClear()
+//! -  UARTIntStatus()
+//! .
+//!
+//! \n
+//! \subsection STM32F1xx_UART_API_Group_Single_Wire_Half_Duplex 3.9 UART Single Wire Half Duplex APIs
+//!
+//! -  UARTHalfDuplexEnable()
+//! -  UARTHalfDuplexDisable()
+//! .
+//!
+//! \n
+//! \subsection STM32F1xx_UART_API_Group_Multiprocessor_Communication 3.10 UART Multiprocessor Communication APIs
+//!
+//! -  UARTWakeUpConfig()
+//! -  UARTAddressSet()
+//! .
+//! 
+//! \n
+//! \section STM32F1xx_UART_Usage 4. Usage & Program Examples
+//! 
+//! - \ref xUART_App_NormalMode
+//! - \ref xUART_App_IrDA
+//! - \ref xUART_App_Modem
+//! - \ref xUART_App_Synchronous
+//! .
+//! 
+//! \note 
+//! 
+//
+//*****************************************************************************
+
