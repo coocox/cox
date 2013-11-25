@@ -1,0 +1,104 @@
+//******************************************************
+//
+//! \addtogroup HC_SR04 HC-SR04
+//!
+//! \brief Ultrasonic distance measure module.
+//!
+//! HC-SR04 is a ultrasonic distance measure module. It sends 8 pulses of 
+//! 40kHz ultrasonic wave after receiving a 10us or longer trigger signal. 
+//! Then after receiving the reflected wave, the module gives out an echo
+//! signal of high level pulse. The pulse width keeps a fixed ratio with 
+//! the distance. So what you need to do is measuring the pulse width and 
+//! then converting it to distance.
+//! 
+//!
+//! The CoX Driver Library provides the driver of HC-SR04, it is convenient
+//! for you to transplant the driver to other mcu that the cox support.
+//! 
+//! 
+//! <br />
+//! <h2>Contents</h2>
+//! - \ref CoX_HC_SR04_Profile
+//! - \ref CoX_HC_SR04_Electronic_Parameter
+//! - \ref CoX_HC_SR04_Time_Sequence
+//! - \ref CoX_HC_SR04_Driver_API_Group
+//! - \ref HC_SR04_Usage
+//! .
+//!
+//! <br />
+//! \section CoX_HC_SR04_Profile 1. HC_SR04 Module Profile
+//! <img src="HC_SR04_Profile.png" />
+//!
+//! <br />
+//! \section CoX_HC_SR04_Electronic_Parameter 2. HC_SR04 Electronic Character
+//! <img src="HC_SR04_ElecParam.png" />
+//! 
+//! <br />
+//! \section CoX_HC_SR04_Time_Sequence 3. HC_SR04 Operating Time Sequence
+//! <img src="HC_SR04_TimeSeq.png" />
+//! The HC_SR04 should be operated as following:
+//! - Send a pulse to trigger input pin with a wider than 10us pulse width. 
+//! - Then the module will send 40kHz wave and receive the reflect wave.
+//! - After receiving the reflect wave, the echo output pin will generate a high level pulse.
+//! - Use MCU to count the pulse width(time in us) of the echo signal.
+//! - Calculate the distance with the formula Distance(cm)=time(us)/58 or just Distance=PulseWidth*SoundSpeed(340m/s)/2.
+//! \note The measure cycle is suggested to be longer than 60ms to avoid sending out wave interferenced with reflect wave.
+//! .
+//!
+//! <br />
+//! \section CoX_HC_SR04_Driver_API_Group 4. API Groups
+//!
+//! The CoX HC_SR04 API have only two easily used functions:
+//! - HCSR04Init()
+//! - HCSR04GetDistance()
+//! .
+//! \section HC_SR04_Usage HC_SR04 Usage
+//! Step 1, you should select the CoX implment according to the mcu that you select. \n
+//! Step 2, you should transplant the driver according to your MCU if you use the Timer 
+//! channel and trigger pin which is different from the HC_SR04 driver. \n
+//! Below is some example code:
+//!
+//! \code
+//!
+//!#include "xhw_types.h"
+//!#include "xcore.h"
+//!#include "xhw_gpio.h"
+//!#include "xhw_ints.h"
+//!#include "xhw_memmap.h"
+//!#include "xhw_nvic.h"
+//!#include "xhw_sysctl.h"
+//!#include "xuart.h"
+//!#include "xgpio.h"
+//!#include "xsysctl.h"
+//!#include "stdio.h"
+//!#include "HC_SR04.h"
+//!
+//!void HCSR04Example(void)
+//!{
+//!	unsigned short usDist;
+//!
+//!	xSysCtlClockSet(72000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
+//!
+//!	xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOA);
+//!	xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART1);
+//!	xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART1);
+//!	xUARTConfigSet(xUART1_BASE, 115200, (xUART_CONFIG_WLEN_8 |
+//!			    						 xUART_CONFIG_STOP_1 |
+//!			    						 xUART_CONFIG_PAR_NONE));
+//!	xUARTEnable(xUART1_BASE, (xUART_BLOCK_UART | xUART_BLOCK_TX | xUART_BLOCK_RX));
+//!	xSysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);
+//!	xSPinTypeUART(UART1TX, PA9);
+//!
+//!	HCSR04Init();
+//!
+//!	while(1)
+//!	{
+//!		usDist = HCSR04GetDistance(UNIT_CM);
+//!		printf("The distance is: %d cm\n\r", usDist);
+//!		xSysCtlDelay(5000000);
+//!	}
+//!}
+//!     
+//! \endcode
+//
+//*****************************************************************************

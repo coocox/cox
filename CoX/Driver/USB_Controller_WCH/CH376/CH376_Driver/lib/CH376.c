@@ -44,7 +44,7 @@
 #include "xgpio.h"
 #include "xuart.h"
 #include "stdio.h"
-#include "xhw_CH376INC.h"
+#include "hw_CH376INC.h"
 #include "CH376.h"
 
 #ifdef CH376_USE_HARDWARE_SPI
@@ -139,23 +139,13 @@ void    xWriteCH376Data( UINT8 mData )
 
 
 #ifdef CH376_USE_SOFTWARE_SPI  //software spi macros and read/write function define
-//
-// if define HIGH_SPEED_IO the IO pins will be manipulated in bit band mode to save time
-//
-#ifdef HIGH_SPEED_IO
-#define CH376_SCK_SET     xHWREGBITW(GPIO_BSRR+CH376_SCK_PORT, CH376_SCK_BIT)=1
-#define CH376_SCK_CLR     xHWREGBITW(GPIO_BRR+CH376_SCK_PORT, CH376_SCK_BIT)=1
-#define CH376_MOSI        xHWREGBITW(GPIO_ODR+CH376_MOSI_PORT, CH376_MOSI_BIT)
-#define CH376_MISO       xHWREGBITW(GPIO_IDR+CH376_MISO_PORT, CH376_MISO_BIT)
-#else
-#define CH376_SCK_SET     xGPIOSPinWrite(CH376_SCK_PIN,1)
-#define CH376_SCK_CLR     xGPIOSPinWrite(CH376_SCK_PIN,0)
-#define CH376_MOSI(a)      xGPIOSPinWrite(CH376_MOSI_PIN,a)
-#define CH376_MISO         xGPIOSPinRead(CH376_MISO_PIN)
-#endif
 
-#define CH376_SPI_CS_SET    xGPIOSPinWrite(CH376_SPI_CS_PIN,1)
-#define CH376_SPI_CS_CLR    xGPIOSPinWrite(CH376_SPI_CS_PIN,0)
+#define CH376_SCK_SET             xGPIOSPinWrite(CH376_SCK_PIN,1)
+#define CH376_SCK_CLR             xGPIOSPinWrite(CH376_SCK_PIN,0)
+#define CH376_MOSI_WRITE(a)       xGPIOSPinWrite(CH376_MOSI_PIN,a)
+#define CH376_MISO_READ           xGPIOSPinRead(CH376_MISO_PIN)
+#define CH376_SPI_CS_SET          xGPIOSPinWrite(CH376_SPI_CS_PIN,1)
+#define CH376_SPI_CS_CLR          xGPIOSPinWrite(CH376_SPI_CS_PIN,0)
 
 //*****************************************************************************
 //
@@ -192,19 +182,11 @@ void SPIDataOut(unsigned char ucDat)
         CH376_SCK_CLR;
         if(ucDat & 0x80)
         {
-#ifdef HIGH_SPEED_IO
-            CH376_MOSI = 1;
-#else
-            CH376_MOSI(1);
-#endif
+            CH376_MOSI_WRITE(1);
         }
         else
         {
-#ifdef HIGH_SPEED_IO
-            CH376_MOSI = 0;
-#else
-            CH376_MOSI(0);
-#endif
+            CH376_MOSI_WRITE(0);
         }
         ucDat <<= 1;
         CH376_SCK_SET;
@@ -230,7 +212,7 @@ unsigned char SPIDataIn(void)
     {
         CH376_SCK_CLR;
         dat <<= 1;
-        if(CH376_MISO)
+        if(CH376_MISO_READ)
         {
             dat++;
         }
@@ -293,16 +275,7 @@ UINT8 xReadCH376Data( void )
 #endif  //End of define CH376_USE_SOFTWARE_SPI
 
 #ifdef CH376_USE_PARALLEL  //parallel macros and read/write function define
-#ifdef HIGH_SPEED_IO
-#define CH376_WR_CLR    xHWREGBITW(GPIO_BRR+CH376_WR_PORT, CH376_WR_BIT)=1
-#define CH376_WR_SET    xHWREGBITW(GPIO_BSRR+CH376_WR_PORT, CH376_WR_BIT)=1
-#define CH376_RD_CLR    xHWREGBITW(GPIO_BRR+CH376_RD_PORT, CH376_RD_BIT)=1
-#define CH376_RD_SET    xHWREGBITW(GPIO_BSRR+CH376_RD_PORT, CH376_RD_BIT)=1
-#define CH376_A0_CLR    xHWREGBITW(GPIO_BRR+CH376_A0_PORT, CH376_A0_BIT)=1
-#define CH376_A0_SET    xHWREGBITW(GPIO_BSRR+CH376_A0_PORT, CH376_A0_BIT)=1
-#define CH376_PCS_CLR   xHWREGBITW(GPIO_BRR+CH376_PCS_PORT, CH376_PCS_BIT)=1
-#define CH376_PCS_SET   xHWREGBITW(GPIO_BSRR+CH376_PCS_PORT, CH376_PCS_BIT)=1
-#else
+
 #define CH376_WR_CLR    xGPIOSPinWrite(CH376_WR_PIN,0)
 #define CH376_WR_SET    xGPIOSPinWrite(CH376_WR_PIN,1)
 #define CH376_RD_CLR    xGPIOSPinWrite(CH376_RD_PIN,0)
@@ -311,7 +284,6 @@ UINT8 xReadCH376Data( void )
 #define CH376_A0_SET    xGPIOSPinWrite(CH376_A0_PIN,1)
 #define CH376_PCS_CLR   xGPIOSPinWrite(CH376_PCS_PIN,0)
 #define CH376_PCS_SET   xGPIOSPinWrite(CH376_PCS_PIN,1)
-#endif
 #define CH376_PARA_DATA_OUT(a) (xHWREG(GPIO_ODR+CH376_DATA_PORT)&=(0xFF00|a))
 
 //
@@ -487,9 +459,7 @@ void    mStopIfError( UINT8 ucError )
         mDelaymS( 200 );
     }
 }
-//
-//initialize USART for debugging use
-//
+
 //*****************************************************************************
 //
 //! \brief initialize USART for debugging use
@@ -498,6 +468,8 @@ void    mStopIfError( UINT8 ucError )
 //!
 //! \details Initialize USART1 for debugging use. Debugging will use printf function,
 //!   so we use USART1 as the debugging tool. Don't forget to add and transplant printf.c.
+//! If you don't need debugging or you have your own debugging function, remove this
+//! function.
 //!
 //! \return None
 //
@@ -508,11 +480,11 @@ void    mInitSTDIO( void )
 
     xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART1);
     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART1);
-    xUARTConfigSet(USART1_BASE, 115200, (UART_CONFIG_WLEN_8 |
-                                         UART_CONFIG_STOP_ONE |
-                                         UART_CONFIG_PAR_NONE));
+    xUARTConfigSet(xUART1_BASE, 115200, (xUART_CONFIG_WLEN_8 |
+                                         xUART_CONFIG_STOP_1 |
+                                         xUART_CONFIG_PAR_NONE));
 
-    xUARTEnable(USART1_BASE, (UART_BLOCK_UART | UART_BLOCK_TX | UART_BLOCK_RX));
+    xUARTEnable(xUART1_BASE, (xUART_BLOCK_UART | xUART_BLOCK_TX | xUART_BLOCK_RX));
     xSysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);
     xSPinTypeUART(UART1TX, PA9);
 }
@@ -542,28 +514,31 @@ void	CH376PortInit( void )
     xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(CH376_MISO));
     xSysCtlPeripheralEnable2(CH376_SPI_PORT);
 
-    xSPinTypeSPI(SPI_CLK, CH376_SCK);
-    xSPinTypeSPI(SPI_MISO, CH376_MISO);
-    xSPinTypeSPI(SPI_MOSI, CH376_MOSI);
+    xSPinTypeSPI(CH376SPI_CLK, CH376_SCK);
+    xSPinTypeSPI(CH376SPI_MISO, CH376_MISO);
+    xSPinTypeSPI(CH376SPI_MOSI, CH376_MOSI);
+
     xSPIConfigSet(CH376_SPI_PORT, CH376_CLK_FREQ, SPI_MODE_MASTER |
-                  SPI_MSB_FIRST |
-                  SPI_2LINE_FULL |
-                  SPI_DATA_WIDTH8 |
-                  SPI_FORMAT_MODE_4);
-    SPISSModeConfig(CH376_SPI_PORT, SPI_CR1_SSM);
-    SPISSIConfig(CH376_SPI_PORT, SPI_CR1_SSI);
+    		            xSPI_MOTO_FORMAT_MODE_3 |
+    		            xSPI_MODE_MASTER |
+    		            xSPI_MSB_FIRST |
+    		            xSPI_DATA_WIDTH8);
+//    SPISSModeConfig(CH376_SPI_PORT, SPI_CR1_SSM);
+//    SPISSIConfig(CH376_SPI_PORT, SPI_CR1_SSI);
+    xSPISSSet( CH376_SPI_PORT, xSPI_SS_SOFTWARE, xSPI_SS0 );
     SPIEnble(CH376_SPI_PORT);
     CH376_SPI_CS_SET;
 #endif  //End of CH376_USE_HARDWARE_SPI define
 
 #ifdef CH376_USE_SOFTWARE_SPI
-    xSysCtlPeripheralEnable2(CH376_SPI_CS_PORT);
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(CH376_SCK_PIN));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(CH376_MISO_PIN));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(CH376_MOSI_PIN));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(CH376_SPI_CS_PIN));
+
     xGPIOSPinDirModeSet(CH376_SPI_CS_PIN, xGPIO_DIR_MODE_OUT);
-    xSysCtlPeripheralEnable2(CH376_SCK_PORT);
     xGPIOSPinDirModeSet(CH376_SCK_PIN, xGPIO_DIR_MODE_OUT);
-    xSysCtlPeripheralEnable2(CH376_MOSI_PORT);
     xGPIOSPinDirModeSet(CH376_MOSI_PIN, xGPIO_DIR_MODE_OUT);
-    xSysCtlPeripheralEnable2(CH376_MISO_PORT);
     xGPIOSPinDirModeSet(CH376_MISO_PIN, xGPIO_DIR_MODE_IN);
     CH376_SPI_CS_SET;
 #endif  //End of CH376_USE_SOFTWARE_SPI define

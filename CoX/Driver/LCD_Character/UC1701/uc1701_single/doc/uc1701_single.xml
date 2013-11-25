@@ -27,9 +27,9 @@
     </Files>
     
     <CoIDEFiles>
-        <File>PROJECT_ROOT$\CoX\M25Pxx_single\hw_uc1701.h</File>
-        <File>PROJECT_ROOT$\CoX\M25Pxx_single\uc1701.h</File>
-        <File>PROJECT_ROOT$\CoX\M25Pxx_single\uc1701.c</File>
+        <File>PROJECT_ROOT$\CoX\uc1701_single\hw_uc1701.h</File>
+        <File>PROJECT_ROOT$\CoX\uc1701_single\uc1701.h</File>
+        <File>PROJECT_ROOT$\CoX\uc1701_single\uc1701.c</File>
     </CoIDEFiles>
     
     <DependentComponentInterfaceTag>

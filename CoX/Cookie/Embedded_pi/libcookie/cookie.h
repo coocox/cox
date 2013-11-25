@@ -346,6 +346,7 @@
 #define sD8PinTypeOUT()                                                       \
         do                                                                    \
         {                                                                     \
+        	xSysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);                      \
      		xGPIOPinConfigure(PA15(APP), PA15);                               \
             xGPIOSPinDirModeSet(sD8,xGPIO_DIR_MODE_OUT);                      \
         }                                                                     \

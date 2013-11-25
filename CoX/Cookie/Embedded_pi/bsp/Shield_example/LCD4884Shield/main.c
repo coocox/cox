@@ -33,7 +33,7 @@ int main(void)
 //    //
 //    // Initionalize system clock.
 //    //
-//    xSysCtlClockSet(72000000,  xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
+    xSysCtlClockSet(72000000,  xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
 //
 //    //automatically added by CoIDE
 //	LCD4884_example();
@@ -63,15 +63,17 @@ int main(void)
 //    }
 
 
-	xSysCtlClockSet(72000000,  xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
+//	xSysCtlClockSet(72000000,  xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
 //	AMSDCMotorPWMInit(AMS_MOTOR_B, 10, 50);
 //	AMSDCMotorPWMInit(AMS_MOTOR_A, 10, 50);
 //
 //	AMSDCMotorRun(AMS_MOTOR_B, AMS_RUN_FORWARD);
-//	embeddedpiTest();
+	embeddedpiTest();
+//
+//	AMSStepMotorInit();
+//	AMSStepMotorRun(AMS_RUN_FORWARD, 100);
+//	DotMatrixExecute();
 
-	AMSStepMotorInit();
-	AMSStepMotorRun(AMS_RUN_FORWARD, 100);
 	while(1);
 }
 

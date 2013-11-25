@@ -1,0 +1,77 @@
+Introduction 
+  First, HD44780 display some few characters("Hello HD44780 and Number: 10086"), after a while it will turn off the backlight, and then will be open. At last exit the test.
+
+
+
+Background
+
+  (Optional) Is there any background to this code that may be useful
+such as an introduction to the basic ideas presented?
+
+
+Using the code 
+
+  A brief description of how to use the code. The
+class names, the methods and properties, any tricks or tips.
+
+
+Blocks of code should be set as style "Formatted"
+like this:
+//
+// Any source code blocks look like this
+//
+
+Remember to set the Language of your code snippet using the
+Language dropdown.
+
+Use the "var" button to to wrap Variable or class names in
+<code> tags like this.
+
+
+Points of Interset
+
+//*****************************************************************************
+//
+//! \brief This function is to test LCD44780.
+//!
+//! \param None
+//!
+//! \return None.
+//
+//*****************************************************************************
+void hd44780display(void)
+{
+    //
+    // Initionalize system clock.
+    //
+    xSysCtlClockSet(72000000,  xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
+    xSysCtlDelay(100000);
+
+    xSysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);
+    HD44780Init();
+
+	//
+    // Location Set & Display string, number Test
+    //
+    HD44780LocationSet(0, 0);
+    HD44780DisplayString("Hello HD44780!");
+    HD44780LocationSet(0, 1);
+    HD44780DisplayString("Number:");
+    HD44780DisplayN(10086);
+    xSysCtlDelay(xSysCtlClockGet() / 4);
+    HD44780LocationSet(0,1);
+    HD44780DisplayString("Display off/on");
+    xSysCtlDelay(xSysCtlClockGet() / 4);
+    HD44780DisplayOff();
+    xSysCtlDelay(xSysCtlClockGet() / 4 );
+    HD44780DisplayOn();
+    xSysCtlDelay(xSysCtlClockGet() / 4);
+}
+
+History
+
+  HD44780LocationSet(x, y)   -- set to position(x, y)
+  HD44780DisplayString()  --display the string
+  HD44780DisplayOff()   -- turn off the backlight
+  HD44780DisplayOn()    -- turn on the backlight
+  HD44780DisplayClear() -- clear the screen

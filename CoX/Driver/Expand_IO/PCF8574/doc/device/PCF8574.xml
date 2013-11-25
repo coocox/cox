@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>PCF8574</Name>
+    <Description>
+   
+    The PCF8574 is a silicon CMOS circuit. It provides general purpose remote I/O
+    expansion for most microcontroller families via the two-line bidirectional bus
+    (I2C-bus).
+    The device consists of an 8-bit quasi-bidirectional port and an I2C-bus
+    interface.
+    The PCF8574 has a low current consumption and includes latched outputs with
+    high current drive capability for directly driving LEDs. It also possesses an
+    interrupt line (INT) which can be connected to the interrupt logic of the
+    microcontroller. By sending an interrupt signal on this line, the remote I/O
+    can inform the microcontroller if there is incoming data on its ports without
+    having to communicate via the I2C-bus. This means that the PCF8574 can remain a
+    simple slave device.
+
+    </Description>
+    <Manufacturer>NXP</Manufacturer>
+
+    <Category>Expand_IO</Category>
+    <SubCategory>I2C_Bus_Port</SubCategory>
+
+    <KeyWord>
+        I2C, Remote-IO, PCF8574, GPIO
+    </KeyWord>
+
+    <Communication>
+        <Interface>I2C</Interface>
+    </Communication>
+
+    <Doc>$Device_ROOT$\doc\</Doc>
+
+</Device>
+

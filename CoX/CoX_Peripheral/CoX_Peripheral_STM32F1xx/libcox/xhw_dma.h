@@ -686,6 +686,147 @@
 
 //*****************************************************************************
 //
+//! \addtogroup STM32F1xx_DMA_Register_DMA_CCRx
+//! \brief Defines for the bit fields in the DMA_CCRx register.
+//! @{
+//
+//*****************************************************************************
+
+
+//
+//! Memory to memory mode
+//
+#define DMA_CCR_MEM2MEM        0x00004000
+
+//
+//! Channel priority level mask
+//
+#define DMA_CCRx_PL_M           0x00003000
+
+//
+//! Channel priority level shift
+//
+#define DMA_CCRx_PL_S           12
+
+//
+//! Channel priority level Low
+//
+#define DMA_CCRx_PL_LOW         0x00000000
+
+//
+//! Channel priority level Medium
+//
+#define DMA_CCRx_PL_MED         0x00001000
+
+//
+//! Channel priority level High
+//
+#define DMA_CCRx_PL_HIGH        0x00002000
+
+//
+//! Channel priority level Very high
+//
+#define DMA_CCRx_PL_VHIGH       0x00003000
+
+//
+//! Memory size mask
+//
+#define DMA_CCRx_MSIZE_M        0x00000C00
+
+//
+//! Memory size shift
+//
+#define DMA_CCRx_MSIZE_S        10
+
+//
+//! Memory size 8-bits
+//
+#define DMA_CCRx_MSIZE_8B       0x00000000
+
+//
+//! Memory size 16-bits
+//
+#define DMA_CCRx_MSIZE_16B      0x00000400
+
+//
+//! Memory size 32-bits
+//
+#define DMA_CCRx_MSIZE_32B      0x00000800
+
+//
+//! Peripheral size mask
+//
+#define DMA_CCRx_PSIZE_M        0x00000300
+
+//
+//! Peripheral size shift
+//
+#define DMA_CCRx_PSIZE_S        8
+
+//
+//! Peripheral size 8-bits
+//
+#define DMA_CCRx_PSIZE_8B       0x00000000
+
+//
+//! Peripheral size 16-bits
+//
+#define DMA_CCRx_PSIZE_16B      0x00000100
+
+//
+//! Peripheral size 32-bits
+//
+#define DMA_CCRx_PSIZE_32B      0x00000200
+
+//
+//! Memory increment mode
+//
+#define DMA_CCRx_MINC           0x00000080
+
+//
+//! Peripheral increment mode
+//
+#define DMA_CCRx_PINC           0x00000040
+
+//
+//! Circular mode
+//
+#define DMA_CCRx_CIRC           0x00000020
+
+//
+//! Data transfer direction
+//
+#define DMA_CCRx_DIR            0x00000010
+
+//
+//! Transfer error interrupt enable
+//
+#define DMA_CCRx_TEIE           0x00000008
+
+//
+//! Half transfer interrupt enable
+//
+#define DMA_CCRx_HTIE           0x00000004
+
+//
+//! Transfer complete interrupt enable
+//
+#define DMA_CCRx_TCIE           0x00000002
+
+//
+//! Channel enable
+//
+#define DMA_CCRx_EN             0x00000001
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+  
+
+//*****************************************************************************
+//
 //! \addtogroup STM32F1xx_DMA_Register_DMA_CNDTR1 DMA channel 1 number of data register(DMA_CNDTR1) 
 //! \brief Defines for the bit fields in the DMA_CNDTR1 register.
 //! @{

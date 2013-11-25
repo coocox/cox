@@ -1,0 +1,118 @@
+//*****************************************************************************
+//
+//! \defgroup ArduinoMShield Ardunio Motor Shield
+//!
+//! \brief Shield used for drive motors.
+//!
+//! The Arduino Motor Shield is based on the L298 , which is a dual full-bridge driver 
+//! designed to drive inductive loads such as relays, solenoids, DC and stepping motors. 
+//! It lets you drive two DC motors with your Arduino board, controlling the speed and 
+//! direction of each one independently. You can also measure the motor current absorption 
+//! of each motor, among other features. The shield is TinkerKit compatible, which means 
+//! you can quickly create projects by plugging TinkerKit modules to the board.
+//!
+//! <h1>Webpage</h1>
+//! 
+//!  <a href="http://arduino.cc/en/Main/ArduinoMotorShieldR3"> Product page of the motor shield module</a>
+//!
+//! <h1>Contents</h1>
+//! - \ref AMShield_SCH
+//! - \ref AMShield_Func_Desc
+//! - \ref AMShield_NOTE
+//! - \ref AMShield_API_Group
+//!   - \ref AMShield_API_DCMotor
+//!   - \ref AMShield_API_StepMotor
+//!   .
+//! - \ref AMShield_Usage
+//! .
+//!
+//! \section AMShield_SCH 1. AMShield Schematic
+//! <img src="Arduino.png" />
+//!
+//! \section AMShield_Func_Desc 2. AMShield Func Desc
+//!
+//! Operating Voltage	5V to 12V
+//! Motor controller	L298P, Drives 2 DC motors or 1 stepper motor
+//! Max current	2A per channel or 4A max (with external power supply)
+//! Current sensing	1.65V/A
+//! Free running stop and brake function
+//!
+//! \section AMShield_NOTE 3. AMShield NOTE
+//! 
+//! Function    pins per Ch. A    pins per Ch. B <br/>
+//! Direction        D12               D13<br/>
+//! PWM              D3                D11<br/>
+//! Brake            D9                D8<br/>
+//! Current Sensing  A0                A1<br/>
+//! 
+//! \section AMShield_API_Group 3. AMShield API Group
+//! 
+//! .
+//! 
+//! \subsection AMShield_API_DCMotor 3.1 AMShield API DCMotor
+//! The DC Motor shield is controled by:
+//! - AMSDCMotorPWMInit()
+//! - AMSDCMotorRun()
+//! - AMSDCMotorSpeedSet()
+//! - AMSDCMotorStop()
+//! .
+//!
+//! \subsection AMShield_API_StepMotor 3.2 AMShield API StepMotor
+//! The DC Motor shield is controled by:
+//! - AMSStepMotorInit()
+//! - AMSStepsDelaySet()
+//! - AMSStepMotorRun()
+//! - AMSStepMotorStop()
+//! .
+//! 
+//! A accurate delay is provide:
+//! - AMSDelay()
+//! .
+//!
+//! \section AMShield_Usage AMShield Usage
+//! 
+//! Before Using the Motor shield driver, you should configure the PWM 
+//! Initialization related, the timer used for delay, the timer channel,
+//! and the timer clock source. 
+//! Please reference \ref AMShield_Software_Cfg
+//!
+//! Below is some example code:
+//!
+//! \code
+//!
+//! void StepMotorContorl(void)
+//! {
+//!    unsigned long i, j;
+//!
+//!    //
+//!    // System init
+//!    // 
+//!    xSysCtlClockSet(12000000, (xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_12MHZ));
+//!
+//!    //
+//!    // Step motor init
+//!    // 
+//!    AMSStepMotorInit();
+//!    
+//!    //
+//!    // Set the Step delay
+//!    // 
+//!    AMSStepsDelaySet(1);
+//!    for(i = 0; i < 50; i++)
+//!    {
+//!        //
+//!        // 50,  the 42DC step motor will rov one cycle
+//!        // 
+//!        AMSStepMotorRun(MS_RUN_FORWARD, 50);
+//!    }
+//! 
+//!    //
+//!    // Motor stop
+//!    // 
+//!    AMSStepMotorStop();
+//!         
+//! }
+//!     
+//! \endcode
+//
+//*****************************************************************************

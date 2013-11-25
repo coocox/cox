@@ -437,6 +437,11 @@ extern "C"
 #define xADC_CTL_CH7            0x00000007
 
 //
+//! Internal temperature channel
+//
+#define xADC_CTL_TS             0x00000016
+
+//
 //! Select Comparator 0
 //
 #define xADC_CTL_CMP0           0
@@ -558,9 +563,9 @@ extern "C"
 //! |------------------------|----------------|------------------|
 //! |xADCDataGet             |    Mandatory   |         Y        |
 //! |------------------------|----------------|------------------|
-//! |xADCOverflow            |    Mandatory   |         N        |
+//! |xADCOverflow            |  Non-Mandatory |         N        |
 //! |------------------------|----------------|------------------|
-//! |xADCOverflowClear       |    Mandatory   |         N        |
+//! |xADCOverflowClear       |  Non-Mandatory |         N        |
 //! |------------------------|----------------|------------------|
 //! |xADCCompConditionConfig |  Non-Mandatory |         N        |
 //! |------------------------|----------------|------------------|
@@ -743,8 +748,8 @@ extern void xADCIntDisable(unsigned long ulBase, unsigned long ulIntFlags);
 //!         Else returns the number of samples copied to the buffer.
 //
 //*****************************************************************************
-#define xADCDataGet(ulBase,pulBuffer)                                         \
-		*pulBuffer = ADCDataRegularGet(ulBase, ADC_MODE_NORMAL)
+extern unsigned long xADCDataGet(unsigned long ulBase,
+                                 unsigned long *pulBuffer);
 
 //*****************************************************************************
 //

@@ -65,8 +65,8 @@
   <Components path="./"/>
   <Files>
     <File name="CoX_Driver/CH376_Driver/CH376.h" path="../../../lib/CH376.h" type="1"/>
-    <File name="CoX/CoX_Peripheral/inc/xi2c.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xi2c.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xadc.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xadc.h" type="1"/>
+    <File name="CoX/CoX_Peripheral/inc/xi2c.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xi2c.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_spi.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_spi.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_config.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_config.h" type="1"/>
@@ -76,14 +76,14 @@
     <File name="CoX_Driver/CH376_Driver/CH376_FS.c" path="../../../lib/CH376_FS.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_wdt.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_wdt.h" type="1"/>
     <File name="CoX_Driver" path="" type="2"/>
+    <File name="CoX_Driver/CH376_Driver/hw_CH376INC.h" path="../../../lib/hw_CH376INC.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_ints.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_ints.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xsysctl.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xsysctl.h" type="1"/>
-    <File name="CoX/CoX_Peripheral/inc/xhw_adc.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_adc.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc" path="" type="2"/>
+    <File name="CoX/CoX_Peripheral/inc/xhw_adc.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_adc.h" type="1"/>
     <File name="syscalls/syscalls.c" path="../src/syscalls.c" type="1"/>
     <File name="example" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_i2c.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_i2c.h" type="1"/>
-    <File name="CoX_Driver/CH376_Driver/xhw_CH376INC.h" path="../../../lib/xhw_CH376INC.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_types.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_types.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_nvic.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_nvic.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xuart.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xuart.c" type="1"/>

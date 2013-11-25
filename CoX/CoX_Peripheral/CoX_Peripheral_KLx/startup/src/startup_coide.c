@@ -439,7 +439,14 @@ void Default_ResetHandler(void)
     // Initialize data and bss
     //
     unsigned long *pulSrc, *pulDest;
+    volatile unsigned long *pVTOR;
 
+    //
+    //    Store vector table offset (VTOR)
+    //
+    pVTOR = (unsigned long *)0xe000ed08;
+    *pVTOR = (unsigned long)g_pfnVectors;
+    
     //
     // Copy the data segment initializers from flash to SRAM
     //

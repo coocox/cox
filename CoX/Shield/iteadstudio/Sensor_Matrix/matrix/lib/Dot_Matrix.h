@@ -115,7 +115,7 @@
 //
 //! Configure the timer which is used for scan
 //
-#define DM_SCAN_TIMER           xTIMER0_BASE
+#define DM_SCAN_TIMER           xTIMER1_BASE
 
 //
 //! Configure timer's corresponding channel

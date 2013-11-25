@@ -1,0 +1,58 @@
+//*****************************************************************************
+//
+//! \defgroup Keypad_4x4 Keypad_4x4
+//!
+//! \brief Keypad 4x4.
+//!
+//! Keypad 4x4 is used for loading numerics into the microcontroller
+//!
+//! <h1>Contents</h1>
+//! - \ref KEYPAD_4X4_SCH
+//! - \ref KEYPAD_4X4_PCB
+//! - \ref KEYPAD_4X4_API_Group
+//!   - \ref KEYPAD_4X4_API_Iint
+//!   - \ref KEYPAD_4X4_API_Keyscan
+//!   - \ref KEYPAD_4X4_API_Write_Read
+//!   .
+//! - \ref KEYPAD_4X4_Usage
+//! .
+//!
+//! \section KEYPAD_4X4_SCH 1. KEYPAD_4X4 Schematic
+//! <img src="keypad_4x4_sch.png" />
+//!
+//! \section KEYPAD_4X4_PCB 2. KEYPAD_4X4 PCB
+//! <img src="keypad_4x4_pcb.png" />
+//!
+//! \section KEYPAD_4X4_API_Group 3. API Group
+//! \subsection KEYPAD_4X4_API_Init 3.1 KEYPAD_4X4 Init API
+//! - Keypad4x4Init() to initialize.
+//! .
+//! 
+//! \subsection KEYPAD_4X4_API_Keyscan 3.2 Keyscan API
+//! The keypad is scaned by:
+//! - Keypad4x4Scan()
+//! .
+//!
+//! \subsection KEYPAD_4X4_API_Key_Write_Read 3.3 Key Value Read Write
+//! - Keypad4x4Pad03Wirte()
+//! - Keypad4x4Pad47Read()
+//! .
+//!
+//! \section KEYPAD_4X4_Usage KEYPAD_4X4 Usage
+//! 
+//! Before Using the LCD driver, you should configure the LCD moudle, function,
+//! character font, data interface length, pin remap. Please reference
+//! \ref KEYPAD_4X4_Config.
+//!
+//! Below is some example code:
+//!
+//! \code
+//! 
+//! Keypad4x4Init();
+//! ucKeyScan = Keypad4x4Scan();
+//! printf("The key pressed is: %d \r\n", ucKeyScan);
+//! xSysCtlDelay(1000000);
+//!     
+//! \endcode
+//
+//*****************************************************************************

@@ -120,7 +120,7 @@
 //! config your device series.It can be one of the following values: 
 //! STM32F10X_LD_VL, STM32F10X_MD_VL, STM32F10X_HD_VL, STM32F10X_XL, STM32F10X_CL
 //
-#define STM32F1xx_DEVICE        STM32F10X_HD_VL
+#define STM32F1xx_DEVICE        STM32F10X_CL
 
 //
 //! config your HSE external crystal value.It can be one of the following values: 
@@ -134,14 +134,14 @@
 //! It can be one of the following values: 
 //! APBCLOCK_DIV_1, APBCLOCK_DIV_2, APBCLOCK_DIV_8, APBCLOCK_DIV_16
 //
-#define SYSCTL_APB2CLOCK_DIV    APBCLOCK_DIV_2
+#define SYSCTL_APB2CLOCK_DIV    APBCLOCK_DIV_1
 
 //
 //! STM32F1xx APB low-speed prescaler (APB1) division config.
 //! It can be one of the following values: 
 //! APBCLOCK_DIV_1, APBCLOCK_DIV_2, APBCLOCK_DIV_8, APBCLOCK_DIV_16
 //
-#define SYSCTL_APB1CLOCK_DIV    APBCLOCK_DIV_1
+#define SYSCTL_APB1CLOCK_DIV    APBCLOCK_DIV_2
 
 //
 //! STM32F1xx RTC counter config.
@@ -293,22 +293,22 @@
 //
 //! APB clock divided by 2.
 //
-#define APBCLOCK_DIV_2          2
+#define APBCLOCK_DIV_2          4
 
 //
 //! APB clock divided by 4.
 //
-#define APBCLOCK_DIV_4          4
+#define APBCLOCK_DIV_4          5
 
 //
 //! APB clock divided by 8.
 //
-#define APBCLOCK_DIV_8          8
+#define APBCLOCK_DIV_8          6
 
 //
 //! APB clock divided by 16.
 //
-#define APBCLOCK_DIV_16         16
+#define APBCLOCK_DIV_16         7
 
 //*****************************************************************************
 //

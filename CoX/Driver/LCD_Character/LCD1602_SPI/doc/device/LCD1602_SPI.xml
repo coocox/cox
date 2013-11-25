@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>SPI LCD1602(74HC595D)</Name>
+    <Description>SPI interface 16*2 characters dot matrix LCD display module</Description>
+    <Manufacturer>TI</Manufacturer>
+    
+    <Category>Display</Category>
+    <SubCategory>LCD1602</SubCategory>
+    
+    <KeyWord>LCD1602,I2C, 74HC595D,MCP23008,HD44780,LCD</KeyWord>
+    
+    <Communication>
+        <Interface>I2C</Interface>
+		<Interface>GPIO</Interface>
+    </Communication>
+    
+    <WebPage>http://learn.adafruit.com/i2c-spi-lcd-backpack</WebPage>
+    <Datasheet>http://www.dfrobot.com/image/data/DFR0009/HD44780.pdf</Datasheet>
+	<Datasheet>http://learn.adafruit.com/downloads/pdf/i2c-spi-lcd-backpack.pdf</Datasheet>
+	<Datasheet>http://ww1.microchip.com/downloads/en/devicedoc/21919b.pdf</Datasheet>
+	<Datasheet>http://www.ti.com.cn/general/cn/docs/lit/getliterature.tsp?genericPartNumber=cd74hc595&fileType=pdf</Datasheet>
+</Device>

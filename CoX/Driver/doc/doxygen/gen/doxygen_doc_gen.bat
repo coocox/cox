@@ -65,7 +65,16 @@ copy %v_repo_root_self%\CoX\Driver\USB_Controller_WCH\CH376\CH376_Driver\doc\ima
 copy %v_repo_root_self%\CoX\Driver\AD.DA\PCF8591\PCF8591_Driver\doc\images\* ..\en\html >>nul
 
 copy %v_repo_root_self%\CoX\Shield\Arduino\Motor_Shield\doc\images\* ..\en\html >>nul
-copy %v_repo_root_self%\CoX\Driver\AD.DA\PCF8591\PCF8591_Driver\doc\images\* ..\en\html >>nul
+
+copy %v_repo_root_self%\CoX\Driver\Sensor_Distance\HC-SR04\HC-SR04_Driver\doc\images\* ..\en\html >>nul
+rem copy %v_repo_root_self%\CoX\Driver\Expand_IO\PCF8574\Driver\doc\images\* ..\en\html >>nul
+copy %v_repo_root_self%\CoX\Driver\Keypad\Keypad_4x4\Keypad_4x4_Driver\doc\images\* ..\en\html >>nul
+copy %v_repo_root_self%\CoX\Driver\Key_KeyPad\Joystick\Joystick_Driver\doc\images\* ..\en\html >>nul
+copy %v_repo_root_self%\CoX\Driver\Codec_Audio_VLSI\VS10xx\VS10xx_Driver\doc\images\* ..\en\html >>nul
+copy %v_repo_root_self%\CoX\Driver\Sensor_Accelerometer\ADXL345\Driver\doc\images\* ..\en\html >>nul
+copy %v_repo_root_self%\CoX\Driver\Sensor_Accelerometer\MMA8451\Driver\doc\images\* ..\en\html >>nul
+copy %v_repo_root_self%\CoX\Driver\LCD_Character\T6963C\T6963C_single\doc\images\* ..\en\html >>nul
+copy %v_repo_root_self%\CoX\Driver\LCD_Character\LCD1602_SPI\LCD1602_SPI_Driver\doc\images\* ..\en\html >>nul
 
 
 copy %v_cox_peripheral_manual%\doc\images\* ..\en\html >>nul

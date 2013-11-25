@@ -1,0 +1,126 @@
+//*****************************************************************************
+//
+//! \defgroup WiFi_Shield WiFi_Shield
+//!
+//! \brief Shield used for WiFi.
+//!  Arduino WiFi Shield Front
+//!  <img src="Arduino_WiFi_Shield_Front.jpg " />
+//!
+//!  Arduino WiFi Shield Back
+//!  <img src="Arduino_WiFi_Shield_Back.jpg " />
+//!
+//! The Arduino WiFi Shield connects your Arduino to the internet wirelessly.
+//! Connect it to your wireless network by following a few simple instructions to
+//! start controlling your world through the internet. As always with Arduino,
+//! every element of the platform ¨C hardware, software and documentation ¨C is
+//! freely available and open-source. This means you can learn exactly how it's
+//! made and use its design as the starting point for your own circuits.
+//!
+//! <h1>Contents</h1>
+//! - \ref WiFi_Shield_Description
+//! - \ref WiFi_Shield_Getting_started
+//! - \ref Sensor_Shield_NOTE
+//! - \ref Sensor_Shield_API_Group
+//!   - \ref Sensor_Shield_API_I2C
+//!   - \ref Sensor_Shield_API_UART
+//!   - \ref Sensor_Shield_API_GPIO
+//!   .
+//! - \ref Sensor_Shield_Usage
+//! .
+//!
+//! \section WiFi_Shield_Description 1. WiFi_Shield Description
+//!
+//!   The Arduino WiFi Shield allows an Arduino board to connect to the internet
+//! using the 802.11 wireless specification (WiFi). It is based on the HDG104
+//! Wireless LAN 802.11b/g System in-Package. An Atmega 32UC3 provides a network
+//! (IP) stack capable of both TCP and UDP. Use the WiFI library to write sketches
+//! which connect to the internet using the shield. The WiFI shield connects to an
+//! Arduino board using long wire-wrap headers which extend through the shield.
+//! This keeps the pin layout intact and allows another shield to be stacked on top.
+//!
+//! The WiFi Shield can connect to wireless networks which operate according to the
+//! 802.11b and 802.11g specifications.
+//!
+//! There is an onboard micro-SD card slot, which can be used to store files for
+//! serving over the network. It is compatible with the Arduino Uno and Mega. The
+//! onboard microSD card reader is accessible through the SD Library. When working
+//! with this library, SS is on Pin 4.
+//!
+//! Arduino communicates with both the Wifi shield's processor and SD card using
+//! the SPI bus (through the ICSP header). This is on digital pins 11, 12, and 13
+//! on the Uno and pins 50, 51, and 52 on the Mega. On both boards, pin 10 is used
+//! to select the HDG104 and pin 4 for the SD card. These pins cannot be used for
+//! general I/O. On the Mega, the hardware SS pin, 53, is not used to select either
+//! the HDG104 or the SD card, but it must be kept as an output or the SPI
+//! interface won't work.
+//!
+//! Digital pin 7 is used as a handshake pin between the WiFi shield and the
+//! Arduino, and should not be used.
+//!
+//!   Note that because the HDG104 and SD card share the SPI bus, only one can be
+//! active at a time. If you are using both peripherals in your program, this
+//! should be taken care of by the corresponding libraries. If you're not using one
+//! of the peripherals in your program, however, you'll need to explicitly deselect
+//! it. To do this with the SD card, set pin 4 as an output and write a high to it.
+//! For the HDG104, set digital pin 10 as a high output.
+//!
+//! The shield can connect to encrypted networks that use either WPA2 Personal or
+//! WEP encryption. It can also connect to open networks.
+//!
+//! A network must broadcast its SSID for the shield to be able to connect.
+//!
+//! The reset button on the shield resets both the HDG104 and the Arduino board.
+//!
+//! The shield contains a number of informational LEDs:
+//!
+//! \b L9 (yellow)  : this is tied to digital pin 9
+//! \b LINK (green) : indicates a connection to a network
+//! \b ERROR (red)  : indicates when there is a communication error
+//! \b DATA (blue)  : indicates data being transmitted/received
+//!
+//! \section  WiFi_Shield_Getting_started 2. Getting started with the WiFi shield
+//!
+//! <h2>Connecting the Shield</h2>
+//! <img src="Arduino_WiFi_Shield_Pin_Use_Described.jpg "/>
+//! To use the shield, mount it on top of an Arduino board (e.g. the Uno). To
+//! upload sketches to the board, connect it to your computer with a USB cable as
+//! you normally would. Once the sketch has been uploaded, you can disconnect the
+//! board from your computer and power it with an external power supply.
+//!
+//! Digital pin 7 is used as a handshake pin between the WiFi shield and the
+//! Arduino, and should not be used.
+//!
+//! \note IORef Pin must be connect to 3.3V or 5V.
+//!
+//!
+//! <h2>Network Settings</h2>
+//!   The shield will connect to open networks, as well as those using WEP and WPA2
+//! Personal encryption. The shield will not connect to networks using WPA2
+//! Enterprise encryption.
+//!   The SSID (network name) must be broadcast for the shield to connect.
+//! Depending on your wireless router configuration, you need different information.
+//! 1: For an open (unencrypted) network, you need the SSID.
+//! 2: For networks using WPA/WPA2 Personal encryption, you need the SSID and password.
+//! 3: WEP network passwords are hexadecimal strings known as keys. A WEP network can
+//! have 4 different keys; each key is assigned a "Key Index" value. For WEP
+//! encrypted networks, you need the SSID, the key, and key number.
+//!
+//! <h2> SD Card and SPI </h2>
+//! The WiFI Shield includes a micro-SD card slot, which can be interfaced with
+//! using the SD library. The SS for the SD card is pin 4.
+//!
+//! Arduino communicates with the shield using the SPI bus. This is on digital pins
+//! 11, 12, and 13 on the Uno and pins 50, 51, and 52 on the Mega. On both boards,
+//! pin 10 is used as SS. On the Mega, the hardware SS pin, 53, is not used, but it
+//! must be kept as an output or the SPI interface won't work.
+//!
+//! \section WiFi_Shield_NOTE 3. WiFi_Shield NOTE
+//! SPI technology paramters:
+//! Clock 4MHz
+//! POA --> 0 --> Idle Low.
+//! POL --> 0 --> Rasing edge capture.
+//! After send cmd, you need to wait 20us for MCU to triggle interrupt.
+//! then you can send paramters and data.
+//! Betweent continue SPI operation, you inspect 10us delay.
+//!
+//*****************************************************************************

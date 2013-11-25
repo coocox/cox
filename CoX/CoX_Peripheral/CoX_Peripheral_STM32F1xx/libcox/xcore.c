@@ -74,6 +74,10 @@ static const unsigned long g_pulRegs[] =
     NVIC_PRI14, NVIC_PRI15, NVIC_PRI16, NVIC_PRI17, NVIC_PRI18
 };
 
+//Note: Commented by cedar 2013-5-27
+//      To avoid the compiler warning: 
+//      "Warning[Pe177]: function "IntDefaultHandler" was declared but never referenced"
+#if 0
 //*****************************************************************************
 //
 //! \internal
@@ -97,7 +101,7 @@ IntDefaultHandler(void)
     {
     }
 }
-
+#endif 
 
 //*****************************************************************************
 //

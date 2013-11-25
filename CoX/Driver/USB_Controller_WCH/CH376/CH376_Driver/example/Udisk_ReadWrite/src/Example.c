@@ -49,7 +49,7 @@
 #include "xhw_nvic.h"
 #include "xsysctl.h"
 #include "stdio.h"
-#include "xhw_CH376INC.h"
+#include "hw_CH376INC.h"
 #include "CH376.h"
 #include "CH376_FS.h"
 

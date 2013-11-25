@@ -123,6 +123,7 @@ static const unsigned long g_pulCLKSELRegs[] =
 
 static volatile const unsigned char g_APBAHBPrescTable[16] = 
        {0, 0, 0, 0, 1, 2, 3, 4, 1, 2, 3, 4, 6, 7, 8, 9};
+
 static volatile const unsigned char g_ADCPrescTable[4] = {2, 4, 6, 8};
 
 static const unsigned char g_AHBPrescTable[9] = 
@@ -375,6 +376,9 @@ SysCtlPeripheralValid(unsigned long ulPeripheral)
 void
 SysCtlPeripheralReset(unsigned long ulPeripheral)
 {
+    unsigned long ulReg = 0;
+    unsigned long ulMask = 0;
+        
     //
     // Check the arguments.
     //
@@ -382,9 +386,12 @@ SysCtlPeripheralReset(unsigned long ulPeripheral)
 
     //
     // Put the peripheral into the reset state.
-    //
-    xHWREG(g_pulIPRSTRegs[SYSCTL_PERIPH_INDEX(ulPeripheral)]) |=
-        SYSCTL_PERIPH_MASK(ulPeripheral);
+    //    
+    //xHWREG(g_pulIPRSTRegs[SYSCTL_PERIPH_INDEX(ulPeripheral)]) |=
+    //    SYSCTL_PERIPH_MASK(ulPeripheral);
+    ulReg  = g_pulIPRSTRegs[SYSCTL_PERIPH_INDEX(ulPeripheral)];
+    ulMask = SYSCTL_PERIPH_MASK(ulPeripheral);
+    xHWREG(ulReg) |= ulMask;
 
     //
     // Delay for a little bit.
@@ -394,8 +401,9 @@ SysCtlPeripheralReset(unsigned long ulPeripheral)
     //
     // Take the peripheral out of the reset state.
     //
-    xHWREG(g_pulIPRSTRegs[SYSCTL_PERIPH_INDEX(ulPeripheral)]) &=
-        ~(SYSCTL_PERIPH_MASK(ulPeripheral));
+    //xHWREG(g_pulIPRSTRegs[SYSCTL_PERIPH_INDEX(ulPeripheral)]) &=
+    //    ~(SYSCTL_PERIPH_MASK(ulPeripheral));
+    xHWREG(ulReg) &= ~ulMask;
 }
 
 //*****************************************************************************
@@ -903,9 +911,11 @@ SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
             }
         }
             
-
-               
+        //APB1 is limited to 36MHz, so we need to 1/2 divide
         xHWREG(RCC_CFGR) |= SYSCTL_APB1CLOCK_DIV << RCC_CFGR_PPRE1_S;
+        
+        //APB2 operates at full speed(Up to 72MHz depending on the device)
+        //we set APB2_Clock == AHB_Clock
         xHWREG(RCC_CFGR) |= SYSCTL_APB2CLOCK_DIV << RCC_CFGR_PPRE2_S;
 
         xHWREG(RCC_CR) |= RCC_CR_PLLON;

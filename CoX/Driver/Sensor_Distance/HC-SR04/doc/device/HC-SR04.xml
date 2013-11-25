@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>HC-SR04</Name>
+    <Description>
+    	  ultrasonic distance measure module
+    </Description>
+    <Manufacturer></Manufacturer>
+    
+    <Category>Sensor</Category>
+    <SubCategory>Distance</SubCategory>
+    
+    <KeyWord>Sensor, Distance, Ultrasonic, COX</KeyWord>
+    
+    <Communication>
+        <Interface>GPIO, Timer Channel</Interface>
+    </Communication>
+    
+    <WebPage>http://item.taobao.com/item.htm?id=13198992829</WebPage>
+    <Datasheet>http://www.kuaipan.cn/file/id_10606769629827818.htm</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</DoC>
+</Device>

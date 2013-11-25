@@ -1,0 +1,119 @@
+//*****************************************************************************
+//
+//! \defgroup MMA8451 MMA8451
+//!
+//! \brief 3-axis accelerometer driver.
+//!
+//! <h1>Contents</h1>
+//! - \ref MMA8451_Description
+//!   .
+//! - \ref MMA8451_Driver_API
+//!   .
+//! - \ref MMA8451_Example
+//!   - \ref Example_ReadAccData
+//! .
+//!
+//! \section MMA8451_Description 1. MMA8451 System description.
+//!
+//! The MMA8451Q is a smart low-power, three-axis, capacitive micromachined 
+//! accelerometer with 14 bits  of resolution. This accelerometer is packed with 
+//! embedded functions with flexible user programmable options, configurable to two 
+//! interrupt pins. Embedded interrupt functions allow for overall power savings 
+//! relieving the host processor from continuously polling data. There is access to both 
+//! low pass filtered data as well as high pass filtered data, which minimizes the data 
+//! analysis required for jolt detection and faster transitions. The device can be 
+//! configured to generate inertial wakeup in terrupt signals from any combination of 
+//! the configurable embedded functions allowing the MMA8451Q to monitor events 
+//! and remain in a low power mode during periods of inactivity. The MMA8451Q is 
+//! available in a 3 mm x 3 mm x 1 mm QFN package. 
+//! 
+//! \b Features
+//! * 1.95 V to 3.6 V supply voltage
+//! * 1.6 V to 3.6 V interface voltage
+//! * +-2g /+-4g/+-8g dynamically selectable full-scale
+//! * Output Data Rates (ODR) from 1.56 Hz to 800 Hz 99 ug/Hz noise 
+//! * 14-bit and 8-bit digital output 
+//! * I2C digital output interface (operates to 2.25 MHz with 4.7 k ¦¸ pullup )
+//! * Two programmable interrupt pins for seven interrupt sources
+//! * Three embedded channels of motion detection
+//! -  Freefall or Motion Detection: 1 channel
+//! -  Pulse Detection: 1 channel
+//! -  Jolt Detection: 1 channel
+//! * Orientation (Portrait/Landscape) detection with programmable hysteresis
+//! * Automatic ODR change for Auto-WAKE and return to SLEEP
+//! * 32 sample FIFO
+//! * High Pass Filter Data available per sample and through the FIFO
+//! * Self-Test
+//! * RoHS compliant
+//! \b Typical Applications
+//! * eCompass applications
+//! * Static orientation detection (Portrait/Landscape, Up/Down, Left/Right, Back/Front position identification)
+//! * Notebook, eReader and Laptop Tumble and Freefall Detection
+//! * Real-time orientation detection (virtual  reality and gaming 3D user position feedback)
+//! * Real-time activity analysis (pedometer step counting, freefall drop detection for HDD, dead-reckoning GPS backup)
+//! * Motion detection for portable product power saving (Auto-SLEEP and Auto-WAKE  for cell phone, PD A, GPS, gaming)
+//! * Shock and vibration monitoring (mechatronic compensation, shipping and warranty usage logging)
+//! * User interface (menu scrolling by orientation change, tap detection for button replacement)
+//! 
+//! .
+//!
+//! \section MMA8451_Driver_API 2. API Group
+//!
+//! Result MMA8451_Init(void);
+//! Result MMA8451_GetID(uint8_t * ID);
+//! Result MMA8451_ReadAccData_8(uint8_t Axis, int8_t * DataRecvBuf);
+//! Result MMA8451_ReadAccData_14(uint8_t Axis, int16_t * DataRecvBuf);
+//! Result MMA8451_DataStatusCheck(uint8_t Flag);
+//! Result MMA8451_IntStatusCheck(uint8_t Event);
+//! Result MMA8451_Active(void);
+//! Result MMA8451_Standby(void);
+//! Result MMA8451_IntCfg(uint64_t Cfg);
+//! Result MMA8451_Cfg(uint64_t Cfg);
+//! Result MMA8451_PLCfg(uint32_t Cfg, uint32_t Angle, uint8_t Cnt);
+//! Result MMA8451_FFMTStatusCheck(uint8_t Event);
+//! Result MMA8451_FFMTCfg(uint32_t Cfg, uint8_t ThresHold, uint8_t Cnt);
+//! Result MMA8451_TSStatusCheck(uint8_t Event);
+//! Result MMA8451_TransCfg(uint32_t Cfg, uint8_t ThresHold, uint8_t Cnt);
+//! Result MMA8451_PulseStatusCheck(uint8_t Event);
+//! Result MMA8451_PulseCfg(uint32_t Cfg);
+//! Result MMA8451_PulseThresHoldSet(uint8_t Axis, uint8_t ThresHold);
+//! Result MMA8451_PulseLimitSet(uint8_t Limit);
+//! Result MMA8451_PulseLatencySet(uint8_t Latency);
+//! Result MMA8451_PulseWindowSet(uint8_t Window);
+//! Result MMA8451_SleepCntSet(uint8_t Cnt);
+//! Result MMA8451_OffSetWrite(uint32_t Axis, uint8_t OffSet);
+//! Result MMA8451_RegWriteByte(uint8_t RegAddr, uint8_t Data);
+//! Result MMA8451_RegReadByte(uint8_t RegAddr, uint8_t * DataRecvBuf);
+//! .
+//! 
+//! \section MMA8451_Example 3. Example
+//! \note: this is a part of code, full code is available in example project.
+//!
+//! \subsection Example_ReadAccData 3.1 ReadAccData Example
+//! \code
+//!  Result retv = SUCCESS;
+//!
+//!  SysInit();
+//!  UartInit();
+//!  printf("%s\r\n", WelcomeInfo);
+//!  retv = MMA8451_Init();
+//!  if(retv != SUCCESS)
+//!  {
+//!      while(1);
+//!  }
+//!                 
+//!  MMA8451_Active(); 
+//!
+//!  while(1)
+//!  {
+//!      MMA8451_ReadAccData_14(AXIS_X, &val);
+//!      printf("%X\t", val);
+//!      MMA8451_ReadAccData_14(AXIS_X, &val);
+//!      printf("%X\t", val); 
+//!      MMA8451_ReadAccData_14(AXIS_X, &val);
+//!      printf("%X\r\n", val); 
+//!      SysCtlDelay(0x3FFFF);
+//!  }
+//!
+//! \endcode
+//!

@@ -20,7 +20,7 @@
         <Option name="UseCLib" value="0"/>
         <Option name="UserEditLinkder" value=""/>
         <Option name="UseMemoryLayout" value="1"/>
-        <Option name="Library" value="Use nano C Library"/>
+        <Option name="Library" value="Not use C Library"/>
         <Option name="Printf" value="1"/>
         <LinkedLibraries>
           <Libset dir="d:\program files\gnu tools arm embedded\4.7 2012q4\arm-none-eabi\lib\armv7-m\" libs="m"/>
@@ -74,10 +74,11 @@
     <File name="CoX/CoX_Peripheral/inc/xadc.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xadc.h" type="1"/>
     <File name="CoX/cookie/cookie.h" path="../../../../libcookie/cookie.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_spi.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_spi.h" type="1"/>
+    <File name="CoX/Shield/DotMatrix/Dot_Matrix.h" path="../../../../../../Shield/iteadstudio/Sensor_Matrix/matrix/lib/Dot_Matrix.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src" path="" type="2"/>
-    <File name="CoX/CoX_Peripheral/inc/xhw_config.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_config.h" type="1"/>
-    <File name="CoX/Shield" path="" type="2"/>
     <File name="CoX/Shield/GPS/gps.h" path="../../../../../../Shield/iteadstudio/GPS/GPS/lib/gps.h" type="1"/>
+    <File name="CoX/Shield" path="" type="2"/>
+    <File name="CoX/CoX_Peripheral/inc/xhw_config.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_config.h" type="1"/>
     <File name="Example/xyget.c" path="../../../example/UARTPrint/coide/xyget.c" type="1"/>
     <File name="CoX/Shield/LCD4884/LCD4884.c" path="../../../../../../Shield/DFRobot/LCD4884Shield/lib/LCD4884.c" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xcore.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xcore.c" type="1"/>
@@ -85,13 +86,13 @@
     <File name="CoX/CoX_Peripheral/inc/xgpio.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xgpio.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_wdt.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_wdt.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xdma.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xdma.c" type="1"/>
-    <File name="CoX/Shield/T00006x/t00006x.c" path="../../../example/UARTPrint/coide/t00006x.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_ints.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_ints.h" type="1"/>
+    <File name="CoX/Shield/T00006x/t00006x.c" path="../../../example/UARTPrint/coide/t00006x.c" type="1"/>
     <File name="CoX/Shield/LCD4884/GB1616.h" path="../../../../../../Shield/DFRobot/LCD4884Shield/lib/GB1616.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xadc.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xadc.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xsysctl.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xsysctl.h" type="1"/>
-    <File name="CoX/CoX_Peripheral/inc/xhw_adc.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_adc.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc" path="" type="2"/>
+    <File name="CoX/CoX_Peripheral/inc/xhw_adc.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_adc.h" type="1"/>
     <File name="syscalls/syscalls.c" path="syscalls/syscalls.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_i2c.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_i2c.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_types.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_types.h" type="1"/>
@@ -106,6 +107,7 @@
     <File name="CoX/Shield/LCD4884/LCD4884.h" path="../../../../../../Shield/DFRobot/LCD4884Shield/lib/LCD4884.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xdma.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xdma.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_timer.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_timer.h" type="1"/>
+    <File name="Example/DotMatrix_example.c" path="../src/DotMatrix_example.c" type="1"/>
     <File name="CoX/cookie/cookie_cfg.h" path="../../../../libcookie/cookie_cfg.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xtimer.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xtimer.c" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xspi.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xspi.c" type="1"/>
@@ -113,14 +115,15 @@
     <File name="CoX/CoX_Peripheral/inc/xtimer.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xtimer.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xgpio.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xgpio.c" type="1"/>
     <File name="CoX/Shield/LCD4884/font_6x8.h" path="../../../../../../Shield/DFRobot/LCD4884Shield/lib/font_6x8.h" type="1"/>
+    <File name="CoX/Shield/DotMatrix/font.h" path="../../../../../../Shield/iteadstudio/Sensor_Matrix/matrix/lib/font.h" type="1"/>
     <File name="CoX/Shield/GPS/gps.c" path="../../../../../../Shield/iteadstudio/GPS/GPS/lib/gps.c" type="1"/>
     <File name="CoX/Shield/GPS" path="" type="2"/>
     <File name="CoX" path="" type="2"/>
     <File name="CoX/Shield/ArduinoMotor/ArduinoMotorShield.c" path="../../../../../../Shield/Arduino/Motor_Shield/lib/ArduinoMotorShield.c" type="1"/>
     <File name="CoX/Shield/T00006x/t0006x.h" path="../../../example/UARTPrint/coide/t0006x.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xuart.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xuart.h" type="1"/>
-    <File name="Example" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xwdt.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xwdt.h" type="1"/>
+    <File name="Example" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xrtc.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xrtc.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_sysctl.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_sysctl.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xdebug.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xdebug.h" type="1"/>
@@ -134,10 +137,12 @@
     <File name="CoX/cookie" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/src/xi2c.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xi2c.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xcore.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xcore.h" type="1"/>
-    <File name="CoX/CoX_Peripheral/src/xsysctl.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xsysctl.c" type="1"/>
     <File name="CoX/CoX_Peripheral" path="" type="2"/>
+    <File name="CoX/CoX_Peripheral/src/xsysctl.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xsysctl.c" type="1"/>
+    <File name="CoX/Shield/DotMatrix/Dot_Matrix.c" path="../../../../../../Shield/iteadstudio/Sensor_Matrix/matrix/lib/Dot_Matrix.c" type="1"/>
     <File name="CoX/Shield/ArduinoMotor/ArduinoMotorShield.h" path="../../../../../../Shield/Arduino/Motor_Shield/lib/ArduinoMotorShield.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xpwm.c" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xpwm.c" type="1"/>
+    <File name="CoX/Shield/DotMatrix" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xpwm.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xpwm.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_memmap.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_memmap.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_uart.h" path="../../../../../../CoX_Peripheral/CoX_Peripheral_STM32F1xx/libcox/xhw_uart.h" type="1"/>

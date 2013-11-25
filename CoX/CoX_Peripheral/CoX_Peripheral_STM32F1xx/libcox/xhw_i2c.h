@@ -7,32 +7,32 @@
 //! \author CooCox
 //! \copy
 //!
-//! Copyright (c)  2011, CooCox 
+//! Copyright (c)  2011, CooCox
 //! All rights reserved.
-//! 
-//! Redistribution and use in source and binary forms, with or without 
-//! modification, are permitted provided that the following conditions 
-//! are met: 
-//! 
-//!     * Redistributions of source code must retain the above copyright 
-//! notice, this list of conditions and the following disclaimer. 
+//!
+//! Redistribution and use in source and binary forms, with or without
+//! modification, are permitted provided that the following conditions
+//! are met:
+//!
+//!     * Redistributions of source code must retain the above copyright
+//! notice, this list of conditions and the following disclaimer.
 //!     * Redistributions in binary form must reproduce the above copyright
 //! notice, this list of conditions and the following disclaimer in the
-//! documentation and/or other materials provided with the distribution. 
-//!     * Neither the name of the <ORGANIZATION> nor the names of its 
-//! contributors may be used to endorse or promote products derived 
-//! from this software without specific prior written permission. 
-//! 
+//! documentation and/or other materials provided with the distribution.
+//!     * Neither the name of the <ORGANIZATION> nor the names of its
+//! contributors may be used to endorse or promote products derived
+//! from this software without specific prior written permission.
+//!
 //! THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-//! AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//! AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 //! IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-//! ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
-//! LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
-//! CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+//! ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+//! LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+//! CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
 //! SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-//! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
-//! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-//! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+//! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+//! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+//! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 //! THE POSSIBILITY OF SUCH DAMAGE.
 //
 //****************************************************************************
@@ -56,7 +56,7 @@
 //*****************************************************************************
 //
 //! \addtogroup STM32F1xx_I2C_Register STM32F1xx I2C Register
-//! \brief Here are the detailed info of I2C registers. 
+//! \brief Here are the detailed info of I2C registers.
 //!
 //! it contains:
 //! - Register offset.
@@ -81,7 +81,7 @@
 //
 //! I2C Control register 1
 //
-#define I2C_CR1                 0x00000000  
+#define I2C_CR1                 0x00000000
 
 //
 //! I2C Control register 2
@@ -91,37 +91,37 @@
 //
 //! I2C Own address register 1
 //
-#define I2C_OAR1                0x00000008  
+#define I2C_OAR1                0x00000008
 
 //
 //! I2C Own address register 2
 //
-#define I2C_OAR2                0x0000000C  
+#define I2C_OAR2                0x0000000C
 
 //
 //! I2C Data register
 //
-#define I2C_DR                  0x00000010  
+#define I2C_DR                  0x00000010
 
 //
 //! I2C Status register 1
 //
-#define I2C_SR1                 0x00000014  
+#define I2C_SR1                 0x00000014
 
 //
 //! I2C Status register 2
 //
-#define I2C_SR2                 0x00000018  
+#define I2C_SR2                 0x00000018
 
 //
 //! I2C Clock control register
 //
-#define I2C_CCR                 0x0000001C  
+#define I2C_CCR                 0x0000001C
 
 //
 //! I2C TRISE register
 //
-#define I2C_TRISE               0x00000020  
+#define I2C_TRISE               0x00000020
 
 //*****************************************************************************
 //
@@ -140,17 +140,17 @@
 //
 //! Software reset
 //
-#define I2C_CR1_SWRST           0x00008000  
+#define I2C_CR1_SWRST           0x00008000
 
 //
 //! SMBus alert
 //
-#define I2C_CR1_ALERT           0x00002000 
+#define I2C_CR1_ALERT           0x00002000
 
 //
 //! Packet error checking
 //
-#define I2C_CR1_PEC             0x00001000 
+#define I2C_CR1_PEC             0x00001000
 
 //
 //! Acknowledge/PEC Position (for data reception)
@@ -200,7 +200,7 @@
 //
 //! SMBus mode
 //
-#define I2C_CR1_SMBUS           0x00000002 
+#define I2C_CR1_SMBUS           0x00000002
 
 //
 //! Peripheral enable
@@ -279,22 +279,22 @@
 //
 //! Interface address mask
 //
-#define I2C_OAR1_ADD98_M        0x00000300  
+#define I2C_OAR1_ADD98_M        0x00000300
 
 //
 //! Interface address mask shift
 //
-#define I2C_OAR1_ADD98_S        8  
+#define I2C_OAR1_ADD98_S        8
 
-//                                                                                            
+//
 //! Interface address mask
 //
-#define I2C_OAR1_ADD71_M        0x000000FE  
+#define I2C_OAR1_ADD71_M        0x000000FE
 
 //
 //! Interface address mask shift
 //
-#define I2C_OAR1_ADD71_S        1 
+#define I2C_OAR1_ADD71_S        1
 
 //
 //! Interface address
@@ -315,15 +315,15 @@
 //
 //*****************************************************************************
 
-//                                                                                            
+//
 //! Interface address mask
 //
-#define I2C_OAR2_ADD71_M        0x000000FE  
+#define I2C_OAR2_ADD71_M        0x000000FE
 
 //
 //! Interface address mask shift
 //
-#define I2C_OAR2_ADD71_S        1 
+#define I2C_OAR2_ADD71_S        1
 
 //
 //! Interface address
@@ -347,12 +347,12 @@
 //
 //! 8-bit data register mask
 //
-#define I2C_DR_DR_M             0x000000FF  
+#define I2C_DR_DR_M             0x000000FF
 
 //
 //! 8-bit data register shift
 //
-#define I2C_DR_DR_S             0  
+#define I2C_DR_DR_S             0
 
 //*****************************************************************************
 //
@@ -371,12 +371,12 @@
 //
 //! SMBus alert
 //
-#define I2C_SR1_SMBALERT        0x00008000  
+#define I2C_SR1_SMBALERT        0x00008000
 
 //
 //! Timeout or Tlow error
 //
-#define I2C_SR1_TIMEOUT         0x00004000  
+#define I2C_SR1_TIMEOUT         0x00004000
 
 //
 //! PEC Error in reception
@@ -455,7 +455,7 @@
 //
 //! Packet error checking register mask
 //
-#define I2C_SR2_PEC_M           0x0000FF00  
+#define I2C_SR2_PEC_M           0x0000FF00
 
 //
 //! Packet error checking register shift
@@ -514,7 +514,7 @@
 //
 //! I2C master mode selection
 //
-#define I2C_CCR_F_S             0x00008000 
+#define I2C_CCR_F_S             0x00008000
 
 //
 //! Fast mode duty cycle
@@ -543,7 +543,7 @@
 //
 //! Maximum rise time in Fast/Standard mode (Master mode)
 //
-#define I2C_TRISE_TRISE_M       0x0000003F  
+#define I2C_TRISE_TRISE_M       0x0000003F
 
 //
 //! Maximum rise time in Fast/Standard mode (Master mode)

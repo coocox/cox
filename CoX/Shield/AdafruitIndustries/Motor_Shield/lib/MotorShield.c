@@ -24,8 +24,8 @@
 #include "xpwm.h"
 #include "xhw_timer.h"
 #include "xtimer.h"
-#include "coshining.h"
-#include "coshining_cfg.h"
+#include "cookie_cfg.h"
+#include "cookie.h"
 #include "MotorShield.h"
 
 //

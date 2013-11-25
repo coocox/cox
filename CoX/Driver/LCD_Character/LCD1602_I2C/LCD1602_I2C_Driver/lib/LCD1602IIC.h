@@ -1,7 +1,7 @@
 //*****************************************************************************
 //
 //! \file LCD1602IIC.h
-//! \brief Prototypes for Character LCD HD44780 Driver.
+//! \brief Prototypes for I2C Character LCD HD44780 Driver.
 //! \version 2.1.1.0
 //! \date 1/15/2013
 //! \author CooCox
@@ -104,8 +104,8 @@ extern "C"
 //
 //! Select hardware IIC or software IIC
 //
-#define USE_SOFTWARE_IIC
-//#define USE_HARDWARE_IIC
+//#define USE_SOFTWARE_IIC
+#define USE_HARDWARE_IIC
 
 #define LCD1602_IIC_PIN_SCL     PB6
 #define LCD1602_IIC_PIN_SDA     PB7

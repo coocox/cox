@@ -1,0 +1,76 @@
+//*****************************************************************************
+//
+//!
+//! \defgroup Joystick(MT-008A)
+//!
+//! \brief This is the MT-008A joystick Driver.
+//! 
+//! MT-008A is a 5 directions key joystick includes up,down,left,right,select keys.
+//! Each key has an output pin and all of them are connected to a common pin.
+//!
+//! <h1>Contents</h1>
+//! - \ref Joystick_Connection
+//!
+//! \section Joystick_Connection 1. Joystick Connection and schematic
+//! <img src="Joystick.png" />
+//!
+//! .
+//! \defgroup Joystick_Driver_Single  
+//!  
+//! \brief This is the Joystick Driver 
+//!
+//! This driver is implemented by using defines.
+//!
+//! <h1>Contents</h1>
+//! - \ref Joystick_How_Define
+//! - \ref Joystick_API_Group
+//! - \ref Joystick_Usage 
+//! .
+//!
+//! \section Joystick_How_Define 1. How is the Joystick Driver implemented?
+//! Use define to config input pins and effective level when the key is pressed down.
+//!
+//! \section Joystick_API_Group 2. API Groups
+//! - JoystickInit()
+//! - JoystickKeyRead()
+//! .
+//!
+//! \section Joystick_Usage 1. Usage & Program Examples
+//! 
+//! 
+//! \code
+//!#include "xhw_types.h"
+//!#include "xhw_memmap.h"
+//!#include "xhw_nvic.h"
+//!#include "xsysctl.h"
+//!#include "xgpio.h"
+//!#include "Joystick.h"
+//!
+//!#define LED_PIN  PD11
+//!
+//!void JoystickExample(void)
+//!{
+//!    unsigned char ucKeyVal = 0;
+//!	
+//!	xSysCtlClockSet(72000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
+//!	xSysCtlDelay( 1000000 );
+//!	JoystickInit();
+//!	
+//!	xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(LED_PIN));
+//!	xGPIOSPinDirModeSet(LED_PIN, xGPIO_DIR_MODE_OUT);
+//!	xGPIOSPinWrite( LED_PIN, 0 );
+//!    while(1)
+//!    {
+//!    	ucKeyVal = JoystickKeyRead();
+//!    	if(ucKeyVal != 0)
+//!    	{
+//!		xGPIOSPinWrite( LED_PIN, 1 );
+//!		xSysCtlDelay( 5000000 );
+//!		xGPIOSPinWrite( LED_PIN, 0 );
+//!    	}
+//!    }
+//!}
+//! \endcode
+//!
+//
+//*****************************************************************************

@@ -54,6 +54,7 @@ static unsigned char g_ucLine = 0;
 //
 static unsigned char dots[2][8][8][3] = {0};
 
+
 #define open_line0	{xGPIOSPinWrite(sD8,1);}
 #define open_line1	{xGPIOSPinWrite(sD9,1);}
 #define open_line2	{xGPIOSPinWrite(sD10,1);}
@@ -79,14 +80,18 @@ static unsigned char dots[2][8][8][3] = {0};
 void 
 DM163PinInit(void)
 {
-    xSysCtlPeripheralReset(xSYSCTL_PERIPH_GPIOA);
-    xSysCtlPeripheralReset(xSYSCTL_PERIPH_GPIOB);
-    xSysCtlPeripheralReset(xSYSCTL_PERIPH_GPIOC);
-    xSysCtlPeripheralReset(xSYSCTL_PERIPH_GPIOE);
-    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOA);
-    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOB);
-    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOC);
-    xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOE);
+    xSysCtlPeripheralReset(xGPIOSPinToPeripheralId(sD6));
+    xSysCtlPeripheralReset(xGPIOSPinToPeripheralId(sD7));
+    xSysCtlPeripheralReset(xGPIOSPinToPeripheralId(sA1));
+    xSysCtlPeripheralReset(xGPIOSPinToPeripheralId(sA0));
+    xSysCtlPeripheralReset(xGPIOSPinToPeripheralId(sA2));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(sD6));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(sD7));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(sD8));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(sD10));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(sA0));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(sA1));
+    xSysCtlPeripheralEnable(xGPIOSPinToPeripheralId(sA2));
 
     //
     // Set PD4(DIR_SDA), PD5(DIR_SCL), and PB0(DIR_SB) PB1(DIR_LATCH) PB2(DIR_RST) as output
@@ -96,6 +101,16 @@ DM163PinInit(void)
     xGPIOSPinTypeGPIOOutput(sA0);   // SB
     xGPIOSPinTypeGPIOOutput(sA1);   // LATCH
     xGPIOSPinTypeGPIOOutput(sA2);   // RST
+
+    sD8PinTypeOUT();
+    xGPIOSPinTypeGPIOOutput(sD9);
+    xGPIOSPinTypeGPIOOutput(sD10);
+    xGPIOSPinTypeGPIOOutput(sD11);
+    xGPIOSPinTypeGPIOOutput(sD12);
+    xGPIOSPinTypeGPIOOutput(sD13);
+    xGPIOSPinTypeGPIOOutput(sD14);
+    xGPIOSPinTypeGPIOOutput(sD3);
+    xGPIOSPinTypeGPIOOutput(sD4);
 
     //
     // Disable the output, data serial in and latch register.
@@ -375,6 +390,7 @@ DotMatrixScan(void *pvCBData,  unsigned long ulEvent,
                unsigned long ulMsgParam,
                void *pvMsgData)
 {
+	TimerIntClear(DM_SCAN_TIMER, xTIMER_INT_CAP_EVENT);
 	DotMatrixRunArray();
 	return 0;
 }
@@ -397,15 +413,15 @@ DotMatrixScanTimerInit(unsigned long ulSrcFreq, unsigned long ulScanFerq)
     //
     // Set the timer clock
     //
-    xSysCtlPeripheralClockSourceSet(DM_SCAN_CLKSRC, DM_SCANDIV_VALUE);
+//    xSysCtlPeripheralClockSourceSet(DM_SCAN_CLKSRC, DM_SCANDIV_VALUE);
 
     xSysCtlPeripheralEnable2(DM_SCAN_TIMER);
 
     //
     // Clear the status first
     //
-    TimerIntClear(DM_SCAN_TIMER, xTIMER_INT_MATCH);
-    while(xTimerStatusGet(DM_SCAN_TIMER, DM_SCAN_CHANNEL, xTIMER_INT_MATCH));
+    TimerIntClear(DM_SCAN_TIMER, xTIMER_INT_CAP_EVENT);
+    while(xTimerStatusGet(DM_SCAN_TIMER, DM_SCAN_CHANNEL, xTIMER_INT_CAP_EVENT));
 
     // 
     // Config as periodic mode
@@ -413,9 +429,10 @@ DotMatrixScanTimerInit(unsigned long ulSrcFreq, unsigned long ulScanFerq)
     xTimerInitConfig(DM_SCAN_TIMER, DM_SCAN_CHANNEL, xTIMER_MODE_PERIODIC, ulScanFerq);
     xTimerPrescaleSet(DM_SCAN_TIMER, DM_SCAN_CHANNEL, DM_SCANPSR_VALUE);
     xTimerMatchSet(DM_SCAN_TIMER, DM_SCAN_CHANNEL, ulMatchVal);
-    xTimerIntEnable(DM_SCAN_TIMER, DM_SCAN_CHANNEL, xTIMER_INT_MATCH);
+    xTimerIntEnable(DM_SCAN_TIMER, DM_SCAN_CHANNEL, xTIMER_INT_CAP_EVENT);
     xTimerIntCallbackInit(DM_SCAN_TIMER, DotMatrixScan);
-    xIntEnable(xSysCtlPeripheralIntNumGet(DM_SCAN_TIMER));
+//    xIntEnable(xSysCtlPeripheralIntNumGet(DM_SCAN_TIMER));
+    xIntEnable(xINT_TIMER1);
 
     //
     // Start the timer

@@ -2,7 +2,7 @@
 //
 //! \file xadc.c
 //! \brief Driver for the ADC Controller.
-//! \version V2.2.1.0
+//! \version V2.2.1.1
 //! \date 8/15/2011
 //! \author CooCox
 //! \copy
@@ -92,7 +92,7 @@ xADCConfigure(unsigned long ulBase, unsigned long ulMode,
     }
     else
     {
-        xHWREG(ulBase + ADC0_SC3) &= ~ADC0_SC2_ADTRG_HARD; 
+        xHWREG(ulBase + ADC0_SC2) &= ~ADC0_SC2_ADTRG_HARD;
     } 
 }
 
@@ -198,7 +198,7 @@ xADCStepConfigure(unsigned long ulBase, unsigned long ulStep,
     }
     
     //
-    // Enable the corresponding channle pair in differential mode
+    // Enable the corresponding channel pair in differential mode
     //
     if(ulConfig & xADC_CTL_D)
     {
@@ -209,7 +209,7 @@ xADCStepConfigure(unsigned long ulBase, unsigned long ulStep,
     //    
     else
     {
-       xHWREG(ulBase + ADC0_SC1A) |= 1 << ulChannel; 
+       xHWREG(ulBase + ADC0_SC1A) |= 1 << ulChannel;
     }
 }
 
@@ -329,9 +329,10 @@ xADCDataGet(unsigned long ulBase, unsigned long *pulBuffer)
     //
     // Check if ADC Conversion is complete.
     //
-    ulValid = (xHWREG(ulBase + ADC0_SC1A) & ADC0_SC1A_COCO_FLAG) >> 7;
-
-    while(!ulValid);
+    do
+    {
+        ulValid = (xHWREG(ulBase + ADC0_SC1A) & ADC0_SC1A_COCO_FLAG) >> 7;
+    } while(!ulValid);
 
     //
     // Copy data to buffer
@@ -804,9 +805,11 @@ ADCDataGet(unsigned long ulBase)
     //
     // Check if ADC Conversion is complete.
     //
-    ulValid = (xHWREG(ulBase + ADC0_SC1A) & ADC0_SC1A_COCO_FLAG) >> 7;
+    do
+    {
+        ulValid = (xHWREG(ulBase + ADC0_SC1A) & ADC0_SC1A_COCO_FLAG) >> 7;
+    } while(!ulValid);
 
-    while(!ulValid);
 
     //
     // Get data from result register

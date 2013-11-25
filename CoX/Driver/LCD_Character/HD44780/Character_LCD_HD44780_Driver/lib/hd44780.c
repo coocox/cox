@@ -45,7 +45,8 @@
 #include "xgpio.h"
 #include "hw_hd44780.h"
 #include "hd44780.h"
-#include "coshining.h"
+#include "cookie_cfg.h"
+#include "cookie.h"
 
 //*****************************************************************************
 //

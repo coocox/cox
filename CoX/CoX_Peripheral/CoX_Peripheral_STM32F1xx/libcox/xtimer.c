@@ -228,6 +228,7 @@ TIM1CCIntHandler(void)
     // The SR register read cleared
     //
     ulTemp = xHWREG(TIM1_BASE + TIMER_SR);
+    xHWREG(TIM1_BASE + TIMER_SR) &= ~0x1E;
 
     g_pfnTimerHandlerCallbacks[4](0, 0, ulTemp, 0);
     
@@ -6040,6 +6041,6 @@ TimerIntClear(unsigned long ulBase, unsigned long ulIntFlags)
             (ulIntFlags == TIMER_INT_UEV) || (ulIntFlags == TIMER_INT_TEV) ||
             (ulIntFlags == TIMER_INT_COM) || (ulIntFlags == TIMER_INT_BRK));
     
-    xHWREG(ulBase + TIMER_SR) = ~ulIntFlags;
+    xHWREG(ulBase + TIMER_SR) &= ~ulIntFlags;
 
 }

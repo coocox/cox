@@ -131,7 +131,8 @@
 #define xPWMK_BASE              TIM13_BASE  // PWMK
 #define xPWML_BASE              TIM14_BASE  // PWML
 
-#define xDMA1_BASE              DMA1_BASE   // DMA
+#define xDMA1_BASE              DMA1_BASE   // DMA 1
+#define xDMA2_BASE              DMA2_BASE   // DMA 2
 
 //*****************************************************************************
 //
