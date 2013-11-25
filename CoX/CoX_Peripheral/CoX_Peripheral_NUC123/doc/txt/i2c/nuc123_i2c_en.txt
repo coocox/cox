@@ -1,0 +1,183 @@
+//*****************************************************************************
+//
+//! \defgroup NUC123_I2C NUC123 I2C
+//! 
+//! \brief NUC123 I2C Peripheral Driver.
+//!
+//! The CoX Peripheral Library also provide APIs for full functions of 
+//! NUC123 I2C. This module supports the whole NUC123.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref NUC123_I2C_Function_Desc
+//! - \ref NUC123_I2C_API_Group
+//!   - \ref NUC123_I2C_API_Group_Init 
+//!   - \ref NUC123_I2C_API_Group_Transfer 
+//!   - \ref NUC123_I2C_API_Group_Interrupt 
+//!   - \ref NUC123_I2C_API_Group_Timeout
+//! - \ref NUC123_I2C_Usage
+//! .
+//! 
+//! <br />
+//! \section NUC123_I2C_Function_Desc 1. NUC123 I2C Functional Description
+//! I2C is two-wire, bi-directional serial bus to transfer data. One bus is SCL 
+//! which provide the clock pulse for each data bit transfer on the other SDA bus.
+//!
+//! I2c can be configure as master mode or slave mode. Master mode provide the 
+//! clock and start/stop signal. Arbitration exist between simultaneously transmitting
+//! masters.
+//!
+//! Programmable clocks allow versatile rate control, i2c supports multiple 
+//! address with mask option.
+//!
+//! When any of the status change will cause an interrupt if the interrupt enable 
+//! bit set.
+//! 
+//! A timeout function is provide to distinguish the restart signal form stop signal
+//! 
+//! <br />
+//! \section NUC123_I2C_API_Group 2. NUC123 I2C API Group
+//! 
+//! The I2C API is broken into three groups of functions: 
+//! - those that deal with init the i2c, 
+//! - those that deal with data transfer, 
+//! - those that deal with the interrupt handler,
+//! - those that deal with the timeout. 
+//! .
+//!
+//! <br />
+//! \subsection NUC123_I2C_API_Group_Init  2.1 I2C Init APIs
+//! 
+//! I2C Enable or Disable :
+//! - I2CDisable()
+//! - I2CEnable()
+//! .
+//!
+//! The I2C master init functions are:
+//! - I2CMasterInit()
+//! .  
+//! 
+//! The I2C slave init functions are: 
+//! - I2CSlaveInit() 
+//! - I2CSlaveOwnAddressSet()
+//! - I2CSlaveOwnAddressMaskSet()
+//! .
+//! 
+//! <br />
+//! \subsection NUC123_I2C_API_Group_Transfer 2.2 I2C Transfer APIs
+//! 
+//! Get the i2c status
+//! - I2CStatusGet()
+//! .
+//!
+//! Master transfer API includes:
+//! - I2CMasterTransfer()
+//! - I2CMasterTransferComplete()
+//! .
+//! 
+//! Slave transfer API includes:
+//! - xI2CSlaveTransferComplete()
+//! - xI2CSlaveTransfer()
+//! .
+//! 
+//! <br />
+//! \subsection NUC123_I2C_API_Group_Interrupt  2.3 I2C interrupt handler functions
+//! 
+//! The Callback functions
+//! - I2CIntCallbackInit()
+//! - I2CIntFlagClear()
+//! - I2CIntFlagGet()
+//! - I2CIntDisable()
+//! - I2CIntEnable()
+//! .
+//!
+//! 
+//! <br />
+//! \subsection NUC123_I2C_API_Group_Timeout 2.4 I2C API Timeout
+//! - I2CTimeoutCounterSet()
+//! - I2CTimeoutFlagGet()
+//! - I2CTimeoutFlagClear()
+//! .
+//!
+//!
+//! <br />
+//! \section NUC123_I2C_Usage 3. Usage & Program Examples
+//! The following example shows how to use the I2C API to initialize the master 
+//! I2C, and how to transfer data to slave.
+//! 
+//! \code
+//! //*****************************************************************************
+//! //
+//! // I2C transfer and receive data config
+//! //
+//! //*****************************************************************************
+//! static tI2CMasterTransferCfg I2CMasterTrCfg;
+//!
+//! static unsigned char SendBuf[] = "MasterToSlv";
+//! static unsigned long SendLength =  11;
+//! static unsigned char SlaveAddress = 0x05;
+
+//! //*****************************************************************************
+//! //
+//! // \brief something should do before the test execute of xi2c002 test.
+//! //
+//! // \return None.
+//! //
+//! //*****************************************************************************
+//! void I2C0Init(void)
+//! {
+//!     //
+//!     // Configure the i2c pin
+//!     //
+//!     PinTypeI2C(I2C0SCL, PA11);
+//!     PinTypeI2C(I2C0DATA, PA10);
+//!    
+//!     //
+//!     // Enable the i2c peripheral
+//!     //
+//!     SysCtlPeripheralEnable(xSYSCTL_PERIPH_I2C0);
+//!     
+//!     //
+//!     // I2C master transfer config
+//!     //
+//!     I2CMasterTrCfg.ulSlave = SlaveAddress;
+//!     I2CMasterTrCfg.pvWBuf = SendBuf;
+//!     I2CMasterTrCfg.ulWLen = SendLength;
+//!     I2CMasterTrCfg.ulWCount = 0;
+//!     I2CMasterTrCfg.pvRBuf = 0;
+//!     I2CMasterTrCfg.ulRLen = 0;
+//!     I2CMasterTrCfg.ulRCount = 0;      
+//!   
+//! }
+//! 
+//! //*****************************************************************************
+//! //
+//! // \brief xi2c 002 main body.
+//! //
+//! // \return None.
+//! //
+//! //*****************************************************************************
+//! void main(void)
+//! {
+//!     unsigned char ucFlag;
+//!     
+//!     I2C0Init();
+//!     //
+//!     // Init the I2C as master, change the rata form 0 to 2000000
+//!     //    
+//!     I2CMasterInit(I2C0_BASE, 1000000);
+//!     
+//!     //
+//!     // master transfer with polling mode
+//!     //
+//!     ucFlag = I2CMasterTransfer(I2C0_BASE, &I2CMasterTrCfg, I2C_TRANSFER_POLLING);   
+//!     
+//!     while(1);
+//! }
+//!
+//! \endcode
+//! 
+//! \note 
+//! 
+//
+//*****************************************************************************

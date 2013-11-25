@@ -65,27 +65,17 @@
     </DebugOption>
     <ExcludeFile/>
   </Target>
-  <Components path="./">
-    <Component id="30" name="C Library" path="" type="2"/>
-    <Component id="167" name="CoX.Peripheral.HT32F175x.xStartup" path="" type="2"/>
-    <Component id="168" name="CoX.Peripheral.HT32F175x.xLowLayer" path="" type="2"/>
-    <Component id="170" name="CoX.Peripheral.HT32F175x.xSysCtl" path="" type="2"/>
-    <Component id="171" name="CoX.Peripheral.HT32F175x.xGPIO" path="" type="2"/>
-    <Component id="172" name="CoX.Peripheral.HT32F175x.xWDT" path="" type="2"/>
-    <Component id="173" name="CoX.Peripheral.HT32F175x.xRTC" path="" type="2"/>
-    <Component id="178" name="CoX.Peripheral.HT32F175x.xSPI" path="" type="2"/>
-    <Component id="180" name="CoX.Peripheral.HT32F175x.xUART" path="" type="2"/>
-  </Components>
+  <Components path="./"/>
   <Files>
-    <File name="CoX/CoX_Peripheral/inc/xadc.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xadc.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xi2c.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xi2c.h" type="1"/>
-    <File name="CoX/CoX_Driver/SST25VFxx/hw_SST25VFxx.h" path="../../../lib/hw_SST25VFxx.h" type="1"/>
+    <File name="CoX/CoX_Peripheral/inc/xadc.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xadc.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_spi.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xhw_spi.h" type="1"/>
+    <File name="CoX/CoX_Driver/SST25VFxx/hw_SST25VFxx.h" path="../../../lib/hw_SST25VFxx.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src" path="" type="2"/>
     <File name="Test/TestCase/SST25VFxxTest.c" path="../src/SST25VFxxTest.c" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xcore.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xcore.c" type="1"/>
-    <File name="Test/TestFrame" path="" type="2"/>
     <File name="startup_coide.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/startup/src/startup_coide.c" type="1"/>
+    <File name="Test/TestFrame" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xgpio.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xgpio.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_wdt.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xhw_wdt.h" type="1"/>
     <File name="CoX/CoX_Driver" path="" type="2"/>
@@ -101,12 +91,12 @@
     <File name="Test/TestFrame/testport.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/testframe/testport.c" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xrtc.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xrtc.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_nvic.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xhw_nvic.h" type="1"/>
-    <File name="Test/TestFrame/test.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/testframe/test.c" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xuart.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xuart.c" type="1"/>
+    <File name="Test/TestFrame/test.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/testframe/test.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_gpio.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xhw_gpio.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_timer.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xhw_timer.h" type="1"/>
-    <File name="CoX/CoX_Peripheral/inc/xhw_acmp.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xhw_acmp.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xtimer.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xtimer.c" type="1"/>
+    <File name="CoX/CoX_Peripheral/inc/xhw_acmp.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xhw_acmp.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xspi.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xspi.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xtimer.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xtimer.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xgpio.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xgpio.c" type="1"/>
@@ -116,20 +106,20 @@
     <File name="CoX/CoX_Driver/SST25VFxx/SST25VFxx.c" path="../../../lib/SST25VFxx.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xuart.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xuart.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xwdt.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xwdt.h" type="1"/>
+    <File name="CoX/CoX_Driver/SST25VFxx/SST25VFxx.h" path="../../../lib/SST25VFxx.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_sysctl.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xhw_sysctl.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xrtc.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xrtc.h" type="1"/>
-    <File name="CoX/CoX_Driver/SST25VFxx/SST25VFxx.h" path="../../../lib/SST25VFxx.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xdebug.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xdebug.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xdebug.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xdebug.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xacmp.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xacmp.h" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xspi.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xspi.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xi2c.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xi2c.c" type="1"/>
-    <File name="Test/TestCase" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xcore.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xcore.h" type="1"/>
     <File name="CoX/CoX_Driver/SST25VFxx" path="" type="2"/>
-    <File name="Test/TestFrame/test.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/testframe/test.h" type="1"/>
+    <File name="Test/TestCase" path="" type="2"/>
     <File name="Test/TestFrame/main.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/testframe/main.c" type="1"/>
     <File name="CoX/CoX_Peripheral" path="" type="2"/>
+    <File name="Test/TestFrame/test.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/testframe/test.h" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xsysctl.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xsysctl.c" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xpwm.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xpwm.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xpwm.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_HT32F175x/libcox/xpwm.h" type="1"/>
