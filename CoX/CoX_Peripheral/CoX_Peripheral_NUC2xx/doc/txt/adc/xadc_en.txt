@@ -1,0 +1,285 @@
+//*****************************************************************************
+//
+//! \defgroup ADC
+//! 
+//! \brief Analog-to-Digital Converter (ADC) Peripheral Driver.
+//!
+//! An analog-to-digital converter (ADC) is a peripheral that converts a 
+//! continuous analog voltage to a discrete digital number.
+//!
+//! The ADC always operates by successive approximation with 10-bit/12-bit 
+//! resolution and has several input channels, plus an internal temperature 
+//! sensor. 
+//!
+//! The ADC moudule always works as an programmable sequencer allowing 
+//! the sampling of multiple analog input sources without controller intervention.
+//! The sequencer provides flexible programming with fully configurable input 
+//! source, trigger events, interrupt generation. 
+//!
+//! A digital comparator function is included which allows the conversion 
+//! value to be diverted to a digital comparator module. Each digital comparator
+//! evaluates the ADC conversion value against its user-defined values to 
+//!determine the operational range of the signal.
+//!
+//! The analog to digital converter (ADC) API provides a set of functions for 
+//! dealing with the ADC.
+//!
+//! Functions are provided to configure the sample sequencers and digital  
+//! comparators, read the captured data, and handle the interrupt.
+//!
+//! \n
+//! <h1>Contents</h1>
+//! - \ref ADC_Blcok
+//! - \ref ADC_Function_Desc
+//!   - \ref ADC_Pin_Desc
+//!   - \ref ADC_Sequence
+//!   - \ref ADC_Source
+//!   - \ref ADC_Comp
+//!   - \ref ADC_Event
+//!   .
+//! .
+//! 
+//! \n
+//! \section ADC_Blcok 1. ADC Physical Block
+//! <img src="adc_block.png" />
+//!
+//! \n
+//! \section ADC_Function_Desc 2. ADC Functional Description
+//!
+//! \n
+//! \subsection ADC_Pin_Desc 2.1 ADC Peripheral Pin Description 
+//! 
+//! \verbatim
+//! +----------------+------------------------------------------------+
+//! |Pin Name        |Pin Description                                 |
+//! |----------------|------------------------------------------------|
+//! |ADC0            |Analog-to-digital converter input 0.            |
+//! |----------------|------------------------------------------------|
+//! |ADC1            |Analog-to-digital converter input 1.            |
+//! |----------------|------------------------------------------------|
+//! |ADC2            |Analog-to-digital converter input 2.            |
+//! |----------------|------------------------------------------------|
+//! |ADC3            |Analog-to-digital converter input 3.            |
+//! |----------------|------------------------------------------------|
+//! |ADC4            |Analog-to-digital converter input 4.            |
+//! |----------------|------------------------------------------------|
+//! |ADC5            |Analog-to-digital converter input 5.            |
+//! |----------------|------------------------------------------------|
+//! |ADC6            |Analog-to-digital converter input 6.            |
+//! |----------------|------------------------------------------------|
+//! |ADC7            |Analog-to-digital converter input 7.            |
+//! |----------------|------------------------------------------------|
+//! |ADCN            |Analog-to-digital converter input N.            |
+//! |----------------|------------------------------------------------|
+//! \endverbatim
+//!
+//! \subsection ADC_Sequence 2.2 What is an ADC Sample Sequencer?
+//!
+//! A sample sequencer is a set of A/D sample convertion, Performing according 
+//! to chronological and putting the covertion datas into a FIFO. The ADC will
+//! first execute the step 0 sample, then step 1 and so on.
+//!  \n
+//! The programming of each sample in the sample sequence includes parameters
+//! such as the input source and mode (differential versus single-ended input), 
+//! and the indicator for the last sample in the sequence.
+//! \n
+//! Here is an example:
+//! \verbatim
+//! +----------------+------------------------------------------------+
+//! |Step            |Config                                          |
+//! |----------------|------------------------------------------------|
+//! |Step 0          |ADC2 | single-ended                             |
+//! |----------------|------------------------------------------------|
+//! |Step 1          |ADC6 | single-ended                             |
+//! |----------------|------------------------------------------------|
+//! |Step 2          |ADC7 | single-ended | end sequencer             |
+//! |----------------|------------------------------------------------|
+//! \endverbatim
+//! The mode of the sample sequencer, can be:
+//! - single cycle - The ADC execute the sample from step 0 to the end.
+//! - continuous - The ADC execute the sequencer continuonusly.
+//! .
+//! There are several trigger source can start the AD sequencer:
+//! - processor(software).
+//! - External pin events:
+//!   - Low Level.
+//!   - High Level.
+//!   - Falling edge.
+//!   - Rising edge.
+//!   .
+//! .
+//!
+//! \subsection ADC_Source 2.3 ADC Input Source
+//! Always the ADC input source can be:
+//! - External analog input channel reuse with the GPIO pins, ADC0, ADC1 ...
+//! - Internal temperature sensor.
+//! - Internal Vref.
+//! .
+//! The ADC input mode can be differential or single-ended.
+//! \n 
+//! When a sequence step is configured for differential sampling, the input pair
+//! to sample must be configured. Differential pair 0 samples analog inputs 0 
+//! and 1; differential pair 1 samples analog inputs 2 and 3; and so on.
+//! The voltage sampled in differential mode is the difference between the odd
+//! and even channels:
+//! <img src="adc_differential_express.png" />
+//!
+//! \subsection ADC_Comp 2.4 ADC Digital Comparator Unit
+//! An ADC is commonly used to sample an external signal and to monitor its 
+//! value to ensure that it remains in a given range. To automate this 
+//! monitoring procedure and reduce the amount of processor overhead that is
+//! required, each module provides eight digital comparators. Conversions from 
+//! the ADC that are sent to the digital comparators are compared against the 
+//! user programmable limits. If the observed signal moves out of the acceptable
+//! range, a processor interrupt can be generated. The digital comparators can 
+//! be applied to three separate regions (low band, mid band, high band) as
+//! defined by the user.
+//!
+//! \subsection ADC_Event 2.5 ADC Interrupt and Event
+//! There as several interrupt in ADC module:
+//! - End convertion - An sequencer single cycle complete.
+//! - Digital Comparator N match.
+//! .
+//!
+//! \n
+//! \note Here describes the common function of the ADC Peripheral. The CoX
+//! Peripheral Interface is base on the functions above.
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
+//! \defgroup xADC xADC
+//! 
+//! \brief CoX ADC Peripheral Interface
+//!
+//! The xADC is the ADC Peripheral Interface of CoX. It defines some common
+//! macros and APIs.
+//! 
+//! <h1>Contents</h1>
+//! - \ref CoX_ADC_How_Define
+//! - \ref xADC_API_Group
+//!   - \ref xADC_API_Group_Sequence
+//!   - \ref xADC_API_Group_Trigger
+//!   - \ref xADC_API_Group_Comp
+//!   - \ref xADC_API_Group_Int
+//!   .
+//! - \ref xADC_Usage
+//! .
+//! \n
+//! 
+//! \section CoX_ADC_How_Define 1. How is the xADC Standard Defined?
+//! CoX ADC defines the APIs based on the following common functions:
+//! - Sequence Config:
+//!   - Operation Mode:
+//!     - single cycle
+//!     - continuous
+//!     .
+//!   - Trigger Source:
+//!     - Processor(software)
+//!     - External pin events:
+//!       - Low Level.
+//!       - High Level.
+//!       - Falling edge.
+//!       - Rising edge.
+//!       .
+//!     .
+//!   .
+//! - Sequence Step Config:
+//!   - analog input source:
+//!     - external input channel
+//!     - internal temperature sensor
+//!     - internal Vref
+//!     .
+//!   - analog input type:
+//!     - single-end
+//!     - diffrence
+//!     .
+//!   .
+//! - Digital Comparator Unit
+//! - Interrupt Event
+//!   - End convertion
+//!   - Digital Comparator N match.
+//!   .
+//! .
+//!
+//! \section xADC_API_Group 2. API Groups
+//!
+//! The CoX ADC API is broken into four groups of functions: 
+//! - those that deal with the ADC sample sequence, 
+//! - those that deal with the processor trigger,
+//! - those that deal with configuring the digital comparator,
+//! - those that deal with interrupts.
+//! .
+//!
+//! \subsection xADC_API_Group_Sequence 2.1 ADC Sequence APIs
+//!
+//! The sample sequences are configured with:
+//! - xADCConfigure()
+//! - xADCStepConfigure()
+//! .
+//! They are enabled and disabled with:
+//! - xADCEnable()
+//! - xADCDisable()
+//! .
+//! The captured data is obtained with:
+//! - xADCDataGet()
+//! .
+//! Sample sequence FIFO Overflow is managed with:
+//! - xADCOverflow()
+//! - xADCOverflowClear()
+//! .
+//! The DMA operation are enabled and disabled with:
+//! - xADCDMAEnable()
+//! - xADCDMADisable()
+//! .
+//!
+//! \subsection xADC_API_Group_Trigger 2.2 ADC Processor Trigger APIs
+//! - xADCProcessorTrigger() - generate the processor trigger
+//! .
+//!
+//! \subsection xADC_API_Group_Comp 2.3 ADC Digital Comparator APIs
+//!
+//! The digital comparators are configured with:
+//! - xADCCompConditionConfig()
+//! - xADCCompRegionSet()
+//! .
+//! They are enabled and disabled with:
+//! - xADCCompEnable()
+//! - xADCCompDisable()
+//! .
+//!
+//! \subsection xADC_API_Group_Int 2.4 ADC Interrupt APIs
+//! Event callback function init with:
+//! - xADCIntCallbackInit()
+//! .
+//! Interrupts are enabled and disabled with:
+//! - xADCIntEnable()
+//! - xADCIntDisable()
+//! .
+//!
+//! \section xADC_Usage 3. Usage & Example
+//! The followings show how to use the ADC APIs to initialize the ADC 
+//! sample sequence, and get the AD convertion data to the buffer.
+//! -# xSysCtlPeripheralEnable() to enable to GPIO,ADC Peripheral clock.
+//! -# xSPinTypeADC() to configure the ADC pin.
+//! -# xADCConfigure() to configure the operation mode and tigger source.
+//! -# xADCStepConfigure() to configure the detail step AD convertion.
+//! -# xADCIntEnable(), xIntEnable() to enable the interrupt.
+//! -# xADCEnable() to enable the ADC.
+//! -# xADCDataGet() get data in the interrupt callback function.
+//! . 
+//!
+//!
+//
+//*****************************************************************************
+
+
+
+
+
+
+
+
+

@@ -2,8 +2,8 @@
 //
 //! \file xhw_sysctl.h
 //! \brief Macros used when accessing the system control hardware.
-//! \version V2.1.1.0
-//! \date 11/25/2013
+//! \version V2.2.1.0
+//! \date 11/15/2013
 //! \author CooCox
 //! \copy
 //!
@@ -1202,7 +1202,7 @@
 //
 //! PC.5 Pin Function Selection
 //
-#define GCR_ALTMFP_PB2_MFP      BIT_32_30
+#define GCR_ALTMFP_PB2_COP      BIT_32_30
 
 
 
@@ -1266,21 +1266,21 @@
 ////
 //#define GCR_ALTMFP_PD0_MFP      BIT_32_16
 
-#define GCR_ALTMFP_PB3_MFP      BIT_32_14
-#define GCR_ALTMFP_PA14_MFP     BIT_32_13
-#define GCR_ALTMFP_PA15_MFP     BIT_32_12
-#define GCR_ALTMFP_PA12_MFP     BIT_32_11
-#define GCR_ALTMFP_PA13_MFP     BIT_32_10
-#define GCR_ALTMFP_PC7_MFP      BIT_32_9
-#define GCR_ALTMFP_PA5_MFP      BIT_32_8
-#define GCR_ALTMFP_PA4_MFP      BIT_32_7
-#define GCR_ALTMFP_PA7_MFP      BIT_32_6
-#define GCR_ALTMFP_PA6_MFP      BIT_32_5
-#define GCR_ALTMFP_PC6_MFP      BIT_32_4
-#define GCR_ALTMFP_PA1_MFP      BIT_32_3
-#define GCR_ALTMFP_PA0_MFP      BIT_32_2
-#define GCR_ALTMFP_PA3_MFP      BIT_32_1
-#define GCR_ALTMFP_PA2_MFP      BIT_32_0
+#define GCR_ALTMFP1_PB3_MFP     BIT_32_14
+#define GCR_ALTMFP1_PA14_MFP    BIT_32_13
+#define GCR_ALTMFP1_PA15_MFP    BIT_32_12
+#define GCR_ALTMFP1_PA12_MFP    BIT_32_11
+#define GCR_ALTMFP1_PA13_MFP    BIT_32_10
+#define GCR_ALTMFP1_PC7_MFP     BIT_32_9
+#define GCR_ALTMFP1_PA5_MFP     BIT_32_8
+#define GCR_ALTMFP1_PA4_MFP     BIT_32_7
+#define GCR_ALTMFP1_PA7_MFP     BIT_32_6
+#define GCR_ALTMFP1_PA6_MFP     BIT_32_5
+#define GCR_ALTMFP1_PC6_MFP     BIT_32_4
+#define GCR_ALTMFP1_PA1_MFP     BIT_32_3
+#define GCR_ALTMFP1_PA0_MFP     BIT_32_2
+#define GCR_ALTMFP1_PA3_MFP     BIT_32_1
+#define GCR_ALTMFP1_PA2_MFP     BIT_32_0
 
 
 //*****************************************************************************
@@ -2107,9 +2107,9 @@
 #define SYSCLK_CLKDIV1_SC1_M    BIT_MASK(32,15,8)
 #define SYSCLK_CLKDIV1_SC0_M    BIT_MASK(32,7,0)
 
-#define SYSCLK_CLKDIV1_SC2_M    16
-#define SYSCLK_CLKDIV1_SC1_M    8
-#define SYSCLK_CLKDIV1_SC0_M    0
+#define SYSCLK_CLKDIV1_SC2_S    16
+#define SYSCLK_CLKDIV1_SC1_S    8
+#define SYSCLK_CLKDIV1_SC0_S    0
 
 //*****************************************************************************
 //

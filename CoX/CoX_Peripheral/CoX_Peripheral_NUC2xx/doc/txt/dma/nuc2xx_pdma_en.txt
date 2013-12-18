@@ -1,0 +1,279 @@
+//********************************************************************************
+//
+//! \defgroup NUC2xx_PDMA NUC2xx PDMA
+//!
+//! \brief NUC140 PDMA Peripheral Driver
+//!
+//! The CoX Peripheral Library also provides PDMAs for function full functions of
+//! Nuvoton NUC2xx PDMA. This module supports the whole NUC2xx Series.
+//!
+//! <br /> 
+//! <h1>Contents</h1>
+//! - \ref NUC2xx_PDMA_Block
+//! - \ref NUC2xx_PDMA_Function_Desc
+//! - \ref NUC2xx_PDMA_API_Group
+//!   - \ref NUC2xx_API_Group_Configure_Control
+//!   - \ref NUC2xx_API_Group_Interrupt_Control
+//!   - \ref NUC2xx_API_Group_Trig_Control
+//!   .
+//! - \ref NUC2xx_PDMA_Usage
+//! .
+//!
+//! <br />
+//! \section NUC2xx_PDMA_Block 1. PDMA Physical Block
+//! <img src="NUC2xx_PDMA_block.png" />
+//!
+//! <br />
+//! \section NUC2xx_PDMA_Function_Desc 2. Functional Description
+//! The system control block has the following functions:
+//! - The PDMA has different configure parameter of transfer including width of data,
+//!   the mode of address, and the mode of transfer, you must set them before you trig. 
+//! - Each PDMA channel can generates an individual interrupt when data transfer is    
+//!   finished or  target abort interrupt generation during PDMA transfer and the
+//!   respective interrupt event flag IF will be set. The interrupt event flag will
+//!   generates an interrupt to CPU if the interrupt enable bit IE.
+//! - The PDMA should be triged if you want to use it after you finish configuring. 
+//! .
+//!
+//! <br />
+//! \subsection NUC2xx_PDMA_API_Group 3. API Groups
+//!
+//! The PDMA API is broken into three groups of functions:
+//! - those that deal with PDMA configure,
+//! - those that deal with PDMA interrupt control,
+//! - those that deal with PDMA transfer and trig control.
+//! .
+//! <br />
+//! \subsection NUC2xx_API_Group_Configure_Control 3.1 PDMA configure control APIs
+//!
+//! The PDMA configure control are dealt with:
+//! - PDMAEnable()
+//! - PDMADisable()
+//! - PDMAChannelSoftwareReset()
+//! - PDMAChannelIsBusy()
+//! - PDMAChannelDynamicAssign()
+//! - PDMAChannelDeAssign()
+//! - PDMAChannelControlSet()
+//! .
+//!
+//! <br />
+//! \subsection NUC2xx_API_Group_Interrupt_Control 3.2 PDMA Interrupt Control APIs
+//! - PDMAChannelIntEnable()
+//! - PDMAChannelIntDisable()
+//! - PDMAChannelIntCallbackInit()
+//! - PDMAChannelIntCallbackGet()
+//! - PDMAChannelIntFlagGet()
+//! - PDMAChannelIntFlagClear()
+//! .
+//!
+//! <br />
+//! \subsection NUC2xx_API_Group_Trig_Control 3.3 PDMA Transfer and Trig Control
+//!
+//! - PDMAChannelTransferSet()
+//! - PDMACurrentSourceAddrGet()
+//! - PDMACurrentDestAddrGet()
+//! - PDMAInternalBufPointerGet()
+//! - PDMARemainTransferCountGet()
+//! - PDMASharedBufferDataGet()
+//! .
+//! <br />
+//! \section NUC2xx_PDMA_Usage 4.  Program Examples
+//! The following example shows how to use the PDMA API to configure PDMA and implement
+//! the function of transfer between memory and memory.
+//! \code
+//! #include "xhw_types.h"
+//! #include "xhw_memmap.h"
+//! #include "Xsysctl.h"
+//! #include "Xhw_sysctl.h"
+//! #include "test.h"
+//! #include "xhw_dma.h"
+//! #include "xdma.h"
+//! #include "pdmamtom.h"
+//! unsigned long ulSrcArray[64] = {0x01020304, 0x05060708, 0x090A0B0C, 0x0D0E0F10,
+//!                                 0x11121314, 0x15161718, 0x191A1B1C, 0x1D1E1F20,
+//!                                 0x21222324, 0x25262728, 0x292A2B2C, 0x2D2E2F30,
+//!                                 0x31323334, 0x35363738, 0x393A3B3C, 0x3D3E3F40,
+//!                                 0x41424344, 0x45464748, 0x494A4B4C, 0x4D4E4F50,
+//!                                 0x51525354, 0x55565758, 0x595A5B5C, 0x5D5E5F60,
+//!                                 0x61626364, 0x65666768, 0x696A6B6C, 0x6D6E6F70,
+//!                                 0x71727374, 0x75767778, 0x797A7B7C, 0x7D7E7F80};
+//! unsigned char IntMessage[] = "The DMA transfer over!";
+//! unsigned long ulDestArray[64];
+//! unsigned long i;
+//! unsigned long ulAssignChannel;
+//! unsigned long TransferOver(void *pvCBData, 
+//!                                       unsigned long ulEvent,
+//!                                       unsigned long ulMsgParam,
+//!                                       void *pvMsgData)
+//! {
+//!    for(i=0;i<25;i++)
+//!    {
+//!        TestIOPut(IntMessage[i]);
+//!	TestIOPut('\n');
+//!        TestIOPut('\r');
+//!    }
+//!    return 0;
+//! }
+//!//*****************************************************************************
+//!
+//!//Prints a decimal unsigned number.
+//!
+//!//param n is the number to be printed
+//!
+//!// Prints a decimal unsigned number.
+//!
+//!//return None.
+//!
+//!//*****************************************************************************
+//! static 
+//! void PrintN(unsigned long n)
+//! {
+//!    char buf[16], *p;
+//!
+//!    if (n == 0)
+//!    {
+//!        TestIOPut('0');
+//!    }
+//!    else
+//!    {
+//!        p = buf;
+//!        while (n != 0)
+//!        {
+//!            *p++ = (n % 10) + '0';
+//!            n /= 10;
+//!        }
+//!
+//!        while (p > buf)
+//!            TestIOPut(*--p);
+//1    }
+//! }
+//!//*****************************************************************************
+//!
+//!// Ininite the PDMA case which is needed
+//!
+//!//param None
+//!
+//!// This function ininite the PDMA including clock source and enable PDMA 
+//!
+//!//return none
+//!
+//! //*****************************************************************************
+//! void PDMAInit(void)
+//! {
+//!    unsigned long ulTemp;
+//!    //
+//!    // Set SysClk 50MHz using Extern 12M oscillator
+//!    //
+//!    xSysCtlClockSet(50000000, xSYSCTL_OSC_MAIN|xSYSCTL_XTAL_12MHZ);
+//!    //
+//!    // Enable Peripheral PDMA
+//!    //
+//!    SysCtlPeripheralEnable(SYSCTL_PERIPH_PDMA);
+//!    ulTemp = PDMAChannelDynamicAssign(PDMA_REQUEST_MEM, PDMA_REQUEST_MEM);
+//!    ulAssignChannel = ulTemp;
+//!    PDMAEnable(ulAssignChannel);
+//!    //
+//!    // Enable PDMA interrupt
+//!    //
+//!    xIntEnable(INT_PDMA);
+//!    xIntPrioritySet(INT_PDMA, 1);
+//!    PDMAEnable(ulAssignChannel);
+//!    PDMAChannelIntEnable(ulAssignChannel, PDMA_EVENT_TC);
+//!    PDMAChannelIntCallbackInit(ulAssignChannel, TransferOver);
+//! }
+//!//*****************************************************************************
+//!
+//!// PDMA Configure and Trig transfer
+//!
+//!//param None
+//!
+//!// This function configure PDMA and Trig transfer
+//!
+//!//return None
+//!
+//!//*****************************************************************************
+//! void PDMAConfigAndTrigTransfer(void)
+//! {
+//!    unsigned long i;
+//!    //
+//!    // Enable DMA Channel 0
+//!    //
+//!    PDMAEnable(ulAssignChannel);
+//!    //
+//!    // Set Channel control  parameter
+//!    //
+//!    PDMAChannelControlSet(ulAssignChannel, PDMA_WIDTH_32BIT                   
+//!                                          | PDMA_SRC_DIR_INC                   
+//!                                          | PDMA_DST_DIR_INC);
+//!    //
+//!    // Trig DMA Transfer
+//!    //
+//!    PDMAChannelTransferSet(ulAssignChannel, ulSrcArray, ulDestArray ,128);
+//!    //
+//!    // Check Transfer is over or not
+//!    //
+//!    while(PDMARemainTransferCountGet(ulAssignChannel));
+//!    for(i = 0;i < 64;i++)
+//!    {
+//!        PrintN(ulDestArray[i]);
+//!        TestIOPut('\n');
+//!        TestIOPut('\r');
+//!	SysCtlDelay(5000000);
+//!    }
+//! }
+//!//*****************************************************************************
+//!
+//!//main function
+//!
+//!//param None
+//!
+//!//return None
+//!//*****************************************************************************
+//! int main(void)
+//! {
+//!    PDMAInit();
+//!    while(1)
+//!    {
+//!        PDMAConfigAndTrigTransfer();
+//!    }
+//! }
+//! \endcode
+//! \note 
+//!
+//**********************************************************************************
+
+//**********************************************************************************
+//
+//! \defgroup NUC2xx_PDMA_Channel_IDs  NUC2xx PDMA Channel ID 
+//! 
+//
+//**********************************************************************************
+
+//**********************************************************************************
+//
+//! \defgroup NUC2xx_PDMA_Event_Flags  NUC2xx PDMA Event Flags
+//! 
+//
+//**********************************************************************************
+
+//**********************************************************************************
+//
+//! \defgroup NUC2xx_PDMA_Channel_Control_Config NUC2xx PDMA Channel Control Config
+//! 
+//
+//**********************************************************************************
+
+//**********************************************************************************
+//
+//! \defgroup NUC2xx_PDMA_Request_Connections NUC2xx PDMA Request Connections
+//! 
+//
+//**********************************************************************************
+
+//**********************************************************************************
+//
+//! \defgroup NUC2xx_PDMA_Exported_APIs NUC2xx PDMA Exported APIs
+//!
+//! \brief The whole PDMA Exported APIs
+//
+//**********************************************************************************
