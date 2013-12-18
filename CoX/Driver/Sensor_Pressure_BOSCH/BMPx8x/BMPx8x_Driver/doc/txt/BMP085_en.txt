@@ -1,0 +1,120 @@
+//******************************************************
+//
+//! \addtogroup MBP085
+//!
+//! \brief Barometric pressure sensor with temperature sensor.
+//!
+//! BMP085 and BMP180 are function compatible serials which is
+//! a new generation of high precision digital pressure sensors for
+//! consumer applications. The ultra-low power, low voltage electronics
+//! of the BMP085/BMP180 is optimized for use in mobile phones, PDAs,
+//! GPS navigation devices and outdoor equipment. With a low altitude
+//! noise of merely 0.25m at fast conversion time, the BMP180 offers
+//! superior performance. The I2C interface allows for easy system
+//! integration with a microcontroller.
+//!
+//!
+//! The CoX Driver Library provides the driver of many devices and modules, it is
+//! convenient for you to transplant the driver to other mcu that the cox support.
+//! 
+//! 
+//! <br />
+//! <h2>Contents</h2>
+//! - \ref CoX_BMPx8x_Block_And_Application
+//! - \ref CoX_BMPx8x_Memory_Map
+//! - \ref CoX_BMPx8x_Operating_Sequence
+//! - \ref CoX_BMPx8x_Driver_Desc
+//! - \ref CoX_BMPx8x_Driver_API_Group
+//! - \ref BMPx8x_Usage
+//! .
+//!
+//! <br />
+//! \section CoX_BMPx8x_Block_And_Application 1. BMPx8x Block Diagram And Typical Application
+//! <img src="BMP085_Block_And_App.png" />
+//!
+//! <br />
+//! \section CoX_BMPx8x_Memory_Map 2. BMPx8x EEPROM Memory Map
+//! <img src="BMP085_mem_map.png" />
+//! Measurement control (register F4h <4:0>): Controls measurements. Refer to Figure 6 for usage
+//!
+//! Sco (register F4h <5>): Start of conversion. The value of this bit stays "1" during
+//! conversion and is reset to "0" after conversion is complete (data registers are filled).
+//!
+//! Oss (register F4h <7:6>): controls the oversampling ratio of the pressure measurement
+//! (00b: single, 01b: 2 times, 10b: 4 times, 11b: 8 times).
+//!
+//! Soft reset (register E0h): Write only register. If set to 0xB6, will perform the same
+//! sequence as power on reset.
+//!
+//! Chip-id (register D0h): This value is fixed to 0x55 and can be used to check whether
+//! communication is functioning.
+//!
+//! After conversion, data registers can be read out in any sequence (i.e. MSB first or
+//! LSB first). Using a burst read is not mandatory.
+//! 
+//! <br />
+//! \section CoX_BMPx8x_Operating_Sequence 3. BMPx8x Operating sequence
+//! <img src="BMP085_op_seq.png" />
+//!
+//! <br />
+//! \section CoX_BMPx8x_Driver_Desc 4. BMPx8x Driver Description
+//! This driver is written based on BMP085, it also can be used on BMP180 since they
+//! have the same interface,registers and operation sequence. All you need to do is
+//! modifying the pins define and I2C option to adapt to your application.
+//!
+//! <br />
+//! \subsection CoX_BMPx8x_Driver_API_Group 5. API Groups
+//!
+//! There are only four easy-to-use functions:
+//! - BMP085Init()
+//! - BMP085GetTemperature()
+//! - BMP085GetPressure()
+//! - BMP085GetAltitude()
+//! .
+//!
+//! \section BMPx8x_Usage BMPx8x Usage
+//! Step 1, you should select the CoX implment according to the mcu that you select. \n
+//! Step 2, you should transplant the driver according to your MCU if you use the I2C
+//! port which is different from the BMP085 driver. If your don't use hardware I2C you
+//! can remove the define of "#define BMP085_USE_HARDWARE_I2C" and use GPIO as I2C port\n
+//! Below is some example code:
+//!
+//! \code
+//! void BMP085Example(void)
+//! {   
+//!     long temperature, pressure, altitude;
+//!
+//!     //
+//!     // Step 1, you should set system clock.
+//!     // 
+//!     xSysCtlClockSet(72000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_12MHZ);
+//!     
+//!     //
+//!     // Step 2, you should initialize BMP085. The parameter specifies the bit rate,
+//!     // but has no effective in software I2C mode. If the initialize function return
+//!     // 0, the BMP085 initialize OK else fail.
+//!     // 
+//!     if(!BMP085Init(400000))
+//!     {
+//!       
+//!         //
+//!         // Get temperature.
+//!         //
+//!         temperature = BMP085GetTemperature();
+//!     
+//!         //
+//!         // Get pressure.
+//!         //
+//!	    pressure = BMP085GetPressure(BMP085_OSS_0);
+//!     
+//!     
+//!         //
+//!         // Get altitude.
+//!         //
+//!	    altitude = BMP085GetAltitude();
+//!     }
+//! }
+//!     
+//! \endcode
+//
+//*****************************************************************************

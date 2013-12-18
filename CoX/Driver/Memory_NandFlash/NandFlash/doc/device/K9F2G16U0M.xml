@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>K9F2G08U0M</Name>
+    <Description>256M x 8 Bit NAND Flash Memory</Description>
+    <Manufacturer>SAMSUNG Electronics</Manufacturer>
+    
+    <Category>Memory</Category>
+    <SubCategory>NandFlash</SubCategory>
+    
+    <KeyWord>Nand Flash, Memory, GPIO, SAMSUNG</KeyWord>
+    
+    <Communication>
+        <Interface>GPIO</Interface>
+    </Communication>
+    
+    <WebPage>http://www.samsung.com/global/business/semiconductor/product/flash</WebPage>
+    <Datasheet>
+		http://pdf1.alldatasheet.com/datasheet-pdf/view/85037/SAMSUNG/K9F2G08Q0M.html
+    </Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

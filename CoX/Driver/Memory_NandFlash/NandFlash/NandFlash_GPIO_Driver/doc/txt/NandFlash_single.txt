@@ -1,0 +1,192 @@
+//*****************************************************************************
+//
+//!
+//! \defgroup NandFlash
+//!
+//! \brief This is the Basic NandFlash Driver.
+//! 
+//! The NandFlash is driven by GPIOs defined in head file. This driver doesn't 
+//! add ECC and bad block management and the data width is 8 bit. Since NandFlash 
+//! is various, they have different page size, block size, volume and even instructions,
+//! this driver is only tested on K9F1G08U0B which has (2K+64)bytes per page, 64 pages 
+//! per block, 1024 blocks in one chip. While it also support other kinds, you can 
+//! modify the macro in NandFlash.h file to adapt to your chip. 
+//! .
+//!
+//! <h1>Contents</h1>
+//! - \ref NandFlash_Block
+//! - \ref NandFlash_Array_Organization
+//! - \ref NandFlash_Operating_Modes
+//! .
+//!
+//! \section NandFlash_Block 1. NandFlash Physical Block (K9F1G08U0B)
+//! <img src="NandFlash_Block.png" />
+//!
+//! \section NandFlash_Array_Organization 2. NandFlash Array Organization (K9F1G08U0B)
+//! <img src="NandFlash_Array_Organization.png" />
+//!
+//! \section NandFlash_Operating_Modes 3. NandFlash Operating modes (K9F1G08U0B)
+//! <img src="NandFlash_Operating_Modes.png" />
+//!
+//! \defgroup NandFlash_Driver_Single  
+//!  
+//! \note This NandFlash Driver can be used in the condition which
+//! the system only have one NandFlash.
+//!
+//! This driver is implemented by using defines and global variables.It can only 
+//! use on one device because all the APIs use the some macros and global variables.
+//!
+//! <h1>Contents</h1>
+//! - \ref NandFlash_How_Define
+//! - \ref NandFlash_API_Group
+//!   .
+//! - \ref NandFlash_Usage 
+//! .
+//!
+//! \section NandFlash_How_Define 1. How is the NandFlash Driver implemented?
+//! Use define to config some Fixing things,such as GPIO base and GPIO pins
+//! device character such as page size, block size, spare area size and so on. 
+//!
+//! Use global variables to save NandFlash ID informations use by the APIs.
+//!
+//! \section NandFlash_API_Group 2. API Groups
+//! 
+//! The NandFlash API :
+//! - NFInit() 
+//! - NFStatusRead() 
+//! - NFBlockErase() 
+//! - NFPageRead() 
+//! - NFPageCopy() 
+//! - NFPageWrite() 
+//! - NFBytesRead()
+//! - NFPageOffsetRead()
+//!
+//! \section NandFlash_Usage 1. Usage & Program Examples
+//! 
+//! 
+//! \code
+//!//*****************************************************************************
+//!//
+//!//! \file Example.c
+//!//! \brief the NandFlash Example.
+//!//! \version 1.0
+//!//! \date 2/5/2013
+//!//! \author CooCox
+//!//! \copy
+//!//!
+//!//! Copyright (c)  2013, CooCox 
+//!//! All rights reserved.
+//!//! 
+//!//! Redistribution and use in source and binary forms, with or without 
+//!//! modification, are permitted provided that the following conditions 
+//!//! are met: 
+//!//! 
+//!//!     * Redistributions of source code must retain the above copyright 
+//!//! notice, this list of conditions and the following disclaimer. 
+//!//!     * Redistributions in binary form must reproduce the above copyright
+//!//! notice, this list of conditions and the following disclaimer in the
+//!//! documentation and/or other materials provided with the distribution. 
+//!//!     * Neither the name of the <ORGANIZATION> nor the names of its 
+//!//! contributors may be used to endorse or promote products derived 
+//!//! from this software without specific prior written permission. 
+//!//! 
+//!//! THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+//!//! AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//!//! IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+//!//! ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+//!//! LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+//!//! CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+//!//! SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+//!//! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+//!//! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+//!//! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+//!//! THE POSSIBILITY OF SUCH DAMAGE.
+//!//*****************************************************************************
+//!#include "xhw_types.h"
+//!#include "xcore.h"
+//!#include "xhw_gpio.h"
+//!#include "xhw_ints.h"
+//!#include "xhw_memmap.h"
+//!#include "xhw_nvic.h"
+//!#include "xhw_sysctl.h"
+//!#include "xuart.h"
+//!#include "xgpio.h"
+//!#include "xsysctl.h"
+//!#include "stdio.h"
+//!#include "NandFlash.h"
+//!
+//!unsigned char Buffer[2112];
+//!extern NandFlashInfo NandInfo;
+//!
+//!void NandFlashTest(void)
+//!{
+//!	unsigned short i=0,j=0;
+//!	xSysCtlClockSet(72000000, xSYSCTL_OSC_MAIN | xSYSCTL_XTAL_8MHZ);
+//!
+//!	xSysCtlPeripheralEnable(xSYSCTL_PERIPH_GPIOA);
+//!	xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART1);
+//!	xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART1);
+//!	xUARTConfigSet(xUART1_BASE, 115200, (xUART_CONFIG_WLEN_8 |
+//!			    						 xUART_CONFIG_STOP_1 |
+//!			    						 xUART_CONFIG_PAR_NONE));
+//!	xUARTEnable(xUART1_BASE, (xUART_BLOCK_UART | xUART_BLOCK_TX | xUART_BLOCK_RX));
+//!	xSysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);
+//!	xSPinTypeUART(UART1TX, PA9);
+//!
+//!	NFInit();
+//!
+//!	printf("NandFlash ID: %d\n\r"
+//!			"NandFlash Character: %d\n\r"
+//!			"NandFlash Page Size: %d\n\r"
+//!			"NandFlash Block Size: %d\n\r"
+//!			"NandFlash RDDTAreaSize Size: %d\n\r",
+//!			NandInfo.usNandFlashID,
+//!			NandInfo.ucNandCharacter,
+//!			NandInfo.ulPageSize,
+//!			NandInfo.ulBlockSize,
+//!			NandInfo.ucRDDTAreaSize);
+//!	printf("Erasing block 0...");
+//!	i = NFBlockErase(20);
+//!	printf("Result: %d\n\r", i);
+//!	
+//!	printf("\n\r3 pages of data after erase:\n\r");
+//!
+//!	for(j=1280; j<1283; j++)
+//!	{
+//!		printf("\n\r%d th read: \n\r", j-1279);
+//!		i = NFPageOffsetRead(0, j, Buffer, 2112);
+//!		printf("Result: %d\n\r", i);
+//!		for(i=0; i<2112; )
+//!		{
+//!			printf("%4d", Buffer[i]);
+//!			if(++i%20 == 0) printf("\n\r");
+//!		}
+//!		for(i=0; i<2112; i++)
+//!			Buffer[i]=0;
+//!	}
+//!	for(i=0;i<2112;i++)
+//!		Buffer[i] = i % 256;
+//!		
+//!	printf("\n\r3 pages of data after write:\n\r");
+//!	for(j=1280; j<1283; j++)
+//!	{
+//!		NFPageWrite(j, Buffer);
+//!		printf("\n\r%d th read: \n\r", j-1279);
+//!		i = NFPageOffsetRead(0, j, Buffer, 2112);
+//!		printf("Result: %d\n\r", i);
+//!		for(i=0; i<2112; )
+//!		{
+//!			printf("%4d", Buffer[i]);
+//!			if(++i%20 == 0) printf("\n\r");
+//!		}
+//!		for(i=0; i<2112; i++)
+//!			Buffer[i]=0;
+//!	}
+//!
+//!	printf("\n\rOver !\n\r");
+//!}
+//!
+//! \endcode
+//!
+//
+//*****************************************************************************

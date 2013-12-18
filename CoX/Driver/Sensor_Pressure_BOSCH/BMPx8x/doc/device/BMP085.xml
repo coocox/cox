@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>BMP085</Name>
+    <Description>a new generation of high precision digital pressure sensors for consumer application with I2C interface.</Description>
+    <Manufacturer>BOSCH</Manufacturer>
+    
+    <Category>Sensor</Category>
+    <SubCategory>Pressure</SubCategory>
+    
+    <KeyWord>BMP085, pressure, temperature, Sensor, BOSCH</KeyWord>
+    
+    <Communication>
+        <Interface>I2C</Interface>
+		<Interface>GPIO</Interface>
+    </Communication>
+    
+    <WebPage>http://www.bosch-sensortec.com/homepage/products_3/environmental_sensors_1/environmental_sensors;jsessionid=4D647CC6F6C56DA3A49402D6B0EEAE3B</WebPage>
+    <Datasheet>http://www.bosch-sensortec.com/content/language1/downloads/BMP085_Flyer_Rev.0.2_March2008.pdf</Datasheet>
+    
+    <Doc>$Device_ROOT$\doc\</Doc>
+</Device>

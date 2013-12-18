@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<Device>
+    <Name>AT45DB642D</Name>
+    <Description>64-megabit 2.7-volt Dual-interface DataFlash</Description>
+    <Manufacturer>Atmel</Manufacturer>
+    
+    <Category>Memory</Category>
+    <SubCategory>SPI Flash</SubCategory>
+    
+    <KeyWord>ATMEL, SPI Flash, Memory</KeyWord>
+    
+    <Communication>
+        <Interface>SPI</Interface>
+    </Communication>
+    
+    <WebPage>http://www.alldatasheet.com/datasheet-pdf/pdf/175239/ATMEL/AT45DB642D.html</WebPage>
+    <Datasheet>http://pdf1.alldatasheet.com/datasheet-pdf/view/175239/ATMEL/AT45DB642D.html</Datasheet>
+</Device>
