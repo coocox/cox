@@ -142,7 +142,5 @@ void Blinky(void)
         xSysCtlDelay(10*MAX_TICK);
 
         PrintStr("\b\b\b\b    \b\b\b\b");
-
     }
-	
 }

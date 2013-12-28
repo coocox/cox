@@ -55,7 +55,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register NUC122 PWM Register
+//! \addtogroup NUC123_PWM_Register NUC123 PWM Register
 //!
 //! it contains:
 //! - Register offset.
@@ -70,7 +70,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_Address_Offset PWM Register Offset(map)
+//! \addtogroup NUC123_PWM_Register_Address_Offset PWM Register Offset(map)
 //! \brief Here is the PWM register offset, users can get the register address
 //! through <b>PWM_BASE + offset</b>.
 //! @{
@@ -222,6 +222,38 @@
 //
 #define PWM_POE                 0x0000007C
 
+//
+//! PWM Group A Trigger Control Register
+//
+#define PWM_TCON                0x00000080
+
+//
+//! PWM Group A Trigger Status Register
+//
+#define PWM_TSTATUS             0x00000084
+
+//
+//! PWM Group A Synchronous Busy Status Register
+//
+#define PWM_SYNCBUSY0           0x00000088
+#define PWM_SYNCBUSY1           0x0000008C
+#define PWM_SYNCBUSY2           0x00000090
+#define PWM_SYNCBUSY3           0x00000094
+
+//
+//! PWM Group A PDMA control register
+//
+#define PWM_DMACTL              0x000000C0
+
+//
+//! PWM Group A channel0-3 data register
+//
+#define PWM_CAP0PDMA            0x000000C4
+#define PWM_CAP1PDMA            0x000000C8
+#define PWM_CAP2PDMA            0x000000CC
+#define PWM_CAP3PDMA            0x000000D0
+
+
 //*****************************************************************************
 //
 //! @}
@@ -230,7 +262,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_Channel_Address_Offset PWM Channel Address Offset Register
+//! \addtogroup NUC123_PWM_Register_Channel_Address_Offset PWM Channel Address Offset Register
 //! @{
 //
 //*****************************************************************************
@@ -267,7 +299,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_PPR PWM Prescaler Register(PWM_PPR)
+//! \addtogroup NUC123_PWM_Register_PWM_PPR PWM Prescaler Register(PWM_PPR)
 //! @{
 //
 //*****************************************************************************
@@ -321,7 +353,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_CSR PWM Clock Select Register(PWM_CSR)
+//! \addtogroup NUC123_PWM_Register_PWM_CSR PWM Clock Select Register(PWM_CSR)
 //! @{
 //
 //*****************************************************************************
@@ -474,7 +506,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_PCR PWM Control Register(PWM_PCR)
+//! \addtogroup NUC123_PWM_Register_PWM_PCR PWM Control Register(PWM_PCR)
 //! @{
 //
 //*****************************************************************************
@@ -549,6 +581,17 @@
 //
 #define PWM_PCR_CH3MOD          0x08000000
 
+//
+//! PWM01 Aligned Type Selection Bit (PWM0 and PWM1 Pair for PWM Group A)
+//
+#define PWM_PCR_PWMTYPE01       BIT_32_30
+
+//
+//! PWM23 Aligned Type Selection Bit (PWM2 and PWM3 Pair for PWM Group A)
+//
+#define PWM_PCR_PWMTYPE23       BIT_32_31
+
+
 //*****************************************************************************
 //
 //! @}
@@ -557,7 +600,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_CNR0 PWM Counter Register 0(PWM_CNR0)
+//! \addtogroup NUC123_PWM_Register_PWM_CNR0 PWM Counter Register 0(PWM_CNR0)
 //! @{
 //
 //*****************************************************************************
@@ -580,7 +623,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_CNR1 PWM Counter Register 1(PWM_CNR1)
+//! \addtogroup NUC123_PWM_Register_PWM_CNR1 PWM Counter Register 1(PWM_CNR1)
 //! @{
 //
 //*****************************************************************************
@@ -603,7 +646,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_CNR2 PWM Counter Register 2(PWM_CNR2)
+//! \addtogroup NUC123_PWM_Register_PWM_CNR2 PWM Counter Register 2(PWM_CNR2)
 //! @{
 //
 //*****************************************************************************
@@ -626,7 +669,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_CNR3 PWM Counter Register 3(PWM_CNR3)
+//! \addtogroup NUC123_PWM_Register_PWM_CNR3 PWM Counter Register 3(PWM_CNR3)
 //! @{
 //
 //*****************************************************************************
@@ -649,7 +692,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_CMR0 PWM Comparator Register 0(PWM_CMR0
+//! \addtogroup NUC123_PWM_Register_PWM_CMR0 PWM Comparator Register 0(PWM_CMR0
 //! @{
 //
 //*****************************************************************************
@@ -672,7 +715,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_CMR1 PWM Comparator Register 1(PWM_CMR1)
+//! \addtogroup NUC123_PWM_Register_PWM_CMR1 PWM Comparator Register 1(PWM_CMR1)
 //! @{
 //
 //*****************************************************************************
@@ -695,7 +738,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_CMR2 PWM Comparator Register 2(PWM_CMR2)
+//! \addtogroup NUC123_PWM_Register_PWM_CMR2 PWM Comparator Register 2(PWM_CMR2)
 //! @{
 //
 //*****************************************************************************
@@ -718,7 +761,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_CMR3 PWM Comparator Register 3 (PWM_CMR3)
+//! \addtogroup NUC123_PWM_Register_PWM_CMR3 PWM Comparator Register 3 (PWM_CMR3)
 //! @{
 //
 //*****************************************************************************
@@ -741,7 +784,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_PDR0 PWM Data Register 0(PWM_PDR0)
+//! \addtogroup NUC123_PWM_Register_PWM_PDR0 PWM Data Register 0(PWM_PDR0)
 //! @{
 //
 //*****************************************************************************
@@ -764,7 +807,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_PDR1 PWM Data Register 1(PWM_PDR1)
+//! \addtogroup NUC123_PWM_Register_PWM_PDR1 PWM Data Register 1(PWM_PDR1)
 //! @{
 //
 //*****************************************************************************
@@ -787,7 +830,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_PDR2 PWM Data Register 2(PWM_PDR2)
+//! \addtogroup NUC123_PWM_Register_PWM_PDR2 PWM Data Register 2(PWM_PDR2)
 //! @{
 //
 //*****************************************************************************
@@ -810,7 +853,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_PDR3 PWM Data Register 3(PWM_PDR3)
+//! \addtogroup NUC123_PWM_Register_PWM_PDR3 PWM Data Register 3(PWM_PDR3)
 //! @{
 //
 //*****************************************************************************
@@ -833,7 +876,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_PIER PWM Interrupt Enable Register(PWM_PIER)
+//! \addtogroup NUC123_PWM_Register_PWM_PIER PWM Interrupt Enable Register(PWM_PIER)
 //! @{
 //
 //*****************************************************************************
@@ -858,6 +901,36 @@
 //
 #define PWM_PIER_PWMIE3         0x00000008
 
+//
+//! PWM Channel 0 Duty Interrupt Enable
+//
+#define PWM_PIER_PWMDIE0        BIT_32_8
+
+//
+//! PWM Channel 1 Duty Interrupt Enable
+//
+#define PWM_PIER_PWMDIE1        BIT_32_9
+
+//
+//! PWM Channel 2 Duty Interrupt Enable
+//
+#define PWM_PIER_PWMDIE2        BIT_32_10
+
+//
+//! PWM Channel 3 Duty Interrupt Enable
+//
+#define PWM_PIER_PWMDIE3        BIT_32_11
+
+//
+//! PWM01 Interrupt Type Selection Bit (PWM0 and PWM1 Pair for PWM Group A)
+//
+#define PWM_PIER_INTTYPE01      BIT_32_16
+
+//
+//! PWM01 Interrupt Type Selection Bit (PWM2 and PWM3 Pair for PWM Group A)
+//
+#define PWM_PIER_INTTYPE23      BIT_32_17
+
 //*****************************************************************************
 //
 //! @}
@@ -866,7 +939,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_PIIR PWM Interrupt Indication Register(PWM_PIIR)
+//! \addtogroup NUC123_PWM_Register_PWM_PIIR PWM Interrupt Indication Register(PWM_PIIR)
 //! @{
 //
 //*****************************************************************************
@@ -891,6 +964,26 @@
 //
 #define PWM_PIIR_PWMIF3         0x00000008
 
+//
+//! PWM channel 0 Duty Interrupt Flag
+//
+#define PWM_PIIR_PWMDIF0        BIT_32_8
+
+//
+//! PWM channel 1 Duty Interrupt Flag
+//
+#define PWM_PIIR_PWMDIF1        BIT_32_9
+
+//
+//! PWM channel 2 Duty Interrupt Flag
+//
+#define PWM_PIIR_PWMDIF2        BIT_32_10
+
+//
+//! PWM channel 3 Duty Interrupt Flag
+//
+#define PWM_PIIR_PWMDIF3        BIT_32_11
+
 //*****************************************************************************
 //
 //! @}
@@ -899,7 +992,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_CCR0 PWM Capture Control Register 0(PWM_CCR0)
+//! \addtogroup NUC123_PWM_Register_PWM_CCR0 PWM Capture Control Register 0(PWM_CCR0)
 //! @{
 //
 //*****************************************************************************
@@ -982,7 +1075,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_CCR2 PWM Capture Control Register 2(PWM_CCR2)
+//! \addtogroup NUC123_PWM_Register_PWM_CCR2 PWM Capture Control Register 2(PWM_CCR2)
 //! @{
 //
 //*****************************************************************************
@@ -1065,7 +1158,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_CRLR0 PWM Capture Rising Latch Register 0(PWM_CRLR0)
+//! \addtogroup NUC123_PWM_Register_PWM_CRLR0 PWM Capture Rising Latch Register 0(PWM_CRLR0)
 //! @{
 //
 //*****************************************************************************
@@ -1088,7 +1181,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_CRLR1 PWM Capture Rising Latch Register 1(PWM_CRLR1)
+//! \addtogroup NUC123_PWM_Register_PWM_CRLR1 PWM Capture Rising Latch Register 1(PWM_CRLR1)
 //! @{
 //
 //*****************************************************************************
@@ -1111,7 +1204,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_CRLR2 PWM Capture Rising Latch Register 2(PWM_CRLR2)
+//! \addtogroup NUC123_PWM_Register_PWM_CRLR2 PWM Capture Rising Latch Register 2(PWM_CRLR2)
 //! @{
 //
 //*****************************************************************************
@@ -1134,7 +1227,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_CRLR3 PWM Capture Rising Latch Register 3(PWM_CRLR3)
+//! \addtogroup NUC123_PWM_Register_PWM_CRLR3 PWM Capture Rising Latch Register 3(PWM_CRLR3)
 //! @{
 //
 //*****************************************************************************
@@ -1157,7 +1250,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_CFLR0 PWM Capture Falling Latch Register 0(PWM_CFLR0)
+//! \addtogroup NUC123_PWM_Register_PWM_CFLR0 PWM Capture Falling Latch Register 0(PWM_CFLR0)
 //! @{
 //
 //*****************************************************************************
@@ -1180,7 +1273,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_CFLR1 PWM Capture Falling Latch Register 1(PWM_CFLR1)
+//! \addtogroup NUC123_PWM_Register_PWM_CFLR1 PWM Capture Falling Latch Register 1(PWM_CFLR1)
 //! @{
 //
 //*****************************************************************************
@@ -1203,7 +1296,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_CFLR2 PWM Capture Falling Latch Register 2(PWM_CFLR2)
+//! \addtogroup NUC123_PWM_Register_PWM_CFLR2 PWM Capture Falling Latch Register 2(PWM_CFLR2)
 //! @{
 //
 //*****************************************************************************
@@ -1226,7 +1319,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_CFLR3 PWM Capture Falling Latch Register 3(PWM_CFLR3)
+//! \addtogroup NUC123_PWM_Register_PWM_CFLR3 PWM Capture Falling Latch Register 3(PWM_CFLR3)
 //! @{
 //
 //*****************************************************************************
@@ -1249,7 +1342,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_CAPENR PWM Capture Input Enable Register(PWM_CAPENR)
+//! \addtogroup NUC123_PWM_Register_PWM_CAPENR PWM Capture Input Enable Register(PWM_CAPENR)
 //! @{
 //
 //*****************************************************************************
@@ -1293,7 +1386,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC122_PWM_Register_PWM_POE PWM Output Enable Register(PWM_POE)
+//! \addtogroup NUC123_PWM_Register_PWM_POE PWM Output Enable Register(PWM_POE)
 //! @{
 //
 //*****************************************************************************
@@ -1324,7 +1417,394 @@
 //
 //*****************************************************************************
 
+//*****************************************************************************
+//
+//! \addtogroup NUC123_PWM_Register_PWM_TCON PWM Trigger Control Register(PWM_TCON)
+//! @{
+//
+//*****************************************************************************
 
+//
+//! Channel 0 Center-Aligned Trigger Enable Register
+//
+#define PWM_TCON_PWM0TEN        BIT_32_0
+
+//
+//! Channel 1 Center-Aligned Trigger Enable Register
+//
+#define PWM_TCON_PWM1TEN        BIT_32_1
+
+//
+//! Channel 2 Center-Aligned Trigger Enable Register
+//
+#define PWM_TCON_PWM2TEN        BIT_32_2
+
+//
+//! Channel 3 Center-Aligned Trigger Enable Register
+//
+#define PWM_TCON_PWM3TEN        BIT_32_3
+
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup NUC123_PWM_Register_PWM_TSTATUS PWM Trigger status Register(PWM_TSTAUTS)
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Channel 0 Center-aligned Trigger Flag
+//
+#define PWM_TSTAUTS_PWM0TF      BIT_32_0
+
+//
+//! Channel 1 Center-aligned Trigger Flag
+//
+#define PWM_TSTAUTS_PWM1TF      BIT_32_1
+
+//
+//! Channel 2 Center-aligned Trigger Flag
+//
+#define PWM_TSTAUTS_PWM2TF      BIT_32_2
+
+//
+//! Channel 3 Center-aligned Trigger Flag
+//
+#define PWM_TSTAUTS_PWM3TF      BIT_32_3
+
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup NUC123_PWM_Register_SYNCBUSY0 PWM Synchronous Busy Status status Register(PWM_SYNCBUSY0)
+//! @{
+//
+//*****************************************************************************
+
+//
+//! PWM Synchronous Busy
+//
+#define PWM_SYNCBUSY0_BUSY      BIT_32_0
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup NUC123_PWM_Register_SYNCBUSY1 PWM Synchronous Busy Status status Register(PWM_SYNCBUSY1)
+//! @{
+//
+//*****************************************************************************
+
+//
+//! PWM Synchronous Busy
+//
+#define PWM_SYNCBUSY1_BUSY      BIT_32_0
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup NUC123_PWM_Register_SYNCBUSY2 PWM Synchronous Busy Status status Register(PWM_SYNCBUSY2)
+//! @{
+//
+//*****************************************************************************
+
+//
+//! PWM Synchronous Busy
+//
+#define PWM_SYNCBUSY2_BUSY      BIT_32_0
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup NUC123_PWM_Register_SYNCBUSY3 PWM Synchronous Busy Status status Register(PWM_SYNCBUSY3)
+//! @{
+//
+//*****************************************************************************
+
+//
+//! PWM Synchronous Busy
+//
+#define PWM_SYNCBUSY3_BUSY      BIT_32_0
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup NUC123_PWM_Register_DMACTL PWM PDMA control Register(PWM_DMACTL)
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Channel 0 PDMA Enable
+//
+#define PWM_DMACTL_CAP0PDMAEN   BIT_32_0
+
+//
+//! Select CRLR0 or CFLR0 to Transfer PDMA mask
+//
+#define PWM_DMACTL_CAP0DMAMOD_M BIT_MASK(32,2,1)
+
+//
+//! Select CRLR0 or CFLR0 to Transfer PDMA shift
+//
+#define PWM_DMACTL_CAP0DMAMOD_S 1
+
+//
+//! CRLR0
+//
+#define PWM_DMACTL_CAP0DMAMOD_1 BIT_32_1
+
+//
+//! CFLR0
+//
+#define PWM_DMACTL_CAP0DMAMOD_2 BIT_32_2
+
+//
+//! Both CRLR0 and CFLR0
+//
+#define PWM_DMACTL_CAP0DMAMOD_3 (BIT_32_1 | BIT_32_2)
+
+//
+//! Set this bit to determine whether the CRLR0 or CFLR0 is the first captured
+//! data transferred to memory through PDMA when CAP0PDMAMOD =11
+//
+#define PWM_DMACTL_CAP0RFORDER  BIT_32_3
+
+//
+//! Channel 1 PDMA Enable
+//
+#define PWM_DMACTL_CAP1PDMAEN   BIT_32_8
+
+//
+//! Select CRLR1 or CFLR1 to Transfer PDMA mask
+//
+#define PWM_DMACTL_CAP1DMAMOD_M BIT_MASK(32,10,9)
+
+//
+//! Select CRLR1 or CFLR1 to Transfer PDMA shift
+//
+#define PWM_DMACTL_CAP1DMAMOD_S 9
+
+//
+//! CRLR1
+//
+#define PWM_DMACTL_CAP1DMAMOD_1 BIT_32_9
+
+//
+//! CFLR1
+//
+#define PWM_DMACTL_CAP1DMAMOD_2 BIT_32_10
+
+//
+//! Both CRLR1 and CFLR1
+//
+#define PWM_DMACTL_CAP1DMAMOD_3 (BIT_32_10 | BIT_32_9)
+
+//
+//! Set this bit to determine whether the CRLR1 or CFLR1 is the first captured
+//! data transferred to memory through PDMA when CAP0PDMAMOD =11
+//
+#define PWM_DMACTL_CAP1RFORDER  BIT_32_11
+
+//
+//! Channel 2 PDMA Enable
+//
+#define PWM_DMACTL_CAP2PDMAEN   BIT_32_16
+
+//
+//! Select CRLR2 or CFLR2 to Transfer PDMA mask
+//
+#define PWM_DMACTL_CAP2DMAMOD_M BIT_MASK(32,18,17)
+
+//
+//! Select CRLR2 or CFLR2 to Transfer PDMA shift
+//
+#define PWM_DMACTL_CAP2DMAMOD_S 17
+
+//
+//! CRLR2
+//
+#define PWM_DMACTL_CAP2DMAMOD_1 BIT_32_17
+
+//
+//! CFLR2
+//
+#define PWM_DMACTL_CAP2DMAMOD_2 BIT_32_18
+
+//
+//! Both CRLR2 and CFLR2
+//
+#define PWM_DMACTL_CAP2DMAMOD_3 (BIT_32_18 | BIT_32_17)
+
+//
+//! Set this bit to determine whether the CRLR2 or CFLR2 is the first captured
+//! data transferred to memory through PDMA when CAP0PDMAMOD =11
+//
+#define PWM_DMACTL_CAP2RFORDER  BIT_32_19
+
+//
+//! Channel 3 PDMA Enable
+//
+#define PWM_DMACTL_CAP3PDMAEN   BIT_32_24
+
+//
+//! Select CRLR3 or CFLR3 to Transfer PDMA mask
+//
+#define PWM_DMACTL_CAP3DMAMOD_M BIT_MASK(32,26,25)
+
+//
+//! Select CRLR3 or CFLR3 to Transfer PDMA shift
+//
+#define PWM_DMACTL_CAP3DMAMOD_S 25
+
+//
+//! CRLR3
+//
+#define PWM_DMACTL_CAP3DMAMOD_1 BIT_32_25
+
+//
+//! CFLR3
+//
+#define PWM_DMACTL_CAP3DMAMOD_2 BIT_32_26
+
+//
+//! Both CRLR3 and CFLR3
+//
+#define PWM_DMACTL_CAP3DMAMOD_3 (BIT_32_26 | BIT_32_25)
+
+//
+//! Set this bit to determine whether the CRLR3 or CFLR3 is the first captured
+//! data transferred to memory through PDMA when CAP0PDMAMOD =11
+//
+#define PWM_DMACTL_CAP3RFORDER  BIT_32_27
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup NUC123_PWM_Register_CAP0PDMA PWM PDMA DATA Register(PWM_CAP0PDMA)
+//! @{
+//
+//*****************************************************************************
+
+//
+//! PDMA data register for channel 0 mask
+//
+#define PWM_CAP0PDMA_DATA_M     BIT_MASK(32,15,0)
+
+//
+//! PDMA data register for channel 0 shift
+//
+#define PWM_CAP0PDMA_DATA_S     0
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup NUC123_PWM_Register_CAP1PDMA PWM PDMA DATA Register(PWM_CAP1PDMA)
+//! @{
+//
+//*****************************************************************************
+
+//
+//! PDMA data register for channel 1 mask
+//
+#define PWM_CAP1PDMA_DATA_M     BIT_MASK(32,15,0)
+
+//
+//! PDMA data register for channel 1 shift
+//
+#define PWM_CAP1PDMA_DATA_S     0
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup NUC123_PWM_Register_CAP2PDMA PWM PDMA DATA Register(PWM_CAP2PDMA)
+//! @{
+//
+//*****************************************************************************
+
+//
+//! PDMA data register for channel 2 mask
+//
+#define PWM_CAP2PDMA_DATA_M     BIT_MASK(32,15,0)
+
+//
+//! PDMA data register for channel 2 shift
+//
+#define PWM_CAP2PDMA_DATA_S     0
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup NUC123_PWM_Register_CAP3PDMA PWM PDMA DATA Register(PWM_CAP3PDMA)
+//! @{
+//
+//*****************************************************************************
+
+//
+//! PDMA data register for channel 3 mask
+//
+#define PWM_CAP3PDMA_DATA_M     BIT_MASK(32,15,0)
+
+//
+//! PDMA data register for channel 3 shift
+//
+#define PWM_CAP3PDMA_DATA_S     0
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
 
 //*****************************************************************************
 //

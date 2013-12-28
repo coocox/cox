@@ -72,35 +72,6 @@ void WEAK  SVCIntHandler(void);
 void WEAK  DebugMonIntHandler(void);
 void WEAK  PendSVIntHandler(void);
 void WEAK  SysTickIntHandler(void);
-void WEAK  BODIntHandler(void);  
-void WEAK  WDTIntHandler(void);  
-void WEAK  EINT0IntHandler(void);
-void WEAK  EINT1IntHandler(void);
-void WEAK  GPABIntHandler(void); 
-void WEAK  GPCDEIntHandler(void);
-void WEAK  PWMAIntHandler(void); 
-void WEAK  PWMBIntHandler(void); 
-void WEAK  TIMER0IntHandler(void); 
-void WEAK  TIMER1IntHandler(void); 
-void WEAK  TIMER2IntHandler(void); 
-void WEAK  TIMER3IntHandler(void); 
-void WEAK  UART02IntHandler(void);
-void WEAK  UART1IntHandler(void);
-void WEAK  SPI0IntHandler(void); 
-void WEAK  SPI1IntHandler(void); 
-void WEAK  SPI2IntHandler(void); 
-void WEAK  SPI3IntHandler(void); 
-void WEAK  I2C0IntHandler(void); 
-void WEAK  I2C1IntHandler(void); 
-void WEAK  CAN0IntHandler(void); 
-void WEAK  USBDIntHandler(void);  
-void WEAK  PS2IntHandler(void);  
-void WEAK  ACMPIntHandler(void); 
-void WEAK  PDMAIntHandler(void);
-void WEAK  I2SIntHandler(void);
-void WEAK  PWRWUIntHandler(void);
-void WEAK  ADCIntHandler(void);
-void WEAK  RTCIntHandler(void);
 
 //*****************************************************************************
 //

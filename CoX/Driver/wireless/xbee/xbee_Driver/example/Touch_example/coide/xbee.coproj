@@ -90,8 +90,8 @@
     <File name="CoX/CoX_Peripheral/inc/xhw_gpio.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_gpio.h" type="1"/>
     <File name="CoX/CoX_Driver/xbee" path="" type="2"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_timer.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_timer.h" type="1"/>
-    <File name="CoX/CoX_Peripheral/src/xtimer.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xtimer.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xhw_acmp.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xhw_acmp.h" type="1"/>
+    <File name="CoX/CoX_Peripheral/src/xtimer.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xtimer.c" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xspi.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xspi.c" type="1"/>
     <File name="CoX/CoX_Peripheral/src/xgpio.c" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xgpio.c" type="1"/>
     <File name="CoX/CoX_Peripheral/inc/xtimer.h" path="../../../../../../../CoX_Peripheral/CoX_Peripheral_M051/libcox/xtimer.h" type="1"/>

@@ -199,11 +199,14 @@ extern void xSysTickIntDisable(void);
 extern void xSysTickPeriodSet(unsigned long ulPeriod);
 extern unsigned long xSysTickPeriodGet(void);
 extern unsigned long xSysTickValueGet(void);
+extern unsigned long xSysTickIntCallbackInit(xtEventCallback pfnCallback);
+void xSysTickClkSrcSelect(unsigned long ulClkSrc);
 
-extern void xSysTickPendSet(void);
-extern void xSysTickPendClr(void);
-extern void xPendSVPendSet(void);
-extern void xPendSVPendClr(void);
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
 
 //*****************************************************************************
 //

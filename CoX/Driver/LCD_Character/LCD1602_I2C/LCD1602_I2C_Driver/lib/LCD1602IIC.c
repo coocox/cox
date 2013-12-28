@@ -771,7 +771,7 @@ void LCD1602Init(unsigned long ulCLK)
 {
     IICInit(ulCLK);
 
-    LCD1602Dev.ucDevAddr=0x20;
+    LCD1602Dev.ucDevAddr=0x27;
     LCD1602Dev.ucNumRows=2;
     LCD1602Dev.ucNumCols=16;
     IICDelay(50000);

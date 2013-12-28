@@ -93,7 +93,7 @@ extern "C"
 //*****************************************************************************
 
 //
-//! xGPIO intrerrupt nimber config
+//! xGPIO intrerrupt number config
 //
 #define xGPIO_INT_NUMBER        8  
 

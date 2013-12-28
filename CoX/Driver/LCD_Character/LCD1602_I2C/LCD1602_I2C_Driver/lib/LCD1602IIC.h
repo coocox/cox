@@ -104,8 +104,8 @@ extern "C"
 //
 //! Select hardware IIC or software IIC
 //
-//#define USE_SOFTWARE_IIC
-#define USE_HARDWARE_IIC
+#define USE_SOFTWARE_IIC
+//#define USE_HARDWARE_IIC
 
 #define LCD1602_IIC_PIN_SCL     PB6
 #define LCD1602_IIC_PIN_SDA     PB7

@@ -98,7 +98,7 @@ echo archive to .zip
 echo completed
 
 echo del %_publish_dir%
-rd /s /q %v_publish_root%\%_publish_dir%
+::rd /s /q %v_publish_root%\%_publish_dir%
 echo completed
 echo --------------------------------------------
 pause

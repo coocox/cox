@@ -2,6 +2,9 @@
 //
 //! \page Changelog Revisions
 //!
+//! <h3>Revision 2.2 05/17/2012</h3>
+//! - Change I2C GPIO  SPI interface
+//! 
 //! <h3>Revision 2.1 11/14/2011</h3>
 //! - Check wrong words and grammar for code notes and doxygen document.
 //! - Add the APIs of peripheral clock source selecting and frequency division 
