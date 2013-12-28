@@ -1,0 +1,98 @@
+//*****************************************************************************
+//
+//! \defgroup UART
+//!
+//! \brief Universal Asynchronous Receivers/Transmitters (UART) Peripheral Driver.
+//!
+//! The Universal Asynchronous Receiver/Transmitter (UART) performs a serial-to-parallel conversion on 
+//! data received from the peripheral, and a parallel-to-serial conversion on data transmitted from the 
+//! CPU.
+//!
+//! The UART controller also supports IrDA SIR, Flow Control, and Modem.
+//!
+//! \n
+//! <h1>Contents</h1>
+//! - \ref UART_Blcok
+//! - \ref UART_Function_Desc
+//!   - \ref UART_Data_Transmission
+//!     - \ref UART_RxTx
+//!     - \ref UART_FIFO
+//!     .
+//!   - \ref UART_SIR
+//!   - \ref UART_Modem
+//!   - \ref UART_RS485
+//!   - \ref UART_Interrupt
+//!   .
+//! - \ref UART_Applications
+//! .
+//!
+//! \n
+//! \section UART_Blcok 1. UART Physical Block
+//! <img src="NUC2xx_UART_block.png" />
+//!
+//!
+//! \n
+//! \section UART_Function_Desc 2. UART Functional Description
+//!
+//! \n
+//! \subsection UART_Data_Transmission 2.1 UART Data Transmission
+//!
+//! \subsubsection UART_RxTx 2.1.1 UART Data Transmit and Receive
+//!
+//! The transmit logic performs parallel-to-serial conversion on the data read from the transmit FIFO.
+//! The control logic outputs the serial bit stream beginning with a start bit and followed by the data bits
+//! (LSB first), parity bit, and the stop bits according to the programmed configuration in the control
+//! registers.
+//!
+//!
+//! \subsubsection UART_FIFO 2.1.2 UART FIFO
+//!
+//! The UART0 and UART1 have two 16-entry FIFOs.
+//!
+//! \n
+//! \subsection UART_SIR 2.2 UART Serial IR
+//! The UART supports IrDA SIR(Serial Infrared) Transmit Encoder and Receive Decoder, and 
+//! IrDA mode is selected by setting the IrDA_EN bit in UA_FUN_SEL register. 
+//!
+//!
+//! \n
+//! \subsection UART_Modem 2.3 UART Modem Support
+//! 
+//! Support hardware auto flow control/flow control funciton(CTS, RTS) and programmable RTS
+//! flow control trigger level(UART0 and UART1 support).
+//! 
+//! \n
+//! \subsection UART_RS485 2.4 UART RS-485 Support(Low Density only)
+//!
+//! Support RS-485 function mode.
+//! <ul>
+//! <li>Support RS-485 9bit mode</li>
+//! <li>Support hardware or software direct enable control provided by RTS pin</li>
+//! </ul>
+//!
+//! \n
+//! \subsection UART_Interrupt 2.5 UART Interrupt
+//!
+//! The UART can generate interrupts when the following conditions are observed:
+//! - Overrun Error
+//! - Break Error
+//! - Parity Error
+//! - Framing Error
+//! - Receive Timeout
+//! - Transmit
+//! - Receive
+//! .
+//!
+//! \n
+//! \section UART_Applications 3. UART Applications
+//! - \ref xUART_App_NormalMode
+//! - \ref xUART_App_IrDA
+//! - \ref xUART_App_Modem
+//! .
+//!
+//! \n
+//! \note Here describes the common functions of the UART Peripheral. The CoX
+//! Peripheral Interface is based on the functions above. 
+//
+//*****************************************************************************
+

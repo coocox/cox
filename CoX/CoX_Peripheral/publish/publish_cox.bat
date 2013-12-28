@@ -8,10 +8,12 @@ echo --------------------------------------------
 :: Configure the version & MCU platform
 
 :publish_config_mcu
-set /p _publish_cox=Please input the MCU platform that to publish(NUC1xx, STM32F1xx, HT32F175x, HT32F125x,KLx,NUC122,Mini51,M051,Template):
+set /p _publish_cox=Please input the MCU platform that to publish(NUC1xx,NUC2xx,NUC123, STM32F1xx, HT32F175x, HT32F125x,KLx,NUC122,Mini51,M051,Template):
 
 if "%_publish_cox%"=="" goto publish_config_mcu_error
 if %_publish_cox%==NUC1xx goto publish_config_version
+if %_publish_cox%==NUC2xx goto publish_config_version
+if %_publish_cox%==NUC123 goto publish_config_version
 if %_publish_cox%==STM32F1xx goto publish_config_version
 if %_publish_cox%==HT32F175x goto publish_config_version
 if %_publish_cox%==HT32F125x goto publish_config_version
@@ -59,16 +61,15 @@ echo %v_cox_peripheral%\libcox
 copy %v_cox_peripheral%\libcox %v_publish_root%\%_publish_dir%\libcox >>nul
 echo completed
 echo copy startup
-md %v_publish_root%\%_publish_dir%\startup
+md %v_publish_root%\%_publish_dir%\startup\src
 if %_publish_cox%==Template (
     copy %v_cox_peripheral%\startup %v_publish_root%\%_publish_dir%\startup >>nul
 ) else (
-    copy %v_cox_peripheral%\startup\src %v_publish_root%\%_publish_dir%\startup >>nul
+    copy %v_cox_peripheral%\startup\src %v_publish_root%\%_publish_dir%\startup\src >>nul
 )
 echo completed
 
 echo gen example\project\template\coide
-call %v_cox_peripheral%\all\gen_coide.bat
 
 echo copy example\project\template
 md %v_publish_root%\%_publish_dir%\example\project >>nul

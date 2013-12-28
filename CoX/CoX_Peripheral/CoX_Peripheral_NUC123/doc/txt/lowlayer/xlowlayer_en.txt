@@ -1,0 +1,35 @@
+//*****************************************************************************
+//
+//! \defgroup LowLayer  
+//! 
+//! \brief LowLayer Memory And Interrupt.
+//!
+//! LowLayer defines for the base address of the memories and
+//! peripherals and defines for the fault/interrupt assignments.
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup xLowLayer xLowLayer
+//! 
+//! \brief CoX LowLayer Memory And Interrupt .
+//!
+//! LowLayer defines the base addresses of the
+//! memories/peripherals and the fault/interrupt assignments.
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup NUC123_LowLayer NUC123 LowLayer
+//! 
+//! \brief NUC123 LowLayer Memory And Interrupt
+//!
+//! NUC123_LowLayer LowLayer defines the base addresses of the 
+//! memories/peripherals and the fault/interrupt assignments of NUC123.
+//!
+//! \note It defines all the peripheral address and interrupt.
+//
+//*****************************************************************************
