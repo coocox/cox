@@ -1,0 +1,357 @@
+//*****************************************************************************
+//
+//! \defgroup SysCtl
+//! 
+//! \brief System control determines the overall operation of the device. It provides information about the
+//! device, controls the clocki for the core and individual peripherals, and handles reset detection and
+//! report.
+//!
+//! - Configure system clock, multiple clock sources can be selected(including Main Oscillator (MOSC), 
+//!   Internal Oscillator (IOSC), Internal 30-kHz Oscillat or,External Real-Time Oscillator).
+//! - Reset or enable/disable the peripheral individually thourgh software.
+//! - Configure system operation level,including Run Mode and Sleep Mode.
+//!
+//! \n
+//! <h1>Contents</h1>
+//! - \ref SysCtl_Function_Desc
+//!   - \ref Reset_Control
+//!   - \ref Clock_Control
+//!     - \ref Clock_Sources
+//!     - \ref Clock_Configuration
+//!     .
+//!   - \ref System_Control
+//!   .
+//! - \ref SysCtl_Applications
+//! .
+//! 
+//! \n
+//! \section SysCtl_Function_Desc 1. SysCtl Function Desc
+//! 
+//! \n
+//! \subsection Device_Identification 1.1 Device Identification
+//!
+//! Several read-only registers provide software with information on the microcontroller, such as version,
+//! part number, SRAM size, flash size, and other features.
+//!
+//! \n
+//! \subsection Reset_Control 1.2 Reset Control
+//!
+//! The controller has five sources of reset : 
+//! - External reset input pin (RST) assertion
+//! - Power-on reset (POR)
+//! - Internal brown-out (BOR) detector
+//! - Software-initiated reset (with the software reset registers)
+//! - A watchdog timer reset condition violation
+//! .
+//!
+//! \n
+//! \subsection Power_Control 1.3 Power Control
+//! An integrated LDO regulator that may be used to provide power to the 
+//! majority of the controller's internal logic
+//!
+//! \n
+//! Power Architecture:
+//! <img src="Power_Architecture.png" />
+//! 
+//! \n
+//! \subsection Clock_Control 1.4 Clock Control
+//!
+//! \subsubsection Clock_Tree 1.4.1 Main clock tree:
+//! <img src="Clock_Tree.png" />
+//!
+//! \subsubsection Clock_Sources 1.4.2 Clock Sources
+//!
+//! There are multiple clock sources for use in the device:
+//! - Internal Oscillator (IOSC).
+//! - Main Oscillator (MOSC).
+//! - Internal 30-kHz Oscillator.
+//! - External Real-Time Oscillator.
+//! .
+//!
+//! \subsubsection Clock_Configuration 1.4.3 Clock Configuration
+//!
+//! - Source of clocks in sleep and deep-sleep modes
+//! - System clock derived from PLL or other clock source
+//! - Enabling/disabling of oscillators and PLL
+//! - Clock divisors
+//! - Crystal input selection 
+//!
+//! \n
+//! \subsection System_Control 1.5 System Control
+//! There are four levels of operation for the device defined as:
+//! - Run Mode
+//! - Sleep Mode
+//! - Deep-Sleep Mode
+//! - Hibernate Mode
+//! .
+//! 
+//! \n
+//! \section SysCtl_Applications 2. SysCtl Applications
+//! add in the future
+//!
+//! \note Here describes the common functions of the SysCtl Peripheral. The CoX
+//! Peripheral Interface is based on the functions above.
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
+//! \defgroup xSysCtl xSysCtl
+//! 
+//! \brief CoX SysCtl Peripheral Interface
+//!
+//! xSysCtl is the SYSCLT Peripheral Interface of CoX. It Definition some common
+//! macros and APIs.
+//! 
+//! <h1>Contents</h1>
+//! - \ref CoX_SysCtl_How_Define
+//! - \ref xSysCtl_API_Group
+//!   - \ref xSysCtl_API_Group_Peripheral
+//!   - \ref xSysCtl_API_Group_Clock
+//!   - \ref xSysCtl_API_Group_Delay
+//!   - \ref xSysCtl_API_Group_Reset
+//!   - \ref xSysCtl_API_Group_Sleep
+//!   .
+//! - \ref XSYSCLT_Usage 
+//! .
+//!
+//! \n
+//!
+//! \section CoX_SysCtl_How_Define 1 How is the xSysCtl API Standard Defined?
+//! CoX SysCtl Definition the APIs based on the following common functions:
+//! - Peripheral Controls
+//!   - Reset the peripheral
+//!   - Enable the peripheral
+//!   - Disable the peripheral      
+//!   .
+//! - Clock control 
+//!   - System Control clock set
+//!   - System Control clock get
+//!   - System Control clock source set and peripheral divide set
+//!   .
+//! - Provides a small delay
+//! - Resets the device 
+//! - Puts the processor into sleep mode
+//! .
+//!
+//! \n
+//! \section xSysCtl_API_Group 2 API Groups
+//! 
+//! CoX SysCtl API is broken into five groups of functions: 
+//! - those that deal with controlling the peripheral, 
+//! - those that deal with setting the system clock, 
+//! - those that deal with configuring a small delay.
+//! - those that deal with resetting the device.
+//! - those that deal with system control.
+//! .
+//!
+//! \n
+//! \subsection xSysCtl_API_Group_Peripheral 2.1 APIs for Peripheral Control 
+//! 
+//! The peripherals are resetted with :
+//! - xSysCtlPeripheralReset()
+//! - xSysCtlPeripheralReset2()  
+//! .
+//! The peripherals are enabled or disabled with 
+//! - xSysCtlPeripheralEnable()
+//! - xSysCtlPeripheralDisable()
+//! - xSysCtlPeripheralEnable2()
+//! - xSysCtlPeripheralDisable2()
+//!.
+//! 
+//! \n
+//! \subsection xSysCtl_API_Group_Clock 2.2 Clock control 
+//! 
+//! The system clocl is controlled with :
+//! - xSysCtlClockSet()
+//!
+//! The SysCtl clock can be read back with :
+//! - xSysCtlClockGet()
+//!
+//! The SysCtl clock source set and peripheral divide set with :
+//! - xSysCtlPeripheralClockSourceSet()
+//! - xSysCtlPeripheralClockSourceSet2()
+//! .
+//!
+//! \n
+//! \subsection xSysCtl_API_Group_Delay 2.3 Provides a small delay
+//! 
+//! The small delay can be configured with :
+//! - xSysCtlDelay()
+//! .
+//!
+//! \n
+//! \subsection xSysCtl_API_Group_Reset 2.4 Reset the device
+//! 
+//! The device can be resetted with :
+//! - xSysCtlReset()
+//! .
+//!
+//! \n
+//! \subsection xSysCtl_API_Group_Sleep 2.5 System control
+//! 
+//! The processor can be put into sleep mode with :
+//! - xSysCtlSleep() 
+//! .
+//!
+//! \n
+//! \section  XSYSCLT_Usage 3. Usage & Program Examples
+//! The following example shows how to use the SysCtl API to configure the 
+//! system clock, enable the related peripherals, and put the processor into 
+//! sleep mode, and then wake up by RTC interrupt. 
+//! 
+//! \code
+//! #include "xcore.h"
+//! #include "xuart.h"
+//! #include "xgpio.h"
+//! #include "xSysCtl.h"
+//! #include "xhw_types.h"
+//! #include "xdebug.h"
+//! #include "xhw_ints.h"
+//! #include "xhw_memmap.h"
+//! #include "xhw_uart.h"
+//! #include "xhw_nvic.h"
+//! #include "xhw_SysCtl.h"
+//! #include "xhw_nvic.h"
+//!
+//! //*****************************************************************************
+//! //
+//! // Declaration of the uart configuration function
+//! //
+//! //*****************************************************************************
+//! void UART0Configuration(void);
+//! void Print(char *pcMsg);
+//!
+//! //*****************************************************************************
+//! //
+//! // Systick Interrupt serive function
+//! //
+//! // When the interupt happen ,print some words In the super terminal through 
+//! // uart0.
+//! //
+//! // return none
+//! //
+//! //*****************************************************************************
+//! void IntSystickHandler(void)
+//! {
+//!     //
+//!     //Clear the systick pending bit  
+//!     //
+//!    //  xIntPendClear(FAULT_SYSTICK);
+//!     
+//!    //
+//!    // Print a "hello systick" through uart0
+//!    //
+//!    Print("wake up the wfi first/n");
+//!    xSysTickDisable();
+//!    
+//! }
+//!
+//! //*****************************************************************************
+//! //
+//! // The main function of the systick  
+//! //
+//! //*****************************************************************************
+//! int main(void)
+//! {
+//!    //
+//!    //Set the external 8MHZ clock as system clock 
+//!    //
+//!    xSysCtlClockSet(8000000, SysCtl_USE_OSC | SysCtl_OSC_MAIN | SysCtl_XTAL_8MHZ);
+//!    
+//!    //
+//!    //UART initialize
+//!    //
+//!    UART0Configuration();
+//!    Print("uart0 is ok, wait for the wfi/n");
+//!    //
+//!    //Enable the systick interrupt
+//!    //
+//!    xSysTickIntEnable();
+//!    
+//!    //
+//!    //Set the systick as 1 time per second
+//!    //
+//!    xSysTickPeriodSet(8000000);
+//!    
+//!    //
+//!    //Enable the systick
+//!    //
+//!    xSysTickEnable();
+//!    
+//!    //
+//!    // Enter the sleep mode
+//!    //
+//!    xCPUwfi();
+//!    
+//!    //
+//!    // go on excute Print code words after wake up. 
+//!    //
+//!    Print("the go on print/n");
+//!    while(1);
+//!    
+//!    
+//! }
+//!
+//! void UART0Configuration(void)
+//! {
+//!    //
+//!    //Enable the uart0 peripheral
+//!    //
+//!    xSysCtlPeripheralEnable(SysCtl_PERIPH_GPIOA);
+//!    xSysCtlPeripheralEnable(SysCtl_PERIPH_UART0);
+//!    
+//!    //
+//!    // Set GPIO A0 and A1 as UART pins.
+//!    //
+//!    xGPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
+//!
+//!    //
+//!    // Configure the UART for 115,200, 8-N-1 operation.
+//!    //
+//!    UARTConfigSetExpClk(UART0_BASE, SysCtlClockGet(),115200 ,
+//!         (UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_1 | UART_CONFIG_PAR_NONE),\
+//!           (UART_CTL_UARTEN | UART_CTL_TXE | UART_CTL_RXE));
+//!
+//!    UARTEnable(UART0_BASE, UART_CTL_UARTEN | UART_CTL_TXE | UART_CTL_RXE);
+//! }
+//!
+//! //*****************************************************************************
+//! //
+//! // uart send function
+//! //
+//! // return none
+//! //
+//! //*****************************************************************************
+//! void Print(char *pcMsg)
+//! {
+//!     unsigned char ch;
+//!     while (*pcMsg != '\0')
+//!     {
+//!        //
+//!        // Put a character in the output buffer.
+//!        //
+//!        ch = *pcMsg++;
+//!        while((xHWREG(UART0_BASE + UART_O_FR) & UART_FR_TXFF));
+//!        UARTCharPutNonBlocking(UART0_BASE, ch);
+//!     }
+//! }
+//!
+//! \endcode
+//! \todo 
+//!
+//
+//*****************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+

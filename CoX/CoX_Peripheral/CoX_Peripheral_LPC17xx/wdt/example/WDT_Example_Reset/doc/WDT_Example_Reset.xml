@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<Example>
+  <Name>WDT_Example_Reset.c</Name>
+  <Description>
+      This example show how to use wdt reset mode.
+      First Enable WDT/GPIO power, then configure wdt into reset mode, then start
+      Watchdog counter, you will see led blink slowly now. when LED blink 50 times,
+      we stop feed the watchdog, so mcu will reset when watchdog counter timeout.
+      This time, our check reset source, if watchdog reset, it will set led on.
+  </Description>
+  <Version>1.0.0</Version>
+  <Tags>WDT</Tags>
+  <EVKit>EM-LPC1700 Development Board</EVKit>
+  
+  <Files>
+    <File>$REPO_ROOT$\CoX\CoX_Peripheral\CoX_Peripheral_LPC17xx\wdt\example\WDT_Example_Reset\src\WDT_Example_Reset.c</File>
+  </Files>
+  
+  <Dependencys>
+    <Dependency>COX.Peripheral.LPC17xx.xStartup</Dependency>
+    <Dependency>COX.Peripheral.LPC17xx.xLowLayer</Dependency>
+	<Dependency>COX.Peripheral.LPC17xx.xCORE</Dependency>
+	<Dependency>COX.Peripheral.LPC17xx.xSysCtl</Dependency>
+	<Dependency>COX.Peripheral.LPC17xx.xGPIO</Dependency>
+  </Dependencys>
+
+</Example>

@@ -1,0 +1,184 @@
+//*****************************************************************************
+//
+//! \defgroup STM32F1xx_RTC STM32F1xx RTC
+//! 
+//! \brief STM32F1xx RTC Peripheral Driver.
+//!
+//! The CoX Peripheral Library also provides APIs 
+//! for full functions of STM32F1xx RTC.
+//!
+//! \n
+//! <h1>Contents</h1>
+//! - \ref STM32F1xx_RTC_Block
+//! - \ref STM32F1xx_RTC_Function_Desc
+//! - \ref STM32F1xx_RTC_API_Group
+//!   - \ref STM32F1xx_RTC_API_Group_Config
+//!   - \ref STM32F1xx_RTC_API_Group_Time
+//!   - \ref STM32F1xx_RTC_API_Group_Interrupt
+//!   .
+//! - \ref STM32F1xx_RTC_Usage
+//! .
+//!
+//! \n
+//! \section STM32F1xx_RTC_Block 1. RTC Physical Block
+//! <img src="STM32F1xx_RTC_block.png" />
+//! 
+//! \n
+//! \section STM32F1xx_RTC_Function_Desc 2. Functional Description
+//!
+//! Real Time Clock (RTC) controller provides users with the real time and 
+//! clendar messages.The RTC controller provides the time messages (second, 
+//! minute, hour, day, month, year)in Time Loading Register(RTC_CNTH/RTC_CNTL).
+//! It also offers an alarm function so that users can preset alarm time in
+//!  Time Alarm Register (RTC_ALRH/RTC_ALRL).
+//!
+//! The RTC controller supports periodic Time Tick and Alarm Match interrupts.
+//! 
+//! \n
+//! \section STM32F1xx_RTC_API_Group 3. API Groups
+//! 
+//! The RTC API is broken into three groups of functions: 
+//! - those that deal with RTC initialization , 
+//! - those that deal with time reading and writing, 
+//! - those that deal with interrupt.
+//! .
+//!
+//! \n
+//! \subsection STM32F1xx_RTC_API_Group_Config 3.1 RTC Config APIs
+//! 
+//! The RTC pins are configured with :
+//! - RTCTimeInit()  
+//! .
+//! 
+//! \n
+//! \subsection STM32F1xx_RTC_API_Group_Time 3.2 RTC time reading and writing APIs
+//! 
+//! The RTC write and read are through APIS below:
+//! - RTCTimeRead()
+//! - RTCTimeWrite().
+//! .
+//!
+//! \n
+//! \subsection STM32F1xx_RTC_API_Group_Interrupt 3.3 RTC interrupt APIs
+//! 
+//! The RTC interrupt can be handled with:
+//! - RTCIntCallbackInit()
+//! - RTCIntEnable()
+//! - RTCIntDisable()
+//! - RTC_IRQHandler().
+//! .
+//!
+//! \n
+//! \section STM32F1xx_RTC_Usage 4. Usage & Program Examples
+//! The following example shows how to use the RTC APIs to initialize the 
+//! RTC, enable interrupts,read data from pins, and write data to pins.
+//! 
+//! \code
+//!tTime tTime1;
+//!unsigned long ulj;
+//!unsigned long ulTimeAlarm[2] = {RTC_TIME_CURRENT, RTC_TIME_ALARM};
+//!
+//!
+//!unsigned long xRTCCallback(void *pvCBData, 
+//!                                       unsigned long ulEvent,
+//!                                       unsigned long ulMsgParam,
+//!                                       void *pvMsgData)
+//!{
+//!    RTCTimeRead(&tTime1, ulTimeAlarm[0]);
+//!    TestEmitToken('a');
+//!    return 0;
+//!}
+//!static void xrtc001Int()
+//!{
+//!    RTCTimeInit(0x7fff);
+//!    
+//!    tTime2.ulSecond = 20;     
+//!    
+//!    tTime2.ulMinute = 10; 
+//!    
+//!    tTime2.ulHour = 11; 
+//!    
+//!    tTime2.ulMDay = 13;  
+//!    
+//!    tTime2.ulMonth = 6;   
+//!    
+//!    tTime2.ulYear = 2012;    
+//!    
+//!    tTime2.ulWDay = 3;   
+//!    
+//!    //
+//!    //write current time to corresponding register.
+//!    //
+//!    RTCTimeWrite(&tTime2, ulTimeAlarm[0]);
+//!    
+//!    //
+//!    //alarm interrupt after 20 seconds.
+//!    //
+//!    tTime2.ulSecond +=10;
+//!    
+//!    //
+//!    //write current time to corresponding register.
+//!    //
+//!    RTCTimeWrite(&tTime2, ulTimeAlarm[1]);
+//!    
+//!	   for(ulj = 0; ulj < 0xffff; ulj ++);
+//!    
+//!    RTCTimeRead(&tTime1, ulTimeAlarm[1]);
+//!   
+//!   TestAssert(2012 == tTime1.ulYear && 6 == tTime1.ulMonth
+//!           && 15 ==  tTime1.ulMDay && 11 == tTime1.ulHour
+//!           && 20 == tTime1.ulMinute && 50 == tTime1.ulSecond          
+//!           ,"xrtc API \" RTCTimeWrite()\" or \"RTCTimeRead()\" error!");
+//!
+//!    RTCIntCallbackInit(xRTCCallback);
+//!    
+//!    xIntEnable(INT_RTC);
+//!    xIntMasterEnable();
+//!    //
+//!    //enable alarm interrupt.
+//!    //
+//!    RTCIntEnable(RTC_INT_ALARM);
+//!    
+//!    TestAssert(RTC_INT_ALARM == ( xHWREG(RTC_CRH) & 0x00000002),
+//!		  "xrtc API \"RTCIntEnable\" error!");
+//!   
+//!    TestAssertQBreak("a","Alarm interrupt failed!", 0xffffffff);
+//!    
+//!    for(ulj = 0; ulj < 0xffff; ulj ++);
+//!      
+//!    TestAssert(2012 == tTime1.ulYear && 6 == tTime1.ulMonth
+//!           && 15 ==  tTime1.ulMDay && 11 == tTime1.ulHour 
+//!           && 20 == tTime1.ulMinute && 50 == tTime1.ulSecond           
+//!           ,"xrtc API \" RTCTimeWrite()\" or \"RTCTimeRead()\" error!"); 
+//!    
+//!    //
+//!    //disable alarm interrupt.
+//!    //
+//!    RTCIntDisable(RTC_INT_ALARM);
+//!   
+//!    xIntMasterEnable();
+//!    //
+//!    //set second interrupt.
+//!    //
+//!    RTCTickModeSet(ulMode[0]);
+//!   
+//!    //
+//!    //enable tick interrupt.
+//!    //
+//!    RTCIntEnable(RTC_INT_TIME_TICK);
+//!    
+//!    TestAssert(RTC_INT_TIME_TICK == ( xHWREG(RTC_CRH) & 0x00000001),
+//!		  "xrtc API \"RTCIntEnable\" error!");
+//! 
+//!    TestAssertQBreak("a","Tick interrupt failed!",0xffffffff);
+//!    
+//!    RTCIntDisable(RTC_INT_TIME_TICK);
+//!    
+//!    TestAssert(1 == 1,
+//!		  "xrtc API \"RTCIntCallbackInit\" error!");
+//!}
+//! \endcode
+//! 
+//! 
+//
+//*****************************************************************************

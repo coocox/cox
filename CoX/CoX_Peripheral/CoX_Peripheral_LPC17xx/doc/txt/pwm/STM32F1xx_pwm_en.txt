@@ -1,0 +1,163 @@
+//*****************************************************************************
+//
+//! \defgroup STM32F1xx_PWM STM32F1xx PWM
+//! 
+//! \brief STM32F1xx PWM Peripheral Driver.
+//!
+//! The CoX Peripheral Library also provides APIs for full functions of ST STM32F1xx
+//! PWM. This module supports the whole STM32F1xx Series.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref STM32F1xx_PWM_Blcok
+//! - \ref STM32F1xx_PWM_Function_Desc
+//! - \ref STM32F1xx_PWM_API_Group
+//!   - \ref STM32F1xx_PWM_API_Group_Config
+//!   - \ref STM32F1xx_PWM_API_Group_Function
+//!     - \ref STM32F1xx_PWM_API_Group_Output
+//!     - \ref STM32F1xx_PWM_API_Group_Interrupt
+//!     - \ref STM32F1xx_PWM_API_Group_Control
+//!   .
+//! - \ref STM32F1xx_PWM_Usage
+//! .
+//!
+//! <br />
+//! \section STM32F1xx_PWM_Blcok 1. PWM Physical Block
+//! <img src="STM32F1xx_pwm_block.jpg" />
+//! 
+//! <br />
+//! \section STM32F1xx_PWM_Function_Desc 2. Functional Description
+//! Pulse Width Modulation mode allows you to generate a signal with a frequency 
+//! determined by the value of the TIMx_ARR register and a duty cycle determined
+//! by the value of the TIMx_CCRx register.
+//! PWM includes the following functions:
+//! - Interrupt
+//! - Output
+//! .
+//! 
+//! <br />
+//! \section STM32F1xx_PWM_API_Group 3. API Groups
+//! 
+//! The PWM API is broken into two groups of functions : 
+//! - those that deal with configuring the PWM
+//! - those that deal with functions
+//! .
+//!
+//! <br />
+//! \subsection STM32F1xx_PWM_API_Group_Config 3.1 PWM Configuration APIs 
+//! 
+//! The PWM are configured with :
+//! - PWMFrequencyConfig()
+//! - PWMInitConfigure()
+//! - PWMFrequencySet()
+//! - PWMFrequencyGet()
+//! - PWMDutySet()
+//! - PWMDutyGet()
+//! - PWMARRSet()
+//! - PWMARRGet()
+//! .
+//! 
+//! <br />
+//! \subsection STM32F1xx_PWM_API_Group_Function 3.2 PWM Function APIs
+//! 
+//! <br />
+//! \subsubsection STM32F1xx_PWM_API_Group_Output 3.2.1 PWM Output APIs
+//!
+//! The PWM Output are set with : 
+//! - PWMOutputEnable()
+//! - PWMOutputDisable() 
+//! .
+//!
+//! <br />
+//! \subsubsection STM32F1xx_PWM_API_Group_Interrupt 3.2.2 PWM Interrupt APIs
+//!
+//! The PWM Interrupt are set with : 
+//! - PWMIntEnable()
+//! - PWMIntDisable()
+//! - PWMIntFlagGet()
+//! - PWMIntFlagClear()
+//! .
+//!
+//! <br />
+//! \subsubsection STM32F1xx_PWM_API_Group_Control 3.2.3 PWM Control APIs
+//!
+//! The PWM Control are set with : 
+//! - PWMStart()
+//! - PWMStop()
+//! .
+//!
+//! <br />
+//! \section STM32F1xx_PWM_Usage 4. Usage & Program Examples
+//! The following example shows how to use the PWM APIs to initialize the PWM.
+//! 
+//! \code
+//!
+//! #include "xhw_types.h"
+//! #include "xhw_memmap.h"
+//! #include "xhw_ints.h"
+//! #include "xhw_nvic.h"
+//! #include "xcore.h"
+//! #include "xhw_sysctl.h"
+//! #include "xsysctl.h"
+//! #include "xgpio.h"
+//! #include "xpwm.h"
+//!
+//! //*****************************************************************************
+//! //
+//! // \brief PWM output function example. 
+//! // Configure the pwm channel0 as output toggle mode, the duty is 40. This code
+//! // is tested on the STM32F1xx Development Board.
+//! //
+//! // \return None.
+//! //
+//! //*****************************************************************************
+//! void PWM_Output(void)
+//! {
+//!     //
+//!     // Set System Clock
+//!     //
+//!     SysCtlClockSet(72000000, (SYSCTL_OSC_MAIN|SYSCTL_PLL_MAIN|SYSCTL_XTAL_8MHZ));
+//!     SysCtlDelay(10000);
+//!
+//!     //
+//!     // Enable PWM and GPIO
+//!     //
+//!     SysCtlPeripheralEnable(SYSCTL_PERIPH_TIM1);
+//!     SysCtlPeripheralEnable(SYSCTL_PERIPH_IOPA);
+//!     SysCtlPeripheralEnable(SYSCTL_PERIPH_AFIO);
+//!     
+//!     //
+//!     // Set GPIO Pin as PWM and enable PWM
+//!     //
+//!     xSPinTypeTimer(TIM1CH1, PA8);
+//!                                              
+//!     //
+//!     // Set Mode and Count direction
+//!     //
+//!     PWMInitConfigure(TIM1_BASE, PWM_CHANNEL0, PWM_OM_1, PWM_CNT_MODE_UP);
+//! 	
+//!     // Set PWM Frequency(1000Hz)
+//!     PWMFrequencyConfig(TIM1CH1, PWM_CHANNEL0, 0x004803E8);
+//! 	
+//!     //    
+//!     // Set Duty
+//!     //
+//!     xPWMDutySet(TIM1CH1, PWM_CHANNEL0, 10);
+//! 	
+//! 	//    
+//!     // Set output enable
+//!     //
+//!     PWMOutputEnable(TIM1CH1, PWM_CHANNEL0);   
+//! 	
+//!     //    
+//!     // Start pwm
+//!     //
+//!     PWMStart(PWMA_BASE, PWM_CHANNEL0);
+//! }
+//!
+//! \endcode
+//! 
+//! \note 
+//! 
+//
+//*****************************************************************************
