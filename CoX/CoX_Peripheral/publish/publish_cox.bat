@@ -21,6 +21,7 @@ if %_publish_cox%==KLx goto publish_config_version
 if %_publish_cox%==NUC122 goto publish_config_version
 if %_publish_cox%==M051 goto publish_config_version
 if %_publish_cox%==Mini51 goto publish_config_version
+
 if %_publish_cox%==Template goto publish_config_version
 
 :publish_config_mcu_error
