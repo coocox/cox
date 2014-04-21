@@ -1914,6 +1914,8 @@ extern void UARTIntCallbackInit(unsigned long ulBase,
                                 xtEventCallback xtUARTCallback);
 extern unsigned long UARTIntStatus(unsigned long ulBase);
 extern void UARTIntClear(unsigned long ulBase, unsigned long ulIntFlags);
+extern void UARTIntClear(unsigned long ulBase, unsigned long ulIntFlags);
+extern unsigned long UARTRxErrorGet(unsigned long ulBase);
 extern void UARTDMAEnable(unsigned long ulBase, unsigned long ulDMAFlags);
 extern void UARTDMADisable(unsigned long ulBase, unsigned long ulDMAFlags);
 extern void UARTAddressSet(unsigned long ulBase, unsigned long ulAddress);
