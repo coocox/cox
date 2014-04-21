@@ -1691,3 +1691,61 @@ UARTModemControlClear(unsigned long ulBase, unsigned long ulControl)
     //
     xHWREG(ulBase + USART_CR3) &= ~ulControl;
 }
+
+//*****************************************************************************
+//
+//! \brief Gets current receiver errors.
+//!
+//! \param ulBase is the base address of the UART port.
+//!
+//! This function returns the current state of each of the 3 receiver error
+//! sources.  
+//!
+//! \return Returns a logical OR combination of the receiver error flags,
+//! \b UART_RXERROR_FRAMING, \b UART_RXERROR_PARITY, \b UART_RXERROR_BREAK
+//! and \b UART_RXERROR_OVERRUN.
+//
+//*****************************************************************************
+unsigned long
+UARTRxErrorGet(unsigned long ulBase)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT(UARTBaseValid(ulBase));
+
+    //
+    // Return the current value of the receive status register.
+    //
+    return(xHWREG(ulBase + USART_SR) & 0x0000000F);
+}
+
+//*****************************************************************************
+//
+//! \brief Clears all reported receiver errors.
+//!
+//! \param ulBase is the base address of the UART port.
+//!
+//! This function is used to clear all receiver error conditions reported via
+//! UARTRxErrorGet().  If using the overrun, framing error, parity error or
+//! break interrupts, this function must be called after clearing the interrupt
+//! to ensure that later errors of the same type trigger another interrupt.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+UARTRxErrorClear(unsigned long ulBase)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT(UARTBaseValid(ulBase));
+
+    //
+    // Any write to the Error Clear Register will clear all bits which are
+    // currently set.
+    //
+    xHWREG(ulBase + USART_SR);
+    xHWREG(ulBase + USART_DR);
+}

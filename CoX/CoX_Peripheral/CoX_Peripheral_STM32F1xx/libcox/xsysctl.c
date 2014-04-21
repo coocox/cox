@@ -598,7 +598,7 @@ xSysCtlPeripheralReset2(unsigned long ulPeripheralBase)
 //
 //*****************************************************************************
 unsigned long 
-xSysCtlPeripheraIntNumGet(unsigned long ulPeripheralBase)
+xSysCtlPeripheralIntNumGet(unsigned long ulPeripheralBase)
 {
     unsigned long i;
     
