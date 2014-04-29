@@ -654,11 +654,11 @@ xSysCtlPeripheralIntNumGet(unsigned long ulPeripheralBase)
 void
 SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
 {
-    volatile unsigned long ulStartUpCounter;
+    volatile unsigned long ulStartUpCounter = 0;
     xtBoolean xtStatus;
     unsigned long ulOscFreq;
     xASSERT((ulSysClk > 0 && ulSysClk <= 72000000));
-
+	
     //
     // Set HSION bit
     //
@@ -782,7 +782,8 @@ SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
         case SYSCTL_OSC_INT:
         {
             xASSERT(!(ulConfig & SYSCTL_INT_OSC_DIS));
-
+            xASSERT(ulSysClk >= 8000000 && ulSysClk <= 64000000);
+			
             xHWREG(RCC_CR) |= RCC_CR_HSION;
 
             //
@@ -795,6 +796,8 @@ SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
             
             while((xHWREG(RCC_CFGR) & RCC_CFGR_SWS_M) != 0x00); 
             
+			ulOscFreq = 8000000;
+			
             if((ulConfig & SYSCTL_INT_OSC_DIS)!=0)
             {
                 xHWREG(RCC_CR) &= ~RCC_CR_HSION;
@@ -901,7 +904,7 @@ SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
             if(((ulSysClk*2) % ulOscFreq) == 0)
             {
                 xHWREG(RCC_CFGR) &= ~(RCC_CFGR_PLLSRC | RCC_CFGR_PLLMUL_M);
-                xHWREG(RCC_CFGR) |= ((ulSysClk * 2 / ulOscFreq) << 
+                xHWREG(RCC_CFGR) |= ((ulSysClk * 2 / ulOscFreq - 2) << 
                                      RCC_CFGR_PLLMUL_S) & RCC_CFGR_PLLMUL_M;
             }
             else

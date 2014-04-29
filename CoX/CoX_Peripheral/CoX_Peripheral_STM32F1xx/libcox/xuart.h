@@ -866,8 +866,8 @@ extern "C"
 //! \return None.
 //
 //*****************************************************************************
-#define xUARTDisable(ulBase, ulBlock) 
-
+#define xUARTDisable(ulBase, ulBlock)                                         \
+        UARTDisable(ulBase, ulBlock)
 //*****************************************************************************
 //
 //! \brief Enables the transmit and receive FIFOs.
@@ -1041,8 +1041,9 @@ extern "C"
 //! transmissions are complete.
 //
 //*****************************************************************************
-#define xUARTBusy(ulBase) 
-
+#define xUARTBusy(ulBase)                                                     \
+        UARTBusy(ulBase)
+		
 //*****************************************************************************
 //
 //! \brief Enables individual UART interrupt sources.
@@ -1892,6 +1893,8 @@ extern void UARTConfigSet(unsigned long ulBase, unsigned long ulBaud,
                           unsigned long ulConfig);
 extern void UARTEnable(unsigned long ulBase, unsigned long ulBlock);
 extern void UARTDisable(unsigned long ulBase, unsigned long ulBlock);
+xtBoolean UARTFIFORxIsEmpty(unsigned long ulBase);
+xtBoolean UARTFIFOTxIsEmpty(unsigned long ulBase);
 extern void UARTEnableIrDA(unsigned long ulBase);
 extern void UARTDisableIrDA(unsigned long ulBase);
 extern void UARTIrDAConfig(unsigned long ulBase, unsigned long ulBaud, 
@@ -1916,6 +1919,7 @@ extern unsigned long UARTIntStatus(unsigned long ulBase);
 extern void UARTIntClear(unsigned long ulBase, unsigned long ulIntFlags);
 extern unsigned long UARTRxErrorGet(unsigned long ulBase);
 extern void UARTRxErrorClear(unsigned long ulBase);
+extern xtBoolean UARTBusy(unsigned long ulBase);
 extern void UARTDMAEnable(unsigned long ulBase, unsigned long ulDMAFlags);
 extern void UARTDMADisable(unsigned long ulBase, unsigned long ulDMAFlags);
 extern void UARTAddressSet(unsigned long ulBase, unsigned long ulAddress);

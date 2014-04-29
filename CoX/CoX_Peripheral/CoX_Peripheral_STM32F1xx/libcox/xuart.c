@@ -799,6 +799,50 @@ UARTLINConfig(unsigned long ulBase, unsigned long ulBaud,
 
 //*****************************************************************************
 //
+//! \brief Determines if there are any characters in receiver register.
+//!
+//! \param ulBase is the base address of the UART port.
+//!
+//! This function returns a flag indicating whether or not there is data
+//! available in the receive register.
+//!
+//! \return Returns \b true if there is data in the receive register or \b false
+//! if there is no data in the receive register.
+//
+//*****************************************************************************
+xtBoolean UARTFIFORxIsEmpty(unsigned long ulBase)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT(UARTBaseValid(ulBase));
+    return (xHWREG(ulBase + USART_SR) & USART_SR_RXNE);   
+}
+
+//*****************************************************************************
+//
+//! \brief Determines if there are any space in the transmit FIFO.
+//!
+//! \param ulBase is the base address of the UART port.
+//!
+//! This function returns a flag indicating whether or not there is space
+//! available in the transmit FIFO.
+//!
+//! \return Returns \b true if there is space available in the transmit FIFO
+//! or \b false if there is no space available in the transmit FIFO.
+//
+//*****************************************************************************
+xtBoolean UARTFIFOTxIsEmpty(unsigned long ulBase)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT(UARTBaseValid(ulBase));
+	return (xHWREG(ulBase + USART_SR) & USART_SR_TXE); 
+}
+
+//*****************************************************************************
+//
 //! \brief Receives a character from the specified port.
 //!
 //! \param ulBase is the base address of the UART port.
@@ -1748,4 +1792,30 @@ UARTRxErrorClear(unsigned long ulBase)
     //
     xHWREG(ulBase + USART_SR);
     xHWREG(ulBase + USART_DR);
+}
+
+//*****************************************************************************
+//
+//! \brief Determines whether the UART transmitter is busy or not.
+//!
+//! \param ulBase is the base address of the UART port.
+//!
+//! Allows the caller to determine whether all transmitted bytes have cleared
+//! the transmitter hardware.  If \b false is returned, the transmit register is
+//! empty and all bits of the last transmitted character, including all stop
+//! bits, have left the hardware shift register.
+//!
+//! \return Returns \b true if the UART is transmitting or \b false if all
+//! transmissions are complete.
+//
+//*****************************************************************************
+xtBoolean
+UARTBusy(unsigned long ulBase)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT(UARTBaseValid(ulBase));
+	
+    return (!(xHWREG(ulBase + USART_SR) & USART_SR_TC));
 }
