@@ -484,6 +484,8 @@ extern "C"
 //! |------------------------------|----------------|------------------|
 //! |xTimerStatusGet               |    Mandatory   |         Y        |
 //! |------------------------------|----------------|------------------|
+//! |xTimerStatueClear             |    Mandatory   |         Y        |
+//! |------------------------------|----------------|------------------|
 //! |xTimerCounterDetectPhaseSelect|    Mandatory   |         Y        |
 //! |------------------------------|----------------|------------------|
 //! |xTimerCaptureEdgeSelect       |    Mandatory   |         Y        |
@@ -811,6 +813,32 @@ extern void xTimerIntDisable(unsigned long ulBase, unsigned long ulChannel,
 //*****************************************************************************
 extern xtBoolean xTimerStatusGet(unsigned long ulBase, unsigned long ulChannel, 
                                  unsigned long ulIntFlags);
+
+//*****************************************************************************
+//
+//! \brief Get The Timer counter interrupt Status.
+//!
+//! \param ulBase is the base address of the Timer port.
+//! \param ulChannel is the channel of the Timer port.
+//! Details please refer to \ref xTIMER_Count_Channel
+//! \param ulIntFlags is the interrupt type of the Timer port.
+//! Details please refer to \ref xTIMER_INT_Type.
+//!
+//! This function is to disable The Timer counter interrupt.
+//!
+//! The \e ulIntFlags parameter can be one of the values:
+//! \b xTIMER_INT_MATCH.
+//! \b xTIMER_INT_CAP_EVENT
+//! \b xTIMER_INT_CAP_MATCH
+//! Details please refer to \ref xTIMER_INT_Type_CoX.
+//!
+//! \note When use this API ,the ulIntFlags parameter one of the interrupt event
+//!
+//! \return the Status of The Timer counter interrupt.
+//
+//*****************************************************************************
+#define xTimerStatueClear(ulBase, ulChannel, ulIntFlags)                      \
+		TimerIntClear(ulBase, ulIntFlags)
 
 //*****************************************************************************
 //
