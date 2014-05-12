@@ -1028,7 +1028,8 @@ extern "C"
 //! transmissions are complete.
 //
 //*****************************************************************************
-#define xUARTBusy(ulBase) 
+#define xUARTBusy(ulBase)                                                     \
+        UARTBusy(ulBase) 
 
 //*****************************************************************************
 //
@@ -1758,6 +1759,7 @@ extern void UARTConfigGetExpClk(unsigned long ulBase,
                                 unsigned long *pulBaud,
                                 unsigned long *pulConfig);
 extern void UARTEnable(unsigned long ulBase, unsigned long ulBlock);
+extern void UARTDisable(unsigned long ulBase, unsigned long ulBlock);
 extern void UARTEnableIrDA(unsigned long ulBase);
 extern void UARTDisableIrDA(unsigned long ulBase);
 extern void UARTIrDAConfig(unsigned long ulBase, unsigned long ulConfig);
@@ -1789,7 +1791,9 @@ extern void UARTIntDisable(unsigned long ulBase, unsigned long ulIntFlags);
 extern unsigned long UARTIntStatus(unsigned long ulBase, xtBoolean bMasked);
 extern void UARTIntClear(unsigned long ulBase, unsigned long ulIntFlags);
 extern unsigned long UARTRxErrorGet(unsigned long ulBase);
+extern xtBoolean UARTBusy(unsigned long ulBase);
 extern void UARTRxErrorClear(unsigned long ulBase);
+extern xtBoolean UARTBusy(unsigned long ulBase);
 extern void UARTModemControlSet(unsigned long ulBase,
                                 unsigned long ulControl);
 extern void UARTModemControlClear(unsigned long ulBase,

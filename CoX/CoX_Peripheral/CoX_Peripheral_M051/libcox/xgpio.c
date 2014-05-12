@@ -117,6 +117,10 @@ GPIOBaseValid(unsigned long ulPort)
 }
 #endif
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 //*****************************************************************************
 //
 //! \internal
@@ -319,6 +323,9 @@ void EINT1IntHandler(void)
         }
     } 
 }
+#ifdef __cplusplus
+}
+#endif
 
 //*****************************************************************************
 //

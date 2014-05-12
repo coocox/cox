@@ -84,6 +84,10 @@ UARTBaseValid(unsigned long ulBase)
 }
 #endif
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 //*****************************************************************************
 //
 //! \brief The function is the UART0 interrupt service.
@@ -128,6 +132,9 @@ UART1IntHandler(void)
     }
 
 }
+#ifdef __cplusplus
+}
+#endif
 
 //*****************************************************************************
 //
@@ -1649,6 +1656,31 @@ UARTRxErrorClear(unsigned long ulBase)
     xHWREG(ulBase + UART_FCR) &= ~0xFF;
 }
 
+//*****************************************************************************
+//
+//! \brief Determines whether the UART transmitter is busy or not.
+//!
+//! \param ulBase is the base address of the UART port.
+//!
+//! Allows the caller to determine whether all transmitted bytes have cleared
+//! the transmitter hardware.  If \b false is returned, the transmit register is
+//! empty and all bits of the last transmitted character, including all stop
+//! bits, have left the hardware shift register.
+//!
+//! \return Returns \b true if the UART is transmitting or \b false if all
+//! transmissions are complete.
+//
+//*****************************************************************************
+xtBoolean
+UARTBusy(unsigned long ulBase)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT(UARTBaseValid(ulBase));
+
+    return (!(xHWREG(ulBase + UART_FSR) & UART_FSR_TX_EF));
+}
 
 //*****************************************************************************
 //
@@ -1837,6 +1869,34 @@ UARTEnable(unsigned long ulBase, unsigned long ulBlock)
 
 }
 
+//*****************************************************************************
+//
+//! \brief Disables transmitting or receiving.
+//!
+//! \param ulBase is the base address of the UART port.
+//! \param ulBlock is the block to enable. it is the logical OR of
+//! these values: \b UART_BLOCK_UART, \b UART_BLOCK_TX, \b UART_BLOCK_RX.
+//!
+//! Sets the UARTEN, or TXE or RXE bits.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+UARTDisable(unsigned long ulBase, unsigned long ulBlock)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT(UARTBaseValid(ulBase));
+    xASSERT((ulBlock & ~(0 | 0x80 | 0x40)) == 0);
+
+    //
+    // Enable RX | TX | the UART.
+    //
+    xHWREG(ulBase + UART_ALT_CSR) &= ~(ulBlock & (UART_LIN_BCNT_RX_EN |
+	                                      UART_LIN_BCNT_TX_EN));
+}
 
 //*****************************************************************************
 //
@@ -1893,4 +1953,30 @@ UART485Config(unsigned long ulBase, unsigned long ulBaud,
     xHWREG(ulBase + UART_ALT_CSR) &= 0xFFFFFF00;
     xHWREG(ulBase + UART_ALT_CSR) |= ul485Config;
 
+}
+
+//*****************************************************************************
+//
+//! \brief Determines whether the UART transmitter is busy or not.
+//!
+//! \param ulBase is the base address of the UART port.
+//!
+//! Allows the caller to determine whether all transmitted bytes have cleared
+//! the transmitter hardware.  If \b false is returned, the transmit register is
+//! empty and all bits of the last transmitted character, including all stop
+//! bits, have left the hardware shift register.
+//!
+//! \return Returns \b true if the UART is transmitting or \b false if all
+//! transmissions are complete.
+//
+//*****************************************************************************
+xtBoolean
+UARTBusy(unsigned long ulBase)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT(UARTBaseValid(ulBase));
+	
+    return (!(xHWREG(ulBase + USART_SR) & USART_SR_TC));
 }

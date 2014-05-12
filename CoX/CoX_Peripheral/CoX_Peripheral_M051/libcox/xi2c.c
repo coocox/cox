@@ -253,6 +253,10 @@ static unsigned long I2CByteGet (unsigned long ulBase, unsigned char *ucpData,
     return (xHWREG(ulBase + I2C_O_STATUS) & I2C_STATUS_M);
 }
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 //*****************************************************************************
 //
 //! \brief I2C0 interrupt handler. Clear the I2C0 interrupt flag and execute the 
@@ -901,7 +905,9 @@ s_int_end:
         break;
     }
 }
-
+#ifdef __cplusplus
+}
+#endif
 //*****************************************************************************
 //
 //! \brief Set the clock rate of the specified I2C port.

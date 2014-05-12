@@ -73,6 +73,10 @@ xACMPIntCallbackInit(unsigned long ulBase, unsigned long ulCompID,
     }
 }
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 //*****************************************************************************
 //
 //! \brief Comparator Interrupt Handler.
@@ -112,7 +116,9 @@ ACMPIntHandler(void)
         g_pfnACMPHandlerCallbacks[1](0, 0, 0, 0);
     }
 }
-
+#ifdef __cplusplus
+}
+#endif
 //*****************************************************************************
 //
 //! \brief Select the ACMP- input source of the comparator.

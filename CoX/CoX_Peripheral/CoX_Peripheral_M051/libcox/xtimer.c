@@ -56,6 +56,10 @@ static xtEventCallback g_pfnTimerHandlerCallbacks[4]={0};
 
 static unsigned long ulEXTClockFreq;
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 //*****************************************************************************
 //
 //! \brief The Timer 0 default IRQ, declared in start up code. 
@@ -118,7 +122,6 @@ TIMER1IntHandler(void)
     }
 }
 
-
 //*****************************************************************************
 //
 //! \brief The Timer 2 default IRQ, declared in start up code. 
@@ -149,7 +152,6 @@ TIMER2IntHandler(void)
         g_pfnTimerHandlerCallbacks[2](0, 0, ulTemp0 | ulTemp1, 0);
     }
 }
-
 
 //*****************************************************************************
 //
@@ -182,6 +184,9 @@ TIMER3IntHandler(void)
     }
 }
 
+#ifdef __cplusplus
+}
+#endif
 //*****************************************************************************
 //
 //! \internal

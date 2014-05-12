@@ -53,6 +53,10 @@
 //*****************************************************************************
 static xtEventCallback g_pfnSPIHandlerCallbacks[2]={0};
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 //*****************************************************************************
 //
 //! \brief SPI0 interrupt handler. Clear the SPI interrupt flag and execute the 
@@ -141,6 +145,9 @@ SPI1IntHandler(void)
         g_pfnSPIHandlerCallbacks[1](0, 0, ulEventFlags, 0);
     }
 }
+#ifdef __cplusplus
+}
+#endif
 
 //*****************************************************************************
 //
