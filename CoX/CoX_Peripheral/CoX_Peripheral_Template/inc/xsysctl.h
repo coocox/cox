@@ -53,8 +53,6 @@ extern "C"
 {
 #endif
 
-//#include "sysctl.h"
-
 //*****************************************************************************
 //
 //! \addtogroup CoX_Peripheral_Interface
@@ -116,7 +114,9 @@ extern "C"
 //! | xSYSCTL_PERIPH_CANn       | Non-Mandatory  |   CAN1    |
 //! |                           |                |   CAN2    |
 //! |---------------------------|----------------|-----------|
-//! | xSYSCTL_PERIPH_I2S        | Non-Mandatory  |     Y     |
+//! | xSYSCTL_PERIPH_I2Sn       | Non-Mandatory  |   I2S0    |
+//! |                           |                |    ...    |
+//! |                           |                |   I2S2    |
 //! |---------------------------|----------------|-----------|
 //! | xSYSCTL_PERIPH_ETH        | Non-Mandatory  |     Y     |
 //! |---------------------------|----------------|-----------|
@@ -131,7 +131,7 @@ extern "C"
 //
 //*****************************************************************************
 
-#define xSYSCTL_PERIPH_ACMP0    SYSCTL_PERIPH_ACMP0
+#define xSYSCTL_PERIPH_ACMP     SYSCTL_PERIPH_ACMP
 #define xSYSCTL_PERIPH_ADC0     SYSCTL_PERIPH_ADC0
 #define xSYSCTL_PERIPH_ADC1     SYSCTL_PERIPH_ADC1
 #define xSYSCTL_PERIPH_ADC2     SYSCTL_PERIPH_ADC2
@@ -145,9 +145,13 @@ extern "C"
 #define xSYSCTL_PERIPH_GPIOE    SYSCTL_PERIPH_IOPE
 #define xSYSCTL_PERIPH_GPIOF    SYSCTL_PERIPH_IOPF
 #define xSYSCTL_PERIPH_GPIOG    SYSCTL_PERIPH_IOPG
+#define xSYSCTL_PERIPH_GPIOH    SYSCTL_PERIPH_IOPH
+#define xSYSCTL_PERIPH_GPIOI    SYSCTL_PERIPH_IOPI
 #define xSYSCTL_PERIPH_I2C0     SYSCTL_PERIPH_I2C0
 #define xSYSCTL_PERIPH_I2C1     SYSCTL_PERIPH_I2C1
 #define xSYSCTL_PERIPH_I2C2     SYSCTL_PERIPH_I2C2
+#define xSYSCTL_PERIPH_I2C3     SYSCTL_PERIPH_I2C3
+#define xSYSCTL_PERIPH_I2C4     SYSCTL_PERIPH_I2C4
 #define xSYSCTL_PERIPH_PWMA     SYSCTL_PERIPH_PWMA
 #define xSYSCTL_PERIPH_PWMB     SYSCTL_PERIPH_PWMB
 #define xSYSCTL_PERIPH_PWMC     SYSCTL_PERIPH_PWMC
@@ -185,21 +189,39 @@ extern "C"
 #define xSYSCTL_PERIPH_UART2    SYSCTL_PERIPH_UART2
 #define xSYSCTL_PERIPH_UART3    SYSCTL_PERIPH_UART3
 #define xSYSCTL_PERIPH_UART4    SYSCTL_PERIPH_UART4
+#define xSYSCTL_PERIPH_UART5    SYSCTL_PERIPH_UART5
+#define xSYSCTL_PERIPH_CAN0     SYSCTL_PERIPH_CAN0
 #define xSYSCTL_PERIPH_CAN1     SYSCTL_PERIPH_CAN1
 #define xSYSCTL_PERIPH_CAN2     SYSCTL_PERIPH_CAN2
-#define xSYSCTL_PERIPH_I2S      SYSCTL_PERIPH_I2S
-#define xSYSCTL_PERIPH_ETH      SYSCTL_PERIPH_ETH
+#define xSYSCTL_PERIPH_I2S0     SYSCTL_PERIPH_I2S0
+#define xSYSCTL_PERIPH_I2S1     SYSCTL_PERIPH_I2S1
 #define xSYSCTL_PERIPH_USB      SYSCTL_PERIPH_USB
-#define xSYSCTL_PERIPH_WDOG     SYSCTL_PERIPH_WDOG
+#define xSYSCTL_PERIPH_WDOG     SYSCTL_PERIPH_WWDT
 
+//
+//! Ethernet MAC Controller
+//
+#define xSYSCTL_PERIPH_ETH      SYSCTL_PERIPH_ETH
+
+//
 //! Repetitive Interrupt Timer
-#define xSYSCTL_PERIPH_RIT               SYSCTL_PERIPH_RIT
+//
+#define xSYSCTL_PERIPH_RIT      SYSCTL_PERIPH_RIT
+
+//
 //! Motor Control PWM power/clock
-#define xSYSCTL_PERIPH_MCPWM             SYSCTL_PERIPH_MCPWM
-//! Quadrature Encoder Interface
-#define xSYSCTL_PERIPH_QEI               SYSCTL_PERIPH_QEI
+//
+#define xSYSCTL_PERIPH_MCPWM    SYSCTL_PERIPH_MCPWM
 
+//
+//! Quadrature Encoder Interface 0
+//
+#define xSYSCTL_PERIPH_QEI0     SYSCTL_PERIPH_QEI0
 
+//
+//! Quadrature Encoder Interface 0
+//
+#define xSYSCTL_PERIPH_QEI1     SYSCTL_PERIPH_QEI1
 
 //*****************************************************************************
 //
@@ -266,10 +288,10 @@ extern "C"
 //*****************************************************************************
 
 //! Main Osc
-#define xSYSCTL_OSC_MAIN        SYSCTL_OSC_MAIN
+#define xSYSCTL_OSC_MAIN        (SYSCTL_OSC_MAIN | SYSCTL_PLL_MAIN)
 
 //! Internal RC
-#define xSYSCTL_OSC_INT         SYSCTL_OSC_INT
+#define xSYSCTL_OSC_INT         (SYSCTL_OSC_INT | SYSCTL_PLL_INT)
 
 //! Internal 10K RC
 #define xSYSCTL_OSC_INTSL       SYSCTL_OSC_INTSL
@@ -280,46 +302,31 @@ extern "C"
 //
 //! \brief XTAL Select
 //
-#define xSYSCTL_XTAL_1MHZ       SYSCTL_XTAL_1_MHZ
-#define xSYSCTL_XTAL_2MHZ       SYSCTL_XTAL_2_MHZ
-#define xSYSCTL_XTAL_3MHZ       SYSCTL_XTAL_3_MHZ
-#define xSYSCTL_XTAL_4MHZ       SYSCTL_XTAL_4_MHZ
-#define xSYSCTL_XTAL_5MHZ       SYSCTL_XTAL_5_MHZ
-#define xSYSCTL_XTAL_6MHZ       SYSCTL_XTAL_6_MHZ
-#define xSYSCTL_XTAL_7MHZ       SYSCTL_XTAL_7_MHZ
-#define xSYSCTL_XTAL_8MHZ       SYSCTL_XTAL_8_MHZ
-#define xSYSCTL_XTAL_9MHZ       SYSCTL_XTAL_9_MHZ
-#define xSYSCTL_XTAL_10MHZ      SYSCTL_XTAL_10_MHZ
-#define xSYSCTL_XTAL_11MHZ      SYSCTL_XTAL_11_MHZ
-#define xSYSCTL_XTAL_12MHZ      SYSCTL_XTAL_12_MHZ
-#define xSYSCTL_XTAL_13MHZ      SYSCTL_XTAL_13_MHZ
-#define xSYSCTL_XTAL_14MHZ      SYSCTL_XTAL_14_MHZ
-#define xSYSCTL_XTAL_15MHZ      SYSCTL_XTAL_15_MHZ
-#define xSYSCTL_XTAL_16MHZ      SYSCTL_XTAL_16_MHZ
-#define xSYSCTL_XTAL_17MHZ      SYSCTL_XTAL_17_MHZ
-#define xSYSCTL_XTAL_18MHZ      SYSCTL_XTAL_18_MHZ
-#define xSYSCTL_XTAL_19MHZ      SYSCTL_XTAL_19_MHZ
-#define xSYSCTL_XTAL_20MHZ      SYSCTL_XTAL_20_MHZ
-#define xSYSCTL_XTAL_21MHZ      SYSCTL_XTAL_21_MHZ
-#define xSYSCTL_XTAL_22MHZ      SYSCTL_XTAL_22_MHZ
-#define xSYSCTL_XTAL_23MHZ      SYSCTL_XTAL_23_MHZ
-#define xSYSCTL_XTAL_24MHZ      SYSCTL_XTAL_24_MHZ
-#define xSYSCTL_XTAL_25MHZ      SYSCTL_XTAL_25_MHZ
-
-//
-//! Internal main clock is nMHz
-//
-#define xSYSCTL_INT_nMHZ       SYSCTL_INT_nMHZ  
-
-//
-//! Internal slow clock  is nKHz.
-//
-#define xSYSCTL_INTSL_nKHZ     SYSCTL_INTSL_nKHZ  
-
-//
-//! External slow clock crystal is 32KHz.
-//
-#define xSYSCTL_XTALSL_32768HZ  SYSCTL_XTALSL_32768HZ 
+#define xSYSCTL_XTAL_1MHZ       SYSCTL_XTAL_1MHZ
+#define xSYSCTL_XTAL_2MHZ       SYSCTL_XTAL_2MHZ
+#define xSYSCTL_XTAL_3MHZ       SYSCTL_XTAL_3MHZ
+#define xSYSCTL_XTAL_4MHZ       SYSCTL_XTAL_4MHZ
+#define xSYSCTL_XTAL_5MHZ       SYSCTL_XTAL_5MHZ
+#define xSYSCTL_XTAL_6MHZ       SYSCTL_XTAL_6MHZ
+#define xSYSCTL_XTAL_7MHZ       SYSCTL_XTAL_7MHZ
+#define xSYSCTL_XTAL_8MHZ       SYSCTL_XTAL_8MHZ
+#define xSYSCTL_XTAL_9MHZ       SYSCTL_XTAL_9MHZ
+#define xSYSCTL_XTAL_10MHZ      SYSCTL_XTAL_10MHZ
+#define xSYSCTL_XTAL_11MHZ      SYSCTL_XTAL_11MHZ
+#define xSYSCTL_XTAL_12MHZ      SYSCTL_XTAL_12MHZ
+#define xSYSCTL_XTAL_13MHZ      SYSCTL_XTAL_13MHZ
+#define xSYSCTL_XTAL_14MHZ      SYSCTL_XTAL_14MHZ
+#define xSYSCTL_XTAL_15MHZ      SYSCTL_XTAL_15MHZ
+#define xSYSCTL_XTAL_16MHZ      SYSCTL_XTAL_16MHZ
+#define xSYSCTL_XTAL_17MHZ      SYSCTL_XTAL_17MHZ
+#define xSYSCTL_XTAL_18MHZ      SYSCTL_XTAL_18MHZ
+#define xSYSCTL_XTAL_19MHZ      SYSCTL_XTAL_19MHZ
+#define xSYSCTL_XTAL_20MHZ      SYSCTL_XTAL_20MHZ
+#define xSYSCTL_XTAL_21MHZ      SYSCTL_XTAL_21MHZ
+#define xSYSCTL_XTAL_22MHZ      SYSCTL_XTAL_22MHZ
+#define xSYSCTL_XTAL_23MHZ      SYSCTL_XTAL_23MHZ
+#define xSYSCTL_XTAL_24MHZ      SYSCTL_XTAL_24MHZ
+#define xSYSCTL_XTAL_25MHZ      SYSCTL_XTAL_25MHZ
 
 //
 //! Disable internal oscillator
@@ -589,7 +596,7 @@ extern void xSysCtlPeripheralReset2(unsigned long ulPeripheralBase);
 //!         the GPIO interrupt.
 //
 //*****************************************************************************
-extern unsigned long xSysCtlPeripheraIntNumGet(unsigned long ulPeripheralBase);
+extern unsigned long xSysCtlPeripheralIntNumGet(unsigned long ulPeripheralBase);
  
 //*****************************************************************************
 //
@@ -784,4 +791,3 @@ extern void xSysCtlPeripheralClockSourceSet2(unsigned long ePeripheral,
 #endif
 
 #endif // __XSYSCTL_H__
-

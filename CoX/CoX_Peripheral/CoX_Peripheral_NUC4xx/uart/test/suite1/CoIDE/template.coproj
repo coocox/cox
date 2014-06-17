@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Project version="2G - 1.7.6" name="template">
+  <Target name="template" isCurrent="1">
+    <Device manufacturerId="8" manufacturerName="Nuvoton" chipId="622" chipName="NUC472HI8AE" boardId="" boardName=""/>
+    <BuildOption>
+      <Compile>
+        <Option name="OptimizationLevel" value="0"/>
+        <Option name="UseFPU" value="0"/>
+        <Option name="UserEditCompiler" value=""/>
+        <Option name="SupportCPlusplus" value="0"/>
+        <Includepaths>
+          <Includepath path="."/>
+        </Includepaths>
+        <DefinedSymbols>
+          <Define name="NUC472HI8AE"/>
+        </DefinedSymbols>
+      </Compile>
+      <Link useDefault="0">
+        <Option name="DiscardUnusedSection" value="0"/>
+        <Option name="UserEditLinkder" value=""/>
+        <Option name="UseMemoryLayout" value="1"/>
+        <Option name="nostartfiles" value="1"/>
+        <Option name="LTO" value="0"/>
+        <Option name="IsNewStartupCode" value="1"/>
+        <LinkedLibraries/>
+        <MemoryAreas debugInFlashNotRAM="1">
+          <Memory name="IROM1" type="ReadOnly" size="0x00080000" startValue="0x00000000"/>
+          <Memory name="IRAM1" type="ReadWrite" size="0x00010000" startValue="0x20000000"/>
+          <Memory name="IROM2" type="ReadOnly" size="" startValue=""/>
+          <Memory name="IRAM2" type="ReadWrite" size="" startValue=""/>
+        </MemoryAreas>
+        <LocateLinkFile path="c:/coocox/coide/configuration/programdata/template/arm-gcc-link.ld" type="0"/>
+      </Link>
+      <Output>
+        <Option name="OutputFileType" value="0"/>
+        <Option name="Path" value="./"/>
+        <Option name="Name" value="template"/>
+        <Option name="HEX" value="1"/>
+        <Option name="BIN" value="1"/>
+      </Output>
+      <User>
+        <UserRun name="Run#1" type="Before" checked="0" value=""/>
+        <UserRun name="Run#1" type="After" checked="0" value=""/>
+      </User>
+    </BuildOption>
+    <DebugOption>
+      <Option name="org.coocox.codebugger.gdbjtag.core.adapter" value="Nu-Link"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.debugMode" value="SWD"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.clockDiv" value="1M"/>
+      <Option name="org.coocox.codebugger.gdbjtag.corerunToMain" value="1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.jlinkgdbserver" value="C:\Program Files\SEGGER\JLinkARM_V484f\JLinkGDBServerCL.exe"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.userDefineGDBScript" value=""/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.targetEndianess" value="0"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.jlinkResetMode" value="Type 0: Normal"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.resetMode" value="SYSRESETREQ"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.ifSemihost" value="0"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.ifCacheRom" value="1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.ipAddress" value="127.0.0.1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.portNumber" value="2009"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.autoDownload" value="1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.verify" value="1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.downloadFuction" value="Erase Effected"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.defaultAlgorithm" value="NUC4xx_512.elf"/>
+    </DebugOption>
+    <ExcludeFile/>
+  </Target>
+  <Components path="./"/>
+  <Files>
+    <File name="CoX_Template/xi2c.h" path="../../../../../CoX_Peripheral_Template/inc/xi2c.h" type="1"/>
+    <File name="CoX_Template/xpwm.h" path="../../../../../CoX_Peripheral_Template/inc/xpwm.h" type="1"/>
+    <File name="CoX_Template/xrtc.h" path="../../../../../CoX_Peripheral_Template/inc/xrtc.h" type="1"/>
+    <File name="libcox/inc/timer.h" path="../../../../libcox/timer.h" type="1"/>
+    <File name="libcox/inc/CoX_base.h" path="../../../../libcox/CoX_base.h" type="1"/>
+    <File name="CoX_Template/xsysctl.h" path="../../../../../CoX_Peripheral_Template/inc/xsysctl.h" type="1"/>
+    <File name="src" path="" type="2"/>
+    <File name="CoX_Template/xdma.h" path="../../../../../CoX_Peripheral_Template/inc/xdma.h" type="1"/>
+    <File name="libcox/inc/xhw_gpio.h" path="../../../../libcox/xhw_gpio.h" type="1"/>
+    <File name="CoX_Template/xwdt.h" path="../../../../../CoX_Peripheral_Template/inc/xwdt.h" type="1"/>
+    <File name="CoX_Template/xuart.h" path="../../../../../CoX_Peripheral_Template/inc/xuart.h" type="1"/>
+    <File name="libcox/src/xspi.c" path="../../../../libcox/xspi.c" type="1"/>
+    <File name="libcox/src" path="" type="2"/>
+    <File name="CoX_Template/xhw_types.h" path="../../../../../CoX_Peripheral_Template/inc/xhw_types.h" type="1"/>
+    <File name="testframe/test.h" path="../../../../testframe/test.h" type="1"/>
+    <File name="libcox/inc/pwm.h" path="../../../../libcox/pwm.h" type="1"/>
+    <File name="Startup/startup_coide.c" path="../../../../startup/src/startup_coide.c" type="1"/>
+    <File name="libcox/inc/i2c.h" path="../../../../libcox/i2c.h" type="1"/>
+    <File name="libcox/inc/dma.h" path="../../../../libcox/dma.h" type="1"/>
+    <File name="testframe/main.c" path="../../../../testframe/main.c" type="1"/>
+    <File name="libcox/inc/gpio.h" path="../../../../libcox/gpio.h" type="1"/>
+    <File name="src/testcase.c" path="../src/testcase.c" type="1"/>
+    <File name="CoX_Template" path="" type="2"/>
+    <File name="libcox" path="" type="2"/>
+    <File name="libcox/inc/acmp.h" path="../../../../libcox/acmp.h" type="1"/>
+    <File name="CoX_Template/xacmp.h" path="../../../../../CoX_Peripheral_Template/inc/xacmp.h" type="1"/>
+    <File name="libcox/inc/uart.h" path="../../../../libcox/uart.h" type="1"/>
+    <File name="CoX_Template/xhw_nvic.h" path="../../../../../CoX_Peripheral_Template/inc/xhw_nvic.h" type="1"/>
+    <File name="libcox/inc/wdt.h" path="../../../../libcox/wdt.h" type="1"/>
+    <File name="CoX_Template/xdebug.h" path="../../../../../CoX_Peripheral_Template/inc/xdebug.h" type="1"/>
+    <File name="libcox/src/xgpio.c" path="../../../../libcox/xgpio.c" type="1"/>
+    <File name="CoX_Template/xgpio.h" path="../../../../../CoX_Peripheral_Template/inc/xgpio.h" type="1"/>
+    <File name="src/testcase.h" path="../src/testcase.h" type="1"/>
+    <File name="libcox/src/xuart.c" path="../../../../libcox/xuart.c" type="1"/>
+    <File name="libcox/inc/rtc.h" path="../../../../libcox/rtc.h" type="1"/>
+    <File name="CoX_Template/xadc.h" path="../../../../../CoX_Peripheral_Template/inc/xadc.h" type="1"/>
+    <File name="libcox/inc" path="" type="2"/>
+    <File name="testframe" path="" type="2"/>
+    <File name="src/xuarttest.c" path="../src/xuarttest.c" type="1"/>
+    <File name="testframe/testport.c" path="../../../../testframe/testport.c" type="1"/>
+    <File name="CoX_Template/xtimer.h" path="../../../../../CoX_Peripheral_Template/inc/xtimer.h" type="1"/>
+    <File name="libcox/inc/adc.h" path="../../../../libcox/adc.h" type="1"/>
+    <File name="libcox/inc/xhw_spi.h" path="../../../../libcox/xhw_spi.h" type="1"/>
+    <File name="libcox/src/xsysctl.c" path="../../../../libcox/xsysctl.c" type="1"/>
+    <File name="libcox/inc/spi.h" path="../../../../libcox/spi.h" type="1"/>
+    <File name="libcox/src/xcore.c" path="../../../../libcox/xcore.c" type="1"/>
+    <File name="CoX_Template/xdebug.c" path="../../../../../CoX_Peripheral_Template/inc/xdebug.c" type="1"/>
+    <File name="libcox/inc/sysctl.h" path="../../../../libcox/sysctl.h" type="1"/>
+    <File name="CoX_Template/xspi.h" path="../../../../../CoX_Peripheral_Template/inc/xspi.h" type="1"/>
+    <File name="libcox/inc/xhw_sysctl.h" path="../../../../libcox/xhw_sysctl.h" type="1"/>
+    <File name="Startup" path="" type="2"/>
+    <File name="CoX_Template/xcore.h" path="../../../../../CoX_Peripheral_Template/inc/xcore.h" type="1"/>
+    <File name="libcox/inc/lowlayer.h" path="../../../../libcox/lowlayer.h" type="1"/>
+    <File name="testframe/test.c" path="../../../../testframe/test.c" type="1"/>
+    <File name="libcox/inc/xhw_uart.h" path="../../../../libcox/xhw_uart.h" type="1"/>
+    <File name="CoX_Template/CoX.h" path="../../../../../CoX_Peripheral_Template/inc/CoX.h" type="1"/>
+    <File name="CoX_Template/xlowlayer.h" path="../../../../../CoX_Peripheral_Template/inc/xlowlayer.h" type="1"/>
+  </Files>
+</Project>

@@ -99,6 +99,7 @@
 #define xGPIO_PORTF_BASE        GPIOF_BASE
 #define xGPIO_PORTG_BASE        GPIOG_BASE
 #define xGPIO_PORTH_BASE        GPIOH_BASE
+#define xGPIO_PORTI_BASE        GPIOI_BASE
 #define xTIMER0_BASE            TIMER0_BASE
 #define xTIMER1_BASE            TIMER1_BASE
 #define xTIMER2_BASE            TIMER2_BASE
@@ -136,16 +137,19 @@
 #define xDMA7_BASE              DMA7_BASE
 #define xDMA8_BASE              DMA8_BASE
 #define xRTC_BASE               RTC_BASE
-#define xWDT_BASE               WDT_BASE
+#define xWDT_BASE               WWDT_BASE
 
 #define xUART0_BASE             UART0_BASE
 #define xUART1_BASE             UART1_BASE
 #define xUART2_BASE             UART2_BASE
 #define xUART3_BASE             UART3_BASE
 #define xUART4_BASE             UART4_BASE
+#define xUART5_BASE             UART5_BASE
 #define xI2C0_BASE              I2C0_BASE
 #define xI2C1_BASE              I2C1_BASE
 #define xI2C2_BASE              I2C2_BASE
+#define xI2C3_BASE              I2C3_BASE
+#define xI2C4_BASE              I2C4_BASE
 #define xSPI0_BASE              SPI0_BASE
 #define xSPI1_BASE              SPI1_BASE
 #define xSPI2_BASE              SPI2_BASE
@@ -161,8 +165,9 @@
 #define xQEI_BASE               QEI_BASE
 
 #define xADC0_BASE              ADC0_BASE
+#define xADC1_BASE              ADC1_BASE
 #define xDAC0_BASE              DAC0_BASE
-#define xACMP0_BASE             ACMP0_BASE
+#define xACMP_BASE              ACMP_BASE
 
 //*****************************************************************************
 //
@@ -211,7 +216,7 @@
 #define xFAULT_SYSTICK          FAULT_SYSTICK
 
 #define xINT_SYSCTL             INT_SYSCTL
-#define xINT_WDT                INT_WDT
+#define xINT_WDT                INT_WWDT
 #define xINT_RTC                INT_RTC
 #define xINT_FMC                INT_FMC
 
@@ -222,6 +227,9 @@
 #define xINT_GPIOE              INT_GPIOE
 #define xINT_GPIOF              INT_GPIOF
 #define xINT_GPIOG              INT_GPIOG
+#define xINT_GPIOH              INT_GPIOH
+#define xINT_GPIOI              INT_GPIOI
+#define xINT_GPIOJ              INT_GPIOJ
 #define xINT_EINT0              INT_EINT0
 #define xINT_EINT1              INT_EINT1
 #define xINT_EINT2              INT_EINT2
@@ -259,9 +267,12 @@
 #define xINT_UART2              INT_UART2
 #define xINT_UART3              INT_UART3
 #define xINT_UART4              INT_UART4
+#define xINT_UART5              INT_UART5
 #define xINT_I2C0               INT_I2C0
 #define xINT_I2C1               INT_I2C1
 #define xINT_I2C2               INT_I2C2
+#define xINT_I2C3               INT_I2C3
+#define xINT_I2C4               INT_I2C4
 #define xINT_SPI0               INT_SPI0
 #define xINT_SPI1               INT_SPI1
 #define xINT_SPI2               INT_SPI2
@@ -275,8 +286,9 @@
 #define xINT_ETH                INT_ETH
 
 #define xINT_ADC0               INT_ADC0
+#define xINT_ADC1               INT_ADC1
 #define xINT_DAC0               INT_DAC0
-#define xINT_ACMP0              INT_ACMP0
+#define xINT_ACMP               INT_ACMP
 
 //*****************************************************************************
 //

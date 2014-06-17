@@ -384,6 +384,11 @@ extern "C"
 #define xUART_CONFIG_STOP_1_5   UART_CONFIG_STOP_1_5  
 
 //
+//! None parity
+//
+#define xUART_CONFIG_PAR_NONE   UART_CONFIG_PAR_NONE
+
+//
 //! Even parity
 //
 #define xUART_CONFIG_PAR_EVEN   UART_CONFIG_PAR_EVEN  
@@ -766,6 +771,8 @@ extern "C"
 //! |------------------------|----------------|--------|
 //! |xUARTIntDisable         |    Mandatory   |    Y   |
 //! |------------------------|----------------|--------|
+//! |xUARTIntStatus          |    Mandatory   |    Y   |
+//! |------------------------|----------------|--------|
 //! |xUARTRxErrorGet         |    Mandatory   |    Y   |
 //! |------------------------|----------------|--------|
 //! |xUARTRxErrorClear       |    Mandatory   |    Y   |
@@ -829,7 +836,6 @@ extern "C"
 //*****************************************************************************
 
 extern void xUARTConfigSet(unsigned long ulBase, unsigned long ulBaud, unsigned long ulConfig);
-
 
 //*****************************************************************************
 //
@@ -927,7 +933,7 @@ extern void xUARTFIFORxLevelSet(unsigned long ulBase, unsigned long ulRxLevel);
 //! if there is no data in the receive FIFO.
 //
 //*****************************************************************************
-extern void xUARTCharsAvail(unsigned long ulBase);
+extern xtBoolean xUARTCharsAvail(unsigned long ulBase);
 
 //*****************************************************************************
 //
@@ -942,7 +948,7 @@ extern void xUARTCharsAvail(unsigned long ulBase);
 //! or \b false if there is no space available in the transmit FIFO.
 //
 //*****************************************************************************
-extern void xUARTSpaceAvail(unsigned long ulBase);
+extern xtBoolean xUARTSpaceAvail(unsigned long ulBase);
 
 
 //*****************************************************************************
@@ -963,7 +969,7 @@ extern void xUARTSpaceAvail(unsigned long ulBase);
 //! attempting to call this function.
 //
 //*****************************************************************************
-extern void xUARTCharGetNonBlocking(unsigned long ulBase);
+extern long xUARTCharGetNonBlocking(unsigned long ulBase);
 
 //*****************************************************************************
 //
@@ -979,7 +985,7 @@ extern void xUARTCharGetNonBlocking(unsigned long ulBase);
 //! \e long.
 //
 //*****************************************************************************
-extern void xUARTCharGet(unsigned long ulBase);
+extern long xUARTCharGet(unsigned long ulBase);
 
 //*****************************************************************************
 //
@@ -1001,7 +1007,7 @@ extern void xUARTCharGet(unsigned long ulBase);
 //! FIFO.
 //
 //*****************************************************************************
-extern void xUARTCharPutNonBlocking(unsigned long ulBase, unsigned char ucData);
+extern xtBoolean xUARTCharPutNonBlocking(unsigned long ulBase, unsigned char ucData);
 
 //*****************************************************************************
 //
@@ -1034,7 +1040,7 @@ extern void xUARTCharPut(unsigned long ulBase, unsigned char ucData);
 //! transmissions are complete.
 //
 //*****************************************************************************
-extern void xUARTBusy(unsigned long ulBase);
+extern xtBoolean xUARTBusy(unsigned long ulBase);
 
 //*****************************************************************************
 //
@@ -1098,6 +1104,9 @@ extern void xUARTIntCallbackInit(unsigned long ulBase,
 //*****************************************************************************
 extern void xUARTIntDisable(unsigned long ulBase, unsigned long ulIntFlags);
 
+
+extern unsigned long xUARTIntStatus(unsigned long ulBase, xtBoolean bMasked);
+
 //*****************************************************************************
 //
 //! \brief Gets current receiver errors.
@@ -1115,7 +1124,7 @@ extern void xUARTIntDisable(unsigned long ulBase, unsigned long ulIntFlags);
 //! and \b xUART_RXERROR_OVERRUN.
 //
 //*****************************************************************************
-extern void xUARTRxErrorGet(unsigned long ulBase);
+extern unsigned long xUARTRxErrorGet(unsigned long ulBase);
 
 //*****************************************************************************
 //
@@ -1194,7 +1203,7 @@ extern void xUARTModemControlClear(unsigned long ulBase,
 //! associated signal is asserted.
 //
 //*****************************************************************************
-extern void xUARTModemControlGet(unsigned long ulBase, unsigned long ulControl);
+extern unsigned long xUARTModemControlGet(unsigned long ulBase, unsigned long ulControl);
 
 //*****************************************************************************
 //
@@ -1212,7 +1221,7 @@ extern void xUARTModemControlGet(unsigned long ulBase, unsigned long ulControl);
 //! presence of each flag indicates that the associated signal is asserted.
 //
 //*****************************************************************************
-extern void xUARTModemStatusGet(unsigned long ulBase);
+extern unsigned long xUARTModemStatusGet(unsigned long ulBase);
 
 //*****************************************************************************
 //
@@ -1259,7 +1268,7 @@ extern void xUARTFlowControlSet(unsigned long ulBase, unsigned long ulMode);
 //! xUART_FLOWCONTROL_NONE will be returned.
 //
 //*****************************************************************************
-extern void xUARTFlowControlGet(unsigned long ulBase);
+extern unsigned long xUARTFlowControlGet(unsigned long ulBase);
         
 //*****************************************************************************
 //
@@ -1288,7 +1297,8 @@ extern void xUARTFlowControlGet(unsigned long ulBase);
 //! parity bit always zero, respectively).
 //!
 //! The \e ulMode parameter can be values:
-//! - \b xUART_IRDA_MODE_NORMAL - IrDA normal mode
+//! - \b xUART_IRDA_MODE_NORMAL     - IrDA normal mode
+//! - \b xUART_IRDA_MODE_LOW_POWER  - IrDA Low-Power Mode
 //!
 //! \note SIR (IrDA) operation is not supported on Sandstorm-class devices.
 //!
@@ -1398,4 +1408,3 @@ extern void xUARTLINDisable(unsigned long ulBase);
 #endif
 
 #endif // __xUART_H__
-

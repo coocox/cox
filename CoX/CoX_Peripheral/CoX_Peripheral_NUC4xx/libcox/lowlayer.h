@@ -82,7 +82,7 @@
 #define GPIOG_BASE              0x40004180  // GPIO Port G
 #define GPIOH_BASE              0x400041C0  // GPIO Port H
 #define GPIOI_BASE              0x40004200  // GPIO Port I
-#define PDMA_BASE               0x40008000  // DMA
+#define DMA0_BASE               0x40008000  // PDMA
 #define UHC_BASE                0x40009000  // USB Host
 #define EMAC_BASE               0x4000B000  // Ethernet
 #define FMC_BASE                0x4000C000  // FMC
@@ -92,8 +92,8 @@
 #define CAP_BASE                0x40030000  // Image Capture  interface
 #define CRC_BASE                0x40031000  // CRC
 
-#define WWDG_BASE               0x40040C00  // Window watchdog (WWDG)
-#define IWDG_BASE               0x40040000  // Independent watchdog (IWDG)
+#define WWDT_BASE               0x40040C00  // Window watchdog (WWDG)
+#define IWDT_BASE               0x40040000  // Independent watchdog (IWDG)
 #define RTC_BASE                0x40041000  // RTC
 #define ADC0_BASE               0x40043000  // ADC0
 #define ADC1_BASE               0x40043000  // Enhance ADC1
@@ -102,10 +102,10 @@
 #define I2S0_BASE               0x40048000  // I2S0
 #define I2S1_BASE               0x40049000  // I2S1
 #define USBD_BASE               0x4004D000  // USB device FS registers
-#define TIM0_BASE               0x40050000  // TIM0
-#define TIM1_BASE               0x40050020  // TIM1
-#define TIM2_BASE               0x40051000  // TIM2
-#define TIM3_BASE               0x40051020  // TIM3
+#define TIMER0_BASE             0x40050000  // TIM0
+#define TIMER1_BASE             0x40050020  // TIM1
+#define TIMER2_BASE             0x40051000  // TIM2
+#define TIMER3_BASE             0x40051020  // TIM3
 #define PWMA_BASE               0x40058000  // PWMA
 #define PWMB_BASE               0x40059000  // PWMB
 #define EPWMA_BASE              0x4005C000  // Enhanced PWMA
@@ -114,12 +114,12 @@
 #define SPI1_BASE               0x40061000  // SPI1
 #define SPI2_BASE               0x40062000  // SPI2
 #define SPI3_BASE               0x40063000  // SPI3
-#define USART0_BASE             0x40070000  // USART1
-#define USART1_BASE             0x40071000  // USART1
-#define USART2_BASE             0x40072000  // USART2
-#define USART3_BASE             0x40073000  // USART3
-#define USART4_BASE             0x40074000  // USART4
-#define USART5_BASE             0x40075000  // USART5
+#define UART0_BASE              0x40070000  // USART1
+#define UART1_BASE              0x40071000  // USART1
+#define UART2_BASE              0x40072000  // USART2
+#define UART3_BASE              0x40073000  // USART3
+#define UART4_BASE              0x40074000  // USART4
+#define UART5_BASE              0x40075000  // USART5
 #define I2C0_BASE               0x40080000  // I2C1
 #define I2C1_BASE               0x40081000  // I2C1
 #define I2C2_BASE               0x40082000  // I2C2
@@ -170,6 +170,108 @@
 #define FAULT_PENDSV            14          // PendSV
 #define FAULT_SYSTICK           15          // System Tick
 
+#define INT_BOD                 16          // Brown Out detection interrupt
+#define INT_IRC                 17          // Internal RC
+#define INT_PWRWU               18          // Power Down Wake Up interrupt
+#define INT_SRAMF               19          // SRAM Parity Check Failed interrupt
+#define INT_CLKF                20          // Clock Detection Failed interrupt
+
+#define INT_RTC                 22          // Real Time Clock interrupt
+#define INT_TAMPER              23          // Tamper detection
+#define INT_EXTI0               24          // EXTI Line0 interrupt
+#define INT_EXTI1               25          // EXTI Line1 interrupt
+#define INT_EXTI2               26          // EXTI Line2 interrupt
+#define INT_EXTI3               27          // EXTI Line3 interrupt
+#define INT_EXTI4               28          // EXTI Line4 interrupt
+#define INT_EXTI5               29          // EXTI Line5 interrupt
+#define INT_EXTI6               30          // EXTI Line6 interrupt
+#define INT_EXTI7               31          // EXTI Line7 interrupt
+#define INT_GPIOA               32          // GPIOA interrupt
+#define INT_GPIOB               33          // GPIOB interrupt
+#define INT_GPIOC               34          // GPIOC interrupt
+#define INT_GPIOD               35          // GPIOD interrupt
+#define INT_GPIOE               36          // GPIOE interrupt
+#define INT_GPIOF               37          // GPIOF interrupt
+#define INT_GPIOG               38          // GPIOG interrupt
+#define INT_GPIOH               39          // GPIOH interrupt
+#define INT_GPIOI               40          // GPIOI interrupt
+#define INT_GPIOJ               41          // GPIOJ interrupt
+#define INT_TIMER0              48          // TIM0 global interrupt
+#define INT_TIMER1              49          // TIM1 global interrupt
+#define INT_TIMER2              50          // TIM2 global interrupt
+#define INT_TIMER3              51          // TIM3 global interrupt
+#define INT_DMA0                56          // Peripheral DMA interrupt
+#define INT_ADC0                58          // ADC interrupt
+#define INT_WDT                 62          // Watchdog interrupt
+#define INT_WWDT                63          // Window Watch Dog Timer interrupt
+#define INT_EADC0               64          // Enhanced ADC 0 interrupt
+#define INT_EADC1               65          // Enhanced ADC 1 interrupt
+#define INT_EADC2               66          // Enhanced ADC 2 interrupt
+#define INT_EADC3               67          // Enhanced ADC 3 interrupt
+#define INT_ACMP                72          // Analog Comparator Interrupt
+#define INT_OP0                 76          // Analog OP0 interrupt
+#define INT_OP1                 77          // Analog OP1 interrupt
+#define INT_ICAP0               78          // Internal Capture 0 interrupt
+#define INT_ICAP1               79          // Internal Capture 1 interrupt
+#define INT_PWMA_0              80          // PWMA Channel 0  interrupt
+#define INT_PWMA_1              81          // PWMA Channel 1  interrupt
+#define INT_PWMA_2              82          // PWMA Channel 2  interrupt
+#define INT_PWMA_3              83          // PWMA Channel 3  interrupt
+#define INT_PWMA_4              84          // PWMA Channel 4  interrupt
+#define INT_PWMA_5              85          // PWMA Channel 5  interrupt
+#define INT_PWMABRK             86          // PWMA Break interrupt
+#define INT_QEI0                87          // QEI 0  Interrupt
+#define INT_PWMB_0              88          // PWMB Channel 0  interrupt
+#define INT_PWMB_1              89          // PWMB Channel 1  interrupt
+#define INT_PWMB_2              90          // PWMB Channel 2  interrupt
+#define INT_PWMB_3              91          // PWMB Channel 3  interrupt
+#define INT_PWMB_4              92          // PWMB Channel 4  interrupt
+#define INT_PWMB_5              93          // PWMB Channel 5  interrupt
+#define INT_PWMBBRK             94          // PWMB Break interrupt
+#define INT_QEI1                95          // QEI 1  Interrupt
+#define INT_EPWMA               96          // EPWMA interrupt
+#define INT_EPWMABRK            97          // EPWMA Break interrupt
+#define INT_EPWMB               98          // EPWMB interrupt
+#define INT_EPWMBBRK            99          // EPWMB Break interrupt
+#define INT_UDC                 104         // USB device interrupt
+#define INT_UHC                 105         // USB Host interrupt
+#define INT_USBOTG              106         // USB OTG interrupt
+#define INT_EMAC_TX             108         // Ethernet MAC TX Interrupt
+#define INT_EMAC_RX             109         // Ethernet MAC RX Interrupt
+#define INT_SPI0                112         // SPI0 global interrupt
+#define INT_SPI1                113         // SPI1 global interrupt
+#define INT_SPI2                114         // SPI2 global interrupt
+#define INT_SPI3                115         // SPI3 global interrupt
+#define INT_UART0               120         // USART0 global interrupt
+#define INT_UART1               121         // USART1 global interrupt
+#define INT_UART2               122         // USART2 global interrupt
+#define INT_UART3               123         // USART3 global interrupt
+#define INT_UART4               124         // USART3 global interrupt
+#define INT_UART5               125         // USART3 global interrupt
+#define INT_I2C0                128         // I2C0 global interrupt
+#define INT_I2C1                129         // I2C1 global interrupt
+#define INT_I2C2                130         // I2C2 global interrupt
+#define INT_I2C3                131         // I2C3 global interrupt
+#define INT_I2C4                132         // I2C4 global interrupt
+#define INT_SC0                 136         // Smartcard 0 interrupt
+#define INT_SC1                 137         // Smartcard 1 interrupt
+#define INT_SC2                 138         // Smartcard 2 interrupt
+#define INT_SC3                 139         // Smartcard 3 interrupt
+#define INT_SC4                 140         // Smartcard 4 interrupt
+#define INT_SC5                 141         // Smartcard 5 interrupt
+#define INT_CAN0                144         // CAN0 interrupts
+#define INT_CAN1                145         // CAN1 interrupts
+#define INT_I2S0                148         // I2S0 interrupt
+#define INT_I2S1                149         // I2S1 interrupt
+#define INT_SDHOST              152         // SD Host interrupt
+#define INT_PS2                 154         // PS/2 device interrupt
+#define INT_CAP                 155         // Image capture interrupt
+#define INT_CRYPTO              156         // CRYPTO interrupt
+#define INT_CRC                 157         // CRC Interrupt
+
+#define INT_ADC1                (INT_EADC0 | INT_EADC1 | INT_EADC2 | INT_EADC3)
+#define INT_PWMA                (INT_PWMA_0|INT_PWMA_1|INT_PWMA_2|INT_PWMA_3|INT_PWMA_4|INT_PWMA_5|INT_PWMABRK)
+#define INT_PWMB                (INT_PWMB_0|INT_PWMB_1|INT_PWMB_2|INT_PWMB_3|INT_PWMB_4|INT_PWMB_5|INT_PWMBBRK)
 
 //
 //! The total number of interrupts.

@@ -1,0 +1,46 @@
+<?xml version="2.0" ?>
+<Component>
+    <Name>COX.Peripheral.NUC4xx.xUART</Name>
+    <Description>NUC4xx UART Driver</Description>
+    <Category>Peripheral.COX</Category>
+    <Version>2.1.1</Version>
+    <Tags>COX, xUART, UART, Series, RS232, RS485, IrDA, LIN</Tags>
+
+    <Files>
+        <File>..\..\libcox\uart.h</File>
+        <File>..\..\libcox\xuart.c</File>
+    </Files>
+
+    <FilesCoIDE>
+        <File>$PROJECT_ROOT$\COX\COX_Peripheral\src\xuart.h</File>
+        <File>$PROJECT_ROOT$\COX\COX_Peripheral\inc\xuart.c</File>
+    </FilesCoIDE>
+
+    <Dependencys>
+        <Dependency>COX.Peripheral.NUC4xx.xStartup</Dependency>
+        <Dependency>COX.Peripheral.NUC4xx.xLowLayer</Dependency>
+        <Dependency>COX.Peripheral.NUC4xx.xSysCtl</Dependency>
+        <Dependency>COX.Peripheral.NUC4xx.xGPIO</Dependency>
+    </Dependencys>
+
+    <SupportDevices>
+        <Series>
+            <Serie exclude="">NUC4xx</Serie>
+        </Series>
+        <Devices>
+            <Device></Device>
+        </Devices>
+    </SupportDevices>
+
+    <Micros>
+        <Comm>
+            <Define></Define>
+        </Comm>
+        <Device name="">
+            <Define></Define>
+        </Device>   
+    </Micros>
+
+    <Help>$DOCUMENT_ROOT$\xUART</Help>
+
+</Component>

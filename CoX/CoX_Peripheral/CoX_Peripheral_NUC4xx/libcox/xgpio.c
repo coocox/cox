@@ -502,11 +502,9 @@
 //    //
 //    // Set the pin direction and mode.
 //    //
-//    xHWREG(ulPort + GPIO_PMD) = (xHWREG(ulPort + GPIO_PMD) &                    \
-//                               (~(3 << (ulBit * 2))));
+//    xHWREG(ulPort + GPIO_PMD) = (xHWREG(ulPort + GPIO_PMD) & (~(3 << (ulBit * 2))));
 //
-//    xHWREG(ulPort + GPIO_PMD) = (xHWREG(ulPort + GPIO_PMD) |                    \
-//                               ((ulPinIO & GPIO_PMD_PMD0_M) << (ulBit * 2)));
+//    xHWREG(ulPort + GPIO_PMD) = (xHWREG(ulPort + GPIO_PMD) | ((ulPinIO & GPIO_PMD_PMD0_M) << (ulBit * 2)));
 //}
 //
 //void

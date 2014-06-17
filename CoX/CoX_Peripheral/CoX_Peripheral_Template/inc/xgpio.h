@@ -1570,7 +1570,7 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //! \return None.
 //
 //*****************************************************************************
-#define GPIOSPinConfigure(ePeripheralPin, eShortPin)                          \
+#define xGPIOSPinConfigure(ePeripheralPin, eShortPin)                          \
         GPIOPinFunCfg(G##eShortPin, GPIO_##eShortPin##_##ePeripheralPin)
 
 //*****************************************************************************

@@ -3,7 +3,7 @@
 //! \file xhw_gpio.h
 //! \brief Macros used when accessing the GPIO control hardware.
 //! \version V2.2.1.0
-//! \date 11/15/2013
+//! \date 6/15/2014
 //! \author CooCox
 //! \copy
 //!

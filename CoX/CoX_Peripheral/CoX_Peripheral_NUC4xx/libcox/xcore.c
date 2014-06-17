@@ -41,7 +41,6 @@
 
 #include "CoX.h"
 
-
 //*****************************************************************************
 //
 // This is a mapping between priority grouping encodings and the number of
@@ -880,29 +879,36 @@ xIntEnable(unsigned long ulInterrupt)
         //
         // Enable the general interrupt.
         //
-        xHWREG(NVIC_EN0 + (((ulInterrupt & 0xFF) - 16) >> 5) << 2) 
-        = 1 << (((ulInterrupt & 0xFF) - 16) & 0x1F);
+        xHWREG(NVIC_EN0 + ((((ulInterrupt & 0xFF) - 16) >> 5) << 2))
+        = (1 << (((ulInterrupt & 0xFF) - 16) & 0x1F));
     }
-//    else if(ulInterrupt == INT_PWMA)
-//    {
-//        xHWREG(NVIC_EN2) = 1 << (INT_PWMA_0 - 80);
-//        xHWREG(NVIC_EN2) = 1 << (INT_PWMA_1 - 80);
-//        xHWREG(NVIC_EN2) = 1 << (INT_PWMA_2 - 80);
-//        xHWREG(NVIC_EN2) = 1 << (INT_PWMA_3 - 80);
-//        xHWREG(NVIC_EN2) = 1 << (INT_PWMA_4 - 80);
-//        xHWREG(NVIC_EN2) = 1 << (INT_PWMA_5 - 80);
-//        xHWREG(NVIC_EN2) = 1 << (INT_PWMABRK - 80);
-//    }
-//    else if(ulInterrupt == INT_PWMB)
-//    {
-//        xHWREG(NVIC_EN2) = 1 << (INT_PWMB_0 - 80);
-//        xHWREG(NVIC_EN2) = 1 << (INT_PWMB_1 - 80);
-//        xHWREG(NVIC_EN2) = 1 << (INT_PWMB_2 - 80);
-//        xHWREG(NVIC_EN2) = 1 << (INT_PWMB_3 - 80);
-//        xHWREG(NVIC_EN2) = 1 << (INT_PWMB_4 - 80);
-//        xHWREG(NVIC_EN2) = 1 << (INT_PWMB_5 - 80);
-//        xHWREG(NVIC_EN2) = 1 << (INT_PWMBBRK - 80);
-//    }
+    else if(ulInterrupt == INT_ADC1)
+    {
+        xHWREG(NVIC_EN1) |= 1 << (INT_EADC0 - 48);
+		xHWREG(NVIC_EN1) |= 1 << (INT_EADC1 - 48);
+		xHWREG(NVIC_EN1) |= 1 << (INT_EADC2 - 48);
+		xHWREG(NVIC_EN1) |= 1 << (INT_EADC3 - 48);
+    } 
+    else if(ulInterrupt == INT_PWMA)
+    {
+        xHWREG(NVIC_EN2) = 1 << (INT_PWMA_0 - 80);
+        xHWREG(NVIC_EN2) = 1 << (INT_PWMA_1 - 80);
+        xHWREG(NVIC_EN2) = 1 << (INT_PWMA_2 - 80);
+        xHWREG(NVIC_EN2) = 1 << (INT_PWMA_3 - 80);
+        xHWREG(NVIC_EN2) = 1 << (INT_PWMA_4 - 80);
+        xHWREG(NVIC_EN2) = 1 << (INT_PWMA_5 - 80);
+        xHWREG(NVIC_EN2) = 1 << (INT_PWMABRK - 80);
+    }
+    else if(ulInterrupt == INT_PWMB)
+    {
+        xHWREG(NVIC_EN2) = 1 << (INT_PWMB_0 - 80);
+        xHWREG(NVIC_EN2) = 1 << (INT_PWMB_1 - 80);
+        xHWREG(NVIC_EN2) = 1 << (INT_PWMB_2 - 80);
+        xHWREG(NVIC_EN2) = 1 << (INT_PWMB_3 - 80);
+        xHWREG(NVIC_EN2) = 1 << (INT_PWMB_4 - 80);
+        xHWREG(NVIC_EN2) = 1 << (INT_PWMB_5 - 80);
+        xHWREG(NVIC_EN2) = 1 << (INT_PWMBBRK - 80);
+    }
 }
 
 //*****************************************************************************
@@ -941,29 +947,36 @@ xIntDisable(unsigned long ulInterrupt)
         //
         // Enable the general interrupt.
         //
-        xHWREG(NVIC_DIS0 + ((ulInterrupt & 0xFF) >> 5) << 2) 
-        = 1 << ((ulInterrupt & 0xFF - 16) & 0x1F);
+        xHWREG(NVIC_DIS0 + (((ulInterrupt & 0xFF) >> 5) << 2))
+        = (1 << (((ulInterrupt & 0xFF) - 16) & 0x1F));
     }
-//    else if(ulInterrupt == INT_PWMA)
-//    {
-//        xHWREG(NVIC_DIS2) = 1 << (INT_PWMA_0 - 80);
-//        xHWREG(NVIC_DIS2) = 1 << (INT_PWMA_1 - 80);
-//        xHWREG(NVIC_DIS2) = 1 << (INT_PWMA_2 - 80);
-//        xHWREG(NVIC_DIS2) = 1 << (INT_PWMA_3 - 80);
-//        xHWREG(NVIC_DIS2) = 1 << (INT_PWMA_4 - 80);
-//        xHWREG(NVIC_DIS2) = 1 << (INT_PWMA_5 - 80);
-//        xHWREG(NVIC_DIS2) = 1 << (INT_PWMABRK - 80);
-//    }
-//    else if(ulInterrupt == INT_PWMB)
-//    {
-//        xHWREG(NVIC_DIS2) = 1 << (INT_PWMB_0 - 80);
-//        xHWREG(NVIC_DIS2) = 1 << (INT_PWMB_1 - 80);
-//        xHWREG(NVIC_DIS2) = 1 << (INT_PWMB_2 - 80);
-//        xHWREG(NVIC_DIS2) = 1 << (INT_PWMB_3 - 80);
-//        xHWREG(NVIC_DIS2) = 1 << (INT_PWMB_4 - 80);
-//        xHWREG(NVIC_DIS2) = 1 << (INT_PWMB_5 - 80);
-//        xHWREG(NVIC_DIS2) = 1 << (INT_PWMBBRK - 80);
-//    }
+    else if(ulInterrupt == INT_ADC1)
+    {
+        xHWREG(NVIC_DIS1) |= 1 << (INT_EADC0 - 48);
+		xHWREG(NVIC_DIS1) |= 1 << (INT_EADC1 - 48);
+		xHWREG(NVIC_DIS1) |= 1 << (INT_EADC2 - 48);
+		xHWREG(NVIC_DIS1) |= 1 << (INT_EADC3 - 48);
+    } 
+    else if(ulInterrupt == INT_PWMA)
+    {
+        xHWREG(NVIC_DIS2) |= 1 << (INT_PWMA_0 - 80);
+        xHWREG(NVIC_DIS2) |= 1 << (INT_PWMA_1 - 80);
+        xHWREG(NVIC_DIS2) |= 1 << (INT_PWMA_2 - 80);
+        xHWREG(NVIC_DIS2) |= 1 << (INT_PWMA_3 - 80);
+        xHWREG(NVIC_DIS2) |= 1 << (INT_PWMA_4 - 80);
+        xHWREG(NVIC_DIS2) |= 1 << (INT_PWMA_5 - 80);
+        xHWREG(NVIC_DIS2) |= 1 << (INT_PWMABRK - 80);
+    }
+    else if(ulInterrupt == INT_PWMB)
+    {
+        xHWREG(NVIC_DIS2) |= 1 << (INT_PWMB_0 - 80);
+        xHWREG(NVIC_DIS2) |= 1 << (INT_PWMB_1 - 80);
+        xHWREG(NVIC_DIS2) |= 1 << (INT_PWMB_2 - 80);
+        xHWREG(NVIC_DIS2) |= 1 << (INT_PWMB_3 - 80);
+        xHWREG(NVIC_DIS2) |= 1 << (INT_PWMB_4 - 80);
+        xHWREG(NVIC_DIS2) |= 1 << (INT_PWMB_5 - 80);
+        xHWREG(NVIC_DIS2) |= 1 << (INT_PWMBBRK - 80);
+    }
 }
 
 //*****************************************************************************
@@ -1020,29 +1033,36 @@ xIntPendSet(unsigned long ulInterrupt)
         //
         // Enable the general interrupt.
         //
-        xHWREG(NVIC_PEND0 + ((ulInterrupt & 0xFF) >> 5) << 2) 
-        = 1 << ((ulInterrupt & 0xFF - 16) & 0x1F);
+        xHWREG(NVIC_PEND0 + (((ulInterrupt & 0xFF) >> 5) << 2)) =
+          (1 << (((ulInterrupt & 0xFF) - 16) & 0x1F));
     }
-//    else if(ulInterrupt == INT_PWMA)
-//    {
-//        xHWREG(NVIC_PEND2) = 1 << (INT_PWMA_0 - 80);
-//        xHWREG(NVIC_PEND2) = 1 << (INT_PWMA_1 - 80);
-//        xHWREG(NVIC_PEND2) = 1 << (INT_PWMA_2 - 80);
-//        xHWREG(NVIC_PEND2) = 1 << (INT_PWMA_3 - 80);
-//        xHWREG(NVIC_PEND2) = 1 << (INT_PWMA_4 - 80);
-//        xHWREG(NVIC_PEND2) = 1 << (INT_PWMA_5 - 80);
-//        xHWREG(NVIC_PEND2) = 1 << (INT_PWMABRK - 80);
-//    }
-//    else if(ulInterrupt == INT_PWMB)
-//    {
-//        xHWREG(NVIC_PEND2) = 1 << (INT_PWMB_0 - 80);
-//        xHWREG(NVIC_PEND2) = 1 << (INT_PWMB_1 - 80);
-//        xHWREG(NVIC_PEND2) = 1 << (INT_PWMB_2 - 80);
-//        xHWREG(NVIC_PEND2) = 1 << (INT_PWMB_3 - 80);
-//        xHWREG(NVIC_PEND2) = 1 << (INT_PWMB_4 - 80);
-//        xHWREG(NVIC_PEND2) = 1 << (INT_PWMB_5 - 80);
-//        xHWREG(NVIC_PEND2) = 1 << (INT_PWMBBRK - 80);
-//    }
+    else if(ulInterrupt == INT_ADC1)
+    {
+        xHWREG(NVIC_PEND1) |= 1 << (INT_EADC0 - 48);
+		xHWREG(NVIC_PEND1) |= 1 << (INT_EADC1 - 48);
+		xHWREG(NVIC_PEND1) |= 1 << (INT_EADC2 - 48);
+		xHWREG(NVIC_PEND1) |= 1 << (INT_EADC3 - 48);
+    } 
+    else if(ulInterrupt == INT_PWMA)
+    {
+        xHWREG(NVIC_PEND2) |= 1 << (INT_PWMA_0 - 80);
+        xHWREG(NVIC_PEND2) |= 1 << (INT_PWMA_1 - 80);
+        xHWREG(NVIC_PEND2) |= 1 << (INT_PWMA_2 - 80);
+        xHWREG(NVIC_PEND2) |= 1 << (INT_PWMA_3 - 80);
+        xHWREG(NVIC_PEND2) |= 1 << (INT_PWMA_4 - 80);
+        xHWREG(NVIC_PEND2) |= 1 << (INT_PWMA_5 - 80);
+        xHWREG(NVIC_PEND2) |= 1 << (INT_PWMABRK - 80);
+    }
+    else if(ulInterrupt == INT_PWMB)
+    {
+        xHWREG(NVIC_PEND2) |= 1 << (INT_PWMB_0 - 80);
+        xHWREG(NVIC_PEND2) |= 1 << (INT_PWMB_1 - 80);
+        xHWREG(NVIC_PEND2) |= 1 << (INT_PWMB_2 - 80);
+        xHWREG(NVIC_PEND2) |= 1 << (INT_PWMB_3 - 80);
+        xHWREG(NVIC_PEND2) |= 1 << (INT_PWMB_4 - 80);
+        xHWREG(NVIC_PEND2) |= 1 << (INT_PWMB_5 - 80);
+        xHWREG(NVIC_PEND2) |= 1 << (INT_PWMBBRK - 80);
+    }
 }
 
 //*****************************************************************************
@@ -1089,29 +1109,36 @@ xIntPendClear(unsigned long ulInterrupt)
         //
         // Enable the general interrupt.
         //
-        xHWREG(NVIC_UNPEND0 + ((ulInterrupt & 0xFF) >> 5) << 2) 
-        = 1 << ((ulInterrupt & 0xFF - 16) & 0x1F);
+        xHWREG(NVIC_UNPEND0 + (((ulInterrupt & 0xFF) >> 5) << 2)) =
+         (1 << (((ulInterrupt & 0xFF) - 16) & 0x1F));
     }
-//    else if(ulInterrupt == INT_PWMA)
-//    {
-//        xHWREG(NVIC_UNPEND2) = 1 << (INT_PWMA_0 - 80);
-//        xHWREG(NVIC_UNPEND2) = 1 << (INT_PWMA_1 - 80);
-//        xHWREG(NVIC_UNPEND2) = 1 << (INT_PWMA_2 - 80);
-//        xHWREG(NVIC_UNPEND2) = 1 << (INT_PWMA_3 - 80);
-//        xHWREG(NVIC_UNPEND2) = 1 << (INT_PWMA_4 - 80);
-//        xHWREG(NVIC_UNPEND2) = 1 << (INT_PWMA_5 - 80);
-//        xHWREG(NVIC_UNPEND2) = 1 << (INT_PWMABRK - 80);
-//    }
-//    else if(ulInterrupt == INT_PWMB)
-//    {
-//        xHWREG(NVIC_UNPEND2) = 1 << (INT_PWMB_0 - 80);
-//        xHWREG(NVIC_UNPEND2) = 1 << (INT_PWMB_1 - 80);
-//        xHWREG(NVIC_UNPEND2) = 1 << (INT_PWMB_2 - 80);
-//        xHWREG(NVIC_UNPEND2) = 1 << (INT_PWMB_3 - 80);
-//        xHWREG(NVIC_UNPEND2) = 1 << (INT_PWMB_4 - 80);
-//        xHWREG(NVIC_UNPEND2) = 1 << (INT_PWMB_5 - 80);
-//        xHWREG(NVIC_UNPEND2) = 1 << (INT_PWMBBRK - 80);
-//    }
+    else if(ulInterrupt == INT_ADC1)
+    {
+        xHWREG(NVIC_UNPEND1) |= 1 << (INT_EADC0 - 48);
+		xHWREG(NVIC_UNPEND1) |= 1 << (INT_EADC1 - 48);
+		xHWREG(NVIC_UNPEND1) |= 1 << (INT_EADC2 - 48);
+		xHWREG(NVIC_UNPEND1) |= 1 << (INT_EADC3 - 48);
+    } 
+    else if(ulInterrupt == INT_PWMA)
+    {
+        xHWREG(NVIC_UNPEND2) |= 1 << (INT_PWMA_0 - 80);
+        xHWREG(NVIC_UNPEND2) |= 1 << (INT_PWMA_1 - 80);
+        xHWREG(NVIC_UNPEND2) |= 1 << (INT_PWMA_2 - 80);
+        xHWREG(NVIC_UNPEND2) |= 1 << (INT_PWMA_3 - 80);
+        xHWREG(NVIC_UNPEND2) |= 1 << (INT_PWMA_4 - 80);
+        xHWREG(NVIC_UNPEND2) |= 1 << (INT_PWMA_5 - 80);
+        xHWREG(NVIC_UNPEND2) |= 1 << (INT_PWMABRK - 80);
+    }
+    else if(ulInterrupt == INT_PWMB)
+    {
+        xHWREG(NVIC_UNPEND2) |= 1 << (INT_PWMB_0 - 80);
+        xHWREG(NVIC_UNPEND2) |= 1 << (INT_PWMB_1 - 80);
+        xHWREG(NVIC_UNPEND2) |= 1 << (INT_PWMB_2 - 80);
+        xHWREG(NVIC_UNPEND2) |= 1 << (INT_PWMB_3 - 80);
+        xHWREG(NVIC_UNPEND2) |= 1 << (INT_PWMB_4 - 80);
+        xHWREG(NVIC_UNPEND2) |= 1 << (INT_PWMB_5 - 80);
+        xHWREG(NVIC_UNPEND2) |= 1 << (INT_PWMBBRK - 80);
+    }
 }
 
 //*****************************************************************************

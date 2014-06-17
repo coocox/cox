@@ -924,7 +924,31 @@ extern void xSPIEnable(unsigned long ulBase);
 //*****************************************************************************
 extern void xSPIDisable(unsigned long ulBase);
 
-        
+//*****************************************************************************
+//
+//! \brief Set the slave select pins of the specified SPI port.
+//!
+//! \param ulBase specifies the SPI module base address.
+//! \param ulSSMode specifies the SS is hardware control or software control.
+//! Details please reference to \ref xSPI_SlaveSelMode.
+//! \param ulSlaveSel specifies the slave select pins which will be used.
+//! Details please reference to \ref xSPI_SlaveSel.
+//!
+//! This function is to Set the slave select pins of the
+//! specified SPI port.
+//!
+//! The \e ulSSMode can be one of the following values:
+//! \b xSPI_SS_HARDWARE.
+//! Details please reference to \ref xSPI_SlaveSelMode_CoX.
+//!
+//! The \e ulSlaveSel can be one of the following values:
+//! \b xSPI_SS0, Details please reference to \ref xSPI_SlaveSel_CoX.
+//!
+//! \note this is only for master.
+//!
+//! \return None.
+//
+//*****************************************************************************
 extern void xSPISSSet(unsigned long ulBase, unsigned long ulSSMode, unsigned long ulSlaveSel);
 
 //*****************************************************************************
