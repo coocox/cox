@@ -800,8 +800,6 @@ xIntPriorityGroupingGet(void)
 void
 xIntPrioritySet(unsigned long ulInterrupt, unsigned char ucPriority)
 {
-    unsigned long ulTemp;
-
     //
     // Check the arguments.
     //
@@ -810,10 +808,13 @@ xIntPrioritySet(unsigned long ulInterrupt, unsigned char ucPriority)
     //
     // Set the interrupt priority.
     //
-    ulTemp = xHWREG(g_pulRegs[ulInterrupt >> 2]);
-    ulTemp &= ~(0xFF << (8 * (ulInterrupt & 3)));
-    ulTemp |= ucPriority << (8 * (ulInterrupt & 3));
-    xHWREG(g_pulRegs[ulInterrupt >> 2]) = ulTemp;
+	if(ulInterrupt < 4){
+        return ;
+    } else if(ulInterrupt < 16){
+        xHWREGB(NVIC_SYS_PRI1 + (ulInterrupt - 4)) = ((ucPriority << (8 - NUM_PRIORITY_BITS)) & 0xFF);
+    } else {
+	    xHWREGB(NVIC_PRI0 + (ulInterrupt - 16)) = ((ucPriority << (8 - NUM_PRIORITY_BITS)) & 0xFF);
+    }
 }
 
 //*****************************************************************************
@@ -832,6 +833,7 @@ xIntPrioritySet(unsigned long ulInterrupt, unsigned char ucPriority)
 long
 xIntPriorityGet(unsigned long ulInterrupt)
 {
+    long ulPrio = 0;
     //
     // Check the arguments.
     //
@@ -840,7 +842,14 @@ xIntPriorityGet(unsigned long ulInterrupt)
     //
     // Return the interrupt priority.
     //
-    return((xHWREG(g_pulRegs[ulInterrupt >> 2]) >> (8 * (ulInterrupt & 3))) & 0xFF);
+    if(ulInterrupt < 4){
+        ulPrio = -1;
+    } else if(ulInterrupt < 16){
+        ulPrio = (unsigned long)(xHWREGB(NVIC_SYS_PRI1 + (ulInterrupt - 4)) >> (8 - NUM_PRIORITY_BITS));
+    } else {
+        ulPrio = (unsigned long)(xHWREGB(NVIC_PRI0 + (ulInterrupt - 16)) >> (8 - NUM_PRIORITY_BITS));
+    }
+	return ulPrio;
 }
 
 //*****************************************************************************
