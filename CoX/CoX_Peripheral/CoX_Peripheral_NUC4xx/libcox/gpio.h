@@ -1705,7 +1705,8 @@ extern long GPIOPortMaskGet(unsigned long ulPort);
 extern long GPIOPinPortDoutGet(unsigned long ulPort);
 //extern void GPIOPinFunctionSet(unsigned long ulFunction, unsigned long ulPort,
 //                               unsigned long ulPins);
-extern void GPIOPinConfigure(unsigned long ulPinConfig);
+extern void GPIOPinConfigure(unsigned long ulPort,
+        unsigned long ulPin, unsigned long ulPinConfig);
 extern unsigned long  GPIOPinToPeripheralId(unsigned long ulPort, 
                                             unsigned long ulPin);
 extern unsigned long  GPIOPinToPort(unsigned long ulPort, 

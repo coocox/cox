@@ -101,26 +101,11 @@ static const unsigned long g_pulGPIOMFPRegs[] =
 	GCR_GPIMFPL,
 	GCR_GPIMFPH
 };
-#define GPIO_MFP_REG_GET(a)     ((a >> 12) & 0xF)
+#define GPIO_MFP_REG_GET(a)     ((a >> 12) & 0x1F)
 #define GPIO_PIN_SHIFT_GET(a)   ((a >> 8) & 0xF)
+#define GPIO_MUT_VALUE_GET(a)   ((a) & 0xF)
 #define GPIO_MFP_BIT_MASK       0x0000000F
 
-//#define ALT_MFP_REG_GET(a)      ((a >> 4) & 0x3)
-//#define ALT_MFP_SHIFT_GET(a)    ((a >> 16) & 0x1F)
-//#define ALT_MFP_BIT_GET(a)      ((a >> 21) & 0x7)
-//
-//#define ALT_MFP_REG_GET2(a)      ((a >> 6) & 0x3)
-//#define ALT_MFP_SHIFT_GET2(a)    ((a >> 24) & 0x1F)
-//#define ALT_MFP_BIT_GET2(a)      ((a >> 29) & 0x7)
-
-
-//static const unsigned long g_pulALTMFPRegs[] =
-//{
-//    0,
-//    GCR_ALTMFP,
-//    GCR_ALTMFP1,
-//    GCR_ALTMFP1
-//};
 
 #define GPIO_BIT_DOUT(x,y)      ((x) + (0x200) + 0x4 * y)
 
@@ -156,29 +141,27 @@ GPIOBaseValid(unsigned long ulPort)
 //*****************************************************************************
 //
 //! \internal
-//! \brief GPIO A,B  ISR.
+//! \brief GPIO A  ISR.
 //!
 //! \param None
 //!
 //! \return None.
 //
 //*****************************************************************************
-void GPABIntHandler(void)
+void GPA_IRQHandler(void)
 {
-    unsigned long ulGpaStatus, ulGpbStatus;
+    unsigned long ulGpaStatus;
     unsigned long i;
 
     //
     // Keep the interrupt source
     //
     ulGpaStatus = xHWREG(GPIOA_BASE+GPIO_ISRC);
-    ulGpbStatus = xHWREG(GPIOB_BASE+GPIO_ISRC);
 
     //
     // Clear the interrupt
     //
     xHWREG(GPIOA_BASE+GPIO_ISRC) = ulGpaStatus;
-    xHWREG(GPIOB_BASE+GPIO_ISRC) = ulGpbStatus;
 
     //
     // Call the callback function of GPIOAB interrupt
@@ -198,11 +181,44 @@ void GPABIntHandler(void)
                 }
             }
         }
-        if((g_psGPIOPinIntAssignTable[i].ulpinID &0xFFFF0000) ==
+    }
+}
+
+//*****************************************************************************
+//
+//! \internal
+//! \brief GPIO B  ISR.
+//!
+//! \param None
+//!
+//! \return None.
+//
+//*****************************************************************************
+void GPB_IRQHandler(void)
+{
+    unsigned long ulGpbStatus;
+    unsigned long i;
+
+    //
+    // Keep the interrupt source
+    //
+    ulGpbStatus = xHWREG(GPIOB_BASE+GPIO_ISRC);
+
+    //
+    // Clear the interrupt
+    //
+    xHWREG(GPIOB_BASE+GPIO_ISRC) = ulGpbStatus;
+
+    //
+    // Call the callback function of GPIOAB interrupt
+    //
+    for(i=0; i<xGPIO_INT_NUMBER; i++)
+    {
+        if((g_psGPIOPinIntAssignTable[i].ulpinID & 0xFFFF0000) ==
            ((GPIOB_BASE & 0x0000FFFF) << 16))
         {
             if((g_psGPIOPinIntAssignTable[i].ulpinID & 0x0000FFFF &
-                ulGpbStatus))
+            	ulGpbStatus))
             {
                 if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
                 {
@@ -218,53 +234,38 @@ void GPABIntHandler(void)
 //*****************************************************************************
 //
 //! \internal
-//! \brief GPIO C,D ISR.
+//! \brief GPIO C  ISR.
 //!
 //! \param None
 //!
 //! \return None.
 //
 //*****************************************************************************
-void GPCDIntHandler(void)
+void GPC_IRQHandler(void)
 {
-    unsigned long ulGpcStatus, ulGpdStatus;
+    unsigned long ulGpcStatus;
     unsigned long i;
 
     //
     // Keep the interrupt source
     //
     ulGpcStatus = xHWREG(GPIOC_BASE+GPIO_ISRC);
-    ulGpdStatus = xHWREG(GPIOD_BASE+GPIO_ISRC);
 
     //
     // Clear the interrupt
     //
     xHWREG(GPIOC_BASE+GPIO_ISRC) = ulGpcStatus;
-    xHWREG(GPIOD_BASE+GPIO_ISRC) = ulGpdStatus;
 
     //
-    // Call the callback function of GPIOCD interrupt
+    // Call the callback function of GPIOAB interrupt
     //
     for(i=0; i<xGPIO_INT_NUMBER; i++)
     {
-        if((g_psGPIOPinIntAssignTable[i].ulpinID &0xFFFF0000) ==
+        if((g_psGPIOPinIntAssignTable[i].ulpinID & 0xFFFF0000) ==
            ((GPIOC_BASE & 0x0000FFFF) << 16))
         {
             if((g_psGPIOPinIntAssignTable[i].ulpinID & 0x0000FFFF &
-                ulGpcStatus))
-            {
-                if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
-                {
-                    g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback
-                    (0,0,0,0);
-                }
-            }
-        }
-        if((g_psGPIOPinIntAssignTable[i].ulpinID &0xFFFF0000) ==
-           ((GPIOD_BASE & 0x0000FFFF) << 16))
-        {
-            if((g_psGPIOPinIntAssignTable[i].ulpinID & 0x0000FFFF &
-                ulGpdStatus))
+            		ulGpcStatus))
             {
                 if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
                 {
@@ -274,31 +275,307 @@ void GPCDIntHandler(void)
             }
         }
     }
-
 }
+
 
 //*****************************************************************************
 //
 //! \internal
-//! \brief External INT0(PortB 14) ISR.
+//! \brief GPIO D  ISR.
 //!
 //! \param None
 //!
 //! \return None.
 //
 //*****************************************************************************
-void EINT0IntHandler(void)
+void GPD_IRQHandler(void)
+{
+    unsigned long ulGpdStatus;
+    unsigned long i;
+
+    //
+    // Keep the interrupt source
+    //
+    ulGpdStatus = xHWREG(GPIOD_BASE+GPIO_ISRC);
+
+    //
+    // Clear the interrupt
+    //
+    xHWREG(GPIOD_BASE+GPIO_ISRC) = ulGpdStatus;
+
+    //
+    // Call the callback function of GPIOAB interrupt
+    //
+    for(i=0; i<xGPIO_INT_NUMBER; i++)
+    {
+        if((g_psGPIOPinIntAssignTable[i].ulpinID & 0xFFFF0000) ==
+           ((GPIOD_BASE & 0x0000FFFF) << 16))
+        {
+            if((g_psGPIOPinIntAssignTable[i].ulpinID & 0x0000FFFF &
+            		ulGpdStatus))
+            {
+                if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
+                {
+                    g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback
+                    (0,0,0,0);
+                }
+            }
+        }
+    }
+}
+
+//*****************************************************************************
+//
+//! \internal
+//! \brief GPIO E  ISR.
+//!
+//! \param None
+//!
+//! \return None.
+//
+//*****************************************************************************
+void GPE_IRQHandler(void)
+{
+    unsigned long ulGPIOStatus;
+    unsigned long i;
+
+    //
+    // Keep the interrupt source
+    //
+    ulGPIOStatus = xHWREG(GPIOE_BASE+GPIO_ISRC);
+
+    //
+    // Clear the interrupt
+    //
+    xHWREG(GPIOE_BASE+GPIO_ISRC) = ulGPIOStatus;
+
+    //
+    // Call the callback function of GPIOAB interrupt
+    //
+    for(i=0; i<xGPIO_INT_NUMBER; i++)
+    {
+        if((g_psGPIOPinIntAssignTable[i].ulpinID & 0xFFFF0000) ==
+           ((GPIOE_BASE & 0x0000FFFF) << 16))
+        {
+            if((g_psGPIOPinIntAssignTable[i].ulpinID & 0x0000FFFF &
+            	ulGPIOStatus))
+            {
+                if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
+                {
+                    g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback
+                    (0,0,0,0);
+                }
+            }
+        }
+    }
+}
+
+//*****************************************************************************
+//
+//! \internal
+//! \brief GPIO F  ISR.
+//!
+//! \param None
+//!
+//! \return None.
+//
+//*****************************************************************************
+void GPF_IRQHandler(void)
+{
+    unsigned long ulGPIOStatus;
+    unsigned long i;
+
+    //
+    // Keep the interrupt source
+    //
+    ulGPIOStatus = xHWREG(GPIOF_BASE+GPIO_ISRC);
+
+    //
+    // Clear the interrupt
+    //
+    xHWREG(GPIOF_BASE+GPIO_ISRC) = ulGPIOStatus;
+
+    //
+    // Call the callback function of GPIOAB interrupt
+    //
+    for(i=0; i<xGPIO_INT_NUMBER; i++)
+    {
+        if((g_psGPIOPinIntAssignTable[i].ulpinID & 0xFFFF0000) ==
+           ((GPIOF_BASE & 0x0000FFFF) << 16))
+        {
+            if((g_psGPIOPinIntAssignTable[i].ulpinID & 0x0000FFFF &
+            	ulGPIOStatus))
+            {
+                if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
+                {
+                    g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback
+                    (0,0,0,0);
+                }
+            }
+        }
+    }
+}
+
+//*****************************************************************************
+//
+//! \internal
+//! \brief GPIO G  ISR.
+//!
+//! \param None
+//!
+//! \return None.
+//
+//*****************************************************************************
+void GPG_IRQHandler(void)
+{
+    unsigned long ulGPIOStatus;
+    unsigned long i;
+
+    //
+    // Keep the interrupt source
+    //
+    ulGPIOStatus = xHWREG(GPIOG_BASE+GPIO_ISRC);
+
+    //
+    // Clear the interrupt
+    //
+    xHWREG(GPIOG_BASE+GPIO_ISRC) = ulGPIOStatus;
+
+    //
+    // Call the callback function of GPIOAB interrupt
+    //
+    for(i=0; i<xGPIO_INT_NUMBER; i++)
+    {
+        if((g_psGPIOPinIntAssignTable[i].ulpinID & 0xFFFF0000) ==
+           ((GPIOG_BASE & 0x0000FFFF) << 16))
+        {
+            if((g_psGPIOPinIntAssignTable[i].ulpinID & 0x0000FFFF &
+            	ulGPIOStatus))
+            {
+                if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
+                {
+                    g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback
+                    (0,0,0,0);
+                }
+            }
+        }
+    }
+}
+
+//*****************************************************************************
+//
+//! \internal
+//! \brief GPIO H  ISR.
+//!
+//! \param None
+//!
+//! \return None.
+//
+//*****************************************************************************
+void GPH_IRQHandler(void)
+{
+    unsigned long ulGPIOStatus;
+    unsigned long i;
+
+    //
+    // Keep the interrupt source
+    //
+    ulGPIOStatus = xHWREG(GPIOH_BASE+GPIO_ISRC);
+
+    //
+    // Clear the interrupt
+    //
+    xHWREG(GPIOH_BASE+GPIO_ISRC) = ulGPIOStatus;
+
+    //
+    // Call the callback function of GPIOAB interrupt
+    //
+    for(i=0; i<xGPIO_INT_NUMBER; i++)
+    {
+        if((g_psGPIOPinIntAssignTable[i].ulpinID & 0xFFFF0000) ==
+           ((GPIOH_BASE & 0x0000FFFF) << 16))
+        {
+            if((g_psGPIOPinIntAssignTable[i].ulpinID & 0x0000FFFF &
+            	ulGPIOStatus))
+            {
+                if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
+                {
+                    g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback
+                    (0,0,0,0);
+                }
+            }
+        }
+    }
+}
+
+//*****************************************************************************
+//
+//! \internal
+//! \brief GPIO I  ISR.
+//!
+//! \param None
+//!
+//! \return None.
+//
+//*****************************************************************************
+void GPI_IRQHandler(void)
+{
+    unsigned long ulGPIOStatus;
+    unsigned long i;
+
+    //
+    // Keep the interrupt source
+    //
+    ulGPIOStatus = xHWREG(GPIOI_BASE+GPIO_ISRC);
+
+    //
+    // Clear the interrupt
+    //
+    xHWREG(GPIOI_BASE+GPIO_ISRC) = ulGPIOStatus;
+
+    //
+    // Call the callback function of GPIOAB interrupt
+    //
+    for(i=0; i<xGPIO_INT_NUMBER; i++)
+    {
+        if((g_psGPIOPinIntAssignTable[i].ulpinID & 0xFFFF0000) ==
+           ((GPIOI_BASE & 0x0000FFFF) << 16))
+        {
+            if((g_psGPIOPinIntAssignTable[i].ulpinID & 0x0000FFFF &
+            	ulGPIOStatus))
+            {
+                if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
+                {
+                    g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback
+                    (0,0,0,0);
+                }
+            }
+        }
+    }
+}
+
+//*****************************************************************************
+//
+//! \internal
+//! \brief External INT0(PortA 0) ISR.
+//!
+//! \param None
+//!
+//! \return None.
+//
+//*****************************************************************************
+void EINT0_IntHandler(void)
 {
     unsigned long i;
     //
-    // For PB14, clear the INT flag
+    // For PA0, clear the INT flag
     //
-    xHWREG(GPIOB_BASE+GPIO_ISRC) |= GPIO_PIN_14;
+    xHWREG(GPIOA_BASE+GPIO_ISRC) |= GPIO_PIN_0;
 
     for(i=0; i<xGPIO_INT_NUMBER; i++)
     {
         if((g_psGPIOPinIntAssignTable[i].ulpinID) ==
-           (((GPIOB_BASE & 0x0000FFFF) << 16) | GPIO_PIN_14))
+           (((GPIOA_BASE & 0x0000FFFF) << 16) | GPIO_PIN_0))
         {
             if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
             {
@@ -311,26 +588,218 @@ void EINT0IntHandler(void)
 //*****************************************************************************
 //
 //! \internal
-//! \brief External INT1(PortB 15) ISR .
+//! \brief External INT1(PortB 0) ISR .
 //!
 //! \param None
 //!
 //! \return None.
 //
 //*****************************************************************************
-void EINT1IntHandler(void)
+void EINT1_IntHandler(void)
 {
     unsigned long i;
 
     //
-    // For PB15, clear the INT flag
+    // For PB0, clear the INT flag
     //
-    xHWREG(GPIOB_BASE+GPIO_ISRC) |= GPIO_PIN_15;
+    xHWREG(GPIOB_BASE+GPIO_ISRC) |= GPIO_PIN_0;
 
     for(i=0; i<xGPIO_INT_NUMBER; i++)
     {
         if((g_psGPIOPinIntAssignTable[i].ulpinID) ==
-           (((GPIOB_BASE & 0x0000FFFF) << 16) | GPIO_PIN_15))
+           (((GPIOB_BASE & 0x0000FFFF) << 16) | GPIO_PIN_0))
+        {
+            if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
+            {
+                g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback(0,0,0,0);
+            }
+        }
+    }
+}
+
+//*****************************************************************************
+//
+//! \internal
+//! \brief External INT2(PortC 0) ISR .
+//!
+//! \param None
+//!
+//! \return None.
+//
+//*****************************************************************************
+void EINT2_IntHandler(void)
+{
+    unsigned long i;
+
+    //
+    // For PC0, clear the INT flag
+    //
+    xHWREG(GPIOC_BASE+GPIO_ISRC) |= GPIO_PIN_0;
+
+    for(i=0; i<xGPIO_INT_NUMBER; i++)
+    {
+        if((g_psGPIOPinIntAssignTable[i].ulpinID) ==
+           (((GPIOC_BASE & 0x0000FFFF) << 16) | GPIO_PIN_0))
+        {
+            if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
+            {
+                g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback(0,0,0,0);
+            }
+        }
+    }
+}
+
+//*****************************************************************************
+//
+//! \internal
+//! \brief External INT3(PortD 0) ISR .
+//!
+//! \param None
+//!
+//! \return None.
+//
+//*****************************************************************************
+void EINT3_IntHandler(void)
+{
+    unsigned long i;
+
+    //
+    // For PD0, clear the INT flag
+    //
+    xHWREG(GPIOD_BASE+GPIO_ISRC) |= GPIO_PIN_0;
+
+    for(i=0; i<xGPIO_INT_NUMBER; i++)
+    {
+        if((g_psGPIOPinIntAssignTable[i].ulpinID) ==
+           (((GPIOD_BASE & 0x0000FFFF) << 16) | GPIO_PIN_0))
+        {
+            if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
+            {
+                g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback(0,0,0,0);
+            }
+        }
+    }
+}
+
+//*****************************************************************************
+//
+//! \internal
+//! \brief External INT4(PortE 0) ISR .
+//!
+//! \param None
+//!
+//! \return None.
+//
+//*****************************************************************************
+void EINT4_IntHandler(void)
+{
+    unsigned long i;
+
+    //
+    // For PE0, clear the INT flag
+    //
+    xHWREG(GPIOE_BASE+GPIO_ISRC) |= GPIO_PIN_0;
+
+    for(i=0; i<xGPIO_INT_NUMBER; i++)
+    {
+        if((g_psGPIOPinIntAssignTable[i].ulpinID) ==
+           (((GPIOE_BASE & 0x0000FFFF) << 16) | GPIO_PIN_0))
+        {
+            if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
+            {
+                g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback(0,0,0,0);
+            }
+        }
+    }
+}
+
+//*****************************************************************************
+//
+//! \internal
+//! \brief External INT5(PortF 0) ISR .
+//!
+//! \param None
+//!
+//! \return None.
+//
+//*****************************************************************************
+void EINT5_IntHandler(void)
+{
+    unsigned long i;
+
+    //
+    // For PF0, clear the INT flag
+    //
+    xHWREG(GPIOF_BASE+GPIO_ISRC) |= GPIO_PIN_0;
+
+    for(i=0; i<xGPIO_INT_NUMBER; i++)
+    {
+        if((g_psGPIOPinIntAssignTable[i].ulpinID) ==
+           (((GPIOF_BASE & 0x0000FFFF) << 16) | GPIO_PIN_0))
+        {
+            if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
+            {
+                g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback(0,0,0,0);
+            }
+        }
+    }
+}
+
+//*****************************************************************************
+//
+//! \internal
+//! \brief External INT6(PortG 0) ISR .
+//!
+//! \param None
+//!
+//! \return None.
+//
+//*****************************************************************************
+void EINT6_IntHandler(void)
+{
+    unsigned long i;
+
+    //
+    // For PF0, clear the INT flag
+    //
+    xHWREG(GPIOG_BASE+GPIO_ISRC) |= GPIO_PIN_0;
+
+    for(i=0; i<xGPIO_INT_NUMBER; i++)
+    {
+        if((g_psGPIOPinIntAssignTable[i].ulpinID) ==
+           (((GPIOG_BASE & 0x0000FFFF) << 16) | GPIO_PIN_0))
+        {
+            if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
+            {
+                g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback(0,0,0,0);
+            }
+        }
+    }
+}
+
+//*****************************************************************************
+//
+//! \internal
+//! \brief External INT7(PortH 0) ISR .
+//!
+//! \param None
+//!
+//! \return None.
+//
+//*****************************************************************************
+void EINT7_IntHandler(void)
+{
+    unsigned long i;
+
+    //
+    // For PH0, clear the INT flag
+    //
+    xHWREG(GPIOH_BASE+GPIO_ISRC) |= GPIO_PIN_0;
+
+    for(i=0; i<xGPIO_INT_NUMBER; i++)
+    {
+        if((g_psGPIOPinIntAssignTable[i].ulpinID) ==
+           (((GPIOH_BASE & 0x0000FFFF) << 16) | GPIO_PIN_0))
         {
             if(g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback != 0)
             {
@@ -1199,7 +1668,16 @@ GPIOPinConfigure(unsigned long ulPort, unsigned long ulPins, unsigned long ulPin
     //
     // Enable the corresponding Alternative Multiple Function Pin or not.
     //
+    if(ulPinConfig & 0x10)
+    {
+    	xHWREG(ulPort + GPIO_SLEWCTL) |= ulPins;
+    }
 
+    xHWREG(g_pulGPIOMFPRegs[GPIO_MFP_REG_GET(ulPinConfig)]) &=
+    		~(GPIO_MFP_BIT_MASK << GPIO_PIN_SHIFT_GET(ulPinConfig));
+
+    xHWREG(g_pulGPIOMFPRegs[GPIO_MFP_REG_GET(ulPinConfig)]) |=
+    		(GPIO_MUT_VALUE_GET(ulPinConfig) << GPIO_PIN_SHIFT_GET(ulPinConfig));
 
 }
 
@@ -1454,7 +1932,7 @@ inline unsigned long xGPIOPortRead(unsigned long ulPort)
 //! \return None.
 //
 //*****************************************************************************
-inline unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal)
+inline void xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal)
 {
 	xHWREG(ulPort + GPIO_DOUT) = ulVal;
 }
@@ -1474,5 +1952,5 @@ inline unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal)
 //*****************************************************************************
 unsigned long xGPIOPinIntStatus(unsigned long ulPort)
 {
-	GPIOPinIntStatus(ulPort);
+	return GPIOPinIntStatus(ulPort);
 }

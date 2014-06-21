@@ -281,11 +281,376 @@ xGPIO API              {#xGPIO_Exported_APIs_md}
 |  \ref xSPinTypeACMP             |  *N*    | **Y**   | **Y**|  **Y**|  **Y**|  **Y**|  **Y**|  **Y**|  **Y**|  **Y**  |  **Y**   |  **Y**   |
 |  \ref xSPinTypeI2S              |  *N*    | **Y**   | **Y**|  **Y**|  **Y**|  **Y**|  **Y**|  **Y**|  **Y**|  **Y**  |  **Y**   |  **Y**   |
 
+xGPIO ADC MAP {#CoX_ADC_MAP}
+=========
 
-API 分组
-----------
-占位
+|  manufacturer   | ePeripheralPin          | eShortPin                |
+|-----------------|-------------------------|--------------------------|
+|  CoX            | This parameter is a     | This parameter is a      |
+|                 | mandatory.The mandatory | mandatory. the mandatory |
+|                 | is the format of        | is the format of         |
+|                 | Variable naming.So it   | Variable naming.So it    |
+|                 | should be: ADCn         | should be: PXn           |
+|                 | n indicate the pin      | XX indicate the GPIO     |
+|                 | number such as          | PORT,Such as             |
+|                 | 0 1 2 3 ....            | A B C D E ...            |
+|                 |                         | n indicate the pin       |
+|                 |                         | number such as           |
+|                 |                         | 0 1 2 3 ....             |
 
-API 组合使用例子
-------
-占位
+NUC4xx GPIO ADC MAP
+-----
+
+|  manufacturer   | ePeripheralPin          | eShortPin                |
+|-----------------|-------------------------|--------------------------|
+|     NUC4xx      |     ADC0                |         PE0              |
+|                 |     ADC1                |         PE1              |
+|                 |     ADC2                |         PE2              |
+|                 |     ADC3                |         PE3              |
+|                 |     ADC4                |         PE4              |
+|                 |     ADC5                |         PE5              |
+|                 |     ADC6                |         PE6              |
+|                 |     ADC7                |         PE7              |
+|                 |     ADC8                |         PE8              |
+|                 |     ADC9                |         PE9              |
+|                 |     ADC10               |         PE10             |
+|                 |     ADC11               |         PE11             |
+|                 |     STADC               |         PD2              |
+|                 |     ADC12(ADC1_0)       |         PE8              |
+|                 |     ADC13(ADC1_1)       |         PE9              |
+|                 |     ADC14(ADC1_2)       |         PE10             |
+|                 |     ADC15(ADC1_3)       |         PE11             |
+|                 |     ADC16(ADC1_4)       |         PE12             |
+|                 |     ADC17(ADC1_5)       |         PE13             |
+|                 |     ADC18(ADC1_6)       |         PE14             |
+|                 |     ADC19(ADC1_7)       |         PE15             |
+
+
+xGPIO CAN MAP {#CoX_CAN_MAP}
+=========
+
+|    manufacturer    | ePeripheralPin          | eShortPin                |
+|--------------------|-------------------------|--------------------------|
+|    CoX             | This parameter is a     | This parameter is a      |
+|                    | mandatory.The mandatory | mandatory. the mandatory |
+|                    | is the format of        | is the format of         |
+|                    | Variable naming.So it   | Variable naming.So it    |
+|                    | should be: CANnRX       | should be: PXn           |
+|                    | or CANnTX               | XX indicate the GPIO     |
+|                    | n indicate the pin      | PORT,Such as             |
+|                    | number such as          | A B C D E ...            |
+|                    | 0 1 2 3 ....            | n indicate the pin       |
+|                    |                         | number such as           |
+|                    |                         | 0 1 2 3 ....             |
+
+
+NUC4xx GPIO CAN MAP
+-----
+
+|    manufacturer    | ePeripheralPin          | eShortPin                |
+|--------------------|-------------------------|--------------------------|
+|       NUC4XX       |     CAN0RX              |     PB12                 |
+|                    |     CAN0TX              |     PB13                 |
+|                    |     CAN1RX              |     PA0   PH0            |
+|                    |     CAN1TX              |     PA1   PA6 PH1        |
+
+
+xGPIO I2C MAP {#CoX_I2C_MAP}
+=========
+
+|    manufacturer    | ePeripheralPin          | eShortPin                |
+|--------------------|-------------------------|--------------------------|
+|    CoX             | This parameter is a     | This parameter is a      |
+|                    | mandatory.The mandatory | mandatory. the mandatory |
+|                    | is the format of        | is the format of         |
+|                    | Variable naming.So it   | Variable naming.So it    |
+|                    | should be: I2CnSCK      | should be: PXn           |
+|                    | or I2CnSDA              | XX indicate the GPIO     |
+|                    | n indicate the pin      | PORT,Such as             |
+|                    | number such as          | A B C D E ...            |
+|                    | 0 1 2 3 ....            | n indicate the pin       |
+|                    |                         | number such as           |
+|                    |                         | 0 1 2 3 ....             |
+
+
+NUC4xx GPIO I2C MAP
+-----
+
+
+|    manufacturer    | ePeripheralPin          | eShortPin                |
+|--------------------|-------------------------|--------------------------|
+|       NUC4xx       |     I2C0SDA             |     PC9  PD9             |
+|                    |     I2C0SCL             |     PA15 PD8             |
+|                    |     I2C1SDA             |     PH0  PG14            |
+|                    |     I2C1SCL             |     PH1  PG15            |
+|                    |     I2C2SDA             |     PB7  PI8             |
+|                    |     I2C2SCL             |     PB6  PI7             |
+|                    |     I2C3SDA             |     PD3  PH4             |
+|                    |     I2C3SCL             |     PD2  PH3             |
+|                    |     I2C4SDA             |     PB1  PD12 PI12       |
+|                    |     I2C4SCL             |     PB0  PD10 PI11       |
+
+xGPIO PWM MAP {#CoX_PWM_MAP}
+=========
+
+|    manufacturer    | ePeripheralPin          | eShortPin                |
+|--------------------|-------------------------|--------------------------|
+|    CoX             | This parameter is a     | This parameter is a      |
+|                    | mandatory.The mandatory | mandatory. the mandatory |
+|                    | is the format of        | is the format of         |
+|                    | Variable naming.So it   | Variable naming.So it    |
+|                    | should be: SPInCLK,     | should be: PXn           |
+|                    | SPInMISO, SPInMOSI,     | XX indicate the GPIO     |
+|                    | or SPInCS,              | PORT,Such as             |
+|                    | n indicate the pin      | A B C D E ...            |
+|                    | number such as          | n indicate the pin       |
+|                    | 0 1 2 3 ....            | number such as           |
+|                    |                         | 0 1 2 3 ....             |
+
+
+NUC4xx GPIO PWM MAP
+-----
+|    manufacturer    | ePeripheralPin          | eShortPin                |
+|--------------------|-------------------------|--------------------------|
+|                    |          PWM0           |     PA5/PF9              |
+|                    |          PWM1           |     PF10/PA6             |
+|                    |          PWM2           |     PC10                 |
+|     NUC4xx         |          PWM3           |     PC11                 |
+|                    |          PWM4           |     PA12                 |
+|                    |          PWM5           |     PA11                 |
+|                    |          PWM6(PWM1_0)   |     PA10                 |
+|                    |          PWM7(PWM1_1)   |     PA9                  |
+|                    |          PWM8(PWM1_2)   |     PA8                  |
+|                    |          PWM9(PWM1_3)   |     PA7                  |
+|                    |          PWM10(PWM1_4)  |     PA13/PB6             |
+|                    |          PWM11(PWM1_5)  |     PA14/PB7             |
+|                    |         EPWM0           |     PA12                 |
+|                    |         EPWM1           |     PA11                 |
+|                    |         EPWM2           |     PA10                 |
+|                    |         EPWM3           |     PA9                  |
+|                    |         EPWM4           |     PA8                  |
+|                    |         EPWM5           |     PA7                  |
+|                    |         EPWM6(EPWM1_0)  |     PB6                  |
+|                    |         EPWM7(EPWM1_1)  |     PB7                  |
+|                    |         EPWM8(EPWM1_2)  |     PB8                  |
+|                    |         EPWM9(EPWM1_3)  |     PB9                  |
+|                    |         EPWM10(EPWM1_4) |     PB10                 |
+|                    |         EPWM11(EPWM1_5) |     PB11                 |
+
+
+xGPIO SPI MAP {#CoX_SPI_MAP}
+=========
+
+|    manufacturer    | ePeripheralPin          | eShortPin                |
+|--------------------|-------------------------|--------------------------|
+|    CoX             | This parameter is a     | This parameter is a      |
+|                    | mandatory.The mandatory | mandatory. the mandatory |
+|                    | is the format of        | is the format of         |
+|                    | Variable naming.So it   | Variable naming.So it    |
+|                    | should be: SPInCLK,     | should be: PXn           |
+|                    | SPInMISO, SPInMOSI,     | XX indicate the GPIO     |
+|                    | or SPInCS,              | PORT,Such as             |
+|                    | n indicate the pin      | A B C D E ...            |
+|                    | number such as          | n indicate the pin       |
+|                    | 0 1 2 3 ....            | number such as           |
+|                    |                         | 0 1 2 3 ....             |
+
+NUC4xx GPIO SPI MAP
+-----
+
+|    manufacturer    | ePeripheralPin          | eShortPin                |
+|--------------------|-------------------------|--------------------------|
+|       NUC4xx       |     SPI0CLK             |     PC8 PE5              |
+|                    |     SPI0CS              |     PC2 PE4              |
+|                    |     SPI0MISO            |PC6 PE2 PE6 (PC3 PE10)    |
+|                    |     SPI0MOSI            |PC7 PE3 PE7 (PC4 PE11)    |
+|                    |     SPI1CLK             |     PD1 PD14             |
+|                    |     SPI1CS              |     PC12 PD13            |
+|                    |     SPI1MISO            |PD0 PD15 (PC14)           |
+|                    |     SPI1MOSI            |PC15 PF0 (PC13)           |
+|                    |     SPI2CLK             |     PB3 PG9 PH6          |
+|                    |     SPI2CS              |     PB2 PI11 PH5         |
+|                    |     SPI2MISO            |PB4 PG7 PH7(PB12 PH7 PI12)|
+|                    |     SPI2MOSI            |PB5 PG8 PH8(PB13 PF1 PH10)|
+|                    |     SPI3CLK             |     PA4 PA8 PF3 PI4      |
+|                    |     SPI3CS              |     PA5 PA7 PF2 PI3      |
+|                    |     SPI3MISO            |PA2 PA9 PF4 PI5(PA11 PD8 PI7)|
+|                    |     SPI3MOSI            |PA3 PA10 PF5 PI6(PA12 PD9 PI8)|
+
+xGPIO TIMER MAP {#CoX_TIMER_MAP}
+=========
+
+|    manufacturer    | ePeripheralPin          | eShortPin                |
+|--------------------|-------------------------|--------------------------|
+|    CoX             | This parameter is a     | This parameter is a      |
+|                    | mandatory.The mandatory | mandatory. the mandatory |
+|                    | is the format of        | is the format of         |
+|                    | Variable naming.So it   | Variable naming.So it    |
+|                    | should be: TIMCCPn,     | should be: PXn           |
+|                    | n indicate the pin      | XX indicate the GPIO     |
+|                    | number such as          | PORT,Such as             |
+|                    | 0 1 2 3 ....            | A B C D E ...            |
+|                    |                         | n indicate the pin       |
+|                    |                         | number such as           |
+|                    |                         | 0 1 2 3 ....             |
+
+NUC4xx GPIO TIMER MAP
+---------
+
+|    manufacturer    | ePeripheralPin          | eShortPin                |
+|--------------------|-------------------------|--------------------------|
+|       LPC17xx      |       TIMCCP0           |        PB4 PD1           |
+|                    |       TIMCCP1           |        PB1 PE8           |
+|                    |       TIMCCP2           |        PC6 PE1           |
+|                    |       TIMCCP3           |        PC1 PD11          |
+|                    |       TM0EXT            |        PC8               |
+|                    |       TM1EXT            |        PC7               |
+|                    |       TM2EXT            |        PC6               |
+|                    |       TM3EXT            |        PC14              |
+
+
+xGPIO UART MAP {#CoX_UART_MAP}
+=========
+
+|    manufacturer    | ePeripheralPin          | eShortPin                |
+|--------------------|-------------------------|--------------------------|
+|    CoX             | This parameter is a     | This parameter is a      |
+|                    | mandatory.The mandatory | mandatory. the mandatory |
+|                    | is the format of        | is the format of         |
+|                    | Variable naming.So it   | Variable naming.So it    |
+|                    | should be: UARTnRX,     | should be: PXn           |
+|                    | UARTnTX, UARTnCTS,      | XX indicate the GPIO     |
+|                    | ......,                 | PORT,Such as             |
+|                    | n indicate the pin      | A B C D E ...            |
+|                    | number such as          | n indicate the pin       |
+|                    | 0 1 2 3 ....            | number such as           |
+|                    |                         | 0 1 2 3 ....             |
+
+
+NUC4xx GPIO UART MAP
+---------
+
+|    manufacturer    | ePeripheralPin          | eShortPin                |
+|--------------------|-------------------------|--------------------------|
+|                    |     UART0CTS            |     PA12 PG0             |
+|                    |     UART0RTS            |     PA11 PF15            |
+|                    |     UART0TX             |     PA14 PG2             |
+|                    |     UART0RX             |     PA13 PG1             |
+|                    |     UART1TX             |     PF13  PB3            |
+|                    |     UART1RX             |     PF14  PB2            |
+|                    |     UART1CTS            |     PF12  PB5            |
+|                    |     UART1RTS            |     PF11  PB4            |
+|                    |     UART2CTS            |     PC9 PH2              |
+|   NUC4xx           |     UART2RTS            |     PA15 PF8             |
+|                    |     UART2TX             |     PC11 PF7             |
+|                    |     UART2RX             |     PC10 PF6             |
+|                    |     UART3CTS            |     PD7 PH14             |
+|                    |     UART3RTS            |     PD6 PH13             |
+|                    |     UART3TX             |     PD5 PH12             |
+|                    |     UART3RX             |     PD4 PH11             |
+|                    |     UART4CTS            |     PB7 PB13 PC3 PG9     |
+|                    |     UART4RTS            |     PB6 PB12 PC2 PG8     |
+|                    |     UART4RX             |     PB4 PC0 PH0          |
+|                    |     UART4TX             |     PB5 PC1 PH1          |
+|                    |     UART5CTS            |     PB8 PD13             |
+|                    |     UART5RTS            |     PB9 PD14             |
+|                    |     UART5TX             |     PB11 PF0             |
+|                    |     UART5RX             |     PB10 PD15            |
+
+
+xGPIO DAC MAP {#CoX_DAC_MAP}
+=========
+
+|    manufacturer    | ePeripheralPin          | eShortPin                |
+|--------------------|-------------------------|--------------------------|
+|    CoX             | This parameter is a     | This parameter is a      |
+|                    | mandatory.The mandatory | mandatory. the mandatory |
+|                    | is the format of        | is the format of         |
+|                    | Variable naming.So it   | Variable naming.So it    |
+|                    | should be: DACOUTn,     | should be: PXn           |
+|                    |                         | X  indicate the GPIO     |
+|                    | n x indicate the pin    | PORT,Such as             |
+|                    | number such as          | A B C D E ...            |
+|                    | 0 1 2 3 ....            | n indicate the pin       |
+|                    |                         | number such as           |
+|                    |                         | 0 1 2 3 ....             |
+
+NUC4xx GPIO DAC MAP
+---------
+
+|    manufacturer    | ePeripheralPin          | eShortPin                |
+|--------------------|-------------------------|--------------------------|
+|       NUC4xx       |     DACOUT1             |     --                   |
+
+
+xGPIO CMP MAP {#CoX_CMP_MAP}
+=========
+|    manufacturer    |ePeripheralPin          |eShortPin               |
+|--------------------|-------------------------|--------------------------|
+|    CoX             |This parameter is a     |This parameter is a     |
+|                    |mandatory.The mandatory |mandatory. the mandatory|
+|                    |is the format of        |is the format of        |
+|                    |Variable naming.So it   |Variable naming.So it   |
+|                    |should be: CMPnN,       |should be: PXn          |
+|                    |CMPnO or CMPnP          |XX indicate the GPIO    |
+|                    |n indicate the pin      |PORT,Such as            |
+|                    |number such as          |A B C D E ...           |
+|                    |0 1 2 3 ....            |n indicate the pin      |
+|                    |                        |number such as          |
+|                    |                        |0 1 2 3 ....            |.
+
+
+NUC4xx GPIO CMP MAP
+---------
+
+|    manufacturer    |ePeripheralPin          |eShortPin               |
+|--------------------|------------------------|------------------------|
+|       NUC4xx       |    CMP0P               |    PE6 PE5 PE4 PE3     |
+|                    |    CMP0N               |    PE7                 |
+|                    |    CMP0O               |    PE2                 |
+|                    |    CMP1P               |    PE9 PE10 PE11 PE12  |
+|                    |    CMP1N               |    PE8                 |
+|                    |    CMP1O               |    PD4                 |
+|                    |    CMP2P               |    PE14 PE13 PE11 PE12 |
+|                    |    CMP2N               |    PE15                |
+|                    |    CMP2O               |    PD3                 |
+
+
+xGPIO I2S MAP {#CoX_I2S_MAP}
+=========
+|    manufacturer    |ePeripheralPin          |eShortPin               |
+|--------------------|------------------------|------------------------|
+|    CoX             |This parameter is a     |This parameter is a     |
+|                    |mandatory.The mandatory |mandatory. the mandatory|
+|                    |is the format of        |is the format of        |
+|                    |Variable naming.So it   |Variable naming.So it   |
+|                    |should be: I2SnRXSCK,   |should be: PXn          |
+|                    |I2SnRXMCLK,I2S0RXSD,    |XX indicate the GPIO    |
+|                    |I2S0RXWS,I2S0TXSCK,     |PORT,Such as            |
+|                    |I2S0TXMCLK,I2S0TXSD,    |A B C D E ...           |
+|                    |or I2S0TXWS.            |n indicate the pin      |
+|                    |n indicate the pin      |number such as          |
+|                    |number such as          |0 1 2 3 ....            |
+|                    |0 1 2 3 ....            |                        |
+
+NUC4xx GPIO I2S MAP
+---------
+
+|    manufacturer    |ePeripheralPin          |eShortPin               |
+|--------------------|------------------------|------------------------|
+|       NUC4xx       |    I2S0RXMCLK          |    PA2                 |
+|                    |    I2S0RXSCK           |    PA5                 |
+|                    |    I2S0RXSD            |    PA4                 |
+|                    |    I2S0RXWS            |    PA6                 |
+|                    |    I2S0TXMCLK          |    PA2                 |
+|                    |    I2S0TXSCK           |    PA5                 |
+|                    |    I2S0TXSD            |    PA3                 |
+|                    |    I2S0TXWS            |    PA6                 |
+|                    |    I2S1RXMCLK          |    PB14 PC3 PG7        |
+|                    |    I2S1RXSCK           |    PC1 PG5 PI11        |
+|                    |    I2S1RXSD            |    PC1 PG4 PG9         |
+|                    |    I2S1RXWS            |    PC2 PG6 PI12        |
+|                    |    I2S1TXMCLK          |    PB14 PC3 PG7        |
+|                    |    I2S1TXSCK           |    PC1 PG5 PI11        |
+|                    |    I2S1TXSD            |    PB15 PC4 PG3 PG8    |
+|                    |    I2S1TXWS            |    PC2 PG6 PI12        |
