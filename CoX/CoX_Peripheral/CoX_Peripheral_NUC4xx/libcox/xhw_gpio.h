@@ -3,7 +3,7 @@
 //! \file xhw_gpio.h
 //! \brief Macros used when accessing the GPIO control hardware.
 //! \version V2.2.1.0
-//! \date 6/15/2014
+//! \date 11/15/2013
 //! \author CooCox
 //! \copy
 //!
@@ -57,7 +57,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC2xx_GPIO_Register NUC2xx GPIO Register
+//! \addtogroup NUC4xx_GPIO_Register NUC4xx GPIO Register
 //! \brief Here are the detailed info of GPIO registers. 
 //!
 //! it contains:
@@ -73,7 +73,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC2xx_GPIO_Register_Offsets GPIO Register Offset(Map)
+//! \addtogroup NUC4xx_GPIO_Register_Offsets GPIO Register Offset(Map)
 //! \brief Here is the GPIO register offset, users can get the register address
 //! through <b>GPIO_BASE + offset</b>.
 //! @{
@@ -141,273 +141,727 @@
 #define GPIO_DBNCECON           0x00000440
 
 //
+//! GPIO PA.0 Bit Output/Input Control
+//
+#define GPIOA0_DOUT             0x00000800
+
+//
+//! GPIO PA.1 Bit Output/Input Control
+//
+#define GPIOA1_DOUT             0x00000804
+
+//
+//! GPIO PA.2 Bit Output/Input Control
+//
+#define GPIOA2_DOUT             0x00000808
+
+//
+//! GPIO PA.3 Bit Output/Input Control
+//
+#define GPIOA3_DOUT             0x0000080C
+
+//
+//! GPIO PA.4 Bit Output/Input Control
+//
+#define GPIOA4_DOUT             0x00000810
+
+//
+//! GPIO PA.5 Bit Output/Input Control
+//
+#define GPIOA5_DOUT             0x00000814
+
+//
+//! GPIO PA.6 Bit Output/Input Control
+//
+#define GPIOA6_DOUT             0x00000818
+
+//
+//! GPIO PA.7 Bit Output/Input Control
+//
+#define GPIOA7_DOUT             0x0000081C
+
+//
+//! GPIO PA.8 Bit Output/Input Control
+//
+#define GPIOA8_DOUT             0x00000820
+
+//
+//! GPIO PA.9 Bit Output/Input Control
+//
+#define GPIOA9_DOUT             0x00000824
+
+//
 //! GPIO PA.10 Bit Output/Input Control
 //
-#define GPIOA10_DOUT            0x00000228
+#define GPIOA10_DOUT            0x00000828
 
 //
 //! GPIO PA.11 Bit Output/Input Control
 //
-#define GPIOA11_DOUT            0x0000022C
+#define GPIOA11_DOUT            0x0000082C
 
 //
 //! GPIO PA.12 Bit Output/Input Control
 //
-#define GPIOA12_DOUT            0x00000230
+#define GPIOA12_DOUT            0x00000830
 
 //
 //! GPIO PA.13 Bit Output/Input Control
 //
-#define GPIOA13_DOUT            0x00000234
+#define GPIOA13_DOUT            0x00000834
 
 //
 //! GPIO PA.14 Bit Output/Input Control
 //
-#define GPIOA14_DOUT            0x00000238
+#define GPIOA14_DOUT            0x00000838
 
 //
 //! GPIO PA.15 Bit Output/Input Control
 //
-#define GPIOA15_DOUT            0x0000023C
+#define GPIOA15_DOUT            0x0000083C
 
 //
 //! GPIO PB.0 Bit Output/Input Control
 //
-#define GPIOB0_DOUT             0x00000240  
+#define GPIOB0_DOUT             0x00000840
 
 //
 //! GPIO PB.1 Bit Output/Input Control
 //
-#define GPIOB1_DOUT             0x00000244
+#define GPIOB1_DOUT             0x00000844
 
 //
 //! GPIO PB.2 Bit Output/Input Control
 //
-#define GPIOB2_DOUT             0x00000248
+#define GPIOB2_DOUT             0x00000848
 
 //
 //! GPIO PB.3 Bit Output/Input Control
 //
-#define GPIOB3_DOUT             0x0000024C
+#define GPIOB3_DOUT             0x0000084C
 
 //
 //! GPIO PB.4 Bit Output/Input Control
 //
-#define GPIOB4_DOUT             0x00000250
+#define GPIOB4_DOUT             0x00000850
 
 //
 //! GPIO PB.5 Bit Output/Input Control
 //
-#define GPIOB5_DOUT             0x00000254
+#define GPIOB5_DOUT             0x00000854
 
 //
 //! GPIO PB.6 Bit Output/Input Control
 //
-#define GPIOB6_DOUT             0x00000258
+#define GPIOB6_DOUT             0x00000858
 
 //
 //! GPIO PB.7 Bit Output/Input Control
 //
-#define GPIOB7_DOUT             0x0000025C
+#define GPIOB7_DOUT             0x0000085C
 
 //
 //! GPIO PB.8 Bit Output/Input Control
 //
-#define GPIOB8_DOUT             0x00000260
+#define GPIOB8_DOUT             0x00000860
 
 //
 //! GPIO PB.9 Bit Output/Input Control
 //
-#define GPIOB9_DOUT             0x00000264
+#define GPIOB9_DOUT             0x00000864
 
 //
 //! GPIO PB.10 Bit Output/Input Control
 //
-#define GPIOB10_DOUT            0x00000268
+#define GPIOB10_DOUT            0x00000868
 
 //
 //! GPIO PB.11 Bit Output/Input Control
 //
-#define GPIOB11_DOUT            0x0000026C
+#define GPIOB11_DOUT            0x0000086C
 
 //
 //! GPIO PB.12 Bit Output/Input Control
 //
-#define GPIOB12_DOUT            0x00000270
+#define GPIOB12_DOUT            0x00000870
 
 //
 //! GPIO PB.13 Bit Output/Input Control
 //
-#define GPIOB13_DOUT            0x00000274
+#define GPIOB13_DOUT            0x00000874
 
 //
 //! GPIO PB.14 Bit Output/Input Control
 //
-#define GPIOB14_DOUT            0x00000278
+#define GPIOB14_DOUT            0x00000878
 
 //
 //! GPIO PB.15 Bit Output/Input Control
 //
-#define GPIOB15_DOUT            0x0000027C
+#define GPIOB15_DOUT            0x0000087C
 
 //
 //! GPIO PC.0 Bit Output/Input Control
 //
-#define GPIOC0_DOUT             0x00000280
+#define GPIOC0_DOUT             0x00000880
 
 //
 //! GPIO PC.1 Bit Output/Input Control
 //
-#define GPIOC1_DOUT             0x00000284
+#define GPIOC1_DOUT             0x00000884
 
 //
 //! GPIO PC.2 Bit Output/Input Control
 //
-#define GPIOC2_DOUT             0x00000288
+#define GPIOC2_DOUT             0x00000888
 
 //
 //! GPIO PC.3 Bit Output/Input Control
 //
-#define GPIOC3_DOUT             0x0000028C
+#define GPIOC3_DOUT             0x0000088C
 
 //
 //! GPIO PC.4 Bit Output/Input Control
 //
-#define GPIOC4_DOUT             0x00000290
+#define GPIOC4_DOUT             0x00000890
 
 //
 //! GPIO PC.5 Bit Output/Input Control
 //
-#define GPIOC5_DOUT             0x00000294
+#define GPIOC5_DOUT             0x00000894
 
 //
 //! GPIO PC.6 Bit Output/Input Control
 //
-#define GPIOC6_DOUT             0x00000298
+#define GPIOC6_DOUT             0x00000898
 
 //
 //! GPIO PC.7 Bit Output/Input Control
 //
-#define GPIOC7_DOUT             0x0000029C
+#define GPIOC7_DOUT             0x0000089C
 
 //
 //! GPIO PC.8 Bit Output/Input Control
 //
-#define GPIOC8_DOUT             0x000002A0
+#define GPIOC8_DOUT             0x000008A0
 
 //
 //! GPIO PC.9 Bit Output/Input Control
 //
-#define GPIOC9_DOUT             0x000002A4
+#define GPIOC9_DOUT             0x000008A4
 
 //
 //! GPIO PC.10 Bit Output/Input Control
 //
-#define GPIOC10_DOUT            0x000002A8
+#define GPIOC10_DOUT            0x000008A8
 
 //
 //! GPIO PC.11 Bit Output/Input Control
 //
-#define GPIOC11_DOUT            0x000002AC
+#define GPIOC11_DOUT            0x000008AC
 
 //
 //! GPIO PC.12 Bit Output/Input Control
 //
-#define GPIOC12_DOUT            0x000002B0
+#define GPIOC12_DOUT            0x000008B0
 
 //
 //! GPIO PC.13 Bit Output/Input Control
 //
-#define GPIOC13_DOUT            0x000002B4
+#define GPIOC13_DOUT            0x000008B4
+
+//
+//! GPIO PC.14 Bit Output/Input Control
+//
+#define GPIOC14_DOUT            0x000008B8
+
+//
+//! GPIO PC.15 Bit Output/Input Control
+//
+#define GPIOC15_DOUT            0x000008BC
+
 
 //
 //! GPIO PD.0 Bit Output/Input Control
 //
-#define GPIOD0_DOUT             0x000002C0
+#define GPIOD0_DOUT             0x000008C0
 
 //
 //! GPIO PD.1 Bit Output/Input Control
 //
-#define GPIOD1_DOUT             0x000002C4
+#define GPIOD1_DOUT             0x000008C4
 
 //
 //! GPIO PD.2 Bit Output/Input Control
 //
-#define GPIOD2_DOUT             0x000002C8
+#define GPIOD2_DOUT             0x000008C8
 
 //
 //! GPIO PD.3 Bit Output/Input Control
 //
-#define GPIOD3_DOUT             0x000002CC
+#define GPIOD3_DOUT             0x000008CC
 
 //
 //! GPIO PD.4 Bit Output/Input Control
 //
-#define GPIOD4_DOUT             0x000002D0
+#define GPIOD4_DOUT             0x000008D0
 
 //
 //! GPIO PD.5 Bit Output/Input Control
 //
-#define GPIOD5_DOUT             0x000002D4
+#define GPIOD5_DOUT             0x000008D4
 
 //
 //! GPIO PD.6 Bit Output/Input Control
 //
-#define GPIOD6_DOUT             0x000002D8
+#define GPIOD6_DOUT             0x000008D8
 
 //
 //! GPIO PD.7 Bit Output/Input Control
 //
-#define GPIOD7_DOUT             0x000002DC
+#define GPIOD7_DOUT             0x000008DC
 
 //
 //! GPIO PD.8 Bit Output/Input Control
 //
-#define GPIOD8_DOUT             0x000002E0
+#define GPIOD8_DOUT             0x000008E0
 
 //
 //! GPIO PD.9 Bit Output/Input Control
 //
-#define GPIOD9_DOUT             0x000002E4
+#define GPIOD9_DOUT             0x000008E4
 
 //
 //! GPIO PD.10 Bit Output/Input Control
 //
-#define GPIOD10_DOUT            0x000002E8
+#define GPIOD10_DOUT            0x000008E8
 
 //
 //! GPIO PD.11 Bit Output/Input Control
 //
-#define GPIOD11_DOUT            0x000002EC
+#define GPIOD11_DOUT            0x000008EC
+
+//
+//! GPIO PD.12 Bit Output/Input Control
+//
+#define GPIOD12_DOUT            0x000008F0
+
+//
+//! GPIO PD.13 Bit Output/Input Control
+//
+#define GPIOD13_DOUT            0x000008F4
+
+//
+//! GPIO PD.14 Bit Output/Input Control
+//
+#define GPIOD14_DOUT            0x000008F8
+
+//
+//! GPIO PD.15 Bit Output/Input Control
+//
+#define GPIOD15_DOUT            0x000008FC
+
+
+//
+//! GPIO PE.0 Bit Output/Input Control
+//
+#define GPIOE0_DOUT             0x00000900
+
+//
+//! GPIO PE.1 Bit Output/Input Control
+//
+#define GPIOE1_DOUT             0x00000904
+
+//
+//! GPIO PE.2 Bit Output/Input Control
+//
+#define GPIOE2_DOUT             0x00000908
+
+//
+//! GPIO PE.3 Bit Output/Input Control
+//
+#define GPIOE3_DOUT             0x0000090C
+
+//
+//! GPIO PE.4 Bit Output/Input Control
+//
+#define GPIOE4_DOUT             0x00000910
+
+//
+//! GPIO PE.5 Bit Output/Input Control
+//
+#define GPIOE5_DOUT             0x00000914
+
+//
+//! GPIO PE.6 Bit Output/Input Control
+//
+#define GPIOE6_DOUT             0x00000918
+
+//
+//! GPIO PE.7 Bit Output/Input Control
+//
+#define GPIOE7_DOUT             0x0000091C
+
+//
+//! GPIO PE.8 Bit Output/Input Control
+//
+#define GPIOE8_DOUT             0x00000920
+
+//
+//! GPIO PE.9 Bit Output/Input Control
+//
+#define GPIOE9_DOUT             0x00000924
+
+//
+//! GPIO PE.10 Bit Output/Input Control
+//
+#define GPIOE10_DOUT            0x00000928
+
+//
+//! GPIO PE.11 Bit Output/Input Control
+//
+#define GPIOE11_DOUT            0x0000092C
+
+//
+//! GPIO PE.12 Bit Output/Input Control
+//
+#define GPIOE12_DOUT            0x00000930
+
+//
+//! GPIO PE.13 Bit Output/Input Control
+//
+#define GPIOE13_DOUT            0x00000934
+
+//
+//! GPIO PE.14 Bit Output/Input Control
+//
+#define GPIOE14_DOUT            0x00000938
+
+//
+//! GPIO PE.15 Bit Output/Input Control
+//
+#define GPIOE15_DOUT            0x0000093C
 
 //
 //! GPIO PF.0 Bit Output/Input Control
 //
-#define GPIOF0_DOUT             0x00000340
-
-//
-//! GPIO PF.0 Bit Output/Input Control
-//
-#define GPIOF0_DOUT             0x00000340
-
+#define GPIOF0_DOUT             0x00000940
 
 //
 //! GPIO PF.1 Bit Output/Input Control
 //
-#define GPIOF1_DOUT             0x00000344
-
+#define GPIOF1_DOUT             0x00000944
 
 //
 //! GPIO PF.2 Bit Output/Input Control
 //
-#define GPIOF2_DOUT             0x00000348
-
+#define GPIOF2_DOUT             0x00000948
 
 //
 //! GPIO PF.3 Bit Output/Input Control
 //
-#define GPIOF3_DOUT             0x0000034C
+#define GPIOF3_DOUT             0x0000094C
 
+//
+//! GPIO PF.4 Bit Output/Input Control
+//
+#define GPIOF4_DOUT             0x00000950
+
+//
+//! GPIO PF.5 Bit Output/Input Control
+//
+#define GPIOF5_DOUT             0x00000954
+
+//
+//! GPIO PF.6 Bit Output/Input Control
+//
+#define GPIOF6_DOUT             0x00000958
+
+//
+//! GPIO PF.7 Bit Output/Input Control
+//
+#define GPIOF7_DOUT             0x0000095C
+
+//
+//! GPIO PF.8 Bit Output/Input Control
+//
+#define GPIOF8_DOUT             0x00000960
+
+//
+//! GPIO PF.9 Bit Output/Input Control
+//
+#define GPIOF9_DOUT             0x00000964
+
+//
+//! GPIO PF.10 Bit Output/Input Control
+//
+#define GPIOF10_DOUT            0x00000968
+
+//
+//! GPIO PF.11 Bit Output/Input Control
+//
+#define GPIOF11_DOUT            0x0000096C
+
+//
+//! GPIO PF.12 Bit Output/Input Control
+//
+#define GPIOF12_DOUT            0x00000970
+
+//
+//! GPIO PF.13 Bit Output/Input Control
+//
+#define GPIOF13_DOUT            0x00000974
+
+//
+//! GPIO PF.14 Bit Output/Input Control
+//
+#define GPIOF14_DOUT            0x00000978
+
+//
+//! GPIO PF.15 Bit Output/Input Control
+//
+#define GPIOF15_DOUT            0x0000097C
+
+//
+//! GPIO PG.0 Bit Output/Input Control
+//
+#define GPIOG0_DOUT             0x00000980
+
+//
+//! GPIO PG.1 Bit Output/Input Control
+//
+#define GPIOG1_DOUT             0x00000984
+
+//
+//! GPIO PG.2 Bit Output/Input Control
+//
+#define GPIOG2_DOUT             0x00000988
+
+//
+//! GPIO PG.3 Bit Output/Input Control
+//
+#define GPIOG3_DOUT             0x0000098C
+
+//
+//! GPIO PG.4 Bit Output/Input Control
+//
+#define GPIOG4_DOUT             0x00000990
+
+//
+//! GPIO PG.5 Bit Output/Input Control
+//
+#define GPIOG5_DOUT             0x00000994
+
+//
+//! GPIO PG.6 Bit Output/Input Control
+//
+#define GPIOG6_DOUT             0x00000998
+
+//
+//! GPIO PG.7 Bit Output/Input Control
+//
+#define GPIOG7_DOUT             0x0000099C
+
+//
+//! GPIO PG.8 Bit Output/Input Control
+//
+#define GPIOG8_DOUT             0x000009A0
+
+//
+//! GPIO PG.9 Bit Output/Input Control
+//
+#define GPIOG9_DOUT             0x000009A4
+
+//
+//! GPIO PG.10 Bit Output/Input Control
+//
+#define GPIOG10_DOUT            0x000009A8
+
+//
+//! GPIO PG.11 Bit Output/Input Control
+//
+#define GPIOG11_DOUT            0x000009AC
+
+//
+//! GPIO PG.12 Bit Output/Input Control
+//
+#define GPIOG12_DOUT            0x000009B0
+
+//
+//! GPIO PG.13 Bit Output/Input Control
+//
+#define GPIOG13_DOUT            0x000009B4
+
+//
+//! GPIO PG.14 Bit Output/Input Control
+//
+#define GPIOG14_DOUT            0x000009B8
+
+//
+//! GPIO PG.15 Bit Output/Input Control
+//
+#define GPIOG15_DOUT            0x000009BC
+
+
+//
+//! GPIO PH.0 Bit Output/Input Control
+//
+#define GPIOH0_DOUT             0x000009C0
+
+//
+//! GPIO PH.1 Bit Output/Input Control
+//
+#define GPIOH1_DOUT             0x000009C4
+
+//
+//! GPIO PH.2 Bit Output/Input Control
+//
+#define GPIOH2_DOUT             0x000009C8
+
+//
+//! GPIO PH.3 Bit Output/Input Control
+//
+#define GPIOH3_DOUT             0x000009CC
+
+//
+//! GPIO PH.4 Bit Output/Input Control
+//
+#define GPIOH4_DOUT             0x000009D0
+
+//
+//! GPIO PH.5 Bit Output/Input Control
+//
+#define GPIOH5_DOUT             0x000009D4
+
+//
+//! GPIO PH.6 Bit Output/Input Control
+//
+#define GPIOH6_DOUT             0x000009D8
+
+//
+//! GPIO PH.7 Bit Output/Input Control
+//
+#define GPIOH7_DOUT             0x000009DC
+
+//
+//! GPIO PH.8 Bit Output/Input Control
+//
+#define GPIOH8_DOUT             0x000009E0
+
+//
+//! GPIO PH.9 Bit Output/Input Control
+//
+#define GPIOH9_DOUT             0x000009E4
+
+//
+//! GPIO PH.10 Bit Output/Input Control
+//
+#define GPIOH10_DOUT            0x000009E8
+
+//
+//! GPIO PH.11 Bit Output/Input Control
+//
+#define GPIOH11_DOUT            0x000009EC
+
+//
+//! GPIO PH.12 Bit Output/Input Control
+//
+#define GPIOH12_DOUT            0x000009F0
+
+//
+//! GPIO PH.13 Bit Output/Input Control
+//
+#define GPIOH13_DOUT            0x000009F4
+
+//
+//! GPIO PH.14 Bit Output/Input Control
+//
+#define GPIOH14_DOUT            0x000009F8
+
+//
+//! GPIO PH.15 Bit Output/Input Control
+//
+#define GPIOH15_DOUT            0x000009FC
+
+//
+//! GPIO PI.0 Bit Output/Input Control
+//
+#define GPIOI0_DOUT             0x00000A00
+
+//
+//! GPIO PI.1 Bit Output/Input Control
+//
+#define GPIOI1_DOUT             0x00000A04
+
+//
+//! GPIO PI.2 Bit Output/Input Control
+//
+#define GPIOI2_DOUT             0x00000A08
+
+//
+//! GPIO PI.3 Bit Output/Input Control
+//
+#define GPIOI3_DOUT             0x00000A0C
+
+//
+//! GPIO PI.4 Bit Output/Input Control
+//
+#define GPIOI4_DOUT             0x00000A10
+
+//
+//! GPIO PI.5 Bit Output/Input Control
+//
+#define GPIOI5_DOUT             0x00000A14
+
+//
+//! GPIO PI.6 Bit Output/Input Control
+//
+#define GPIOI6_DOUT             0x00000A18
+
+//
+//! GPIO PI.7 Bit Output/Input Control
+//
+#define GPIOI7_DOUT             0x00000A1C
+
+//
+//! GPIO PI.8 Bit Output/Input Control
+//
+#define GPIOI8_DOUT             0x00000A20
+
+//
+//! GPIO PI.9 Bit Output/Input Control
+//
+#define GPIOI9_DOUT             0x00000A24
+
+//
+//! GPIO PI.10 Bit Output/Input Control
+//
+#define GPIOI10_DOUT            0x00000A28
+
+//
+//! GPIO PI.11 Bit Output/Input Control
+//
+#define GPIOI11_DOUT            0x00000A2C
+
+//
+//! GPIO PI.12 Bit Output/Input Control
+//
+#define GPIOI12_DOUT            0x00000A30
+
+//
+//! GPIO PI.13 Bit Output/Input Control
+//
+#define GPIOI13_DOUT            0x00000A34
+
+//
+//! GPIO PI.14 Bit Output/Input Control
+//
+#define GPIOI14_DOUT            0x00000A38
+
+//
+//! GPIO PI.15 Bit Output/Input Control
+//
+#define GPIOI15_DOUT            0x00000A3C
 
 
 //*****************************************************************************
@@ -418,7 +872,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC2xx_GPIO_Register_GPIO_PMD GPIO Mode Control(GPIO_PMD)
+//! \addtogroup NUC4xx_GPIO_Register_GPIO_PMD GPIO Mode Control(GPIO_PMD)
 //! \brief Defines for the bit fields in the GPIO_PMD register.
 //! @{
 //
@@ -849,7 +1303,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC2xx_GPIO_Register_GPIO_OFFD GPIO OFF Digital Enable Register(GPIO_OFFD)
+//! \addtogroup NUC4xx_GPIO_Register_GPIO_OFFD GPIO OFF Digital Enable Register(GPIO_OFFD)
 //! \brief Defines for the bit fields in the GPIO_OFFD register.
 //! @{
 //
@@ -873,7 +1327,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC2xx_GPIO_Register_GPIO_DOUT GPIO Data Output Value Register(GPIO_DOUT)
+//! \addtogroup NUC4xx_GPIO_Register_GPIO_DOUT GPIO Data Output Value Register(GPIO_DOUT)
 //! \brief Defines for the bit fields in the GPIO_DOUT register.
 //! @{
 //
@@ -897,7 +1351,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC2xx_GPIO_Register_GPIO_DMASK GPIO Data Output Write Mask Register(GPIO_DMASK)
+//! \addtogroup NUC4xx_GPIO_Register_GPIO_DMASK GPIO Data Output Write Mask Register(GPIO_DMASK)
 //! \brief Defines for the bit fields in the GPIO_DMASK register.
 //! @{
 //
@@ -921,7 +1375,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC2xx_GPIO_Register_GPIO_PIN GPIO Pin Value Register(GPIO_PIN)
+//! \addtogroup NUC4xx_GPIO_Register_GPIO_PIN GPIO Pin Value Register(GPIO_PIN)
 //! \brief Defines for the bit fields in the GPIO_PIN register.
 //! @{
 //
@@ -945,7 +1399,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC2xx_GPIO_Register_GPIO_DBEN GPIO De-bounce Enable Register(De-bounce Enable)
+//! \addtogroup NUC4xx_GPIO_Register_GPIO_DBEN GPIO De-bounce Enable Register(De-bounce Enable)
 //! \brief Defines for the bit fields in the GPIO_DBEN register.
 //! @{
 //
@@ -969,7 +1423,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC2xx_GPIO_Register_GPIO_IMD GPIO Interrupt Mode Control(GPIO_IMD)
+//! \addtogroup NUC4xx_GPIO_Register_GPIO_IMD GPIO Interrupt Mode Control(GPIO_IMD)
 //! \brief Defines for the bit fields in the GPIO_IMD register.
 //! @{
 //
@@ -993,7 +1447,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC2xx_GPIO_Register_GPIO_IEN GPIO Interrupt Enable Register(GPIO_IEN)
+//! \addtogroup NUC4xx_GPIO_Register_GPIO_IEN GPIO Interrupt Enable Register(GPIO_IEN)
 //! \brief Defines for the bit fields in the GPIO_IEN register.
 //! @{
 //
@@ -1027,7 +1481,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC2xx_GPIO_Register_GPIO_ISRC GPIO Interrupt Source Flag Register(GPIO_ISRC)
+//! \addtogroup NUC4xx_GPIO_Register_GPIO_ISRC GPIO Interrupt Source Flag Register(GPIO_ISRC)
 //! \brief Defines for the bit fields in the GPIO_ISRC register.
 //! @{
 //
@@ -1049,9 +1503,59 @@
 //
 //*****************************************************************************
 
+
 //*****************************************************************************
 //
-//! \addtogroup NUC2xx_GPIO_Register_DBNCECON GPIO De-bounce Cycle Control Register(GPIO_DBNCECON)
+//! \addtogroup NUC4xx_GPIO_Register_GPIO_SMTEN GPIO Schmitt Trigger Enable(GPIO_SMTEN)
+//! \brief Defines for the bit fields in the GPIO_SMTEN register.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Port N Bit M Input Schmitt Trigger Enable Bit mask
+//
+#define GPIO_SMTEN_SMTEN_M      0x0000FFFF
+
+//
+//! Port N Bit M Input Schmitt Trigger Enable Bit shift
+//
+#define GPIO_SMTEN_SMTEN_S      0
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
+//! \addtogroup NUC4xx_GPIO_Register_GPIO_SLEWCTL GPIO High Slew Rate Control(GPIO_SLEWCTL)
+//! \brief Defines for the bit fields in the GPIO_SLEWCTL register.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Port N Bit M High Slew Rate Control mask
+//
+#define GPIO_SLEWCTL_HSREN_M    0x0000FFFF
+
+//
+//! Port N Bit M High Slew Rate Control shift
+//
+#define GPIO_SLEWCTL_HSREN_S    0
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup NUC4xx_GPIO_Register_DBNCECON GPIO De-bounce Cycle Control Register(GPIO_DBNCECON)
 //! \brief Defines for the bit fields in the GPIO_DBNCECON register.
 //! @{
 //
@@ -1079,1298 +1583,6 @@
 #define GPIO_DBNCECON_DBCLKSEL_S                                               \
                                 0
                                 
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOA0_DOUT GPIOA0 DOUT Register(GPIOA0_DOUT)
-//! \brief Defines for the bit fields in the GPIOA0_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOA0_DOUT_PA0         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOA1_DOUT GPIOA1 DOUT Register(GPIOA1_DOUT)
-//! \brief Defines for the bit fields in the GPIOA1_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOA1_DOUT_PA1         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOA2_DOUT GPIOA2 DOUT Register(GPIOA2_DOUT)
-//! \brief Defines for the bit fields in the GPIOA2_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOA2_DOUT_PA2         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOA3_DOUT GPIOA3 DOUT Register(GPIOA3_DOUT)
-//! \brief Defines for the bit fields in the GPIOA3_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOA3_DOUT_PA3         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOA4_DOUT GPIOA4 DOUT Register(GPIOA4_DOUT)
-//! \brief Defines for the bit fields in the GPIOA4_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOA4_DOUT_PA4         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOA5_DOUT GPIOA5 DOUT Register(GPIOA5_DOUT)
-//! \brief Defines for the bit fields in the GPIOA5_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOA5_DOUT_PA5         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOA6_DOUT GPIOA6 DOUT Register(GPIOA6_DOUT)
-//! \brief Defines for the bit fields in the GPIOA6_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOA6_DOUT_PA6         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOA7_DOUT GPIOA7 DOUT Register(GPIOA7_DOUT)
-//! \brief Defines for the bit fields in the GPIOA7_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOA7_DOUT_PA7         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOA8_DOUT GPIOA8 DOUT Register(GPIOA8_DOUT)
-//! \brief Defines for the bit fields in the GPIOA8_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOA8_DOUT_PA8         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOA9_DOUT GPIOA9 DOUT Register(GPIOA9_DOUT)
-//! \brief Defines for the bit fields in the GPIOA9_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOA9_DOUT_PA9         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOA10_DOUT GPIOA10 DOUT Register(GPIOA10_DOUT)
-//! \brief Defines for the bit fields in the GPIOA10_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOA10_DOUT_PA10       0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOA11_DOUT GPIOA11 DOUT Register(GPIOA11_DOUT)
-//! \brief Defines for the bit fields in the GPIOA11_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOA11_DOUT_PA11       0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOA12_DOUT GPIOA12 DOUT Register(GPIOA12_DOUT)
-//! \brief Defines for the bit fields in the GPIOA12_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOA12_DOUT_PA12       0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOA13_DOUT GPIOA13 DOUT Register(GPIOA13_DOUT)
-//! \brief Defines for the bit fields in the GPIOA13_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOA13_DOUT_PA13       0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOA14_DOUT GPIOA14 DOUT Register(GPIOA14_DOUT)
-//! \brief Defines for the bit fields in the GPIOA14_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOA14_DOUT_PA14       0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOA15_DOUT GPIOA15 DOUT Register(GPIOA15_DOUT)
-//! \brief Defines for the bit fields in the GPIOA15_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOA15_DOUT_PA15       0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOB0_DOUT GPIOB0 DOUT Register(GPIOB0_DOUT)
-//! \brief Defines for the bit fields in the GPIOB0_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOB0_DOUT_PB0         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOB1_DOUT GPIOB1 DOUT Register(GPIOB1_DOUT)
-//! \brief Defines for the bit fields in the GPIOB1_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOB1_DOUT_PB1         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOB2_DOUT GPIOB2 DOUT Register(GPIOB2_DOUT)
-//! \brief Defines for the bit fields in the GPIOB2_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOB2_DOUT_PB2         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOB3_DOUT GPIOB3 DOUT Register(GPIOB3_DOUT)
-//! \brief Defines for the bit fields in the GPIOB3_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOB3_DOUT_PB3         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOB4_DOUT GPIOB4 DOUT Register(GPIOB4_DOUT)
-//! \brief Defines for the bit fields in the GPIOB4_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOB4_DOUT_PB4         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOB5_DOUT GPIOB5 DOUT Register(GPIOB5_DOUT)
-//! \brief Defines for the bit fields in the GPIOB5_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOB5_DOUT_PB5         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOB6_DOUT GPIOB6 DOUT Register(GPIOB6_DOUT)
-//! \brief Defines for the bit fields in the GPIOB6_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOB6_DOUT_PB6         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOB7_DOUT GPIOB7 DOUT Register(GPIOB7_DOUT)
-//! \brief Defines for the bit fields in the GPIOB7_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOB7_DOUT_PB7         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOB8_DOUT GPIOB8 DOUT Register(GPIOB8_DOUT)
-//! \brief Defines for the bit fields in the GPIOB8_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOB8_DOUT_PB8         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOB9_DOUT GPIOB9 DOUT Register(GPIOB9_DOUT)
-//! \brief Defines for the bit fields in the GPIOB9_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOB9_DOUT_PB9         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOB10_DOUT GPIOB10 DOUT Register(GPIOB10_DOUT)
-//! \brief Defines for the bit fields in the GPIOB10_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOB10_DOUT_PB10       0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOB11_DOUT GPIOB11 DOUT Register(GPIOB11_DOUT)
-//! \brief Defines for the bit fields in the GPIOB11_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOB11_DOUT_PB11       0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOB12_DOUT GPIOB12 DOUT Register(GPIOB12_DOUT)
-//! \brief Defines for the bit fields in the GPIOB12_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOB12_DOUT_PB12       0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOB13_DOUT GPIOB13 DOUT Register(GPIOB13_DOUT)
-//! \brief Defines for the bit fields in the GPIOB13_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOB13_DOUT_PB13       0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOB14_DOUT GPIOB14 DOUT Register(GPIOB14_DOUT)
-//! \brief Defines for the bit fields in the GPIOB14_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOB14_DOUT_PB14       0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOB15_DOUT GPIOB15 DOUT Register(GPIOB15_DOUT)
-//! \brief Defines for the bit fields in the GPIOB15_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOB15_DOUT_PB15       0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOC0_DOUT GPIOC0 DOUT Register(GPIOC0_DOUT)
-//! \brief Defines for the bit fields in the GPIOC0_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOC0_DOUT_PC0         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOC1_DOUT GPIOC1 DOUT Register(GPIOC1_DOUT)
-//! \brief Defines for the bit fields in the GPIOC1_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOC1_DOUT_PC1         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOC2_DOUT GPIOC2 DOUT Register(GPIOC2_DOUT)
-//! \brief Defines for the bit fields in the GPIOC2_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOC2_DOUT_PC2         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOC3_DOUT GPIOC3 DOUT Register(GPIOC3_DOUT)
-//! \brief Defines for the bit fields in the GPIOC3_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOC3_DOUT_PC3         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOC4_DOUT GPIOC4 DOUT Register(GPIOC4_DOUT)
-//! \brief Defines for the bit fields in the GPIOC4_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOC4_DOUT_PC4         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOC5_DOUT GPIOC5 DOUT Register(GPIOC5_DOUT)
-//! \brief Defines for the bit fields in the GPIOC5_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOC5_DOUT_PC5         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOC6_DOUT GPIOC6 DOUT Register(GPIOC6_DOUT)
-//! \brief Defines for the bit fields in the GPIOC6_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOC6_DOUT_PC6         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOC7_DOUT GPIOC7 DOUT Register(GPIOC7_DOUT)
-//! \brief Defines for the bit fields in the GPIOC7_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOC7_DOUT_PC7         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOC8_DOUT GPIOC8 DOUT Register(GPIOC8_DOUT)
-//! \brief Defines for the bit fields in the GPIOC8_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOC8_DOUT_PC8         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOC9_DOUT GPIOC9 DOUT Register(GPIOC9_DOUT)
-//! \brief Defines for the bit fields in the GPIOC9_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOC9_DOUT_PC9         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOC10_DOUT GPIOC10 DOUT Register(GPIOC10_DOUT)
-//! \brief Defines for the bit fields in the GPIOC10_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOC10_DOUT_PC10       0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOC11_DOUT GPIOC11 DOUT Register(GPIOC11_DOUT)
-//! \brief Defines for the bit fields in the GPIOC11_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOC11_DOUT_PC11       0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOC12_DOUT GPIOC12 DOUT Register(GPIOC12_DOUT)
-//! \brief Defines for the bit fields in the GPIOC12_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOC12_DOUT_PC12       0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOC13_DOUT GPIOC13 DOUT Register(GPIOC13_DOUT)
-//! \brief Defines for the bit fields in the GPIOC13_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOC13_DOUT_PC13       0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOC14_DOUT GPIOC14 DOUT Register(GPIOC14_DOUT)
-//! \brief Defines for the bit fields in the GPIOC14_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOC14_DOUT_PC14       0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOC15_DOUT GPIOC15 DOUT Register(GPIOC15_DOUT)
-//! \brief Defines for the bit fields in the GPIOC15_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOC15_DOUT_PC15       0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOD0_DOUT GPIOD0 DOUT Register(GPIOD0_DOUT)
-//! \brief Defines for the bit fields in the GPIOD0_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOD0_DOUT_PD0         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOD1_DOUT GPIOD1 DOUT Register(GPIOD1_DOUT)
-//! \brief Defines for the bit fields in the GPIOD1_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOD1_DOUT_PD1         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOD2_DOUT GPIOD2 DOUT Register(GPIOD2_DOUT)
-//! \brief Defines for the bit fields in the GPIOD2_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOD2_DOUT_PD2         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOD3_DOUT GPIOD3 DOUT Register(GPIOD3_DOUT)
-//! \brief Defines for the bit fields in the GPIOD3_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOD3_DOUT_PD3         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOD4_DOUT GPIOD4 DOUT Register(GPIOD4_DOUT)
-//! \brief Defines for the bit fields in the GPIOD4_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOD4_DOUT_PD4         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOD5_DOUT GPIOD5 DOUT Register(GPIOD5_DOUT)
-//! \brief Defines for the bit fields in the GPIOD5_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOD5_DOUT_PD5         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOD6_DOUT GPIOD6 DOUT Register(GPIOD6_DOUT)
-//! \brief Defines for the bit fields in the GPIOD6_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOD6_DOUT_PD6         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOD7_DOUT GPIOD7 DOUT Register(GPIOD7_DOUT)
-//! \brief Defines for the bit fields in the GPIOD7_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOD7_DOUT_PD7         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOD8_DOUT GPIOD8 DOUT Register(GPIOD8_DOUT)
-//! \brief Defines for the bit fields in the GPIOD8_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOD8_DOUT_PD8         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOD9_DOUT GPIOD9 DOUT Register(GPIOD9_DOUT)
-//! \brief Defines for the bit fields in the GPIOD9_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOD9_DOUT_PD9         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOD10_DOUT GPIOD10 DOUT Register(GPIOD10_DOUT)
-//! \brief Defines for the bit fields in the GPIOD10_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOD10_DOUT_PD10       0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-// 
-//! \addtogroup NUC2xx_GPIO_Register_GPIOD11_DOUT GPIOD11 DOUT Register(GPIOD11_DOUT)
-//! \brief Defines for the bit fields in the GPIOD11_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOD11_DOUT_PD11       0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOD12_DOUT GPIOD12 DOUT Register(GPIOD12_DOUT)
-//! \brief Defines for the bit fields in the GPIOD12_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOD12_DOUT_PD12       0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOD13_DOUT GPIOD13 DOUT Register(GPIOD13_DOUT)
-//! \brief Defines for the bit fields in the GPIOD13_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOD13_DOUT_PD13       0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOD14_DOUT GPIOD14 DOUT Register(GPIOD14_DOUT)
-//! \brief Defines for the bit fields in the GPIOD14_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOD14_DOUT_PD14       0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOD15_DOUT GPIOD15 DOUT Register(GPIOD15_DOUT)
-//! \brief Defines for the bit fields in the GPIOD15_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to 
-//! get IO pin status.
-//
-#define GPIOD15_DOUT_PD15       0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOF0_DOUT GPIOF0 DOUT Register(GPIOF0_DOUT)
-//! \brief Defines for the bit fields in the GPIOF0_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to
-//! get IO pin status.
-//
-#define GPIOF0_DOUT_PF0         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOF1_DOUT GPIOF0 DOUT Register(GPIOF1_DOUT)
-//! \brief Defines for the bit fields in the GPIOF1_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to
-//! get IO pin status.
-//
-#define GPIOF1_DOUT_PF1         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOF2_DOUT GPIOF2 DOUT Register(GPIOF2_DOUT)
-//! \brief Defines for the bit fields in the GPIOF2_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to
-//! get IO pin status.
-//
-#define GPIOF2_DOUT_PF2         0x00000001
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC2xx_GPIO_Register_GPIOF3_DOUT GPIOF3 DOUT Register(GPIOF3_DOUT)
-//! \brief Defines for the bit fields in the GPIOF3_DOUT register.
-//! @{
-//
-//*****************************************************************************
-//
-//! Write this bit can control one GPIO pin output value,Read this register to
-//! get IO pin status.
-//
-#define GPIOF3_DOUT_PF3         0x00000001
-
 //*****************************************************************************
 //
 //! @}
