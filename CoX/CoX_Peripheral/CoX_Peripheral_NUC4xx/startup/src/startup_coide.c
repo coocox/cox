@@ -96,7 +96,7 @@ void WEAK  PWM1CH0_IRQHandler(void);
 void WEAK  PWM1CH1_IRQHandler(void);
 void WEAK  PWM1CH2_IRQHandler(void);
 void WEAK  PWM1CH3_IRQHandler(void);
-void WEAK  PWM1CHCH4_IRQHandler(void);
+void WEAK  PWM1CH4_IRQHandler(void);
 void WEAK  PWM1CH5_IRQHandler(void);
 void WEAK  PWM1_BRK_IRQHandler(void);
 void WEAK  QEI1_IRQHandler(void);
@@ -238,7 +238,7 @@ void (* const g_pfnVectors[])(void) =
   PWM1CH1_IRQHandler,
   PWM1CH2_IRQHandler,
   PWM1CH3_IRQHandler,
-  PWM1CHCH4_IRQHandler,
+  PWM1CH4_IRQHandler,
   PWM1CH5_IRQHandler,
   PWM1_BRK_IRQHandler,
   QEI1_IRQHandler,
