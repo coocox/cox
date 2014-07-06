@@ -3,7 +3,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC2xx_SPI
+//! \addtogroup NUC4xx_SPI
 //! @{
 //
 //*****************************************************************************
@@ -47,12 +47,14 @@
 //
 //! All Interrupt Mask
 //
-#define SPI_INT_EOT             BIT_32_17
-#define SPI_INT_RX_INTEN        BIT_32_2
-#define SPI_INT_TX_INTEN        BIT_32_3
-#define SPI_INT_RX_OVERRUN      BIT_32_6
-#define SPI_INT_TIMEOUT         BIT_32_5
-#define SPI_INT_3WIRE           BIT_32_10
+#define SPI_INT_EOT             0x00020000
+#define SPI_INT_RX              0x20000004
+#define SPI_INT_TX              0x20000008
+#define SPI_INT_ERROR           0x10000300
+
+#define SPI_INT_SLAVE_TIMEOUT   0x10020020
+#define SPI_INT_RX_OVERRUN      0x20000020
+#define SPI_INT_TIMEOUT         0x10000020
 
 //*****************************************************************************
 //
@@ -62,8 +64,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC2xx_SPI_Config NUC2xx SPI Configure
-//! \brief Values show that NUC2xx SPI Configure
+//! \addtogroup NUC4xx_SPI_Config NUC4xx SPI Configure
+//! \brief Values show that NUC4xx SPI Configure
 //! Values that can be passed to SPIConfig.
 //! @{
 //
@@ -74,56 +76,28 @@
 //! Tx changed at rising edge
 //! Rx latched at rising edge
 //
-#define SPI_FORMAT_MODE_0       0x00000000
+#define SPI_FORMAT_MODE_0       0x00000004
 
 //
 //! Moto Format, polarity 0, phase 0  M0
 //! Tx changed at falling edge
 //! Rx latched at rising edge
 //
-#define SPI_FORMAT_MODE_1       0x00000004
+#define SPI_FORMAT_MODE_1       0x00000002
 
 //
 //! Moto Format, polarity 0, phase 1  M1
 //! Tx changed at rising edge
 //! Rx latched at falling edge
 //
-#define SPI_FORMAT_MODE_2       0x00000002
+#define SPI_FORMAT_MODE_2       0x0000000A
 
 //
 //! polarity 0
 //! Tx changed at falling edge
 //! Rx latched at falling edge
 //
-#define SPI_FORMAT_MODE_3       0x00000006
-
-//
-//! polarity 1
-//! Tx changed at rising edge
-//! Rx latched at rising edge
-//
-#define SPI_FORMAT_MODE_4       0x00000800
-
-//
-//! Moto Format, polarity 1, phase 1  M4
-//! Tx changed at falling edge
-//! Rx latched at rising edge
-//
-#define SPI_FORMAT_MODE_5       0x00000804
-
-//
-//! Moto Format, polarity 1, phase 0  M3
-//! Tx changed at rising edge
-//! Rx latched at falling edge
-//
-#define SPI_FORMAT_MODE_6       0x00000802
-
-//
-//! polarity 1
-//! Tx changed at falling edge
-//! Rx latched at falling edge
-//
-#define SPI_FORMAT_MODE_7       0x00000806
+#define SPI_FORMAT_MODE_3       0x0000000C
 
 //
 //£¡ SPI master
@@ -143,162 +117,127 @@
 //
 //! SPI LSB First
 //
-#define SPI_LSB_FIRST           0x00000400
-
-//
-//! data width 1 bit
-//
-#define SPI_DATA_WIDTH1         0x00000008
-
-//
-//! data width 2 bit
-//
-#define SPI_DATA_WIDTH2         0x00000010
-
-//
-//! data width 3 bit
-//
-#define SPI_DATA_WIDTH3         0x00000018
-
-//
-//! data width 4 bit
-//
-#define SPI_DATA_WIDTH4         0x00000020
-
-//
-//! data width 5 bit
-//
-#define SPI_DATA_WIDTH5         0x00000028
-
-//
-//! data width 6 bit
-//
-#define SPI_DATA_WIDTH6         0x00000030
-
-//
-//! data width 7 bit
-//
-#define SPI_DATA_WIDTH7         0x00000038
+#define SPI_LSB_FIRST           0x00002000
 
 //
 //! data width 8 bit
 //
-#define SPI_DATA_WIDTH8         0x00000040
+#define SPI_DATA_WIDTH8         0x00000800
 
 //
 //! data width 9 bit
 //
-#define SPI_DATA_WIDTH9         0x00000048
+#define SPI_DATA_WIDTH9         0x00000900
 
 //
 //! data width 10 bit
 //
-#define SPI_DATA_WIDTH10        0x00000050
+#define SPI_DATA_WIDTH10        0x00000A00
 
 //
 //! data width 11 bit
 //
-#define SPI_DATA_WIDTH11        0x00000058
+#define SPI_DATA_WIDTH11        0x00000B00
 
 //
 //! data width 12 bit
 //
-#define SPI_DATA_WIDTH12        0x00000060
+#define SPI_DATA_WIDTH12        0x00000C00
 
 //
 //! data width 13 bit
 //
-#define SPI_DATA_WIDTH13        0x00000068
+#define SPI_DATA_WIDTH13        0x00000D00
 
 //
 //! data width 14 bit
 //
-#define SPI_DATA_WIDTH14        0x00000070
+#define SPI_DATA_WIDTH14        0x00000E00
 
 //
 //! data width 15 bit
 //
-#define SPI_DATA_WIDTH15        0x00000078
+#define SPI_DATA_WIDTH15        0x00000F00
 
 //
 //! data width 16 bit
 //
-#define SPI_DATA_WIDTH16        0x00000080
+#define SPI_DATA_WIDTH16        0x00001000
 
 //
 //! data width 17 bit
 //
-#define SPI_DATA_WIDTH17        0x00000088
+#define SPI_DATA_WIDTH17        0x00001100
 
 //
 //! data width 18 bit
 //
-#define SPI_DATA_WIDTH18        0x00000090
+#define SPI_DATA_WIDTH18        0x00001200
 
 //
 //! data width 19 bit
 //
-#define SPI_DATA_WIDTH19        0x00000098
+#define SPI_DATA_WIDTH19        0x00001300
 
 //
 //! data width 20 bit
 //
-#define SPI_DATA_WIDTH20        0x000000A0
+#define SPI_DATA_WIDTH20        0x00001400
 
 //
 //! data width 21 bit
 //
-#define SPI_DATA_WIDTH21        0x000000A8
+#define SPI_DATA_WIDTH21        0x00001500
 
 //
 //! data width 22 bit
 //
-#define SPI_DATA_WIDTH22        0x000000B0
+#define SPI_DATA_WIDTH22        0x00001600
 
 //
 //! data width 23 bit
 //
-#define SPI_DATA_WIDTH23        0x000000B8
+#define SPI_DATA_WIDTH23        0x00001700
 
 //
 //! data width 24 bit
 //
-#define SPI_DATA_WIDTH24        0x000000C0
+#define SPI_DATA_WIDTH24        0x00001800
 
 //
 //! data width 25 bit
 //
-#define SPI_DATA_WIDTH25        0x000000C8
+#define SPI_DATA_WIDTH25        0x00001900
 
 //
 //! data width 26 bit
 //
-#define SPI_DATA_WIDTH26        0x000000D0
+#define SPI_DATA_WIDTH26        0x00001A00
 
 //
 //! data width 27 bit
 //
-#define SPI_DATA_WIDTH27        0x000000D8
+#define SPI_DATA_WIDTH27        0x00001B00
 
 //
 //! data width 28 bit
 //
-#define SPI_DATA_WIDTH28        0x000000E0
+#define SPI_DATA_WIDTH28        0x00001C00
 
 //
 //! data width 29 bit
 //
-#define SPI_DATA_WIDTH29        0x000000E8
+#define SPI_DATA_WIDTH29        0x00001D00
 
 //
 //! data width 30 bit
 //
-#define SPI_DATA_WIDTH30        0x000000F0
+#define SPI_DATA_WIDTH30        0x00001E00
 
 //
 //! data width 31 bit
 //
-#define SPI_DATA_WIDTH31        0x000000F8
+#define SPI_DATA_WIDTH31        0x00001F00
 
 //
 //! data width 32 bit
@@ -313,8 +252,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC2xx_SPI_DMA NUC2xx SPI DMA
-//! \brief Values that show NUC2xx SPI DMA
+//! \addtogroup NUC4xx_SPI_DMA NUC4xx SPI DMA
+//! \brief Values that show NUC4xx SPI DMA
 //! Values that can be passed to SPIDMAEnable() and SPIDMADisable().
 //! @{
 //
@@ -343,8 +282,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC2xx_SPI_DUAL NUC2xx SPI DUAL IO
-//! \brief Values that show NUC2xx SPI DUAL IO DIR
+//! \addtogroup NUC4xx_SPI_DUAL NUC4xx SPI DUAL IO
+//! \brief Values that show NUC4xx SPI DUAL IO DIR
 //! Values that can be passed to SPIPDualIOEnable() as ulDir.
 //! @{
 //
@@ -369,8 +308,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC2xx_SPI_SlaveSel NUC2xx SPI Slave Select
-//! \brief Values that show NUC2xx SPI Slave Select
+//! \addtogroup NUC4xx_SPI_SlaveSel NUC4xx SPI Slave Select
+//! \brief Values that show NUC4xx SPI Slave Select
 //! Values that can be passed to SPIAutoSSEnable() SPISSSet()and SPISSClear().
 //! @{
 //
@@ -404,8 +343,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC2xx_SPI_SlaveSel_Config NUC2xx SPI Slave Select Configure
-//! \brief Values that show NUC2xx SPI Slave Select Configure
+//! \addtogroup NUC4xx_SPI_SlaveSel_Config NUC4xx SPI Slave Select Configure
+//! \brief Values that show NUC4xx SPI Slave Select Configure
 //! Values that can be passed to SPIAutoSSEnable() SPISSSet()  SPISSClear()
 //! SPISSConfig().
 //! @{
@@ -414,26 +353,6 @@
 
 #define SPI_SS_HARDWARE         0x00000008
 #define SPI_SS_SOFTWARE         0x00000000
-
-//
-//! No Slave Pin Select
-//
-#define SPI_SS_NONE             0x00000000
-
-//
-//! SPISSx0
-//
-#define SPI_SS0                 0x00000001
-
-//
-//! SPISSx1
-//
-#define SPI_SS1                 0x00000002
-
-//
-//! SPISSx0 and SPISSx1
-//
-#define SPI_SS0_SS1             0x00000003
 
 //
 //! The input slave select signal is edge-trigger.
@@ -465,8 +384,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC2xx_SPI_FIFOStatus NUC2xx SPI FIFO Status
-//! \brief Values that show NUC2xx SPI FIFO Status
+//! \addtogroup NUC4xx_SPI_FIFOStatus NUC4xx SPI FIFO Status
+//! \brief Values that show NUC4xx SPI FIFO Status
 //! Values that can be passed to SPIFIFOStatusGet().
 //! @{
 //
@@ -500,8 +419,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC2xx_SPI_ByteReorder NUC2xx SPI Byte Reorder
-//! \brief Values that show NUC2xx SPI Byte Reorder
+//! \addtogroup NUC4xx_SPI_ByteReorder NUC4xx SPI Byte Reorder
+//! \brief Values that show NUC4xx SPI Byte Reorder
 //! Values that can be passed to SPIByteReorderSet().
 //! @{
 //
@@ -527,8 +446,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC2xx_SPI_Exported_APIs  NUC2xx SPI API
-//! \brief NUC2xx SPI API Reference
+//! \addtogroup NUC4xx_SPI_Exported_APIs  NUC4xx SPI API
+//! \brief NUC4xx SPI API Reference
 //! @{
 //
 //*****************************************************************************

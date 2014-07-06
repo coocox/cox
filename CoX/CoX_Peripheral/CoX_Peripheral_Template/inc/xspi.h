@@ -99,17 +99,17 @@ extern "C"
 //
 //! End of transfer (TX | RX Register Empty Interrupt)
 //
-#define xSPI_INT_EOT            SPI_INT_TXE
+#define xSPI_INT_EOT            SPI_INT_EOT
   
 //
 //! TX Buffer Empty Interrupt
 //  
-#define xSPI_INT_TX             SPI_INT_TXBE
+#define xSPI_INT_TX             SPI_INT_TX
 
 //
 //! RX Buffer Not Empty Interrupt
 //  
-#define xSPI_INT_RX             SPI_INT_RXBNE
+#define xSPI_INT_RX             SPI_INT_RX
   
 //
 //! All ERROR Interrupt
@@ -153,17 +153,17 @@ extern "C"
 //
 //! End of transfer (TX | RX Register Empty Event)
 //
-#define xSPI_EVENT_EOT          SPI_EVENT_TXE
+#define xSPI_EVENT_EOT          SPI_EVENT_EOT
   
 //
 //! TX Buffer Empty Event
 //  
-#define xSPI_EVENT_TX           SPI_EVENT_TXBE
+#define xSPI_EVENT_TX           SPI_EVENT_TX
 
 //
 //! RX Buffer Not Empty Event
 //  
-#define xSPI_EVENT_RX           SPI_EVENT_RXBNE
+#define xSPI_EVENT_RX           SPI_EVENT_RX
   
 //
 //! All ERROR Event

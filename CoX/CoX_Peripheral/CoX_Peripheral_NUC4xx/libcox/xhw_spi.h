@@ -163,7 +163,7 @@
 //
 //! Transmit Bit Length
 //
-#define SPI_CNTRL_TX_BIT_LEN_M  0x00000F00
+#define SPI_CNTRL_TX_BIT_LEN_M  0x00001F00
 
 //
 //! Numbers of Transmit/Receive Word
@@ -443,10 +443,12 @@
 //! Slave Mode Error 0 Interrupt Status
 //
 #define SPI_STATUS_SLVER0_INTSTS BIT_32_6
+
 //
 //! Slave Mode Error 1 Interrupt Status
 //
 #define SPI_STATUS_SLVER1_INTSTS BIT_32_7
+
 //
 //! Receive FIFO Buffer Empty Indicator (Read Only)
 //
