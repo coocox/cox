@@ -93,7 +93,7 @@ extern "C"
 //
 //! PWM channels Interrupt 
 //
-#define xPWM_INT_PWM            
+#define xPWM_INT_PWM            PWM_INT_PWM
 
 //*****************************************************************************
 //
@@ -129,7 +129,7 @@ extern "C"
 //
 //! The Interrupt event is PWM
 //
-#define xPWM_EVENT_PWM          
+#define xPWM_EVENT_PWM          PWM_EVENT_PWM
 
 //
 //! The Interrupt event is Capture  
@@ -679,10 +679,11 @@ extern void xPWMIntDisable(unsigned long ulBase, unsigned long ulChannel, unsign
 //!
 //! \note None
 //!
-//! \return None.
+//! \return Returns \b true if the base address is valid and \b false
+//! otherwise.
 //
 //*****************************************************************************
-extern void xPWMIntFlagGet(unsigned long ulBase, unsigned long ulChannel, unsigned long ulIntType);
+extern xtBoolean xPWMIntFlagGet(unsigned long ulBase, unsigned long ulChannel, unsigned long ulIntType);
 
 //*****************************************************************************
 //

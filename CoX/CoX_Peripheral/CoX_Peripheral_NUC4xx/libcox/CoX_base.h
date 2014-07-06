@@ -5,6 +5,7 @@
 #include "gpio.h"
 #include "uart.h"
 #include "spi.h"
+#include "i2c.h"
 
 #define SYSCTL_PERIPH_IOPA      SYSCTL_PERIPH_GPIO
 #define SYSCTL_PERIPH_IOPB      SYSCTL_PERIPH_GPIO
