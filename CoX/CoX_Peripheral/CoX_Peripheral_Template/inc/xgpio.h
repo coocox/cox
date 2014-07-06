@@ -1248,7 +1248,7 @@ extern void xGPIOPadConfigGet(unsigned long ulPort, unsigned long ulPins,
 //
 //*****************************************************************************
 extern void xGPIOPinIntCallbackInit(unsigned long ulPort, unsigned long ulPin,
-                                   xtEventCallback xtPortCallback);
+                                    xtEventCallback xtPortCallback);
 
 //*****************************************************************************
 //
@@ -1281,7 +1281,6 @@ extern void xGPIOPinIntEnable(unsigned long ulPort, unsigned long ulPins,
 //
 //*****************************************************************************
 extern void xGPIOPinIntDisable(unsigned long ulPort, unsigned long ulPins);
-
 
 //*****************************************************************************
 //
@@ -1468,9 +1467,6 @@ extern void xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //*****************************************************************************
 #define xGPIOSPinDirModeSet(eShortPin, ulPinIO)                               \
         GPIOSDirModeSet(eShortPin, ulPinIO)
-
-
-
 
 
 //*****************************************************************************
@@ -1696,7 +1692,7 @@ extern void xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //
 //*****************************************************************************
 #define xSPinTypeADC(ePeripheralPin, eShortPin)                               \
-        GPIOSPinConfigure(ePeripheralPin, eShortPin)
+		xGPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -1719,7 +1715,7 @@ extern void xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //
 //*****************************************************************************
 #define xSPinTypeCAN(ePeripheralPin, eShortPin)                               \
-        GPIOSPinConfigure(ePeripheralPin, eShortPin)
+		xGPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -1739,7 +1735,7 @@ extern void xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //
 //*****************************************************************************
  #define xSPinTypeI2C(ePeripheralPin, eShortPin)                              \
-         GPIOSPinConfigure(ePeripheralPin, eShortPin)
+		xGPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -1758,7 +1754,7 @@ extern void xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //
 //*****************************************************************************
 #define xSPinTypePWM(ePeripheralPin, eShortPin)                               \
-        GPIOSPinConfigure(ePeripheralPin, eShortPin)
+		xGPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -1788,7 +1784,7 @@ extern void xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //
 //*****************************************************************************
 #define xSPinTypeSPI(ePeripheralPin, eShortPin)                               \
-        GPIOSPinConfigure(ePeripheralPin, eShortPin)
+		xGPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -1817,7 +1813,7 @@ extern void xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //
 //*****************************************************************************
 #define xSPinTypeTimer(ePeripheralPin, eShortPin)                             \
-        GPIOSPinConfigure(ePeripheralPin, eShortPin)
+		xGPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -1847,7 +1843,7 @@ extern void xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //
 //*****************************************************************************
 #define xSPinTypeUART(ePeripheralPin, eShortPin)                              \
-        GPIOSPinConfigure(ePeripheralPin, eShortPin)
+		xGPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -1868,7 +1864,7 @@ extern void xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //
 //*****************************************************************************
 #define xSPinTypeDAC(ePeripheralPin, eShortPin)                               \
-        GPIOSPinConfigure(ePeripheralPin, eShortPin)
+		xGPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -1888,7 +1884,7 @@ extern void xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //
 //*****************************************************************************
 #define xSPinTypeACMP(ePeripheralPin, eShortPin)                              \
-        GPIOSPinConfigure(ePeripheralPin, eShortPin)
+		xGPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 
 //*****************************************************************************
@@ -1914,7 +1910,7 @@ extern void xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //
 //*****************************************************************************
 #define xSPinTypeI2S(ePeripheralPin, eShortPin)                               \
-        GPIOSPinConfigure(ePeripheralPin, eShortPin)
+		xGPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //

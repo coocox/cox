@@ -546,7 +546,7 @@ extern void xI2CMasterIntEnable(unsigned long ulBase, unsigned long ulIntType);
 //!              - \ref xI2C2_BASE
 //!
 //! \param  [in] ulIntType is the interrupt type of the I2C module.
-//!         TODO
+//!
 //!
 //! \return None.
 //

@@ -179,6 +179,16 @@ extern "C"
 //
 #define xTIMER_INT_CAP_MATCH    TIMER_INT_CAP_MATCH
 
+//
+//! Timer overflow interrupt.
+//
+#define xTIMER_INT_OVERFLOW     TIMER_INT_OVERFLOW
+
+//
+//! Timer PWM interrupt.
+//
+#define xTIMER_INT_PWM          TIMER_INT_PWM
+
 //*****************************************************************************
 //
 //! @}
@@ -223,6 +233,21 @@ extern "C"
 //! Timer External capture event interrupt.
 //
 #define xTIMER_EVENT_CAP_EVENT  TIMER_EVENT_CAP_EVENT
+
+//
+//! Timer External capture match interrupt.
+//
+#define xTIMER_EVENT_CAP_MATCH  TIMER_EVENT_CAP_MATCH
+
+//
+//! Timer External capture event interrupt.
+//
+#define xTIMER_EVENT_OVERFLOW   TIMER_EVENT_OVERFLOW
+
+//
+//! Timer PWM interrupt.
+//
+#define xTIMER_EVENT_PWM        TIMER_EVENT_PWM
 
 //*****************************************************************************
 //
@@ -301,6 +326,11 @@ extern "C"
 //! a 1 to 0 transition on TEX will be detected.
 //
 #define xTIMER_CAP_FALLING      TIMER_CAP_FALLING
+
+//
+//! a 1 to 0 transition on TEX will be detected.
+//
+#define xTIMER_CAP_BOTH         TIMER_CAP_BOTH
 
 //*****************************************************************************
 //

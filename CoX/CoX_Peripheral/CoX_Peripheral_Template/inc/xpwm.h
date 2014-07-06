@@ -93,7 +93,7 @@ extern "C"
 //
 //! PWM channels Interrupt 
 //
-#define xPWM_INT_PWM            
+#define xPWM_INT_PWM            PWM_INT_PWM
 
 //*****************************************************************************
 //
@@ -129,7 +129,7 @@ extern "C"
 //
 //! The Interrupt event is PWM
 //
-#define xPWM_EVENT_PWM          
+#define xPWM_EVENT_PWM          PWM_EVENT_PWM
 
 //
 //! The Interrupt event is Capture  
@@ -165,7 +165,7 @@ extern "C"
 //
 //*****************************************************************************
 
-#define xPWM_FREQ_CONFIG(a,b,c) 
+#define xPWM_FREQ_CONFIG(a,b,c) PWM_FREQ_CONFIG(a,b,c)
 
 //*****************************************************************************
 //
