@@ -5,6 +5,7 @@
 #include "gpio.h"
 #include "uart.h"
 #include "spi.h"
+#include "i2c.h"
 
 #include "timer.h"
 #include "wdt.h"

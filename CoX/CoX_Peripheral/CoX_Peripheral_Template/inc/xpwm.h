@@ -679,10 +679,11 @@ extern void xPWMIntDisable(unsigned long ulBase, unsigned long ulChannel, unsign
 //!
 //! \note None
 //!
-//! \return None.
+//! \return Returns \b true if the base address is valid and \b false
+//! otherwise.
 //
 //*****************************************************************************
-extern void xPWMIntFlagGet(unsigned long ulBase, unsigned long ulChannel, unsigned long ulIntType);
+extern xtBoolean xPWMIntFlagGet(unsigned long ulBase, unsigned long ulChannel, unsigned long ulIntType);
 
 //*****************************************************************************
 //

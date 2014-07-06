@@ -711,7 +711,7 @@ extern void xTimerLoadGet(unsigned long ulBase, unsigned long ulChannel);
 //! \return current up timer or up event counter value will be set.
 //
 //*****************************************************************************
-extern void xTimerValueGet(unsigned long ulBase, unsigned long ulChannel);
+extern unsigned long xTimerValueGet(unsigned long ulBase, unsigned long ulChannel);
 
 //*****************************************************************************
 //
@@ -834,6 +834,7 @@ extern xtBoolean xTimerStatusGet(unsigned long ulBase, unsigned long ulChannel,
 //! \brief Select The Timer counter detect phase. 
 //!
 //! \param ulBase is the base address of the Timer port.
+//! \param ulChannel is the channel of the Timer port.
 //! \param ulPhase is the counter detect phase of the Timer port.
 //! Details please refer to \ref xTIMER_Counter_Pase_Type.
 //! 
@@ -856,6 +857,7 @@ extern void xTimerCounterDetectPhaseSelect(unsigned long ulBase,
 //! \brief Select The Timer counter capture detect edge. 
 //!
 //! \param ulBase is the base address of the Timer port.
+//! \param ulChannel is the channel of the Timer port.
 //! \param ulEdge is the capture detect edge of the Timer port.
 //! Details please refer to \ref xTIMER_Capture_Edge_Type.
 //!
