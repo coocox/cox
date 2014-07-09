@@ -1352,8 +1352,9 @@ SPIFIFORxThresholdSet(unsigned long ulBase, unsigned long ulThreshold)
 void
 SPIByteReorderSet(unsigned long ulBase, xtBoolean xtEnable)
 {
+#ifdef xDEBUG
     unsigned char ucBitLength = xSPIBitLengthGet(ulBase);
-
+#endif
     //
     // Check the arguments.
     //

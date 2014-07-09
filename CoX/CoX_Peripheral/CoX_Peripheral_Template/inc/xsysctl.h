@@ -297,7 +297,7 @@ extern "C"
 #define xSYSCTL_OSC_INTSL       SYSCTL_OSC_INTSL
 
 //! External Oscillator 32.768K
-#define SYSCTL_OSC_EXTSL        SYSCTL_OSC_EXTSL
+#define xSYSCTL_OSC_EXTSL       SYSCTL_OSC_EXTSL
 
 //
 //! \brief XTAL Select

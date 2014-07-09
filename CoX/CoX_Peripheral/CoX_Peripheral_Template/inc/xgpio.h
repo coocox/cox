@@ -83,9 +83,9 @@ extern "C"
 //! This is the GPIO interrupt number configuration in CoX. It show as same Macro name \ref xGPIO_INT_NUMBER
 //! in all series of CoX implementation.
 //!
-//! |xGPIO General Pin ID    |       CoX      |     LPC17xx            |
-//! |------------------------|----------------|------------------------|
-//! |xGPIO_INT_NUMBER        |    Mandatory   |   xGPIO_INT_NUMBER     |
+//! |xGPIO General Pin ID    |       CoX      |
+//! |------------------------|----------------|
+//! |xGPIO_INT_NUMBER        |    Mandatory   |
 //! more please refer to [xGPIO interrupt number config ID in MD file](@ref xGPIO_Config_md).
 //! @{
 //
@@ -126,13 +126,13 @@ extern "C"
 //! This is a mandatory argument in cox,it show as xGPIO_PIN_n, n is general be 7\15 or 31.
 //! For LPC17xx n is 31.
 //!
-//! |  xGPIO General Pin ID    |       CoX      |          LPC17xx       |
-//! |--------------------------|----------------|------------------------|
-//! |  xGPIO_PIN_n             |    Mandatory   |       xGPIO_PIN_0      |
-//! |                          |                |       xGPIO_PIN_1      |
-//! |                          |                |         ...            |
-//! |                          |                |      xGPIO_PIN_30      |
-//! |                          |                |      xGPIO_PIN_31      |
+//! |  xGPIO General Pin ID    |       CoX      |
+//! |--------------------------|----------------|
+//! |  xGPIO_PIN_n             |    Mandatory   |
+//! |                          |                |
+//! |                          |                |
+//! |                          |                |
+//! |                          |                |
 //!
 //! More please refer to [xGPIO General Pin ID in MD file](@ref xGPIO_General_Pin_IDs_md).
 //! @{
@@ -253,13 +253,13 @@ extern "C"
 //! This is the GPIO mode in CoX. It show as same Macro name
 //! in all series of CoX implementation.
 //!
-//! |  xGPIO Dir Mode       |       CoX       |          LPC17xx       |
-//! |-----------------------|-----------------|------------------------|
-//! |  xGPIO_DIR_MODE_IN    |    Mandatory    |            Y           |
-//! |  xGPIO_DIR_MODE_OUT   |    Mandatory    |            Y           |
-//! |  xGPIO_DIR_MODE_HW    |  Non-Mandatory  |            N           |
-//! |  xGPIO_DIR_MODE_QB    |  Non-Mandatory  |            N           |
-//! |  xGPIO_DIR_MODE_OD    |  Non-Mandatory  |            Y           |
+//! |  xGPIO Dir Mode       |       CoX       |
+//! |-----------------------|-----------------|
+//! |  xGPIO_DIR_MODE_IN    |    Mandatory    |
+//! |  xGPIO_DIR_MODE_OUT   |    Mandatory    |
+//! |  xGPIO_DIR_MODE_HW    |  Non-Mandatory  |
+//! |  xGPIO_DIR_MODE_QB    |  Non-Mandatory  |
+//! |  xGPIO_DIR_MODE_OD    |  Non-Mandatory  |
 //! More please refer to [xGPIO Dir Mode in MD file](@ref xGPIO_Dir_Mode_md).
 //! @{
 //
@@ -306,14 +306,14 @@ extern "C"
 //!
 //! \section xGPIO_Int_Type_CoX 2.CoX Port Details
 //!
-//! |  xGPIO Int Type       |       CoX      |          LPC17xx       |
-//! |-----------------------|----------------|------------------------|
-//! |  xGPIO_FALLING_EDGE   |    Mandatory   |            Y           |
-//! |  xGPIO_RISING_EDGE    |    Mandatory   |            Y           |
-//! |  xGPIO_LOW_LEVEL      |    Mandatory   |            N           |
-//! |  xGPIO_HIGH_LEVEL     |    Mandatory   |            N           |
-//! |  xGPIO_BOTH_LEVEL     |  Non-Mandatory |            N           |
-//! |  xGPIO_BOTH_EDGES     |  Non-Mandatory |            Y           |
+//! |  xGPIO Int Type       |       CoX      |
+//! |-----------------------|----------------|
+//! |  xGPIO_FALLING_EDGE   |    Mandatory   |
+//! |  xGPIO_RISING_EDGE    |    Mandatory   |
+//! |  xGPIO_LOW_LEVEL      |    Mandatory   |
+//! |  xGPIO_HIGH_LEVEL     |    Mandatory   |
+//! |  xGPIO_BOTH_LEVEL     |  Non-Mandatory |
+//! |  xGPIO_BOTH_EDGES     |  Non-Mandatory |
 //!
 //! More please refer to [xGPIO Int Type in MD file](@ref xGPIO_Int_Type_md).
 //! @{
@@ -367,10 +367,11 @@ extern "C"
 //!
 //! \section    xGPIO_Pad_Config_Strength_CoX 2.CoX Port Details
 //!
-//! |  xGPIO Pad Strength   |       CoX      |          LPC17xx       |
-//! |-----------------------|----------------|------------------------|
-//! |  xGPIO_STRENGTH_nMA   | Non-Mandatory  |            N           |
+//! |  xGPIO Pad Strength   |       CoX      |
+//! |-----------------------|----------------|
+//! |  xGPIO_STRENGTH_nMA   | Non-Mandatory  |
 //!
+//! more please refer to [xGPIO Pad Config Strength  in MD file](@ref xGPIO_Pad_Config_Strength_md).
 //! @{
 //
 //*****************************************************************************
@@ -407,23 +408,23 @@ extern "C"
 //! \n
 //! \section xGPIO_Pad_Config_Type_CoX 2.CoX Port Details
 //! \verbatim
-//! +------------------------+----------------+------------------------+
-//! |xGPIO Pad Type          |       CoX      |        LPC17xx         |
-//! |------------------------|----------------|------------------------|
-//! |xGPIO_PIN_TYPE_STD      |  Non-Mandatory |            N           |
-//! |------------------------|----------------|------------------------|
-//! |xGPIO_PIN_TYPE_STD_WPU  |  Non-Mandatory |            N           |
-//! |------------------------|----------------|------------------------|
-//! |xGPIO_PIN_TYPE_OD       |  Non-Mandatory |            N           |
-//! |------------------------|----------------|------------------------|
-//! |xGPIO_PIN_TYPE_OD_WPU   |  Non-Mandatory |            N           |
-//! |------------------------|----------------|------------------------|
-//! |xGPIO_PIN_TYPE_OD_WPD   |  Non-Mandatory |            N           |
-//! |------------------------|----------------|------------------------|
-//! |xGPIO_PIN_TYPE_ANALOG   |  Non-Mandatory |            N           |
-//! |------------------------|----------------|------------------------|
-//! |xGPIO_PIN_TYPE_STD_WPD  |  Non-Mandatory |            N           |
-//! +------------------------+----------------+------------------------+
+//! +------------------------+----------------+
+//! |xGPIO Pad Type          |       CoX      |
+//! |------------------------|----------------|
+//! |xGPIO_PIN_TYPE_STD      |  Non-Mandatory |
+//! |------------------------|----------------|
+//! |xGPIO_PIN_TYPE_STD_WPU  |  Non-Mandatory |
+//! |------------------------|----------------|
+//! |xGPIO_PIN_TYPE_OD       |  Non-Mandatory |
+//! |------------------------|----------------|
+//! |xGPIO_PIN_TYPE_OD_WPU   |  Non-Mandatory |
+//! |------------------------|----------------|
+//! |xGPIO_PIN_TYPE_OD_WPD   |  Non-Mandatory |
+//! |------------------------|----------------|
+//! |xGPIO_PIN_TYPE_ANALOG   |  Non-Mandatory |
+//! |------------------------|----------------|
+//! |xGPIO_PIN_TYPE_STD_WPD  |  Non-Mandatory |
+//! +------------------------+----------------+
 //! \endverbatim
 //! @{
 //
@@ -484,18 +485,19 @@ extern "C"
 //!
 //! \section    xGPIO_Short_Pin_CoX 2.CoX Port Details
 //! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//! +-------------------------+----------------+------------------------+
-//! |  xGPIO Short Pin ID     |       CoX      |          LPC17xx       |
-//! |-------------------------|----------------|------------------------|
-//! |  PXn                    |    Mandatory   |    PA0 PA1 ... PA31    |
-//! |   (X = A/B/...)         |                |------------------------|
-//! |   (n = 0/1/...)         |                |    PB0 PB1 ... PB31    |
-//! |                         |                |------------------------|
-//! |                         |                |     ...                |
-//! |                         |                |------------------------|
-//! |                         |                |    PE0 PE1 ... PE31    |
-//! +-------------------------+----------------+------------------------+
+//! +-------------------------+----------------+
+//! |  xGPIO Short Pin ID     |       CoX      |
+//! |-------------------------|----------------|
+//! |  PXn                    |    Mandatory   |
+//! |   (X = A/B/...)         |                |
+//! |   (n = 0/1/...)         |                |
+//! |                         |                |
+//! |                         |                |
+//! |                         |                |
+//! |                         |                |
+//! +-------------------------+----------------+
 //! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//! more please refer to [xGPIO Short Pin ID  in MD file](@ref xGPIO_Short_Pin_md).
 //! @{
 //
 //*****************************************************************************
@@ -779,6 +781,40 @@ extern "C"
 #define PH30                     PH30
 #define PH31                     PH31
 
+
+#define PI0                      PI0
+#define PI1                      PI1
+#define PI2                      PI2
+#define PI3                      PI3
+#define PI4                      PI4
+#define PI5                      PI5
+#define PI6                      PI6
+#define PI7                      PI7
+#define PI8                      PI8
+#define PI9                      PI9
+#define PI10                     PI10
+#define PI11                     PI11
+#define PI12                     PI12
+#define PI13                     PI13
+#define PI14                     PI14
+#define PI15                     PI15
+#define PI16                     PI16
+#define PI17                     PI17
+#define PI18                     PI18
+#define PI19                     PI19
+#define PI20                     PI20
+#define PI21                     PI21
+#define PI22                     PI22
+#define PI23                     PI23
+#define PI24                     PI24
+#define PI25                     PI25
+#define PI26                     PI26
+#define PI27                     PI27
+#define PI28                     PI28
+#define PI29                     PI29
+#define PI30                     PI30
+#define PI31                     PI31
+
 #define PJ0                      PJ0
 #define PJ1                      PJ1
 #define PJ2                      PJ2
@@ -830,27 +866,28 @@ extern "C"
 //!
 //! \section    xGPIO_Peripheral_Pin_Port CoX Port Details.
 //!
-//! | General Peripheral Pin  |       CoX      |          LPC17xx                |
-//! |-------------------------|----------------|---------------------------------|
-//! | ADCn                    |    Mandatory   | ADC0 ADC1 ... ADC7              |
-//! | I2CnSCK                 |    Mandatory   | I2C0SCK I2C1SCK I2C2SCK         |
-//! | I2CnSDA                 |    Mandatory   | I2C0SDA I2C1SDA I2C2SDA         |
-//! | SPInCLK                 |    Mandatory   | SPI0CLK                         |
-//! | SPInMOSI                |    Mandatory   | SPI0MOSI                        |
-//! | SPInMISO                |    Mandatory   | SPI0MISO                        |
-//! | SPInCS                  |    Mandatory   | SPI0CS                          |
-//! | UARTnRX                 |    Mandatory   | UART0RX UART1RX UART2RX UART3RX |
-//! | UARTnTX                 |    Mandatory   | UART0TX UART1TX UART2TX UART3TX |
-//! | UARTnCTS                |    Mandatory   | UART1CTS                        |
-//! | UARTnDCD                |    Mandatory   | UART1DCD                        |
-//! | UARTnDSR                |    Mandatory   | UART1DSR                        |
-//! | UARTnDTR                |    Mandatory   | UART1DTR                        |
-//! | PWMn                    |    Mandatory   | PWM0 ... PWM6                   |
-//! | TIMCCPn                 |    Mandatory   | TIMCCP0 ... TIMCCP7             |
-//! | DACOUTn                 |    Mandatory   | DACOUT0                         |
-//! | CANnRX                  |    Mandatory   | CAN0RX  CAN1RX                  |
-//! | CANnTX                  |    Mandatory   | CAN0TX  CAN1TX                  |
+//! | General Peripheral Pin  |       CoX      |
+//! |-------------------------|----------------|
+//! | ADCn                    |    Mandatory   |
+//! | I2CnSCK                 |    Mandatory   |
+//! | I2CnSDA                 |    Mandatory   |
+//! | SPInCLK                 |    Mandatory   |
+//! | SPInMOSI                |    Mandatory   |
+//! | SPInMISO                |    Mandatory   |
+//! | SPInCS                  |    Mandatory   |
+//! | UARTnRX                 |    Mandatory   |
+//! | UARTnTX                 |    Mandatory   |
+//! | UARTnCTS                |    Mandatory   |
+//! | UARTnDCD                |    Mandatory   |
+//! | UARTnDSR                |    Mandatory   |
+//! | UARTnDTR                |    Mandatory   |
+//! | PWMn                    |    Mandatory   |
+//! | TIMCCPn                 |    Mandatory   |
+//! | DACOUTn                 |    Mandatory   |
+//! | CANnRX                  |    Mandatory   |
+//! | CANnTX                  |    Mandatory   |
 //!
+//! more please refer to [xGPIO General Peripheral Pin in MD file](@ref xGPIO_Peripheral_Pin_md).
 //! @{
 //
 //*****************************************************************************
@@ -865,6 +902,9 @@ extern "C"
 #define PWM6                    PWM6
 #define PWM7                    PWM7
 #define PWM8                    PWM8
+#define PWM9                    PWM9
+#define PWM10                   PWM10
+#define PWM11                   PWM11
 
 
 //! UART Pin Type
@@ -976,6 +1016,8 @@ extern "C"
 #define DACOUT2                 DACOUT2
 
 //! CAN Pin Type
+#define CAN0RX                  CAN0RX
+#define CAN0TX                  CAN0TX
 #define CAN1RX                  CAN1RX
 #define CAN1TX                  CAN1TX
 #define CAN2RX                  CAN2RX
@@ -990,6 +1032,7 @@ extern "C"
 #define I2S0TXMCLK              I2S0TXMCLK
 #define I2S0TXSD                I2S0TXSD
 #define I2S0TXWS                I2S0TXWS
+
 #define I2S1RXSCK               I2S1RXSCK
 #define I2S1RXMCLK              I2S1RXMCLK
 #define I2S1RXSD                I2S1RXSD
@@ -1013,44 +1056,45 @@ extern "C"
 //!
 //! \section    xGPIO_Exported_APIs_Port CoX Port Details
 //!
-//! |       xGPIO API                 |       CoX      |          LPC17xx       |
-//! |---------------------------------|----------------|------------------------|
-//! |  \ref xGPIODirModeSet           |    Mandatory   |            Y           |
-//! |  \ref xGPIODirModeGet           |    Mandatory   |            Y           |
-//! |  \ref xGPIOPinIntCallbackInit   |    Mandatory   |            Y           |
-//! |  \ref xGPIOPinIntEnable         |    Mandatory   |            Y           |
-//! |  \ref xGPIOPinIntDisable        |    Mandatory   |            Y           |
-//! |  \ref xGPIOPinIntStatus         |    Mandatory   |            Y           |
-//! |  \ref xGPIOPinIntClear          |    Mandatory   |            Y           |
-//! |  \ref xGPIOPinRead              |    Mandatory   |            Y           |
-//! |  \ref xGPIOPinWrite             |    Mandatory   |            Y           |
-//! |  \ref xGPIOPortRead             |    Mandatory   |            Y           |
-//! |  \ref xGPIOPortWrite            |    Mandatory   |            Y           |
-//! |  \ref xGPIOSPinConfigure        |    Mandatory   |            Y           |
-//! |  \ref xGPIOSPinToPeripheralId   |    Mandatory   |            Y           |
-//! |  \ref xGPIOSPinToPort           |    Mandatory   |            Y           |
-//! |  \ref xGPIOSPinToPin            |    Mandatory   |            Y           |
-//! |  \ref xGPIOSPinDirModeSet       |    Mandatory   |            Y           |
-//! |  \ref xGPIOSPinIntEnable        |    Mandatory   |            Y           |
-//! |  \ref xGPIOSPinIntDisable       |    Mandatory   |            Y           |
-//! |  \ref xGPIOSPinIntClear         |    Mandatory   |            Y           |
-//! |  \ref xGPIOSPinRead             |    Mandatory   |            Y           |
-//! |  \ref xGPIOSPinWrite            |    Mandatory   |            Y           |
-//! |  \ref xGPIOSPinTypeGPIOInput    |    Mandatory   |            Y           |
-//! |  \ref xGPIOSPinTypeGPIOOutput   |    Mandatory   |            Y           |
-//! |  \ref xGPIOSPinTypeGPIOOutputOD |  Non-Mandatory |            Y           |
-//! |  \ref xGPIOSPinTypeGPIOOutputQB |  Non-Mandatory |            Y           |
-//! |  \ref xSPinTypeADC              |    Mandatory   |            Y           |
-//! |  \ref xSPinTypeDAC              |    Mandatory   |            Y           |
-//! |  \ref xSPinTypeCAN              |    Mandatory   |            Y           |
-//! |  \ref xSPinTypeI2C              |    Mandatory   |            Y           |
-//! |  \ref xSPinTypePWM              |  Non-Mandatory |            Y           |
-//! |  \ref xSPinTypeSPI              |    Mandatory   |            Y           |
-//! |  \ref xSPinTypeTimer            |    Mandatory   |            Y           |
-//! |  \ref xSPinTypeUART             |    Mandatory   |            Y           |
-//! |  \ref xSPinTypeACMP             |    Mandatory   |            N           |
-//! |  \ref xSPinTypeI2S              |    Mandatory   |            N           |
+//! |       xGPIO API                 |       CoX      |
+//! |---------------------------------|----------------|
+//! |  \ref xGPIODirModeSet           |    Mandatory   |
+//! |  \ref xGPIODirModeGet           |    Mandatory   |
+//! |  \ref xGPIOPinIntCallbackInit   |    Mandatory   |
+//! |  \ref xGPIOPinIntEnable         |    Mandatory   |
+//! |  \ref xGPIOPinIntDisable        |    Mandatory   |
+//! |  \ref xGPIOPinIntStatus         |    Mandatory   |
+//! |  \ref xGPIOPinIntClear          |    Mandatory   |
+//! |  \ref xGPIOPinRead              |    Mandatory   |
+//! |  \ref xGPIOPinWrite             |    Mandatory   |
+//! |  \ref xGPIOPortRead             |    Mandatory   |
+//! |  \ref xGPIOPortWrite            |    Mandatory   |
+//! |  \ref xGPIOSPinConfigure        |    Mandatory   |
+//! |  \ref xGPIOSPinToPeripheralId   |    Mandatory   |
+//! |  \ref xGPIOSPinToPort           |    Mandatory   |
+//! |  \ref xGPIOSPinToPin            |    Mandatory   |
+//! |  \ref xGPIOSPinDirModeSet       |    Mandatory   |
+//! |  \ref xGPIOSPinIntEnable        |    Mandatory   |
+//! |  \ref xGPIOSPinIntDisable       |    Mandatory   |
+//! |  \ref xGPIOSPinIntClear         |    Mandatory   |
+//! |  \ref xGPIOSPinRead             |    Mandatory   |
+//! |  \ref xGPIOSPinWrite            |    Mandatory   |
+//! |  \ref xGPIOSPinTypeGPIOInput    |    Mandatory   |
+//! |  \ref xGPIOSPinTypeGPIOOutput   |    Mandatory   |
+//! |  \ref xGPIOSPinTypeGPIOOutputOD |  Non-Mandatory |
+//! |  \ref xGPIOSPinTypeGPIOOutputQB |  Non-Mandatory |
+//! |  \ref xSPinTypeADC              |    Mandatory   |
+//! |  \ref xSPinTypeDAC              |    Mandatory   |
+//! |  \ref xSPinTypeCAN              |    Mandatory   |
+//! |  \ref xSPinTypeI2C              |    Mandatory   |
+//! |  \ref xSPinTypePWM              |  Non-Mandatory |
+//! |  \ref xSPinTypeSPI              |    Mandatory   |
+//! |  \ref xSPinTypeTimer            |    Mandatory   |
+//! |  \ref xSPinTypeUART             |    Mandatory   |
+//! |  \ref xSPinTypeACMP             |    Mandatory   |
+//! |  \ref xSPinTypeI2S              |    Mandatory   |
 //!
+//! more please refer to [xGPIO API    in MD file](@ref xGPIO_Exported_APIs_md).
 //! @{
 //
 //*****************************************************************************
@@ -1203,7 +1247,7 @@ extern void xGPIOPadConfigGet(unsigned long ulPort, unsigned long ulPins,
 //
 //*****************************************************************************
 extern void xGPIOPinIntCallbackInit(unsigned long ulPort, unsigned long ulPin,
-                                   xtEventCallback xtPortCallback);
+                                    xtEventCallback xtPortCallback);
 
 //*****************************************************************************
 //
@@ -1250,7 +1294,6 @@ extern void xGPIOPinIntDisable(unsigned long ulPort, unsigned long ulPins);
 //
 //*****************************************************************************
 extern unsigned long xGPIOPinIntStatus(unsigned long ulPort);
-
 
 //*****************************************************************************
 //
@@ -1336,7 +1379,7 @@ extern unsigned long xGPIOPortRead(unsigned long ulPort);
 //! \return None.
 //
 //*****************************************************************************
-extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
+extern void xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 
 //*****************************************************************************
 //
@@ -1358,7 +1401,7 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //
 //*****************************************************************************
 #define xGPIOSPinToPeripheralId(eShortPin)                                    \
-        GPIOPinToPeripheralId(G##eShortPin)
+        GPIOSPinToPeripheralId(eShortPin)
 
 //*****************************************************************************
 //
@@ -1370,7 +1413,7 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //
 //*****************************************************************************
 #define xGPIOSPinToPort(eShortPin)                                            \
-        GPIOPinToPort(G##eShortPin)
+        GPIOSPinToPort(eShortPin)
 
 
 //*****************************************************************************
@@ -1395,7 +1438,7 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //
 //*****************************************************************************
 #define xGPIOSPinToPin(eShortPin)                                             \
-        GPIOPinToPin(G##eShortPin)
+        GPIOSPinToPin(eShortPin)
 
 //*****************************************************************************
 //
@@ -1422,7 +1465,7 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //
 //*****************************************************************************
 #define xGPIOSPinDirModeSet(eShortPin, ulPinIO)                               \
-        xGPIODirModeSet(G##eShortPin, ulPinIO)
+        GPIOSDirModeSet(eShortPin, ulPinIO)
 
 //*****************************************************************************
 //
@@ -1436,7 +1479,7 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //
 //*****************************************************************************
 #define xGPIOSPinIntCallbackInit(eShortPin, xtPortCallback)                   \
-        xGPIOPinIntCallbackInit(G##eShortPin, xtPortCallback)
+        GPIOSPinIntCallbackInit(eShortPin, xtPortCallback)
 
 
 //*****************************************************************************
@@ -1453,7 +1496,7 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //
 //*****************************************************************************
 #define xGPIOSPinIntEnable(eShortPin, ulIntType)                              \
-        xGPIOPinIntEnable(G##eShortPin, ulIntType)
+        GPIOSPinIntEnable(eShortPin, ulIntType)
 
 
 //*****************************************************************************
@@ -1466,7 +1509,7 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //
 //*****************************************************************************
 #define xGPIOSPinIntDisable(eShortPin)                                        \
-        xGPIOPinIntDisable(G##eShortPin)
+        GPIOSPinIntDisable(eShortPin)
 
 
 //*****************************************************************************
@@ -1488,7 +1531,7 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //
 //*****************************************************************************
 #define xGPIOSPinIntClear(eShortPin)                                          \
-        xGPIOPinIntClear(G##eShortPin)
+        GPIOSPinIntClear(eShortPin)
 
 //*****************************************************************************
 //
@@ -1503,8 +1546,8 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //
 //*****************************************************************************
 #define xGPIOSPinRead(eShortPin)                                              \
-        GPIOPinRead(G##eShortPin)
-
+        GPIOSPinRead(eShortPin)
+        
 //*****************************************************************************
 //
 //! \brief  Write a value to the specified pin.
@@ -1518,7 +1561,7 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //
 //*****************************************************************************
 #define xGPIOSPinWrite(eShortPin, ulVal)                                      \
-        GPIOPinWrite(G##eShortPin, ulVal)
+        GPIOSPinWrite(eShortPin, ulVal)
 
 //*****************************************************************************
 //
@@ -1537,8 +1580,8 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //! \return None.
 //
 //*****************************************************************************
-#define xGPIOSPinConfigure(ePeripheralPin, eShortPin)                         \
-        GPIOPinFunCfg(G##eShortPin, GPIO_##eShortPin##_##ePeripheralPin)
+#define xGPIOSPinConfigure(ePeripheralPin, eShortPin)                          \
+		GPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -1554,8 +1597,8 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 #define xGPIOSPinTypeGPIOInput(eShortPin)                                     \
         do                                                                    \
         {                                                                     \
-            GPIOPinFunCfg(G##eShortPin, GPIO_##eShortPin##_##eShortPin);      \
-            GPIOPinModeCfg(G##eShortPin, xGPIO_DIR_MODE_IN);                     \
+        	xGPIOSPinConfigure(G##eShortPin, GPIO_##eShortPin##_GPIO);        \
+        	xGPIOSPinDirModeSet(eShortPin, xGPIO_DIR_MODE_IN);                \
         }                                                                     \
         while(0)
 
@@ -1573,8 +1616,8 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 #define xGPIOSPinTypeGPIOOutput(eShortPin)                                    \
         do                                                                    \
         {                                                                     \
-            GPIOPinFunCfg(G##eShortPin, GPIO_##eShortPin##_##eShortPin);      \
-            GPIOPinModeCfg(G##eShortPin, xGPIO_DIR_MODE_OUT);                    \
+        	xGPIOSPinConfigure(G##eShortPin, GPIO_##eShortPin##_GPIO);        \
+        	xGPIOSPinDirModeSet(eShortPin, xGPIO_DIR_MODE_OUT);               \
         }                                                                     \
         while(0)
 
@@ -1592,16 +1635,27 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 #define xGPIOSPinTypeGPIOOutputOD(eShortPin)                                  \
         do                                                                    \
         {                                                                     \
-            GPIOPinFunCfg(G##eShortPin, GPIO_##eShortPin##_eShortPin);        \
-            GPIOPinModeCfg(G##eShortPin, xGPIO_DIR_MODE_OD);                     \
+        	xGPIOSPinConfigure(G##eShortPin, GPIO_##eShortPin##_GPIO);        \
+        	xGPIOSPinDirModeSet(eShortPin, xGPIO_DIR_MODE_OD);                \
         }                                                                     \
         while(0)
 
-
+//*****************************************************************************
+//
+//! \brief  Turn a pin to a GPIO Output(Quasi-bidirectional) pin.
+//!         This function configures a pin for use as an GPIO Output pin device
+//!         and turns the pin into a GPIO Output(Quasi-bidirectional) pin.
+//!
+//! \param  [in] eShortPin is the GPIO short pin name such as PA0.
+//!
+//! \return None.
+//
+//*****************************************************************************
 #define xGPIOSPinTypeGPIOOutputQB(eShortPin)                                  \
         do                                                                    \
         {                                                                     \
-            GPIOPinFunCfg(G##eShortPin, GPIO_##eShortPin##_##eShortPin);      \
+        	xGPIOSPinConfigure(G##eShortPin, GPIO_##eShortPin##_GPIO);        \
+        	xGPIOSPinDirModeSet(eShortPin, xGPIO_DIR_MODE_QB);                \
         }                                                                     \
         while(0)
 
@@ -1628,36 +1682,13 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //!             xSPinTypeADC(ADC0, PE6)  --> Error
 //!             xSPinTypeADC(ADC0, PE5)  --> Error
 //!
-//!     +-----------------+-------------------------+--------------------------+
-//!     |  manufacturer   | ePeripheralPin          | eShortPin                |
-//!     |-----------------|-------------------------|--------------------------|
-//!     |  CoX            | This parameter is a     | This parameter is a      |
-//!     |                 | mandatory.The mandatory | mandatory. the mandatory |
-//!     |                 | is the format of        | is the format of         |
-//!     |                 | Variable naming.So it   | Variable naming.So it    |
-//!     |                 | should be: ADCn         | should be: PXn           |
-//!     |                 | n indicate the pin      | XX indicate the GPIO     |
-//!     |                 | number such as          | PORT,Such as             |
-//!     |                 | 0 1 2 3 ....            | A B C D E ...            |
-//!     |                 |                         | n indicate the pin       |
-//!     |                 |                         | number such as           |
-//!     |                 |                         | 0 1 2 3 ....             |
-//!     |-----------------|-------------------------|--------------------------|
-//!     |     LPC17xx     |     ADC0                |         PA23             |
-//!     |                 |     ADC1                |         PA24             |
-//!     |                 |     ADC2                |         PA25             |
-//!     |                 |     ADC3                |         PA26             |
-//!     |                 |     ADC4                |         PB30             |
-//!     |                 |     ADC5                |         PB31             |
-//!     |                 |     ADC6                |         PA3              |
-//!     |                 |     ADC7                |         PA2              |
-//!     +-----------------+-------------------------+--------------------------+
+//! more please refer to [xGPIO ADC PIN MAP  in MD file](@ref CoX_ADC_MAP).
 //!
 //!
 //
 //*****************************************************************************
 #define xSPinTypeADC(ePeripheralPin, eShortPin)                               \
-        GPIOSPinConfigure(ePeripheralPin, eShortPin)
+		xGPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -1674,32 +1705,13 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //!         Table shows what the ePeripheralPin and eShortPin should be, only the
 //!         argument which are in the same line can be combined.
 //!
-//!     +--------------------+-------------------------+--------------------------+
-//!     |    manufacturer    | ePeripheralPin          | eShortPin                |
-//!     |--------------------|-------------------------|--------------------------|
-//!     |    CoX             | This parameter is a     | This parameter is a      |
-//!     |                    | mandatory.The mandatory | mandatory. the mandatory |
-//!     |                    | is the format of        | is the format of         |
-//!     |                    | Variable naming.So it   | Variable naming.So it    |
-//!     |                    | should be: CANnRX       | should be: PXn           |
-//!     |                    | or CANnTX               | XX indicate the GPIO     |
-//!     |                    | n indicate the pin      | PORT,Such as             |
-//!     |                    | number such as          | A B C D E ...            |
-//!     |                    | 0 1 2 3 ....            | n indicate the pin       |
-//!     |                    |                         | number such as           |
-//!     |                    |                         | 0 1 2 3 ....             |
-//!     |--------------------|-------------------------|--------------------------|
-//!     |       LPC17xx      |     CAN1RX              |     PA0   PA21           |
-//!     |                    |     CAN1TX              |     PA1   PA22           |
-//!     |                    |     CAN2RX              |     PA4   PC7            |
-//!     |                    |     CAN2TX              |     PA5   PC8            |
-//!     +--------------------+-------------------------+--------------------------+
+//! more please refer to [xGPIO CAN PIN MAP  in MD file](@ref CoX_CAN_MAP).
 //!
 //!
 //
 //*****************************************************************************
 #define xSPinTypeCAN(ePeripheralPin, eShortPin)                               \
-        GPIOSPinConfigure(ePeripheralPin, eShortPin)
+		xGPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -1713,34 +1725,13 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //!
 //! \return None.
 //!
-//!     +--------------------+-------------------------+--------------------------+
-//!     |    manufacturer    | ePeripheralPin          | eShortPin                |
-//!     |--------------------|-------------------------|--------------------------|
-//!     |    CoX             | This parameter is a     | This parameter is a      |
-//!     |                    | mandatory.The mandatory | mandatory. the mandatory |
-//!     |                    | is the format of        | is the format of         |
-//!     |                    | Variable naming.So it   | Variable naming.So it    |
-//!     |                    | should be: I2CnSCK      | should be: PXn           |
-//!     |                    | or I2CnSDA              | XX indicate the GPIO     |
-//!     |                    | n indicate the pin      | PORT,Such as             |
-//!     |                    | number such as          | A B C D E ...            |
-//!     |                    | 0 1 2 3 ....            | n indicate the pin       |
-//!     |                    |                         | number such as           |
-//!     |                    |                         | 0 1 2 3 ....             |
-//!     |--------------------|-------------------------|--------------------------|
-//!     |       LPC17xx      |     I2C0SDA             |     PA27                 |
-//!     |                    |     I2C0SCK             |     PA28                 |
-//!     |                    |     I2C1SDA             |     PA0  PA19            |
-//!     |                    |     I2C1SCK             |     PA1  PA20            |
-//!     |                    |     I2C2SDA             |     PA10                 |
-//!     |                    |     I2C2SCK             |     PA11                 |
-//!     |--------------------|-------------------------|--------------------------|
+//! more please refer to [xGPIO I2C PIN MAP  in MD file](@ref CoX_I2C_MAP).
 //!
 //!
 //
 //*****************************************************************************
  #define xSPinTypeI2C(ePeripheralPin, eShortPin)                              \
-         GPIOSPinConfigure(ePeripheralPin, eShortPin)
+		xGPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -1754,33 +1745,12 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //!
 //! \return None.
 //!
-//!     +--------------------+-------------------------+--------------------------+
-//!     |    manufacturer    | ePeripheralPin          | eShortPin                |
-//!     |--------------------|-------------------------|--------------------------|
-//!     |    CoX             | This parameter is a     | This parameter is a      |
-//!     |                    | mandatory.The mandatory | mandatory. the mandatory |
-//!     |                    | is the format of        | is the format of         |
-//!     |                    | Variable naming.So it   | Variable naming.So it    |
-//!     |                    | should be: SPInCLK,     | should be: PXn           |
-//!     |                    | SPInMISO, SPInMOSI,     | XX indicate the GPIO     |
-//!     |                    | or SPInCS,              | PORT,Such as             |
-//!     |                    | n indicate the pin      | A B C D E ...            |
-//!     |                    | number such as          | n indicate the pin       |
-//!     |                    | 0 1 2 3 ....            | number such as           |
-//!     |                    |                         | 0 1 2 3 ....             |
-//!     |--------------------|-------------------------|--------------------------|
-//!     |                    |          PWM1           |     PB18/PC0             |
-//!     |                    |          PWM2           |     PB20/PD25/PC1        |
-//!     |     LPC17xx        |          PWM3           |     PB21/PC2/PD26        |
-//!     |                    |          PWM4           |     PB23/PC3             |
-//!     |                    |          PWM5           |     PB24/PC4             |
-//!     |                    |          PWM6           |     PB26/PC5             |
-//!     +--------------------+-------------------------+--------------------------+
+//! more please refer to [xGPIO PWM PIN MAP  in MD file](@ref CoX_PWM_MAP).
 //!
 //
 //*****************************************************************************
 #define xSPinTypePWM(ePeripheralPin, eShortPin)                               \
-        GPIOSPinConfigure(ePeripheralPin, eShortPin)
+		xGPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -1805,31 +1775,12 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //!             xSPinTypeSPI(SPI0CLK, PA5)  --> Error
 //!             xSPinTypeSPI(SPI0CLK, PA4)  --> Error
 //!
-//!     +--------------------+-------------------------+--------------------------+
-//!     |    manufacturer    | ePeripheralPin          | eShortPin                |
-//!     |--------------------|-------------------------|--------------------------|
-//!     |    CoX             | This parameter is a     | This parameter is a      |
-//!     |                    | mandatory.The mandatory | mandatory. the mandatory |
-//!     |                    | is the format of        | is the format of         |
-//!     |                    | Variable naming.So it   | Variable naming.So it    |
-//!     |                    | should be: SPInCLK,     | should be: PXn           |
-//!     |                    | SPInMISO, SPInMOSI,     | XX indicate the GPIO     |
-//!     |                    | or SPInCS,              | PORT,Such as             |
-//!     |                    | n indicate the pin      | A B C D E ...            |
-//!     |                    | number such as          | n indicate the pin       |
-//!     |                    | 0 1 2 3 ....            | number such as           |
-//!     |                    |                         | 0 1 2 3 ....             |
-//!     |--------------------|-------------------------|--------------------------|
-//!     |       LPC17xx      |     SPI0CLK             |     PA15                 |
-//!     |                    |     SPI0CS              |     PA16                 |
-//!     |                    |     SPI0MISO            |     PA17                 |
-//!     |                    |     SPI0MOSI            |     PA18                 |
-//!     +--------------------+-------------------------+--------------------------+
+//! more please refer to [xGPIO SPI PIN MAP  in MD file](@ref CoX_SPI_MAP).
 //!
 //
 //*****************************************************************************
 #define xSPinTypeSPI(ePeripheralPin, eShortPin)                               \
-        GPIOSPinConfigure(ePeripheralPin, eShortPin)
+		xGPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -1854,29 +1805,11 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //!             xSPinTypeTimer(TIMCCP0, PC5)  --> Error
 //!             xSPinTypeTimer(TIMCCP0, PB6)  --> Error
 //!
-//!     +--------------------+-------------------------+--------------------------+
-//!     |    manufacturer    | ePeripheralPin          | eShortPin                |
-//!     |--------------------|-------------------------|--------------------------|
-//!     |    CoX             | This parameter is a     | This parameter is a      |
-//!     |                    | mandatory.The mandatory | mandatory. the mandatory |
-//!     |                    | is the format of        | is the format of         |
-//!     |                    | Variable naming.So it   | Variable naming.So it    |
-//!     |                    | should be: TIMCCPn,     | should be: PXn           |
-//!     |                    | n indicate the pin      | XX indicate the GPIO     |
-//!     |                    | number such as          | PORT,Such as             |
-//!     |                    | 0 1 2 3 ....            | A B C D E ...            |
-//!     |                    |                         | n indicate the pin       |
-//!     |                    |                         | number such as           |
-//!     |                    |                         | 0 1 2 3 ....             |
-//!     |--------------------|-------------------------|--------------------------|
-//!     |       LPC17xx      |                         |                          |
-//!     |--------------------|-------------------------|--------------------------|
-//!
-//! \todo Finish Cox Timer Pin map
+//! more please refer to [xGPIO TIMER PIN MAP  in MD file](@ref CoX_TIMER_MAP).
 //
 //*****************************************************************************
 #define xSPinTypeTimer(ePeripheralPin, eShortPin)                             \
-        GPIOSPinConfigure(ePeripheralPin, eShortPin)
+		xGPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -1901,44 +1834,12 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //!             xSPinTypeUART(UART0RX, PE6)  --> Error
 //!             xSPinTypeUART(UART0RX, PA1)  --> Error
 //!
-//!     +--------------------+-------------------------+--------------------------+
-//!     |    manufacturer    | ePeripheralPin          | eShortPin                |
-//!     |--------------------|-------------------------|--------------------------|
-//!     |    CoX             | This parameter is a     | This parameter is a      |
-//!     |                    | mandatory.The mandatory | mandatory. the mandatory |
-//!     |                    | is the format of        | is the format of         |
-//!     |                    | Variable naming.So it   | Variable naming.So it    |
-//!     |                    | should be: UARTnRX,     | should be: PXn           |
-//!     |                    | UARTnTX, UARTnCTS,      | XX indicate the GPIO     |
-//!     |                    | ......,                 | PORT,Such as             |
-//!     |                    | n indicate the pin      | A B C D E ...            |
-//!     |                    | number such as          | n indicate the pin       |
-//!     |                    | 0 1 2 3 ....            | number such as           |
-//!     |                    |                         | 0 1 2 3 ....             |
-//!     |--------------------|-------------------------|--------------------------|
-//!     |                    |     UART0TX             |     PA2                  |
-//!     |                    |     UART0RX             |     PA3                  |
-//!     |                    | ------------------------- ------------------------ |
-//!     |                    |     UART1TX             |     PA15  PC0            |
-//!     |                    |     UART1RX             |     PA16  PC1            |
-//!     |                    |     UART1CTS            |     PA17  PC2            |
-//!     |                    |     UART1DCD            |     PA18  PC3            |
-//!     |                    |     UART1DSR            |     PA19  PC4            |
-//!     |      LPC17xx       |     UART1DTR            |     PA20  PC5            |
-//!     |                    |     UART1RI             |     PA21  PC6            |
-//!     |                    |     UART1RTS            |     PA22  PC7            |
-//!     |                    | ------------------------- ------------------------ |
-//!     |                    |     UART2TX             |     PA10  PC8            |
-//!     |                    |     UART2RX             |     PA11  PC9            |
-//!     |                    | ------------------------- ------------------------ |
-//!     |                    |     UART3TX             |     PA0   PA25  PE28     |
-//!     |                    |     UART3RX             |     PA1   PA26  PE29     |
-//!     |-------------------------------------------------------------------------|
+//! more please refer to [xGPIO UART PIN MAP  in MD file](@ref CoX_UART_MAP).
 //!
 //
 //*****************************************************************************
 #define xSPinTypeUART(ePeripheralPin, eShortPin)                              \
-        GPIOSPinConfigure(ePeripheralPin, eShortPin)
+		xGPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -1953,29 +1854,13 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //! \return None.
 //!
 //! \note
-//!     +--------------------+-------------------------+--------------------------+
-//!     |    manufacturer    | ePeripheralPin          | eShortPin                |
-//!     |--------------------|-------------------------|--------------------------|
-//!     |    CoX             | This parameter is a     | This parameter is a      |
-//!     |                    | mandatory.The mandatory | mandatory. the mandatory |
-//!     |                    | is the format of        | is the format of         |
-//!     |                    | Variable naming.So it   | Variable naming.So it    |
-//!     |                    | should be: DACOUTn,     | should be: PXn           |
-//!     |                    |                         | X  indicate the GPIO     |
-//!     |                    | n x indicate the pin    | PORT,Such as             |
-//!     |                    | number such as          | A B C D E ...            |
-//!     |                    | 0 1 2 3 ....            | n indicate the pin       |
-//!     |                    |                         | number such as           |
-//!     |                    |                         | 0 1 2 3 ....             |
-//!     |--------------------|-------------------------|--------------------------|
-//!     |       LPC17xx      |     DACOUT1             |     PA26                 |
-//!     |--------------------|-------------------------|--------------------------|
+//! more please refer to [xGPIO DAC PIN MAP  in MD file](@ref CoX_DAC_MAP).
 //!
 //! \return None.
 //
 //*****************************************************************************
 #define xSPinTypeDAC(ePeripheralPin, eShortPin)                               \
-        GPIOSPinConfigure(ePeripheralPin, eShortPin)
+		xGPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
@@ -1989,36 +1874,13 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //! This function configures a pin for use as an ACMP function and turns
 //!  the pin into a GPIO ACMP input or output pin.
 //!
-//! \verbatim
-//! +--------------------+------------------------+------------------------+
-//! |    manufacturer    |ePeripheralPin          |eShortPin               |
-//! |--------------------|------------------------|------------------------|
-//! |    CoX             |This parameter is a     |This parameter is a     |
-//! |                    |mandatory.The mandatory |mandatory. the mandatory|
-//! |                    |is the format of        |is the format of        |
-//! |                    |Variable naming.So it   |Variable naming.So it   |
-//! |                    |should be: CMPnN,       |should be: PXn          |
-//! |                    |CMPnO or CMPnP          |XX indicate the GPIO    |
-//! |                    |n indicate the pin      |PORT,Such as            |
-//! |                    |number such as          |A B C D E ...           |
-//! |                    |0 1 2 3 ....            |n indicate the pin      |
-//! |                    |                        |number such as          |
-//! |                    |                        |0 1 2 3 ....            |
-//! |--------------------|------------------------|------------------------|
-//! |       NUC1xx       |    CMP0P               |    PC6                 |
-//! |                    |    CMP0N               |    PC7                 |
-//! |                    |    CMP0O               |    PB12                |
-//! |                    |    CMP1P               |    PC14                |
-//! |                    |    CMP1N               |    PC15                |
-//! |                    |    CMP1O               |    PB13                |
-//! |--------------------|------------------------|------------------------|
-//! \endverbatim
+//! more please refer to [xGPIO CMP PIN MAP  in MD file](@ref CoX_CMP_MAP).
 //!
 //! \return None.
 //
 //*****************************************************************************
 #define xSPinTypeACMP(ePeripheralPin, eShortPin)                              \
-        GPIOSPinConfigure(ePeripheralPin, eShortPin)
+		xGPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 
 //*****************************************************************************
@@ -2037,39 +1899,14 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //! argument which are in the same line can be combined.For eaxmple(TI):<br/>
 //! xSPinTypeI2S(I2S0RXSD, PA2) or xSPinTypeI2S(I2S0RXSD, PD4) is correct;<br/>
 //! But xSPinTypeI2S(I2S0RXSD, PD1) or xSPinTypeI2S(I2S0RXWS, PA2) is error.
-//! \verbatim
-//! +--------------------+------------------------+------------------------+
-//! |    manufacturer    |ePeripheralPin          |eShortPin               |
-//! |--------------------|------------------------|------------------------|
-//! |    CoX             |This parameter is a     |This parameter is a     |
-//! |                    |mandatory.The mandatory |mandatory. the mandatory|
-//! |                    |is the format of        |is the format of        |
-//! |                    |Variable naming.So it   |Variable naming.So it   |
-//! |                    |should be: I2SnRXSCK,   |should be: PXn          |
-//! |                    |I2SnRXMCLK,I2S0RXSD,    |XX indicate the GPIO    |
-//! |                    |I2S0RXWS,I2S0TXSCK,     |PORT,Such as            |
-//! |                    |I2S0TXMCLK,I2S0TXSD,    |A B C D E ...           |
-//! |                    |or I2S0TXWS.            |n indicate the pin      |
-//! |                    |n indicate the pin      |number such as          |
-//! |                    |number such as          |0 1 2 3 ....            |
-//! |                    |0 1 2 3 ....            |                        |
-//! |--------------------|------------------------|------------------------|
-//! |       NUC1xx       |    I2S0RXMCLK          |    PA15                |
-//! |                    |    I2S0RXSCK           |    PC1                 |
-//! |                    |    I2S0RXSD            |    PC2                 |
-//! |                    |    I2S0RXWS            |    PC0                 |
-//! |                    |    I2S0TXMCLK          |    PA15                |
-//! |                    |    I2S0TXSCK           |    PC1                 |
-//! |                    |    I2S0TXSD            |    PC3                 |
-//! |                    |    I2S0TXWS            |    PC0                 |
-//! |--------------------|------------------------|------------------------|
-//! \endverbatim
+//!
+//! more please refer to [xGPIO I2S PIN MAP  in MD file](@ref CoX_I2S_MAP).
 //!
 //! \return None.
 //
 //*****************************************************************************
 #define xSPinTypeI2S(ePeripheralPin, eShortPin)                               \
-        GPIOSPinConfigure(ePeripheralPin, eShortPin)
+		xGPIOSPinConfigure(ePeripheralPin, eShortPin)
 
 //*****************************************************************************
 //
