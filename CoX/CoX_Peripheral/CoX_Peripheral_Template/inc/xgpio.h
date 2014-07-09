@@ -42,7 +42,7 @@
 #define __XGPIO_H__
 
 #include "gpio.h"
-#include "CoX_base.h"
+#include "xPort.h"
 
 
 //*****************************************************************************
@@ -470,7 +470,6 @@ extern "C"
 //! @}
 //
 //*****************************************************************************
-
 
 //*****************************************************************************
 //
@@ -1468,7 +1467,6 @@ extern void xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 #define xGPIOSPinDirModeSet(eShortPin, ulPinIO)                               \
         GPIOSDirModeSet(eShortPin, ulPinIO)
 
-
 //*****************************************************************************
 //
 //! \brief  Register user's gpio interrupt function..
@@ -1535,7 +1533,6 @@ extern void xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 #define xGPIOSPinIntClear(eShortPin)                                          \
         GPIOSPinIntClear(eShortPin)
 
-
 //*****************************************************************************
 //
 //! \brief Reads the values present of the specified pin.
@@ -1550,8 +1547,7 @@ extern void xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //*****************************************************************************
 #define xGPIOSPinRead(eShortPin)                                              \
         GPIOSPinRead(eShortPin)
-
-
+        
 //*****************************************************************************
 //
 //! \brief  Write a value to the specified pin.

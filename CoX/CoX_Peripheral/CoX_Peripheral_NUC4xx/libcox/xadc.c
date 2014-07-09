@@ -493,6 +493,7 @@ xADCOverflowClear(unsigned long ulBase)
             ulDump = xHWREG(ulBase + ADC_DR0 + (4 * i));    
         }
     }
+    ulOverRunChannels = ulDump;
 }
 
 //*****************************************************************************

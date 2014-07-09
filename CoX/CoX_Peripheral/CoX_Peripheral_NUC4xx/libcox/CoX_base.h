@@ -6,10 +6,12 @@
 #include "uart.h"
 #include "spi.h"
 #include "i2c.h"
-
+#include "dma.h"
 #include "timer.h"
 #include "wdt.h"
 #include "rtc.h"
+
+#define WDT_BASE                WWDT_BASE
 
 #define SYSCTL_PERIPH_IOPA      SYSCTL_PERIPH_GPIO
 #define SYSCTL_PERIPH_IOPB      SYSCTL_PERIPH_GPIO
@@ -58,5 +60,8 @@
 #define RTC_EVENT_SECOND        BIT_32_0
 #define RTC_EVENT_ALARM         BIT_32_1
 #define RTC_EVENT_OVERFLOW      0
+
+#define PWM_CHANNEL6            0
+#define PWM_CHANNEL7            0
 
 #endif

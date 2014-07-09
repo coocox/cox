@@ -40,7 +40,7 @@
 #define __XSYSCTL_H__
 
 #include "sysctl.h"
-#include "CoX_base.h"
+#include "xPort.h"
 
 //*****************************************************************************
 //
@@ -297,7 +297,7 @@ extern "C"
 #define xSYSCTL_OSC_INTSL       SYSCTL_OSC_INTSL
 
 //! External Oscillator 32.768K
-#define xSYSCTL_OSC_EXTSL       SYSCTL_OSC_EXTSL
+#define SYSCTL_OSC_EXTSL        SYSCTL_OSC_EXTSL
 
 //
 //! \brief XTAL Select

@@ -65,7 +65,7 @@
 #include "xuart.h"
 #include "xwdt.h"
 
-#include "CoX_base.h"
+#include "xPort.h"
 
 //*****************************************************************************
 //

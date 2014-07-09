@@ -201,6 +201,16 @@ extern "C"
 //
 #define PWM_CHANNEL3            0x00000003
 
+//
+//! Channel 4
+//
+#define PWM_CHANNEL4            0x00000004
+
+//
+//! Channel 5
+//
+#define PWM_CHANNEL5            0x00000005
+
 //*****************************************************************************
 //
 //! @}
@@ -263,12 +273,12 @@ extern "C"
 //
 //! Auto-reload Mode
 //
-#define PWM_TOGGLE_MODE         0x00000008
+#define PWM_TOGGLE_MODE         0x00010000
 
 //
 //! Inverter enable
 //
-#define PWM_OUTPUT_INVERTER_EN  0x00000004
+#define PWM_OUTPUT_INVERTER_EN  0x00000001
 
 //
 //! Inverter disable
@@ -278,7 +288,7 @@ extern "C"
 //
 //! Dead-Zone 0 Generator enable
 //
-#define PWM_DEAD_ZONE_EN        0x00000010
+#define PWM_DEAD_ZONE_EN        0x10000000
 
 //
 //! Dead-Zone 0 Generator enable

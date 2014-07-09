@@ -227,7 +227,7 @@ TimerClockGet(unsigned long ulBase)
         //
         // COption 2: HCLK.
         //
-        ulTimerClock = SysCtlHClockGet();
+        ulTimerClock = xSysCtlClockGet();
     } 
     else if (ucClockSource == 3)
     {
@@ -290,16 +290,16 @@ TimerInitConfig(unsigned long ulBase, unsigned long ulConfig,
     switch(ulBase)
     {
         case TIMER0_BASE:
-            SysCtlPeripheralReset(SYSCTL_PERIPH_TIMER0);
+        	xSysCtlPeripheralReset(SYSCTL_PERIPH_TIMER0);
             break;
         case TIMER1_BASE:
-            SysCtlPeripheralReset(SYSCTL_PERIPH_TIMER1);
+        	xSysCtlPeripheralReset(SYSCTL_PERIPH_TIMER1);
             break;
         case TIMER2_BASE:
-            SysCtlPeripheralReset(SYSCTL_PERIPH_TIMER2);
+        	xSysCtlPeripheralReset(SYSCTL_PERIPH_TIMER2);
             break;
         case TIMER3_BASE:
-            SysCtlPeripheralReset(SYSCTL_PERIPH_TIMER3);
+        	xSysCtlPeripheralReset(SYSCTL_PERIPH_TIMER3);
             break; 
     }
      
@@ -1335,9 +1335,9 @@ void xTimerLoadGet(unsigned long ulBase, unsigned long ulChannel)
 //! \return current up timer or up event counter value will be set.
 //
 //*****************************************************************************
-extern void xTimerValueGet(unsigned long ulBase, unsigned long ulChannel)
+extern unsigned long xTimerValueGet(unsigned long ulBase, unsigned long ulChannel)
 {
-	TimerValueGet(ulBase);
+	return TimerValueGet(ulBase);
 }
 
 //*****************************************************************************

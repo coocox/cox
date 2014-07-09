@@ -855,9 +855,9 @@ RTCWakeupDisable(void)
 //!         - xfalse Initializes fail
 //
 //*****************************************************************************
-void xRTCTimeInit()
+xtBoolean xRTCTimeInit()
 {
-	RTCTimeInit();
+	return RTCTimeInit();
 }
 
 //*****************************************************************************

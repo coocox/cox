@@ -86,7 +86,7 @@
 //
 //! PDMA Transfer Source Address Register
 //
-#define PDMA_SAR                0x0000 0004
+#define PDMA_SAR                0x00000004
 
 //
 //! PDMA Destination Address Register
