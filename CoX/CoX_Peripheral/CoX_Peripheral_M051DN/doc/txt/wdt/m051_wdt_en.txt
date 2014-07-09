@@ -1,0 +1,112 @@
+//*****************************************************************************
+//
+//! \defgroup M051_WDT M051 WDT
+//! 
+//! \brief Nuvoton M051 WDT Peripheral Driver.
+//!
+//! The CoX Peripheral Library also provides APIs for full functions of Nuvoton
+//! M051 WDT. This module supports the whole M051 Series.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref M051_WDT_Blcok
+//! - \ref M051_WDT_Function_Desc
+//! - \ref M051_WDT_API_Group
+//!   - \ref M051_WDT_API_Group_Config
+//!   - \ref M051_WDT_API_Group_Function
+//!   - \ref M051_WDT_API_Group_Control
+//!   .
+//! - \ref M051_WDT_Usage
+//! .
+//!
+//! <br />
+//! \section M051_WDT_Blcok 1. WDT Physical Block
+//! <img src="M051_watchdog_block.png" />
+//! 
+//! <br />
+//! \section M051_WDT_Function_Desc 2. Functional Description
+//! WDT includes the following functions:
+//! - Interrupt
+//! - Wakeup
+//! - Restart
+//! - Hold In ICE 
+//! .
+//! 
+//! <br />
+//! \section M051_WDT_API_Group 3. API Groups
+//! 
+//! The WDT API is broken into two groups of functions : 
+//! - those that deal with configuration the WDT
+//! - those that deal with functions
+//! - those that deal with control
+//! .
+//!
+//! <br />
+//! \subsection M051_WDT_API_Group_Config 3.1 WDT Config APIs
+//! 
+//! The WDT are configured with :
+//! - WDTimerInit()
+//! .
+//! 
+//! <br />
+//! \subsection M051_WDT_API_Group_Function 3.2 WDT Function APIs
+//! 
+//! The WDT function are set with : 
+//! - WDTimerIntCallbackInit()
+//! - WDTimerFunctionEnable()
+//! - WDTimerFunctionDisable() 
+//! .
+//! <br />
+//! \subsection M051_WDT_API_Group_Control 3.3 WDT Control APIs
+//! 
+//! The WDT function are set with : 
+//! - WDTimerEnable()
+//! - WDTimerDisable()
+//! - WDTimerRestart()
+//! .
+//!
+//! <br />
+//! \section M051_WDT_Usage 4. Usage & Program Examples
+//! The following example shows how to use the WDT API to initialize the 
+//! WDT, achieve the WDT interrupt function.
+//! 
+//! \code
+//!
+//! // Set WDT Clock Source.
+//!
+//! SysCtlPeripheralClockSourceSet(SYSCTL_PERIPH_WDG_S_INT10K);
+//!
+//! // Enable WDT periperal. 
+//!
+//! SysCtlPeripheralEnable(SYSCTL_PERIPH_WDT);
+//!
+//! //
+//! // Set WDT time-out interval.
+//! //
+//! WDTimerInit(WDT_INTERVAL_2_10T);
+//!                   
+//! //
+//! // Set interrupt function.
+//! //
+//! WDTimerFunctionEnable(WATCHDOG_INT_FUNCTION);
+//!
+//! //
+//! //Initialize callback function.
+//! //
+//! WDTimerIntCallbackInit(user_Callback);
+//!
+//! //
+//! // Enable WDT interrupt in NVIC.
+//! //
+//! xIntEnable(INT_WDT);
+//!
+//! //
+//! // Start the Watchdog Timer.
+//! //
+//! WDTimerEnable();
+//!
+//! \endcode
+//! 
+//! 
+//
+//*****************************************************************************

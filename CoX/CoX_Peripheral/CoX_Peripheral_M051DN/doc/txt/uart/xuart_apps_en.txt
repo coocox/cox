@@ -1,0 +1,202 @@
+//*****************************************************************************
+//
+//! \defgroup xUART_Apps xUART Config and Example
+//!
+//! \brief CoX UART Config and Config and Example.
+//!
+//
+//*****************************************************************************
+//!
+//*****************************************************************************
+//
+//! \defgroup xUART_App_NormalMode Normal Mode Config and Example
+//!
+//! \brief CoX UART Normal Mode Config and Example.
+//!
+//! Here we introduce the normal mode config of uart, and provide a small example.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref xUART_App_NormalMode_config
+//! - \ref xUART_App_NormalMode_code
+//! .
+//!
+//! <br />
+//! \section xUART_App_NormalMode_config 1.How to configure the uart to send and receive data. 
+//!
+//! <ol>
+//! <li>Enale the peripheral clock of UART and GPIO</li>
+//! <li>Configure the GPIO pins mode as UART type</li>
+//! <li>Configure the baudrate, word length, parity bit, and stop bit</li>
+//! <li>Enable the UART</li>
+//! <li>Enable the corresponding interrupt for receviing data, and write interrupt handler function</li>
+//! </ol>
+//!
+//! <br />
+//! \section xUART_App_NormalMode_code 2.The code to send and receive data.
+//!
+//! \code
+//!
+//! #include "xhw_types.h"
+//! #include "xhw_ints.h"
+//! #include "xhw_nvic.h"
+//! #include "xhw_memmap.h"
+//! #include "xdebug.h"
+//! #include "xcore.h"
+//! #include "xsysctl.h"
+//! #include "xgpio.h"
+//! #include "xuart.h"
+//! 
+//! unsigned char ucData[] = "M051.UART Example of CoX \r\n";
+
+//! //*****************************************************************************
+//! 
+//! \brief print some data to terminal.
+//!
+//! \param None
+//!
+//! \return None.
+//!
+//! //*****************************************************************************
+//! void UartPrintf(void)
+//! {
+//!     unsigned long i;
+//!     //
+//!     //Set System Clock
+//!     //
+//!     xSysCtlClockSet(50000000, xSYSCTL_XTAL_12MHZ | xSYSCTL_OSC_MAIN);
+//!  
+//!     xSysCtlDelay(10000);
+//!     //
+//!     // Set UART GPIO Pin multiplex
+//!     //
+//!     xSPinTypeUART(UART0RX, PD0);
+//!     xSPinTypeUART(UART0TX, PD1);
+//! 
+//!     xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART0);
+//!     xSysCtlPeripheralEnable(xSYSCTL_PERIPH_UART0);
+//!     //
+//!     // Set UART0 clock source.
+//!     //
+//!     xSysCtlPeripheralClockSourceSet(xSYSCTL_UART0_MAIN, 1);
+//! 
+//!     //
+//!     // Configure 8 bit word length, 1 stop bit, 
+//!     // and none parity bit, receive FIFO 1 byte.
+//!     //
+//!     xUARTConfigSet(UART0_BASE, 115200, (xUART_CONFIG_WLEN_8 | 
+//!                                        xUART_CONFIG_STOP_1 | 
+//!                                        xUART_CONFIG_PAR_NONE));
+//! 
+//!     xUARTEnable(UART0_BASE, (UART_BLOCK_UART | xUART_BLOCK_TX | xUART_BLOCK_RX));
+//!     
+//!     for(i = 0; i < sizeof("M051.UART Example of CoX \r\n"); i++)
+//!     {
+//!         xUARTCharPut(UART0_BASE, ucData[i]);
+//!     }
+//! }
+//! \endcode
+//!
+//
+//*****************************************************************************
+
+
+//*****************************************************************************
+//
+//! \defgroup xUART_App_IrDA IrDA Config and Example
+//!
+//! \brief CoX UART IrDA Config and Example.
+//!
+//! Here we introduce the IrDA function of uart, and provide a small example.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref xUART_App_IrDA_config
+//! - \ref xUART_App_IrDA_code
+//! .
+//!
+//! <br />
+//! \section xUART_App_IrDA_config 1.How to configure the uart to support IrDA. 
+//!
+//! <ol>
+//! <li>Enale the peripheral clock of UART and GPIO</li>
+//! <li>Configure the GPIO pins mode as UART type</li>
+//! <li>Enable IrDA mode</li>
+//! <li>Configure the baudrate, word length, parity bit, and stop bit</li>
+//! <li>Enable the UART</li>
+//! <li>You can see the encoded signal through an oscilloscope</li>
+//! </ol>
+//!
+//! <br />
+//! \section xUART_App_IrDA_code 2.The code to send and receive data.
+//!
+//! \code
+//! 
+//! \endcode
+//! \n
+//! The Tx port outputs signal waves, you can observe it in an OSC.
+//! 
+//! \n
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup xUART_App_Modem Modem Config and Example
+//!
+//! \brief CoX UART Modem Config and Example.
+//!
+//! Here we introduce the Modem function of uart, and provide a small example.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref xUART_App_Modem_config
+//! - \ref xUART_App_Modem_code
+//! .
+//!
+//! <br />
+//! \section xUART_App_Modem_config 1.How to configure the uart to support Modem. 
+//!
+//! <ol>
+//! <li>Enale the peripheral clock of UART and GPIO</li><li>Enable the corresponding interrupt for receviing data, and write interrupt handler function</li>
+//! </ol>
+//!
+//! <br />
+//! \section xUART_App_Modem_code 2.The code to send and receive data.
+//!
+//! \code
+//! 
+//! \endcode
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \defgroup xUART_App_LIN LIN Config and Example
+//!
+//! \brief CoX UART LIN Config and Example.
+//!
+//! Here we introduce the LIN function of uart, and provide a small example.
+//!
+//! <br />
+//! <h1>Contents</h1>
+//! - \ref xUART_App_LIN_config
+//! - \ref xUART_App_LIN_code
+//! .
+//!
+//! <br />
+//! \section xUART_App_LIN_config 1.How to configure the uart to support LIN. 
+//!
+//! <ol>
+//! <li>Enale the peripheral clock of UART and GPIO</li> </ol>
+//!
+//! <br />
+//! \section xUART_App_LIN_code 2.The code of LIN example.
+//!
+//! \code
+//! 
+//! \endcode
+//!
+//
+//*****************************************************************************
