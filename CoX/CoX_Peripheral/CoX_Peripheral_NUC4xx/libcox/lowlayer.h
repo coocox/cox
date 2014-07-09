@@ -92,8 +92,8 @@
 #define CAP_BASE                0x40030000  // Image Capture  interface
 #define CRC_BASE                0x40031000  // CRC
 
+#define WDT_BASE                0x40040000  // Independent watchdog (IWDG)
 #define WWDT_BASE               0x40040C00  // Window watchdog (WWDG)
-#define IWDT_BASE               0x40040000  // Independent watchdog (IWDG)
 #define RTC_BASE                0x40041000  // RTC
 #define ADC0_BASE               0x40043000  // ADC0
 #define ADC1_BASE               0x40043000  // Enhance ADC1

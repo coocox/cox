@@ -79,29 +79,174 @@
 //*****************************************************************************
 
 //
-//! PDMA Control and Status Register
+//! DMA Control and Status Register
 //
-#define PDMA_CSR                0x00000000  
+#define DMA_CTRL                0x00000000
 
 //
-//! PDMA Transfer Source Address Register
+//! DMA Transfer Source Address Register
 //
-#define PDMA_SAR                0x0000 0004
+#define DMA_SAR                 0x00000004
 
 //
-//! PDMA Destination Address Register
+//! DMA Destination Address Register
 //
-#define PDMA_DAR                0x00000008  
+#define DMA_DAR                 0x00000008
+
+//
+//! DMA Scatter-Gather Descriptor Table Offset Address
+//
+#define DMA_NEXT                0x0000000C
+
+//
+//! DMA Current Scatter-Gather Descriptor Table Address
+//
+#define DMA_CURSCAT             0x00000100
+
+//
+//! DMA Channel Control Register
+//
+#define DMA_CHCON               0x00000400
+
+//
+//! DMA Stop Transfer Register
+//
+#define DMA_STOP                0x00000404
+
+//
+//! DMA Software Request Register
+//
+#define DMA_SWREQ               0x00000408
+
+//
+//! DMA Request Active Flag Register
+//
+#define DMA_REQACTF             0x0000040C
+
+//
+//! DMA Fixed Priority Setting Register
+//
+#define DMA_FPSET               0x00000410
+
+//
+//! DMA Fixed Priority Clear Register
+//
+#define DMA_FPCLR               0x00000414
+
+//
+//! DMA Interrupt Enable Control Register
+//
+#define DMA_IER                 0x00000418
+
+//
+//! DMA Interrupt Status Register
+//
+#define DMA_ISR                 0x0000041C
+
+//
+//! DMA Read/Write Target Abort Flag Register
+//
+#define DMA_ABTF                0x00000420
+
+//
+//! DMA Transfer Done Flag Register
+//
+#define DMA_TDF                 0x00000424
+
+//
+//! DMA Scatter-Gather Transfer Done Flag Register
+//
+#define DMA_SCATDF              0x00000428
+
+//
+//! DMA Transfer on Active Flag Register
+//
+#define DMA_ACTF                0x0000042C
+
+//
+//! DMA  Scatter-Gather  Descriptor  Table   Base  Address Register
+//
+#define DMA_SCATBA              0x0000043C
+
+//
+//! DMA Time-out Period Counter Ch1 and Ch0 Register
+//
+#define DMA_TOC0                0x00000440
+
+//
+//! DMA Time-out Period Counter Ch3 and Ch2 Register
+//
+#define DMA_TOC1                0x00000444
+
+//
+//! DMA Time-out Period Counter Ch5 and Ch4 Register
+//
+#define DMA_TOC2                0x00000448
+
+//
+//! DMA Time-out Period Counter Ch7 and Ch6 Register
+//
+#define DMA_TOC3                0x0000044C
+
+//
+//! DMA Time-out Period Counter Ch9 and Ch8 Register
+//
+#define DMA_TOC4                0x00000450
+
+//
+//! DMA Time-out Period Counter Ch11 and Ch10 Register
+//
+#define DMA_TOC5                0x00000454
+
+//
+//! DMA Time-out Period Counter Ch13 and Ch12 Register
+//
+#define DMA_TOC6                0x00000458
+
+//
+//! DMA Time-out Period Counter Ch15 and Ch14 Register
+//
+#define DMA_TOC7                0x0000045C
+
+//
+//! DMA Source Module Select Register 0
+//
+#define DMA_SMSEL0              0x00000480
+
+//
+//! DMA Source Module Select Register 1
+//
+#define DMA_SMSEL1              0x00000484
+
+//
+//! DMA Source Module Select Register 2
+//
+#define DMA_SMSEL2              0x00000488
+
+//
+//! DMA Source Module Select Register 3
+//
+#define DMA_SMSEL3              0x0000048C
+
+
+
+
+
+
+
+
+
+
 
 //
 //! PDMA Transfer Byte Count Register
 //
-#define PDMA_BCR                0x0000000C  
+#define PDMA_BCR                0x0000000C
 
 //
 //! PDMA Internal buffer pointer
 //
-#define PDMA_POINT              0x00000010  
+#define PDMA_POINT              0x00000010
 
 //
 //! PDMA Current Source Address Register

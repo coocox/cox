@@ -3,15 +3,15 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_PDMA
+//! \addtogroup NUC4xx_DMA
 //! @{
 //
 //*****************************************************************************
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_PDMA_Channel_IDs NUC4xx PDMA Channel IDs
-//! \brief Defines for the NUC4xx PDMA Channel IDs
+//! \addtogroup NUC4xx_DMA_Channel_IDs NUC4xx DMA Channel IDs
+//! \brief Defines for the NUC4xx DMA Channel IDs
 //! @{
 //
 //*****************************************************************************
@@ -44,8 +44,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_PDMA_Event_Flags  NUC4xx PDMA Event Flags
-//! \brief Defines for the NUC4xx PDMA Event Flags
+//! \addtogroup NUC4xx_DMA_Event_Flags  NUC4xx DMA Event Flags
+//! \brief Defines for the NUC4xx DMA Event Flags
 //! @{
 //
 //*****************************************************************************
@@ -68,9 +68,9 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_PDMA_Channel_Control_Config NUC4xx PDMA Channel Control
+//! \addtogroup NUC4xx_DMA_Channel_Control_Config NUC4xx DMA Channel Control
 //! Configure
-//! \brief Defines for the NUC4xx PDMA Channel Control Configure
+//! \brief Defines for the NUC4xx DMA Channel Control Configure
 //! @{
 //
 //*****************************************************************************
@@ -97,8 +97,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_PDMA_Request_Connections NUC4xx PDMA Request Connections
-//! \brief Defines for the NUC4xx PDMA Request Connections
+//! \addtogroup NUC4xx_DMA_Request_Connections NUC4xx DMA Request Connections
+//! \brief Defines for the NUC4xx DMA Request Connections
 //! @{
 //
 //*****************************************************************************
@@ -111,6 +111,18 @@
 
 #define DMA_REQUEST_UART1_RX    0x1008000F
 #define DMA_REQUEST_UART1_TX    0x100C010F
+
+#define DMA_REQUEST_UART2_RX    0x1008000F
+#define DMA_REQUEST_UART2_TX    0x100C010F
+
+#define DMA_REQUEST_UART3_RX    0x1008000F
+#define DMA_REQUEST_UART3_TX    0x100C010F
+
+#define DMA_REQUEST_UART4_RX    0x1008000F
+#define DMA_REQUEST_UART4_TX    0x100C010F
+
+#define DMA_REQUEST_UART5_RX    0x1008000F
+#define DMA_REQUEST_UART5_TX    0x100C010F
 
 #define DMA_REQUEST_SPI0_RX     0x0000000F
 #define DMA_REQUEST_SPI0_TX     0x0004010F
@@ -127,6 +139,9 @@
 #define DMA_REQUEST_IIS0_RX     0x2000000F
 #define DMA_REQUEST_IIS0_TX     0x2004010F
 
+#define DMA_REQUEST_IIS1_RX     0x2000000F
+#define DMA_REQUEST_IIS1_TX     0x2004010F
+
 #define DMA_REQUEST_ADC_RX      0x1018000F
 
 //*****************************************************************************
@@ -137,20 +152,12 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_PDMA_Exported_APIs NUC4xx PDMA APIs
-//! \brief NUC4xx PDMA API Reference.
+//! \addtogroup NUC4xx_DMA_Exported_APIs NUC4xx DMA APIs
+//! \brief NUC4xx DMA API Reference.
 //! @{
 //
 //*****************************************************************************
 
-extern void PDMAEnable(unsigned long ulChannelID);
-extern void PDMADisable(unsigned long ulChannelID);
-extern void PDMAChannelSoftwareReset(unsigned long ulChannelID);
-extern xtBoolean PDMAChannelIsBusy(unsigned long ulChannelID);
-extern void PDMAChannelIntDisable(unsigned long ulChannelID,
-                                 unsigned long ulIntFlags);
-extern void PDMAChannelIntEnable(unsigned long ulChannelID,
-                                unsigned long ulIntFlags);
 extern unsigned long PDMAChannelDynamicAssign(unsigned long ulDMASrcRequest,
                                             unsigned long ulDMADestRequest);
 extern xtBoolean PDMAChannelAssignmentGet(unsigned long ulChannelID);
