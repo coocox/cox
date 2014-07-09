@@ -41,7 +41,7 @@
 #define __xUART_H__
 
 #include "uart.h"
-#include "CoX_base.h"
+#include "xPort.h"
 
 //*****************************************************************************
 //

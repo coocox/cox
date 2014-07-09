@@ -40,7 +40,7 @@
 #define __XSYSCTL_H__
 
 #include "sysctl.h"
-#include "CoX_base.h"
+#include "xPort.h"
 
 //*****************************************************************************
 //
@@ -297,7 +297,7 @@ extern "C"
 #define xSYSCTL_OSC_INTSL       SYSCTL_OSC_INTSL
 
 //! External Oscillator 32.768K
-#define xSYSCTL_OSC_EXTSL       SYSCTL_OSC_EXTSL
+#define SYSCTL_OSC_EXTSL        SYSCTL_OSC_EXTSL
 
 //
 //! \brief XTAL Select
@@ -705,62 +705,6 @@ extern void xSysCtlReset(void);
 //
 //*****************************************************************************
 extern void xSysCtlSleep(void);
- 
-//*****************************************************************************
-//
-//! \brief  Set a peripheral clock source and peripheral divide.
-//!
-//! \param  [in] ulPeripheralSrc is the peripheral clock source to set.
-//! \param  [in] ulDivide is the peripheral clock divide to set.
-//!
-//! \return None.
-//!
-//! \note   Peripherals clock source are seted with this function.  At power-up,
-//!         all Peripherals clock source are Peripherals clock source; they must
-//!         be set in order to operate or respond to register reads/writes.
-//
-//*****************************************************************************
-extern void xSysCtlPeripheralClockSourceSet(unsigned long ulPeripheralSrc, unsigned long ulDivide);
- 
-//*****************************************************************************
-//
-//! \brief  Set a peripheral clock source and peripheral divide.
-//!
-//! \param  [in] ePeripheral is the peripheral which's clock source will be set.
-//! \param  [in] ulPeripheralSrc is the clock source will be set.
-//! \param  [in] ulDivide is the peripheral clock divide to set.
-//!
-//!         The \e ulPeripheralSrc parameter must be only one of the following values:
-//!         \ref xSysCtl_Peripheral_Src_Clk_CoX.
-//!
-//! +--------------------+-------------------------+-----------------------------+
-//! |    manufacturer    | ePeripheral             | ulPeripheralSrc             |
-//! |--------------------|-------------------------|-----------------------------|
-//! |    CoX Common &    | This parameter is a     | This parameter is a         |
-//! |      Mandatory     | mandatory.Mandatory     | mandatory. So it            |
-//! |                    | is the format of        | should be: INT              |
-//! |                    | Variable naming.So it   | HCLK  HCLK_n EXTSL          |
-//! |                    | should be: ADCn,        | INTSL  MAIN  PLL            |
-//! |                    | TIMERn or UARTn         | PLL_n  EXTTRG               |
-//! |                    | n indicate the pin      | n indicate the pin          |
-//! |                    | number such as          | number such as              |
-//! |                    | 0 1 2 3 ....            | 0 1 2 3 ....                |
-//! |--------------------|-------------------------|-----------------------------|
-//! |       LPC17xx      |     ADC0                | MAIN PLL INT                |
-//! |                    |     PWMB                | INT HCLK EXTSL MAIN         |
-//! |--------------------|-------------------------|-----------------------------|
-//!
-//! \return None.
-//!
-//! \note   Peripherals clock source are seted with this function.  At power-up,
-//!         all Peripherals clock source are Peripherals clock source; they must
-//!         be set in order to operate or respond to register reads/writes.
-//
-//*****************************************************************************
-extern void xSysCtlPeripheralClockSourceSet2(unsigned long ePeripheral,
-                                       unsigned long ulPeripheralSrc, 
-									   unsigned long ulDivide);
-									  
 
 
 //*****************************************************************************

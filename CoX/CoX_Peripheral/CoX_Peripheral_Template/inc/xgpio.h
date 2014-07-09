@@ -42,7 +42,7 @@
 #define __XGPIO_H__
 
 #include "gpio.h"
-#include "CoX_base.h"
+#include "xPort.h"
 
 
 //*****************************************************************************
@@ -469,7 +469,6 @@ extern "C"
 //! @}
 //
 //*****************************************************************************
-
 
 //*****************************************************************************
 //
@@ -1238,6 +1237,20 @@ extern void xGPIOPinIntEnable(unsigned long ulPort, unsigned long ulPins,
 //*****************************************************************************
 extern void xGPIOPinIntDisable(unsigned long ulPort, unsigned long ulPins);
 
+//*****************************************************************************
+//
+//! \brief  Get interrupt status for the specified GPIO port.
+//!
+//! \param  [in] ulPort is the base address of the GPIO port.
+//!
+//! \return Returns a bit-packed byte, where each bit that is set identifie
+//!         an active masked or raw interrupt, and where bit 0 of the byte
+//!         represents GPIO port pin 0, bit 1 represents GPIO port pin 1, and
+//!         so on.
+//
+//*****************************************************************************
+extern unsigned long xGPIOPinIntStatus(unsigned long ulPort);
+
 
 //*****************************************************************************
 //
@@ -1411,10 +1424,6 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 #define xGPIOSPinDirModeSet(eShortPin, ulPinIO)                               \
         xGPIODirModeSet(G##eShortPin, ulPinIO)
 
-
-
-
-
 //*****************************************************************************
 //
 //! \brief  Register user's gpio interrupt function..
@@ -1459,20 +1468,6 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 #define xGPIOSPinIntDisable(eShortPin)                                        \
         xGPIOPinIntDisable(G##eShortPin)
 
-//*****************************************************************************
-//
-//! \brief  Get interrupt status for the specified GPIO port.
-//!
-//! \param  [in] ulPort is the base address of the GPIO port.
-//!
-//! \return Returns a bit-packed byte, where each bit that is set identifie
-//!         an active masked or raw interrupt, and where bit 0 of the byte
-//!         represents GPIO port pin 0, bit 1 represents GPIO port pin 1, and
-//!         so on.
-//
-//*****************************************************************************
-#define xGPIOPinIntStatus(ulPort)
-
 
 //*****************************************************************************
 //
@@ -1495,19 +1490,6 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 #define xGPIOSPinIntClear(eShortPin)                                          \
         xGPIOPinIntClear(G##eShortPin)
 
-
-//*****************************************************************************
-//
-//! \brief  Reads the values present of the specified Port.
-//!
-//! \param  [in] ulPort is the base address of the GPIO port.
-//!
-//! \return Returns a bit-packed byte providing the state of the specified Port
-//
-//*****************************************************************************
-#define xGPIOPortRead(ulPort)                                                 \
-        GPIOPortRead(ulPort)
-
 //*****************************************************************************
 //
 //! \brief Reads the values present of the specified pin.
@@ -1522,21 +1504,6 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //*****************************************************************************
 #define xGPIOSPinRead(eShortPin)                                              \
         GPIOPinRead(G##eShortPin)
-
-
-//*****************************************************************************
-//
-//! \brief  Writes a value to the specified Port.
-//!         Writes the corresponding bit values to the output Port
-//!
-//! \param  [in] ulPort is the base address of the GPIO port.
-//! \param  [in] ucVal is the value to write to the Port.
-//!
-//! \return None.
-//
-//*****************************************************************************
-#define xGPIOPortWrite(ulPort, ulVal)                                         \
-        GPIOPortWrite(ulPort, ulVal)
 
 //*****************************************************************************
 //
@@ -1570,7 +1537,7 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
 //! \return None.
 //
 //*****************************************************************************
-#define xGPIOSPinConfigure(ePeripheralPin, eShortPin)                          \
+#define xGPIOSPinConfigure(ePeripheralPin, eShortPin)                         \
         GPIOPinFunCfg(G##eShortPin, GPIO_##eShortPin##_##ePeripheralPin)
 
 //*****************************************************************************
@@ -1588,7 +1555,7 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
         do                                                                    \
         {                                                                     \
             GPIOPinFunCfg(G##eShortPin, GPIO_##eShortPin##_##eShortPin);      \
-            GPIOPinModeCfg(G##eShortPin, PIN_MODE_INPUT);                     \
+            GPIOPinModeCfg(G##eShortPin, xGPIO_DIR_MODE_IN);                     \
         }                                                                     \
         while(0)
 
@@ -1607,7 +1574,7 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
         do                                                                    \
         {                                                                     \
             GPIOPinFunCfg(G##eShortPin, GPIO_##eShortPin##_##eShortPin);      \
-            GPIOPinModeCfg(G##eShortPin, PIN_MODE_OUTPUT);                    \
+            GPIOPinModeCfg(G##eShortPin, xGPIO_DIR_MODE_OUT);                    \
         }                                                                     \
         while(0)
 
@@ -1626,7 +1593,7 @@ extern unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal);
         do                                                                    \
         {                                                                     \
             GPIOPinFunCfg(G##eShortPin, GPIO_##eShortPin##_eShortPin);        \
-            GPIOPinModeCfg(G##eShortPin, PIN_MODE_OD_EN);                     \
+            GPIOPinModeCfg(G##eShortPin, xGPIO_DIR_MODE_OD);                     \
         }                                                                     \
         while(0)
 

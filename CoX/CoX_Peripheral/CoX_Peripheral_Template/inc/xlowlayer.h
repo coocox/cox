@@ -40,7 +40,7 @@
 #define __xLOWLAYER__
 
 #include "lowlayer.h"
-#include "CoX_base.h"
+#include "xPort.h"
 
 //*****************************************************************************
 //

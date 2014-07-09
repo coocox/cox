@@ -41,7 +41,7 @@
 #define __xTIMER_H__
 
 #include "timer.h"
-#include "CoX_base.h"
+#include "xPort.h"
 
 //*****************************************************************************
 //
