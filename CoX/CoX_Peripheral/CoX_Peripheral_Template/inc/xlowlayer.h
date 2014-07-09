@@ -137,7 +137,7 @@
 #define xDMA7_BASE              DMA7_BASE
 #define xDMA8_BASE              DMA8_BASE
 #define xRTC_BASE               RTC_BASE
-#define xWDT_BASE               WWDT_BASE
+#define xWDT_BASE               WDT_BASE
 
 #define xUART0_BASE             UART0_BASE
 #define xUART1_BASE             UART1_BASE

@@ -115,7 +115,12 @@ extern "C"
 //
 //! Interrupt when any of comparators match
 //
-#define xADC_INT_COMP           ADC_INT_COMP
+#define xADC_INT_COMP0          ADC_INT_COMP0
+
+//
+// The comparator1 match Interrupt
+//
+#define xADC_INT_COMP1          ADC_INT_COMP1
 
 //
 //! Interrupt after single cycle conversion
@@ -479,6 +484,46 @@ extern "C"
 //! Input channel 7
 //
 #define xADC_CTL_CH7            ADC_CTL_CH7
+
+//
+//! Input channel 8
+//
+#define xADC_CTL_CH8            ADC_CTL_CH8
+
+//
+//! Input channel 9
+//
+#define xADC_CTL_CH9            ADC_CTL_CH9
+
+//
+//! Input channel 10
+//
+#define xADC_CTL_CH10           ADC_CTL_CH10
+
+//
+//! Input channel 11
+//
+#define xADC_CTL_CH11           ADC_CTL_CH11
+
+//
+//! Input channel 12
+//
+#define xADC_CTL_CH12           ADC_CTL_CH12
+
+//
+//! Input channel 13
+//
+#define xADC_CTL_CH13           ADC_CTL_CH13
+
+//
+//! Input channel 14
+//
+#define xADC_CTL_CH14           ADC_CTL_CH14
+
+//
+//! Input channel 15
+//
+#define xADC_CTL_CH15           ADC_CTL_CH15
 
 //
 //! Select Comparator 0

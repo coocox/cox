@@ -950,7 +950,6 @@ extern xtBoolean xUARTCharsAvail(unsigned long ulBase);
 //*****************************************************************************
 extern xtBoolean xUARTSpaceAvail(unsigned long ulBase);
 
-
 //*****************************************************************************
 //
 //! \brief Receives a character from the specified port.
@@ -1104,7 +1103,22 @@ extern void xUARTIntCallbackInit(unsigned long ulBase,
 //*****************************************************************************
 extern void xUARTIntDisable(unsigned long ulBase, unsigned long ulIntFlags);
 
-
+//*****************************************************************************
+//
+//! \brief Gets the current interrupt status.
+//!
+//! \param ulBase is the base address of the UART port.
+//! \param bMasked is \b false if the raw interrupt status is required and
+//! \b true if the masked interrupt status is required.
+//!
+//! This returns the interrupt status for the specified UART.  Either the raw
+//! interrupt status or the status of interrupts that are allowed to reflect to
+//! the processor can be returned.
+//!
+//! \return Returns the current interrupt status, enumerated as a bit field of
+//! values described in xUARTIntEnable().
+//
+//*****************************************************************************
 extern unsigned long xUARTIntStatus(unsigned long ulBase, xtBoolean bMasked);
 
 //*****************************************************************************

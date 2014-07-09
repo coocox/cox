@@ -299,6 +299,11 @@ typedef struct
     //! Day of Week
     //
     unsigned long ulWDay;
+
+    //
+    //! Time format 24 hour or 12 hour
+    //
+    unsigned long ulFormat;
 } xtTime;
 
 //*****************************************************************************
@@ -341,7 +346,7 @@ typedef struct
 //!         - xfalse Initializes fail
 //
 //*****************************************************************************
-extern void xRTCTimeInit();
+extern xtBoolean xRTCTimeInit();
 
 
 //*****************************************************************************

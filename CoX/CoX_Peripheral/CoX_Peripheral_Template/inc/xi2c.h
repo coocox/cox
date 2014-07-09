@@ -7,7 +7,7 @@
 //! \author    CooCox
 //! \copyright
 //!
-//! Copyright (c)  2011, CooCox
+//! Copyright (c)  2014, CooCox
 //! All rights reserved.
 //!
 //! Redistribution and use in source and binary forms, with or without
@@ -49,8 +49,8 @@
 //
 //*****************************************************************************
 #ifdef __cplusplus
-//extern "C"
-//{
+extern "C"
+{
 #endif
 
 //*****************************************************************************
@@ -345,6 +345,8 @@
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \param  [in] ulI2CClk is the I2C clock bit rate.
 //!              0 < ulI2CClk <= 400000
@@ -363,6 +365,8 @@ extern void xI2CMasterInit(unsigned long ulBase, unsigned long ulI2CClk);
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \return None.
 //
@@ -378,6 +382,8 @@ extern void xI2CMasterEnable(unsigned long ulBase);
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \return None.
 //
@@ -393,12 +399,13 @@ extern void xI2CMasterDisable(unsigned long ulBase);
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \return None.
 //
 //*****************************************************************************
 extern void xI2CSlaveEnable(unsigned long ulBase);
-
 
 //*****************************************************************************
 //
@@ -409,12 +416,13 @@ extern void xI2CSlaveEnable(unsigned long ulBase);
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \return None.
 //
 //*****************************************************************************
 extern void xI2CSlaveDisable(unsigned long ulBase);
-
 
 //*****************************************************************************
 //
@@ -427,6 +435,8 @@ extern void xI2CSlaveDisable(unsigned long ulBase);
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \return The I2C bus status:
 //!         - xtrue    if I2C bus is busy.
@@ -445,6 +455,8 @@ extern xtBoolean xI2CMasterBusBusy(unsigned long ulBase);
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \return The I2C bus status:
 //!         - xtrue    if I2C bus is busy.
@@ -452,7 +464,6 @@ extern xtBoolean xI2CMasterBusBusy(unsigned long ulBase);
 //
 //*****************************************************************************
 extern xtBoolean xI2CMasterBusy(unsigned long ulBase);
-
 
 //*****************************************************************************
 //
@@ -462,6 +473,8 @@ extern xtBoolean xI2CMasterBusy(unsigned long ulBase);
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \param  [in] xtI2CCallback is user callback for the specified I2C Port.
 //!
@@ -470,8 +483,6 @@ extern xtBoolean xI2CMasterBusy(unsigned long ulBase);
 //*****************************************************************************
 extern void xI2CIntCallbackInit(unsigned long ulBase,
                                 xtEventCallback xtI2CCallback);
-
-
 
 //*****************************************************************************
 //
@@ -482,6 +493,8 @@ extern void xI2CIntCallbackInit(unsigned long ulBase,
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \param  [in] ucData specifies the data which will send to I2C BUS.
 //!
@@ -490,11 +503,7 @@ extern void xI2CIntCallbackInit(unsigned long ulBase,
 //! \note   This is only for slave
 //
 //*****************************************************************************
-extern void xI2CSlaveDataPut(unsigned long ulBase,
-                             unsigned char ucData);
-
-
-
+extern void xI2CSlaveDataPut(unsigned long ulBase, unsigned char ucData);
 
 //*****************************************************************************
 //! \brief Slave receive a byte to I2C bus.
@@ -504,6 +513,8 @@ extern void xI2CSlaveDataPut(unsigned long ulBase,
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \return None.
 //!
@@ -511,8 +522,6 @@ extern void xI2CSlaveDataPut(unsigned long ulBase,
 //
 //*****************************************************************************
 extern unsigned long xI2CSlaveDataGet(unsigned long ulBase);
-
-
 
 //*****************************************************************************
 //
@@ -523,6 +532,8 @@ extern unsigned long xI2CSlaveDataGet(unsigned long ulBase);
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \param  [in] ulIntType is the interrupt type of the I2C module.
 //!              which can be one of the following value:
@@ -533,8 +544,6 @@ extern unsigned long xI2CSlaveDataGet(unsigned long ulBase);
 //*****************************************************************************
 extern void xI2CMasterIntEnable(unsigned long ulBase, unsigned long ulIntType);
 
-
-
 //*****************************************************************************
 //
 //! \brief  Disables the I2C Master interrupt.
@@ -544,16 +553,15 @@ extern void xI2CMasterIntEnable(unsigned long ulBase, unsigned long ulIntType);
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \param  [in] ulIntType is the interrupt type of the I2C module.
-//!         TODO
 //!
 //! \return None.
 //
 //*****************************************************************************
 extern void xI2CMasterIntDisable(unsigned long ulBase, unsigned long ulIntType);
-
-
 
 //*****************************************************************************
 //
@@ -565,6 +573,8 @@ extern void xI2CMasterIntDisable(unsigned long ulBase, unsigned long ulIntType);
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \param  [in] ucSlaveAddr specifies the slave address.
 //!              The ucSlaveAddr can be a 7-bit value.
@@ -582,8 +592,6 @@ extern void xI2CSlaveInit(unsigned long ulBase,
                           unsigned char ucSlaveAddr,
                           unsigned long ulGeneralCall);
 
-
-
 //*****************************************************************************
 //
 //! \brief  Enables the I2C Slave interrupt.
@@ -592,6 +600,8 @@ extern void xI2CSlaveInit(unsigned long ulBase,
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \param  [in] ulIntType is the interrupt type of the I2C module.
 //!              This value can be one of the following value:
@@ -603,8 +613,6 @@ extern void xI2CSlaveInit(unsigned long ulBase,
 //*****************************************************************************
 extern void xI2CSlaveIntEnable(unsigned long ulBase, unsigned long ulIntType);
 
-
-
 //*****************************************************************************
 //
 //! \brief  Disables the I2C Slave interrupt.
@@ -613,6 +621,8 @@ extern void xI2CSlaveIntEnable(unsigned long ulBase, unsigned long ulIntType);
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \param  [in] ulIntType is the interrupt type of the I2C module.
 //!              This value can be one of the following value:
@@ -624,8 +634,6 @@ extern void xI2CSlaveIntEnable(unsigned long ulBase, unsigned long ulIntType);
 //*****************************************************************************
 extern void xI2CSlaveIntDisable(unsigned long ulBase, unsigned long ulIntType);
 
-
-
 //*****************************************************************************
 //
 //! \brief  Gets the error status of the I2C Master module.
@@ -636,6 +644,8 @@ extern void xI2CSlaveIntDisable(unsigned long ulBase, unsigned long ulIntType);
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \return Returns the error status, can be one of the following value:
 //!         - \ref I2C_MASTER_ERR_NONE
@@ -646,8 +656,6 @@ extern void xI2CSlaveIntDisable(unsigned long ulBase, unsigned long ulIntType);
 //*****************************************************************************
 extern unsigned long xI2CMasterError(unsigned long ulBase);
 
-
-
 //*****************************************************************************
 //
 //! \brief  Transfer an byte on the I2C bus.
@@ -657,16 +665,15 @@ extern unsigned long xI2CMasterError(unsigned long ulBase);
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \param  [in] ucData data to be transmitted from the I2C Master
 //!
 //! \return None.
 //
 //*****************************************************************************
-extern void xI2CMasterDataPut(unsigned long ulBase,
-                              unsigned char ucData);
-
-
+extern void xI2CMasterDataPut(unsigned long ulBase, unsigned char ucData);
 
 //*****************************************************************************
 //
@@ -677,14 +684,14 @@ extern void xI2CMasterDataPut(unsigned long ulBase,
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \return The data received from I2C bus.
 //!
 //
 //*****************************************************************************
 extern unsigned long xI2CMasterDataGet(unsigned long ulBase);
-
-
 
 //*****************************************************************************
 //
@@ -697,20 +704,24 @@ extern unsigned long xI2CMasterDataGet(unsigned long ulBase);
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \return None.
 //
 //*****************************************************************************
 extern void xI2CMasterStop(unsigned long ulBase);
 
-
-
-
 //*****************************************************************************
 //
 //! Gets the current I2C Master status.
 //!
 //! \param ulBase is the base address of the I2C module.
+//!              - \ref xI2C0_BASE
+//!              - \ref xI2C1_BASE
+//!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! This function reads the bytes of data from the I2C Master status Register.
 //!
@@ -740,6 +751,8 @@ extern unsigned long xI2CMasterIntFlagGet(unsigned long ulBase);
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \param  [in] ucSlaveAddr is the 7-bit slave address.
 //! \param  [in] ucData is the byte to transmit.
@@ -752,11 +765,8 @@ extern unsigned long xI2CMasterIntFlagGet(unsigned long ulBase);
 //!         interrupt handler.
 //
 //*****************************************************************************
-extern void xI2CMasterWriteRequestS1(unsigned long ulBase,
-                                     unsigned char ucSlaveAddr,
-                                     unsigned char ucData,
-                                     xtBoolean bEndTransmition);
-
+extern void xI2CMasterWriteRequestS1(unsigned long ulBase, unsigned char ucSlaveAddr,
+                                     unsigned char ucData, xtBoolean bEndTransmition);
 
 //*****************************************************************************
 //
@@ -779,6 +789,8 @@ extern void xI2CMasterWriteRequestS1(unsigned long ulBase,
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \param  [in] ucData is the byte to transmit.
 //! \param  [in] bEndTransmition is flag to control if transmit the STOP condition
@@ -789,10 +801,8 @@ extern void xI2CMasterWriteRequestS1(unsigned long ulBase,
 //!         handler.
 //
 //*****************************************************************************
-extern void xI2CMasterWriteRequestS2(unsigned long ulBase,
-                                     unsigned char ucData,
+extern void xI2CMasterWriteRequestS2(unsigned long ulBase, unsigned char ucData,
                                      xtBoolean bEndTransmition);
-
 
 //*****************************************************************************
 //
@@ -813,6 +823,8 @@ extern void xI2CMasterWriteRequestS2(unsigned long ulBase,
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \param  [in] ucSlaveAddr is the 7-bit slave address.
 //! \param  [in] ucData is the byte to transmit.
@@ -828,8 +840,7 @@ extern unsigned long xI2CMasterWriteS1(unsigned long ulBase,
                                        unsigned char ucSlaveAddr,
 						               unsigned char ucData,
 							           xtBoolean bEndTransmition);
-
-
+								   
 //*****************************************************************************
 //
 //! \brief  Write a data to the slave, when the master have obtained control of
@@ -850,12 +861,12 @@ extern unsigned long xI2CMasterWriteS1(unsigned long ulBase,
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \param  [in] ucData is the byte to transmit.
 //! \param  [in] bEndTransmition is flag to control if transmit the STOP condition
 //!              and terminate this transmition.
-//!
-//!
 //!
 //! \return Returns the master error status.
 //! \note   This function is always used in thread mode.
@@ -864,9 +875,6 @@ extern unsigned long xI2CMasterWriteS1(unsigned long ulBase,
 extern unsigned long xI2CMasterWriteS2(unsigned long ulBase,
 						               unsigned char ucData,
 							           xtBoolean bEndTransmition);
-
-
-
 
 //*****************************************************************************
 //
@@ -893,6 +901,8 @@ extern unsigned long xI2CMasterWriteS2(unsigned long ulBase,
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \param  [in] ucSlaveAddr is the 7-bit slave address.
 //! \param  [in] pucDataBuf is the data buffer to transmit.
@@ -911,8 +921,6 @@ extern unsigned long xI2CMasterWriteBufS1(unsigned long ulBase,
 						                  unsigned char *pucDataBuf,
 						                  unsigned long ulLen,
 							              xtBoolean bEndTransmition);
-
-
 
 //*****************************************************************************
 //
@@ -941,6 +949,8 @@ extern unsigned long xI2CMasterWriteBufS1(unsigned long ulBase,
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \param  [in] pucDataBuf is the data buffer to transmit.
 //! \param  [in] ulLen is the data buffer byte size.
@@ -956,8 +966,6 @@ extern unsigned long xI2CMasterWriteBufS2(unsigned long ulBase,
 						                  unsigned char *pucDataBuf,
 						                  unsigned long ulLen,
 							              xtBoolean bEndTransmition);
-
-
 
 //*****************************************************************************
 //
@@ -985,6 +993,8 @@ extern unsigned long xI2CMasterWriteBufS2(unsigned long ulBase,
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \param  [in] ucSlaveAddr is the 7-bit slave address.
 //! \param  [in] bEndTransmition is flag to control if transmit the STOP
@@ -999,8 +1009,6 @@ extern unsigned long xI2CMasterWriteBufS2(unsigned long ulBase,
 extern void xI2CMasterReadRequestS1(unsigned long ulBase,
 						            unsigned char ucSlaveAddr,
 							        xtBoolean bEndTransmition);
-
-
 
 //*****************************************************************************
 //
@@ -1027,6 +1035,8 @@ extern void xI2CMasterReadRequestS1(unsigned long ulBase,
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \param  [in] bEndTransmition is flag to control if transmit the STOP condition and
 //!              terminate this transmition.
@@ -1039,8 +1049,6 @@ extern void xI2CMasterReadRequestS1(unsigned long ulBase,
 //*****************************************************************************
 extern void xI2CMasterReadRequestS2(unsigned long ulBase,
 							        xtBoolean bEndTransmition);
-
-
 
 //*****************************************************************************
 //
@@ -1064,6 +1072,8 @@ extern void xI2CMasterReadRequestS2(unsigned long ulBase,
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \return None.
 //!
@@ -1072,9 +1082,6 @@ extern void xI2CMasterReadRequestS2(unsigned long ulBase,
 //
 //*****************************************************************************
 extern void xI2CMasterReadLastRequestS2(unsigned long ulBase);
-
-
-
 
 //*****************************************************************************
 //
@@ -1098,6 +1105,8 @@ extern void xI2CMasterReadLastRequestS2(unsigned long ulBase);
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \param  [in] ucSlaveAddr is the 7-bit slave address.
 //! \param  [in] pucData is the buffer where to save the data.
@@ -1113,7 +1122,6 @@ extern unsigned long xI2CMasterReadS1(unsigned long ulBase,
                                       unsigned char ucSlaveAddr,
                                       unsigned char *pucData,
                                       xtBoolean bEndTransmition);
-
 
 //*****************************************************************************
 //
@@ -1136,6 +1144,8 @@ extern unsigned long xI2CMasterReadS1(unsigned long ulBase,
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \param  [in] pucData is the buffer where to save the data.
 //! \param  [in] bEndTransmition is flag to control if transmit the STOP
@@ -1149,8 +1159,6 @@ extern unsigned long xI2CMasterReadS1(unsigned long ulBase,
 extern unsigned long xI2CMasterReadS2(unsigned long ulBase,
                                       unsigned char *pucData,
                                       xtBoolean bEndTransmition);
-
-
 
 //*****************************************************************************
 //
@@ -1180,6 +1188,8 @@ extern unsigned long xI2CMasterReadS2(unsigned long ulBase,
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \param  [out] ucSlaveAddr is the 7-bit slave address.
 //!
@@ -1201,8 +1211,6 @@ extern unsigned long xI2CMasterReadBufS1(unsigned long ulBase,
                                          unsigned char *pucDataBuf,
                                          unsigned long ulLen,
                                          xtBoolean bEndTransmition);
-
-
 
 //*****************************************************************************
 //
@@ -1233,6 +1241,8 @@ extern unsigned long xI2CMasterReadBufS1(unsigned long ulBase,
 //!              - \ref xI2C0_BASE
 //!              - \ref xI2C1_BASE
 //!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! \param  [out] pucDataBuf is the buffer where to save the data.
 //!
@@ -1252,13 +1262,16 @@ extern unsigned long xI2CMasterReadBufS2(unsigned long ulBase,
                                          unsigned long ulLen,
                                          xtBoolean bEndTransmition);
 
-
-
 //*****************************************************************************
 //
 //! Gets the current I2C Slave status.
 //!
 //! \param ulBase is the base address of the I2C module.
+//!              - \ref xI2C0_BASE
+//!              - \ref xI2C1_BASE
+//!              - \ref xI2C2_BASE
+//!              - \ref xI2C3_BASE
+//!              - \ref xI2C4_BASE
 //!
 //! This function reads the bytes of data from the I2C Slave status Register.
 //!
@@ -1291,7 +1304,7 @@ extern unsigned char xI2CSlaveIntFlagGet(unsigned long ulBase);
 //
 //*****************************************************************************
 #ifdef __cplusplus
-//}
+}
 #endif
 
 #endif // __XI2C_H__
