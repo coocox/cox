@@ -41,7 +41,7 @@
 #define __xACMP_H__
 
 #include "acmp.h"
-#include "CoX_base.h"
+#include "xPort.h"
 
 //*****************************************************************************
 //
