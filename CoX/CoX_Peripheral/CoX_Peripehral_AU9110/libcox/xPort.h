@@ -190,11 +190,6 @@
 #define SYSCTL_PERIPH_PWMA      SYSCTL_PERIPH_PWM01
 
 //
-//! PWM peripheral ID port
-//
-#define SYSCTL_PERIPH_PWMB      SYSCTL_PERIPH_PWM01
-
-//
 //! Timer0 peripheral ID port
 //
 #define SYSCTL_PERIPH_TIMER0    SYSCTL_PERIPH_TMR0
@@ -212,7 +207,7 @@
 //
 //! WDOG peripheral ID port
 //
-#define SYSCTL_PERIPH_WWDT      SYSCTL_PERIPH_WDG
+#define SYSCTL_PERIPH_WDT      SYSCTL_PERIPH_WDG
 
 //*****************************************************************************
 //
@@ -230,8 +225,13 @@
 //
 //! Internal RC
 //
-#define (SYSCTL_OSC_INT | SYSCTL_PLL_INT)                                    \
-	                            SYSCTL_OSC_49M_EN
+#define SYSCTL_OSC_INT          SYSCTL_OSC_49M_EN
+
+//
+//! SYSCTL_PLL_INT
+//
+#define SYSCTL_PLL_INT          0
+
 
 //
 //! Internal 10K RC
@@ -262,8 +262,6 @@
 //! @{
 //
 //*****************************************************************************
-
-#define
 
 
 //*****************************************************************************

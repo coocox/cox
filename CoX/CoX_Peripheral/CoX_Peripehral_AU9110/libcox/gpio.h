@@ -717,9 +717,8 @@ extern void GPIOPinDebounceEnable(unsigned long ulPort,
                                   unsigned long ulPins);
 extern void GPIOPinDebounceDisable(unsigned long ulPort, 
                                    unsigned long ulPins);
-extern void GPIOPinMaskSet(unsigned long ulClockSource,
-                               long ulPort, unsigned long ulPins);
-extern void GPIODebounceTimeSet(  unsigned long ulDebounceClk);
+extern void GPIOPinMaskSet(unsigned long ulPort, unsigned long ulPins);
+extern void GPIODebounceTimeSet(unsigned long ulClockSource, unsigned long ulDebounceClk);
 extern long GPIODebounceTimeGet(void);
 extern long GPIOPortMaskGet(unsigned long ulPort);
 extern long GPIOPinPortDoutGet(unsigned long ulPort);
