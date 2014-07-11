@@ -653,7 +653,7 @@
 //
 //! Pin15 Disable IO digital input path
 //
-#define GPIO_INDIS_INDIS_14     0x80000000
+#define GPIO_INDIS_INDIS_15     0x80000000
 
 //*****************************************************************************
 //

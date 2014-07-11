@@ -78,10 +78,11 @@ extern "C"
 //!
 //! \section    xRTC_INT_Type_CoX     2. CoX Port Details
 //!
-//! |  xRTC Interrupts         |       CoX      |         LPC17xx        |
-//! |--------------------------|----------------|------------------------|
-//! |  xRTC_INT_SECOND         |    Mandatory   |            Y           |
-//! |  xRTC_INT_ALARM          |  Non-Mandatory |            Y           |
+//! |  xRTC Interrupts         |       CoX      |
+//! |--------------------------|----------------|
+//! |  xRTC_INT_SECOND         |    Mandatory   |
+//! |  xRTC_INT_ALARM          |  Non-Mandatory |
+//! |  xRTC_INT_OVERFLOW       |  Non-Mandatory |
 //!
 //! @{
 //
@@ -89,7 +90,6 @@ extern "C"
 #define xRTC_INT_SECOND         RTC_INT_SECOND
 #define xRTC_INT_ALARM          RTC_INT_ALARM
 #define xRTC_INT_OVERFLOW       RTC_INT_OVERFLOW
-
 
 
 //*****************************************************************************
@@ -110,10 +110,11 @@ extern "C"
 //!
 //! \section    xRTC_INT_Event_CoX     2. CoX Port Details
 //!
-//! |  xRTC Event              |       CoX      |         LPC17xx        |
-//! |--------------------------|----------------|------------------------|
-//! |  xRTC_EVENT_SECOND       |    Mandatory   |            Y           |
-//! |  xRTC_EVENT_ALARM        |  Non-Mandatory |            Y           |
+//! |  xRTC Event              |       CoX      |
+//! |--------------------------|----------------|
+//! |  xRTC_EVENT_SECOND       |    Mandatory   |
+//! |  xRTC_EVENT_ALARM        |  Non-Mandatory |
+//! |  xRTC_EVENT_OVERFLOW     |  Non-Mandatory |
 //!
 //! @{
 //
@@ -139,15 +140,15 @@ extern "C"
 //!
 //! \section    xRTC_Day_Week_CoX     2. CoX Port Details
 //!
-//! |  tTime.ulWDay            |       CoX      |         LPC17xx        |
-//! |--------------------------|----------------|------------------------|
-//! |  xRTC_WEEK_SUNDAY        |    Mandatory   |            Y           |
-//! |  xRTC_WEEK_MONDAY        |    Mandatory   |            Y           |
-//! |  xRTC_WEEK_TUESDAY       |    Mandatory   |            Y           |
-//! |  xRTC_WEEK_WEDNESDAY     |    Mandatory   |            Y           |
-//! |  xRTC_WEEK_THURSDAY      |    Mandatory   |            Y           |
-//! |  xRTC_WEEK_FRIDAY        |    Mandatory   |            Y           |
-//! |  xRTC_WEEK_SATURDAY      |    Mandatory   |            Y           |
+//! |  tTime.ulWDay            |       CoX      |
+//! |--------------------------|----------------|
+//! |  xRTC_WEEK_SUNDAY        |    Mandatory   |
+//! |  xRTC_WEEK_MONDAY        |    Mandatory   |
+//! |  xRTC_WEEK_TUESDAY       |    Mandatory   |
+//! |  xRTC_WEEK_WEDNESDAY     |    Mandatory   |
+//! |  xRTC_WEEK_THURSDAY      |    Mandatory   |
+//! |  xRTC_WEEK_FRIDAY        |    Mandatory   |
+//! |  xRTC_WEEK_SATURDAY      |    Mandatory   |
 //!
 //! @{
 //
@@ -225,15 +226,15 @@ extern "C"
 //! \brief      Values that show xRTC Time Type
 //!
 //! \section    xRTC_Year_Offset_Section 1. Where to use this group
-//!             Values that can be passed to RTCTimeRead() and RTCTimeWrite()
+//!             Values that can be passed to xRTCTimeRead() and xRTCTimeWrite()
 //!             as the ulTimeAlarm parameter.
 //!
 //! \section    xRTC_Year_Offset_CoX     2. CoX Port Details
 //!
-//! |  ulTimeAlarm             |       CoX      |         LPC17xx        |
-//! |--------------------------|----------------|------------------------|
-//! |  xRTC_TIME_CURRENT       |    Mandatory   |            Y           |
-//! |  xRTC_TIME_ALARM         |  Non-Mandatory |            Y           |
+//! |  ulTimeAlarm             |       CoX      |
+//! |--------------------------|----------------|
+//! |  xRTC_TIME_CURRENT       |    Mandatory   |
+//! |  xRTC_TIME_ALARM         |  Non-Mandatory |
 //!
 //! @{
 //
@@ -319,16 +320,16 @@ typedef struct
 //!
 //! \section    xRTC_Exported_APIs_Port CoX Port Details
 //!
-//! |      xRTC API            |       CoX      |         LPC17xx        |
-//! |--------------------------|----------------|------------------------|
-//! | \ref xRTCTimeInit        |    Mandatory   |            Y           |
-//! | \ref xRTCTimeRead        |    Mandatory   |            Y           |
-//! | \ref xRTCTimeWrite       |    Mandatory   |            Y           |
-//! | \ref xRTCIntEnable       |    Mandatory   |            Y           |
-//! | \ref xRTCIntCallbackInit |    Mandatory   |            Y           |
-//! | \ref xRTCIntDisable      |    Mandatory   |            Y           |
-//! | \ref xRTCStart           |    Mandatory   |            Y           |
-//! | \ref xRTCStop            |    Mandatory   |            Y           |
+//! |      xRTC API            |       CoX      |
+//! |--------------------------|----------------|
+//! | \ref xRTCTimeInit        |    Mandatory   |
+//! | \ref xRTCTimeRead        |    Mandatory   |
+//! | \ref xRTCTimeWrite       |    Mandatory   |
+//! | \ref xRTCIntEnable       |    Mandatory   |
+//! | \ref xRTCIntCallbackInit |    Mandatory   |
+//! | \ref xRTCIntDisable      |    Mandatory   |
+//! | \ref xRTCStart           |    Mandatory   |
+//! | \ref xRTCStop            |    Mandatory   |
 //!
 //! @{
 //

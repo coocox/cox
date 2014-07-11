@@ -883,7 +883,7 @@ xIntEnable(unsigned long ulInterrupt)
         //
         xHWREG(NVIC_ST_CTRL) |= NVIC_ST_CTRL_INTEN;
     }
-    else if((ulInterrupt >= 16) && (ulInterrupt <= xNUM_INTERRUPTS))
+    else if((ulInterrupt >= 16) && (ulInterrupt <= NUM_INTERRUPTS))
     {
         //
         // Enable the general interrupt.

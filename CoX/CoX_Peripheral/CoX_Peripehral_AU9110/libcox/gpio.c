@@ -37,8 +37,10 @@
 //
 //*****************************************************************************
 
-#include "CoX.h"
 #include "hw_gpio.h"
+#include "hw_sysctl.h"
+#include "gpio.h"
+#include "CoX.h"
 
 int test0,test1;
 
@@ -295,7 +297,7 @@ void EINT1IntHandler(void)
 unsigned long
 GPIOPinToPeripheralId(unsigned long ulPort, unsigned long ulPin)
 {
-
+     return 0;
 
 }
 
@@ -548,7 +550,7 @@ void xGPIOPinIntDisable(unsigned long ulPort, unsigned long ulPins)
 //*****************************************************************************
 unsigned long xGPIOPinIntStatus(unsigned long ulPort)
 {
-	GPIOPinIntStatus(ulPort);
+	return GPIOPinIntStatus(ulPort);
 }
 
 //*****************************************************************************
@@ -621,7 +623,7 @@ unsigned long xGPIOPortRead(unsigned long ulPort)
 //! \return None.
 //
 //*****************************************************************************
-unsigned long xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal)
+void xGPIOPortWrite(unsigned long ulPort, unsigned long ulVal)
 {
     xASSERT(GPIOBaseValid(ulPort));
     xHWREG(ulPort +  GPIO_DOUT) = ulVal;
@@ -690,54 +692,8 @@ void
 GPIODigitalInputDisable(unsigned long ulPort, unsigned long ulPins)
 {
 	xASSERT(GPIOBaseValid(ulPort));
-	xHWREG(ulPort + GPIO_OFFD) |= (ulPins << 16);
+	xHWREG(ulPort + GPIO_INDIS) |= (ulPins << 16);
 }
-
-//*****************************************************************************
-//
-//! \brief  Register user's gpio interrupt function.
-//!
-//! \param  [in] ulPort is the base address of the GPIO port.
-//! \param  [in] ulPin is the bit-packed representation of the pin.
-//! \param  [in] pfnCallback is the callback function.
-//!
-//! \return None.
-//
-//*****************************************************************************
-void
-GPIOPinIntCallbackInit(unsigned long ulPort, unsigned long ulPin,
-                       xtEventCallback xtPortCallback)
-{
-    int i;
-    unsigned long ulPinID;
-    //
-    // Check the arguments.
-    //
-    xASSERT(GPIOBaseValid(ulPort));
-
-    ulPinID = (ulPort  << 16) | ulPin;
-
-    //
-    // Init the interrupts callback.
-    //
-    for(i=0; i<xGPIO_INT_NUMBER; i++)
-    {
-        if(g_psGPIOPinIntAssignTable[i].ulpinID == ulPinID)
-        {
-            g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback =
-                                         xtPortCallback;
-            break;
-        }
-        if (g_psGPIOPinIntAssignTable[i].ulpinID == 0)
-        {
-            g_psGPIOPinIntAssignTable[i].ulpinID = ulPinID;
-            g_psGPIOPinIntAssignTable[i].pfnGPIOPinHandlerCallback =
-                                         xtPortCallback;
-            break;
-        }
-    }
-}
-
 
 //*****************************************************************************
 //
@@ -1103,7 +1059,7 @@ GPIOBitWrite(unsigned long ulPort, unsigned long ulBit, unsigned char ucVal)
     xASSERT((ucVal == 1)||
     		(ucVal == 0));
 
-    if(ulVal == 1)
+    if(ucVal == 1)
     {
     	xHWREG((ulPort + GPIO_DOUT)) |= (1 << ulBit);
     }
@@ -1230,11 +1186,11 @@ GPIODebounceTimeSet(unsigned long ulClockSource, unsigned long ulDebounceClk)
     //
     // Write the pins.
     //
-    xHWREG(GPIO_PORTA_BASE + GPIO_DBNCECON) =  ((ulClockSource & 1) ?
-                              (xHWREG(GPIO_PORTA_BASE + GPIO_DBNCECON) | GPIO_DBNCECON_DBCLKSRC) :
-                              (xHWREG(GPIO_PORTA_BASE + GPIO_DBNCECON) & ~(GPIO_DBNCECON_DBCLKSRC)));
-    xHWREG(GPIO_PORTA_BASE + GPIO_DBNCECON) &= ~GPIO_DBNCECON_DBCLKSEL_M;
-    xHWREG(GPIO_PORTA_BASE + GPIO_DBNCECON) |= ulDebounceClk;
+    xHWREG(GPIO_DBNCECON) =  ((ulClockSource & 1) ?
+                              (xHWREG(GPIO_DBNCECON) | GPIO_DBNCECON_DBCLKSRC) :
+                              (xHWREG(GPIO_DBNCECON) & ~(GPIO_DBNCECON_DBCLKSRC)));
+    xHWREG(GPIO_DBNCECON) &= ~GPIO_DBNCECON_DBCLKSEL_M;
+    xHWREG(GPIO_DBNCECON) |= ulDebounceClk;
 }
 
 //*****************************************************************************
