@@ -37,9 +37,10 @@
 //
 //*****************************************************************************
 
-#include "CoX.h"
 #include "hw_gpio.h"
 #include "hw_sysctl.h"
+#include "gpio.h"
+#include "CoX.h"
 
 int test0,test1;
 

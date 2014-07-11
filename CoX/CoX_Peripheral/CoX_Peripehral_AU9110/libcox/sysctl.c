@@ -36,8 +36,10 @@
 //! THE POSSIBILITY OF SUCH DAMAGE.
 //
 //*****************************************************************************
-#include "CoX.h"
 #include "hw_sysctl.h"
+#include "CoX.h"
+#include "sysctl.h"
+
 
 static unsigned long s_ulExtClockkHz = 32;
 
