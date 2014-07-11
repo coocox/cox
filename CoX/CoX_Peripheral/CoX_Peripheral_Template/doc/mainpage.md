@@ -26,7 +26,10 @@ CoX develop manual
   - \ref xSPI_page
   - \ref xPWM_page
   - \ref xADC_page
+  - [xRTC](@ref xRTC_document_md)
   .
+  
+more please refer to [xGPIO interrupt number config ID in MD file](@ref xRTC_document_md).
  
 Features
 ----------

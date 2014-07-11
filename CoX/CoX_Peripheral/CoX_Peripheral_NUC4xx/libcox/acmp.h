@@ -67,14 +67,14 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup M051_ACMP
+//! \addtogroup NUC4xx_ACMP
 //! @{
 //
 //*****************************************************************************
 
 //*****************************************************************************
 //
-//! \addtogroup M051_ACMP_Analog_Src_negative M051 negative(ACMP-) Input Source
+//! \addtogroup NUC4xx_ACMP_Analog_Src_negative NUC4xx negative(ACMP-) Input Source
 //! \brief Analog comparator negative input select.
 //! @{
 //
@@ -98,7 +98,7 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup M051_ACMP_Comparator_IDs M051_ACMP Analog Comparator ID
+//! \addtogroup NUC4xx_ACMP_Comparator_IDs NUC4xx_ACMP Analog Comparator ID
 //! \brief Analog Comparator ID (index).
 //!
 //! The ID index is always like 0-1, and so on.
@@ -119,8 +119,8 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup M051_ACMP_Exported_APIs M051 ACMP API
-//! \brief M051 ACMP API Reference.
+//! \addtogroup NUC4xx_ACMP_Exported_APIs NUC4xx ACMP API
+//! \brief NUC4xx ACMP API Reference.
 //! @{
 //
 //*****************************************************************************

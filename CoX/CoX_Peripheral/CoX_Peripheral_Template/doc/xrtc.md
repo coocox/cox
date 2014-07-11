@@ -1,33 +1,33 @@
-\page xRTC_page xRTC page 
+
 
 [TOC]
 
 
 
 
-xRTC document
+xRTC document {#xRTC_document_md}
 ======
-��ƪ������Ҫ���⣬CoX.RTC�Ĺ淶��������
-- �����
-    - ���������壿
-    - �����ĸ�API��
-    - ��������ʽ
-    - ��������ϵ�е�ʵ�����
-- API����
-    - ����ԭ��
-    - ��Ҫʵ�ֵĹ��ܺ�ÿ������������
-    - ����֮������Ӧ�ã����ܣ�
+本篇文章主要讲解，CoX.RTC的规范，包括：
+- 宏参数
+    - 参数的意义？
+    - 传给哪个API？
+    - 参数的形式
+    - 各个厂商系列的实现情况
+- API函数
+    - 函数原型
+    - 需要实现的功能和每个参数的意义
+    - 函数之间的组合应用（功能）
  
 xRTC Interrupt Type  {#xRTC_INT_Type_md}
 ================
-������������жϵ����ͣ�����RTC��˵���ж����������ͣ�ʱ���жϣ�CoX������ж϶���Ϊһ�룩�������жϺ�����жϡ�
-��������ʽΪ�̶��ĺ����ƣ� 
+这个参数定义中断的类型：对于RTC来说，中断有三种类型，时间中断（CoX将这个中断定义为一秒）、闹钟中断和溢出中断。
+参数的形式为固定的宏名称： 
  - \ref xRTC_INT_SECOND  
  - \ref xRTC_INT_ALARM 
  - \ref xRTC_INT_OVERFLOW
  
-��������� API \ref xRTCIntEnable() �� API \ref xRTCIntDisable() �� ulIntType������
-��Щϵ��ʵ�������������ܣ�Ȼ����Щϵ��ֻ��ǰ�������ܣ������Ǹ���ϵ�е�ʵ�ֵ������
+这个参数是 API \ref xRTCIntEnable() 和 API \ref xRTCIntDisable() 的 ulIntType参数。
+有些系列实现了这三个功能，然后有些系列只有前两个功能，下面是各个系列的实现的情况。
 
 |  xRTC Interrupts |LPC17xx|STM32F1xx|NUC1xx/NUC2xx/M051/Mini51|KLx      |HT32F125x|HT32F175x|
 |:----------------:|:-----:|:-------:|:-----------------------:|:-------:|:-------:|:-------:|
@@ -38,16 +38,16 @@ xRTC Interrupt Type  {#xRTC_INT_Type_md}
 
 xRTC Interrupt Event   {#xRTC_INT_Event_md}
 ========
-����������жϵ��¼�����RTC����ʱ ������������ж� ��ǰ�� �ж�Դ ��ʲô��
-�ж��¼������ͣ���������һ�¡�
-��������ʽΪ�̶��ĺ����ƣ� 
+这个参数是中断的事件，当RTC发生时 用这个参数来判断 当前的 中断源 是什么。
+中断事件和类型，基本保持一致。
+参数的形式为固定的宏名称： 
  - \ref xRTC_EVENT_SECOND  
  - \ref xRTC_EVENT_ALARM 
  - \ref xRTC_EVENT_OVERFLOW
 
-������ڻص�������ʹ�ã����ж��Ѿ��������ж�Դ��
+这个将在回调函数中使用，以判断已经发生的中断源。
 
-��Щϵ��ʵ�������������ܣ�Ȼ����Щϵ��ֻ��ǰ�������ܣ������Ǹ���ϵ�е�ʵ�ֵ������
+有些系列实现了这三个功能，然后有些系列只有前两个功能，下面是各个系列的实现的情况。
 
 |  xRTC Event        |LPC17xx|STM32F1xx|NUC1xx/NUC2xx/M051/Mini51|KLx      |HT32F125x|HT32F175x|
 |:------------------:|:-----:|:-------:|:-----------------------:|:-------:|:-------:|:-------:|
@@ -58,9 +58,9 @@ xRTC Interrupt Event   {#xRTC_INT_Event_md}
 
 xRTC Day Week    {#xRTC_Day_Week_md}
 ========
-��������ڶ������ڣ�ö�� ������ �� ������
+这组宏用于定义星期，枚举 星期日 到 星期六
 
-��������ʽΪ�̶��ĺ����ƣ� 
+参数的形式为固定的宏名称： 
  - \ref xRTC_WEEK_SUNDAY  
  - \ref xRTC_WEEK_MONDAY 
  - \ref xRTC_WEEK_TUESDAY
@@ -69,7 +69,7 @@ xRTC Day Week    {#xRTC_Day_Week_md}
  - \ref xRTC_WEEK_FRIDAY
  - \ref xRTC_WEEK_SATURDAY
 
-����콫��Ϊ xtTime.ulWDay �������� ���� \ref xRTCTimeRead(), \ref xRTCTimeWrite()
+这组红将作为 xtTime.ulWDay 参数传入 函数 \ref xRTCTimeRead(), \ref xRTCTimeWrite()
 
 |  tTime.ulWDay            |         All Series     |
 |--------------------------|------------------------|
@@ -85,19 +85,19 @@ xRTC Day Week    {#xRTC_Day_Week_md}
 xRTC Year Offset     {#xRTC_Year_Offset_md}
 =======
 
-������Щ RTC ʵ���Ͼ���һ�� 32 λ�ļ�����������Ϊ�˽������������ת��Ϊ�����ʱ�䣬��Ҫ
-һ��ת�����̣��� 32 λ�����ܱ�ʾ��������ޣ�����ܱ�ʾ136��ࣩ������Ϊ���ܱ�ʾ��ǰ����������2014��
-��Ҫ����һ�� �̶�ƫ���������磬ƫ����Ϊ2000���򵱼���ֵΪ14��ʱ����ʾ2014��1��1��0ʱ0��0�롣
-���ƫ�ƽ�Ӱ�� 32 λ�ļ����� ����RTC��ʱ����ڷ�Χ��
+由于有些 RTC 实际上就是一个 32 位的计数器，所以为了将这个鬼计数器转化为具体的时间，需要
+一个转换过程，而 32 位数据能表示的年份有限（最多能表示136年多），所以为了能表示当前公历（比如2014）
+需要定义一个 固定偏移量。比如，偏移量为2000，则当计数值为14年时，表示2014年1月1日0时0分0秒。
+这个偏移将影响 32 位的计数器 类型RTC的时间调节范围。
 
-��������ʽΪ�̶��ĺ����ƣ� 
+参数的形式为固定的宏名称： 
  - \ref xRTC_YEAR_OFFSET
 
-ʱ��ĵ��ڷ�Ϊ   xRTC_YEAR_OFFSET <= time <= xRTC_YEAR_OFFSET+136
+时间的调节分为   xRTC_YEAR_OFFSET <= time <= xRTC_YEAR_OFFSET+136
 
-CoX ������һ��Ĭ��ֵΪ2000
+CoX 定义了一个默认值为2000
 
-�����Ǹ���ϵ�е�ʵ�����
+下面是各个系列的实现情况
 |  xRTC_Year_Offset        | LPC17xx |STM32F1xx|NUC1xx/NUC2xx/M051/Mini51|KLx      |HT32F125x|HT32F175x|
 |--------------------------|---------|:-------:|:-----------------------:|:-------:|:-------:|:-------:|
 |  xRTC_YEAR_OFFSET        |    N    |  **Y**  |          **Y**          |  **Y**  |  **Y**  |  **Y**  |
@@ -105,9 +105,9 @@ CoX ������һ��Ĭ��ֵΪ2000
 
 xRTC Time Type     {#xRTC_Time_Type_md}
 ======
-������ ��ǰʱ�� �� ���� ���ӵ�ʱ���������÷�ʽһ�������� ����һ��������ʾ����ǰ������ʲô�������������� ʱ�� �������ӣ���
+在设置 当前时间 和 设置 闹钟的时候，由于设置方式一样，所以 用了一个参数表示，当前究竟是什么操作（是在设置 时间 还是闹钟）？
 
-��������ʽΪ�̶��ĺ����ƣ� 
+参数的形式为固定的宏名称： 
  - \ref xRTC_TIME_CURRENT
  - \ref xRTC_TIME_ALARM
 
@@ -119,7 +119,7 @@ xRTC Time Type     {#xRTC_Time_Type_md}
 
 xRTC Exported Types    {#xRTC_Exported_Types_md}  
 ==========
-CoX ΪRTC������һ�� xtime �Ľṹ�壬�ýṹ���������� ʱ��� ������ ʱ���� �����ڡ�
+CoX 为RTC定义了一个 xtime 的结构体，该结构体包含了组成 时间的 年月日 时分秒 和星期。
 
 
 xRTC API   {#xRTC_Exported_APIs_md}
@@ -136,9 +136,9 @@ xRTC API   {#xRTC_Exported_APIs_md}
 | \ref xRTCStart           |            Y           |
 | \ref xRTCStop            |            Y           |
 
-\note  xRTCTimeInit ��ʵ�ֵ�ʱ��Ҫ��RTC ��ʱ�� �жϼ������Ϊһ�롣
+\note  xRTCTimeInit 在实现的时候要将RTC 的时间 中断间隔设置为一秒。
 
-\note ��Щϵ�� ����Ҫ xRTCStart �� xRTCStop����ô ������������ʵ�ּ��ɡ�
+\note 有些系列 不需要 xRTCStart 和 xRTCStop，那么 这两个函数空实现即可。
 
 
 

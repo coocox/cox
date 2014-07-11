@@ -49,7 +49,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_LowLayer
+//! \addtogroup LowLayer
 //! @{
 //
 //*****************************************************************************
@@ -150,7 +150,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup STM32F1xx_Interrupt_Assignments STM32F1xx Interrupt Assignments
+//! \addtogroup NUC4xx_Interrupt_Assignments NUC4xx Interrupt Assignments
 //! \brief Macro definitions for the fault/interrupt assignments.
 //!
 //! They can be used as ulInterrupt parameters with xIntEnable(), xIntDisable()
