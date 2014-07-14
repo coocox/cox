@@ -400,43 +400,41 @@ extern "C"
 //! @{
 //
 //*****************************************************************************
-#define xDMA_DST_INC_8          DMA_DST_INC_8BIT
-#define xDMA_DST_INC_16         DMA_DST_INC_16BIT
-#define xDMA_DST_INC_32         DMA_DST_INC_32BIT
+#define xDMA_DST_INC_8          DMA_DST_INC_8
+#define xDMA_DST_INC_16         DMA_DST_INC_16
+#define xDMA_DST_INC_32         DMA_DST_INC_32
 #define xDMA_DST_INC_NONE       DMA_DST_INC_NONE
-#define xDMA_DST_INC(ulDstSize)
 
-#define xDMA_SRC_INC_8          DMA_SRC_INC_8BIT
-#define xDMA_SRC_INC_16         DMA_SRC_INC_16BIT
-#define xDMA_SRC_INC_32         DMA_SRC_INC_32BIT
+#define xDMA_SRC_INC_8          DMA_SRC_INC_8
+#define xDMA_SRC_INC_16         DMA_SRC_INC_16
+#define xDMA_SRC_INC_32         DMA_SRC_INC_32
 #define xDMA_SRC_INC_NONE       DMA_SRC_INC_NONE
-#define xDMA_SRC_INC(ulSrcSize)
 
-#define xDMA_SRC_SIZE_8         DMA_MEM_WIDTH_8BIT
-#define xDMA_SRC_SIZE_16        DMA_MEM_WIDTH_16BIT
-#define xDMA_SRC_SIZE_32        DMA_MEM_WIDTH_32BIT
+#define xDMA_SRC_SIZE_8         DMA_SRC_WIDTH_8
+#define xDMA_SRC_SIZE_16        DMA_SRC_WIDTH_16
+#define xDMA_SRC_SIZE_32        DMA_SRC_WIDTH_32
 
-#define xDMA_DST_SIZE_8         DMA_PER_WIDTH_8BIT
-#define xDMA_DST_SIZE_16        DMA_PER_WIDTH_16BIT
-#define xDMA_DST_SIZE_32        DMA_PER_WIDTH_32BIT
+#define xDMA_DST_SIZE_8         DMA_DST_WIDTH_8
+#define xDMA_DST_SIZE_16        DMA_DST_WIDTH_16
+#define xDMA_DST_SIZE_32        DMA_DST_WIDTH_32
 
 //
 // The unit is not a byte, is a item
 //
-#define xDMA_ARB_1
-#define xDMA_ARB_2
-#define xDMA_ARB_4
-#define xDMA_ARB_8
-#define xDMA_ARB_16
-#define xDMA_ARB_32
-#define xDMA_ARB_64
-#define xDMA_ARB_128
-#define xDMA_ARB_256
-#define xDMA_ARB_512
-#define xDMA_ARB_1024
+#define xDMA_ARB_1              DMA_ARB_1
+#define xDMA_ARB_2              DMA_ARB_2
+#define xDMA_ARB_4              DMA_ARB_4
+#define xDMA_ARB_8              DMA_ARB_8
+#define xDMA_ARB_16             DMA_ARB_16
+#define xDMA_ARB_32             DMA_ARB_32
+#define xDMA_ARB_64             DMA_ARB_64
+#define xDMA_ARB_128            DMA_ARB_128
+#define xDMA_ARB_256            DMA_ARB_256
+#define xDMA_ARB_512            DMA_ARB_512
+#define xDMA_ARB_1024           DMA_ARB_1024
 
-#define xDMA_MODE_BASIC
-#define xDMA_MODE_AUTO
+#define xDMA_MODE_BASIC         DMA_MODE_BASIC
+#define xDMA_MODE_AUTO          DMA_MODE_AUTO
 
 //*****************************************************************************
 //
@@ -520,12 +518,24 @@ extern void xDMADisable(unsigned long ulChannelID);
 //! - \ref xDMA_REQUEST_UART1_TX
 //! - \ref xDMA_REQUEST_UART2_RX
 //! - \ref xDMA_REQUEST_UART2_TX
+//! - \ref xDMA_REQUEST_UART3_RX
+//! - \ref xDMA_REQUEST_UART3_TX
+//! - \ref xDMA_REQUEST_UART4_RX
+//! - \ref xDMA_REQUEST_UART4_TX
+//! - \ref xDMA_REQUEST_UART5_RX
+//! - \ref xDMA_REQUEST_UART5_TX
 //! - \ref xDMA_REQUEST_SPI0_RX
 //! - \ref xDMA_REQUEST_SPI0_TX
 //! - \ref xDMA_REQUEST_SPI1_RX
 //! - \ref xDMA_REQUEST_SPI1_TX
+//! - \ref xDMA_REQUEST_SPI2_RX
+//! - \ref xDMA_REQUEST_SPI2_TX
+//! - \ref xDMA_REQUEST_SPI3_RX
+//! - \ref xDMA_REQUEST_SPI3_TX
 //! - \ref xDMA_REQUEST_IIS0_RX
 //! - \ref xDMA_REQUEST_IIS0_TX
+//! - \ref xDMA_REQUEST_IIS1_RX
+//! - \ref xDMA_REQUEST_IIS1_TX
 //! .
 //!
 //! \return Returns a Channel ID that dynamic assignment.
@@ -554,7 +564,7 @@ extern unsigned long xDMAChannelDynamicAssign(unsigned long ulDMASrcRequest,
 //! if the channel is idle.
 //
 //*****************************************************************************
-extern void xDMAChannelAssignmentGet(unsigned long ulChannelID);
+extern xtBoolean xDMAChannelAssignmentGet(unsigned long ulChannelID);
 
 //*****************************************************************************
 //
@@ -582,8 +592,8 @@ extern void xDMAChannelDeAssign(unsigned long ulChannelID);
 //! The \e ulAttr parameter is the logical OR of any of the following:
 //!
 //! - Channel Priority:
-//!   - \b UDMA_ATTR_PRIORITY_HIGH is used to set the channel to high priority.
-//!   - \b UDMA_ATTR_PRIORITY_NORMAL normal priority.
+//!   - \b xDMA_ATTR_PRIORITY_HIGH is used to set the channel to high priority.
+//!   - \b xDMA_ATTR_PRIORITY_NORMAL normal priority.
 //!   .
 //! .
 //!
@@ -604,8 +614,8 @@ extern void xDMAChannelAttributeSet(unsigned long ulChannelID, unsigned long ulA
 //! \return Returns the logical OR of the attributes of the DMA channel, which
 //! can be any of the following:
 //! - Channel Priority:
-//!   - \b UDMA_ATTR_PRIORITY_HIGH is used to set the channel to high priority.
-//!   - \b UDMA_ATTR_PRIORITY_NORMAL normal priority.
+//!   - \b xDMA_ATTR_PRIORITY_HIGH is used to set the channel to high priority.
+//!   - \b xDMA_ATTR_PRIORITY_NORMAL normal priority.
 //!   .
 //! .
 //
@@ -650,8 +660,8 @@ extern unsigned long xDMAChannelAttributeGet(unsigned long ulChannelID);
 //!
 //! The arbitration size determines how many items are transferred before
 //! the uDMA controller re-arbitrates for the bus.  Choose the arbitration size
-//! from one of \b UDMA_ARB_1, \b UDMA_ARB_2, \b UDMA_ARB_4, \b UDMA_ARB_8,
-//! through \b UDMA_ARB_1024 to select the arbitration size from 1 to 1024
+//! from one of \b xDMA_ARB_1, \b xDMA_ARB_2, \b xDMA_ARB_4, \b xDMA_ARB_8,
+//! through \b xDMA_ARB_1024 to select the arbitration size from 1 to 1024
 //! items, in powers of 2.
 //!
 //! \note The address increment cannot be smaller than the data size.
@@ -664,27 +674,25 @@ extern void xDMAChannelControlSet(unsigned long ulChannelID, unsigned long ulCon
 
 //*****************************************************************************
 //
-//! \brief Sets the transfer parameters for a uDMA channel control structure.
+//! \brief Sets the transfer parameters for a DMA channel control structure.
 //!
-//! \param ulChannelID is the uDMA channel ID.
-//! \param ulMode is the type of uDMA transfer.
+//! \param ulChannelID is the DMA channel ID.
+//! \param ulMode is the type of DMA transfer.
 //! \param pvSrcAddr is the source address for the transfer.
 //! \param pvDstAddr is the destination address for the transfer.
 //! \param ulTransferSize is the number of data items to transfer.
 //!
-//! This function is used to set the parameters for a uDMA transfer.  These are
+//! This function is used to set the parameters for a DMA transfer.  These are
 //! typically parameters that are changed often.  The function
-//! uDMAChannelControlSet() MUST be called at least once for this channel prior
+//! DMAChannelControlSet() MUST be called at least once for this channel prior
 //! to calling this function.
 //!
-//! The \e ulChannelStructIndex parameter should be the logical OR of the
-//! channel number with one of \b UDMA_PRI_SELECT or \b UDMA_ALT_SELECT to
-//! choose whether the primary or alternate data structure is used.
+//! The \e ulChannelID parameter should be the channel ID.
 //!
 //! The \e ulMode parameter should be one of the following values:
 //!
-//! - \b UDMA_MODE_BASIC to perform a basic transfer based on request.
-//! - \b UDMA_MODE_AUTO to perform a transfer that will always complete once
+//! - \b xDMA_MODE_BASIC to perform a basic transfer based on request.
+//! - \b xDMA_MODE_AUTO to perform a transfer that will always complete once
 //!   started even if request is removed.
 //! .
 //!

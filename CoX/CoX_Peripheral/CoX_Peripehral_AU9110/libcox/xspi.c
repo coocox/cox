@@ -37,15 +37,15 @@
 //
 //*****************************************************************************
 #include "CoX.h"
-#include "xhw_sysctl.h"
-#include "xhw_spi.h"
+#include "hw_sysctl.h"
+#include "hw_spi.h"
 
 //*****************************************************************************
 //
 // An array is SPI Callback function point
 //
 //*****************************************************************************
-static xtEventCallback g_pfnSPIHandlerCallbacks[4]={0};
+static xtEventCallback g_pfnSPIHandlerCallbacks[1]={0};
 
 //*****************************************************************************
 //
@@ -72,12 +72,12 @@ SPI0_IRQHandler(void)
     //
     // Gets interrupt status
     //
-    ulEventFlags = xHWREG(ulBase + SPI_STATUS);
+    ulEventFlags = xHWREG(ulBase + SPI_CNTRL) & SPI_CNTRL_IF;
 
     //
     // Clear Int flag
     //
-    xHWREG(ulBase + SPI_STATUS) |= ulEventFlags;
+    xHWREG(ulBase + SPI_CNTRL) |= ulEventFlags;
     
     //
     // Call Callback function
@@ -85,129 +85,6 @@ SPI0_IRQHandler(void)
     if(g_pfnSPIHandlerCallbacks[0])
     {
         g_pfnSPIHandlerCallbacks[0](0, 0, ulEventFlags, 0);
-    }
-}
-
-//*****************************************************************************
-//
-//! \brief SPI1 interrupt handler. Clear the SPI interrupt flag and execute the 
-//! callback function.
-//!
-//! \param none.
-//!
-//! This function is the SPI1 interrupt handler,it will Clear the SPI 
-//! interrupt flag and execute the callback function if there be one.
-//!
-//! \note There are two source of this interrupt.One transaction done interrupt
-//! and 3-wire SPI start interrupt.
-//!
-//! \return None.
-//
-//*****************************************************************************
-void 
-SPI1_IRQHandler(void)
-{
-    unsigned long ulEventFlags;
-    unsigned long ulBase = SPI1_BASE;
-    
-    //
-    // Gets interrupt status
-    //
-    ulEventFlags = xHWREG(ulBase + SPI_STATUS);
-    
-    //
-    // Clear Int flag
-    //
-    xHWREG(ulBase + SPI_STATUS) |= ulEventFlags;
-    
-    //
-    // Call Callback function
-    //
-    if(g_pfnSPIHandlerCallbacks[1])
-    {
-        g_pfnSPIHandlerCallbacks[1](0, 0, ulEventFlags, 0);
-    }
-}
-
-//*****************************************************************************
-//
-//! \brief SPI2 interrupt handler. Clear the SPI interrupt flag and execute the 
-//! callback function.
-//!
-//! \param none.
-//!
-//! This function is the SPI2 interrupt handler,it will Clear the SPI 
-//! interrupt flag and execute the callback function if there be one.
-//!
-//! \note There are two source of this interrupt.One transaction done interrupt
-//! and 3-wire SPI start interrupt.
-//!
-//! \return None.
-//
-//*****************************************************************************
-void 
-SPI2_IRQHandler(void)
-{
-    unsigned long ulEventFlags;
-    unsigned long ulBase = SPI2_BASE;
-    
-    //
-    // Gets interrupt status
-    //
-    ulEventFlags = xHWREG(ulBase + SPI_STATUS);
-
-    //
-    // Clear Int flag
-    //
-    xHWREG(ulBase + SPI_STATUS) |= ulEventFlags;
-    
-    //
-    // Call Callback function
-    //
-    if(g_pfnSPIHandlerCallbacks[2])
-    {
-        g_pfnSPIHandlerCallbacks[2](0, 0, ulEventFlags, 0);
-    }
-}
-
-//*****************************************************************************
-//
-//! \brief SPI3 interrupt handler. Clear the SPI interrupt flag and execute the 
-//! callback function.
-//!
-//! \param none.
-//!
-//! This function is the SPI3 interrupt handler,it will Clear the SPI 
-//! interrupt flag and execute the callback function if there be one.
-//!
-//! \note There are two source of this interrupt.One transaction done interrupt
-//! and 3-wire SPI start interrupt.
-//!
-//! \return None.
-//
-//*****************************************************************************
-void
-SPI3_IRQHandler(void)
-{
-    unsigned long ulEventFlags;
-    unsigned long ulBase = SPI3_BASE;
-
-    //
-    // Gets interrupt status
-    //
-    ulEventFlags = xHWREG(ulBase + SPI_STATUS);
-
-    //
-    // Clear Int flag
-    //
-    xHWREG(ulBase + SPI_STATUS) |= ulEventFlags;
-
-    //
-    // Call Callback function
-    //
-    if(g_pfnSPIHandlerCallbacks[3])
-    {
-        g_pfnSPIHandlerCallbacks[3](0, 0, ulEventFlags, 0);
     }
 }
 
@@ -244,8 +121,7 @@ xSPISSSet(unsigned long ulBase, unsigned long ulSSMode,
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE) || (ulBase == SPI3_BASE) );
+    xASSERT(ulBase == SPI0_BASE);
     xASSERT((ulSlaveSel == SPI_SS_NONE) || (ulSlaveSel == SPI_SS0) ||
             (ulSlaveSel == SPI_SS1) || (ulSlaveSel == SPI_SS0_SS1));
     xHWREG(ulBase + SPI_SSR) |= ulSSMode;
@@ -322,8 +198,7 @@ xSPIConfigSet(unsigned long ulBase, unsigned long ulBitRate,
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE)||(ulBase == SPI3_BASE) );
+    xASSERT(ulBase == SPI0_BASE);
     xASSERT(((ulConfig & 0x00000806) == SPI_FORMAT_MODE_0) ||
             ((ulConfig & 0x00000806) == SPI_FORMAT_MODE_1) ||
             ((ulConfig & 0x00000806) == SPI_FORMAT_MODE_2) ||
@@ -336,7 +211,7 @@ xSPIConfigSet(unsigned long ulBase, unsigned long ulBitRate,
             ((ulConfig & 0x00040000) == SPI_MODE_SLAVE));
     xASSERT((((ulConfig & 0x000000F8) >> 3) >= 0) && 
             (((ulConfig & 0x000000F8) >> 3) <= 31));
-    xASSERT((ulBitRate != 0));
+    xASSERT(ulBitRate != 0);
 
     //
     // Set the mode.
@@ -390,33 +265,32 @@ xSPISingleDataReadWrite(unsigned long ulBase, unsigned long ulWData)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE) || (ulBase == SPI3_BASE));
+    xASSERT(ulBase == SPI0_BASE);
 
     //
     // Wait until SPI is not busy, data to be write.
     //
-    while((xHWREG(ulBase + SPI_STATUS) & SPI_STATUS_BUSY))
+    while(xHWREG(ulBase + SPI_CNTRL) & SPI_CNTRL_GO_BUSY)
     {
     }
-    xHWREG(ulBase + SPI_TX) = ulWData;
+    xHWREG(ulBase + SPI_TX0) = ulWData;
 
     //
     // 
     //
-    //xHWREG(ulBase + SPI_CNTRL) |= SPI_CNTRL_SPIEN;
+    xHWREG(ulBase + SPI_CNTRL) |= SPI_CNTRL_GO_BUSY;
     
     //
     // Wait until there is data to be read.
     //
-    while((xHWREG(ulBase + SPI_STATUS) & SPI_STATUS_BUSY))
+    while(xHWREG(ulBase + SPI_CNTRL) & SPI_CNTRL_GO_BUSY)
     {
     }
     
     //
     // write data to SPI.
     //
-    ulReadTemp = xHWREG(ulBase + SPI_RX);
+    ulReadTemp = xHWREG(ulBase + SPI_RX0);
     return ulReadTemp;
 }
 
@@ -439,8 +313,7 @@ xSPIBitLengthGet(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE) || (ulBase == SPI3_BASE));
+    xASSERT(ulBase == SPI0_BASE);
     return ((xHWREG(ulBase + SPI_CNTRL) & SPI_CNTRL_TX_BIT_LEN_M)             
             >> SPI_CNTRL_TX_BIT_LEN_S);
 }
@@ -475,8 +348,7 @@ xSPIDataRead(unsigned long ulBase, void *pulRData, unsigned long ulLen)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE) || (ulBase == SPI3_BASE));
+    xASSERT(ulBase == SPI0_BASE);
 
     for (i=0; i<ulLen; i++)
     {
@@ -496,6 +368,101 @@ xSPIDataRead(unsigned long ulBase, void *pulRData, unsigned long ulLen)
             xSPISingleDataReadWrite(ulBase, 0xFFFFFF);
         }
     }
+}
+
+//*****************************************************************************
+//
+//! \brief Read two words of data from SPI Rx registers.
+//!
+//! \param ulBase specifies the SSI module base address.
+//! \param pulData is a pointer to a storage location for data that was
+//! received over the SSI interface.
+//!
+//! This function Read two words of data from SPI Rx registers of the specified
+//! SSI module and places that data into the location specified by the
+//! \e pulData parameter.and then trigger SPI for next transfer.
+//!
+//! \note Only the lower N bits of the value written to \e pulData contain
+//! valid data, where N is the data width as configured by
+//! SSIConfigSetExpClk().  For example, if the interface is configured for
+//! 8-bit data width, only the lower 8 bits of the value written to \e pulData
+//! contain valid data.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+SPIBurstDataRead(unsigned long ulBase, unsigned long *pulData)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT(ulBase == SPI0_BASE);
+
+    //
+    // Wait until there is data to be read.
+    //
+    while((xHWREG(ulBase + SPI_CNTRL) & SPI_CNTRL_GO_BUSY))
+    {
+    }
+
+    //
+    // Read data from SSI.
+    //
+    pulData[0] = xHWREG(ulBase + SPI_RX0);
+    pulData[1] = xHWREG(ulBase + SPI_RX1);
+    xHWREG(ulBase + SPI_CNTRL) |= SPI_CNTRL_GO_BUSY;
+}
+
+//*****************************************************************************
+//
+//! \brief Read data from Rx registers.
+//!
+//! \param ulBase specifies the SPI module base address.
+//! \param pulData is a pointer to a storage location for data that was
+//! received over the SSI interface.
+//! \param ulCount specifies the number will read from Rx registers.
+//!
+//! This function Read data from Rx registers of the specified SPI
+//! module and places that data into the location specified by the \e ulData
+//! parameter.This function will not trigger a SPI data transfer.
+//!
+//! This function replaces the original SSIDataNonBlockingGet() API and
+//! performs the same actions.  A macro is provided in <tt>ssi.h</tt> to map
+//! the original API to this API.
+//!
+//! \note Only the lower N bits of the value written to \e pulData contain
+//! valid data, where N is the data width as configured by
+//! SSIConfigSetExpClk().  For example, if the interface is configured for
+//! 8-bit data width, only the lower 8 bits of the value written to \e pulData
+//! contain valid data.
+//!
+//! \return Returns the number of elements read from the SPI Rx registers.
+//
+//*****************************************************************************
+unsigned long
+SPIRxRegisterGet(unsigned long ulBase, unsigned long *pulData,
+                 unsigned long ulCount)
+{
+    unsigned long i;
+    //
+    // Check the arguments.
+    //
+    xASSERT(ulBase == SPI0_BASE);
+    xASSERT(ulCount < 2);
+
+    //
+    // Wait until there is data to be read.
+    //
+
+    //
+    // Read data from SPI Rx Register.
+    //
+    for (i=0; i<ulCount; i++)
+    {
+        pulData[i] = xHWREG(ulBase + SPI_RX0 + 4*i);
+    }
+    return ulCount;
 }
 
 //*****************************************************************************
@@ -527,8 +494,7 @@ xSPIDataWrite(unsigned long ulBase, void *pulWData, unsigned long ulLen)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE) || (ulBase == SPI3_BASE));
+    xASSERT(ulBase == SPI0_BASE);
 
     for (i=0; i<ulLen; i++)
     {
@@ -545,6 +511,142 @@ xSPIDataWrite(unsigned long ulBase, void *pulWData, unsigned long ulLen)
             xSPISingleDataReadWrite(ulBase, ((unsigned long*)pulWData)[i]);
         }
     }
+}
+
+//*****************************************************************************
+//
+//! \brief Write two datas element to the SPI interface.
+//!
+//! \param ulBase specifies the SSI module base address.
+//! \param pulData is a pointer to a storage location for data that was
+//! transmitted over the SSI interface.
+//!
+//! This function  transmitted two data to the interface of the specified
+//! SPI module .
+//!
+//! \note Only the lower N bits of the value written to \e pulData contain
+//! valid data, where N is the data width as configured by
+//! SSIConfigSetExpClk().  For example, if the interface is configured for
+//! 8-bit data width, only the lower 8 bits of the value written to \e pulData
+//! contain valid data.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+SPIBurstDataWrite(unsigned long ulBase, unsigned long *pulData)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT(ulBase == SPI0_BASE);
+
+    //
+    // Wait until there is data to be Write.
+    //
+    while((xHWREG(ulBase + SPI_CNTRL) & SPI_CNTRL_GO_BUSY))
+    {
+    }
+
+    //
+    // Write data to SPI.
+    //
+    xHWREG(ulBase + SPI_TX0) = pulData[0];
+    xHWREG(ulBase + SPI_TX1) = pulData[1];
+    xHWREG(ulBase + SPI_CNTRL) |= SPI_CNTRL_GO_BUSY;
+}
+
+//*****************************************************************************
+//
+//! \brief Write data to Tx registers.
+//!
+//! \param ulBase specifies the SPI module base address.
+//! \param pulData is a pointer to a storage location for data that was
+//! write to the SPI interface.
+//! \param ulCount specifies the number will write to Tx registers.
+//!
+//! This function write data to Tx registers of the specified SPI
+//! module and This function will not trigger a SPI data transfer.
+//!
+//! \note Only the lower N bits of the value written to \e pulData contain
+//! valid data, where N is the data width as configured by
+//! SSIConfigSetExpClk().  For example, if the interface is configured for
+//! 8-bit data width, only the lower 8 bits of the value written to \e pulData
+//! contain valid data.
+//!
+//! \return Returns the number of elements write to the SPI Tx registers.
+//
+//*****************************************************************************
+unsigned long
+SPITxRegisterSet(unsigned long ulBase, unsigned long *pulData,
+                 unsigned long ulCount)
+{
+    unsigned long i;
+    //
+    // Check the arguments.
+    //
+    xASSERT(ulBase == SPI0_BASE);
+
+    //
+    // Wait until there is data to be read.
+    //
+
+    //
+    // Read data from SPI Rx Register.
+    //
+    for (i=0; i<ulCount; i++)
+    {
+        xHWREG(ulBase + SPI_TX0 + 4*i) = pulData[i];
+    }
+    return ulCount;
+}
+
+//*****************************************************************************
+//
+//! \brief Set the GO_BUSY bit to trigger a SPI data transfer.
+//!
+//! \param ulBase specifies the SSI module base address.
+//!
+//! This function is to set the GO_BUSY bit to trigger a SPI data transfer.
+//!
+//! \note all registers should be set before call this function.In FIFO mode,
+//! GoBusy bit becomes a read only bit and will be controlled by hardware.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+SPIBitGoBusySet(unsigned long ulBase)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT(ulBase == SPI0_BASE);
+    xHWREG(ulBase + SPI_CNTRL) |= SPI_CNTRL_GO_BUSY;
+}
+
+//*****************************************************************************
+//
+//! \brief Clear the GO_BUSY bit to stop a SPI data transfer.
+//!
+//! \param ulBase specifies the SSI module base address.
+//!
+//! This function is to clear the GO_BUSY bit to stop a SPI data transfer.
+//!
+//! \note call this function will stop a data transfer.In FIFO mode,
+//! GoBusy bit becomes a read only bit and will be controlled by hardware.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+SPIBitGoBusyClear(unsigned long ulBase)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT(ulBase == SPI0_BASE);
+    xHWREG(ulBase + SPI_CNTRL) &= ~SPI_CNTRL_GO_BUSY;
 }
 
 //*****************************************************************************
@@ -575,20 +677,19 @@ xSPIDataPut(unsigned long ulBase, unsigned long ulData)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE) || (ulBase == SPI3_BASE));
+    xASSERT(ulBase == SPI0_BASE);
 
     //
     // Wait until there is space.
     //
-    while((xHWREG(ulBase + SPI_STATUS) & SPI_STATUS_BUSY))
+    while(xHWREG(ulBase + SPI_CNTRL) & SPI_CNTRL_GO_BUSY)
     {
     }
 
     //
     // Write the data to the SPI.
     //
-    xHWREG(ulBase + SPI_TX) = ulData;
+    xHWREG(ulBase + SPI_TX0) = ulData;
 }
 
 //*****************************************************************************
@@ -616,15 +717,14 @@ xSPIDataPutNonBlocking(unsigned long ulBase, unsigned long ulData)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE) || (ulBase == SPI3_BASE));
+    xASSERT(ulBase == SPI0_BASE);
 
     //
     // Check for space to write.
     //
-    if(!((xHWREG(ulBase + SPI_STATUS) & SPI_STATUS_BUSY)))
+    if(!(xHWREG(ulBase + SPI_CNTRL) & SPI_CNTRL_GO_BUSY))
     {
-        xHWREG(ulBase + SPI_TX) = ulData;
+        xHWREG(ulBase + SPI_TX0) = ulData;
         return(1);
     }
     else
@@ -663,13 +763,12 @@ xSPIDataGet(unsigned long ulBase, unsigned long *pulData)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE) || (ulBase == SPI3_BASE));
+    xASSERT(ulBase == SPI0_BASE);
 
     //
     // Wait until there is data to be read.
     //
-    while((xHWREG(ulBase + SPI_STATUS) & SPI_STATUS_BUSY))
+    while((xHWREG(ulBase + SPI_CNTRL) & SPI_CNTRL_GO_BUSY))
     {
     }
 
@@ -678,15 +777,15 @@ xSPIDataGet(unsigned long ulBase, unsigned long *pulData)
     //
     if (ucBitLength <= 8)
     {
-        *pulData = xHWREG(ulBase + SPI_RX) & 0xFF;
+        *pulData = xHWREG(ulBase + SPI_RX0) & 0xFF;
     }
     else if(ucBitLength <= 16)
     {
-        *pulData = xHWREG(ulBase + SPI_RX) & 0xFFFF;
+        *pulData = xHWREG(ulBase + SPI_RX0) & 0xFFFF;
     }
     else
     {
-    	*pulData = xHWREG(ulBase + SPI_RX);
+    	*pulData = xHWREG(ulBase + SPI_RX0);
     }
 }
 
@@ -719,9 +818,8 @@ xSPIDataGetNonBlocking(unsigned long ulBase, unsigned long *pulData)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE) || (ulBase == SPI3_BASE));
-    ulTemp = xHWREG(ulBase + SPI_STATUS) & SPI_STATUS_BUSY;
+    xASSERT(ulBase == SPI0_BASE);
+    ulTemp = xHWREG(ulBase + SPI_CNTRL) & SPI_CNTRL_GO_BUSY;
     if(!ulTemp)
     {
         return 0;
@@ -729,11 +827,11 @@ xSPIDataGetNonBlocking(unsigned long ulBase, unsigned long *pulData)
 
     if(ucBitLength <= 8 && ucBitLength != 0)
     {
-        *pulData = xHWREG(ulBase + SPI_RX);
+        *pulData = xHWREG(ulBase + SPI_RX0);
     }
     else
     {
-        *pulData = xHWREG(ulBase + SPI_RX);
+        *pulData = xHWREG(ulBase + SPI_RX0);
     }
 
     return 1;
@@ -758,37 +856,9 @@ xSPIIntEnable(unsigned long ulBase, unsigned long ulIntFlags)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE) || (ulBase == SPI3_BASE));
+    xASSERT(ulBase == SPI0_BASE);
 
-    if(ulIntFlags & SPI_INT_EOT)
-    {
-    	xHWREG(ulBase + SPI_CNTRL) |= SPI_CNTRL_IE;
-    }
-    if(ulIntFlags & SPI_INT_RX)
-    {
-    	xHWREG(ulBase + SPI_FIFOCTL) |= SPI_FIFOCTL_RX_INTEN;
-    }
-    if(ulIntFlags & SPI_INT_TX)
-    {
-        xHWREG(ulBase + SPI_FIFOCTL) |= SPI_FIFOCTL_TX_INTEN;
-    }
-    if(ulIntFlags & SPI_INT_ERROR)
-    {
-        xHWREG(ulBase + SPI_SSR) |= (SPI_SSR_SLVER0_INTEN | SPI_SSR_SLVER1_INTEN);
-    }
-    if(ulIntFlags & SPI_INT_RX_OVERRUN)
-    {
-    	xHWREG(ulBase + SPI_FIFOCTL) |= SPI_FIFOCTL_RXOV_INTEN;
-    }
-    if(ulIntFlags & SPI_INT_TIMEOUT)
-    {
-    	xHWREG(ulBase + SPI_SSR) |= SPI_SSR_SLVTO_INTEN;
-    }
-    if(ulIntFlags & SPI_INT_SLAVE_TIMEOUT)
-    {
-    	xHWREG(ulBase + SPI_SSR) |= SPI_SSR_SLVTO_INTEN;
-    }
+    xHWREG(ulBase + SPI_CNTRL) |= SPI_CNTRL_IE;
 }
 
 //*****************************************************************************
@@ -809,34 +879,9 @@ xSPIIntCallbackInit(unsigned long ulBase, xtEventCallback xtSPICallback)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE) || (ulBase == SPI3_BASE));
+    xASSERT(ulBase == SPI0_BASE);
     
-    switch(ulBase)
-    {
-        case SPI0_BASE:
-        {
-            g_pfnSPIHandlerCallbacks[0] = xtSPICallback;
-            break;
-        }
-        case SPI1_BASE:
-        {
-            g_pfnSPIHandlerCallbacks[1] = xtSPICallback;
-            break;
-        }
-        case SPI2_BASE:
-        {
-            g_pfnSPIHandlerCallbacks[2] = xtSPICallback;
-            break;
-        }
-        case SPI3_BASE:
-        {
-            g_pfnSPIHandlerCallbacks[3] = xtSPICallback;
-            break;
-        }
-        default:
-            break;
-    }
+    g_pfnSPIHandlerCallbacks[0] = xtSPICallback;
 }
 
 //*****************************************************************************
@@ -856,37 +901,9 @@ xSPIIntDisable(unsigned long ulBase, unsigned long ulIntFlags)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE) || (ulBase == SPI3_BASE));
+    xASSERT(ulBase == SPI0_BASE);
 
-    if(ulIntFlags & SPI_INT_EOT)
-    {
-    	xHWREG(ulBase + SPI_CNTRL) &= ~SPI_CNTRL_IE;
-    }
-    if(ulIntFlags & SPI_INT_RX)
-    {
-    	xHWREG(ulBase + SPI_FIFOCTL) &= ~SPI_FIFOCTL_RX_INTEN;
-    }
-    if(ulIntFlags & SPI_INT_TX)
-    {
-        xHWREG(ulBase + SPI_FIFOCTL) &= ~SPI_FIFOCTL_TX_INTEN;
-    }
-    if(ulIntFlags & SPI_INT_ERROR)
-    {
-        xHWREG(ulBase + SPI_SSR) &= ~(SPI_SSR_SLVER0_INTEN | SPI_SSR_SLVER1_INTEN);
-    }
-    if(ulIntFlags & SPI_INT_RX_OVERRUN)
-    {
-    	xHWREG(ulBase + SPI_FIFOCTL) &= ~SPI_FIFOCTL_RXOV_INTEN;
-    }
-    if(ulIntFlags & SPI_INT_TIMEOUT)
-    {
-    	xHWREG(ulBase + SPI_SSR) &= ~SPI_SSR_SLVTO_INTEN;
-    }
-    if(ulIntFlags & SPI_INT_SLAVE_TIMEOUT)
-    {
-    	xHWREG(ulBase + SPI_SSR) &= ~SPI_SSR_SLVTO_INTEN;
-    }
+    xHWREG(ulBase + SPI_CNTRL) &= ~SPI_CNTRL_IE;
 }
 
 //*****************************************************************************
@@ -909,11 +926,10 @@ xSPIStatusGet(unsigned long ulBase, xtBoolean xbMasked)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE) || (ulBase == SPI3_BASE));
+    xASSERT(ulBase == SPI0_BASE);
     xASSERT(bMasked == xfalse);
 
-    return (xHWREG(ulBase + SPI_STATUS) & 0x000C14EE);
+    return (xHWREG(ulBase + SPI_CNTRL) & SPI_CNTRL_IF);
 }
 
 //*****************************************************************************
@@ -933,9 +949,8 @@ SPIIntFlagClear(unsigned long ulBase, unsigned long ulIntFlags)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE) || (ulBase == SPI3_BASE));
-    xHWREG(ulBase + SPI_STATUS) |= ulIntFlags;
+    xASSERT(ulBase == SPI0_BASE);
+    xHWREG(ulBase + SPI_CNTRL) |= SPI_CNTRL_IF;
 }
 
 //*****************************************************************************
@@ -962,8 +977,7 @@ SPIAutoSSEnable(unsigned long ulBase, unsigned long ulSlaveSel)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE) || (ulBase == SPI3_BASE));
+    xASSERT(ulBase == SPI0_BASE);
     xASSERT((ulSlaveSel == SPI_SS_NONE) || (ulSlaveSel == SPI_SS0) ||
             (ulSlaveSel == SPI_SS1) || (ulSlaveSel == SPI_SS0_SS1));
     xHWREG(ulBase + SPI_SSR) |= SPI_SSR_AUTOSS;
@@ -991,42 +1005,9 @@ SPIAutoSSDisable(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE) || (ulBase == SPI3_BASE));
+    xASSERT(ulBase == SPI0_BASE);
 
     xHWREG(ulBase + SPI_SSR) &= ~SPI_SSR_AUTOSS;
-}
-
-//*****************************************************************************
-//
-//! \brief Set the slave select pins of the specified SPI port.
-//!
-//! \param ulBase specifies the SSI module base address.
-//! \param ulSlaveSel specifies the slave select pins which will be used.
-//!
-//! This function is to Set the slave select pins of the 
-//! specified SPI port.
-//!
-//! The \e ulSlaveSel can be one of the following values:
-//! \b SPI_SS_NONE, \b SPI_SS0,\b SPI_SS1, or \b SPI_SS0_SS1.
-//!
-//! \note this is only for master
-//!
-//! \return None.
-//
-//*****************************************************************************
-void
-SPISSSet(unsigned long ulBase, unsigned long ulSlaveSel)
-{
-    //
-    // Check the arguments.
-    //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE) ||(ulBase == SPI3_BASE));
-    xASSERT((ulSlaveSel == SPI_SS_NONE) || (ulSlaveSel == SPI_SS0) ||
-            (ulSlaveSel == SPI_SS1) || (ulSlaveSel == SPI_SS0_SS1));
-    xHWREG(ulBase + SPI_SSR) &= ~SPI_SSR_SSR_M;
-    xHWREG(ulBase + SPI_SSR) |= ulSlaveSel;
 }
 
 //*****************************************************************************
@@ -1053,8 +1034,7 @@ SPISSClear(unsigned long ulBase, unsigned long ulSlaveSel)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE)||(ulBase == SPI3_BASE) );
+    xASSERT(ulBase == SPI0_BASE);
     xASSERT((ulSlaveSel == SPI_SS_NONE) || (ulSlaveSel == SPI_SS0) ||
             (ulSlaveSel == SPI_SS1) || (ulSlaveSel == SPI_SS0_SS1));
     
@@ -1090,14 +1070,42 @@ SPISSConfig(unsigned long ulBase, unsigned long ulSSTriggerMode,
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE)||(ulBase == SPI3_BASE) );
+    xASSERT(ulBase == SPI0_BASE);
     xASSERT((ulSSTriggerMode == SPI_SS_EDGE_TRIGGER) || 
             (ulSSTriggerMode == SPI_SS_LEVEL_TRIGGER));
     xASSERT((ulSSActType == SPI_SS_ACTIVE_LOW_FALLING) || 
             (ulSSActType == SPI_SS_ACTIVE_HIGH_RISING));
     
     xHWREG(ulBase + SPI_SSR) |= ulSSTriggerMode | ulSSActType;
+}
+
+//*****************************************************************************
+//
+//! \brief Get the level-trigger transmission status of the specified SPI port.
+//!
+//! \param ulBase specifies the SSI module base address.
+//!
+//! This function is to get the level-trigger transmission status of the
+//! specified SPI port.
+//!
+//! \note this is Only for slave mode.
+//!
+//! \return the level-trigger transmission status.
+//! \b xtrue The transaction number and the transferred bit length met the
+//! requirements which defines in TX_NUM and TX_BIT_LEN among one transfer.
+//! or \b xfalse The transaction number or the transferred bit length of one
+//! transaction doesn't meet the requirements.
+//
+//*****************************************************************************
+xtBoolean
+SPILevelTriggerStatusGet(unsigned long ulBase)
+{
+    //
+    // Check the arguments.
+    //
+    xASSERT(ulBase == SPI0_BASE);
+
+    return ((xHWREG(ulBase + SPI_SSR) & SPI_LTRIG_FLAG) ? xtrue : xfalse);
 }
 
 //*****************************************************************************
@@ -1118,10 +1126,9 @@ xSPIIsBusy(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE)||(ulBase == SPI3_BASE) );
+    xASSERT(ulBase == SPI0_BASE);
     
-    return ((xHWREG(ulBase + SPI_STATUS) & SPI_STATUS_BUSY) ? xtrue : xfalse);
+    return ((xHWREG(ulBase + SPI_CNTRL) & SPI_CNTRL_GO_BUSY) ? xtrue : xfalse);
 }
 
 //*****************************************************************************
@@ -1145,9 +1152,8 @@ xSPIIsRxEmpty(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE)||(ulBase == SPI3_BASE) );
-    return ((xHWREG(ulBase + SPI_STATUS) & SPI_STATUS_RX_EMPTY)? xtrue : xfalse);
+    xASSERT(ulBase == SPI0_BASE);
+    return ((xHWREG(ulBase + SPI_CNTRL) & SPI_CNTRL_RX_EMPTY)? xtrue : xfalse);
 }
 
 //*****************************************************************************
@@ -1171,9 +1177,8 @@ xSPIIsRxFull(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE)||(ulBase == SPI3_BASE) );
-    return ((xHWREG(ulBase + SPI_STATUS) & SPI_STATUS_RX_FULL)? xtrue : xfalse);
+    xASSERT(ulBase == SPI0_BASE);
+    return ((xHWREG(ulBase + SPI_CNTRL) & SPI_CNTRL_RX_FULL)? xtrue : xfalse);
 }
 
 //*****************************************************************************
@@ -1197,9 +1202,8 @@ xSPIIsTxEmpty(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE)||(ulBase == SPI3_BASE) );
-    return ((xHWREG(ulBase + SPI_STATUS) & SPI_STATUS_TX_EMPTY)? xtrue : xfalse);
+    xASSERT(ulBase == SPI0_BASE);
+    return ((xHWREG(ulBase + SPI_CNTRL) & SPI_CNTRL_TX_EMPTY)? xtrue : xfalse);
 }
 
 //*****************************************************************************
@@ -1223,9 +1227,8 @@ xSPIIsTxFull(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE)||(ulBase == SPI3_BASE) );
-    return ((xHWREG(ulBase + SPI_STATUS) & SPI_STATUS_TX_FULL)? xtrue : xfalse);
+    xASSERT(ulBase == SPI0_BASE);
+    return ((xHWREG(ulBase + SPI_CNTRL) & SPI_CNTRL_TX_FULL)? xtrue : xfalse);
 }
 
 //*****************************************************************************
@@ -1248,33 +1251,9 @@ SPIFIFOStatusGet(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE)||(ulBase == SPI3_BASE) );
-    return (xHWREG(ulBase + SPI_STATUS) & (SPI_STATUS_TX_FULL) ||
-            (SPI_STATUS_RX_FULL) || (SPI_STATUS_TX_EMPTY) || (SPI_STATUS_RX_EMPTY));
-}
-
-//*****************************************************************************
-//
-//! \brief Clear the FIFO buffer of the specified SPI port.
-//!
-//! \param ulBase specifies the SPI module base address.
-//! \param ulRxTx specifies the FIFO buffer is Rx buffer or Tx buffer.
-//!
-//! This function Clear the FIFO buffer of the specified SPI module.
-//!
-//! \return None.
-//
-//*****************************************************************************
-void
-SPIFIFOClear(unsigned long ulBase, unsigned long ulRxTx)
-{
-    //
-    // Check the arguments.
-    //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE)||(ulBase == SPI3_BASE) );
-    xHWREG(ulBase + SPI_FIFOCTL) |= ulRxTx;
+    xASSERT(ulBase == SPI0_BASE);
+    return (xHWREG(ulBase + SPI_CNTRL) & (SPI_CNTRL_TX_FULL) ||
+                (SPI_CNTRL_RX_FULL) || (SPI_CNTRL_TX_EMPTY) || (SPI_CNTRL_RX_EMPTY));
 }
 
 //*****************************************************************************
@@ -1302,33 +1281,18 @@ SPIFIFOModeSet(unsigned long ulBase, xtBoolean xtEnable,
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE)||(ulBase == SPI3_BASE) );
+    xASSERT(ulBase == SPI0_BASE);
     xASSERT((ulInterval == 0) ||((ulInterval >= 2) && (ulInterval <= 15)));
     if (xtEnable)
     {
         xHWREG(ulBase + SPI_CNTRL) &= ~SPI_CNTRL_SP_CYCLE_M;
         xHWREG(ulBase + SPI_CNTRL) |= (ulInterval << SPI_CNTRL_SP_CYCLE_S);
-        //xHWREG(ulBase + SPI_CNTRL) |= SPI_CNTRL_FIFO;
+        xHWREG(ulBase + SPI_CNTRL) |= SPI_CNTRL_FIFO;
     }
     else
     {
-        //xHWREG(ulBase + SPI_CNTRL) &= ~SPI_CNTRL_FIFO;
+        xHWREG(ulBase + SPI_CNTRL) &= ~SPI_CNTRL_FIFO;
     }  
-}
-
-void
-SPIFIFOTxThresholdSet(unsigned long ulBase, unsigned long ulThreshold)
-{
-    xHWREG(ulBase + SPI_FIFOCTL) &= ~SPI_FIFOCTL_TX_THRESHOLD_M;
-    xHWREG(ulBase + SPI_FIFOCTL) |= (ulThreshold << SPI_FIFOCTL_TX_THRESHOLD_S);
-}
-
-void
-SPIFIFORxThresholdSet(unsigned long ulBase, unsigned long ulThreshold)
-{
-    xHWREG(ulBase + SPI_FIFOCTL) &= ~SPI_FIFOCTL_RX_THRESHOLD_M;
-    xHWREG(ulBase + SPI_FIFOCTL) |= (ulThreshold << SPI_FIFOCTL_RX_THRESHOLD_S);
 }
 
 //*****************************************************************************
@@ -1352,84 +1316,78 @@ SPIFIFORxThresholdSet(unsigned long ulBase, unsigned long ulThreshold)
 void
 SPIByteReorderSet(unsigned long ulBase, xtBoolean xtEnable)
 {
-    unsigned char ucBitLength = xSPIBitLengthGet(ulBase);
-
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE) || (ulBase == SPI3_BASE));
-    xASSERT((ucBitLength == 32) || (ucBitLength == 16) || (ucBitLength == 24));
+    xASSERT(ulBase == SPI0_BASE);
 
-    if(xtEnable)
-        xHWREG(ulBase + SPI_CNTRL) |= SPI_CNTRL_REORDER;
-    else
-	   xHWREG(ulBase + SPI_CNTRL) &= ~SPI_CNTRL_REORDER;
+    xHWREG(ulBase + SPI_CNTRL) |= SPI_CNTRL_BYTE_ENDIAN;
 }
 
 //*****************************************************************************
 //
-//! \brief Enable/disable the 3 wire feature of the specified SPI port.
+//! \brief Set the variable clock function. Only for master mode.
 //!
 //! \param ulBase specifies the SPI module base address.
-//! \param xtEnable enable this fuction or not.
+//! \param ulPattern Specify the variable clock pattern.
+//! \param xtEnable specifies enable the variable clock function or not.
+//! \param ulClock1 specifies the clock rate 1.
+//! \param ulClock2 specifies the clock rate 2.
 //!
-//! This function enable the 3 wire feature. the controller start to transmit/
-//!receive data after the GO_BUSY bit active and the serial clock input.
+//! This function set the variable clock function of the specified
+//! SPI module.
+//!
+//!
+//! \note If the bit pattern of VARCLK is '0', the output frequency of SPICLK
+//! is according to the value of DIVIDER1,If the bit pattern of VARCLK is '1',
+//! the output frequency of SPICLK is according to the value of DIVIDER2.
 //!
 //! \return None.
 //
 //*****************************************************************************
 void
-SPI3WireFunction(unsigned long ulBase, xtBoolean xtEnable)
+SPIVariableClockSet(unsigned long ulBase, unsigned long ulPattern,
+                    xtBoolean xtEnable, unsigned long ulClock1,
+                    unsigned long ulClock2)
 {
+    unsigned long ulPCLK,ulPreDiv;
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE)||(ulBase == SPI3_BASE) );
-    if (xtEnable)
-    {
-        xHWREG(ulBase + SPI_CNTRL) |= SPI_CNTRL_SLVSEL;
-        xHWREG(ulBase + SPI_SSR) |= SPI_SSR_SLV3WIRE;
-    }
-    else
-    {
-        xHWREG(ulBase + SPI_SSR) &= ~SPI_SSR_SLV3WIRE;
-        xHWREG(ulBase + SPI_CNTRL) &= ~SPI_CNTRL_SLVSEL;
-    }
-}
+    xASSERT(ulBase == SPI0_BASE);
+    xASSERT((ulClock1 != 0));
+    xASSERT((ulClock2 != 0));
+    xHWREG(ulBase + SPI_CNTRL) |= SPI_CNTRL_VARCLK_EN;
 
-//*****************************************************************************
-//
-//! \brief Enable the specified SPI port.
-//!
-//! \param ulBase specifies the SPI module base address.
-//!
-//! This function enable the specified SPI port.
-//!
-//! \return None.
-//
-//*****************************************************************************
-void xSPIEnable(unsigned long ulBase)
-{
-	xHWREG(ulBase + SPI_CNTRL) |= SPI_CNTRL_SPIEN;
-}
+    //
+    // Set the clock rate.
+    //
+    ulPCLK = SysCtlHClockGet();
+    ulPreDiv = (((ulPCLK / ulClock1)+1) >> 1) -1 ;
+    if (ulPreDiv > 65535)
+    {
+        ulPreDiv = 65535;
+    }
+    if (ulPreDiv < 1)
+    {
+        ulPreDiv = 1;
+    }
 
-//*****************************************************************************
-//
-//! \brief Disable the specified SPI port.
-//!
-//! \param ulBase specifies the SPI module base address.
-//!
-//! This function disable the specified SPI port.
-//!
-//! \return None.
-//
-//*****************************************************************************
-void xSPIDisable(unsigned long ulBase)
-{
-	xHWREG(ulBase + SPI_CNTRL) &= ~SPI_CNTRL_SPIEN;
+    xHWREG(ulBase + SPI_DIVIDER) |= (ulPreDiv & SPI_DIVIDER_DIVIDER_M);
+
+    ulPCLK = SysCtlHClockGet();
+    ulPreDiv = (((ulPCLK / ulClock2)+1) >> 1) -1 ;
+    if (ulPreDiv > 65535)
+    {
+        ulPreDiv = 65535;
+    }
+    if (ulPreDiv < 1)
+    {
+        ulPreDiv = 1;
+    }
+
+    xHWREG(ulBase + SPI_DIVIDER) |= ((ulPreDiv << SPI_DIVIDER_DIVIDER2_S)
+                                                & SPI_DIVIDER_DIVIDER2_M);
 }
 
 //*****************************************************************************
@@ -1453,10 +1411,9 @@ xSPIDMAEnable(unsigned long ulBase, unsigned long ulDmaMode)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE)||(ulBase == SPI3_BASE) );
+    xASSERT(ulBase == SPI0_BASE);
     
-    xHWREG(ulBase + SPI_DMACTL) |= ulDmaMode;
+    xHWREG(ulBase + SPI_DMA) |= ulDmaMode;
 }
 
 //*****************************************************************************
@@ -1480,52 +1437,7 @@ xSPIDMADisable(unsigned long ulBase, unsigned long ulDmaMode)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) || (ulBase == SPI1_BASE)||
-            (ulBase == SPI2_BASE)||(ulBase == SPI3_BASE) );
+    xASSERT(ulBase == SPI0_BASE);
     
-    xHWREG(ulBase + SPI_DMACTL) &= ~ulDmaMode;
-}
-
-void
-SPIPDMAReset(unsigned long ulBase)
-{
-	xHWREG(ulBase + SPI_DMACTL) |= SPI_DMACTL_PDMA_RST;
-}
-
-void
-SPIPDualIOEnable(unsigned long ulBase, unsigned long ulDir)
-{
-	xHWREG(ulBase + SPI_CNTRL) |= SPI_CNTRL_QUAL_IO_EN;
-	if(ulDir & SPI_CNTRL_QD_IO_DIR)
-	{
-		xHWREG(ulBase + SPI_CNTRL) |= SPI_CNTRL_QD_IO_DIR;
-	}
-	else {
-		xHWREG(ulBase + SPI_CNTRL) &= ~SPI_CNTRL_QD_IO_DIR;
-	}
-}
-
-void
-SPIPDualIODisable(unsigned long ulBase)
-{
-	xHWREG(ulBase + SPI_CNTRL) &= ~SPI_CNTRL_QUAL_IO_EN;
-}
-
-void
-SPIPDuadIOEnable(unsigned long ulBase, unsigned long ulDir)
-{
-	xHWREG(ulBase + SPI_CNTRL) |= SPI_CNTRL_QUAD_IO_EN;
-	if(ulDir & SPI_CNTRL_QD_IO_DIR)
-	{
-		xHWREG(ulBase + SPI_CNTRL) |= SPI_CNTRL_QD_IO_DIR;
-	}
-	else {
-		xHWREG(ulBase + SPI_CNTRL) &= ~SPI_CNTRL_QD_IO_DIR;
-	}
-}
-
-void
-SPIPDuadIODisable(unsigned long ulBase)
-{
-	xHWREG(ulBase + SPI_CNTRL) &= ~SPI_CNTRL_QUAD_IO_EN;
+    xHWREG(ulBase + SPI_DMA) &= ~ulDmaMode;
 }

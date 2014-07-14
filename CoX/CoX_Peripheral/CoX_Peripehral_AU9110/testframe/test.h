@@ -15,20 +15,10 @@
 #define __TEST_H__
 
 #include <stdint.h>
-#include "xhw_ints.h"
-#include "xhw_nvic.h"
-#include "xhw_memmap.h"
-#include "xhw_types.h"
-#include "xdebug.h"
-#include "xcore.h"
-#include "xsysctl.h"
-#include "xhw_sysctl.h"
-#include "xhw_gpio.h"
-#include "xgpio.h"
-#include "xhw_uart.h"
-#include "xuart.h"
-
-
+#include "CoX.h"
+#include "hw_sysctl.h"
+#include "hw_gpio.h"
+#include "hw_uart.h"
 
 //*****************************************************************************
 //

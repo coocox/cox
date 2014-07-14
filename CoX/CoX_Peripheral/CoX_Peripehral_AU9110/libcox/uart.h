@@ -1,17 +1,17 @@
-#ifndef _NUC4XX_UART_H_
-#define _NUC4XX_UART_H_
+#ifndef _AU9110_UART_H_
+#define _AU9110_UART_H_
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART
+//! \addtogroup AU9110_UART
 //! @{
 //
 //*****************************************************************************
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_INT_Type NUC4xx UART Interrupt Type
-//! \brief Values that show NUC4xx UART Interrupt Type
+//! \addtogroup AU9110_UART_INT_Type AU9110 UART Interrupt Type
+//! \brief Values that show AU9110 UART Interrupt Type
 //! Values that can be passed to UARTIntEnable, UARTIntDisable, and UARTIntClear
 //! as the ulIntFlags parameter, and returned from UARTIntStatus.
 //! @{
@@ -35,8 +35,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_Line_Config NUC4xx UART Line Configuration
-//! \brief Values that show NUC4xx UART Line Configuration
+//! \addtogroup AU9110_UART_Line_Config AU9110 UART Line Configuration
+//! \brief Values that show AU9110 UART Line Configuration
 //! Values that can be passed to UARTConfigSetExpClk as the ulConfig parameter
 //! and returned by UARTConfigGetExpClk in the pulConfig parameter.
 //! Additionally, the UART_CONFIG_PAR_* subset can be passed to
@@ -70,8 +70,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_Enable_Blocks NUC4xx UART Enable Blocks
-//! \brief Values that show NUC4xx UART Enable Blocks
+//! \addtogroup AU9110_UART_Enable_Blocks AU9110 UART Enable Blocks
+//! \brief Values that show AU9110 UART Enable Blocks
 //! Uart logic blocks  that can be passed to UARTEnable or UARTDisable as
 //! the ulBlock parameter.
 //! @{
@@ -101,8 +101,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_FIFO_Level NUC4xx UART FIFO Level
-//! \brief Values that show NUC4xx UART FIFO Level
+//! \addtogroup AU9110_UART_FIFO_Level AU9110 UART FIFO Level
+//! \brief Values that show AU9110 UART FIFO Level
 //! Values that can be passed to UARTIntEnable, UARTIntDisable, and UARTIntClear
 //! as the ulIntFlags parameter, and returned from UARTIntStatus.
 //! @{
@@ -125,8 +125,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_DMA_Flag NUC4xx UART DMA Flag
-//! \brief Values that show NUC4xx UART DMA Flag
+//! \addtogroup AU9110_UART_DMA_Flag AU9110 UART DMA Flag
+//! \brief Values that show AU9110 UART DMA Flag
 //! Values that can be passed to UARTDMAEnable() and UARTDMADisable().
 //! @{
 //
@@ -143,8 +143,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_OUTPUT_RTS NUC4xx UART OUTPUT RTS
-//! \brief Values that show NUC4xx UART OUTPUT RTS
+//! \addtogroup AU9110_UART_OUTPUT_RTS AU9110 UART OUTPUT RTS
+//! \brief Values that show AU9110 UART OUTPUT RTS
 //! Values that can be passed to UARTModemControlSet() or returned from
 //! UARTModemControlGet().
 //! @{
@@ -165,8 +165,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_INPUT_CTS NUC4xx UART INPUT CTS
-//! \bfief Values that show NUC4xx UART INPUT CTS
+//! \addtogroup AU9110_UART_INPUT_CTS AU9110 UART INPUT CTS
+//! \bfief Values that show AU9110 UART INPUT CTS
 //! Values that can be returned from UARTModemStatusGet().
 //! @{
 //
@@ -186,8 +186,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_Flow_Control NUC4xx UART Flow Control
-//! \brief Values that show NUC4xx UART Flow Control
+//! \addtogroup AU9110_UART_Flow_Control AU9110 UART Flow Control
+//! \brief Values that show AU9110 UART Flow Control
 //! Values that can be passed to UARTFlowControlSet() or returned from
 //! UARTFlowControlGet().
 //! @{
@@ -206,8 +206,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_Error NUC4xx UART Error
-//! \brief Values that show NUC4xx UART Error
+//! \addtogroup AU9110_UART_Error AU9110 UART Error
+//! \brief Values that show AU9110 UART Error
 //! Values returned from UARTRxErrorGet().
 //! @{
 //
@@ -226,8 +226,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_LIN_Config NUC4xx UART LIN Configuration
-//! \brief Values that show NUC4xx UART LIN Configuration
+//! \addtogroup AU9110_UART_LIN_Config AU9110 UART LIN Configuration
+//! \brief Values that show AU9110 UART LIN Configuration
 //! Values that can be passed to UARTLINConfig as the ulConfig parameter
 //! @{
 //
@@ -246,8 +246,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_IrDA_Config NUC4xx UART IrDA Configuration
-//! \brief Values that show NUC4xx UART IrDA Configuration
+//! \addtogroup AU9110_UART_IrDA_Config AU9110 UART IrDA Configuration
+//! \brief Values that show AU9110 UART IrDA Configuration
 //! Values that can be passed to UARTIrDAConfig as the ulConfig parameter
 //! @{
 //
@@ -271,8 +271,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_Exported_APIs NUC4xx UART API
-//! \brief NUC4xx UART API Reference.
+//! \addtogroup AU9110_UART_Exported_APIs AU9110 UART API
+//! \brief AU9110 UART API Reference.
 //! @{
 //
 //*****************************************************************************
@@ -312,9 +312,6 @@ extern unsigned long UARTModemStatusGet(unsigned long ulBase);
 extern void UARTFlowControlSet(unsigned long ulBase, unsigned long ulMode);
 extern unsigned long UARTFlowControlGet(unsigned long ulBase);
 extern void UARTRxTimeOutSet(unsigned long ulBase, unsigned long ulValue);
-extern void UART485Config(unsigned long ulBase, unsigned long ulBaud,
-                          unsigned long ul485Config,
-                          unsigned long ulUARTConfig);
 
 //*****************************************************************************
 //

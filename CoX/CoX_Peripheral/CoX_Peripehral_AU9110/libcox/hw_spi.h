@@ -2,8 +2,8 @@
 //
 //! \file xhw_spi.h
 //! \brief Macros used when accessing the SPI hardware.
-//! \version V2.2.1.0
-//! \date 6/15/2014
+//! \version V2.1.1.1
+//! \date 11/14/2011
 //! \author CooCox
 //! \copy
 //!
@@ -57,7 +57,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_SPI_Register  NUC4xx SPI Register
+//! \addtogroup AU9110_SPI_Register  AU9110 SPI Register
 //! \brief Here are the detailed info of SPI registers.  
 //!
 //! it contains:
@@ -73,7 +73,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_SPI_Register_Offsets SPI Register Offsets(Map)
+//! \addtogroup AU9110_SPI_Register_Offsets SPI Register Offsets(Map)
 //! \brief Here is the SPI register offset, users can get the register address
 //! through <b>SPI_BASE + offset</b>.
 //! @{
@@ -96,29 +96,34 @@
 #define SPI_SSR                 0x00000008
 
 //
+//! SPI Data Receive Register 0.
+//
+#define SPI_RX0                 0x00000010
+
+//
+//! SPI Data Receive Register 1.
+//
+#define SPI_RX1                 0x00000014 
+
+//
+//! SSPI Data Transmit Register 0.
+//
+#define SPI_TX0                 0x00000020
+
+//
+//! SSPI Data Transmit Register 1.
+//
+#define SPI_TX1                 0x00000024
+
+//
+//! SPI Variable Clock Pattern Register.
+//
+#define SPI_VARCLK              0x00000034 
+
+//
 //! DMA Control Register.
 //
-#define SPI_DMACTL              0x0000000C
-
-//
-//! SPI FIFO Control Register.
-//
-#define SPI_FIFOCTL             0x00000010
-
-//
-//! SPI Status Register.
-//
-#define SPI_STATUS              0x00000014
-
-//
-//! SPI Data Transmit Register.
-//
-#define SPI_TX                  0x00000020
-
-//
-//! SPI Data Receive Register.
-//
-#define SPI_RX                  0x00000030
+#define SPI_DMA                 0x00000038 
 
 //*****************************************************************************
 //
@@ -128,7 +133,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_SPI_Register_SPI_CNTRL SPI Control Register(SPI_CNTRL)
+//! \addtogroup AU9110_SPI_Register_SPI_CNTRL SPI Control Register(SPI_CNTRL) 
 //! \brief Defines for the bit fields in the SPI_CNTRL register.
 //! @{
 //
@@ -137,78 +142,132 @@
 //
 //! Go and Busy Status
 //
-#define SPI_CNTRL_SPIEN         BIT_32_0
+#define SPI_CNTRL_GO_BUSY       0x00000001
 
 //
 //! Receive At Negative Edge
 //
-#define SPI_CNTRL_RX_NEG        BIT_32_1 
+#define SPI_CNTRL_RX_NEG        0x00000002 
 
 //
 //! Transmit At Negative Edge
 //
-#define SPI_CNTRL_TX_NEG        BIT_32_2
-
-//
-//! Clock Polarity
-//
-#define SPI_CNTRL_CLKP          BIT_32_3
-
-//
-//! Suspend Interval (Master Only)
-//
-#define SPI_CNTRL_SP_CYCLE_M    0x000000F0
-#define SPI_CNTRL_SP_CYCLE_S    4
+#define SPI_CNTRL_TX_NEG        0x00000004
 
 //
 //! Transmit Bit Length
 //
-#define SPI_CNTRL_TX_BIT_LEN_M  0x00001F00
+#define SPI_CNTRL_TX_BIT_LEN_M  0x000000F8
 
 //
 //! Numbers of Transmit/Receive Word
 //
-#define SPI_CNTRL_TX_BIT_LEN_S  8
+#define SPI_CNTRL_TX_BIT_LEN_S  3
+
+//
+//!
+//
+#define SPI_CNTRL_TX_NUM_M      0x00000300 
+
+//
+//!
+//
+#define SPI_CNTRL_TX_NUM_1      0x00000000
+
+//
+//!
+//
+#define SPI_CNTRL_TX_NUM_2      0x00000100
+
+//
+//!
+//
+#define SPI_CNTRL_TX_NUM_S      8
 
 //
 //! LSB First
 //
-#define SPI_CNTRL_LSB           BIT_32_13
+#define SPI_CNTRL_LSB           0x00000400
 
 //
-//! 2-bit Mode Enable Control
+//! Clock Polarity
 //
-#define SPI_CNTRL_TWOB          BIT_32_16
+#define SPI_CNTRL_CLKP          0x00000800
+
+//
+//! Suspend Interval (Master Only)
+//
+#define SPI_CNTRL_SP_CYCLE_M    0x0000F000
+
+//
+//!
+//
+#define SPI_CNTRL_SP_CYCLE_S    12
+
+//
+//! Interrupt Flag
+//
+#define SPI_CNTRL_IF            0x00010000
 
 //
 //! Interrupt Enable
 //
-#define SPI_CNTRL_IE            BIT_32_17
+#define SPI_CNTRL_IE            0x00020000
 
 //
 //! Slave Mode Indication
 //
-#define SPI_CNTRL_SLVSEL        BIT_32_18 
+#define SPI_CNTRL_SLAVE         0x00040000 
 
 //
-//! Reorder Mode Select
+//! Insert Sleep interval between Bytes
 //
-#define SPI_CNTRL_REORDER       BIT_32_19
+#define SPI_CNTRL_BYTE_SLEEP    0x00080000
 
 //
-//! Quad or Dual I/O Mode Direction Control
+//! Byte Endian Reorder Function
 //
-#define SPI_CNTRL_QD_IO_DIR     BIT_32_20
+#define SPI_CNTRL_BYTE_ENDIAN   0x00100000
 
 //
-//! Dual I/O Mode Enable Control
+//! Enable FIFO Mode
 //
-#define SPI_CNTRL_QUAL_IO_EN    BIT_32_21
+#define SPI_CNTRL_FIFO          0x00200000
 
 //
-//! Quad I/O Mode Enable Control
+//! Two Bits Transfer Mode Active
 //
-#define SPI_CNTRL_QUAD_IO_EN    BIT_32_22
+#define SPI_CNTRL_TWOB          0x00400000 
+
+//
+//! Variable Clock Enable (Master Only)
+//
+#define SPI_CNTRL_VARCLK_EN     0x00800000 
+
+//
+//! Received FIFO_EMPTY STATUS (read only)
+//
+#define SPI_CNTRL_RX_EMPTY      0x01000000 
+
+//
+//! Received FIFO_FULL STATUS (read only)
+//
+#define SPI_CNTRL_RX_FULL       0x02000000 
+
+//
+//! Transmitted FIFO_EMPTY STATUS (read only)
+//
+#define SPI_CNTRL_TX_EMPTY      0x04000000 
+
+//
+//! Transmitted FIFO_FULL STATUS (read only)
+//
+#define SPI_CNTRL_TX_FULL       0x08000000
+
+//
+//! Enable DMA Automatic SS function
+//
+#define SPI_CNTRL_DMA_ASS_BURST 0x10000000
 
 //*****************************************************************************
 //
@@ -218,7 +277,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_SPI_Register_SPI_DIVIDER SPI DIVIDER Register(SPI_DIVIDER)
+//! \addtogroup AU9110_SPI_Register_SPI_DIVIDER SPI DIVIDER Register(SPI_DIVIDER)
 //! \brief Defines for the bit fields in the SPI_DIVIDER register.
 //! @{
 //
@@ -227,8 +286,14 @@
 //
 //! Clock Divider Register (master only)
 //
-#define SPI_DIVIDER_DIVIDER_M   0x000000FF
+#define SPI_DIVIDER_DIVIDER_M   0x0000FFFF  
 #define SPI_DIVIDER_DIVIDER_S   0
+
+//
+//! Clock Divider Register (master only)
+//
+#define SPI_DIVIDER_DIVIDER2_M  0xFFFF0000  
+#define SPI_DIVIDER_DIVIDER2_S  16
 
 //*****************************************************************************
 //
@@ -238,7 +303,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_SPI_Register_SPI_SSR SPI SSR Register(SPI_SSR)
+//! \addtogroup AU9110_SPI_Register_SPI_SSR SPI SSR Register(SPI_SSR)
 //! \brief efines for the bit fields in the SPI_SSR register.
 //! @{
 //
@@ -253,53 +318,22 @@
 //
 //! Slave Select Active Level
 //
-#define SPI_SSR_SS_LVL          BIT_32_2
+#define SPI_SSR_SS_LVL          0x00000004
 
 //
 //! Automatic Slave Select (Master only)
 //
-#define SPI_SSR_AUTOSS          BIT_32_3
+#define SPI_SSR_AUTOSS          0x00000008
 
 //
-//! Slave 3-Wire Mode Enable Control
+//! Slave Select Level Trigger (Slave only)
 //
-#define SPI_SSR_SLV3WIRE        BIT_32_4
+#define SPI_SS_LTRIG            0x00000010
 
 //
-//! Slave Mode Time-out Interrupt Enable Control
+//! Level Trigger Flag
 //
-#define SPI_SSR_SLVTO_INTEN     BIT_32_5
-
-//
-//! Slave Mode Time-out FIFO Clear
-//
-#define SPI_SSR_SLVTO_FFCLR     BIT_32_6
-
-//
-//! Slave Mode Error 0 Interrupt Enable Control
-//
-#define SPI_SSR_SLVER0_INTEN    BIT_32_8
-
-//
-//! Slave Mode Error 1 Interrupt Enable Control
-//
-#define SPI_SSR_SLVER1_INTEN    BIT_32_9
-
-//
-//! Slave Select Active Interrupt Enable Control
-//
-#define SPI_SSR_SSACT_INTEN     BIT_32_12
-
-//
-//! Slave Select Inactive Interrupt Enable Control 
-//
-#define SPI_SSR_SSINA_INTEN     BIT_32_13
-
-//
-//! Slave Mode Time-out Period
-//
-#define SPI_SSR_SLVTOPRD_M       0xFFFF0000
-#define SPI_SSR_SLVTOPRD_S       16
+#define SPI_LTRIG_FLAG          0x00000020
 
 //*****************************************************************************
 //
@@ -309,223 +343,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_SPI_Register_SPI_DMACTL SPI DMACTL Register(SPI_DMACTL)
-//! \brief Defines for the bit fields in the SPI_DMACTL register.
-//! @{
-//
-//*****************************************************************************
-
-//
-//! PDMA Reset
-//
-#define SPI_DMACTL_PDMA_RST     BIT_32_2
-
-//
-//! Receive PDMA Enable Control
-//
-#define SPI_DMACTL_RX_EN        BIT_32_1
-
-//
-//! Transmit DMA Enable Control
-//
-#define SPI_DMACTL_TX_EN        BIT_32_0
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC4xx_SPI_Register_SPI_FIFOCTL SPI FIFOCTL Register(SPI_FIFOCTL)
-//! \brief Defines for the bit fields in the SPI_FIFOCTL register.
-//! @{
-//
-//*****************************************************************************
-
-//
-//! Clear Rx FIFO
-//
-#define SPI_FIFOCTL_RX_CLR      BIT_32_0
-
-//
-//! Clear Tx FIFO
-//
-#define SPI_FIFOCTL_TX_CLR      BIT_32_1
-
-//
-//! Receive Threshold Interrupt Enable
-//
-#define SPI_FIFOCTL_RX_INTEN    BIT_32_2
-
-//
-//! Transmit Threshold Interrupt Enable
-//
-#define SPI_FIFOCTL_TX_INTEN    BIT_32_3
-
-//
-//! Slave Receive Time-out Interrupt Enable Control (Slave Only)
-//
-#define SPI_FIFOCTL_RXTO_INTEN  BIT_32_4
-
-//
-//! Receive FIFO Overrun Interrupt Enable
-//
-#define SPI_FIFOCTL_RXOV_INTEN  BIT_32_5
-
-//
-//! Transmit Under-run Data Out (Slave Only)
-//
-#define SPI_FIFOCTL_TXUDR_DO    BIT_32_6
-
-//
-//! Slave Transmit Under Run Interrupt Enable Control (Slave Only)
-//
-#define SPI_FIFOCTL_TXUDR_INTEN BIT_32_7
-
-//
-//! Receive FIFO Threshold
-//
-#define SPI_FIFOCTL_RX_THRESHOLD_M BIT_MASK(32,26,24)
-#define SPI_FIFOCTL_RX_THRESHOLD_S 24
-
-//
-//! Receive FIFO Threshold
-//
-#define SPI_FIFOCTL_TX_THRESHOLD_M BIT_MASK(32,30,28)
-#define SPI_FIFOCTL_TX_THRESHOLD_S 28
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC4xx_SPI_Register_STATUS SPI Status Register (SPI_STATUS)
-//! @{
-//
-//*****************************************************************************
-
-//
-//! Busy Status (Read Only)
-//
-#define SPI_STATUS_BUSY         BIT_32_0
-
-//
-//! Unit Transfer Interrupt Status
-//
-#define SPI_STATUS_UNIT_INTSTS  BIT_32_1
-
-//
-//! Slave Select Active Interrupt Status
-//
-#define SPI_STATUS_SSACT_INTSTS BIT_32_2
-
-//
-//! Slave Select Inactive Interrupt Status
-//
-#define SPI_STATUS_SSINA_INTSTS BIT_32_3
-
-//
-//! Slave Select Line Bus Status (Read Only)
-//
-#define SPI_STATUS_SS_LINE      BIT_32_4
-
-//
-//! Slave Time-out Interrupt Status
-//
-#define SPI_STATUS_SLVTO_INTSTS BIT_32_5
-
-//
-//! Slave Mode Error 0 Interrupt Status
-//
-#define SPI_STATUS_SLVER0_INTSTS BIT_32_6
-
-//
-//! Slave Mode Error 1 Interrupt Status
-//
-#define SPI_STATUS_SLVER1_INTSTS BIT_32_7
-
-//
-//! Receive FIFO Buffer Empty Indicator (Read Only)
-//
-#define SPI_STATUS_RX_EMPTY     BIT_32_8
-
-//
-//! Receive FIFO Buffer Empty Indicator (Read Only)
-//
-#define SPI_STATUS_RX_FULL      BIT_32_9
-
-//
-//! Receive FIFO Threshold Interrupt Status (Read Only)
-//
-#define SPI_STATUS_RXTH_INTSTS  BIT_32_10
-
-//
-//! Receive FIFO Overrun Status
-//
-#define SPI_STATUS_RXOVR_INTSTS BIT_32_11
-
-//
-//! Receive Time-out Interrupt Status
-//
-#define SPI_STATUS_RXTO_INTSTS  BIT_32_12
-
-//
-//! SPI Enable Bit Status (Read Only)
-//
-#define SPI_STATUS_SPIEN_STS    BIT_32_15
-
-//
-//! Transmit FIFO Buffer Empty Indicator (Read Only)
-//
-#define SPI_STATUS_TX_EMPTY     BIT_32_16
-
-//
-//! Transmit FIFO Buffer Full Indicator (Read Only)
-//
-#define SPI_STATUS_TX_FULL      BIT_32_17
-
-//
-//! Transmit FIFO Threshold Interrupt Status (Read Only)
-//
-#define SPI_STATUS_TXTH_INTSTS  BIT_32_18
-
-//
-//! Slave Transmit FIFO Under-Run Interrupt Status
-//
-#define SPI_STATUS_TXUDR_INTSTS BIT_32_19
-
-//
-//! FIFO CLR Status (Read Only)
-//
-#define SPI_STATUS_FFCLR_STS    BIT_32_23
-
-//
-//! Receive FIFO Data Count (Read Only)
-//
-#define SPI_STATUS_RX_FIFO_COUNT_M BIT_MASK(32,27,24)
-#define SPI_STATUS_RX_FIFO_COUNT_S 24
-
-//
-//! Transmit FIFO Data Count (Read Only)
-//
-#define SPI_STATUS_TX_FIFO_COUNT_M BIT_MASK(32,31,28)
-#define SPI_STATUS_TX_FIFO_COUNT_S 28
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC4xx_SPI_Register_SPI_RX SPI RX Register(SPI_RX)
-//! \brief Defines for the bit fields in the SPI_RX register.
+//! \addtogroup AU9110_SPI_Register_SPI_RX0 SPI RX0 Register(SPI_RX0)
+//! \brief Defines for the bit fields in the SPI_RX0 register.
 //! @{
 //
 //*****************************************************************************
@@ -533,8 +352,8 @@
 //
 //! Data Receive Register
 //
-#define SPI_RX_RX_M             0xFFFFFFFF
-#define SPI_RX_RX_S             0
+#define SPI_RX0_RX_M            0xFFFFFFFF
+#define SPI_RX0_RX_S            0
 
 //*****************************************************************************
 //
@@ -544,8 +363,28 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_SPI_Register_SPI_TX SPI TX Register(SPI_TX)
-//! \brief Defines for the bit fields in the SPI_TX register.
+//! \addtogroup AU9110_SPI_Register_SPI_RX1 SPI RX1 Register(SPI_RX1)
+//! \brief Defines for the bit fields in the SPI_RX1 register.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Data Receive Register
+//
+#define SPI_RX1_RX_M            0xFFFFFFFF
+#define SPI_RX1_RX_S            0
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup AU9110_SPI_Register_SPI_TX0 SPI TX0 Register(SPI_TX0)
+//! \brief Defines for the bit fields in the SPI_TX0 register.
 //! @{
 //
 //*****************************************************************************
@@ -553,8 +392,72 @@
 //
 //£¡Data Transmit Register
 // 
-#define SPI_TX_TX_M             0xFFFFFFFF
-#define SPI_TX_TX_S             0
+#define SPI_TX0_RX_M            0xFFFFFFFF
+#define SPI_TX0_RX_S            0
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup AU9110_SPI_Register_SPI_TX1 SPI TX1 Register(SPI_TX1)
+//! \brief Defines for the bit fields in the SPI_TX1 register.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Data Transmit Register
+//
+#define SPI_TX1_RX_M            0xFFFFFFFF
+#define SPI_TX1_RX_S            0
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup AU9110_SPI_Register_SPI_VARCLK SPI VARCLK Register(SPI_VARCLK)
+//! \brief Defines for the bit fields in the SPI_VARCLK register.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Variable Clock Pattern
+//
+#define SPI_VARCLK_M            0xFFFFFFFF
+#define SPI_VARCLK_S            0
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup AU9110_SPI_Register_SPI_DMA SPI DMA Register(SPI_DMA) 
+//! \brief Defines for the bit fields in the SPI_DMA register.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Receive DMA Start
+//
+#define SPI_DMA_RX_DMA_GO       0x00000001
+
+//
+//! Transmit DMA Start
+//
+#define SPI_DMA_TX_DMA_GO       0x00000002
 
 //*****************************************************************************
 //
