@@ -88,13 +88,13 @@ static unsigned long g_psDMAChannelAddress[] =
 //
 static unsigned long g_psDMAIPSelectReg[] = 
 {
-    PDMA_PDSSR0,
-    PDMA_PDSSR1,
-    PDMA_PDSSR2
+    DMA_SMSEL0,
+    DMA_SMSEL1,
+    DMA_SMSEL2,
+    DMA_SMSEL3
 };
 
-#define PDMA_PDSRx(a)  (((a) >> 28) & 0x3)
-#define PDMA_PDSR_M(a) ((((a) & 0xF) << ((a) & 0x1f0000 >> 16)))
+#define PDMA_PDSRx(a)  (((a) >> 16) & 0x1F)
 
 //*****************************************************************************
 //
@@ -157,17 +157,16 @@ xDMAChannelIDValid(unsigned long ulChannelID)
 //
 //! DMA Interrupt Handler.
 //!
-//! The interrupt handler for uDMA interrupts from the memory channel. 
+//! The interrupt handler for DMA interrupts from the memory channel.
 //!
 //! \return None.
 //
 //*****************************************************************************
 void
-PDMAIntHandler(void)
+PDMA_IRQHandler(void)
 {
+	unsigned long ulBase = DMA0_BASE;
     unsigned long ulChannelID;
-    unsigned long ulStatus;
-    ulStatus = xHWREG(PDMA_GCRISR);
     for(ulChannelID = 0; 
         g_psDMAChannelAssignTable[ulChannelID].ulChannelID != 
         xDMA_CHANNEL_NOT_EXIST;
@@ -175,27 +174,37 @@ PDMAIntHandler(void)
     {
         if(g_psDMAChannelAssignTable[ulChannelID].bChannelAssigned == xtrue)
         {
-            if (ulStatus & (1<<ulChannelID))
+            if(xHWREG(ulBase + DMA_ISR) & DMA_EVENT_TC)
             {
-    			if(xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_ISR) 
-                   & DMA_EVENT_TC)
-    			{
-    			  xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_ISR) |= 
-                  DMA_EVENT_TC;
+                if(xHWREG(ulBase + DMA_TDF) & (1 << ulChannelID))
+                {
+    			  xHWREG(ulBase + DMA_TDF) |= (1 << ulChannelID);
     			   if (g_psDMAChannelAssignTable
                        [ulChannelID].pfnDMAChannelHandlerCallback != 0)    		
     		    		g_psDMAChannelAssignTable
     		    		[ulChannelID].pfnDMAChannelHandlerCallback(0,0,1,0);							
     			}
-    			else if(xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_ISR) 
-                   & DMA_EVENT_ERROR)
-    			{
-    			  xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_ISR) |= 
-                  DMA_EVENT_ERROR;
+            }
+            else if(xHWREG(ulBase + DMA_ISR) & DMA_EVENT_ERROR)
+            {
+                if(xHWREG(ulBase + DMA_ABTF) & (1 << ulChannelID))
+                {
+    			  xHWREG(ulBase + DMA_ABTF) |= (1 << ulChannelID);
     			   if (g_psDMAChannelAssignTable
                        [ulChannelID].pfnDMAChannelHandlerCallback != 0)    		
     		    		g_psDMAChannelAssignTable
     		    		[ulChannelID].pfnDMAChannelHandlerCallback(0,0,0,0);							
+    			}
+            }
+            else if(xHWREG(ulBase + DMA_ISR) & DMA_EVENT_TEMPTY)
+            {
+                if(xHWREG(ulBase + DMA_SCATDF) & (1 << ulChannelID))
+                {
+    			  xHWREG(ulBase + DMA_SCATDF) |= (1 << ulChannelID);
+    			   if (g_psDMAChannelAssignTable
+                       [ulChannelID].pfnDMAChannelHandlerCallback != 0)
+    		    		g_psDMAChannelAssignTable
+    		    		[ulChannelID].pfnDMAChannelHandlerCallback(0,0,2,0);
     			}
             }
         }
@@ -210,14 +219,14 @@ PDMAIntHandler(void)
 //! The channel ID can be:
 //! - DMA_CHANNEL_0
 //! - DMA_CHANNEL_1
-//! - others refrence \ref NUC4xx_PDMA_Channel_IDs
+//! - others refrence \ref NUC4xx_DMA_Channel_IDs
 //! .
 //!
 //! \return None.
 //
 //*****************************************************************************
 void 
-xPDMAEnable(unsigned long ulChannelID)
+xDMAEnable(unsigned long ulChannelID)
 {
     //
     // Check the arguments.
@@ -227,7 +236,7 @@ xPDMAEnable(unsigned long ulChannelID)
     //
     // Enable DMA channel.
     //
-    xHWREG(DMA0_BASE + DMA_CHCON) |= 1 << ulChannelID;
+    xHWREG(DMA0_BASE + DMA_CHCON) |= (1 << ulChannelID);
 }
 
 //*****************************************************************************
@@ -245,7 +254,7 @@ xPDMAEnable(unsigned long ulChannelID)
 //
 //*****************************************************************************
 void 
-xPDMADisable(unsigned long ulChannelID)
+xDMADisable(unsigned long ulChannelID)
 {
     //
     // Check the arguments.
@@ -255,7 +264,7 @@ xPDMADisable(unsigned long ulChannelID)
     //
     // Disable PDMA channel.
     //
-    xHWREG(DMA0_BASE + DMA_STOP) |= 1 << ulChannelID;
+    xHWREG(DMA0_BASE + DMA_STOP) |= (1 << ulChannelID);
 }
 
 //*****************************************************************************
@@ -267,7 +276,7 @@ xPDMADisable(unsigned long ulChannelID)
 //! The channel ID can be:
 //! - xDMA_CHANNEL_0
 //! - xDMA_CHANNEL_1
-//! - others refrence \ref NUC1xx_DMA_Channel_IDs
+//! - others refrence \ref NUC4xx_DMA_Channel_IDs
 //! .
 //! The interrupt type can be:
 //! - xDMA_EVENT_TC
@@ -285,8 +294,9 @@ xDMAChannelIntEnable(unsigned long ulChannelID, unsigned long ulIntFlags)
     // Check the arguments.
     //
     xASSERT(xDMAChannelIDValid(ulChannelID));
-    xASSERT(((ulIntFlags & DMA_EVENT_TC) == DMA_EVENT_TC) ||
-            ((ulIntFlags & DMA_EVENT_ERROR) == DMA_EVENT_ERROR));
+    xASSERT(((ulIntFlags & DMA_EVENT_TC) == DMA_EVENT_TC)       ||
+            ((ulIntFlags & DMA_EVENT_ERROR) == DMA_EVENT_ERROR) ||
+            ((ulIntFlags & DMA_EVENT_TEMPTY) == DMA_EVENT_TEMPTY));
 
     //
     // Enable DMA channel interrupt.
@@ -303,7 +313,7 @@ xDMAChannelIntEnable(unsigned long ulChannelID, unsigned long ulIntFlags)
 //! The channel ID can be:
 //! - xDMA_CHANNEL_0
 //! - xDMA_CHANNEL_1
-//! - others refrence \ref NUC1xx_DMA_Channel_IDs
+//! - others refrence \ref NUC4xx_DMA_Channel_IDs
 //! .
 //! The interrupt type can be:
 //! - xDMA_EVENT_TC
@@ -315,14 +325,15 @@ xDMAChannelIntEnable(unsigned long ulChannelID, unsigned long ulIntFlags)
 //
 //*****************************************************************************
 void 
-xDMAChannelIntEnable(unsigned long ulChannelID, unsigned long ulIntFlags)
+xDMAChannelIntDisable(unsigned long ulChannelID, unsigned long ulIntFlags)
 {
     //
     // Check the arguments.
     //
     xASSERT(xDMAChannelIDValid(ulChannelID));
-    xASSERT(((ulIntFlags & DMA_EVENT_TC) == PDMA_EVENT_TC) ||
-            ((ulIntFlags & DMA_EVENT_ERROR) == PDMA_EVENT_ERROR));
+    xASSERT(((ulIntFlags & DMA_EVENT_TC) == DMA_EVENT_TC)       ||
+            ((ulIntFlags & DMA_EVENT_ERROR) == DMA_EVENT_ERROR) ||
+            ((ulIntFlags & DMA_EVENT_TEMPTY) == DMA_EVENT_TEMPTY));
 
     //
     // Disable DMA channel interrupt.
@@ -371,14 +382,14 @@ xDMAChannelIntEnable(unsigned long ulChannelID, unsigned long ulIntFlags)
 //!
 //! \return Returns a Channel ID that dynamic assignment.
 //! The channel ID can be:
-//! - PDMA_CHANNEL_0
-//! - PDMA_CHANNEL_1
-//! - others refrence \ref NUC1xx_PDMA_Channel_IDs
+//! - DMA_CHANNEL_0
+//! - DMA_CHANNEL_1
+//! - others refrence \ref NUC4xx_DMA_Channel_IDs
 //! .
 //
 //*****************************************************************************
 unsigned long 
-PDMAChannelDynamicAssign(unsigned long ulDMASrcRequest,    
+xDMAChannelDynamicAssign(unsigned long ulDMASrcRequest,
                          unsigned long ulDMADestRequest)
 {
     unsigned long ulChannelID;
@@ -416,14 +427,14 @@ PDMAChannelDynamicAssign(unsigned long ulDMASrcRequest,
            );
 
     //
-    // NUC1xx DMA do not support P to P
+    // NUC4xx DMA do not support P to P
     //
     if((ulDMASrcRequest != xDMA_REQUEST_MEM) &&
        (ulDMADestRequest != xDMA_REQUEST_MEM))
     {
         return xDMA_CHANNEL_NOT_EXIST;
     }
-    
+
     for(ulChannelID = 0; 
         g_psDMAChannelAssignTable[ulChannelID].ulChannelID != xDMA_CHANNEL_NOT_EXIST;
         ulChannelID++)
@@ -434,22 +445,20 @@ PDMAChannelDynamicAssign(unsigned long ulDMASrcRequest,
             break;
         }
     }
-    // mem --> tx
+
+    //
+    // MEM to TX type
+    //
     if(!(ulDMASrcRequest & xDMA_REQUEST_MEM) && (ulDMASrcRequest & 0x00000100))
     {
         if(g_psDMAChannelAssignTable[ulChannelID].ulChannelID != 
             xDMA_CHANNEL_NOT_EXIST)
         {
-            xHWREG(g_psDMAIPSelectReg[PDMA_PDSRx(ulDMASrcRequest)]) &= 
-            ~(PDMA_PDSR_M(ulDMASrcRequest));
-            
-            xHWREG(g_psDMAIPSelectReg[PDMA_PDSRx(ulDMASrcRequest)]) |= 
-            (PDMA_PDSR_M((ulDMASrcRequest & 0xFFFFFF0) | ulChannelID));
-            
-            xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CSR) &= 
-            ~PDMA_CSR_MODE_M;
-            xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CSR) |= 
-            PDMA_CSR_MODE_MTOP;
+            xHWREG(g_psDMAIPSelectReg[ulChannelID/4]) &=
+                        ~(0x1F << ((ulChannelID % 4) * 8));
+            xHWREG(g_psDMAIPSelectReg[ulChannelID/4]) |=
+                        (PDMA_PDSRx(ulDMASrcRequest) << ((ulChannelID % 4) * 8));
+
             return ulChannelID;
         }
         else
@@ -457,43 +466,19 @@ PDMAChannelDynamicAssign(unsigned long ulDMASrcRequest,
             return xDMA_CHANNEL_NOT_EXIST;
         }
     }
-    // rx --> mem
+
+    //
+    //! RX to MEM type
+    //
     if(!(ulDMADestRequest & xDMA_REQUEST_MEM) && !(ulDMADestRequest & 0x00000100))
     {
         if(g_psDMAChannelAssignTable[ulChannelID].ulChannelID != 
             xDMA_CHANNEL_NOT_EXIST)
         {
-            xHWREG(g_psDMAIPSelectReg[PDMA_PDSRx(ulDMADestRequest)]) &= 
-            ~(PDMA_PDSR_M(ulDMADestRequest));
-            
-            xHWREG(g_psDMAIPSelectReg[PDMA_PDSRx(ulDMADestRequest)]) |= 
-            (PDMA_PDSR_M((ulDMADestRequest & 0xFFFFFF0) | ulChannelID));
-
-            xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CSR) &= 
-            ~PDMA_CSR_MODE_M;
-            xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CSR) |= 
-            PDMA_CSR_MODE_PTOM;
-            return ulChannelID;
-        }
-        else
-        {
-            return xDMA_CHANNEL_NOT_EXIST;
-        }
-    }
-    
-    //
-    // Mem to Mem type
-    //
-    if((ulDMASrcRequest & xDMA_REQUEST_MEM) &&
-       (ulDMADestRequest & xDMA_REQUEST_MEM))
-    {
-        if(g_psDMAChannelAssignTable[ulChannelID].ulChannelID != 
-            xDMA_CHANNEL_NOT_EXIST)
-        {
-            xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CSR) &= 
-            ~PDMA_CSR_MODE_M;
-            xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CSR) |= 
-            PDMA_CSR_MODE_MTOM;
+            xHWREG(g_psDMAIPSelectReg[ulChannelID/4]) &=
+                        ~(0x1F << ((ulChannelID % 4) * 8));
+            xHWREG(g_psDMAIPSelectReg[ulChannelID/4]) |=
+                        (PDMA_PDSRx(ulDMASrcRequest) << ((ulChannelID % 4) * 8));
             return ulChannelID;
         }
         else
@@ -506,6 +491,45 @@ PDMAChannelDynamicAssign(unsigned long ulDMASrcRequest,
     // when the src request is tx type, or dest request is rx type, assign false.
     //
     return xDMA_CHANNEL_NOT_EXIST;
+}
+
+//*****************************************************************************
+//
+//! \brief Get the assignment status of a channel.
+//!
+//! \param ulChannelID is the channel ID that have been assigned.
+//! The channel ID can be:
+//! - xDMA_CHANNEL_0
+//! - xDMA_CHANNEL_1
+//! - others refrence \ref xDMA_Channel_IDs
+//! .
+//!
+//! \return Returns \b xtrue if the channel has been assigned and \b xfalse
+//! if the channel is idle.
+//
+//*****************************************************************************
+xtBoolean
+xDMAChannelAssignmentGet(unsigned long ulChannelID)
+{
+    int i = 0;
+
+    xASSERT(xDMAChannelIDValid(ulChannelID));
+
+    for(i = 0; g_psDMAChannelAssignTable[i].ulChannelID != xDMA_CHANNEL_NOT_EXIST; i++)
+    {
+        if(g_psDMAChannelAssignTable[i].ulChannelID == ulChannelID)
+        {
+            if(g_psDMAChannelAssignTable[i].bChannelAssigned == xfalse)
+            {
+                return xfalse;
+            }
+            else
+            {
+                return xtrue;
+            }
+        }
+    }
+    return xfalse;
 }
 
 //*****************************************************************************
@@ -523,7 +547,7 @@ PDMAChannelDynamicAssign(unsigned long ulDMASrcRequest,
 //
 //*****************************************************************************
 void
-PDMAChannelDeAssign(unsigned long ulChannelID)
+xDMAChannelDeAssign(unsigned long ulChannelID)
 {
     int i;
     
@@ -555,20 +579,20 @@ PDMAChannelDeAssign(unsigned long ulChannelID)
 //! The \e ulControl parameter is the logical OR of five values: the data size,
 //! the source address increment, the destination address increment.
 //!
-//! Choose the source data size from one of \b PDMA_WIDTH_8BIT, 
-//! \b PDMA_WIDTH_16BIT,  \b or PDMA_WIDTH_32BIT to select a data size 
+//! Choose the source data size from one of \b DMA_WIDTH_8BIT,
+//! \b DMA_WIDTH_16BIT,  \b or DMA_WIDTH_32BIT to select a data size
 //! of 8, 16, or 32 bits.
 //!
-//! Choose the destination data size from one of \b PDMA_WIDTH_8BIT, 
-//! \b PDMA_WIDTH_16BIT,  \b or PDMA_WIDTH_32BIT to select a data size 
+//! Choose the destination data size from one of \b DMA_WIDTH_8BIT,
+//! \b DMA_WIDTH_16BIT,  \b or DMA_WIDTH_32BIT to select a data size
 //! of 8, 16, or 32 bits.
 //!
-//! Choose the source address increment from one of \b PDMA_SRC_DIR_INC,
-//! \b PDMA_SRC_DIR_FIXED to selectan address increment or  select 
+//! Choose the source address increment from one of \b DMA_SRC_DIR_INC,
+//! \b DMA_SRC_DIR_FIXED to selectan address increment or  select
 //! non-incrementing 
 //!
-//! Choose the destination address increment from one of \b PDMA_DST_DIR_INC,
-//! \b PDMA_DST_DIR_FIXED to selectan address increment or  select 
+//! Choose the destination address increment from one of \b DMA_DST_DIR_INC,
+//! \b DMA_DST_DIR_FIXED to selectan address increment or  select
 //! non-incrementing 
 //!
 //! \note The address increment cannot be smaller than the data size. 
@@ -578,26 +602,25 @@ PDMAChannelDeAssign(unsigned long ulChannelID)
 //
 //*****************************************************************************
 void
-PDMAChannelControlSet(unsigned long ulChannelID,
+xDMAChannelControlSet(unsigned long ulChannelID,
                       unsigned long ulControl)
 {
     
     xASSERT(xDMAChannelIDValid(ulChannelID));
 
 
-    xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CSR) &= 
-    ~(PDMA_CSR_SDA_M | PDMA_CSR_DAD_M | PDMA_CSR_TWS_M);
+    xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_CTRL) &=
+    ~(DMA_CTRL_SAR_INC_M | DMA_CTRL_DAR_INC_M | DMA_CTRL_TWS_M);
     
-    xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CSR) |= ulControl;
-   
+    xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_CTRL) |= ulControl;
 }
 
 //*****************************************************************************
 //
-//! Sets the transfer parameters for a uDMA channel control structure.
+//! Sets the transfer parameters for a DMA channel control structure.
 //!
 //! \param ulChannelID is the uDMA channel ID.
-//! \param ulMode is the type of uDMA transfer.
+//! \param ulMode is the type of DMA transfer.
 //! \param pvSrcAddr is the source address for the transfer.
 //! \param pvDstAddr is the destination address for the transfer.
 //! \param ulTransferSize is the number of data items to transfer.
@@ -613,8 +636,8 @@ PDMAChannelControlSet(unsigned long ulChannelID,
 //!
 //! The \e ulMode parameter should be one of the following values:
 //!
-//! - \b UDMA_MODE_BASIC to perform a basic transfer based on request.
-//! - \b UDMA_MODE_AUTO to perform a transfer that will always complete once
+//! - \b xDMA_MODE_BASIC to perform a basic transfer based on request.
+//! - \b xDMA_MODE_AUTO to perform a transfer that will always complete once
 //!   started even if request is removed.
 //! .
 //!
@@ -642,23 +665,44 @@ PDMAChannelControlSet(unsigned long ulChannelID,
 //
 //*****************************************************************************
 void 
-PDMAChannelTransferSet(unsigned long ulChannelID, void *pvSrcAddr, 
-                       void *pvDstAddr, unsigned long ulTransferSize)
+xDMAChannelTransferSet(unsigned long ulChannelID, unsigned long ulMode, unsigned long pvSrcAddr,
+                        unsigned long pvDstAddr, unsigned long ulTransferSize)
 {
     xASSERT(xDMAChannelIDValid(ulChannelID));
+    xASSERT((ulTransferSize == 1)  &&
+    		(ulTransferSize == 2)  &&
+    		(ulTransferSize == 4)  &&
+    		(ulTransferSize == 8)  &&
+    		(ulTransferSize == 16) &&
+    		(ulTransferSize == 32) &&
+    		(ulTransferSize == 64) &&
+    		(ulTransferSize == 128));
 
-    xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CSR) |= PDMA_CSR_CEN;
+    xHWREG(DMA0_BASE + DMA_STOP) |= (1 << ulChannelID);
 
-    xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_SAR) = 
+    xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_SAR) =
     (unsigned long)pvSrcAddr;
     
-    xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_DAR) = 
+    xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_DAR) =
     (unsigned long)pvDstAddr;
     
-    xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_BCR) = ulTransferSize;
+    xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_CTRL) &= ~DMA_CTRL_REQ_TYPE;
+    xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_CTRL) |= ulMode;
 
-    xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CSR) |= PDMA_CSR_TEN;
-    
+    xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_CTRL) &= ~DMA_CTRL_BUR_SIZE_M;
+    switch(ulTransferSize)
+    {
+    case 1: xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_CTRL) |= 0x7 << DMA_CTRL_BUR_SIZE_S; break;
+    case 2: xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_CTRL) |= 0x6 << DMA_CTRL_BUR_SIZE_S; break;
+    case 4: xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_CTRL) |= 0x5 << DMA_CTRL_BUR_SIZE_S; break;
+    case 8: xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_CTRL) |= 0x4 << DMA_CTRL_BUR_SIZE_S; break;
+    case 16: xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_CTRL) |= 0x3 << DMA_CTRL_BUR_SIZE_S; break;
+    case 32: xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_CTRL) |= 0x2 << DMA_CTRL_BUR_SIZE_S; break;
+    case 64: xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_CTRL) |= 0x1 << DMA_CTRL_BUR_SIZE_S; break;
+    case 128: xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_CTRL) |= 0x0 << DMA_CTRL_BUR_SIZE_S; break;
+    default: break;
+    }
+    xHWREG(DMA0_BASE + DMA_CHCON) |= (1 << ulChannelID);
 }
 
 //*****************************************************************************
@@ -682,7 +726,7 @@ PDMAChannelTransferSet(unsigned long ulChannelID, void *pvSrcAddr,
 //
 //*****************************************************************************
 void 
-PDMAChannelIntCallbackInit(unsigned long ulChannelID, 
+xDMAChannelIntCallbackInit(unsigned long ulChannelID,
                     xtEventCallback pfnCallback)
 {
     int i;
@@ -703,7 +747,6 @@ PDMAChannelIntCallbackInit(unsigned long ulChannelID,
             break;
         }
     }
-            
 }
 
 //*****************************************************************************
@@ -720,7 +763,7 @@ PDMAChannelIntCallbackInit(unsigned long ulChannelID,
 //*****************************************************************************
 
 xtEventCallback 
-PDMAChannelIntCallbackGet(unsigned long ulChannelID)
+DMAChannelIntCallbackGet(unsigned long ulChannelID)
 {
     int i;
     //
@@ -739,84 +782,112 @@ PDMAChannelIntCallbackGet(unsigned long ulChannelID)
     }
 
     return 0;
-    
 }
 
 //*****************************************************************************
 //
-//! \brief Get the PDMA interrupt flag of a channel.
+//! \brief Get the DMA interrupt flag of a channel.
 //!
 //! \param ulChannelID is the channel ID that have been disabled.
-//! \param ulIntFlags is the interrupt type of PDMA.
+//! \param ulIntFlags is the interrupt type of DMA.
 //! The channel ID can be:
-//! - PDMA_CHANNEL_0
-//! - PDMA_CHANNEL_1
-//! - others refrence \ref NUC1xx_PDMA_Channel_IDs
+//! - DMA_CHANNEL_0
+//! - DMA_CHANNEL_1
+//! - others refrence \ref NUC4xx_DMA_Channel_IDs
 //! .
 //! The interrupt type can be:
-//! - PDMA_EVENT_TC
-//! - PDMA_EVENT_ERROR
-//! - refrence \ref NUC1xx_PDMA_Event_Flags
+//! - DMA_EVENT_TC
+//! - DMA_EVENT_ERROR
+//! - refrence \ref NUC4xx_DMA_Event_Flags
 //! .
 //!
-//! \return the Status of The PDMA interrupt.
+//! \return the Status of The DMA interrupt.
 //
 //*****************************************************************************
 xtBoolean 
-PDMAChannelIntFlagGet(unsigned long ulChannelID, unsigned long ulIntFlags)
+DMAChannelIntFlagGet(unsigned long ulChannelID, unsigned long ulIntFlags)
 {
     //
     // Check the arguments.
     //
     xASSERT(xDMAChannelIDValid(ulChannelID));
-    xASSERT((ulIntFlags == PDMA_EVENT_TC) || (ulIntFlags == PDMA_EVENT_ERROR));
+    xASSERT((ulIntFlags == DMA_EVENT_TC)    ||
+            (ulIntFlags == DMA_EVENT_ERROR) ||
+            (ulIntFlags == DMA_EVENT_TEMPTY));
 
-    return ((xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_ISR) | ulIntFlags)
-            ? xtrue : xfalse);
+    if(ulIntFlags == DMA_EVENT_TC)
+    {
+        return (((xHWREG(DMA0_BASE + DMA_TDF) & (1 << ulChannelID)) &&
+               (xHWREG(DMA0_BASE + DMA_ISR)&DMA_EVENT_TC)) ? xtrue : xfalse);
+    }
+    if(ulIntFlags == DMA_EVENT_ERROR)
+    {
+        return (((xHWREG(DMA0_BASE + DMA_ABTF) & (1 << ulChannelID)) &&
+               (xHWREG(DMA0_BASE + DMA_ISR) & DMA_EVENT_ERROR)) ? xtrue : xfalse);
+    }
+    if(ulIntFlags == DMA_EVENT_TEMPTY)
+    {
+        return (((xHWREG(DMA0_BASE + DMA_SCATDF) & (1 << ulChannelID)) &&
+               (xHWREG(DMA0_BASE + DMA_ISR) & DMA_EVENT_TEMPTY)) ? xtrue : xfalse);
+    }
+    return xfalse;
 }
 
 //*****************************************************************************
 //
-//! \brief Clear the PDMA interrupt flag of a channel.
+//! \brief Clear the DMA interrupt flag of a channel.
 //!
 //! \param ulChannelID is the channel ID that have been disabled.
-//! \param ulIntFlags is the interrupt type of PDMA.
+//! \param ulIntFlags is the interrupt type of DMA.
 //! The channel ID can be:
-//! - PDMA_CHANNEL_0
-//! - PDMA_CHANNEL_1
-//! - others refrence \ref NUC1xx_PDMA_Channel_IDs
+//! - DMA_CHANNEL_0
+//! - DMA_CHANNEL_1
+//! - others refrence \ref NUC4xx_DMA_Channel_IDs
 //! .
 //! The interrupt type can be:
-//! - PDMA_EVENT_TC
-//! - PDMA_EVENT_ERROR
-//! - refrence \ref NUC1xx_PDMA_Event_Flags
+//! - DMA_EVENT_TC
+//! - DMA_EVENT_ERROR
+//! - refrence \ref NUC4xx_DMA_Event_Flags
 //! .
 //!
-//! \return the Status of The PDMA interrupt.
+//! \return the Status of The DMA interrupt.
 //
 //*****************************************************************************
 void 
-PDMAChannelIntFlagClear(unsigned long ulChannelID, unsigned long ulIntFlags)
+DMAChannelIntFlagClear(unsigned long ulChannelID, unsigned long ulIntFlags)
 {
     //
     // Check the arguments.
     //
     xASSERT(xDMAChannelIDValid(ulChannelID));
-    xASSERT((ulIntFlags == PDMA_EVENT_TC) || (ulIntFlags == PDMA_EVENT_ERROR));
+    xASSERT((ulIntFlags == DMA_EVENT_TC)    ||
+            (ulIntFlags == DMA_EVENT_ERROR) ||
+            (ulIntFlags == DMA_EVENT_TEMPTY));
 
-    xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_ISR) |= ulIntFlags;
+    if(ulIntFlags == DMA_EVENT_TC)
+    {
+    	xHWREG(DMA0_BASE + DMA_TDF) |= (1 << ulChannelID);
+    }
+    if(ulIntFlags == DMA_EVENT_ERROR)
+    {
+    	xHWREG(DMA0_BASE + DMA_ABTF) |= (1 << ulChannelID);
+    }
+    if(ulIntFlags == DMA_EVENT_TEMPTY)
+    {
+        xHWREG(DMA0_BASE + DMA_SCATDF) |= (1 << ulChannelID);
+    }
 }
 
 //*****************************************************************************
 //
-//! \brief Get the PDMA Current Source Address of a channel.
+//! \brief Get the DMA Current Source Address of a channel.
 //!
 //! \param ulChannelID is the channel ID that have been disabled.
-//! \param ulIntFlags is the interrupt type of PDMA.
+//! \param ulIntFlags is the interrupt type of DMA.
 //! The channel ID can be:
-//! - PDMA_CHANNEL_0
-//! - PDMA_CHANNEL_1
-//! - others refrence \ref NUC1xx_PDMA_Channel_IDs
+//! - DMA_CHANNEL_0
+//! - DMA_CHANNEL_1
+//! - others refrence \ref NUC4xx_DMA_Channel_IDs
 //! .
 //!
 //! \return None.
@@ -830,110 +901,57 @@ PDMACurrentSourceAddrGet(unsigned long ulChannelID)
     //
     xASSERT(xDMAChannelIDValid(ulChannelID));
 
-    return xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CSAR);
+    return xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_SAR);
 }
 
 //*****************************************************************************
 //
-//! \brief Get the PDMA Current Destination Address of a channel.
+//! \brief Get the DMA Current Destination Address of a channel.
 //!
 //! \param ulChannelID is the channel ID that have been disabled.
-//! \param ulIntFlags is the interrupt type of PDMA.
+//! \param ulIntFlags is the interrupt type of DMA.
 //! The channel ID can be:
-//! - PDMA_CHANNEL_0
-//! - PDMA_CHANNEL_1
-//! - others refrence \ref NUC1xx_PDMA_Channel_IDs
+//! - DMA_CHANNEL_0
+//! - DMA_CHANNEL_1
+//! - others refrence \ref NUC4xx_DMA_Channel_IDs
 //! .
 //!
 //! \return None.
 //
 //*****************************************************************************
 unsigned long 
-PDMACurrentDestAddrGet(unsigned long ulChannelID)
+DMACurrentDestAddrGet(unsigned long ulChannelID)
 {
     //
     // Check the arguments.
     //
     xASSERT(xDMAChannelIDValid(ulChannelID));
 
-    return xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CDAR);
+    return xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_DAR);
 }
 
 //*****************************************************************************
 //
-//! \brief Get the PDMA Current Byte Count of a channel.
+//! \brief Get the DMA Current Byte Count of a channel.
 //!
 //! \param ulChannelID is the channel ID that have been disabled.
-//! \param ulIntFlags is the interrupt type of PDMA.
+//! \param ulIntFlags is the interrupt type of DMA.
 //! The channel ID can be:
-//! - PDMA_CHANNEL_0
-//! - PDMA_CHANNEL_1
-//! - others refrence \ref NUC1xx_PDMA_Channel_IDs
+//! - DMA_CHANNEL_0
+//! - DMA_CHANNEL_1
+//! - others refrence \ref NUC4xx_DMA_Channel_IDs
 //! .
 //!
 //! \return None.
 //
 //*****************************************************************************
 unsigned long 
-PDMARemainTransferCountGet(unsigned long ulChannelID)
+DMARemainTransferCountGet(unsigned long ulChannelID)
 {
     //
     // Check the arguments.
     //
     xASSERT(xDMAChannelIDValid(ulChannelID));
 
-    return xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CBCR);
+    return xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_CTRL) >> DMA_CTRL_TFR_CNT_S;
 }
-
-//*****************************************************************************
-//
-//! \brief Get the PDMA Shared Buffer data of a channel.
-//!
-//! \param ulChannelID is the channel ID that have been disabled.
-//! \param ulIntFlags is the interrupt type of PDMA.
-//! The channel ID can be:
-//! - PDMA_CHANNEL_0
-//! - PDMA_CHANNEL_1
-//! - others refrence \ref NUC1xx_PDMA_Channel_IDs
-//! .
-//!
-//! \return None.
-//
-//*****************************************************************************
-unsigned long 
-PDMASharedBufferDataGet(unsigned long ulChannelID)
-{
-    //
-    // Check the arguments.
-    //
-    xASSERT(xDMAChannelIDValid(ulChannelID));
-
-    return xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CBCR);
-}
-
-//*****************************************************************************
-//
-//! \brief Get the PDMA Internal Buffer Pointer of a channel.
-//!
-//! \param ulChannelID is the channel ID that have been disabled.
-//! \param ulIntFlags is the interrupt type of PDMA.
-//! The channel ID can be:
-//! - PDMA_CHANNEL_0
-//! - PDMA_CHANNEL_1
-//! - others refrence \ref NUC1xx_PDMA_Channel_IDs
-//! .
-//!
-//! \return None.
-//
-//*****************************************************************************
-unsigned long 
-PDMAInternalBufPointerGet(unsigned long ulChannelID)
-{
-    //
-    // Check the arguments.
-    //
-    xASSERT(xDMAChannelIDValid(ulChannelID));
-
-    return xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CBCR);
-}
-

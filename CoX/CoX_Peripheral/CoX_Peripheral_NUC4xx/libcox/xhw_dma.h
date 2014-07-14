@@ -88,7 +88,6 @@
 //
 #define DMA_SAR                 0x00000004
 
-
 //
 //! DMA Destination Address Register
 //
@@ -229,81 +228,6 @@
 //
 #define DMA_SMSEL3              0x0000048C
 
-
-
-
-
-
-
-
-
-
-
-//
-//! PDMA Transfer Byte Count Register
-//
-#define PDMA_BCR                0x0000000C
-
-//
-//! PDMA Internal buffer pointer
-//
-#define PDMA_POINT              0x00000010
-
-//
-//! PDMA Current Source Address Register
-//
-#define PDMA_CSAR               0x00000014  
-
-//
-//! PDMA Current Destination Address Register
-//
-#define PDMA_CDAR               0x00000018  
-
-//
-//! PDMA Current Transfer Byte Count Register
-//
-#define PDMA_CBCR               0x0000001C  
-
-//
-//! PDMA Interrupt Enable Register
-//
-#define PDMA_IER                0x00000020  
-
-//
-//! PDMA Interrupt Status Register
-//
-#define PDMA_ISR                0x00000024  
-
-//
-//! PDMA Shared Buffer FIFO 0
-//
-#define PDMA_SBUF0              0x00000080  
-
-//
-//! PDMA Global Control Register
-//
-#define PDMA_GCRCSR             0x50008F00  
-
-//
-//! Service Selection Control Register 0
-//
-#define PDMA_PDSSR0             0x50008F04  
-
-//
-//! Service Selection Control Register 1
-//
-#define PDMA_PDSSR1             0x50008F08  
-
-//
-//! PDMA Global Interrupt Register
-//
-#define PDMA_GCRISR             0x50008F0C  
-
-//
-//! Service Selection Control Register 2
-//
-#define PDMA_PDSSR2             0x50008F10  
-
 //*****************************************************************************
 //
 //! @}
@@ -312,81 +236,57 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_DMA_Register_PDMA_CSR DMA Control Register(PDMA_CSRx)
-//! \brief Defines for the bit fields in the PDMA_CSR register.
+//! \addtogroup NUC4xx_DMA_Register_DMA_CSR DMA Control Register(DMA_CTRL)
+//! \brief Defines for the bit fields in the DMA_CTRL register.
 //! @{
 //
 //*****************************************************************************
 
 //
-//! PDMA Channel Enable
+//! DMA Operation Mode Selection
 //
-#define PDMA_CSR_CEN            0x00000001  
+#define DMA_CTRL_DMA_MODE_M     0x00000003
+#define DMA_CTRL_DMA_MODE_S     0
 
 //
-//! Software Engine Reset
+//! Request Type
 //
-#define PDMA_CSR_RST            0x00000002  
+#define DMA_CTRL_REQ_TYPE       BIT_32_2
 
 //
-//! PDMA Mode Select mask
+//! Burst Size
 //
-#define PDMA_CSR_MODE_M         0x0000000C  
+#define DMA_CTRL_BUR_SIZE_M     BIT_MASK(32,6,4)
+#define DMA_CTRL_BUR_SIZE_S     4
 
 //
-//! PDMA Mode Select Memory-to-Memory
+//! Table Interrupt Disable Control
 //
-#define PDMA_CSR_MODE_MTOM      0x00000000
+#define DMA_CTRL_TABINT_DIS    BIT_32_7
 
 //
-//! PDMA Mode Select Peripheral-to-Memory
+//! Source Address Increment
 //
-#define PDMA_CSR_MODE_PTOM      0x00000004
+#define DMA_CTRL_SAR_INC_M      BIT_MASK(32, 9, 8)
+#define DMA_CTRL_SAR_INC_S      8
 
 //
-//! PDMA Mode Select Memory-to-Peripheral
+//! Destination Address Increment
 //
-#define PDMA_CSR_MODE_MTOP      0x00000008
+#define DMA_CTRL_DAR_INC_M      BIT_MASK(32, 11, 10)
+#define DMA_CTRL_DAR_INC_S      10
 
 //
-//! PDMA Mode Select shift
+//! Transfer Width Selection
 //
-#define PDMA_CSR_MODE_S         2
+#define DMA_CTRL_TWS_M          BIT_MASK(32, 13, 12)
+#define DMA_CTRL_TWS_S          12
 
 //
-//! Transfer Source Address Direction Select mask
+//! Transfer Count
 //
-#define PDMA_CSR_SDA_M          0x00000030 
-
-//
-//! Transfer Source Address Direction Select shift
-//
-#define PDMA_CSR_SDA_S          4
-
-//
-//! Transfer Destination Address Direction Select mask
-//
-#define PDMA_CSR_DAD_M          0x000000C0  
-
-//
-//! Transfer Destination Address Direction Select shift
-//
-#define PDMA_CSR_DAD_S          6
-
-//
-//! Peripheral transfer Width Select mask
-//
-#define PDMA_CSR_TWS_M          0x00180000  
-
-//
-//! Peripheral transfer Width Select shift
-//
-#define PDMA_CSR_TWS_S          19
-
-//
-//! Enable PDMA data read or write transfer.
-//
-#define PDMA_CSR_TEN            0x00800000  
+#define DMA_CTRL_TFR_CNT_M      BIT_MASK(32, 29, 16)
+#define DMA_CTRL_TFR_CNT_S      16
 
 //*****************************************************************************
 //
@@ -394,19 +294,23 @@
 //
 //*****************************************************************************
 
-
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_DMA_Register_PDMA_SAR DMA Source Address Register(PDMA_SARx)
-//! \brief Defines for the bit fields in the PDMA_SAR register.
+//! \addtogroup NUC4xx_DMA_Register_DMA_SAR DMA Source Address Register(DMA_SAR)
+//! \brief Defines for the bit fields in the DMA_SAR register.
 //! @{
 //
 //*****************************************************************************
 
 //
-//! PDMA Transfer Source Address.
+//! DMA Transfer Ending Source Address Bits Mark
 //
-#define PDMA_SAR_M              0xFFFFFFFF  
+#define DMA_SAR_DMA_ENDSAR_M    0xFFFFFFFF
+
+//
+//! DMA Transfer Ending Source Address Bits Shift
+//
+#define DMA_SAR_DMA_ENDSAR_S    0
 
 //*****************************************************************************
 //
@@ -416,16 +320,21 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_DMA_Register_PDMA_DAR DMA Destination Address Register(PDMA_DARx)
-//! \brief Defines for the bit fields in the PDMA_DAR register.
+//! \addtogroup NUC4xx_DMA_Register_DMA_DAR DMA Destination Register(DMA_DAR)
+//! \brief Defines for the bit fields in the DMA_DAR register.
 //! @{
 //
 //*****************************************************************************
 
 //
-//! PDMA Transfer Destination Address.
+//! DMA Transfer Ending Destination Address Bits Mark
 //
-#define PDMA_DAR_M              0xFFFFFFFF  
+#define DMA_DAR_DMA_ENDDAR_M    0xFFFFFFFF
+
+//
+//! DMA Transfer Ending Destination Address Bits Shift
+//
+#define DMA_DAR_DMA_ENDDAR_S    0
 
 //*****************************************************************************
 //
@@ -435,16 +344,21 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_DMA_Register_PDMA_BCR DMA Transfer Byte Count Register(PDMA_BCRx)
-//! \brief Defines for the bit fields in the PDMA_BCR register.
+//! \addtogroup NUC4xx_DMA_Register_DMA_NEXT DMA Scatter-Gather Descriptor Table Offset Register(DMA_NEXT)
+//! \brief Defines for the bit fields in the DMA_NEXT register.
 //! @{
 //
 //*****************************************************************************
 
 //
-//! PDMA Transfer Byte Count.
+//! DMA Next Description Table Offset Address Bits Mark
 //
-#define PDMA_BCR_M              0x0000FFFF  
+#define DMA_NEXT_NTAAR_OFFSET_M 0x0000FFFC
+
+//
+//! DMA Next Description Table Offset Address Bits Shift
+//
+#define DMA_NEXT_NTAAR_OFFSET_S 2
 
 //*****************************************************************************
 //
@@ -454,16 +368,21 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_DMA_Register_PDMA_POINT DMA Internal buffer pointer(PDMA_POINT)
-//! \brief Defines for the bit fields in the PDMA_POINT register.
+//! \addtogroup NUC4xx_DMA_Register_DMA_SCATBA DMA Scatter-Gather Descriptor Table Base Address Register(DMA_SCATBA)
+//! \brief Defines for the bit fields in the DMA_SCATBA register.
 //! @{
 //
 //*****************************************************************************
 
 //
-//! Indicates the internal buffer pointer.
+//! DMA Scatter-Gather Descriptor Table Base Address Bits Mask
 //
-#define PDMA_POINT_M            0x00000003  
+#define DMA_SCATBA_ETADDR_M     0xFFFF0000
+
+//
+//! DMA Scatter-Gather Descriptor Table Base Address Bits shift
+//
+#define DMA_SCATBA_ETADDR_S     16
 
 //*****************************************************************************
 //
@@ -471,18 +390,34 @@
 //
 //*****************************************************************************
 
+
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_DMA_Register_PDMA_CSAR DMA Current Source Address Register(PDMA_CSAR)
-//! \brief Defines for the bit fields in the PDMA_CSAR register.
+//! \addtogroup NUC4xx_DMA_Register_DMA_TOC0 DMA Time-out Period Counter Register(DMA_TOC0)
+//! \brief Defines for the bit fields in the DMA_TOC0 register.
 //! @{
 //
 //*****************************************************************************
 
 //
-//! PDMA Current Source Address.
+//! Time-out Period Counter for Channel 0 Mask
 //
-#define PDMA_CSAR_M             0xFFFFFFFF  
+#define DMA_TOC0_TmOut0_M       0x0000FFFF
+
+//
+//! Time-out Period Counter for Channel 0 Shift
+//
+#define DMA_TOC0_TmOut0_S       0
+
+//
+//! Time-out Period Counter for Channel 1 Mask
+//
+#define DMA_TOC0_TmOut1_M       0xFFFF0000
+
+//
+//! Time-out Period Counter for Channel 1 Shift
+//
+#define DMA_TOC0_TmOut1_S       16
 
 //*****************************************************************************
 //
@@ -492,16 +427,31 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_DMA_Register_PDMA_CDAR DMA Current Destination Address Register(PDMA_CDAR)
-//! \brief Defines for the bit fields in the PDMA_CDAR register.
+//! \addtogroup NUC4xx_DMA_Register_DMA_TOC1 DMA Time-out Period Counter Register(DMA_TOC1)
+//! \brief Defines for the bit fields in the DMA_TOC1 register.
 //! @{
 //
 //*****************************************************************************
 
 //
-//! PDMA Current Destination Address.
+//! Time-out Period Counter for Channel 2 Mask
 //
-#define PDMA_CDAR_M             0xFFFFFFFF  
+#define DMA_TOC1_TmOut2_M       0x0000FFFF
+
+//
+//! Time-out Period Counter for Channel 2 Shift
+//
+#define DMA_TOC1_TmOut2_S       0
+
+//
+//! Time-out Period Counter for Channel 3 Mask
+//
+#define DMA_TOC1_TmOut3_M       0xFFFF0000
+
+//
+//! Time-out Period Counter for Channel 3 Shift
+//
+#define DMA_TOC1_TmOut3_S       16
 
 //*****************************************************************************
 //
@@ -511,16 +461,31 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_DMA_Register_PDMA_CBCR DMA Current Transfer Byte Count Register(PDMA_CBCR)
-//! \brief Defines for the bit fields in the PDMA_CBCR register.
+//! \addtogroup NUC4xx_DMA_Register_DMA_TOC2 DMA Time-out Period Counter Register(DMA_TOC2)
+//! \brief Defines for the bit fields in the DMA_TOC2 register.
 //! @{
 //
 //*****************************************************************************
 
 //
-//! PDMA Current Byte Count.
+//! Time-out Period Counter for Channel 4 Mask
 //
-#define PDMA_CBCR_M             0x0000FFFF  
+#define DMA_TOC2_TmOut4_M       0x0000FFFF
+
+//
+//! Time-out Period Counter for Channel 4 Shift
+//
+#define DMA_TOC2_TmOut4_S       0
+
+//
+//! Time-out Period Counter for Channel 5 Mask
+//
+#define DMA_TOC2_TmOut5_M       0xFFFF0000
+
+//
+//! Time-out Period Counter for Channel 5 Shift
+//
+#define DMA_TOC2_TmOut5_S       16
 
 //*****************************************************************************
 //
@@ -530,26 +495,31 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_DMA_Register_PDMA_IER DMA Interrupt Enable Register(PDMA_IER)
-//! \brief Defines for the bit fields in the PDMA_IER register.
+//! \addtogroup NUC4xx_DMA_Register_DMA_TOC3 DMA Time-out Period Counter Register(DMA_TOC3)
+//! \brief Defines for the bit fields in the DMA_TOC3 register.
 //! @{
 //
 //*****************************************************************************
 
 //
-//! Read/Write Target Abort Interrupt Enable.
+//! Time-out Period Counter for Channel 6 Mask
 //
-#define PDMA_IER_TABORT         0x00000001  
+#define DMA_TOC3_TmOut6_M       0x0000FFFF
 
 //
-//! PDMA Transfer Done Interrupt Enable.
+//! Time-out Period Counter for Channel 6 Shift
 //
-#define PDMA_IER_BLKD           0x00000002  
+#define DMA_TOC3_TmOut6_S       0
 
 //
-//! Wrap Around Interrupt Enable.
+//! Time-out Period Counter for Channel 7 Mask
 //
-#define PDMA_IER_WAR            0x00000004  
+#define DMA_TOC3_TmOut7_M       0xFFFF0000
+
+//
+//! Time-out Period Counter for Channel 7 Shift
+//
+#define DMA_TOC3_TmOut7_S       16
 
 //*****************************************************************************
 //
@@ -559,41 +529,31 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_DMA_Register_PDMA_ISR DMA Interrupt Status Register(PDMA_ISR)
-//! \brief Defines for the bit fields in the PDMA_ISR register.
+//! \addtogroup NUC4xx_DMA_Register_DMA_TOC4 DMA Time-out Period Counter Register(DMA_TOC4)
+//! \brief Defines for the bit fields in the DMA_TOC4 register.
 //! @{
 //
 //*****************************************************************************
 
 //
-//! Read/Write Target Abort Interrupt Flag.
+//! Time-out Period Counter for Channel 8 Mask
 //
-#define PDMA_ISR_TABORT         0x00000001  
+#define DMA_TOC4_TmOut8_M       0x0000FFFF
 
 //
-//! Block Transfer Done Interrupt Flag.
+//! Time-out Period Counter for Channel 8 Shift
 //
-#define PDMA_ISR_BLKD           0x00000002  
+#define DMA_TOC4_TmOut8_S       0
 
 //
-//! Wrap around transfer byte count interrupt flag mask.
+//! Time-out Period Counter for Channel 9 Mask
 //
-#define PDMA_ISR_WAR_BCR_M      0x00000F00  
+#define DMA_TOC4_TmOut9_M       0xFFFF0000
 
 //
-//! Wrap around transfer byte count interrupt flag shift.
+//! Time-out Period Counter for Channel 9 Shift
 //
-#define PDMA_ISR_WAR_BCR_S      8
-
-//
-//! PDMA Transfer is in Progress.
-//
-#define PDMA_ISR_BUSY           0x00008000  
-
-//
-//! Interrupt Pin Status.
-//
-#define PDMA_ISR_INTR           0x80000000  
+#define DMA_TOC4_TmOut9_S       16
 
 //*****************************************************************************
 //
@@ -603,16 +563,31 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_DMA_Register_PDMA_SBUF0 DMA Shared Buffer FIFO 0(PDMA_SBUF0)
-//! \brief Defines for the bit fields in the PDMA_SBUF0 register.
+//! \addtogroup NUC4xx_DMA_Register_DMA_TOC5 DMA Time-out Period Counter Register(DMA_TOC5)
+//! \brief Defines for the bit fields in the DMA_TOC5 register.
 //! @{
 //
 //*****************************************************************************
 
 //
-//! PDMA Shared Buffer FIFO 0.
+//! Time-out Period Counter for Channel 10 Mask
 //
-#define PDMA_SBUF0_M            0xFFFFFFFF  
+#define DMA_TOC5_TmOut10_M      0x0000FFFF
+
+//
+//! Time-out Period Counter for Channel 10 Shift
+//
+#define DMA_TOC5_TmOut10_S      0
+
+//
+//! Time-out Period Counter for Channel 11 Mask
+//
+#define DMA_TOC5_TmOut11_M      0xFFFF0000
+
+//
+//! Time-out Period Counter for Channel 11 Shift
+//
+#define DMA_TOC5_TmOut11_S      16
 
 //*****************************************************************************
 //
@@ -622,61 +597,31 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_DMA_Register_PDMA_GCRCSR PDMA Global Control Register(DMA_GCRCSR)
-//! \brief Defines for the bit fields in the PDMA_GCRCSR register.
+//! \addtogroup NUC4xx_DMA_Register_DMA_TOC6 DMA Time-out Period Counter Register(DMA_TOC6)
+//! \brief Defines for the bit fields in the DMA_TOC6 register.
 //! @{
 //
 //*****************************************************************************
 
 //
-//! PDMA Software Reset.
+//! Time-out Period Counter for Channel 12 Mask
 //
-#define PDMA_GCRCSR_RST         0x00000001  
+#define DMA_TOC6_TmOut12_M      0x0000FFFF
 
 //
-//! PDMA Channel 0 Clock Enable Control.
+//! Time-out Period Counter for Channel 12 Shift
 //
-#define PDMA_GCRCSR_HCLK0_EN    0x00000100  
+#define DMA_TOC6_TmOut12_S      0
 
 //
-//! PDMA Channel 1 Clock Enable Control.
+//! Time-out Period Counter for Channel 13 Mask
 //
-#define PDMA_GCRCSR_HCLK1_EN    0x00000200  
+#define DMA_TOC6_TmOut13_M      0xFFFF0000
 
 //
-//! PDMA Channel 2 Clock Enable Control.
+//! Time-out Period Counter for Channel 13 Shift
 //
-#define PDMA_GCRCSR_HCLK2_EN    0x00000400  
-
-//
-//! PDMA Channel 3 Clock Enable Control.
-//
-#define PDMA_GCRCSR_HCLK3_EN    0x00000800  
-
-//
-//! PDMA Channel 4 Clock Enable Control.
-//
-#define PDMA_GCRCSR_HCLK4_EN    0x00001000  
-
-//
-//! PDMA Channel 5 Clock Enable Control.
-//
-#define PDMA_GCRCSR_HCLK5_EN    0x00002000  
-
-//
-//! PDMA Channel 6 Clock Enable Control.
-//
-#define PDMA_GCRCSR_HCLK6_EN    0x00004000  
-
-//
-//! PDMA Channel 7 Clock Enable Control.
-//
-#define PDMA_GCRCSR_HCLK7_EN    0x00008000  
-
-//
-//! PDMA Channel 8 Clock Enable Control.
-//
-#define PDMA_GCRCSR_HCLK8_EN    0x00010000 
+#define DMA_TOC6_TmOut13_S      16
 
 //*****************************************************************************
 //
@@ -686,91 +631,31 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_DMA_Register_PDMA_PDSSR0 PDMA Service Selection Control Register 0(DMA_PDSSR0)
-//! \brief Defines for the bit fields in the PDMA_PDSSR0 register.
+//! \addtogroup NUC4xx_DMA_Register_DMA_TOC7 DMA Time-out Period Counter Register(DMA_TOC7)
+//! \brief Defines for the bit fields in the DMA_TOC7 register.
 //! @{
 //
 //*****************************************************************************
 
 //
-//! PDMA SPI0 Rx Selection mask.
+//! Time-out Period Counter for Channel 14 Mask
 //
-#define PDMA_PDSSR0_SPI0_RX_M   0x0000000F  
+#define DMA_TOC7_TmOut14_M      0x0000FFFF
 
 //
-//! PDMA SPI0 Rx Selection shift.
+//! Time-out Period Counter for Channel 14 Shift
 //
-#define PDMA_PDSSR0_SPI0_RX_S   0
+#define DMA_TOC7_TmOut14_S      0
 
 //
-//! PDMA SPI0 Tx Selection mask.
+//! Time-out Period Counter for Channel 15 Mask
 //
-#define PDMA_PDSSR0_SPI0_TX_M   0x000000F0  
+#define DMA_TOC7_TmOut15_M      0xFFFF0000
 
 //
-//! PDMA SPI0 Tx Selection shift.
+//! Time-out Period Counter for Channel 15 Shift
 //
-#define PDMA_PDSSR0_SPI0_TX_S   4
-
-//
-//! PDMA SPI1 Rx Selection mask.
-//
-#define PDMA_PDSSR0_SPI1_RX_M   0x00000F00  
-
-//
-//! PDMA SPI1 Rx Selection shift.
-//
-#define PDMA_PDSSR0_SPI1_RX_S   8
-
-//
-//! PDMA SPI1 Tx Selection mask.
-//
-#define PDMA_PDSSR0_SPI1_TX_M   0x0000F000  
-
-//
-//! PDMA SPI1 Tx Selection shift.
-//
-#define PDMA_PDSSR0_SPI1_TX_S   12
-
-//
-//! PDMA SPI2 Rx Selection mask.
-//
-#define PDMA_PDSSR0_SPI2_RX_M   0x000F0000  
-
-//
-//! PDMA SPI2 Rx Selection shift.
-//
-#define PDMA_PDSSR0_SPI2_RX_S   16
-
-//
-//! PDMA SPI2 Tx Selection mask.
-//
-#define PDMA_PDSSR0_SPI2_TX_M   0x00F00000  
-
-//
-//! PDMA SPI2 Tx Selection shift.
-//
-#define PDMA_PDSSR0_SPI2_TX_S   20
-
-//
-//! PDMA SPI3 Rx Selection mask.
-//
-#define PDMA_PDSSR0_SPI3_RX_M   0x0F000000  
-
-//
-//! PDMA SPI3 Rx Selection shift.
-//
-#define PDMA_PDSSR0_SPI3_RX_S   24
-
-//
-//! PDMA SPI3 Tx Selection mask.
-//
-#define PDMA_PDSSR0_SPI3_TX_M   0xF0000000  
-
-//
-//! PDMA SPI3 Tx Selection shift.
-//
-#define PDMA_PDSSR0_SPI3_TX_S   28
+#define DMA_TOC7_TmOut15_S      16
 
 //*****************************************************************************
 //
@@ -780,92 +665,51 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_DMA_Register_PDMA_PDSSR1 DMA Service Selection Control Register 1(PDMA_PDSSR1)
-//! 
-//! \brief Defines for the bit fields in the PDMA_PDSSR1 register.
+//! \addtogroup NUC4xx_DMA_Register_DMA_SMSEL0 Source Module Select Register Register(DMA_SMSEL0)
+//! \brief Defines for the bit fields in the DMA_SMSEL0 register.
 //! @{
 //
 //*****************************************************************************
 
 //
-//! PDMA UART0 Rx Selection mask.
+//! Channel 0 Selection Mask
 //
-#define PDMA_PDSSR1_UART0_RX_M  0x0000000F  
+#define DMA_SMSEL0_CH0_SEL_M    0x0000001F
 
 //
-//! PDMA UART0 Rx Selection shift.
+//! Channel 0 Selection Shift
 //
-#define PDMA_PDSSR1_UART0_RX_S  0
+#define DMA_SMSEL0_CH0_SEL_S    0
 
 //
-//! PDMA UART0 Tx Selection mask.
+//! Channel 1 Selection Mask
 //
-#define PDMA_PDSSR1_UART0_TX_M  0x000000F0  
+#define DMA_SMSEL0_CH1_SEL_M    0x00001F00
 
 //
-//! PDMA UART0 Tx Selection shift.
+//! Channel 1 Selection Shift
 //
-#define PDMA_PDSSR1_UART0_TX_S  4
+#define DMA_SMSEL0_CH1_SEL_S    8
 
 //
-//! PDMA UART1 Rx Selection mask.
+//! Channel 2 Selection Mask
 //
-#define PDMA_PDSSR1_UART1_RX_M  0x00000F00  
+#define DMA_SMSEL0_CH2_SEL_M    0x001F0000
 
 //
-//! PDMA UART1 Rx Selection shift.
+//! Channel 2 Selection Shift
 //
-#define PDMA_PDSSR1_UART1_RX_S  8
+#define DMA_SMSEL0_CH2_SEL_S    16
 
 //
-//! PDMA UART1 Tx Selection mask.
+//! Channel 3 Selection Mask
 //
-#define PDMA_PDSSR1_UART1_TX_M  0x0000F000  
+#define DMA_SMSEL0_CH3_SEL_M    0x1F000000
 
 //
-//! PDMA UART1 Tx Selection shift.
+//! Channel 3 Selection Shift
 //
-#define PDMA_PDSSR1_UART1_TX_S  12
-
-//
-//! PDMA USB Rx Selection mask.
-//
-#define PDMA_PDSSR1_USB_RX_M    0x000F0000  
-
-//
-//! PDMA USB Rx Selection shift.
-//
-#define PDMA_PDSSR1_USB_RX_S    16
-
-//
-//! PDMA USB Tx Selection mask.
-//
-#define PDMA_PDSSR1_USB_TX_M    0x00F00000 
-
-//
-//! PDMA USB Tx Selection shift.
-//
-#define PDMA_PDSSR1_USB_TX_S    20
-
-//
-//! PDMA ADC Rx Selection mask.
-//
-#define PDMA_PDSSR1_ADC_RX_M    0x0F000000 
-
-//
-//! PDMA ADC Rx Selection shift.
-//
-#define PDMA_PDSSR1_ADC_RX_S    24
-
-//
-//! PDMA ADC Tx Selection mask.
-//
-#define PDMA_PDSSR1_ADC_TX_M    0x0F000000  
-
-//
-//! PDMA ADC Tx Selection shift.
-//
-#define PDMA_PDSSR1_ADC_TX_S    24
+#define DMA_SMSEL0_CH3_SEL_S    24
 
 //*****************************************************************************
 //
@@ -875,31 +719,51 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_DMA_Register_PDMA_PDSSR2 DMA Service Selection Control Register 2(PDMA_PDSSR2)
-//! \brief Defines for the bit fields in the PDMA_PDSSR2 register.
+//! \addtogroup NUC4xx_DMA_Register_DMA_SMSEL1 Source Module Select Register Register(DMA_SMSEL1)
+//! \brief Defines for the bit fields in the DMA_SMSEL1 register.
 //! @{
 //
 //*****************************************************************************
 
 //
-//! PDMA I2S Rx Selection mask.
+//! Channel 4 Selection Mask
 //
-#define PDMA_PDSSR2_I2S_RX_M    0x0000000F  
+#define DMA_SMSEL1_CH4_SEL_M    0x0000001F
 
 //
-//! PDMA I2S Rx Selection shift.
+//! Channel 4 Selection Shift
 //
-#define PDMA_PDSSR2_I2S_RX_S    0
+#define DMA_SMSEL1_CH4_SEL_S    0
 
 //
-//! PDMA I2S Tx Selection mask.
+//! Channel 5 Selection Mask
 //
-#define PDMA_PDSSR2_I2S_TX_M    0x000000F0  
+#define DMA_SMSEL1_CH5_SEL_M    0x00001F00
 
 //
-//! PDMA I2S Tx Selection shift.
+//! Channel 5 Selection Shift
 //
-#define PDMA_PDSSR2_I2S_TX_S    4
+#define DMA_SMSEL1_CH5_SEL_S    8
+
+//
+//! Channel 6 Selection Mask
+//
+#define DMA_SMSEL1_CH6_SEL_M    0x001F0000
+
+//
+//! Channel 6 Selection Shift
+//
+#define DMA_SMSEL1_CH6_SEL_S    16
+
+//
+//! Channel 7 Selection Mask
+//
+#define DMA_SMSEL1_CH7_SEL_M    0x1F000000
+
+//
+//! Channel 7 Selection Shift
+//
+#define DMA_SMSEL1_CH7_SEL_S    24
 
 //*****************************************************************************
 //
@@ -909,61 +773,51 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_DMA_Register_PDMA_GCRISR DMA Global Interrupt Register(DMA_GCRISR)
-//! \brief Defines for the bit fields in the PDMA_GCRISR register.
+//! \addtogroup NUC4xx_DMA_Register_DMA_SMSEL2 Source Module Select Register Register(DMA_SMSEL2)
+//! \brief Defines for the bit fields in the DMA_SMSEL2 register.
 //! @{
 //
 //*****************************************************************************
 
 //
-//! Interrupt Pin Status of Channel 0.
+//! Channel 8 Selection Mask
 //
-#define PDMA_GCRISR_INTR0       0x00000001  
+#define DMA_SMSEL2_CH8_SEL_M    0x0000001F
 
 //
-//! Interrupt Pin Status of Channel 1.
+//! Channel 8 Selection Shift
 //
-#define PDMA_GCRISR_INTR1       0x00000002  
+#define DMA_SMSEL2_CH8_SEL_S    0
 
 //
-//! Interrupt Pin Status of Channel 2.
+//! Channel 9 Selection Mask
 //
-#define PDMA_GCRISR_INTR2       0x00000004  
+#define DMA_SMSEL2_CH9_SEL_M    0x00001F00
 
 //
-//! Interrupt Pin Status of Channel 3.
+//! Channel 9 Selection Shift
 //
-#define PDMA_GCRISR_INTR3       0x00000008  
+#define DMA_SMSEL2_CH9_SEL_S    8
 
 //
-//! Interrupt Pin Status of Channel 4.
+//! Channel 10 Selection Mask
 //
-#define PDMA_GCRISR_INTR4       0x00000010  
+#define DMA_SMSEL2_CH10_SEL_M   0x001F0000
 
 //
-//! Interrupt Pin Status of Channel 5.
+//! Channel 10 Selection Shift
 //
-#define PDMA_GCRISR_INTR5       0x00000020  
+#define DMA_SMSEL2_CH10_SEL_S   16
 
 //
-//! Interrupt Pin Status of Channel 6.
+//! Channel 11 Selection Mask
 //
-#define PDMA_GCRISR_INTR6       0x00000040  
+#define DMA_SMSEL2_CH11_SEL_M   0x1F000000
 
 //
-//! Interrupt Pin Status of Channel 7.
+//! Channel 11 Selection Shift
 //
-#define PDMA_GCRISR_INTR7       0x00000080  
-
-//
-//! Interrupt Pin Status of Channel 8.
-//
-#define PDMA_GCRISR_INTR8       0x00000100  
-
-//
-//! IInterrupt Pin Status.
-//
-#define PDMA_GCRISR_INTR        0x80000000  
+#define DMA_SMSEL2_CH11_SEL_S   24
 
 //*****************************************************************************
 //
@@ -971,6 +825,59 @@
 //
 //*****************************************************************************
 
+//*****************************************************************************
+//
+//! \addtogroup NUC4xx_DMA_Register_DMA_SMSEL3 Source Module Select Register Register(DMA_SMSEL3)
+//! \brief Defines for the bit fields in the DMA_SMSEL3 register.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Channel 12 Selection Mask
+//
+#define DMA_SMSEL3_CH12_SEL_M   0x0000001F
+
+//
+//! Channel 12 Selection Shift
+//
+#define DMA_SMSEL3_CH12_SEL_S   0
+
+//
+//! Channel 13 Selection Mask
+//
+#define DMA_SMSEL3_CH13_SEL_M   0x00001F00
+
+//
+//! Channel 13 Selection Shift
+//
+#define DMA_SMSEL3_CH13_SEL_S   8
+
+//
+//! Channel 14 Selection Mask
+//
+#define DMA_SMSEL3_CH14_SEL_M   0x001F0000
+
+//
+//! Channel 14 Selection Shift
+//
+#define DMA_SMSEL3_CH14_SEL_S   16
+
+//
+//! Channel 15 Selection Mask
+//
+#define DMA_SMSEL3_CH15_SEL_M   0x1F000000
+
+//
+//! Channel 15 Selection Shift
+//
+#define DMA_SMSEL3_CH15_SEL_S   24
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
 
 //*****************************************************************************
 //

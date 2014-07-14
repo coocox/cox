@@ -804,7 +804,14 @@ xI2CMasterInit(unsigned long ulBase, unsigned long ulI2CClk)
 //*****************************************************************************
 xtBoolean xI2CMasterBusBusy(unsigned long ulBase)
 {
-    return ((xHWREG(I2C_STATUS)&0xF8) == 0xF8)? xfalse : xtrue;
+    //
+    // Check the arguments.
+    //
+    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
+            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
+            (ulBase == I2C4_BASE));
+			
+    return ((xHWREG(ulBase + I2C_STATUS)&0xF8) == 0xF8)? xfalse : xtrue;
 }
 
 //*****************************************************************************

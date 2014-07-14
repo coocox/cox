@@ -51,6 +51,11 @@
 //*****************************************************************************
 
 //
+//! Table Empty Interrupt
+//
+#define DMA_EVENT_TEMPTY        0x00000004
+
+//
 //! Transfer complete.
 //
 #define DMA_EVENT_TC            0x00000002
@@ -76,18 +81,35 @@
 //*****************************************************************************
 
 #define DMA_DST_DIR_INC         0x00000000
-#define DMA_DST_DIR_FIXED       0x00000080
+#define DMA_DST_DIR_FIXED       0x000000C0
 
 #define DMA_SRC_DIR_INC         0x00000000
-#define DMA_SRC_DIR_FIXED       0x00000020
+#define DMA_SRC_DIR_FIXED       0x00000030
 
 #define DMA_WIDTH_8BIT          0x00000000
-#define DMA_WIDTH_16BIT         0x00080000
-#define DMA_WIDTH_32BIT         0x00100000
+#define DMA_WIDTH_16BIT         0x00001000
+#define DMA_WIDTH_32BIT         0x00002000
 
-#define DMA_MODE_MTOM           0x00000000
-#define DMA_MODE_MTOP           0x00000008
-#define DMA_MODE_PTOM           0x00000004
+#define DMA_SRC_INC_8           (DMA_SRC_DIR_INC|DMA_WIDTH_8BIT)
+#define DMA_SRC_INC_16          (DMA_SRC_DIR_INC|DMA_WIDTH_16BIT)
+#define DMA_SRC_INC_32          (DMA_SRC_DIR_INC|DMA_WIDTH_32BIT)
+#define DMA_SRC_INC_NONE        DMA_SRC_DIR_FIXED
+
+#define DMA_DST_INC_8           (DMA_DST_DIR_INC|DMA_WIDTH_8BIT)
+#define DMA_DST_INC_16          (DMA_DST_DIR_INC|DMA_WIDTH_16BIT)
+#define DMA_DST_INC_32          (DMA_DST_DIR_INC|DMA_WIDTH_32BIT)
+#define DMA_DST_INC_NONE        DMA_DST_DIR_FIXED
+
+#define DMA_SRC_WIDTH_8         DMA_WIDTH_8BIT
+#define DMA_SRC_WIDTH_16        DMA_WIDTH_8BIT
+#define DMA_SRC_WIDTH_32        DMA_WIDTH_8BIT
+
+#define DMA_DST_WIDTH_8         DMA_WIDTH_8BIT
+#define DMA_DST_WIDTH_16        DMA_WIDTH_8BIT
+#define DMA_DST_WIDTH_32        DMA_WIDTH_8BIT
+
+#define DMA_MODE_BASIC          0x00000004
+#define DMA_MODE_AUTO           0x00000000
 
 //*****************************************************************************
 //
@@ -106,43 +128,43 @@
 #define DMA_REQUEST_NOT_EXIST   0x00000000
 #define DMA_REQUEST_MEM         0x00000001
 
-#define DMA_REQUEST_UART0_RX    0x1000000F
-#define DMA_REQUEST_UART0_TX    0x1004010F
+#define DMA_REQUEST_UART0_RX    0x0011001F
+#define DMA_REQUEST_UART0_TX    0x0004011F
 
-#define DMA_REQUEST_UART1_RX    0x1008000F
-#define DMA_REQUEST_UART1_TX    0x100C010F
+#define DMA_REQUEST_UART1_RX    0x0012001F
+#define DMA_REQUEST_UART1_TX    0x0005011F
 
-#define DMA_REQUEST_UART2_RX    0x1008000F
-#define DMA_REQUEST_UART2_TX    0x100C010F
+#define DMA_REQUEST_UART2_RX    0x0013001F
+#define DMA_REQUEST_UART2_TX    0x0006011F
 
-#define DMA_REQUEST_UART3_RX    0x1008000F
-#define DMA_REQUEST_UART3_TX    0x100C010F
+#define DMA_REQUEST_UART3_RX    0x0014001F
+#define DMA_REQUEST_UART3_TX    0x0007011F
 
-#define DMA_REQUEST_UART4_RX    0x1008000F
-#define DMA_REQUEST_UART4_TX    0x100C010F
+#define DMA_REQUEST_UART4_RX    0x0015001F
+#define DMA_REQUEST_UART4_TX    0x0008011F
 
-#define DMA_REQUEST_UART5_RX    0x1008000F
-#define DMA_REQUEST_UART5_TX    0x100C010F
+#define DMA_REQUEST_UART5_RX    0x0016001F
+#define DMA_REQUEST_UART5_TX    0x0009011F
 
-#define DMA_REQUEST_SPI0_RX     0x0000000F
-#define DMA_REQUEST_SPI0_TX     0x0004010F
+#define DMA_REQUEST_SPI0_RX     0x000D001F
+#define DMA_REQUEST_SPI0_TX     0x0000011F
 
-#define DMA_REQUEST_SPI1_RX     0x0008000F
-#define DMA_REQUEST_SPI1_TX     0x000C010F
+#define DMA_REQUEST_SPI1_RX     0x000E001F
+#define DMA_REQUEST_SPI1_TX     0x0001011F
 
-#define DMA_REQUEST_SPI2_RX     0x0010000F
-#define DMA_REQUEST_SPI2_TX     0x0014010F
+#define DMA_REQUEST_SPI2_RX     0x000F001F
+#define DMA_REQUEST_SPI2_TX     0x0002011F
 
-#define DMA_REQUEST_SPI3_RX     0x0018000F
-#define DMA_REQUEST_SPI3_TX     0x001C010F
+#define DMA_REQUEST_SPI3_RX     0x0010001F
+#define DMA_REQUEST_SPI3_TX     0x0003011F
 
-#define DMA_REQUEST_IIS0_RX     0x2000000F
-#define DMA_REQUEST_IIS0_TX     0x2004010F
+#define DMA_REQUEST_IIS0_RX     0x0019001F
+#define DMA_REQUEST_IIS0_TX     0x000B011F
 
-#define DMA_REQUEST_IIS1_RX     0x2000000F
-#define DMA_REQUEST_IIS1_TX     0x2004010F
+#define DMA_REQUEST_IIS1_RX     0x001A001F
+#define DMA_REQUEST_IIS1_TX     0x000C011F
 
-#define DMA_REQUEST_ADC_RX      0x1018000F
+#define DMA_REQUEST_ADC_RX      0x0018001F
 
 //*****************************************************************************
 //
@@ -158,37 +180,17 @@
 //
 //*****************************************************************************
 
-extern unsigned long PDMAChannelDynamicAssign(unsigned long ulDMASrcRequest,
-                                            unsigned long ulDMADestRequest);
-extern xtBoolean PDMAChannelAssignmentGet(unsigned long ulChannelID);
-extern void PDMAChannelDeAssign(unsigned long ulChannelID);
 
-extern void PDMAChannelAttributeSet(unsigned long ulChannelID,
-                                unsigned long ulAttr);
-extern unsigned long PDMAChannelAttributeGet(unsigned long ulChannelID);
+extern xtEventCallback DMAChannelIntCallbackGet(unsigned long ulChannelID);
 
-extern void PDMAChannelControlSet(unsigned long ulChannelID,
-                                unsigned long ulControl);
-
-extern void PDMAChannelTransferSet(unsigned long ulChannelID,
-                                   void *pvSrcAddr,
-                                   void *pvDstAddr,
-                                   unsigned long ulTransferSize);
-
-extern void PDMAChannelIntCallbackInit(unsigned long ulChannelID,
-                                xtEventCallback pfnCallback);
-extern xtEventCallback PDMAChannelIntCallbackGet(unsigned long ulChannelID);
-
-extern xtBoolean PDMAChannelIntFlagGet(unsigned long ulChannelID,
+extern xtBoolean DMAChannelIntFlagGet(unsigned long ulChannelID,
                                        unsigned long ulIntFlags);
-extern void PDMAChannelIntFlagClear(unsigned long ulChannelID,
+extern void DMAChannelIntFlagClear(unsigned long ulChannelID,
                                     unsigned long ulIntFlags);
 
-extern unsigned long PDMACurrentSourceAddrGet(unsigned long ulChannelID);
-extern unsigned long PDMACurrentDestAddrGet(unsigned long ulChannelID);
-extern unsigned long PDMARemainTransferCountGet(unsigned long ulChannelID);
-extern unsigned long PDMASharedBufferDataGet(unsigned long ulChannelID);
-extern unsigned long PDMAInternalBufPointerGet(unsigned long ulChannelID);
+extern unsigned long DMACurrentSourceAddrGet(unsigned long ulChannelID);
+extern unsigned long DMACurrentDestAddrGet(unsigned long ulChannelID);
+extern unsigned long DMARemainTransferCountGet(unsigned long ulChannelID);
 
 //*****************************************************************************
 //
