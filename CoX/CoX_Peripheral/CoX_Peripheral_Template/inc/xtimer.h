@@ -663,7 +663,7 @@ extern void xTimerPrescaleSet(unsigned long ulBase, unsigned long ulChannel,
 //! \return the Prescale Value will be get.
 //
 //*****************************************************************************
-extern void xTimerPrescaleGet(unsigned long ulBase, unsigned long ulChannel);
+extern unsigned long xTimerPrescaleGet(unsigned long ulBase, unsigned long ulChannel);
 
 //*****************************************************************************
 //
@@ -695,7 +695,8 @@ extern void xTimerLoadSet(unsigned long ulBase, unsigned long ulChannel,
 //! \return the counter Value will be get.
 //
 //*****************************************************************************
-extern void xTimerLoadGet(unsigned long ulBase, unsigned long ulChannel);
+extern unsigned long xTimerLoadGet(unsigned long ulBase,
+		                           unsigned long ulChannel);
 
 //*****************************************************************************
 //
