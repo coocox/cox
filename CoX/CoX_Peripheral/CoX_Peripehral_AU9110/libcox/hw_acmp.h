@@ -1,7 +1,7 @@
 //*****************************************************************************
 //
-//! \file acmp.h
-//! \brief Defines and Macros for the analog comparator API.
+//! \file hw_acmp.h
+//! \brief Macros used when accessing the comparator hardware.
 //! \version V2.2.1.0
 //! \date 7/22/2014
 //! \author CooCox
@@ -37,19 +37,8 @@
 //
 //*****************************************************************************
 
-#ifndef __ACMP_H__
-#define __ACMP_H__
-
-//*****************************************************************************
-//
-// If building with a C++ compiler, make all of the definitions in this header
-// have a C binding.
-//
-//*****************************************************************************
-#ifdef __cplusplus
-extern "C"
-{
-#endif
+#ifndef __HW_ACMP_H__
+#define __HW_ACMP_H__
 
 //*****************************************************************************
 //
@@ -67,28 +56,48 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup NUC2xx_ACMP
+//! \addtogroup AU9110_ACMP_Register AU9110 Analog Comparator Register
+//! \brief Here are the detailed info of ACMP registers. 
+//!
+//! it contains:
+//! - Register offset.
+//! - detailed bit-field of the registers.
+//! - Enum and mask of the registers.
+//! .
+//! Users can read or write the registers through xHWREG().
+//!
 //! @{
 //
 //*****************************************************************************
 
 //*****************************************************************************
 //
-//! \addtogroup NUC2xx_ACMP_Analog_Src_negative NUC2xx negative(ACMP-) Input Source
-//! \brief Analog comparator negative input select.
+//! \addtogroup AU9110_ACMP_Register_Offset ACMP Register Offset(Map)
+//! \brief Here is the ACMP register offset, users can get the register address
+//! through <b>ACMP_BASE + offset</b>.
 //! @{
 //
 //*****************************************************************************
 
 //
-//! Comp-(Analog source negative input) is CPN pin
+//! Comparator0 Control Register
 //
-#define ACMP_ASRCN_PIN          0x00000000  
+#define ACMP_CR0              0x00000000
 
 //
-//! Comp-(Analog source negative input) is Internal voltage reference(1.2V)
+//! Comparator1 Control Register
 //
-#define ACMP_ASRCN_REF          0x00000010 
+#define ACMP_CR1              0x00000004
+
+//
+//! Comparator Status Register
+//
+#define ACMP_SR               0x00000008
+
+//
+//! CMP Select Register
+//
+#define ACMP_CMPSEL           0x0000000C
 
 //*****************************************************************************
 //
@@ -98,26 +107,62 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup NUC2xx_ACMP_Exported_APIs NUC2xx ACMP API
-//! \brief NUC2xx ACMP API Reference.
+//! \addtogroup AU9110_ACMP_Register_CR Comparator Control Register(ACMP_CR0/1)
+//! \brief Definition for the bit fields in the ACMP_O_CR0 or ACMP_O_CR1 register.
 //! @{
 //
 //*****************************************************************************
 
-extern void ACMPNegativeSrcSet(unsigned long ulBase, unsigned long ulComp,
-                               unsigned long ulSource);
+//
+//! Comparator0 negative input select
+//
+#define ACMP_CR_CN             0x00000010
 
-extern void ACMPEnable(unsigned long ulBase, unsigned long ulComp);
-extern void ACMPDisable(unsigned long ulBase, unsigned long ulComp);
-extern void ACMPCMPSel(unsigned long ulBase, unsigned long ulSelect);
+//
+//! Comparator0 Interrupt Enable
+//
+#define ACMP_CR_CMPIE          0x00000002
 
-extern void ACMPIntEnable(unsigned long ulBase, unsigned long ulComp);
-extern void ACMPIntDisable(unsigned long ulBase, unsigned long ulComp);
-extern void ACMPIntCallbackInit(unsigned long ulBase, unsigned long ulCompID,
-                                xtEventCallback pfnCallback);
+//
+//! Comparator0 Enable
+//
+#define ACMP_CR_CMPEN          0x00000001
 
-extern xtBoolean ACMPIntStatus(unsigned long ulBase, unsigned long ulComp);
-extern void ACMPIntClear(unsigned long ulBase, unsigned long ulComp);
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup AU9110_ACMP_Register_SR Comparator Status Register(ACMP_SR)
+//! \brief Definition for the bit fields in the ACMP_SR register.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Comparator1 Output
+//
+#define ACMP_SR_CO1             0x00000008
+
+//
+//! Comparator0 Output
+//
+#define ACMP_SR_CO0             0x00000004
+
+//
+//! Comparator1 Flag
+//
+#define ACMP_SR_CMPF1           0x00000002
+
+//
+//! Comparator0 Flag
+//
+#define ACMP_SR_CMPF0           0x00000001
+
+
 
 //*****************************************************************************
 //
@@ -143,15 +188,5 @@ extern void ACMPIntClear(unsigned long ulBase, unsigned long ulComp);
 //
 //*****************************************************************************
 
-//*****************************************************************************
-//
-// Mark the end of the C bindings section for C++ compilers.
-//
-//*****************************************************************************
-#ifdef __cplusplus
-}
-#endif
-
-#endif // __xACMP_H__
-
+#endif // __XHW_ACMP_H__
 
