@@ -21,6 +21,18 @@
 //*****************************************************************************
 
 //
+//! GPIOA, The AU9110 has not need this parameter for IP control, cause the GPIO
+//! peripheral is always enable, this define just for compiler
+//
+#define SYSCTL_PERIPH_IOPA      0x00000000
+
+//
+//! GPIOB, The AU9110 has not need this parameter for IP control, cause the GPIO
+//! peripheral is always enable, this define just for compiler
+//
+#define SYSCTL_PERIPH_IOPB      0x00000000
+
+//
 //! Watchdog, not support SysCtlIPClockSet
 //
 #define SYSCTL_PERIPH_WDG       0x00000010
@@ -304,8 +316,8 @@ extern void SysCtlCPUReset(void);
 extern void SysCtlChipReset(void);
 extern void SysCtlRCAdjValueSet(unsigned long ulAdj);
 extern unsigned long SysCtlEXTClockGet(void);
-extern int SysCtlKeyAddrUnlock(void);
-extern int SysCtlKeyAddrLock(void);
+extern xtBoolean SysCtlKeyAddrUnlock(void);
+extern xtBoolean SysCtlKeyAddrLock(void);
 extern unsigned long SysCtlResetSrcGet(void);
 extern void SysCtlResetSrcClear(unsigned long ulSrc);
 
@@ -315,7 +327,7 @@ extern void SysCtlHCLKSourceSet(unsigned long ulHclkSrcSel);
 extern int SysCtlSysTickSourceSet(unsigned long ulStclkSrcSel);
 extern void SysCtlIpClockSourceSet(unsigned long ulIPClkSrc, unsigned char ucClkSrcSel);
 extern void SysCtlIPClockDividerSet(unsigned long ulIPDiv, unsigned long ulValue);
-extern int SysCtlOscCtrlSet(unsigned long ulOSCCTRL, unsigned long ulEnable);
+extern void SysCtlOscCtrlSet(unsigned long ulOSCCTRL, unsigned long ulEnable);
 
 //*****************************************************************************
 //

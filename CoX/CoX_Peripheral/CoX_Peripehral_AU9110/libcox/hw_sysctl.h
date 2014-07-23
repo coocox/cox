@@ -38,8 +38,8 @@
 //*****************************************************************************
 
 
-#ifndef __XHW_SYSCTL_H__
-#define __XHW_SYSCTL_H__
+#ifndef __HW_SYSCTL_H__
+#define __HW_SYSCTL_H__
 
 //*****************************************************************************
 //
@@ -1174,56 +1174,38 @@
 //
 #define SYSCLK_CLKSEL0_STCLK_S_M                                              \
 	                            0x00000038
-#define SYSCLK_CLKSEL0_STCLK_S_M                                              \
+#define SYSCLK_CLKSEL0_STCLK_S_S                                              \
 	                            3
 
 //
-//! clock source form 16 khz internal clock
+//! system tick clock source form 16 khz internal clock
 //
 #define SYSCLK_CLKSEL0_STCLK_S_16KHZ                                          \
 	                            0x00000000
 
 //
-//! clock source form external 32 khz crystal clock
+//! system tick clock source form external 32 khz crystal clock
 //
 #define SYSCLK_CLKSEL0_STCLK_S_32KHZ                                          \
 	                            0x00000008
 
 //
-//! clock source form 16 khz internal clock divided by 2
+//! system tick clock source form 16 khz internal clock divided by 2
 //
 #define SYSCLK_CLKSEL0_STCLK_S_16KHZ_2                                        \
 	                            0x00000010
 
 //
-//! clock source form OSC 49M internal clock divided by 2
+//! system tick clock source form OSC 49M internal clock divided by 2
 //
 #define SYSCLK_CLKSEL0_STCLK_S_OSC49M_2                                       \
 	                            0x00000018
 
 //
-//! clock source form HCLK divided by 2
+//! system tick clock source form HCLK divided by 2
 //
 #define SYSCLK_CLKSEL0_STCLK_S_HCLK_2                                         \
 	                            0x00000020
-
-//
-//! clock source form HCLK divided by 2
-//
-#define SYSCLK_CLKSEL0_STCLK_S_HCLK_2                                         \
-	                            0x00000021
-
-//
-//! clock source form HCLK divided by 2
-//
-#define SYSCLK_CLKSEL0_STCLK_S_HCLK_2                                         \
-	                            0x00000030
-
-//
-//! clock source form HCLK divided by 2
-//
-#define SYSCLK_CLKSEL0_STCLK_S_HCLK_2                                         \
-	                            0x00000031
 
 //*****************************************************************************
 //
@@ -1323,25 +1305,6 @@
 	                            0x00000700
 
 //
-//! TIMER0 clock source select from OSC48M oscillator clock
-//
-#define SYSCLK_CLKSEL1_TMR0_S_OSC48M                                         \
-	                            0x00000400
-
-//
-//! TIMER0 clock source select from OSC48M oscillator clock
-//
-#define SYSCLK_CLKSEL1_TMR0_S_OSC48M                                         \
-	                            0x00000500
-
-//
-//! TIMER0 clock source select from OSC48M oscillator clock
-//
-#define SYSCLK_CLKSEL1_TMR0_S_OSC48M                                         \
-	                            0x00000600
-
-
-//
 //! TMR1 clock source select
 //
 #define SYSCLK_CLKSEL1_TMR1_S_M                                              \
@@ -1382,24 +1345,6 @@
 //
 #define SYSCLK_CLKSEL1_TMR1_S_OSC48M                                         \
 	                            0x00007000
-
-//
-//! TIMER1 clock source select from OSC48M oscillator clock
-//
-#define SYSCLK_CLKSEL1_TMR1_S_OSC48M                                         \
-	                            0x00004000
-
-//
-//! TIMER1 clock source select from OSC48M oscillator clock
-//
-#define SYSCLK_CLKSEL1_TMR1_S_OSC48M                                         \
-	                            0x00004000
-
-//
-//! TIMER1 clock source select from OSC48M oscillator clock
-//
-#define SYSCLK_CLKSEL1_TMR1_S_OSC48M                                         \
-	                            0x00006000
 
 //
 //! PWM01 clock source select

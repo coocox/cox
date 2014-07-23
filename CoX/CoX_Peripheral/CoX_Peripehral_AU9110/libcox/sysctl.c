@@ -36,8 +36,10 @@
 //! THE POSSIBILITY OF SUCH DAMAGE.
 //
 //*****************************************************************************
-#include "CoX.h"
 #include "hw_sysctl.h"
+#include "CoX.h"
+#include "sysctl.h"
+
 
 static unsigned long s_ulExtClockkHz = 32;
 
@@ -72,7 +74,6 @@ static const tPeripheralTable g_pPeripherals[] =
     {xTIMER1_BASE,     xSYSCTL_PERIPH_TIMER1,  xINT_TIMER1},
     {xUART0_BASE,      xSYSCTL_PERIPH_UART0,   xINT_UART0},
     {xPWMA_BASE,       xSYSCTL_PERIPH_PWMA,    xINT_PWMA},
-    {xPWMB_BASE,       xSYSCTL_PERIPH_PWMB,    xINT_PWMB},
     {xWDT_BASE,        xSYSCTL_PERIPH_WDOG,    xINT_WDT},
     {0,                0,                      0},
 };
@@ -176,8 +177,6 @@ xSysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
 unsigned long
 xSysCtlClockGet(void)
 {
-
-	unsigned long ulHCLK;
 	unsigned long ulHCLKSrc;
 
 	ulHCLKSrc = xHWREG(SYSCLK_CLKSEL0) & SYSCLK_CLKSEL0_HCLK_S_M;
@@ -555,37 +554,6 @@ SysCtlDeepSleep(void)
 
 //*****************************************************************************
 //
-//! \brief This function is used to control power down entry condition  
-//!
-//! \param bEnable is a boolean that is \b true if active power down entry and 
-//! \b false if not.
-//! 
-//! This function is used to control power down entry condition 
-//!
-//! \return None.
-//
-//*****************************************************************************
-void 
-SysCtlPowerDownWaitCPUSet(xtBoolean bEnable)
-{    
-    //
-    // Enable BOD reset function or interrupt function.
-    //
-    SysCtlKeyAddrUnlock();
-    if(bEnable)
-    {
-        xHWREG(SYSCLK_PWRCON) |= SYSCLK_PWRCON_PD_WAIT_CPU;
-    }
-    else
-    {
-        xHWREG(SYSCLK_PWRCON) &= ~SYSCLK_PWRCON_PD_WAIT_CPU;
-    }
-    SysCtlKeyAddrLock();
-}
-
-
-//*****************************************************************************
-//
 //! \brief The function is used to Unlock protected registers
 //!
 //! \param None.
@@ -602,12 +570,11 @@ SysCtlKeyAddrUnlock(void)
     //
     // Unlock the protected registers.
     //
-    while(xHWREG(GCR_REGLOCK) != 0x01){
-        xHWREG(GCR_REGLOCK) = 0x59;
-        xHWREG(GCR_REGLOCK) = 0x16;
-        xHWREG(GCR_REGLOCK) = 0x88;
-    }
-    return 1;
+    xHWREG(GCR_REGLOCK) = 0x59;
+    xHWREG(GCR_REGLOCK) = 0x16;
+    xHWREG(GCR_REGLOCK) = 0x88;
+
+    return xHWREG(GCR_REGLOCK)&0x01;
 }
 
 //*****************************************************************************
@@ -652,7 +619,6 @@ SysCtlKeyAddrLock(void)
 void SysCtlIPReset(unsigned long ulPeriphID)
 {
 
-	unsigned long ulRegData;
     xASSERT((ulPeriphClkID == SYSCTL_PERIPH_TMR0) ||
             (ulPeriphClkID == SYSCTL_PERIPH_TMR1) ||
             (ulPeriphClkID == SYSCTL_PERIPH_I2C0) ||
@@ -753,14 +719,14 @@ void SysCtlRCAdjValueSet(unsigned long ulAdj)
 	{
 		ulRegData = xHWREG(GCR_OSCTRIM);
 		ulRegData &= ~GCR_OSCTRIM_OSCTRIM0TRIM_M;
-		ulRegData |= (ucAdj & 0x000000FF);
+		ulRegData |= (ulAdj & 0x000000FF);
 		xHWREG(GCR_OSCTRIM) = ulRegData;
 	}
 	else // OSCTRIM[1] is active
 	{
 		ulRegData = xHWREG(GCR_OSCTRIM);
 		ulRegData &= ~GCR_OSCTRIM_OSCTRIM1TRIM_M;
-		ulRegData |= (ucAdj & 0x00FF0000);
+		ulRegData |= (ulAdj & 0x00FF0000);
 		xHWREG(GCR_OSCTRIM) = ulRegData;
 	}
 
@@ -1177,7 +1143,7 @@ SysCtlIPClockDividerSet(unsigned long ulIPDiv, unsigned long ulValue)
 //! \return None.
 //
 //*****************************************************************************
-int SysCtlOscCtrlSet(unsigned long ulOSCCTRL, unsigned long ulEnable)
+void SysCtlOscCtrlSet(unsigned long ulOSCCTRL, unsigned long ulEnable)
 {
     //
     // Check the arguments.

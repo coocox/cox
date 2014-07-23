@@ -26,12 +26,12 @@
 //
 //! No relevant information
 //
-#define I2C_I2STAT_NO_INF       (0x000000F8) 
+#define I2C_I2STAT_NO_INF       (0x000000F8)
 
 //
 //! A start condition has been transmitted in Master transmit mode
 //
-#define I2C_I2STAT_M_TX_START   (0x00000008)  
+#define I2C_I2STAT_M_TX_START   (0x00000008)
 
 //
 //! A repeat start condition has been transmitted in Master transmit mode
@@ -92,14 +92,14 @@
                                 (0x00000058)
 
 //
-//! Own slave address has been received, ACK has been returned in Slave 
+//! Own slave address has been received, ACK has been returned in Slave
 //! receive mode
 //
 #define I2C_I2STAT_S_RX_SLAW_ACK                                              \
                                 (0x00000060)
 
 //
-//! Arbitration lost in SLA+R/W as master Own SLA+W has been received, 
+//! Arbitration lost in SLA+R/W as master Own SLA+W has been received,
 //! ACK returned in Slave receive mode
 //
 #define I2C_I2STAT_S_RX_ARB_LOST_M_SLA                                        \
@@ -120,42 +120,42 @@
                                 (0x00000078)
 
 //
-//! Previously addressed with own SLV address;Data has been received, ACK has 
+//! Previously addressed with own SLV address;Data has been received, ACK has
 //! been return in Slave receive mode
 //
 #define I2C_I2STAT_S_RX_PRE_SLA_DAT_ACK                                       \
                                 (0x00000080)
 
 //
-//! Previously addressed with own SLV address;Data has been received,  NOT ACK  
+//! Previously addressed with own SLV address;Data has been received,  NOT ACK
 //! has been return in Slave receive mode
 //
 #define I2C_I2STAT_S_RX_PRE_SLA_DAT_NACK                                      \
                                 (0x00000088)
 
 //
-//! Previously addressed with General Call;Data has been received, ACK  
+//! Previously addressed with General Call;Data has been received, ACK
 //! has been return in Slave receive mode
 //
 #define I2C_I2STAT_S_RX_PRE_GENCALL_DAT_ACK                                   \
                                 (0x00000090)
 
 //
-//! Previously addressed with General Call;Data has been received,  NOT ACK  
+//! Previously addressed with General Call;Data has been received,  NOT ACK
 //! has been return in Slave receive mode
 //
 #define I2C_I2STAT_S_RX_PRE_GENCALL_DAT_NACK                                  \
                                 (0x00000098)
 
 //
-//! A STOP condition or repeated START condition has been received while still 
-//! addressed as SLV/REC (Slave Receive) or SLV/TRX (Slave Transmit) 
+//! A STOP condition or repeated START condition has been received while still
+//! addressed as SLV/REC (Slave Receive) or SLV/TRX (Slave Transmit)
 //
 #define I2C_I2STAT_S_RX_STA_STO_SLVREC_SLVTRX                                 \
                                 (0x000000A0)
 
 //
-//! Own SLA+R has been received, ACK has been returned  
+//! Own SLA+R has been received, ACK has been returned
 //! in Slave transmit mode
 //
 #define I2C_I2STAT_S_TX_SLAR_ACK                                              \
@@ -169,21 +169,21 @@
                                 (0x000000B0)
 
 //
-//! Data has been transmitted, ACK has been received 
+//! Data has been transmitted, ACK has been received
 //! in Slave transmit mode
 //
 #define I2C_I2STAT_S_TX_DAT_ACK                                               \
                                 (0x000000B8)
 
 //
-//! Data has been transmitted, NACK has been received  
+//! Data has been transmitted, NACK has been received
 //! in Slave transmit mode
 //
 #define I2C_I2STAT_S_TX_DAT_NACK                                              \
                                 (0x000000C0)
 
 //
-//! Last data byte in I2DAT has been transmitted (AA = 0);ACK has been received  
+//! Last data byte in I2DAT has been transmitted (AA = 0);ACK has been received
 //! in Slave transmit mode
 //
 #define I2C_I2STAT_S_TX_LAST_DAT_ACK                                          \
@@ -199,7 +199,7 @@
 //
 //! \addtogroup AU9110_I2C_Transfer_Type I2C Transfer Type
 //! \brief Values that show I2C Transfer Type
-//! Values that can be passed to 
+//! Values that can be passed to
 //! @{
 //
 //*****************************************************************************
@@ -389,9 +389,9 @@
 //*****************************************************************************
 
 extern unsigned long I2CStatusGet(unsigned long ulBase);
-extern void I2CSlaveOwnAddressSet(unsigned long ulBase, 
-                                  unsigned char ucSlaveNum, 
-                                  unsigned char ucSlaveAddr, 
+extern void I2CSlaveOwnAddressSet(unsigned long ulBase,
+                                  unsigned char ucSlaveNum,
+                                  unsigned char ucSlaveAddr,
                                   unsigned long ulGeneralCall);
 extern void I2CSlaveOwnAddressMaskSet(unsigned long ulBase,
                                       unsigned char ucSlaveNum,

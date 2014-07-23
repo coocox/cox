@@ -4,16 +4,16 @@
 #include "lowlayer.h"
 #include "sysctl.h"
 #include "gpio.h"
-#include "uart.h"
-#include "spi.h"
-#include "i2c.h"
+//#include "uart.h"
+//#include "spi.h"
+//#include "i2c.h"
 #include "rtc.h"
-#include "timer.h"
-#include "pwm.h"
-#include "dma.h"
-#include "adc.h"
-#include "acmp.h"
-#include "wdt.h"
+//#include "timer.h"
+//#include "pwm.h"
+//#include "dma.h"
+//#include "adc.h"
+//#include "acmp.h"
+//#include "wdt.h"
 
 //*****************************************************************************
 //
@@ -25,8 +25,25 @@
 //*****************************************************************************
 //
 //! \addtogroup AU9110_xPort
-//! \brief Define the macro which the xPeriph_Driver need but not existence in
-//!        the Inc files
+//! \brief CoX通用强制接口定义到MCU专有接口定义的转换层。
+//!
+//! CoX通用接口有些是不需要在转换层重新定义的，比如在xgpio.h中有如下定义：
+//! #define xGPIO_DIR_MODE_IN       GPIO_DIR_MODE_IN
+//! 而GPIO_DIR_MODE_IN这个宏在gpio.h中已经定义好了，如下，
+//! #define GPIO_DIR_MODE_IN        0x00000000
+//! 所以此时不在需要在这个转换层中做任何宏定义接口的转换对接。
+//!
+//! 而有些通用强制接口定义的宏在MCU专有接口里没有与其名称完全相符的宏定义，并且这个宏表示的功能在这个MCU中的确有
+//! （即应用程序可能会使用这个接口），这个时候就需要在这个转换层中进行相关的宏定义转换或者直接定义一遍。
+//! 比如在xSysCtl.h中 WDOG的定义如下
+//! #define xSYSCTL_PERIPH_WDOG     SYSCTL_PERIPH_WDT
+//! 在sysctl.h中WDT外设ID的定义为 ，
+//! #define SYSCTL_PERIPH_WDG       0x00000010
+//! 所以此时在这个文件中需要有如下的转换定义：
+//! #define SYSCTL_PERIPH_WDT      SYSCTL_PERIPH_WDG
+//! 或者直接如下定义：
+//! #define SYSCTL_PERIPH_WDT       0x00000010
+//!
 //! @{
 //
 //*****************************************************************************
@@ -44,55 +61,6 @@
 //! @{
 //
 //*****************************************************************************
-
-//
-//! GPIO memory map port
-//
-/*
-#define GPIOC_BASE              GPIOC_BASE
-#define GPIOD_BASE              GPIOD_BASE
-#define GPIOE_BASE              GPIOE_BASE
-#define GPIOF_BASE              GPIOF_BASE
-#define GPIOG_BASE              GPIOG_BASE
-#define GPIOH_BASE              GPIOH_BASE
-#define GPIOI_BASE              GPIOI_BASE
-*/
-
-//
-//! Timer memory map port
-//
-/*
-#define TIMER2_BASE             TIMER2_BASE
-#define TIMER3_BASE             TIMER3_BASE
-#define TIMER4_BASE             TIMER4_BASE
-#define TIMER5_BASE             TIMER5_BASE
-#define TIMER6_BASE             TIMER6_BASE
-#define TIMER7_BASE             TIMER7_BASE
-#define TIMER8_BASE             TIMER8_BASE
-#define TIMER9_BASE             TIMER9_BASE
-#define TIMER10_BASE            TIMER10_BASE
-#define TIMER11_BASE            TIMER11_BASE
-#define TIMER12_BASE            TIMER12_BASE
-#define TIMER13_BASE            TIMER13_BASE
-#define TIMER14_BASE            TIMER14_BASE
-*/
-
-//
-//! PWM memory map port
-//
-/*
-#define PWMB_BASE               PWMB_BASE
-#define PWMC_BASE               PWMC_BASE
-#define PWMD_BASE               PWMD_BASE
-#define PWME_BASE               PWME_BASE
-#define PWMF_BASE               PWMF_BASE
-#define PWMG_BASE               PWMG_BASE
-#define PWMH_BASE               PWMH_BASE
-#define PWMI_BASE               PWMI_BASE
-#define PWMJ_BASE               PWMJ_BASE
-#define PWMK_BASE               PWMK_BASE
-#define PWML_BASE               PWML_BASE
-*/
 
 //
 //! DMA memory map port
@@ -190,11 +158,6 @@
 #define SYSCTL_PERIPH_PWMA      SYSCTL_PERIPH_PWM01
 
 //
-//! PWM peripheral ID port
-//
-#define SYSCTL_PERIPH_PWMB      SYSCTL_PERIPH_PWM01
-
-//
 //! Timer0 peripheral ID port
 //
 #define SYSCTL_PERIPH_TIMER0    SYSCTL_PERIPH_TMR0
@@ -212,7 +175,7 @@
 //
 //! WDOG peripheral ID port
 //
-#define SYSCTL_PERIPH_WWDT      SYSCTL_PERIPH_WDG
+#define SYSCTL_PERIPH_WDT      SYSCTL_PERIPH_WDG
 
 //*****************************************************************************
 //
@@ -230,8 +193,13 @@
 //
 //! Internal RC
 //
-#define (SYSCTL_OSC_INT | SYSCTL_PLL_INT)                                    \
-	                            SYSCTL_OSC_49M_EN
+#define SYSCTL_OSC_INT          SYSCTL_OSC_49M_EN
+
+//
+//! SYSCTL_PLL_INT
+//
+#define SYSCTL_PLL_INT          0
+
 
 //
 //! Internal 10K RC
@@ -258,12 +226,144 @@
 
 //*****************************************************************************
 //
-//! \addtogroup xGPIO_Port GPIO Port
+//! \addtogroup xGPIO_Port xGPIO Port
 //! @{
 //
 //*****************************************************************************
 
-#define
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup xRTC_Port xRTC port
+//! @{
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup xRTC_INT_Type_Port RTC INT Type Port
+//! @{
+//
+//*****************************************************************************
+
+//
+//! RTC Time Tick Interrupt
+//
+#define RTC_INT_SECOND         RTC_INT_TIME_TICK
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup xWDT_Port xWDT port
+//! @{
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup xWDT_Clock_Config_Port xWDT Clock Config Port
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Use Internal RC Clock as WDT clock source.
+//
+#define WDT_S_INTSL             0x00000003
+
+//
+//! Use External RTC Clock as WDT clock source.
+//
+#define WDT_S_EXTSL             0x00000001
+
+//
+//! The watch dog source is the HCLK/2048
+//
+#define WDT_S_HCLK_DIV          0x00000002
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup xADC_Port xADC port
+//! @{
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup xADC_Int_Source_Port xADC Int source Port
+//! @{
+//
+//*****************************************************************************
+
+//
+//! The comparator0 match Interrupt
+//
+#define ADC_INT_COMP0           0x00000001
+
+//
+//! The comparator1 match Interrupt
+//
+#define ADC_INT_COMP1           0x00000002
+
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup xADC_Int_Source_Port xADC Int source Port
+//! @{
+//
+//*****************************************************************************
+
+//
+//! The comparator0 match Interrupt
+//
+#define ADC_INT_COMP0           0x00000001
+
+//
+//! The comparator1 match Interrupt
+//
+#define ADC_INT_COMP1           0x00000002
+
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
 
 
 //*****************************************************************************

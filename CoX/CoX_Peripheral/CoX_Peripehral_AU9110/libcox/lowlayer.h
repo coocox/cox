@@ -159,6 +159,14 @@
 
 
 //
+//! The total number of interrupts.
+//
+
+#define NUM_INTERRUPTS          47
+
+//
+//! The total number of priority levels.
+//
 #define NUM_PRIORITY            16
 
 //
