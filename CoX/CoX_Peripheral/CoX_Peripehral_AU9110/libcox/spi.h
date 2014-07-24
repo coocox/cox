@@ -1,9 +1,9 @@
-#ifndef _NUC4XX_SPI_H_
-#define _NUC4XX_SPI_H_
+#ifndef _AU9110_SPI_H_
+#define _AU9110_SPI_H_
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_SPI
+//! \addtogroup AU9110_SPI
 //! @{
 //
 //*****************************************************************************
@@ -64,8 +64,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_SPI_Config NUC4xx SPI Configure
-//! \brief Values show that NUC4xx SPI Configure
+//! \addtogroup AU9110_SPI_Config AU9110 SPI Configure
+//! \brief Values show that AU9110 SPI Configure
 //! Values that can be passed to SPIConfig.
 //! @{
 //
@@ -252,8 +252,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_SPI_DMA NUC4xx SPI DMA
-//! \brief Values that show NUC4xx SPI DMA
+//! \addtogroup AU9110_SPI_DMA AU9110 SPI DMA
+//! \brief Values that show AU9110 SPI DMA
 //! Values that can be passed to SPIDMAEnable() and SPIDMADisable().
 //! @{
 //
@@ -282,8 +282,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_SPI_DUAL NUC4xx SPI DUAL IO
-//! \brief Values that show NUC4xx SPI DUAL IO DIR
+//! \addtogroup AU9110_SPI_DUAL AU9110 SPI DUAL IO
+//! \brief Values that show AU9110 SPI DUAL IO DIR
 //! Values that can be passed to SPIPDualIOEnable() as ulDir.
 //! @{
 //
@@ -308,8 +308,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_SPI_SlaveSel NUC4xx SPI Slave Select
-//! \brief Values that show NUC4xx SPI Slave Select
+//! \addtogroup AU9110_SPI_SlaveSel AU9110 SPI Slave Select
+//! \brief Values that show AU9110 SPI Slave Select
 //! Values that can be passed to SPIAutoSSEnable() SPISSSet()and SPISSClear().
 //! @{
 //
@@ -343,8 +343,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_SPI_SlaveSel_Config NUC4xx SPI Slave Select Configure
-//! \brief Values that show NUC4xx SPI Slave Select Configure
+//! \addtogroup AU9110_SPI_SlaveSel_Config AU9110 SPI Slave Select Configure
+//! \brief Values that show AU9110 SPI Slave Select Configure
 //! Values that can be passed to SPIAutoSSEnable() SPISSSet()  SPISSClear()
 //! SPISSConfig().
 //! @{
@@ -384,8 +384,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_SPI_FIFOStatus NUC4xx SPI FIFO Status
-//! \brief Values that show NUC4xx SPI FIFO Status
+//! \addtogroup AU9110_SPI_FIFOStatus AU9110 SPI FIFO Status
+//! \brief Values that show AU9110 SPI FIFO Status
 //! Values that can be passed to SPIFIFOStatusGet().
 //! @{
 //
@@ -419,8 +419,8 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_SPI_ByteReorder NUC4xx SPI Byte Reorder
-//! \brief Values that show NUC4xx SPI Byte Reorder
+//! \addtogroup AU9110_SPI_ByteReorder AU9110 SPI Byte Reorder
+//! \brief Values that show AU9110 SPI Byte Reorder
 //! Values that can be passed to SPIByteReorderSet().
 //! @{
 //
@@ -446,34 +446,37 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_SPI_Exported_APIs  NUC4xx SPI API
-//! \brief NUC4xx SPI API Reference
+//! \addtogroup AU9110_SPI_Exported_APIs  AU9110 SPI API
+//! \brief AU9110 SPI API Reference
 //! @{
 //
 //*****************************************************************************
 
-extern void SPIIntDisable(unsigned long ulBase, unsigned long ulIntFlags);
-extern xtBoolean SPIIntFlagGet(unsigned long ulBase, unsigned long ulIntFlags);
+extern void SPIBurstDataRead(unsigned long ulBase, unsigned long *pulData);
+extern unsigned long SPIRxRegisterGet(unsigned long ulBase,
+                                      unsigned long *pulData,
+                                      unsigned long ulCount);
+extern void SPIBurstDataWrite(unsigned long ulBase, unsigned long *pulData);
+extern unsigned long SPITxRegisterSet(unsigned long ulBase,
+                                      unsigned long *pulData,
+                                      unsigned long ulCount);
+extern void SPIBitGoBusySet(unsigned long ulBase);
+extern void SPIBitGoBusyClear(unsigned long ulBase);
+
 extern void SPIIntFlagClear(unsigned long ulBase, unsigned long ulIntFlags);
 extern void SPIAutoSSEnable(unsigned long ulBase, unsigned long ulSlaveSel);
 extern void SPIAutoSSDisable(unsigned long ulBase);
-extern void SPISSSet(unsigned long ulBase, unsigned long ulSlaveSel);
 extern void SPISSClear(unsigned long ulBase, unsigned long ulSlaveSel);
 extern void SPISSConfig(unsigned long ulBase, unsigned long ulSSTriggerMode,
                         unsigned long ulSSActType);
+extern xtBoolean SPILevelTriggerStatusGet(unsigned long ulBase);
 extern unsigned long SPIFIFOStatusGet(unsigned long ulBase);
-extern void SPIFIFOClear(unsigned long ulBase, unsigned long ulRxTx);
 extern void SPIFIFOModeSet(unsigned long ulBase, xtBoolean xtEnable,
                            unsigned long ulInterval);
 extern void SPIByteReorderSet(unsigned long ulBase, xtBoolean xtEnable);
-extern void SPI3WireFunction(unsigned long ulBase, xtBoolean xtEnable);
-extern void SPIPDMAEnable(unsigned long ulBase, unsigned long ulDmaMode);
-extern void SPIPDMADisable(unsigned long ulBase, unsigned long ulDmaMode);
-extern void SPIPDMAReset(unsigned long ulBase);
-extern void SPIPDualIOEnable(unsigned long ulBase, unsigned long ulDir);
-extern void SPIPDualIODisable(unsigned long ulBase);
-extern void SPIPDuadIOEnable(unsigned long ulBase, unsigned long ulDir);
-extern void SPIPDuadIODisable(unsigned long ulBase);
+extern void SPIVariableClockSet(unsigned long ulBase, unsigned long ulPattern,
+                                xtBoolean xtEnable, unsigned long ulClock1,
+                                unsigned long ulClock2);
 
 //*****************************************************************************
 //

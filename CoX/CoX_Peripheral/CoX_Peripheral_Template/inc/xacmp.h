@@ -75,13 +75,13 @@ extern "C"
 //!
 //! \section xACMP_Analog_Src_Positive_Sec_Port CoX Port Details
 //! \verbatim
-//! +------------------------+----------------+--------+
-//! |xACMP ACMP+ Source      |       CoX      | NUC1xx |
-//! |------------------------|----------------|--------|
-//! |xACMP_ASRCP_PIN         |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xACMP_ASRCP_REF         |  Non-Mandatory |    N   |
-//! +------------------------+----------------+--------+
+//! +------------------------+----------------+
+//! |xACMP ACMP+ Source      |       CoX      |
+//! |------------------------|----------------|
+//! |xACMP_ASRCP_PIN         |    Mandatory   |
+//! |------------------------|----------------|
+//! |xACMP_ASRCP_REF         |  Non-Mandatory |
+//! +------------------------+----------------+
 //! \endverbatim
 //! @{
 //
@@ -109,13 +109,13 @@ extern "C"
 //!
 //! \section xACMP_Analog_Src_Negative_Sec_Port CoX Port Details
 //! \verbatim
-//! +------------------------+----------------+--------+
-//! |xACMP ACMP- Source      |       CoX      | NUC1xx |
-//! |------------------------|----------------|--------|
-//! |xACMP_ASRCN_PIN         |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xACMP_ASRCN_REF         |  Non-Mandatory |    Y   |
-//! +------------------------+----------------+--------+
+//! +------------------------+----------------+
+//! |xACMP ACMP- Source      |       CoX      |
+//! |------------------------|----------------|
+//! |xACMP_ASRCN_PIN         |    Mandatory   |
+//! |------------------------|----------------|
+//! |xACMP_ASRCN_REF         |  Non-Mandatory |
+//! +------------------------+----------------+
 //! \endverbatim
 //! @{
 //
@@ -127,7 +127,7 @@ extern "C"
 #define xACMP_ASRCN_PIN         ACMP_ASRCN_PIN  
 
 //
-//!  Comp-(Analog source negative input) is Internal voltage reference
+//! Comp-(Analog source negative input) is Internal voltage reference
 //
 #define xACMP_ASRCN_REF         ACMP_ASRCN_REF 
 
@@ -152,11 +152,11 @@ extern "C"
 //! .
 //! \section xACMP_Int_Ref_Voltage_Sec CoX Port Details
 //! \verbatim
-//! +------------------------+----------------+----------------------+
-//! |xACMP Int Vref          |       CoX      |        NUC1xx        |
-//! |------------------------|----------------|----------------------|
-//! |xACMP_REF_*V            |    Mandatory   |    xACMP_REF_1_2V    |
-//! +------------------------+----------------+----------------------+
+//! +------------------------+----------------+
+//! |xACMP Int Vref          |       CoX      |
+//! |------------------------|----------------|
+//! |xACMP_REF_*V            |    Mandatory   |
+//! +------------------------+----------------+
 //! \endverbatim
 //!
 //! @{
@@ -183,12 +183,12 @@ extern "C"
 //!
 //! \section xACMP_Comparator_IDs_Sec_Port CoX Port Details
 //! \verbatim
-//! +-------------------+----------------+---------+
-//! |xACMP ACMP ID      |       CoX      | NUC1xx  |
-//! |---------------- --|----------------|---------|
-//! |xACMP_*            |    Mandatory   | xACMP_0 |
-//! |                   |                | xACMP_1 |
-//! +-------------------+----------------+---------+
+//! +-------------------+----------------+
+//! |xACMP ACMP ID      |       CoX      |
+//! |---------------- --|----------------|
+//! |xACMP_*            |    Mandatory   |
+//! |                   |                |
+//! +-------------------+----------------+
 //! \endverbatim
 //! @{
 //
@@ -218,21 +218,21 @@ extern "C"
 //! \section xACMP_Exported_APIs_Port CoX Port Details
 //!
 //! \verbatim
-//! +------------------------+----------------+--------+
-//! |xACMP API               |       CoX      | NUC1xx |
-//! |------------------------|----------------|--------|
-//! |xACMPConfigure          |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xACMPEnable             |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xACMPDisable            |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xACMPIntCallbackInit    |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xACMPIntEnable          |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xACMPIntDisable         |    Mandatory   |    Y   |
-//! +------------------------+----------------+--------+
+//! +------------------------+----------------+
+//! |xACMP API               |       CoX      |
+//! |------------------------|----------------|
+//! |xACMPConfigure          |    Mandatory   |
+//! |------------------------|----------------|
+//! |xACMPEnable             |    Mandatory   |
+//! |------------------------|----------------|
+//! |xACMPDisable            |    Mandatory   |
+//! |------------------------|----------------|
+//! |xACMPIntCallbackInit    |    Mandatory   |
+//! |------------------------|----------------|
+//! |xACMPIntEnable          |    Mandatory   |
+//! |------------------------|----------------|
+//! |xACMPIntDisable         |    Mandatory   |
+//! +------------------------+----------------+
 //! \endverbatim
 //! @{
 //

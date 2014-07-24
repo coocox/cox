@@ -1,7 +1,7 @@
 //*****************************************************************************
 //
-//! \file xwdt.h
-//! \brief Prototypes for the WDT Driver.
+//! \file xhw_wdt.h
+//! \brief Macros and defines used when accessing the WATCHDOG hardware.
 //! \version V2.1.1.0
 //! \date 7/14/2014
 //! \author CooCox
@@ -35,21 +35,9 @@
 //! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
 //! THE POSSIBILITY OF SUCH DAMAGE.
 //
-//*****************************************************************************
-
-#ifndef __xWDT_H__
-#define __xWDT_H__
-
-//*****************************************************************************
-//
-// If building with a C++ compiler, make all of the definitions in this header
-// have a C binding.
-//
-//*****************************************************************************
-#ifdef __cplusplus
-extern "C"
-{
-#endif
+//****************************************************************************
+#ifndef __HW_WDT_H__
+#define __HW_WDT_H__
 
 //*****************************************************************************
 //
@@ -67,40 +55,31 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup AU9110_WDT
+//! \addtogroup AU9110_WDT_Register AU9110 WDT Register
+//! \brief Here are the detailed info of WDT registers. 
+//!
+//! it contains:
+//! - Register offset.
+//! - detailed bit-field of the registers.
+//! - Enum and mask of the registers.
+//! .
+//! Users can read or write the registers through xHWREG().
+//!
 //! @{
 //
 //*****************************************************************************
 
 //*****************************************************************************
 //
-//! \addtogroup WDT_Function_Type WDT Function Type
-//! \brief Values that can be passed to WDTimerFunctionEnable(), 
-//! WDTimerFunctionDisable().
+//! \addtogroup AU9110_WDT_Register_Address WDT Address Register(WDT_Address)
 //! @{
 //
 //*****************************************************************************
 
 //
-//! Generate Interrupt when watch dog time out
+//! Watchdog Timer Control Register (WTCR)
 //
-#define WDT_INT_FUNCTION        0x00000040
-
-//
-//! Reset CPU when watch dog time out
-//
-#define WDT_RESET_FUNCTION      0x00000002
-
-//
-//! Watchdog timer timeout can wake-up chip from power down mode.
-//
-#define WDT_WAKEUP_FUNCTION     0x00000010
-
-//
-//! Watchdog Timer counter will keep going no matter ICE debug mode
-//! acknowledged or not.
-//
-#define WDT_HOLD_IN_ICE         0x80000000
+#define WDT_WTCR                0x40004000  
 
 //*****************************************************************************
 //
@@ -108,84 +87,75 @@ extern "C"
 //
 //*****************************************************************************
 
-
 //*****************************************************************************
 //
-//! \addtogroup WDT_Time_Interval_Config WDT Time Interval Configuration
-//! \brief Values that can be passed to WDTimerInit().
+//! \addtogroup AU9110_WDT_Register_WDT_WTCR WDT WTCR Register(WDT_WTCR)
 //! @{
 //
 //*****************************************************************************
 
 //
-//! Timeout Interval Selection is 2 4 * TWDT
+//! ICE debug mode acknowledge Disable (write-protection bit)
 //
-#define WDT_INTERVAL_2_4T       0x00000000
+#define WDT_WTCR_DBGACK         0x80000000  
 
 //
-//! Timeout Interval Selection is 2 6 * TWDT
+//! Watchdog Timer Interval Select mask(write-protection bits)
 //
-#define WDT_INTERVAL_2_6T       0x00000100
+#define WDT_WTCR_WTIS_M         0x00000700  
 
 //
-//! Timeout Interval Selection is 2 8 * TWDT
+//! Watchdog Timer Interval Select shift(write-protection bits)
 //
-#define WDT_INTERVAL_2_8T       0x00000200
+#define WDT_WTCR_WTIS_S         8  
 
 //
-//! Timeout Interval Selection is 2 10 * TWDT
+//! Watchdog Timer Enable (write-protection bit)
 //
-#define WDT_INTERVAL_2_10T      0x00000300
+#define WDT_WTCR_WTE            0x00000080  
 
 //
-//! Timeout Interval Selection is 2 12 * TWDT
+//! Watchdog Timer Interrupt Enable (write-protection bit)
 //
-#define WDT_INTERVAL_2_12T      0x00000400
+#define WDT_WTCR_WTIE           0x00000040  
 
 //
-//! Timeout Interval Selection is 2 14 * TWDT
+//! Watchdog Timer Wake-up Flag
 //
-#define WDT_INTERVAL_2_14T      0x00000500
+#define WDT_WTCR_WTWKF          0x00000020
 
 //
-//! Timeout Interval Selection is 2 16 * TWDT
+//! Watchdog Timer Wake-up Function Enable bit (write-protection bit)
 //
-#define WDT_INTERVAL_2_16T      0x00000600
+#define WDT_WTCR_WTWKE          0x00000010
 
 //
-//! Timeout Interval Selection is 2 18 * TWDT
+//! Watchdog Timer Interrupt Flag
 //
-#define WDT_INTERVAL_2_18T      0x00000700
+#define WDT_WTCR_WTIF           0x00000008
 
+//
+//! Watchdog Timer Reset Flag
+//
+#define WDT_WTCR_WTRF           0x00000004
 
-//*****************************************************************************
 //
-//! @}
+//! Watchdog Timer Reset Enable (write-protection bit)
 //
-//*****************************************************************************
+#define WDT_WTCR_WTRE           0x00000002
 
-//*****************************************************************************
 //
-//! \addtogroup AU9110_WDT_Exported_APIs AU9110 WDT API
-//! @{
+//! Clear Watchdog Timer (write-protection bit)
 //
-//*****************************************************************************
+#define WDT_WTCR_WTR            0x00000001
 
-extern void WDTimerInit(unsigned long ulConfig);
-extern void WDTimerEnable(void);
-extern void WDTimerDisable(void);
-extern void WDTimerRestart(void);
-extern void WDTWakeUpFlagClear(void);
-extern void WDTResetFlagClear(void);
-extern void WDTimerIntCallbackInit(xtEventCallback xtWDTCallback);
-extern void WDTimerFunctionEnable(unsigned long ulFunction);
-extern void WDTimerFunctionDisable(unsigned long ulFunction);
 
 //*****************************************************************************
 //
 //! @}
 //
 //*****************************************************************************
+
 
 //*****************************************************************************
 //
@@ -205,13 +175,7 @@ extern void WDTimerFunctionDisable(unsigned long ulFunction);
 //
 //*****************************************************************************
 
-//*****************************************************************************
-//
-// Mark the end of the C bindings section for C++ compilers.
-//
-//*****************************************************************************
-#ifdef __cplusplus
-}
-#endif
+#endif // __XHW_WADT_H__
 
-#endif // __xWDT_H__
+
+

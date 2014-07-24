@@ -57,7 +57,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_Register NUC4xx UART Register
+//! \addtogroup AU9110_UART_Register AU9110 UART Register
 //! \brief Here are the detailed info of UART registers. 
 //!
 //! it contains:
@@ -73,7 +73,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_Register_Offsets UART Register Offset(Map)
+//! \addtogroup AU9110_UART_Register_Offsets UART Register Offset(Map)
 //! \brief Here is the UART register offset, users can get the register address
 //! through <b>UART_BASE + offset</b>.
 //! @{
@@ -143,37 +143,12 @@
 //
 //! Alternate Control/Status Register.
 // 
-#define UART_ALT_CSR            0x0000002C  
+#define UART_LIN_CON            0x0000002C  
 
 //
 //! Function Select Register.
 // 
 #define UART_FUN_SEL            0x00000030
-
-//
-//! LIN Control Register
-//
-#define UART_LIN_CTL            0x00000034
-
-//
-//! LIN Status Register
-//
-#define UART_LIN_SR             0x00000038
-
-//
-//! LIN Debug Register
-//
-#define UART_LIN_DEBUG          0x0000003C
-
-//
-//! SC Control Register
-//
-#define UART_SC_CTL             0x00000040
-
-//
-//! SC Flag Control Register
-//
-#define UART_SC_FSR             0x00000044
 
 //*****************************************************************************
 //
@@ -184,7 +159,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_Register_UART_RBR UART Receive Buffer Register(UART_RBR)
+//! \addtogroup AU9110_UART_Register_UART_RBR UART Receive Buffer Register(UART_RBR)
 //! \brief Defines for the bit fields in the UART_RBR register.
 //! @{
 //
@@ -201,7 +176,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_Register_UART_THR UART Transmit Holding Register(UART_THR)
+//! \addtogroup AU9110_UART_Register_UART_THR UART Transmit Holding Register(UART_THR)
 //! \brief Defines for the bit fields in the UART_THR register.
 //! @{
 //
@@ -225,7 +200,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_Register_UART_IER UART Interrupt Enable Register(UART_IER)
+//! \addtogroup AU9110_UART_Register_UART_IER UART Interrupt Enable Register(UART_IER)
 //! \brief Defines for the bit fields in the UART_IER register.
 //! @{
 //
@@ -259,15 +234,10 @@
 //
 //! Buffer Error Interrupt Enable
 //
-#define UART_IER_BUF_ERR_IEN    BIT_32_5  
+#define UART_IER_BUF_ERR_IEN    BIT_32_5 
 
 //
-//! Wake up CPU function enable
-//
-#define UART_IER_WAKE_IEN       BIT_32_6  
-
-//
-//! Time-Out Counter Enable
+//! LIN RX Break Field Detected Interrupt Enable
 //
 #define UART_IER_LIN_EN         BIT_32_8
 
@@ -296,7 +266,6 @@
 //
 #define UART_IER_DMA_RX_EN      BIT_32_15
 
-
 //*****************************************************************************
 //
 //! @}
@@ -305,7 +274,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_Register_UART_FCR  UART FIFO Control Register(UART_FCR)
+//! \addtogroup AU9110_UART_Register_UART_FCR  UART FIFO Control Register(UART_FCR)
 //! \brief Defines for the bit fields in the UART_FCR register.
 //! @{
 //
@@ -332,11 +301,6 @@
 #define UART_FCR_RFITL_S        4
 
 //
-//! Rx Disable Register
-//
-#define UART_FCR_RX_DIS         BIT_32_8
-
-//
 //! 1 Bytes
 //
 #define UART_FCR_RFITL_1        0x00000000  
@@ -349,12 +313,7 @@
 //
 //! 8 Bytes
 //
-#define UART_FCR_RFITL_8        0x00000020  
-
-//
-//! 14 Bytes
-//
-#define UART_FCR_RFITL_14       0x00000030  
+#define UART_FCR_RFITL_8        0x00000020
 
 //
 //! RTS Trigger Level for Auto-flow Control Use
@@ -369,22 +328,17 @@
 //
 //! 1 Bytes
 //
-#define UART_FCR_RTSTL_1        0x00000000  
+#define UART_FCR_RTSTL_1        0x00000000
 
 //
 //! 4 Bytes
 //
-#define UART_FCR_RTSTL_4        0x00010000  
+#define UART_FCR_RTSTL_4        0x00010000
 
 //
 //! 8 Bytes
 //
-#define UART_FCR_RTSTL_8        0x00020000  
-
-//
-//! 14 Bytes
-//
-#define UART_FCR_RTSTL_14       0x00030000  
+#define UART_FCR_RTSTL_8        0x00020000 
 
 //*****************************************************************************
 //
@@ -394,7 +348,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_Register_UART_LCR UART Line Control Register(UART_LCR)
+//! \addtogroup AU9110_UART_Register_UART_LCR UART Line Control Register(UART_LCR)
 //! \brief Defines for the bit fields in the UART_LCR register.
 //! @{
 //
@@ -463,7 +417,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_Register_UART_MCR UART Modem Control Register(UART_MCR)
+//! \addtogroup AU9110_UART_Register_UART_MCR UART Modem Control Register(UART_MCR)
 //! \brief Defines for the bit fields in the UART_MCR register.
 //! @{
 //
@@ -473,6 +427,11 @@
 //! RTS (Request-To-Send) Signal
 //
 #define UART_MCR_RTS            BIT_32_1  
+
+//
+//! Loopback Mode Enable
+//
+#define UART_MCR_LBME           BIT_32_4
 
 //
 //! RTS Trigger Level
@@ -492,7 +451,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_Register_UART_MSR UART Modem Status Register(UART_MSR)
+//! \addtogroup AU9110_UART_Register_UART_MSR UART Modem Status Register(UART_MSR)
 //! \brief Defines for the bit fields in the UART_MSR register.
 //! @{
 //
@@ -521,7 +480,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_Register_UART_FSR UART FIFO Status Register(UART_FSR)
+//! \addtogroup AU9110_UART_Register_UART_FSR UART FIFO Status Register(UART_FSR)
 //! \brief Defines for the bit fields in the UART_FSR register.
 //! @{
 //
@@ -615,7 +574,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_Register_UART_ISR UART Interrupt Status Register(UART_ISR)
+//! \addtogroup AU9110_UART_Register_UART_ISR UART Interrupt Status Register(UART_ISR)
 //! \brief Defines for the bit fields in the UART_ISR register.
 //! @{
 //
@@ -740,7 +699,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_Register_UART_TOR UART Time Out Register(UART_TOR)
+//! \addtogroup AU9110_UART_Register_UART_TOR UART Time Out Register(UART_TOR)
 //! \brief Defines for the bit fields in the UART_TOR register.
 //! @{
 //
@@ -774,7 +733,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_Register_UART_BAUD UART Baud Rate Divisor Register(UART_BAUD)
+//! \addtogroup AU9110_UART_Register_UART_BAUD UART Baud Rate Divisor Register(UART_BAUD)
 //! \brief Defines for the bit fields in the UART_BAUD register.
 //! @{
 //
@@ -818,7 +777,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_Register_UART_IRCR UART IrDA Control Register(UART_IRCR)
+//! \addtogroup AU9110_UART_Register_UART_IRCR UART IrDA Control Register(UART_IRCR)
 //! \brief Defines for the bit fields in the IRCR register.
 //! @{
 //
@@ -852,50 +811,26 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_Register_UART_ALT_CSR UART Alternate Control/Status Register(UART_ALT_CSR)
-//! \brief Defines for the bit fields in the UART_ALT_CSR register.
+//! \addtogroup AU9110_UART_Register_UART_LIN_CON UART LIN Network Control Register(UART_LIN_CON)
+//! \brief Defines for the bit fields in the UART_LIN_CON register.
 //! @{
 //
 //*****************************************************************************
 
-#define UART_ALT_CSR_LIN_BKFL_M BIT_MASK(32,3,0)
-
-#define UART_ALT_CSR_LIN_RX_EN  BIT_32_6
-#define UART_ALT_CSR_LIN_TX_EN  BIT_32_7
-
 //
-//! RS-485 Normal Multi-drop Operation Mode 
+//! UART LIN Break Field Length Count
 //
-#define UART_ALT_CSR_RS485_NMM  BIT_32_8
+#define UART_LIN_CON_LIN_BKFL_M BIT_MASK(32,3,0)
 
 //
-//! RS-485 Auto Address Detection Operation Mode
+//! LIN RX Enable
 //
-#define UART_ALT_CSR_RS485_ADD  BIT_32_9
+#define UART_LIN_CON_LIN_RX_EN  BIT_32_6
 
 //
-//! RS-485 Auto Direction Mode
+//! LIN TX Break Mode Enable
 //
-#define UART_ALT_CSR_RS485_AUD  BIT_32_10
-
-//
-//! RS-485 Address Detection Enable
-//
-#define UART_ALT_CSR_RS485_ADD_EN                                             \
-                                BIT_32_15
-
-//
-//! Address Match Value Register
-//
-#define UART_ALT_CSR_ADDR_MATCH_M                                             \
-                                0xFF0000000
-
-//
-//! Address Match Value Register
-//
-#define UART_ALT_CSR_ADDR_MATCH_S                                             \
-                                24
-
+#define UART_LIN_CON_LIN_TX_EN  BIT_32_7
 //*****************************************************************************
 //
 //! @}
@@ -904,7 +839,7 @@
 
 //*****************************************************************************
 //
-//! \addtogroup NUC4xx_UART_Register_UART_FUN_SEL UART Function Select Register(UART_FUN_SEL)
+//! \addtogroup AU9110_UART_Register_UART_FUN_SEL UART Function Select Register(UART_FUN_SEL)
 //! \brief Defines for the bit fields in the UART_FUN_SEL register.
 //! @{
 //
@@ -921,178 +856,8 @@
 //
 //! IrDA Function Enable.
 //
-#define UART_FUN_SEL_IRDA_EN    0x00000002  
-                                  
-//
-//! RS-485 Function Enable
-//
-#define UART_FUN_SEL_RS485_EN   0x00000003
+#define UART_FUN_SEL_IRDA_EN    0x00000002
 
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC4xx_UART_Register_UART_LIN_CTL UART LIN Control Register(UART_LIN_CTL)
-//! \brief Defines for the bit fields in the UART_LIN_CTL register.
-//! @{
-//
-//*****************************************************************************
-
-//
-//! LIN frame ID value
-//
-#define UART_LIN_CTL_PID_M      0xFF000000
-#define UART_LIN_CTL_PID_S      24
-
-//
-//! LIN Header Selection
-//
-#define UART_LIN_CTL_HEAD_SEL_M 0x00C00000
-#define UART_LIN_CTL_HEAD_SEL_S 22
-
-//
-//! LIN Header Selection
-//
-#define UART_LIN_CTL_BS_LEN_M   0x00300000
-#define UART_LIN_CTL_BS_LEN_S   20
-
-//
-//! LIN Break Field Length
-//
-#define UART_LIN_CTL_LIN_BKFL_M 0x000F0000
-#define UART_LIN_CTL_LIN_BKFL_S 16
-
-//
-//! Bit Error Detect Enable Control
-//
-#define UART_LIN_CTL_BITERR_EN  BIT_32_12
-
-//
-//! Bit error detection Enable Control
-//
-#define UART_LIN_CTL_LINRX_DIS  BIT_32_11
-
-//
-//! LIN Break Detection Enable Control
-//
-#define UART_LIN_CTL_BKDET_EN   BIT_32_10
-
-//
-//! LIN ID Parity Enable Control
-//
-#define UART_LIN_CTL_LIN_IDPEN  BIT_32_9
-
-//
-//! LIN TX Send Header Enable Control
-//
-#define UART_LIN_CTL_LIN_SHD    BIT_32_8
-
-//
-//! LIN Mute Mode Enable Control
-//
-#define UART_LIN_CTL_LIN_MUTE   BIT_32_4
-
-//
-//! LIN Slave Divider Update Method Enable Control
-//
-#define UART_LIN_CTL_LINS_DUM   BIT_32_3
-
-//
-//! LIN Slave Automatic Resynchronization Mode Enable Control
-//
-#define UART_LIN_CTL_LINS_ARS   BIT_32_2
-
-//
-//! LIN Slave Header Detection Enable Control
-//
-#define UART_LIN_CTL_LINS_HDET  BIT_32_1
-
-//
-//! LIN Slave Mode Enable Control
-//
-#define UART_LIN_CTL_LINS_EN    BIT_32_0
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC4xx_UART_Register_UART_LIN_SR UART LIN Status Register(UART_LIN_SR)
-//! \brief Defines for the bit fields in the UART_LIN_SR register.
-//! @{
-//
-//*****************************************************************************
-
-//
-//! Bit Error Detect Status Flag
-//
-#define UART_LIN_SR_ERR_F       BIT_32_9
-
-//
-//! LIN Break Detection Flag
-//
-#define UART_LIN_SR_BKDET_F     BIT_32_8
-
-//
-//! LIN Slave Sync Field
-//
-#define UART_LIN_SR_SYNC_F      BIT_32_3
-
-//
-//! LIN Slave ID Parity Error Flag
-//
-#define UART_LIN_SR_IDPERR_F    BIT_32_2
-
-//
-//! LIN Slave Header Error Flag
-//
-#define UART_LIN_SR_HERR_F      BIT_32_1
-
-//
-//! LIN Slave Header Detection Flag
-//
-#define UART_LIN_SR_HDET_F      BIT_32_0
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup NUC4xx_UART_Register_UART_LIN_DEBUG UART LIN Debug Register(UART_LIN_DEBUG)
-//! \brief Defines for the bit fields in the UART_LIN_DEBUG register.
-//! @{
-//
-//*****************************************************************************
-
-//
-//! LIN Header Sync Data Error
-//
-#define UART_LIN_DEBUG_SYNC_F   BIT_32_3
-
-//
-//! LIN Header Frame Error Flag
-//
-#define UART_LIN_DEBUG_HEFE_F   BIT_32_2
-
-//
-//! LIN Header Time-out
-//
-#define UART_LIN_DEBUG_HETIME_F BIT_32_1
-
-//
-//! LIN Header Deviation Error
-//
-#define UART_LIN_DEBUG_DIVIA_F  BIT_32_0 
 //*****************************************************************************
 //
 //! @}

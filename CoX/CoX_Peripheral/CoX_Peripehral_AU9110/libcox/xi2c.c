@@ -45,7 +45,7 @@
 // An array is I2C callback function point
 //
 //*****************************************************************************
-static xtEventCallback g_pfnI2CHandlerCallbacks[5]={0};
+static xtEventCallback g_pfnI2CHandlerCallbacks[1]={0};
 
 //*****************************************************************************
 //
@@ -143,382 +143,6 @@ I2C0_IRQHandler(void)
 
 //*****************************************************************************
 //
-//! \brief I2C1 interrupt handler. Clear the I2C1 interrupt flag and execute the
-//! callback function.
-//!
-//! \param none.
-//!
-//! This function is the I2C1 interrupt handler,it will Clear the I2C1
-//! interrupt flag and execute the callback function if there be one.
-//!
-//! \note There are two source of this interrupt.One is I2C1 function
-//! and one is I2C1 time out.
-//!
-//! \return None.
-//
-//*****************************************************************************
-void
-I2C1_IRQHandler(void)
-{
-    unsigned long ulBase = I2C1_BASE;
-    unsigned long ulStatus = xHWREG(ulBase + I2C_STATUS);
-    unsigned long ulTimeout;
-    //
-    // 0
-    //
-    //I2CFlagStatusClear(ulBase, I2C_EVENT_BUSERR | I2C_EVENT_RXNACK |
-    //                           I2C_EVENT_ARBLOS);
-
-    if((ulStatus == I2C_I2STAT_S_RX_SLAW_ACK) ||
-       (ulStatus == I2C_I2STAT_S_RX_GENCALL_ACK) ||
-       (ulStatus == I2C_I2STAT_S_RX_PRE_GENCALL_DAT_NACK) ||
-       (ulStatus == I2C_I2STAT_S_TX_DAT_NACK) ||
-       (ulStatus == I2C_I2STAT_S_TX_SLAR_ACK))
-    {
-        xHWREG(ulBase + I2C_CON) |= I2C_CON_SI;
-    }
-
-    if((ulStatus == I2C_I2STAT_S_RX_PRE_SLA_DAT_ACK) ||
-       (ulStatus == I2C_I2STAT_S_RX_PRE_GENCALL_DAT_ACK))
-    {
-        g_pfnI2CHandlerCallbacks[1](0, 0, xI2C_SLAVE_EVENT_RREQ, 0);
-    }
-    if((ulStatus == I2C_I2STAT_S_TX_SLAR_ACK) ||
-       (ulStatus == I2C_I2STAT_S_TX_DAT_ACK))
-    {
-        g_pfnI2CHandlerCallbacks[1](0, 0, xI2C_SLAVE_EVENT_TREQ, 0);
-    }
-    if((ulStatus == I2C_I2STAT_M_TX_SLAW_ACK) ||
-       (ulStatus == I2C_I2STAT_M_TX_DAT_ACK))
-    {
-        g_pfnI2CHandlerCallbacks[1](0, 0, xI2C_MASTER_EVENT_TX, 0);
-    }
-    if((ulStatus == I2C_I2STAT_M_RX_SLAR_ACK) ||
-       (ulStatus == I2C_I2STAT_M_RX_DAT_ACK))
-    {
-        g_pfnI2CHandlerCallbacks[1](0, 0, xI2C_MASTER_EVENT_RX, 0);
-    }
-    if((ulStatus == I2C_I2STAT_S_RX_STA_STO_SLVREC_SLVTRX))
-    {
-        //
-        //Temporally lock the interrupt for timeout condition
-        //
-        xI2CSlaveIntDisable(ulBase, 0);
-        xHWREG(ulBase + I2C_CON) |= I2C_CON_SI;
-        //
-        // enable time out
-        //
-        ulTimeout = 0x10000;
-        while(1)
-        {
-            if (xHWREG(ulBase + I2C_CON) & I2C_CON_SI)
-            {
-                //
-                // re-Enable interrupt
-                //
-                xI2CSlaveIntEnable(ulBase, 0);
-                break;
-            }
-            else
-            {
-                ulTimeout--;
-                if (ulTimeout == 0)
-                {
-                    //
-                    //timeout occur, it's really a stop condition
-                    //
-                    g_pfnI2CHandlerCallbacks[1](0, 0, xI2C_SLAVE_EVENT_STOP, 0);
-                    break;
-                }
-            }
-        }
-    }
-}
-
-//*****************************************************************************
-//
-//! \brief I2C2 interrupt handler. Clear the I2C2 interrupt flag and execute the
-//! callback function.
-//!
-//! \param none.
-//!
-//! This function is the I2C2 interrupt handler,it will Clear the I2C2
-//! interrupt flag and execute the callback function if there be one.
-//!
-//! \note There are two source of this interrupt.One is I2C2 function
-//! and one is I2C2 time out.
-//!
-//! \return None.
-//
-//*****************************************************************************
-void
-I2C2_IRQHandler(void)
-{
-    unsigned long ulBase = I2C2_BASE;
-    unsigned long ulStatus = xHWREG(ulBase + I2C_STATUS);
-    unsigned long ulTimeout;
-    //
-    // 0
-    //
-    //I2CFlagStatusClear(ulBase, I2C_EVENT_BUSERR | I2C_EVENT_RXNACK |
-    //                           I2C_EVENT_ARBLOS);
-
-    if((ulStatus == I2C_I2STAT_S_RX_SLAW_ACK) ||
-       (ulStatus == I2C_I2STAT_S_RX_GENCALL_ACK) ||
-       (ulStatus == I2C_I2STAT_S_RX_PRE_GENCALL_DAT_NACK) ||
-       (ulStatus == I2C_I2STAT_S_TX_DAT_NACK) ||
-       (ulStatus == I2C_I2STAT_S_TX_SLAR_ACK))
-    {
-        xHWREG(ulBase + I2C_CON) |= I2C_CON_SI;
-    }
-
-    if((ulStatus == I2C_I2STAT_S_RX_PRE_SLA_DAT_ACK) ||
-       (ulStatus == I2C_I2STAT_S_RX_PRE_GENCALL_DAT_ACK))
-    {
-        g_pfnI2CHandlerCallbacks[2](0, 0, xI2C_SLAVE_EVENT_RREQ, 0);
-    }
-    if((ulStatus == I2C_I2STAT_S_TX_SLAR_ACK) ||
-       (ulStatus == I2C_I2STAT_S_TX_DAT_ACK))
-    {
-        g_pfnI2CHandlerCallbacks[2](0, 0, xI2C_SLAVE_EVENT_TREQ, 0);
-    }
-    if((ulStatus == I2C_I2STAT_M_TX_SLAW_ACK) ||
-       (ulStatus == I2C_I2STAT_M_TX_DAT_ACK))
-    {
-        g_pfnI2CHandlerCallbacks[2](0, 0, xI2C_MASTER_EVENT_TX, 0);
-    }
-    if((ulStatus == I2C_I2STAT_M_RX_SLAR_ACK) ||
-       (ulStatus == I2C_I2STAT_M_RX_DAT_ACK))
-    {
-        g_pfnI2CHandlerCallbacks[2](0, 0, xI2C_MASTER_EVENT_RX, 0);
-    }
-    if((ulStatus == I2C_I2STAT_S_RX_STA_STO_SLVREC_SLVTRX))
-    {
-        //
-        //Temporally lock the interrupt for timeout condition
-        //
-        xI2CSlaveIntDisable(ulBase, 0);
-        xHWREG(ulBase + I2C_CON) |= I2C_CON_SI;
-        //
-        // enable time out
-        //
-        ulTimeout = 0x10000;
-        while(1)
-        {
-            if (xHWREG(ulBase + I2C_CON) & I2C_CON_SI)
-            {
-                //
-                // re-Enable interrupt
-                //
-                xI2CSlaveIntEnable(ulBase, 0);
-                break;
-            }
-            else
-            {
-                ulTimeout--;
-                if (ulTimeout == 0)
-                {
-                    //
-                    //timeout occur, it's really a stop condition
-                    //
-                    g_pfnI2CHandlerCallbacks[2](0, 0, xI2C_SLAVE_EVENT_STOP, 0);
-                    break;
-                }
-            }
-        }
-    }
-}
-
-//*****************************************************************************
-//
-//! \brief I2C3 interrupt handler. Clear the I2C3 interrupt flag and execute the
-//! callback function.
-//!
-//! \param none.
-//!
-//! This function is the I2C3 interrupt handler,it will Clear the I2C3
-//! interrupt flag and execute the callback function if there be one.
-//!
-//! \note There are two source of this interrupt.One is I2C3 function
-//! and one is I2C3 time out.
-//!
-//! \return None.
-//
-//*****************************************************************************
-void
-I2C3_IRQHandler(void)
-{
-    unsigned long ulBase = I2C3_BASE;
-    unsigned long ulStatus = xHWREG(ulBase + I2C_STATUS);
-    unsigned long ulTimeout;
-    //
-    // 0
-    //
-    //I2CFlagStatusClear(ulBase, I2C_EVENT_BUSERR | I2C_EVENT_RXNACK |
-    //                           I2C_EVENT_ARBLOS);
-
-    if((ulStatus == I2C_I2STAT_S_RX_SLAW_ACK) ||
-       (ulStatus == I2C_I2STAT_S_RX_GENCALL_ACK) ||
-       (ulStatus == I2C_I2STAT_S_RX_PRE_GENCALL_DAT_NACK) ||
-       (ulStatus == I2C_I2STAT_S_TX_DAT_NACK) ||
-       (ulStatus == I2C_I2STAT_S_TX_SLAR_ACK))
-    {
-        xHWREG(ulBase + I2C_CON) |= I2C_CON_SI;
-    }
-
-    if((ulStatus == I2C_I2STAT_S_RX_PRE_SLA_DAT_ACK) ||
-       (ulStatus == I2C_I2STAT_S_RX_PRE_GENCALL_DAT_ACK))
-    {
-        g_pfnI2CHandlerCallbacks[3](0, 0, xI2C_SLAVE_EVENT_RREQ, 0);
-    }
-    if((ulStatus == I2C_I2STAT_S_TX_SLAR_ACK) ||
-       (ulStatus == I2C_I2STAT_S_TX_DAT_ACK))
-    {
-        g_pfnI2CHandlerCallbacks[3](0, 0, xI2C_SLAVE_EVENT_TREQ, 0);
-    }
-    if((ulStatus == I2C_I2STAT_M_TX_SLAW_ACK) ||
-       (ulStatus == I2C_I2STAT_M_TX_DAT_ACK))
-    {
-        g_pfnI2CHandlerCallbacks[3](0, 0, xI2C_MASTER_EVENT_TX, 0);
-    }
-    if((ulStatus == I2C_I2STAT_M_RX_SLAR_ACK) ||
-       (ulStatus == I2C_I2STAT_M_RX_DAT_ACK))
-    {
-        g_pfnI2CHandlerCallbacks[3](0, 0, xI2C_MASTER_EVENT_RX, 0);
-    }
-    if((ulStatus == I2C_I2STAT_S_RX_STA_STO_SLVREC_SLVTRX))
-    {
-        //
-        //Temporally lock the interrupt for timeout condition
-        //
-        xI2CSlaveIntDisable(ulBase, 0);
-        xHWREG(ulBase + I2C_CON) |= I2C_CON_SI;
-        //
-        // enable time out
-        //
-        ulTimeout = 0x10000;
-        while(1)
-        {
-            if (xHWREG(ulBase + I2C_CON) & I2C_CON_SI)
-            {
-                //
-                // re-Enable interrupt
-                //
-                xI2CSlaveIntEnable(ulBase, 0);
-                break;
-            }
-            else
-            {
-                ulTimeout--;
-                if (ulTimeout == 0)
-                {
-                    //
-                    //timeout occur, it's really a stop condition
-                    //
-                    g_pfnI2CHandlerCallbacks[3](0, 0, xI2C_SLAVE_EVENT_STOP, 0);
-                    break;
-                }
-            }
-        }
-    }
-}
-
-//*****************************************************************************
-//
-//! \brief I2C4 interrupt handler. Clear the I2C4 interrupt flag and execute the
-//! callback function.
-//!
-//! \param none.
-//!
-//! This function is the I2C4 interrupt handler,it will Clear the I2C4
-//! interrupt flag and execute the callback function if there be one.
-//!
-//! \note There are two source of this interrupt.One is I2C4 function
-//! and one is I2C4 time out.
-//!
-//! \return None.
-//
-//*****************************************************************************
-void
-I2C4_IRQHandler(void)
-{
-    unsigned long ulBase = I2C4_BASE;
-    unsigned long ulStatus = xHWREG(ulBase + I2C_STATUS);
-    unsigned long ulTimeout;
-    //
-    // 0
-    //
-    //I2CFlagStatusClear(ulBase, I2C_EVENT_BUSERR | I2C_EVENT_RXNACK |
-    //                           I2C_EVENT_ARBLOS);
-
-    if((ulStatus == I2C_I2STAT_S_RX_SLAW_ACK) ||
-       (ulStatus == I2C_I2STAT_S_RX_GENCALL_ACK) ||
-       (ulStatus == I2C_I2STAT_S_RX_PRE_GENCALL_DAT_NACK) ||
-       (ulStatus == I2C_I2STAT_S_TX_DAT_NACK) ||
-       (ulStatus == I2C_I2STAT_S_TX_SLAR_ACK))
-    {
-        xHWREG(ulBase + I2C_CON) |= I2C_CON_SI;
-    }
-
-    if((ulStatus == I2C_I2STAT_S_RX_PRE_SLA_DAT_ACK) ||
-       (ulStatus == I2C_I2STAT_S_RX_PRE_GENCALL_DAT_ACK))
-    {
-        g_pfnI2CHandlerCallbacks[4](0, 0, xI2C_SLAVE_EVENT_RREQ, 0);
-    }
-    if((ulStatus == I2C_I2STAT_S_TX_SLAR_ACK) ||
-       (ulStatus == I2C_I2STAT_S_TX_DAT_ACK))
-    {
-        g_pfnI2CHandlerCallbacks[4](0, 0, xI2C_SLAVE_EVENT_TREQ, 0);
-    }
-    if((ulStatus == I2C_I2STAT_M_TX_SLAW_ACK) ||
-       (ulStatus == I2C_I2STAT_M_TX_DAT_ACK))
-    {
-        g_pfnI2CHandlerCallbacks[4](0, 0, xI2C_MASTER_EVENT_TX, 0);
-    }
-    if((ulStatus == I2C_I2STAT_M_RX_SLAR_ACK) ||
-       (ulStatus == I2C_I2STAT_M_RX_DAT_ACK))
-    {
-        g_pfnI2CHandlerCallbacks[4](0, 0, xI2C_MASTER_EVENT_RX, 0);
-    }
-    if((ulStatus == I2C_I2STAT_S_RX_STA_STO_SLVREC_SLVTRX))
-    {
-        //
-        //Temporally lock the interrupt for timeout condition
-        //
-        xI2CSlaveIntDisable(ulBase, 0);
-        xHWREG(ulBase + I2C_CON) |= I2C_CON_SI;
-        //
-        // enable time out
-        //
-        ulTimeout = 0x10000;
-        while(1)
-        {
-            if (xHWREG(ulBase + I2C_CON) & I2C_CON_SI)
-            {
-                //
-                // re-Enable interrupt
-                //
-                xI2CSlaveIntEnable(ulBase, 0);
-                break;
-            }
-            else
-            {
-                ulTimeout--;
-                if (ulTimeout == 0)
-                {
-                    //
-                    //timeout occur, it's really a stop condition
-                    //
-                    g_pfnI2CHandlerCallbacks[4](0, 0, xI2C_SLAVE_EVENT_STOP, 0);
-                    break;
-                }
-            }
-        }
-    }
-}
-
-//*****************************************************************************
-//
 //! \internal
 //! \brief Get the I2C number. 
 //!
@@ -527,11 +151,11 @@ I2C4_IRQHandler(void)
 //! This function is to get the I2C number .
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! \note None
 //!
-//! \return value of I2C number,it can only be 0, 1, 2, 3 or 4.
+//! \return value of I2C number,it can only be 0.
 //
 //*****************************************************************************
 static unsigned long I2CNumGet(unsigned long ulBase)
@@ -540,19 +164,9 @@ static unsigned long I2CNumGet(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
 
-    switch(ulBase){
-        case I2C0_BASE: num = 0; break;
-        case I2C1_BASE: num = 1; break;
-        case I2C2_BASE: num = 2; break;
-        case I2C3_BASE: num = 3; break;
-        case I2C4_BASE: num = 4; break;
-        default: break;
-    }
-	return num;
+	return 0;
 }
 
 //*****************************************************************************
@@ -566,7 +180,7 @@ static unsigned long I2CNumGet(unsigned long ulBase)
 //! specified I2C BUS.
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! \note This is only for master
 //!
@@ -578,9 +192,7 @@ static unsigned long I2CStartSend (unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
     
     xHWREG(ulBase + I2C_CON) |= I2C_CON_SI;
 	xHWREG(ulBase + I2C_CON) |= I2C_CON_STA;
@@ -604,7 +216,7 @@ static unsigned long I2CStartSend (unsigned long ulBase)
 //! specified I2C BUS.
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! \note This is only for master
 //!
@@ -616,9 +228,7 @@ static void I2CStopSend (unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
     
     if (xHWREG(ulBase + I2C_CON) & I2C_CON_STA)
     {
@@ -641,7 +251,7 @@ static void I2CStopSend (unsigned long ulBase)
 //! This function is to send a byte on specified I2C BUS.
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! \note This is only for master
 //!
@@ -653,9 +263,7 @@ static unsigned long I2CByteSend (unsigned long ulBase, unsigned char ucData)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
     
     //
     // Make sure start bit is not active,but do not clear SI 
@@ -698,7 +306,7 @@ static unsigned long I2CByteSend (unsigned long ulBase, unsigned char ucData)
 //! This function is to get a byte on specified I2C BUS.
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! \note This is only for master
 //!
@@ -711,9 +319,7 @@ static unsigned long I2CByteGet (unsigned long ulBase, unsigned char *ucpData,
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
     
     //
     // Make sure start bit is not active 
@@ -744,7 +350,7 @@ static unsigned long I2CByteGet (unsigned long ulBase, unsigned char *ucpData,
 //! specified SPI port.
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! The \e ulI2CClk is the I2C clock rate:
 //!
@@ -762,19 +368,9 @@ xI2CMasterInit(unsigned long ulBase, unsigned long ulI2CClk)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
     
-    switch(ulBase)
-    {
-        case I2C0_BASE: xSysCtlPeripheralReset(xSYSCTL_PERIPH_I2C0); break;
-        case I2C1_BASE: xSysCtlPeripheralReset(xSYSCTL_PERIPH_I2C1); break;
-        case I2C2_BASE: xSysCtlPeripheralReset(xSYSCTL_PERIPH_I2C2); break;
-        case I2C3_BASE: xSysCtlPeripheralReset(xSYSCTL_PERIPH_I2C3); break;
-        case I2C4_BASE: xSysCtlPeripheralReset(xSYSCTL_PERIPH_I2C4); break;
-		default:  break;
-    }
+    xSysCtlPeripheralReset(xSYSCTL_PERIPH_I2C0);
     
     ulHclk = xSysCtlClockGet();
     
@@ -795,7 +391,7 @@ xI2CMasterInit(unsigned long ulBase, unsigned long ulI2CClk)
 //! \param  [in] ulBase is the I2C module base address.
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! \return The I2C bus status:
 //!         - xtrue    if I2C bus is busy.
@@ -807,10 +403,8 @@ xtBoolean xI2CMasterBusBusy(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
-			
+    xASSERT((ulBase == I2C0_BASE));
+	
     return ((xHWREG(ulBase + I2C_STATUS)&0xF8) == 0xF8)? xfalse : xtrue;
 }
 
@@ -823,7 +417,7 @@ xtBoolean xI2CMasterBusBusy(unsigned long ulBase)
 //! \param  [in] ulBase is the I2C module base address.
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! \return The I2C bus status:
 //!         - xtrue    if I2C bus is busy.
@@ -844,7 +438,7 @@ xtBoolean xI2CMasterBusy(unsigned long ulBase)
 //! \param  [in] ulBase is the I2C module base address.
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! \return Returns the error status, can be one of the following value:
 //!         - \ref I2C_MASTER_ERR_NONE
@@ -859,9 +453,7 @@ unsigned long xI2CMasterError(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
 
     ulStatus = (xHWREG(ulBase + I2C_STATUS) & I2C_STATUS_M);
 
@@ -983,9 +575,7 @@ xI2CMasterWriteRequestS1(unsigned long ulBase, unsigned char ucSlaveAddr,
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
     xASSERT(!(ucSlaveAddr & 0x80));
 
     //
@@ -1061,9 +651,7 @@ xI2CMasterWriteRequestS2(unsigned long ulBase, unsigned char ucData,
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
 
     //
     // Send data to I2C BUS
@@ -1124,9 +712,7 @@ xI2CMasterWriteS1(unsigned long ulBase, unsigned char ucSlaveAddr,
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
     xASSERT(!(ucSlaveAddr & 0x80));
 
     //
@@ -1198,9 +784,7 @@ xI2CMasterWriteS2(unsigned long ulBase, unsigned char ucData,
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
 
     //
     // Send write request
@@ -1274,9 +858,7 @@ xI2CMasterWriteBufS1(unsigned long ulBase, unsigned char ucSlaveAddr,
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
     xASSERT(pucDataBuf);
 
     if(ulLen == 1)
@@ -1375,9 +957,7 @@ xI2CMasterWriteBufS2(unsigned long ulBase, unsigned char *pucDataBuf,
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
     xASSERT(pucDataBuf);
 
     for(i = 0; i < ulLen - 1; i++)
@@ -1456,9 +1036,7 @@ xI2CMasterReadRequestS1(unsigned long ulBase, unsigned char ucSlaveAddr,
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
     xHWREG(ulBase + I2C_CON) |= I2C_CON_AA;
     //
     // Send start and address
@@ -1522,9 +1100,7 @@ xI2CMasterReadRequestS2(unsigned long ulBase, xtBoolean bEndTransmition)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
 
     //
     // Send the stop if End Transmition.
@@ -1567,9 +1143,7 @@ xI2CMasterReadLastRequestS2(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
 
     //
     // RECEIVE operation with negative ACK(no stop)
@@ -1623,9 +1197,7 @@ xI2CMasterReadS1(unsigned long ulBase,
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
     xASSERT(pucData);
 
     xI2CMasterReadRequestS1(ulBase, ucSlaveAddr, xfalse);
@@ -1700,9 +1272,7 @@ xI2CMasterReadS2(unsigned long ulBase,
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
 
     xI2CMasterReadRequestS2(ulBase, xfalse);
 
@@ -1791,9 +1361,7 @@ xI2CMasterReadBufS1(unsigned long ulBase, unsigned char ucSlaveAddr,
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
     xASSERT(pucDataBuf);
 
     if(ulLen == 0)
@@ -1938,9 +1506,7 @@ xI2CMasterReadBufS2(unsigned long ulBase, unsigned char *pucDataBuf,
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
     xASSERT(pucDataBuf);
 
     if(ulLen == 0)
@@ -1990,7 +1556,7 @@ xI2CMasterReadBufS2(unsigned long ulBase, unsigned char *pucDataBuf,
 //! function of specified I2C port.
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! The \e ucSlaveAddr is the I2C slave address,There are 4 slave addrss.
 //! The ucSlaveAddr can be a 7-bit value.
@@ -2011,19 +1577,9 @@ xI2CSlaveInit(unsigned long ulBase, unsigned char ucSlaveAddr,
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
 
-    switch(ulBase)
-    {
-        case I2C0_BASE: xSysCtlPeripheralReset(xSYSCTL_PERIPH_I2C0); break;
-        case I2C1_BASE: xSysCtlPeripheralReset(xSYSCTL_PERIPH_I2C1); break;
-        case I2C2_BASE: xSysCtlPeripheralReset(xSYSCTL_PERIPH_I2C2); break;
-        case I2C3_BASE: xSysCtlPeripheralReset(xSYSCTL_PERIPH_I2C3); break;
-        case I2C4_BASE: xSysCtlPeripheralReset(xSYSCTL_PERIPH_I2C4); break;
-		default:  break;
-    }
+    xSysCtlPeripheralReset(xSYSCTL_PERIPH_I2C0);
     
     xHWREG(ulBase + I2C_CON) = I2C_CON_ENS1;
 
@@ -2043,7 +1599,7 @@ xI2CSlaveInit(unsigned long ulBase, unsigned char ucSlaveAddr,
 //! \param  [in] ulBase is the I2C module base address.
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! \param  [in] ucData specifies the data which will send to I2C BUS.
 //!
@@ -2064,7 +1620,7 @@ void xI2CSlaveDataPut(unsigned long ulBase, unsigned char ucData)
 //! \param  [in] ulBase is the I2C module base address.
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! \return None.
 //!
@@ -2089,7 +1645,7 @@ unsigned long xI2CSlaveDataGet(unsigned long ulBase)
 //! function of specified I2C port.
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! The \e ucSlaveNum is the I2C slave address number,There are 4 slave addrss,so
 //! The ucSlaveNum can be: \b 0, \b 1, \b 2, \b 3.
@@ -2115,9 +1671,7 @@ I2CSlaveOwnAddressSet(unsigned long ulBase, unsigned char ucSlaveNum,
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
 
     //
     // Check the arguments.
@@ -2148,7 +1702,7 @@ I2CSlaveOwnAddressSet(unsigned long ulBase, unsigned char ucSlaveNum,
 //! of specified I2C port.The corresponding address bit is "Don't Care"
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! The \e ucSlaveNum is the I2C slave address number,There are 4 slave addrss,so
 //! The ucSlaveNum can be: \b 0, \b 1, \b 2, \b 3.
@@ -2171,9 +1725,7 @@ I2CSlaveOwnAddressMaskSet(unsigned long ulBase,
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
 
     //
     // Check the arguments.
@@ -2191,11 +1743,11 @@ I2CSlaveOwnAddressMaskSet(unsigned long ulBase,
 //! \param ulBase specifies the I2C module base address.
 //!
 //! This function is to get I2C status of the specified I2C port.
-//! There are 26 status codes. Please refer to Xi2c.h NUC4xx_I2C_STATUS_Type
+//! There are 26 status codes. Please refer to Xi2c.h AU9110_I2C_STATUS_Type
 //! in detail.
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! \note None
 //!
@@ -2208,9 +1760,7 @@ I2CStatusGet(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
 
     return (xHWREG(ulBase + I2C_STATUS) & I2C_STATUS_M);
 }
@@ -2224,7 +1774,7 @@ I2CStatusGet(unsigned long ulBase)
 //! This function is to enable I2C interrupt  of the specified I2C port.
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! \note None
 //!
@@ -2237,19 +1787,10 @@ xI2CMasterIntEnable(unsigned long ulBase, unsigned long ulIntType)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
     
     xHWREG(ulBase + I2C_CON) |= I2C_CON_EI;
-    if (ulBase == I2C0_BASE)
-    {
-        xIntEnable(INT_I2C0);
-    }
-    else if (ulBase == I2C1_BASE)
-    {
-        xIntEnable(INT_I2C1);
-    }
+    xIntEnable(xINT_I2C0);
 }
 
 //*****************************************************************************
@@ -2258,10 +1799,6 @@ xI2CMasterIntEnable(unsigned long ulBase, unsigned long ulIntType)
 //!
 //! \param  [in] ulBase is the I2C module base address.
 //!              - \ref xI2C0_BASE
-//!              - \ref xI2C1_BASE
-//!              - \ref xI2C2_BASE
-//!              - \ref xI2C3_BASE
-//!              - \ref xI2C4_BASE
 //!
 //! \param  [in] ulIntType is the interrupt type of the I2C module.
 //!              This value can be one of the following value:
@@ -2277,9 +1814,7 @@ xI2CSlaveIntEnable(unsigned long ulBase, unsigned long ulIntType)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
 
     xHWREG(ulBase + I2C_CON) |= I2C_CON_EI;
 }
@@ -2302,9 +1837,7 @@ xI2CIntCallbackInit(unsigned long ulBase, xtEventCallback xtI2CCallback)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
 
     g_pfnI2CHandlerCallbacks[I2CNumGet(ulBase)] = xtI2CCallback;
 }
@@ -2318,7 +1851,7 @@ xI2CIntCallbackInit(unsigned long ulBase, xtEventCallback xtI2CCallback)
 //! This function is to disable I2C interrupt  of the specified I2C port.
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! \note None
 //!
@@ -2331,9 +1864,7 @@ xI2CMasterIntDisable(unsigned long ulBase, unsigned long ulIntType)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
     
     xHWREG(ulBase + I2C_CON) &= ~I2C_CON_EI;
 }
@@ -2344,10 +1875,6 @@ xI2CMasterIntDisable(unsigned long ulBase, unsigned long ulIntType)
 //!
 //! \param  [in] ulBase is the I2C module base address.
 //!              - \ref xI2C0_BASE
-//!              - \ref xI2C1_BASE
-//!              - \ref xI2C2_BASE
-//!              - \ref xI2C3_BASE
-//!              - \ref xI2C4_BASE
 //!
 //! \param  [in] ulIntType is the interrupt type of the I2C module.
 //!              This value can be one of the following value:
@@ -2363,9 +1890,7 @@ xI2CSlaveIntDisable(unsigned long ulBase, unsigned long ulIntType)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
 
     xHWREG(ulBase + I2C_CON) &= ~I2C_CON_EI;
 }
@@ -2379,7 +1904,7 @@ xI2CSlaveIntDisable(unsigned long ulBase, unsigned long ulIntType)
 //! This function is to get the I2C interrupt flag of the specified I2C port.
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! \note None
 //!
@@ -2392,9 +1917,7 @@ xI2CMasterIntFlagGet(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
     
     return ((xHWREG(ulBase + I2C_CON) & I2C_CON_SI) ? xtrue : xfalse);
 }
@@ -2405,10 +1928,6 @@ xI2CMasterIntFlagGet(unsigned long ulBase)
 //!
 //! \param ulBase is the base address of the I2C module.
 //!              - \ref xI2C0_BASE
-//!              - \ref xI2C1_BASE
-//!              - \ref xI2C2_BASE
-//!              - \ref xI2C3_BASE
-//!              - \ref xI2C4_BASE
 //!
 //! This function reads the bytes of data from the I2C Slave status Register.
 //!
@@ -2420,9 +1939,7 @@ unsigned char xI2CSlaveIntFlagGet(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
 
     return ((xHWREG(ulBase + I2C_CON) & I2C_CON_SI) ? xtrue : xfalse);
 }
@@ -2435,7 +1952,7 @@ unsigned char xI2CSlaveIntFlagGet(unsigned long ulBase)
 //! This function is to enable I2C module of the specified I2C port.
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! \note None
 //!
@@ -2448,9 +1965,7 @@ xI2CMasterEnable(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
     
     xHWREG(ulBase + I2C_CON) |= I2C_CON_ENS1;
 }
@@ -2463,7 +1978,7 @@ xI2CMasterEnable(unsigned long ulBase)
 //! \param  [in] ulBase is the I2C module base address.
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! \return None.
 //
@@ -2473,12 +1988,11 @@ void xI2CSlaveEnable(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
 
     xHWREG(ulBase + I2C_CON) |= I2C_CON_ENS1;
 }
+
 //*****************************************************************************
 //
 //! \brief Disable I2C master module of the specified I2C port.
@@ -2488,7 +2002,7 @@ void xI2CSlaveEnable(unsigned long ulBase)
 //! This function is to disable I2C module of the specified I2C port.
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! \note None
 //!
@@ -2501,9 +2015,7 @@ xI2CMasterDisable(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
     
     xHWREG(ulBase + I2C_CON) &= ~I2C_CON_ENS1;
 }
@@ -2516,7 +2028,7 @@ xI2CMasterDisable(unsigned long ulBase)
 //! \param  [in] ulBase is the I2C module base address.
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! \return None.
 //
@@ -2526,9 +2038,7 @@ void xI2CSlaveDisable(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
 
     xHWREG(ulBase + I2C_CON) &= ~I2C_CON_ENS1;
 }
@@ -2541,7 +2051,7 @@ void xI2CSlaveDisable(unsigned long ulBase)
 //! This function is to get the I2C time out flag of the specified I2C port.
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! \note None
 //!
@@ -2554,11 +2064,9 @@ I2CTimeoutFlagGet(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
     
-    return ((xHWREG(ulBase + I2C_TOCTL) & I2C_TOCTL_TIF) ? xtrue : xfalse);
+    return ((xHWREG(ulBase + I2C_TOC) & I2C_TOC_TIF) ? xtrue : xfalse);
 }
 
 //*****************************************************************************
@@ -2570,7 +2078,7 @@ I2CTimeoutFlagGet(unsigned long ulBase)
 //! This function is to clear the I2C interrupt flag of the specified I2C port.
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! \note None
 //!
@@ -2583,9 +2091,7 @@ I2CIntFlagClear(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
 
     xHWREG(ulBase + I2C_CON) |= I2C_CON_SI;
 }
@@ -2599,7 +2105,7 @@ I2CIntFlagClear(unsigned long ulBase)
 //! This function is to clear the I2C time out flag of the specified I2C port.
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! \note None
 //!
@@ -2612,11 +2118,9 @@ I2CTimeoutFlagClear(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
 
-    xHWREG(ulBase + I2C_TOCTL) |= I2C_TOCTL_TIF;
+    xHWREG(ulBase + I2C_TOC) |= I2C_TOC_TIF;
 }
 
 //*****************************************************************************
@@ -2631,7 +2135,7 @@ I2CTimeoutFlagClear(unsigned long ulBase)
 //! set div4 bit of timeout counter of the specified I2C port.
 //!
 //! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
+//! \b I2C0_BASE.
 //!
 //! The \e ulEnable can be one of the following values:
 //! \b I2C_TIMEOUT_EN, \b I2C_TIMEOUT_DIS.
@@ -2651,9 +2155,7 @@ I2CTimeoutCounterSet(unsigned long ulBase, unsigned long ulEnable,
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
+    xASSERT((ulBase == I2C0_BASE));
 
     //
     // Check the arguments.
@@ -2665,61 +2167,6 @@ I2CTimeoutCounterSet(unsigned long ulBase, unsigned long ulEnable,
     //
     xASSERT((ulDiv4 == I2C_TIMEOUT_DIV4) || (ulDiv4 == I2C_TIMEOUT_DIV_NO));
 
-    xHWREG(ulBase + I2C_TOCTL) &= ~0x00000006;
-    xHWREG(ulBase + I2C_TOCTL) |= ulEnable | ulDiv4;
-}
-
-//*****************************************************************************
-//
-//! \brief Enable or Disable the I2C wake-up function of the specified I2C port.
-//!
-//! \param ulBase specifies the I2C module base address.
-//! \param bEnable specifies the Enable/Disable Wake-up function.
-//!
-//! This function is to enable or disable the I2C wake-up function of the specified I2C port.
-//!
-//! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
-//!
-//! \note None
-//!
-//! \return None.
-//
-//*****************************************************************************
-void
-I2CWakeupEnable(unsigned long ulBase, xtBoolean bEnable)
-{
-    //
-    // Check the arguments.
-    //
-    xASSERT((ulBase == I2C0_BASE) || (ulBase == I2C1_BASE) ||
-            (ulBase == I2C2_BASE) || (ulBase == I2C3_BASE) ||
-            (ulBase == I2C4_BASE));
-
-    if(bEnable){
-    	xHWREG(ulBase + I2C_WKCON) |= I2C_WKCON_I2CWKEN;
-    } else {
-    	xHWREG(ulBase + I2C_WKCON) &= ~I2C_WKCON_I2CWKEN;
-	}
-}
-
-//*****************************************************************************
-//
-//! \brief Get the I2C wake-up flag of the specified I2C port.
-//!
-//! \param ulBase specifies the I2C module base address.
-//!
-//! This function is to get the I2C wake-up flag of the specified I2C port.
-//!
-//! The \e ulBase can be one of the following values:
-//! \b I2C0_BASE, \b I2C1_BASE, \b I2C2_BASE, \b I2C3_BASE, \b I2C4_BASE.
-//!
-//! \note None
-//!
-//! \return None.
-//
-//*****************************************************************************
-xtBoolean I2CWakeupStatusGet(unsigned long ulBase)
-{
-     return xHWREG(ulBase + I2C_WKSTS_I2CWKF) ? 1 : 0;
+    xHWREG(ulBase + I2C_TOC) &= ~0x00000006;
+    xHWREG(ulBase + I2C_TOC) |= ulEnable | ulDiv4;
 }

@@ -1,9 +1,9 @@
 //*****************************************************************************
 //
-//! \file xtimer.h
-//! \brief Prototypes for the TIMER Driver.
-//! \version V2.1.1.0
-//! \date 15/7/2014
+//! \file hw_acmp.h
+//! \brief Macros used when accessing the comparator hardware.
+//! \version V2.2.1.0
+//! \date 7/22/2014
 //! \author CooCox
 //! \copy
 //!
@@ -37,19 +37,8 @@
 //
 //*****************************************************************************
 
-#ifndef __TIMER_H__
-#define __TIMER_H__
-
-//*****************************************************************************
-//
-// If building with a C++ compiler, make all of the definitions in this header
-// have a C binding.
-//
-//*****************************************************************************
-#ifdef __cplusplus
-extern "C"
-{
-#endif
+#ifndef __HW_ACMP_H__
+#define __HW_ACMP_H__
 
 //*****************************************************************************
 //
@@ -60,46 +49,55 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup TIMER
+//! \addtogroup ACMP
 //! @{
 //
 //*****************************************************************************
 
 //*****************************************************************************
 //
-//! \addtogroup AU9110_TIMER
+//! \addtogroup AU9110_ACMP_Register AU9110 Analog Comparator Register
+//! \brief Here are the detailed info of ACMP registers. 
+//!
+//! it contains:
+//! - Register offset.
+//! - detailed bit-field of the registers.
+//! - Enum and mask of the registers.
+//! .
+//! Users can read or write the registers through xHWREG().
+//!
 //! @{
 //
 //*****************************************************************************
 
 //*****************************************************************************
 //
-//! \addtogroup TIMER_Mode_Type TIMER Mode Type
-//! Values that can be passed to TimerInitConfig(),TimerCounterInitConfig 
-//! ().
+//! \addtogroup AU9110_ACMP_Register_Offset ACMP Register Offset(Map)
+//! \brief Here is the ACMP register offset, users can get the register address
+//! through <b>ACMP_BASE + offset</b>.
 //! @{
 //
 //*****************************************************************************
 
 //
-//! The timer is operating at the one-shot mode.
+//! Comparator0 Control Register
 //
-#define TIMER_MODE_ONESHOT      0x00000000
+#define ACMP_CR0              0x00000000
 
 //
-//! The timer is operating at the periodic mode.
+//! Comparator1 Control Register
 //
-#define TIMER_MODE_PERIODIC     0x08000000
+#define ACMP_CR1              0x00000004
 
 //
-//! The timer is operating at the toggle mode.
+//! Comparator Status Register
 //
-#define TIMER_MODE_TOGGLE       0x10000000
+#define ACMP_SR               0x00000008
 
 //
-//! The timer is operating at continuous counting mode.
+//! CMP Select Register
 //
-#define TIMER_MODE_CONTINUOUS   0x18000000
+#define ACMP_CMPSEL           0x0000000C
 
 //*****************************************************************************
 //
@@ -109,17 +107,26 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup TIMER_INT_Type TIMER INT Type
-//! Values that can be passed to TimerIntEnable(), TimerIntDisable(),
-//! TimerIntStatus(), TimerIntClear() as ulIntFlags.
+//! \addtogroup AU9110_ACMP_Register_CR Comparator Control Register(ACMP_CR0/1)
+//! \brief Definition for the bit fields in the ACMP_O_CR0 or ACMP_O_CR1 register.
 //! @{
 //
 //*****************************************************************************
 
 //
-//! Timer match interrupt.
+//! Comparator0 negative input select
 //
-#define TIMER_INT_MATCH         0x20000000
+#define ACMP_CR_CN             0x00000010
+
+//
+//! Comparator0 Interrupt Enable
+//
+#define ACMP_CR_CMPIE          0x00000002
+
+//
+//! Comparator0 Enable
+//
+#define ACMP_CR_CMPEN          0x00000001
 
 //*****************************************************************************
 //
@@ -129,39 +136,33 @@ extern "C"
 
 //*****************************************************************************
 //
-//! \addtogroup AU9110_TIMER_Exported_APIs AU9110 TIMER API
+//! \addtogroup AU9110_ACMP_Register_SR Comparator Status Register(ACMP_SR)
+//! \brief Definition for the bit fields in the ACMP_SR register.
 //! @{
 //
 //*****************************************************************************
 
-extern void TimerInitConfig(unsigned long ulBase, unsigned long ulConfig,
-                            unsigned long ulTickFreq);
-extern void TimerCounterInitConfig(unsigned long ulBase, unsigned long ulConfig,
-                       unsigned long ulCounterBound);
-extern void TimerStart(unsigned long ulBase);
-extern void TimerStop(unsigned long ulBase);
-extern void TimerCounterEnable(unsigned long ulBase);
-extern void TimerCounterDisable(unsigned long ulBase);
+//
+//! Comparator1 Output
+//
+#define ACMP_SR_CO1             0x00000008
 
-extern void TimerPrescaleSet(unsigned long ulBase, unsigned long ulValue);
-extern unsigned long TimerPrescaleGet(unsigned long ulBase);
+//
+//! Comparator0 Output
+//
+#define ACMP_SR_CO0             0x00000004
 
-extern void TimerLoadSet(unsigned long ulBase, unsigned long ulValue);
-extern unsigned long TimerLoadGet(unsigned long ulBase);
+//
+//! Comparator1 Flag
+//
+#define ACMP_SR_CMPF1           0x00000002
 
-extern unsigned long TimerValueGet(unsigned long ulBase);
-extern void TimerMatchSet(unsigned long ulBase, unsigned long ulValue);
-extern unsigned long TimerMatchGet(unsigned long ulBase);
+//
+//! Comparator0 Flag
+//
+#define ACMP_SR_CMPF0           0x00000001
 
-extern void TimerIntCallbackInit(unsigned long ulBase, 
-                                 xtEventCallback xtTimerCallback);
 
-extern void TimerIntEnable(unsigned long ulBase, unsigned long ulIntFlags);
-extern void TimerIntDisable(unsigned long ulBase, unsigned long ulIntFlags);
-extern xtBoolean TimerIntStatus(unsigned long ulBase, 
-                                unsigned long ulIntFlags);
-extern void TimerIntClear(unsigned long ulBase, unsigned long ulIntFlags);
-extern void TimerExtClockFreqSet(unsigned long ulClockFreq);
 
 //*****************************************************************************
 //
@@ -187,16 +188,5 @@ extern void TimerExtClockFreqSet(unsigned long ulClockFreq);
 //
 //*****************************************************************************
 
-//*****************************************************************************
-//
-// Mark the end of the C bindings section for C++ compilers.
-//
-//*****************************************************************************
-#ifdef __cplusplus
-}
-#endif
-
-#endif // __xTIMER_H__
-
-
+#endif // __XHW_ACMP_H__
 

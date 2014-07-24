@@ -38,15 +38,15 @@
 //*****************************************************************************
 
 #include "CoX.h"
-#include "xhw_sysctl.h"
-#include "xhw_uart.h"
+#include "hw_sysctl.h"
+#include "hw_uart.h"
 
 //*****************************************************************************
 //
 // An array is UART callback function point
 //
 //*****************************************************************************
-static xtEventCallback g_pfnUARTHandlerCallbacks[6]={0};
+static xtEventCallback g_pfnUARTHandlerCallbacks[1]={0};
 
 //*****************************************************************************
 //
@@ -65,12 +65,7 @@ static xtEventCallback g_pfnUARTHandlerCallbacks[6]={0};
 static xtBoolean
 UARTBaseValid(unsigned long ulBase)
 {
-    return((ulBase == UART0_BASE) || \
-           (ulBase == UART1_BASE) || \
-           (ulBase == UART2_BASE) || \
-           (ulBase == UART3_BASE) || \
-           (ulBase == UART4_BASE) || \
-           (ulBase == UART5_BASE));
+    return((ulBase == UART0_BASE));
 }
 #endif
 
@@ -96,131 +91,6 @@ UART0_IRQHandler(void)
     if(g_pfnUARTHandlerCallbacks[0] != 0)
 	{
         g_pfnUARTHandlerCallbacks[0](0, 0, ulUART0IntStatus, 0);
-    }
-}
-
-//*****************************************************************************
-//
-//! \internal
-//! \brief The function is the UART1 interrupt service.
-//!
-//! \param None.
-//!
-//! This function is a interrupt service routine of UART1
-//!
-//! \return None.
-//
-//*****************************************************************************
-void
-UART1_IRQHandler(void)
-{
-    unsigned long ulUART1IntStatus;
-
-	ulUART1IntStatus = xHWREG(UART1_BASE + UART_ISR);
-
-    if(g_pfnUARTHandlerCallbacks[1] != 0)
-    {
-       g_pfnUARTHandlerCallbacks[1](0, 0, ulUART1IntStatus, 0);
-    }
-}
-
-//*****************************************************************************
-//
-//! \internal
-//! \brief The function is the UART2 interrupt service.
-//!
-//! \param None.
-//!
-//! This function is a interrupt service routine of UART2
-//!
-//! \return None.
-//
-//*****************************************************************************
-void
-UART2_IRQHandler(void)
-{
-    unsigned long ulUART2IntStatus;
-
-	ulUART2IntStatus = xHWREG(UART2_BASE + UART_ISR);
-
-    if(g_pfnUARTHandlerCallbacks[2] != 0)
-    {
-       g_pfnUARTHandlerCallbacks[2](0, 0, ulUART2IntStatus, 0);
-    }
-}
-
-//*****************************************************************************
-//
-//! \internal
-//! \brief The function is the UART3 interrupt service.
-//!
-//! \param None.
-//!
-//! This function is a interrupt service routine of UART3
-//!
-//! \return None.
-//
-//*****************************************************************************
-void
-UART3_IRQHandler(void)
-{
-    unsigned long ulUART3IntStatus;
-
-	ulUART3IntStatus = xHWREG(UART3_BASE + UART_ISR);
-
-    if(g_pfnUARTHandlerCallbacks[3] != 0)
-    {
-       g_pfnUARTHandlerCallbacks[3](0, 0, ulUART3IntStatus, 0);
-    }
-}
-
-//*****************************************************************************
-//
-//! \internal
-//! \brief The function is the UART4 interrupt service.
-//!
-//! \param None.
-//!
-//! This function is a interrupt service routine of UART4
-//!
-//! \return None.
-//
-//*****************************************************************************
-void
-UART4_IRQHandler(void)
-{
-    unsigned long ulUART4IntStatus;
-
-	ulUART4IntStatus = xHWREG(UART1_BASE + UART_ISR);
-
-    if(g_pfnUARTHandlerCallbacks[4] != 0)
-    {
-       g_pfnUARTHandlerCallbacks[4](0, 0, ulUART4IntStatus, 0);
-    }
-}
-
-//*****************************************************************************
-//
-//! \internal
-//! \brief The function is the UART5 interrupt service.
-//!
-//! \param None.
-//!
-//! This function is a interrupt service routine of UART5
-//!
-//! \return None.
-//
-//*****************************************************************************
-void
-UART5_IRQHandler(void)
-{
-    unsigned long ulUART5IntStatus;
-
-	ulUART5IntStatus = xHWREG(UART5_BASE + UART_ISR);
-
-    if(g_pfnUARTHandlerCallbacks[5] != 0)
-    {
-       g_pfnUARTHandlerCallbacks[5](0, 0, ulUART5IntStatus, 0);
     }
 }
 
@@ -470,15 +340,7 @@ xUARTConfigSet(unsigned long ulBase,
     //
     // Reset UART.
     //
-    switch(ulBase){
-        case UART0_BASE: xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART0); break;
-        case UART1_BASE: xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART1); break;
-        case UART2_BASE: xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART2); break;
-        case UART3_BASE: xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART3); break;
-        case UART4_BASE: xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART4); break;
-        case UART5_BASE: xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART5); break;
-        default: break;
-    }
+    xSysCtlPeripheralReset(xSYSCTL_PERIPH_UART0);
 
     xHWREG(SYSCLK_CLKSEL1) &= ~(0x03 << SYSCLK_CLKSEL1_UART_S); //Set Uart clock to HXT
     xHWREG(SYSCLK_CLKDIV0) &= ~(0x0F << SYSCLK_CLKDIV_UART_S);
@@ -635,7 +497,6 @@ xUARTIrDAEnable(unsigned long ulBase )
     // Enable SIR.
     //
     xHWREG(ulBase + UART_FUN_SEL) = UART_FUN_SEL_IRDA_EN;
-
 }
 
 //*****************************************************************************
@@ -725,31 +586,6 @@ xUARTLINEnable(unsigned long ulBase )
 
 //*****************************************************************************
 //
-//! \brief Enables 485 Function mode on the specified UART.
-//!
-//! \param ulBase is the base address of the UART port.
-//!
-//! Enables the 485 control bit for 485 Function on the UART.
-//!
-//! \return None.
-//
-//*****************************************************************************
-void
-UARTEnable485(unsigned long ulBase )
-{
-    //
-    // Check the arguments.
-    //
-    xASSERT(UARTBaseValid(ulBase));
-
-    //
-    // Enable LIN Function.
-    //
-    xHWREG(ulBase + UART_FUN_SEL) = UART_FUN_SEL_RS485_EN;
-}
-
-//*****************************************************************************
-//
 //! \brief Disables LIN Function mode on the specified UART.
 //!
 //! \param ulBase is the base address of the UART port.
@@ -814,8 +650,8 @@ xUARTLINConfig(unsigned long ulBase, unsigned long ulBaud,
     //
     xUARTLINEnable(ulBase);
 
-    xHWREG(ulBase + UART_ALT_CSR) &= ~UART_ALT_CSR_LIN_BKFL_M;
-    xHWREG(ulBase + UART_ALT_CSR) |= ulConfig;
+    xHWREG(ulBase + UART_LIN_CON) &= ~UART_LIN_CON_LIN_BKFL_M;
+    xHWREG(ulBase + UART_LIN_CON) |= ulConfig;
 }
 
 //*****************************************************************************
@@ -1304,18 +1140,7 @@ xUARTIntCallbackInit(unsigned long ulBase,
     //
     xASSERT(UARTBaseValid(ulBase));
 
-    if (ulBase == UART0_BASE)
-    {
-        g_pfnUARTHandlerCallbacks[0] = xtUARTCallback;
-    }
-    else if (ulBase == UART1_BASE)
-    {
-        g_pfnUARTHandlerCallbacks[1] = xtUARTCallback;
-    }
-    else
-    {
-        g_pfnUARTHandlerCallbacks[2] = xtUARTCallback;
-    }
+    g_pfnUARTHandlerCallbacks[0] = xtUARTCallback;
 }
 
 //*****************************************************************************
@@ -1965,8 +1790,8 @@ xUARTEnable(unsigned long ulBase, unsigned long ulBlock)
     //
     // Enable RX | TX | the UART.
     //
-    xHWREG(ulBase + UART_ALT_CSR) |= ulBlock & (UART_ALT_CSR_LIN_RX_EN |
-    		UART_ALT_CSR_LIN_TX_EN);
+    xHWREG(ulBase + UART_LIN_CON) |= ulBlock & (UART_LIN_CON_LIN_RX_EN |
+    		UART_LIN_CON_LIN_TX_EN);
     if (ulBlock & UART_BLOCK_TX)
     {
         xHWREG(ulBase + UART_IRCR) |= UART_IRCR_TX_SELECT;
@@ -2002,68 +1827,8 @@ xUARTDisable(unsigned long ulBase, unsigned long ulBlock)
 	//
     // Enable RX | TX | the UART.
     //
-    xHWREG(ulBase + UART_ALT_CSR) &= ~(ulBlock & (UART_ALT_CSR_LIN_RX_EN |
-    		                                        UART_ALT_CSR_LIN_TX_EN));
-}
-
-//*****************************************************************************
-//
-//! \brief Open 485 mode on the specified UART.
-//!
-//! \param ulBase is the base address of the UART port.
-//! \param ul485Config is the Config of the UART port in 485 mode.
-//! \param ulUARTConfig is the Config for UART.
-//!
-//! Open the 485 mode for the UART.
-//!
-//! The baud rate is provided in the \e ulBaud parameter and the data
-//! format in the \e ulUARTConfig parameter.
-//!
-//! The \e ulUARTConfig parameter is the logical OR of three values: the number of
-//! data bits, the number of stop bits, and the parity.  \b UART_CONFIG_WLEN_8,
-//! \b UART_CONFIG_WLEN_7, \b UART_CONFIG_WLEN_6, and \b UART_CONFIG_WLEN_5
-//! select from eight to five data bits per byte (respectively).
-//! \b UART_CONFIG_STOP_ONE and \b UART_CONFIG_STOP_TWO select one or two stop
-//! bits (respectively).  \b UART_CONFIG_PAR_NONE, \b UART_CONFIG_PAR_EVEN,
-//! \b UART_CONFIG_PAR_ODD, \b UART_CONFIG_PAR_ONE, and \b UART_CONFIG_PAR_ZERO
-//! select the parity mode (no parity bit, even parity bit, odd parity bit,
-//! parity bit always one, and parity bit always zero, respectively).
-//!
-//! The \e ul485Config parameter is the logical OR of five values: the
-//! Address match value,RS-485 Address Detection Enable,RS-485 Auto Direction
-//! Mode (AUD),RS-485 Auto Address Detection Operation Mode (AAD),RS-485 Normal
-//! Multi-drop Operation Mode (NMM).
-//!
-//! \return None.
-//
-//*****************************************************************************
-void
-UART485Config(unsigned long ulBase, unsigned long ulBaud,
-              unsigned long ul485Config, unsigned long ulUARTConfig)
-{
-    //
-    // Check the arguments.
-    //
-    xASSERT(UARTBaseValid(ulBase));
-
-
-    //
-    // Set baud, 8 bit word length, even parity, 2 stop bits (even though the STP2
-    // bit is ignored when in smartcard mode, this lets the caller read back
-    // the actual setting in use).
-    //
-    xUARTConfigSet(ulBase, ulBaud, ulUARTConfig);
-
-    //
-    // Enable 485.
-    //
-    UARTEnable485(ulBase);
-    if(ul485Config & UART_ALT_CSR_RS485_NMM)
-    {
-    	xHWREG(ulBase + UART_FCR) |= UART_FCR_RX_DIS;
-    }
-    xHWREG(ulBase + UART_ALT_CSR) &= 0xFFFFFFFF;
-    xHWREG(ulBase + UART_ALT_CSR) |= ul485Config;
+    xHWREG(ulBase + UART_LIN_CON) &= ~(ulBlock & (UART_LIN_CON_LIN_RX_EN |
+    		                                        UART_LIN_CON_LIN_TX_EN));
 }
 
 //*****************************************************************************

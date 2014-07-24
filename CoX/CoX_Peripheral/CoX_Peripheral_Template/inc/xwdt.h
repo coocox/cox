@@ -78,10 +78,12 @@ extern "C"
 //!
 //! \section    xWDT_Function_Type_CoX     2. CoX Port Details
 //!
-//! | xWDT Function Type    |      CoX      |         LPC17xx        |
-//! |-----------------------|---------------|------------------------|
-//! | xWDT_INT_FUNCTION     |   Mandatory   |            Y           |
-//! | xWDT_RESET_FUNCTION   |   Mandatory   |            Y           |
+//! | xWDT Function Type    |      CoX      |
+//! |-----------------------|---------------|
+//! | xWDT_INT_FUNCTION     |   Mandatory   |
+//! | xWDT_RESET_FUNCTION   |   Mandatory   |
+//! | xWDT_INT_FUNCTION     | None-Mandatory|
+//! | xWDT_RESET_FUNCTION   | None-Mandatory|
 //!
 //! @{
 //
@@ -126,10 +128,11 @@ extern "C"
 //!
 //! \section    xWDT_Clock_Config_CoX     2. CoX Port Details
 //!
-//! | Clock Configuration     |       CoX      |         LPC17xx        |
-//! |-------------------------|----------------|------------------------|
-//! | xWDT_S_INTSL            |    Mandatory   |            Y           |
-//! | xWDT_S_EXTSL            |    Mandatory   |            Y           |
+//! | Clock Configuration     |       CoX      |
+//! |-------------------------|----------------|
+//! | xWDT_S_INTSL            |    Mandatory   |
+//! | xWDT_S_EXTSL            |    Mandatory   |
+//! | xWDT_S_HCLK_DIV         | None-Mandatory |
 //!
 //! @{
 //
@@ -159,15 +162,15 @@ extern "C"
 //!
 //! \section    xWDT_Exported_APIs_Port CoX Port Details
 //!
-//! |       xWDT API            |       CoX      |        LPC17xx         |
-//! |---------------------------|----------------|------------------------|
-//! | \ref  xWDTInit            |    Mandatory   |            Y           |
-//! | \ref  xWDTEnable          |    Mandatory   |            Y           |
-//! | \ref  xWDTDisable         |    Mandatory   |            Y           |
-//! | \ref  xWDTRestart         |    Mandatory   |            Y           |
-//! | \ref  xWDTFunctionEnable  |    Mandatory   |            Y           |
-//! | \ref  xWDTFunctionDisable |    Mandatory   |            Y           |
-//! | \ref  xWDTIntCallbackInit |    Mandatory   |            Y           |
+//! |       xWDT API            |       CoX      |
+//! |---------------------------|----------------|
+//! | \ref  xWDTInit            |    Mandatory   |
+//! | \ref  xWDTEnable          |    Mandatory   |
+//! | \ref  xWDTDisable         |    Mandatory   |
+//! | \ref  xWDTRestart         |    Mandatory   |
+//! | \ref  xWDTFunctionEnable  |    Mandatory   |
+//! | \ref  xWDTFunctionDisable |    Mandatory   |
+//! | \ref  xWDTIntCallbackInit |    Mandatory   |
 //!
 //! @{
 //
@@ -188,6 +191,7 @@ extern "C"
 //! \param  [in] ulConfig is the WDT clock source Selection.
 //!              - \ref xWDT_S_INTSL
 //!              - \ref xWDT_S_EXTSL
+//!              - \ref
 //!
 //! \param  [in] ulReload is the WDT's reload value.
 //!              0xFF <= ulReload <= 0xFFFFFFFF

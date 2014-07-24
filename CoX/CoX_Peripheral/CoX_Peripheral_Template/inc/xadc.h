@@ -99,13 +99,13 @@ extern "C"
 //!
 //! \section xADC_Ints_CoX 2. CoX Port Details
 //! \verbatim
-//! +------------------------+----------------+--------+
-//! |xADC Interrupt Source   |       CoX      | LPC17xx|
-//! |------------------------|----------------|--------|
-//! |xADC_INT_COMP           |  Non-Mandatory |    N   |
-//! |------------------------|----------------|--------|
-//! |xADC_INT_END_CONVERSION |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
+//! +------------------------+----------------+
+//! |xADC Interrupt Source   |       CoX      |
+//! |------------------------|----------------|
+//! |xADC_INT_COMP           |  Non-Mandatory |
+//! |------------------------|----------------|
+//! |xADC_INT_END_CONVERSION |    Mandatory   |
+//! |------------------------|----------------|
 //! \endverbatim
 //!    
 //! @{
@@ -113,12 +113,12 @@ extern "C"
 //*****************************************************************************
 
 //
-//! Interrupt when any of comparators match
+//! The comparator0 match Interrupt
 //
 #define xADC_INT_COMP0          ADC_INT_COMP0
 
 //
-// The comparator1 match Interrupt
+//! The comparator1 match Interrupt
 //
 #define xADC_INT_COMP1          ADC_INT_COMP1
 
@@ -155,13 +155,13 @@ extern "C"
 //!
 //! \section xADC_Events_Port 3. CoX Port Details
 //! \verbatim
-//! +-------------------------+----------------+----------------+
-//! |xADC Event               |       CoX      |     LPC17xx    |
-//! |-------------------------|----------------|----------------|
-//! |xADC_EVENT_$COMPx$       |  Non-Mandatory |        N       |
-//! |-------------------------|----------------|----------------|
-//! |xADC_EVENT_END_CONVERSION|    Mandatory   |        Y       |
-//! |-------------------------|----------------|----------------|
+//! +-------------------------+----------------+
+//! |xADC Event               |       CoX      |
+//! |-------------------------|----------------|
+//! |xADC_EVENT_$COMPx$       |  Non-Mandatory |
+//! |-------------------------|----------------|
+//! |xADC_EVENT_END_CONVERSION|    Mandatory   |
+//! |-------------------------|----------------|
 //! \endverbatim
 //! @{
 //
@@ -200,13 +200,13 @@ extern "C"
 //!
 //! \section xADC_Mode_Port 2. CoX Port Details
 //! \verbatim
-//! +---------------------------+----------------+--------+
-//! |xADC Mode                  |       CoX      | LPC17xx|
-//! |---------------------------|----------------|--------|
-//! |xADC_MODE_SCAN_SINGLE_CYCLE|    Mandatory   |    Y   |
-//! |---------------------------|----------------|--------|
-//! |xADC_MODE_SCAN_CONTINUOUS  |  Non-Mandatory |    Y   |
-//! |---------------------------|----------------|--------|
+//! +---------------------------+----------------+
+//! |xADC Mode                  |       CoX      |
+//! |---------------------------|----------------|
+//! |xADC_MODE_SCAN_SINGLE_CYCLE|    Mandatory   |
+//! |---------------------------|----------------|
+//! |xADC_MODE_SCAN_CONTINUOUS  |  Non-Mandatory |
+//! |---------------------------|----------------|
 //! \endverbatim
 //! @{
 //
@@ -254,18 +254,18 @@ extern "C"
 //!
 //! \section xADC_Trigger_Source_Port 2. CoX Port Details
 //! \verbatim
-//! +---------------------------+----------------+-----------------------+
-//! |xADC Trigger Source        |       CoX      |       LPC17xx         |
-//! |---------------------------|----------------|-----------------------|
-//! |xADC_TRIGGER_PROCESSOR     |    Mandatory   |          Y            |
-//! |---------------------------|----------------|-----------------------|
-//! |xADC_TRIGGER_EXT_$ShortPin$|  Non-Mandatory |xADC_TRIGGER_EXT_EINT0 |
-//! |                           |                |xADC_TRIGGER_EXT_CAP01 |
-//! |                           |                |xADC_TRIGGER_EXT_MAT01 |
-//! |                           |                |xADC_TRIGGER_EXT_MAT03 |
-//! |                           |                |xADC_TRIGGER_EXT_MAT10 |
-//! |                           |                |xADC_TRIGGER_EXT_MAT11 |   
-//! |---------------------------|----------------|-----------------------|
+//! +---------------------------+----------------+
+//! |xADC Trigger Source        |       CoX      |
+//! |---------------------------|----------------|
+//! |xADC_TRIGGER_PROCESSOR     |    Mandatory   |
+//! |---------------------------|----------------|
+//! |xADC_TRIGGER_EXT_$ShortPin$|  Non-Mandatory |
+//! |                           |                |
+//! |                           |                |
+//! |                           |                |
+//! |                           |                |
+//! |                           |                |
+//! |---------------------------|----------------|
 //! \endverbatim
 //! @{
 //
@@ -330,19 +330,19 @@ extern "C"
 //! \section xADC_EXT_Trigger_Mode_Port CoX Port Details
 //!
 //! \verbatim
-//! +-----------------------------+----------------+--------+
-//! |xADC Ext Trigger Mode        |       CoX      | LPC17xx|
-//! |-----------------------------|----------------|--------|
-//! |xADC_TRIGGER_EXT_LOW_LEVEL   |  Non-Mandatory |    N   |
-//! |-----------------------------|----------------|--------|
-//! |xADC_TRIGGER_EXT_HIGH_LEVEL  |  Non-Mandatory |    N   |
-//! |-----------------------------|----------------|--------|
-//! |xADC_TRIGGER_EXT_RISING_EDGE |  Non-Mandatory |    Y   |
-//! |-----------------------------|----------------|--------|
-//! |xADC_TRIGGER_EXT_FALLING_EDGE|  Non-Mandatory |    Y   |
-//! |-----------------------------|----------------|--------|
-//! |xADC_TRIGGER_EXT_BOTH_EDGE   |  Non-Mandatory |    N   |
-//! |-----------------------------|----------------|--------|
+//! +-----------------------------+----------------+
+//! |xADC Ext Trigger Mode        |       CoX      |
+//! |-----------------------------|----------------|
+//! |xADC_TRIGGER_EXT_LOW_LEVEL   |  Non-Mandatory |
+//! |-----------------------------|----------------|
+//! |xADC_TRIGGER_EXT_HIGH_LEVEL  |  Non-Mandatory |
+//! |-----------------------------|----------------|
+//! |xADC_TRIGGER_EXT_RISING_EDGE |  Non-Mandatory |
+//! |-----------------------------|----------------|
+//! |xADC_TRIGGER_EXT_FALLING_EDGE|  Non-Mandatory |
+//! |-----------------------------|----------------|
+//! |xADC_TRIGGER_EXT_BOTH_EDGE   |  Non-Mandatory |
+//! |-----------------------------|----------------|
 //! \endverbatim 
 //! @{
 //
@@ -405,26 +405,26 @@ extern "C"
 //! .
 //! \section xADC_Step_Config_Sec_Port CoX Port Details
 //! \verbatim
-//! +----------------+----------------+-------------+
-//! |xADC Step Config|       CoX      |   LPC17xx   |
-//! |----------------|----------------|-------------|
-//! |xADC_CTL_CH$x$  |  NonMandatory  |xADC_CTL_CH0 |
-//! |                |                |xADC_CTL_CH1 |
-//! |                |                |xADC_CTL_CH2 |
-//! |                |                |xADC_CTL_CH3 |
-//! |                |                |xADC_CTL_CH4 |
-//! |                |                |xADC_CTL_CH5 |
-//! |                |                |xADC_CTL_CH6 |
-//! |                |                |xADC_CTL_CH7 |
-//! |----------------|----------------|-------------|
-//! |xADC_CTL_TS     |  Non-Mandatory |      N      |
-//! |----------------|----------------|-------------|
-//! |xADC_CTL_CMP$x$ |  Non-Mandatory |      N      |
-//! |----------------|----------------|-------------|
-//! |xADC_CTL_D      |  Non-Mandatory |      N      |
-//! |----------------|----------------|-------------|
-//! |xADC_CTL_END    |  Non-Mandatory |      N      |
-//! |----------------|----------------|-------------|
+//! +----------------+----------------+
+//! |xADC Step Config|       CoX      |
+//! |----------------|----------------|
+//! |xADC_CTL_CH$x$  |  NonMandatory  |
+//! |                |                |
+//! |                |                |
+//! |                |                |
+//! |                |                |
+//! |                |                |
+//! |                |                |
+//! |                |                |
+//! |----------------|----------------|
+//! |xADC_CTL_TS     |  Non-Mandatory |
+//! |----------------|----------------|
+//! |xADC_CTL_CMP$x$ |  Non-Mandatory |
+//! |----------------|----------------|
+//! |xADC_CTL_D      |  Non-Mandatory |
+//! |----------------|----------------|
+//! |xADC_CTL_END    |  Non-Mandatory |
+//! |----------------|----------------|
 //! \endverbatim
 //! @{
 //
@@ -552,11 +552,11 @@ extern "C"
 //! .
 //! \section xADC_Comparator_IDs_Port CoX Port Details
 //! \verbatim
-//! +----------------+----------------+-------------+
-//! |xADC Comp ID    |       CoX      |   LPC17xx   |
-//! |----------------|----------------|-------------|
-//! |xADC_COMP_$x$   |  Non-Mandatory |      N      |
-//! |----------------|----------------|-------------| 
+//! +----------------+----------------+
+//! |xADC Comp ID    |       CoX      |
+//! |----------------|----------------|
+//! |xADC_COMP_$x$   |  Non-Mandatory |
+//! |----------------|----------------|
 //! \endverbatim
 //! @{
 //
@@ -588,15 +588,15 @@ extern "C"
 //!
 //! \section xADC_Comparator_Int_Condition_Port CoX Port Details
 //! \verbatim
-//! +-------------------------+----------------+---------+
-//! |xADC Comp Int Condition  |       CoX      | LPC17xx |
-//! |-------------------------|----------------|---------|
-//! |xADC_COMP_INT_LOW        |  Non-Mandatory |    N    |
-//! |-------------------------|----------------|---------| 
-//! |xADC_COMP_INT_MID        |  Non-Mandatory |    N    |
-//! |-------------------------|----------------|---------| 
-//! |xADC_COMP_INT_HIGH       |  Non-Mandatory |    N    |
-//! +-------------------------+----------------+---------+ 
+//! +-------------------------+----------------+
+//! |xADC Comp Int Condition  |       CoX      |
+//! |-------------------------|----------------|
+//! |xADC_COMP_INT_LOW        |  Non-Mandatory |
+//! |-------------------------|----------------|
+//! |xADC_COMP_INT_MID        |  Non-Mandatory |
+//! |-------------------------|----------------|
+//! |xADC_COMP_INT_HIGH       |  Non-Mandatory |
+//! +-------------------------+----------------+
 //! \endverbatim
 //! 
 //! @{
@@ -631,43 +631,43 @@ extern "C"
 //!
 //! \section xADC_Exported_APIs_Port CoX Port Details
 //! \verbatim
-//! +------------------------+----------------+--------+
-//! |xADC API                |       CoX      | LPC17xx|
-//! |------------------------|----------------|--------|
-//! |xADCConfigure           |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xADCStepConfigure       |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xADCIntCallbackInit     |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xADCIntEnable           |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xADCIntDisable          |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xADCDMAEnable           |  Non-Mandatory |    N   |
-//! |------------------------|----------------|--------|
-//! |xADCDMADisable          |  Non-Mandatory |    N   |
-//! |------------------------|----------------|--------|
-//! |xADCEnable              |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xADCDisable             |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xADCProcessorTrigger    |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xADCDataGet             |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xADCOverflow            |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xADCOverflowClear       |    Mandatory   |    Y   |
-//! |------------------------|----------------|--------|
-//! |xADCCompConditionConfig |  Non-Mandatory |    N   |
-//! |------------------------|----------------|--------|
-//! |xADCCompRegionSet       |  Non-Mandatory |    N   |
-//! |------------------------|----------------|--------|
-//! |xADCCompEnable          |  Non-Mandatory |    N   |
-//! |------------------------|----------------|--------|
-//! |xADCCompDisable         |  Non-Mandatory |    N   |
-//! |------------------------|----------------|--------|
+//! +------------------------+----------------+
+//! |xADC API                |       CoX      |
+//! |------------------------|----------------|
+//! |xADCConfigure           |    Mandatory   |
+//! |------------------------|----------------|
+//! |xADCStepConfigure       |    Mandatory   |
+//! |------------------------|----------------|
+//! |xADCIntCallbackInit     |    Mandatory   |
+//! |------------------------|----------------|
+//! |xADCIntEnable           |    Mandatory   |
+//! |------------------------|----------------|
+//! |xADCIntDisable          |    Mandatory   |
+//! |------------------------|----------------|
+//! |xADCDMAEnable           |  Non-Mandatory |
+//! |------------------------|----------------|
+//! |xADCDMADisable          |  Non-Mandatory |
+//! |------------------------|----------------|
+//! |xADCEnable              |    Mandatory   |
+//! |------------------------|----------------|
+//! |xADCDisable             |    Mandatory   |
+//! |------------------------|----------------|
+//! |xADCProcessorTrigger    |    Mandatory   |
+//! |------------------------|----------------|
+//! |xADCDataGet             |    Mandatory   |
+//! |------------------------|----------------|
+//! |xADCOverflow            |    Mandatory   |
+//! |------------------------|----------------|
+//! |xADCOverflowClear       |    Mandatory   |
+//! |------------------------|----------------|
+//! |xADCCompConditionConfig |  Non-Mandatory |
+//! |------------------------|----------------|
+//! |xADCCompRegionSet       |  Non-Mandatory |
+//! |------------------------|----------------|
+//! |xADCCompEnable          |  Non-Mandatory |
+//! |------------------------|----------------|
+//! |xADCCompDisable         |  Non-Mandatory |
+//! |------------------------|----------------|
 //! \endverbatim
 //! @{
 //
