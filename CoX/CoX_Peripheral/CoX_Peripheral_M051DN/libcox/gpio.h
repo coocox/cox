@@ -317,6 +317,63 @@ extern "C"
 
 //*****************************************************************************
 //
+//! \addtogroup M051_GP_Short_Pin M051 General Purpose Short Pin
+//! @{
+//
+//*****************************************************************************
+#define GPA0                    GPIO_PORTA_BASE, GPIO_PIN_0
+#define GPA1                    GPIO_PORTA_BASE, GPIO_PIN_1
+#define GPA2                    GPIO_PORTA_BASE, GPIO_PIN_2
+#define GPA3                    GPIO_PORTA_BASE, GPIO_PIN_3
+#define GPA4                    GPIO_PORTA_BASE, GPIO_PIN_4
+#define GPA5                    GPIO_PORTA_BASE, GPIO_PIN_5
+#define GPA6                    GPIO_PORTA_BASE, GPIO_PIN_6
+#define GPA7                    GPIO_PORTA_BASE, GPIO_PIN_7
+
+#define GPB0                    GPIO_PORTB_BASE, GPIO_PIN_0
+#define GPB1                    GPIO_PORTB_BASE, GPIO_PIN_1
+#define GPB2                    GPIO_PORTB_BASE, GPIO_PIN_2
+#define GPB3                    GPIO_PORTB_BASE, GPIO_PIN_3
+#define GPB4                    GPIO_PORTB_BASE, GPIO_PIN_4
+#define GPB5                    GPIO_PORTB_BASE, GPIO_PIN_5
+#define GPB6                    GPIO_PORTB_BASE, GPIO_PIN_6
+#define GPB7                    GPIO_PORTB_BASE, GPIO_PIN_7
+
+#define GPC0                    GPIO_PORTC_BASE, GPIO_PIN_0
+#define GPC1                    GPIO_PORTC_BASE, GPIO_PIN_1
+#define GPC2                    GPIO_PORTC_BASE, GPIO_PIN_2
+#define GPC3                    GPIO_PORTC_BASE, GPIO_PIN_3
+#define GPC4                    GPIO_PORTC_BASE, GPIO_PIN_4
+#define GPC5                    GPIO_PORTC_BASE, GPIO_PIN_5
+#define GPC6                    GPIO_PORTC_BASE, GPIO_PIN_6
+#define GPC7                    GPIO_PORTC_BASE, GPIO_PIN_7
+
+#define GPD0                    GPIO_PORTD_BASE, GPIO_PIN_0
+#define GPD1                    GPIO_PORTD_BASE, GPIO_PIN_1
+#define GPD2                    GPIO_PORTD_BASE, GPIO_PIN_2
+#define GPD3                    GPIO_PORTD_BASE, GPIO_PIN_3
+#define GPD4                    GPIO_PORTD_BASE, GPIO_PIN_4
+#define GPD5                    GPIO_PORTD_BASE, GPIO_PIN_5
+#define GPD6                    GPIO_PORTD_BASE, GPIO_PIN_6
+#define GPD7                    GPIO_PORTD_BASE, GPIO_PIN_7
+
+#define GPE0                    GPIO_PORTE_BASE, GPIO_PIN_0
+#define GPE1                    GPIO_PORTE_BASE, GPIO_PIN_1
+#define GPE2                    GPIO_PORTE_BASE, GPIO_PIN_2
+#define GPE3                    GPIO_PORTE_BASE, GPIO_PIN_3
+#define GPE4                    GPIO_PORTE_BASE, GPIO_PIN_4
+#define GPE5                    GPIO_PORTE_BASE, GPIO_PIN_5
+#define GPE6                    GPIO_PORTE_BASE, GPIO_PIN_6
+#define GPE7                    GPIO_PORTE_BASE, GPIO_PIN_7
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
 //! \addtogroup M051_GPIO_Pin_Config M051 GPIO Pin Config
 //! \brief Values that can be passed to xGPIOPinConfigure as the ulPinConfig 
 //! parameter.

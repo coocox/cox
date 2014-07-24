@@ -11,7 +11,7 @@
 #include "wdt.h"
 #include "rtc.h"
 
-#define WDT_BASE                WWDT_BASE
+//#define WDT_BASE                WWDT_BASE
 
 #define SYSCTL_PERIPH_IOPA      SYSCTL_PERIPH_GPIO
 #define SYSCTL_PERIPH_IOPB      SYSCTL_PERIPH_GPIO

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Project version="2G - 1.7.6" name="template">
   <Target name="template" isCurrent="1">
-    <Device manufacturerId="8" manufacturerName="Nuvoton" chipId="622" chipName="NUC472HI8AE" boardId="" boardName=""/>
+    <Device manufacturerId="8" manufacturerName="Nuvoton" chipId="598" chipName="M0516ZDN" boardId="" boardName=""/>
     <BuildOption>
       <Compile>
         <Option name="OptimizationLevel" value="0"/>
@@ -12,7 +12,7 @@
           <Includepath path="."/>
         </Includepaths>
         <DefinedSymbols>
-          <Define name="NUC472HI8AE"/>
+          <Define name="M0516ZDN"/>
         </DefinedSymbols>
       </Compile>
       <Link useDefault="0">
@@ -22,10 +22,11 @@
         <Option name="nostartfiles" value="1"/>
         <Option name="LTO" value="0"/>
         <Option name="IsNewStartupCode" value="1"/>
+        <Option name="Library" value="Not use C Library"/>
         <LinkedLibraries/>
         <MemoryAreas debugInFlashNotRAM="1">
-          <Memory name="IROM1" type="ReadOnly" size="0x00080000" startValue="0x00000000"/>
-          <Memory name="IRAM1" type="ReadWrite" size="0x00010000" startValue="0x20000000"/>
+          <Memory name="IROM1" type="ReadOnly" size="0x00010000" startValue="0x00000000"/>
+          <Memory name="IRAM1" type="ReadWrite" size="0x00001000" startValue="0x20000000"/>
           <Memory name="IROM2" type="ReadOnly" size="" startValue=""/>
           <Memory name="IRAM2" type="ReadWrite" size="" startValue=""/>
         </MemoryAreas>
@@ -60,70 +61,74 @@
       <Option name="org.coocox.codebugger.gdbjtag.core.autoDownload" value="1"/>
       <Option name="org.coocox.codebugger.gdbjtag.core.verify" value="1"/>
       <Option name="org.coocox.codebugger.gdbjtag.core.downloadFuction" value="Erase Effected"/>
-      <Option name="org.coocox.codebugger.gdbjtag.core.defaultAlgorithm" value="NUC4xx_512.elf"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.defaultAlgorithm" value="M051_64.elf"/>
     </DebugOption>
     <ExcludeFile/>
   </Target>
   <Components path="./"/>
   <Files>
-    <File name="libcox/inc/xhw_acmp.h" path="../../../../libcox/xhw_acmp.h" type="1"/>
     <File name="CoX_Template/xi2c.h" path="../../../../../CoX_Peripheral_Template/inc/xi2c.h" type="1"/>
     <File name="CoX_Template/xpwm.h" path="../../../../../CoX_Peripheral_Template/inc/xpwm.h" type="1"/>
     <File name="CoX_Template/xrtc.h" path="../../../../../CoX_Peripheral_Template/inc/xrtc.h" type="1"/>
+    <File name="libcox/CoX_port" path="" type="2"/>
     <File name="libcox/inc/timer.h" path="../../../../libcox/timer.h" type="1"/>
-    <File name="libcox/src/xtimer.c" path="../../../../libcox/xtimer.c" type="1"/>
-    <File name="libcox/inc/CoX_base.h" path="../../../../libcox/CoX_base.h" type="1"/>
     <File name="CoX_Template/xsysctl.h" path="../../../../../CoX_Peripheral_Template/inc/xsysctl.h" type="1"/>
     <File name="CoX_Template/xdma.h" path="../../../../../CoX_Peripheral_Template/inc/xdma.h" type="1"/>
-    <File name="libcox/src/xacmp.c" path="../../../../libcox/xacmp.c" type="1"/>
-    <File name="libcox/inc/xhw_gpio.h" path="../../../../libcox/xhw_gpio.h" type="1"/>
     <File name="CoX_Template/xwdt.h" path="../../../../../CoX_Peripheral_Template/inc/xwdt.h" type="1"/>
-    <File name="libcox/inc/xhw_pwm.h" path="../../../../libcox/xhw_pwm.h" type="1"/>
     <File name="CoX_Template/xuart.h" path="../../../../../CoX_Peripheral_Template/inc/xuart.h" type="1"/>
-    <File name="libcox/src/xspi.c" path="../../../../libcox/xspi.c" type="1"/>
-    <File name="CoX_Template/xhw_types.h" path="../../../../../CoX_Peripheral_Template/inc/xhw_types.h" type="1"/>
     <File name="libcox/src" path="" type="2"/>
+    <File name="CoX_Template/xhw_types.h" path="../../../../../CoX_Peripheral_Template/inc/xhw_types.h" type="1"/>
+    <File name="libcox/CoX_port/xPort.h" path="../../../../libcox/xPort.h" type="1"/>
     <File name="libcox/inc/pwm.h" path="../../../../libcox/pwm.h" type="1"/>
     <File name="Startup/startup_coide.c" path="../../../../startup/src/startup_coide.c" type="1"/>
     <File name="libcox/inc/i2c.h" path="../../../../libcox/i2c.h" type="1"/>
+    <File name="libcox/inc/dma.h" path="../../../../libcox/dma.h" type="1"/>
     <File name="libcox/inc/gpio.h" path="../../../../libcox/gpio.h" type="1"/>
-    <File name="libcox/inc/xhw_i2c.h" path="../../../../libcox/xhw_i2c.h" type="1"/>
     <File name="CoX_Template" path="" type="2"/>
+    <File name="libcox/src/sysctl.c" path="../../../../libcox/sysctl.c" type="1"/>
     <File name="libcox" path="" type="2"/>
+    <File name="libcox/inc/hw_gpio.h" path="../../../../libcox/hw_gpio.h" type="1"/>
     <File name="CoX_Template/xacmp.h" path="../../../../../CoX_Peripheral_Template/inc/xacmp.h" type="1"/>
     <File name="libcox/inc/acmp.h" path="../../../../libcox/acmp.h" type="1"/>
     <File name="libcox/inc/uart.h" path="../../../../libcox/uart.h" type="1"/>
+    <File name="libcox/inc/hw_acmp.h" path="../../../../libcox/hw_acmp.h" type="1"/>
+    <File name="libcox/inc/hw_sysctl.h" path="../../../../libcox/hw_sysctl.h" type="1"/>
     <File name="CoX_Template/xhw_nvic.h" path="../../../../../CoX_Peripheral_Template/inc/xhw_nvic.h" type="1"/>
     <File name="libcox/inc/wdt.h" path="../../../../libcox/wdt.h" type="1"/>
     <File name="CoX_Template/xdebug.h" path="../../../../../CoX_Peripheral_Template/inc/xdebug.h" type="1"/>
-    <File name="libcox/src/xgpio.c" path="../../../../libcox/xgpio.c" type="1"/>
     <File name="CoX_Template/xgpio.h" path="../../../../../CoX_Peripheral_Template/inc/xgpio.h" type="1"/>
-    <File name="libcox/inc/xhw_timer.h" path="../../../../libcox/xhw_timer.h" type="1"/>
-    <File name="libcox/src/xuart.c" path="../../../../libcox/xuart.c" type="1"/>
+    <File name="libcox/inc/hw_adc.h" path="../../../../libcox/hw_adc.h" type="1"/>
+    <File name="libcox/src/gpio.c" path="../../../../libcox/gpio.c" type="1"/>
+    <File name="libcox/inc/rtc.h" path="../../../../libcox/rtc.h" type="1"/>
+    <File name="libcox/src/core.c" path="../../../../libcox/core.c" type="1"/>
     <File name="CoX_Template/xadc.h" path="../../../../../CoX_Peripheral_Template/inc/xadc.h" type="1"/>
     <File name="libcox/inc" path="" type="2"/>
-    <File name="libcox/src/xadc.c" path="../../../../libcox/xadc.c" type="1"/>
+    <File name="libcox/inc/hw_pwm.h" path="../../../../libcox/hw_pwm.h" type="1"/>
+    <File name="libcox/inc/hw_uart.h" path="../../../../libcox/hw_uart.h" type="1"/>
+    <File name="libcox/src/uart.c" path="../../../../libcox/uart.c" type="1"/>
     <File name="CoX_Template/xtimer.h" path="../../../../../CoX_Peripheral_Template/inc/xtimer.h" type="1"/>
-    <File name="libcox/src/xpwm.c" path="../../../../libcox/xpwm.c" type="1"/>
+    <File name="libcox/src/pwm.c" path="../../../../libcox/pwm.c" type="1"/>
+    <File name="libcox/inc/hw_wdt.h" path="../../../../libcox/hw_wdt.h" type="1"/>
+    <File name="libcox/src/i2c.c" path="../../../../libcox/i2c.c" type="1"/>
     <File name="libcox/inc/adc.h" path="../../../../libcox/adc.h" type="1"/>
-    <File name="libcox/inc/xhw_spi.h" path="../../../../libcox/xhw_spi.h" type="1"/>
-    <File name="libcox/src/xsysctl.c" path="../../../../libcox/xsysctl.c" type="1"/>
+    <File name="libcox/inc/hw_timer.h" path="../../../../libcox/hw_timer.h" type="1"/>
+    <File name="libcox/src/debug.c" path="../../../../libcox/debug.c" type="1"/>
     <File name="libcox/inc/spi.h" path="../../../../libcox/spi.h" type="1"/>
-    <File name="libcox/src/xcore.c" path="../../../../libcox/xcore.c" type="1"/>
+    <File name="libcox/src/adc.c" path="../../../../libcox/adc.c" type="1"/>
+    <File name="libcox/src/timer.c" path="../../../../libcox/timer.c" type="1"/>
     <File name="CoX_Template/xdebug.c" path="../../../../../CoX_Peripheral_Template/inc/xdebug.c" type="1"/>
     <File name="libcox/inc/sysctl.h" path="../../../../libcox/sysctl.h" type="1"/>
-    <File name="libcox/inc/xhw_sysctl.h" path="../../../../libcox/xhw_sysctl.h" type="1"/>
     <File name="CoX_Template/xspi.h" path="../../../../../CoX_Peripheral_Template/inc/xspi.h" type="1"/>
-    <File name="libcox/src/xwdt.c" path="../../../../libcox/xwdt.c" type="1"/>
+    <File name="libcox/inc/hw_spi.h" path="../../../../libcox/hw_spi.h" type="1"/>
     <File name="Startup" path="" type="2"/>
     <File name="CoX_Template/xcore.h" path="../../../../../CoX_Peripheral_Template/inc/xcore.h" type="1"/>
-    <File name="libcox/inc/xhw_wdt.h" path="../../../../libcox/xhw_wdt.h" type="1"/>
+    <File name="libcox/src/spi.c" path="../../../../libcox/spi.c" type="1"/>
     <File name="libcox/inc/lowlayer.h" path="../../../../libcox/lowlayer.h" type="1"/>
-    <File name="libcox/src/xi2c.c" path="../../../../libcox/xi2c.c" type="1"/>
-    <File name="libcox/inc/xhw_adc.h" path="../../../../libcox/xhw_adc.h" type="1"/>
+    <File name="libcox/src/acmp.c" path="../../../../libcox/acmp.c" type="1"/>
+    <File name="libcox/src/wdt.c" path="../../../../libcox/wdt.c" type="1"/>
+    <File name="libcox/inc/hw_i2c.h" path="../../../../libcox/hw_i2c.h" type="1"/>
     <File name="main.c" path="main.c" type="1"/>
     <File name="CoX_Template/CoX.h" path="../../../../../CoX_Peripheral_Template/inc/CoX.h" type="1"/>
-    <File name="libcox/inc/xhw_uart.h" path="../../../../libcox/xhw_uart.h" type="1"/>
     <File name="CoX_Template/xlowlayer.h" path="../../../../../CoX_Peripheral_Template/inc/xlowlayer.h" type="1"/>
   </Files>
 </Project>

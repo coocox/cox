@@ -314,21 +314,21 @@ xDMAChannelIntEnable(unsigned long ulChannelID, unsigned long ulIntFlags)
 //! \return None.
 //
 //*****************************************************************************
-void 
-xDMAChannelIntEnable(unsigned long ulChannelID, unsigned long ulIntFlags)
-{
-    //
-    // Check the arguments.
-    //
-    xASSERT(xDMAChannelIDValid(ulChannelID));
-    xASSERT(((ulIntFlags & DMA_EVENT_TC) == PDMA_EVENT_TC) ||
-            ((ulIntFlags & DMA_EVENT_ERROR) == PDMA_EVENT_ERROR));
-
-    //
-    // Disable DMA channel interrupt.
-    //
-    xHWREG(DMA0_BASE + DMA_IER) &= ~(1 << ulChannelID);
-}
+//void
+//xDMAChannelIntEnable(unsigned long ulChannelID, unsigned long ulIntFlags)
+//{
+//    //
+//    // Check the arguments.
+//    //
+//    xASSERT(xDMAChannelIDValid(ulChannelID));
+//    xASSERT(((ulIntFlags & DMA_EVENT_TC) == PDMA_EVENT_TC) ||
+//            ((ulIntFlags & DMA_EVENT_ERROR) == PDMA_EVENT_ERROR));
+//
+//    //
+//    // Disable DMA channel interrupt.
+//    //
+//    xHWREG(DMA0_BASE + DMA_IER) &= ~(1 << ulChannelID);
+//}
 
 //*****************************************************************************
 //
@@ -446,9 +446,9 @@ PDMAChannelDynamicAssign(unsigned long ulDMASrcRequest,
             xHWREG(g_psDMAIPSelectReg[PDMA_PDSRx(ulDMASrcRequest)]) |= 
             (PDMA_PDSR_M((ulDMASrcRequest & 0xFFFFFF0) | ulChannelID));
             
-            xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CSR) &= 
+            xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_CTRL) &=
             ~PDMA_CSR_MODE_M;
-            xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CSR) |= 
+            xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_CTRL) |=
             PDMA_CSR_MODE_MTOP;
             return ulChannelID;
         }
@@ -469,9 +469,9 @@ PDMAChannelDynamicAssign(unsigned long ulDMASrcRequest,
             xHWREG(g_psDMAIPSelectReg[PDMA_PDSRx(ulDMADestRequest)]) |= 
             (PDMA_PDSR_M((ulDMADestRequest & 0xFFFFFF0) | ulChannelID));
 
-            xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CSR) &= 
+            xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_CTRL) &=
             ~PDMA_CSR_MODE_M;
-            xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CSR) |= 
+            xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_CTRL) |=
             PDMA_CSR_MODE_PTOM;
             return ulChannelID;
         }
@@ -490,9 +490,9 @@ PDMAChannelDynamicAssign(unsigned long ulDMASrcRequest,
         if(g_psDMAChannelAssignTable[ulChannelID].ulChannelID != 
             xDMA_CHANNEL_NOT_EXIST)
         {
-            xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CSR) &= 
+            xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_CTRL) &=
             ~PDMA_CSR_MODE_M;
-            xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CSR) |= 
+            xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_CTRL) |=
             PDMA_CSR_MODE_MTOM;
             return ulChannelID;
         }
@@ -585,10 +585,10 @@ PDMAChannelControlSet(unsigned long ulChannelID,
     xASSERT(xDMAChannelIDValid(ulChannelID));
 
 
-    xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CSR) &= 
+    xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_CTRL) &=
     ~(PDMA_CSR_SDA_M | PDMA_CSR_DAD_M | PDMA_CSR_TWS_M);
     
-    xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CSR) |= ulControl;
+    xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_CTRL) |= ulControl;
    
 }
 
@@ -647,17 +647,17 @@ PDMAChannelTransferSet(unsigned long ulChannelID, void *pvSrcAddr,
 {
     xASSERT(xDMAChannelIDValid(ulChannelID));
 
-    xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CSR) |= PDMA_CSR_CEN;
+    xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_CTRL) |= PDMA_CSR_CEN;
 
-    xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_SAR) = 
+    xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_SAR) =
     (unsigned long)pvSrcAddr;
     
-    xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_DAR) = 
+    xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_DAR) =
     (unsigned long)pvDstAddr;
     
     xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_BCR) = ulTransferSize;
 
-    xHWREG(g_psDMAChannelAddress[ulChannelID] + PDMA_CSR) |= PDMA_CSR_TEN;
+    xHWREG(g_psDMAChannelAddress[ulChannelID] + DMA_CTRL) |= PDMA_CSR_TEN;
     
 }
 

@@ -2,8 +2,8 @@
 //
 //! \file xuart.h
 //! \brief Prototypes for the UART Driver.
-//! \version V2.2
-//! \date 5/17/2012
+//! \version V2.3
+//! \date 07/01/2014
 //! \author CooCox
 //! \copy
 //!

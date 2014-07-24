@@ -2,8 +2,8 @@
 //
 //! \file xhw_nvic.h
 //! \brief Macros used when accessing the NVIC hardware.For M4
-//! \version V2.2.1.0
-//! \date 5/28/2014
+//! \version V2.3
+//! \date 07/01/2014
 //! \author CooCox
 //! \copy
 //!

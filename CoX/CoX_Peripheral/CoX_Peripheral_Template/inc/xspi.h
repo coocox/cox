@@ -2,8 +2,8 @@
 //
 //! \file xspi.h
 //! \brief Prototypes for the SPI Driver.
-//! \version V2.1.1.0
-//! \date 3/6/2012
+//! \version V2.3
+//! \date 07/01/2014
 //! \author CooCox
 //! \copy
 //!

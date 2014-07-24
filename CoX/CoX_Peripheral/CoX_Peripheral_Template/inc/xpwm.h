@@ -2,8 +2,8 @@
 //
 //! \file xpwm.h
 //! \brief Prototypes for the PWM Driver.
-//! \version V2.2.1.0
-//! \date 5/2/2012
+//! \version V2.3
+//! \date 07/01/2014
 //! \author CooCox
 //! \copy
 //!
