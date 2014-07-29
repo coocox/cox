@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-//! \file xhw_spi.h
+//! \file hw_spi.h
 //! \brief Macros used when accessing the SPI hardware.
 //! \version V2.2.1.0
 //! \date 6/15/2014

@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-//! \file xhw_i2c.h
+//! \file hw_i2c.h
 //! \brief Macros and defines used when accessing the I2C hardware.
 //! \version V2.1.1.1
 //! \date 6/14/2014

@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-//! \file xhw_rtc.h
+//! \file hw_rtc.h
 //! \brief Macros and defines used when accessing the RTC hardware.
 //! \version V2.2.1.0
 //! \date 11/15/2013

@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-//! \file xhw_wdt.h
+//! \file hw_wdt.h
 //! \brief Macros and defines used when accessing the WATCHDOG hardware.
 //! \version V2.2.1.0
 //! \date 11/15/2013

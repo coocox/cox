@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-//! \file xhw_sysctl.h
+//! \file hw_sysctl.h
 //! \brief Macros used when accessing the system control hardware.
 //! \version V2.2.1.0
 //! \date 6/15/2014

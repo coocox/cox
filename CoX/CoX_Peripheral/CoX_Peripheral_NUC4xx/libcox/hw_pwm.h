@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-//! \file xhw_pwm.h
+//! \file hw_pwm.h
 //! \brief Macros and defines used when accessing the PWM hardware.
 //! \version V2.2.1.0
 //! \date 11/15/2013

@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-//! \file xsysctl.c
+//! \file sysctl.c
 //! \brief Driver for the system controller
 //! \version V2.2.1.0
 //! \date 6/15/2014
@@ -37,7 +37,7 @@
 //
 //*****************************************************************************
 #include "CoX.h"
-#include "xhw_sysctl.h"
+#include "hw_sysctl.h"
 
 static unsigned long s_ulExtClockMHz = 12;
 

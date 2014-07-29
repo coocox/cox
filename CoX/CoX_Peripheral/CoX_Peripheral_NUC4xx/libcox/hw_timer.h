@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-//! \file xhw_timer.h
+//! \file hw_timer.h
 //! \brief Macros and defines used when accessing the TIMER hardware.
 //! \version V2.2.1.0
 //! \date 11/15/2013

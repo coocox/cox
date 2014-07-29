@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-//! \file xhw_dma.h
+//! \file hw_dma.h
 //! \brief Macros and defines used when accessing the DMA hardware.
 //! \version V2.1.1.1
 //! \date 7/1/2014

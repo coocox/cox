@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-//! \file xdma.c
+//! \file dma.c
 //! \brief Driver for the DMA Controller.
 //! \version V2.1.1.1
 //! \date 11/14/2011
@@ -38,7 +38,7 @@
 //*****************************************************************************
 
 #include "CoX.h"
-#include "xhw_dma.h"
+#include "hw_dma.h"
 
 typedef struct
 {

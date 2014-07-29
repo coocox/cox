@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-//! \file xrtc.c
+//! \file rtc.c
 //! \brief Driver for the RTC
 //! \version V2.2.1.0
 //! \date 11/15/2013
@@ -37,9 +37,9 @@
 //
 //*****************************************************************************
 #include "CoX.h"
-#include "xhw_sysctl.h"
+#include "hw_sysctl.h"
 #include "sysctl.h"
-#include "xhw_rtc.h"
+#include "hw_rtc.h"
 
 
 //*****************************************************************************
@@ -272,7 +272,7 @@ xRTCConvertCounterToTime(xtTime *xtTime, unsigned long ultimeCounter)
 //
 //*****************************************************************************
 void 
-RTCIntHandler(void)
+RTC_IRQHandler(void)
 {
     unsigned long ulEventFlags;
     

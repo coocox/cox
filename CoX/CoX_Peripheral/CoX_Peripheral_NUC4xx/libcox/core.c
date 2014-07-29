@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-//! \file xcore.c
+//! \file core.c
 //! \brief Instruction wrappers for special CPU instructions.
 //! Driver for the NVIC Interrupt Controller.
 //! Driver for the SysTick driver.

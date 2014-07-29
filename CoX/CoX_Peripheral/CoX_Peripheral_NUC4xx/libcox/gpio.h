@@ -396,6 +396,172 @@ extern "C"
 //
 //*****************************************************************************
 
+
+//*****************************************************************************
+//
+//! \addtogroup GPIO_GP_Short_Pin NUC4xx General Purpose Short Pin
+//! @{
+//
+//*****************************************************************************
+#define GPA0                    GPIO_PORTA_BASE, GPIO_PIN_0
+#define GPA1                    GPIO_PORTA_BASE, GPIO_PIN_1
+#define GPA2                    GPIO_PORTA_BASE, GPIO_PIN_2
+#define GPA3                    GPIO_PORTA_BASE, GPIO_PIN_3
+#define GPA4                    GPIO_PORTA_BASE, GPIO_PIN_4
+#define GPA5                    GPIO_PORTA_BASE, GPIO_PIN_5
+#define GPA6                    GPIO_PORTA_BASE, GPIO_PIN_6
+#define GPA7                    GPIO_PORTA_BASE, GPIO_PIN_7
+#define GPA8                    GPIO_PORTA_BASE, GPIO_PIN_8
+#define GPA9                    GPIO_PORTA_BASE, GPIO_PIN_9
+#define GPA10                   GPIO_PORTA_BASE, GPIO_PIN_10
+#define GPA11                   GPIO_PORTA_BASE, GPIO_PIN_11
+#define GPA12                   GPIO_PORTA_BASE, GPIO_PIN_12
+#define GPA13                   GPIO_PORTA_BASE, GPIO_PIN_13
+#define GPA14                   GPIO_PORTA_BASE, GPIO_PIN_14
+#define GPA15                   GPIO_PORTA_BASE, GPIO_PIN_15
+
+#define GPB0                    GPIO_PORTB_BASE, GPIO_PIN_0
+#define GPB1                    GPIO_PORTB_BASE, GPIO_PIN_1
+#define GPB2                    GPIO_PORTB_BASE, GPIO_PIN_2
+#define GPB3                    GPIO_PORTB_BASE, GPIO_PIN_3
+#define GPB4                    GPIO_PORTB_BASE, GPIO_PIN_4
+#define GPB5                    GPIO_PORTB_BASE, GPIO_PIN_5
+#define GPB6                    GPIO_PORTB_BASE, GPIO_PIN_6
+#define GPB7                    GPIO_PORTB_BASE, GPIO_PIN_7
+#define GPB8                    GPIO_PORTB_BASE, GPIO_PIN_8
+#define GPB9                    GPIO_PORTB_BASE, GPIO_PIN_9
+#define GPB10                   GPIO_PORTB_BASE, GPIO_PIN_10
+#define GPB11                   GPIO_PORTB_BASE, GPIO_PIN_11
+#define GPB12                   GPIO_PORTB_BASE, GPIO_PIN_12
+#define GPB13                   GPIO_PORTB_BASE, GPIO_PIN_13
+#define GPB14                   GPIO_PORTB_BASE, GPIO_PIN_14
+#define GPB15                   GPIO_PORTB_BASE, GPIO_PIN_15
+
+#define GPC0                    GPIO_PORTC_BASE, GPIO_PIN_0
+#define GPC1                    GPIO_PORTC_BASE, GPIO_PIN_1
+#define GPC2                    GPIO_PORTC_BASE, GPIO_PIN_2
+#define GPC3                    GPIO_PORTC_BASE, GPIO_PIN_3
+#define GPC4                    GPIO_PORTC_BASE, GPIO_PIN_4
+#define GPC5                    GPIO_PORTC_BASE, GPIO_PIN_5
+#define GPC6                    GPIO_PORTC_BASE, GPIO_PIN_6
+#define GPC7                    GPIO_PORTC_BASE, GPIO_PIN_7
+#define GPC8                    GPIO_PORTC_BASE, GPIO_PIN_8
+#define GPC9                    GPIO_PORTC_BASE, GPIO_PIN_9
+#define GPC10                   GPIO_PORTC_BASE, GPIO_PIN_10
+#define GPC11                   GPIO_PORTC_BASE, GPIO_PIN_11
+#define GPC12                   GPIO_PORTC_BASE, GPIO_PIN_12
+#define GPC13                   GPIO_PORTC_BASE, GPIO_PIN_13
+#define GPC14                   GPIO_PORTC_BASE, GPIO_PIN_14
+#define GPC15                   GPIO_PORTC_BASE, GPIO_PIN_15
+
+#define GPD0                    GPIO_PORTD_BASE, GPIO_PIN_0
+#define GPD1                    GPIO_PORTD_BASE, GPIO_PIN_1
+#define GPD2                    GPIO_PORTD_BASE, GPIO_PIN_2
+#define GPD3                    GPIO_PORTD_BASE, GPIO_PIN_3
+#define GPD4                    GPIO_PORTD_BASE, GPIO_PIN_4
+#define GPD5                    GPIO_PORTD_BASE, GPIO_PIN_5
+#define GPD6                    GPIO_PORTD_BASE, GPIO_PIN_6
+#define GPD7                    GPIO_PORTD_BASE, GPIO_PIN_7
+#define GPD8                    GPIO_PORTD_BASE, GPIO_PIN_8
+#define GPD9                    GPIO_PORTD_BASE, GPIO_PIN_9
+#define GPD10                   GPIO_PORTD_BASE, GPIO_PIN_10
+#define GPD11                   GPIO_PORTD_BASE, GPIO_PIN_11
+#define GPD12                   GPIO_PORTD_BASE, GPIO_PIN_12
+#define GPD13                   GPIO_PORTD_BASE, GPIO_PIN_13
+#define GPD14                   GPIO_PORTD_BASE, GPIO_PIN_14
+#define GPD15                   GPIO_PORTD_BASE, GPIO_PIN_15
+
+#define GPE0                    GPIO_PORTE_BASE, GPIO_PIN_0
+#define GPE1                    GPIO_PORTE_BASE, GPIO_PIN_1
+#define GPE2                    GPIO_PORTE_BASE, GPIO_PIN_2
+#define GPE3                    GPIO_PORTE_BASE, GPIO_PIN_3
+#define GPE4                    GPIO_PORTE_BASE, GPIO_PIN_4
+#define GPE5                    GPIO_PORTE_BASE, GPIO_PIN_5
+#define GPE6                    GPIO_PORTE_BASE, GPIO_PIN_6
+#define GPE7                    GPIO_PORTE_BASE, GPIO_PIN_7
+#define GPE8                    GPIO_PORTE_BASE, GPIO_PIN_8
+#define GPE9                    GPIO_PORTE_BASE, GPIO_PIN_9
+#define GPE10                   GPIO_PORTE_BASE, GPIO_PIN_10
+#define GPE11                   GPIO_PORTE_BASE, GPIO_PIN_11
+#define GPE12                   GPIO_PORTE_BASE, GPIO_PIN_12
+#define GPE13                   GPIO_PORTE_BASE, GPIO_PIN_13
+#define GPE14                   GPIO_PORTE_BASE, GPIO_PIN_14
+#define GPE15                   GPIO_PORTE_BASE, GPIO_PIN_15
+
+#define GPF0                    GPIO_PORTF_BASE, GPIO_PIN_0
+#define GPF1                    GPIO_PORTF_BASE, GPIO_PIN_1
+#define GPF2                    GPIO_PORTF_BASE, GPIO_PIN_2
+#define GPF3                    GPIO_PORTF_BASE, GPIO_PIN_3
+#define GPF4                    GPIO_PORTF_BASE, GPIO_PIN_4
+#define GPF5                    GPIO_PORTF_BASE, GPIO_PIN_5
+#define GPF6                    GPIO_PORTF_BASE, GPIO_PIN_6
+#define GPF7                    GPIO_PORTF_BASE, GPIO_PIN_7
+#define GPF8                    GPIO_PORTF_BASE, GPIO_PIN_8
+#define GPF9                    GPIO_PORTF_BASE, GPIO_PIN_9
+#define GPF10                   GPIO_PORTF_BASE, GPIO_PIN_10
+#define GPF11                   GPIO_PORTF_BASE, GPIO_PIN_11
+#define GPF12                   GPIO_PORTF_BASE, GPIO_PIN_12
+#define GPF13                   GPIO_PORTF_BASE, GPIO_PIN_13
+#define GPF14                   GPIO_PORTF_BASE, GPIO_PIN_14
+#define GPF15                   GPIO_PORTF_BASE, GPIO_PIN_15
+
+#define GPG0                    GPIO_PORTG_BASE, GPIO_PIN_0
+#define GPG1                    GPIO_PORTG_BASE, GPIO_PIN_1
+#define GPG2                    GPIO_PORTG_BASE, GPIO_PIN_2
+#define GPG3                    GPIO_PORTG_BASE, GPIO_PIN_3
+#define GPG4                    GPIO_PORTG_BASE, GPIO_PIN_4
+#define GPG5                    GPIO_PORTG_BASE, GPIO_PIN_5
+#define GPG6                    GPIO_PORTG_BASE, GPIO_PIN_6
+#define GPG7                    GPIO_PORTG_BASE, GPIO_PIN_7
+#define GPG8                    GPIO_PORTG_BASE, GPIO_PIN_8
+#define GPG9                    GPIO_PORTG_BASE, GPIO_PIN_9
+#define GPG10                   GPIO_PORTG_BASE, GPIO_PIN_10
+#define GPG11                   GPIO_PORTG_BASE, GPIO_PIN_11
+#define GPG12                   GPIO_PORTG_BASE, GPIO_PIN_12
+#define GPG13                   GPIO_PORTG_BASE, GPIO_PIN_13
+#define GPG14                   GPIO_PORTG_BASE, GPIO_PIN_14
+#define GPG15                   GPIO_PORTG_BASE, GPIO_PIN_15
+
+#define GPH0                    GPIO_PORTH_BASE, GPIO_PIN_0
+#define GPH1                    GPIO_PORTH_BASE, GPIO_PIN_1
+#define GPH2                    GPIO_PORTH_BASE, GPIO_PIN_2
+#define GPH3                    GPIO_PORTH_BASE, GPIO_PIN_3
+#define GPH4                    GPIO_PORTH_BASE, GPIO_PIN_4
+#define GPH5                    GPIO_PORTH_BASE, GPIO_PIN_5
+#define GPH6                    GPIO_PORTH_BASE, GPIO_PIN_6
+#define GPH7                    GPIO_PORTH_BASE, GPIO_PIN_7
+#define GPH8                    GPIO_PORTH_BASE, GPIO_PIN_8
+#define GPH9                    GPIO_PORTH_BASE, GPIO_PIN_9
+#define GPH10                   GPIO_PORTH_BASE, GPIO_PIN_10
+#define GPH11                   GPIO_PORTH_BASE, GPIO_PIN_11
+#define GPH12                   GPIO_PORTH_BASE, GPIO_PIN_12
+#define GPH13                   GPIO_PORTH_BASE, GPIO_PIN_13
+#define GPH14                   GPIO_PORTH_BASE, GPIO_PIN_14
+#define GPH15                   GPIO_PORTH_BASE, GPIO_PIN_15
+
+#define GPI0                    GPIO_PORTI_BASE, GPIO_PIN_0
+#define GPI1                    GPIO_PORTI_BASE, GPIO_PIN_1
+#define GPI2                    GPIO_PORTI_BASE, GPIO_PIN_2
+#define GPI3                    GPIO_PORTI_BASE, GPIO_PIN_3
+#define GPI4                    GPIO_PORTI_BASE, GPIO_PIN_4
+#define GPI5                    GPIO_PORTI_BASE, GPIO_PIN_5
+#define GPI6                    GPIO_PORTI_BASE, GPIO_PIN_6
+#define GPI7                    GPIO_PORTI_BASE, GPIO_PIN_7
+#define GPI8                    GPIO_PORTI_BASE, GPIO_PIN_8
+#define GPI9                    GPIO_PORTI_BASE, GPIO_PIN_9
+#define GPI10                   GPIO_PORTI_BASE, GPIO_PIN_10
+#define GPI11                   GPIO_PORTI_BASE, GPIO_PIN_11
+#define GPI12                   GPIO_PORTI_BASE, GPIO_PIN_12
+#define GPI13                   GPIO_PORTI_BASE, GPIO_PIN_13
+#define GPI14                   GPIO_PORTI_BASE, GPIO_PIN_14
+#define GPI15                   GPIO_PORTI_BASE, GPIO_PIN_15
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
 //*****************************************************************************
 //
 //! \addtogroup NUC4xx_GPIO_Pin_Config NUC4xx GPIO Pin Config

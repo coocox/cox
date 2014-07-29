@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-//! \file xhw_adc.h
+//! \file hw_adc.h
 //! \brief Macros used when accessing the ADC hardware.
 //! \version V2.1.1.1
 //! \date 11/14/2011

@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-//! \file xgpio.c
+//! \file gpio.c
 //! \brief Driver for the GPIO controller
 //! \version V2.2.1.0
 //! \date 11/15/2013
@@ -38,8 +38,8 @@
 //*****************************************************************************
 
 #include "CoX.h"
-#include "xhw_gpio.h"
-#include "xhw_sysctl.h"
+#include "hw_gpio.h"
+#include "hw_sysctl.h"
 
 
 int test0,test1;

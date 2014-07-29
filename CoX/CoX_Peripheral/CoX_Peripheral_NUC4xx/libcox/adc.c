@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-//! \file xadc.c
+//! \file adc.c
 //! \brief Driver for the ADC Controller.
 //! \version V2.1.1.1
 //! \date 6/28/2014
@@ -38,7 +38,7 @@
 //*****************************************************************************
 
 #include "CoX.h"
-#include "xhw_adc.h"
+#include "hw_adc.h"
 
 
 static xtEventCallback g_pfnADCHandlerCallbacks[2] = {0};
@@ -300,7 +300,7 @@ xADCIntCallbackInit(unsigned long ulBase,
 //
 //*****************************************************************************
 void
-ADCIntHandler(void)
+ADC_IRQHandler(void)
 {
     unsigned long ulBase = ADC0_BASE;
     unsigned long ulIntFlags;

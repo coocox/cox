@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-//! \file xwdt.c
+//! \file wdt.c
 //! \brief Driver for the WDT
 //! \version V2.2.1.0
 //! \date 11/15/2013
@@ -37,8 +37,8 @@
 //
 //*****************************************************************************
 #include "CoX.h"
-#include "xhw_sysctl.h"
-#include "xhw_wdt.h"
+#include "hw_sysctl.h"
+#include "hw_wdt.h"
 
 
 
@@ -62,7 +62,7 @@ static xtEventCallback g_pfnWATCHDOGHandlerCallbacks[1]={0};
 //
 //*****************************************************************************
 void 
-WDTIntHandler(void)
+WDT_IRQHandler(void)
 {
     //
     // Clear the WDT INT Flag

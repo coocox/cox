@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-//! \file xtimer.c
+//! \file timer.c
 //! \brief Driver for the Timer
 //! \version V2.2.1.0
 //! \date 11/15/2013
@@ -37,9 +37,9 @@
 //
 //*****************************************************************************
 #include "CoX.h"
-#include "xhw_gpio.h"
-#include "xhw_sysctl.h"
-#include "xhw_timer.h"
+#include "hw_gpio.h"
+#include "hw_sysctl.h"
+#include "hw_timer.h"
 
 //*****************************************************************************
 //
@@ -64,7 +64,7 @@ static unsigned long ulEXTClockFreq;
 //
 //*****************************************************************************
 void 
-TIMER0IntHandler(void)
+TMR0_IRQHandler(void)
 {
     unsigned long ulBase = TIMER0_BASE;
     unsigned long ulTemp0,ulTemp1;
@@ -96,7 +96,7 @@ TIMER0IntHandler(void)
 //
 //*****************************************************************************
 void 
-TIMER1IntHandler(void)
+TMR1_IRQHandler(void)
 {
     unsigned long ulBase = TIMER1_BASE;
     unsigned long ulTemp0,ulTemp1;
@@ -129,7 +129,7 @@ TIMER1IntHandler(void)
 //
 //*****************************************************************************
 void 
-TIMER2IntHandler(void)
+TMR2_IRQHandler(void)
 {
     unsigned long ulBase = TIMER2_BASE;
     unsigned long ulTemp0,ulTemp1;
@@ -162,7 +162,7 @@ TIMER2IntHandler(void)
 //
 //*****************************************************************************
 void 
-TIMER3IntHandler(void)
+TMR3_IRQHandler(void)
 {
     unsigned long ulBase = TIMER3_BASE;
     unsigned long ulTemp0,ulTemp1;
@@ -1277,9 +1277,9 @@ void xTimerPrescaleSet(unsigned long ulBase, unsigned long ulChannel,
 //! \return the Prescale Value will be get.
 //
 //*****************************************************************************
-void xTimerPrescaleGet(unsigned long ulBase, unsigned long ulChannel)
+unsigned long xTimerPrescaleGet(unsigned long ulBase, unsigned long ulChannel)
 {
-	TimerPrescaleGet(ulBase);
+	return TimerPrescaleGet(ulBase);
 }
 
 //*****************************************************************************
@@ -1315,9 +1315,9 @@ void xTimerLoadSet(unsigned long ulBase, unsigned long ulChannel,
 //! \return the counter Value will be get.
 //
 //*****************************************************************************
-void xTimerLoadGet(unsigned long ulBase, unsigned long ulChannel)
+unsigned long xTimerLoadGet(unsigned long ulBase, unsigned long ulChannel)
 {
-	return;
+	return 0;
 }
 
 

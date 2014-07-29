@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-//! \file xhw_uart.h
+//! \file hw_uart.h
 //! \brief Macros used when accessing the UART hardware.
 //! \version V2.2.1.0
 //! \date 6/15/2014
