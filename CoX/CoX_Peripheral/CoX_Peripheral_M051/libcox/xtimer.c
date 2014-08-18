@@ -64,7 +64,7 @@ extern "C"
 //
 //! \brief The Timer 0 default IRQ, declared in start up code. 
 //!
-//! \param None.
+//! \param None. 
 //!
 //! This function is to give a default Timer IRQ service.
 //!
