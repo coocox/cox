@@ -152,6 +152,9 @@ extern "C"
 //! UART 1
 #define xSYSCTL_PERIPH_UART1             SYSCTL_PERIPH_UART1
 
+//! PWM 0
+#define xSYSCTL_PERIPH_PWM0              SYSCTL_PERIPH_PWM0
+
 //! PWM 1
 #define xSYSCTL_PERIPH_PWM1              SYSCTL_PERIPH_PWM1
 
@@ -220,6 +223,9 @@ extern "C"
 
 //! I2C 2
 #define xSYSCTL_PERIPH_I2C2              SYSCTL_PERIPH_I2C2
+
+//! UART 4
+#define xSYSCTL_PERIPH_UART4             SYSCTL_PERIPH_UART4
 
 //! I2S
 #define xSYSCTL_PERIPH_I2S               SYSCTL_PERIPH_I2S
@@ -799,6 +805,8 @@ extern "C"
 //!        \ref xUART2_BASE
 //!        \ref xUART3_BASE
 //!        \ref xI2C2_BASE
+//!        \ref xCAN1_BASE
+//!        \ref xCAN2_BASE
 //!        \ref xI2S_BASE
 //!        \ref xRIT_BASE
 //!        \ref xMCPWM_BASE
@@ -851,6 +859,8 @@ extern "C"
 //!              \ref xUART2_BASE
 //!              \ref xUART3_BASE
 //!              \ref xI2C2_BASE
+//!              \ref xCAN1_BASE
+//!              \ref xCAN2_BASE
 //!              \ref xI2S_BASE
 //!              \ref xRIT_BASE
 //!              \ref xMCPWM_BASE
@@ -1416,6 +1426,9 @@ extern "C"
 //
 //*****************************************************************************
 
+//! LCD controller
+#define SYSCTL_PERIPH_LCD              0
+
 //! Timer 0
 #define SYSCTL_PERIPH_TIMER0           1
 
@@ -1428,20 +1441,29 @@ extern "C"
 //! UART 1
 #define SYSCTL_PERIPH_UART1            4
 
+//! PWM 0
+#define SYSCTL_PERIPH_PWM0             5
+          
 //! PWM 1
 #define SYSCTL_PERIPH_PWM1             6
 
 //! I2C 0
 #define SYSCTL_PERIPH_I2C0             7
 
-//! The SPI
+//! The SPI (only for LPC175x/6x)
 #define SYSCTL_PERIPH_SPI              8
+          
+//! The UART4 (only for LPC177x/8x)          
+#define SYSCTL_PERIPH_UART4            8
 
 //! RTC
 #define SYSCTL_PERIPH_RTC              9
 
 //! SSP 1
 #define SYSCTL_PERIPH_SSP1             10
+
+//! External Memory Controller
+#define SYSCTL_PERIPH_EMC              11
 
 //! ADC
 #define SYSCTL_PERIPH_ADC              12
@@ -1500,6 +1522,9 @@ extern "C"
 //! I2S
 #define SYSCTL_PERIPH_I2S              27
 
+//! SD Card interface
+#define SYSCTL_PERIPH_SDC              28
+
 //! General Purpose DMA
 #define SYSCTL_PERIPH_GPDMA            29
 
@@ -1523,6 +1548,11 @@ extern "C"
 
 //! GPIO E --> P4
 #define SYSCTL_PERIPH_GPIOE            36
+          
+#if defined(LPC_177x) || defined (LPC_178x)
+//! GPIO F --> P5
+#define SYSCTL_PERIPH_GPIOF            37        
+#endif
 //*****************************************************************************
 //
 //! @}
@@ -1704,6 +1734,11 @@ extern unsigned long SysCtlPeripheralClockGet(unsigned long ulPeri);
 extern void SysCtlPeripheralReset(unsigned long ulPeripheral);
 extern void SysCtlPeripheralEnable(unsigned long ulPeripheral);
 extern void SysCtlPeripheralDisable(unsigned long ulPeripheral);
+extern void SysCtlPeripheralReset2(unsigned long ulPeripheralBase);
+extern void SysCtlPeripheralEnable2(unsigned long ulPeripheralBase);
+extern void SysCtlPeripheralDisable2(unsigned long ulPeripheral);
+
+extern unsigned long SysCtlPeripheraIntNumGet(unsigned long ulPeripheralBase);
 
 extern unsigned long SysCtlClockGet(void);
 extern unsigned long SysCtlHClockGet(void);

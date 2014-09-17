@@ -45,7 +45,7 @@
 // have a C binding.
 //
 //*****************************************************************************
-#ifdef __cplusplu
+#ifdef __cplusplus
 extern "C"
 {
 #endif
@@ -515,6 +515,41 @@ extern "C"
 #define GPE30                   GPIOE_BASE, GPIO_PIN_30
 #define GPE31                   GPIOE_BASE, GPIO_PIN_31
 
+//! PortF
+//! For LPC17xx mcu, Port E is equal to Port 5
+#define GPF0                    GPIOF_BASE, GPIO_PIN_0
+#define GPF1                    GPIOF_BASE, GPIO_PIN_1
+#define GPF2                    GPIOF_BASE, GPIO_PIN_2
+#define GPF3                    GPIOF_BASE, GPIO_PIN_3
+#define GPF4                    GPIOF_BASE, GPIO_PIN_4
+#define GPF5                    GPIOF_BASE, GPIO_PIN_5
+#define GPF6                    GPIOF_BASE, GPIO_PIN_6
+#define GPF7                    GPIOF_BASE, GPIO_PIN_7
+#define GPF8                    GPIOF_BASE, GPIO_PIN_8
+#define GPF9                    GPIOF_BASE, GPIO_PIN_9
+#define GPF10                   GPIOF_BASE, GPIO_PIN_10
+#define GPF11                   GPIOF_BASE, GPIO_PIN_11
+#define GPF12                   GPIOF_BASE, GPIO_PIN_12
+#define GPF13                   GPIOF_BASE, GPIO_PIN_13
+#define GPF14                   GPIOF_BASE, GPIO_PIN_14
+#define GPF15                   GPIOF_BASE, GPIO_PIN_15
+#define GPF16                   GPIOF_BASE, GPIO_PIN_16
+#define GPF17                   GPIOF_BASE, GPIO_PIN_17
+#define GPF18                   GPIOF_BASE, GPIO_PIN_18
+#define GPF19                   GPIOF_BASE, GPIO_PIN_19
+#define GPF20                   GPIOF_BASE, GPIO_PIN_20
+#define GPF21                   GPIOF_BASE, GPIO_PIN_21
+#define GPF22                   GPIOF_BASE, GPIO_PIN_22
+#define GPF23                   GPIOF_BASE, GPIO_PIN_23
+#define GPF24                   GPIOF_BASE, GPIO_PIN_24
+#define GPF25                   GPIOF_BASE, GPIO_PIN_25
+#define GPF26                   GPIOF_BASE, GPIO_PIN_26
+#define GPF27                   GPIOF_BASE, GPIO_PIN_27
+#define GPF28                   GPIOF_BASE, GPIO_PIN_28
+#define GPF29                   GPIOF_BASE, GPIO_PIN_29
+#define GPF30                   GPIOF_BASE, GPIO_PIN_30
+#define GPF31                   GPIOF_BASE, GPIO_PIN_31
+
 //*****************************************************************************
 //
 //! @}
@@ -726,6 +761,41 @@ extern "C"
 #define PE30                     PE30
 #define PE31                     PE31
 
+//! PortE
+//! For LPC17xx mcu, Port E is equal to Port 4
+#define PF0                      PF0
+#define PF1                      PF1
+#define PF2                      PF2
+#define PF3                      PF3
+#define PF4                      PF4
+#define PF5                      PF5
+#define PF6                      PF6
+#define PF7                      PF7
+#define PF8                      PF8
+#define PF9                      PF9
+#define PF10                     PF10
+#define PF11                     PF11
+#define PF12                     PF12
+#define PF13                     PF13
+#define PF14                     PF14
+#define PF15                     PF15
+#define PF16                     PF16
+#define PF17                     PF17
+#define PF18                     PF18
+#define PF19                     PF19
+#define PF20                     PF20
+#define PF21                     PF21
+#define PF22                     PF22
+#define PF23                     PF23
+#define PF24                     PF24
+#define PF25                     PF25
+#define PF26                     PF26
+#define PF27                     PF27
+#define PF28                     PF28
+#define PF29                     PF29
+#define PF30                     PF30
+#define PF31                     PF31
+
 //*****************************************************************************
 //
 //! @}
@@ -794,6 +864,8 @@ extern "C"
 #define UART2RX                 UART2RX
 #define UART3TX                 UART3TX
 #define UART3RX                 UART3RX
+#define UART4TX                 UART4TX
+#define UART4RX                 UART4RX
 
 //! I2C Pin Type
 #define I2C0SDA                 I2C0SDA
@@ -827,6 +899,10 @@ extern "C"
 #define SPI0MOSI                SPI0MOSI
 #define SPI0MISO                SPI0MISO
 #define SPI0CS                  SPI0CS
+#define SPI1CLK                 SPI1CLK
+#define SPI1MOSI                SPI1MOSI
+#define SPI1MISO                SPI1MISO
+#define SPI1CS                  SPI1CS
 
 //! DAC Pin Type
 #define DACOUT1                 DACOUT1
@@ -1223,7 +1299,7 @@ extern unsigned long xGPIOPinRead(unsigned long ulPort, unsigned long ulPins);
 //
 //*****************************************************************************
 extern void xGPIOPinWrite(unsigned long ulPort, unsigned long ulPins,
-        unsigned long ucVal);
+        unsigned char ucVal);
 
 //*****************************************************************************
 //
@@ -1845,6 +1921,7 @@ extern void xGPIOPinWrite(unsigned long ulPort, unsigned long ulPins,
 //! @{
 //
 //*****************************************************************************
+#if defined(LPC_175x) && defined (LPC_176x)
 #define GPIO_PA0_PA0            ((unsigned long)0x00 << 0 )
 #define GPIO_PA0_CAN1RX         ((unsigned long)0x01 << 0 )
 #define GPIO_PA0_UART3TX        ((unsigned long)0x02 << 0 )
@@ -2077,6 +2154,343 @@ extern void xGPIOPinWrite(unsigned long ulPort, unsigned long ulPins,
 #define GPIO_PE29_TX_MCLK       ((unsigned long)0x01 << 26)
 #define GPIO_PE29_TIM_MAT1      ((unsigned long)0x02 << 26)
 #define GPIO_PE29_UART3RX       ((unsigned long)0x03 << 26)
+
+#elif defined(LPC_177x) && defined (LPC_178x)
+
+#define GPIO_PA0_PA0            0x00
+#define GPIO_PA0_CAN1RX         0x01
+#define GPIO_PA0_UART3TX        0x02
+#define GPIO_PA0_I2C1SDA        0x03
+#define GPIO_PA0_UART0TX        0x04
+#define GPIO_PA1_PA1            0x00
+#define GPIO_PA1_CAN1TX         0x01
+#define GPIO_PA1_UART3RX        0x02
+#define GPIO_PA1_I2C1SCK        0x03
+#define GPIO_PA1_UART0RX        0x04
+#define GPIO_PA2_PA2            0x00
+#define GPIO_PA2_UART0TX        0x01
+#define GPIO_PA2_UART3TX        0x02
+#define GPIO_PA3_PA3            0x00
+#define GPIO_PA3_UART0RX        0x01
+#define GPIO_PA3_UART3RX        0x02
+#define GPIO_PA4_PA4            0x00
+#define GPIO_PA4_I2SRX_CLK      0x01
+#define GPIO_PA4_CAN2RX         0x02
+#define GPIO_PA4_TIMCCP0        0x03
+#define GPIO_PA5_PA5            0x00
+#define GPIO_PA5_I2SRX_WS       0x01
+#define GPIO_PA5_CAN2TX         0x02
+#define GPIO_PA5_TIMCCP1        0x03
+#define GPIO_PA6_PA6            0x00
+#define GPIO_PA6_I2SRX_SDA      0x01
+#define GPIO_PA6_SPI1CS         0x02
+#define GPIO_PA6_TIM_MAT0       0x03
+#define GPIO_PA6_UART1RTS       0x04
+#define GPIO_PA10_PA10          0x00
+#define GPIO_PA10_UART2TX       0x01
+#define GPIO_PA10_I2C2SDA       0x02
+#define GPIO_PA10_TIM_MAT0      0x03
+#define GPIO_PA11_PA11          0x00
+#define GPIO_PA11_UART2RX       0x01
+#define GPIO_PA11_I2C2SCK       0x02
+#define GPIO_PA11_TIM_MAT1      0x03
+#define GPIO_PA14_PA14          0x00
+#define GPIO_PA14_USBHST2       0x01
+#define GPIO_PA14_SPI1CS        0x02
+#define GPIO_PA14_USBCNT2       0x03
+#define GPIO_PA15_PA15          0x00
+#define GPIO_PA15_UART1TX       0x01
+#define GPIO_PA15_SCK0          0x02
+#define GPIO_PA15_SPI0CLK       0x03
+#define GPIO_PA16_PA16          0x00
+#define GPIO_PA16_UART1RX       0x01
+#define GPIO_PA16_SPI0CS        0x02
+#define GPIO_PA16_SPI0CS        0x03
+#define GPIO_PA17_PA17          0x00
+#define GPIO_PA17_UART1CTS      0x01
+#define GPIO_PA17_MISO0         0x02
+#define GPIO_PA17_SPI0MISO      0x03
+#define GPIO_PA18_PA18          0x00
+#define GPIO_PA18_UART1DCD      0x01
+#define GPIO_PA18_MOSI0         0x02
+#define GPIO_PA18_SPI0MOSI      0x03
+#define GPIO_PA19_PA19          0x00
+#define GPIO_PA19_UART1DSR      0x01
+#define GPIO_PA19_SDCLK         0x02
+#define GPIO_PA19_I2C1SDA       0x03
+#define GPIO_PA20_PA20          0x00
+#define GPIO_PA20_UART1DTR      0x01
+#define GPIO_PA20_I2C1SCK       0x03
+#define GPIO_PA21_PA21          0x00
+#define GPIO_PA21_UART1RI       0x01
+#define GPIO_PA21_CAN1RX        0x03
+#define GPIO_PA22_PA22          0x00
+#define GPIO_PA22_UART1RTS      0x01
+#define GPIO_PA22_CAN1TX        0x03
+#define GPIO_PB0_PB0            0x00
+#define GPIO_PB0_ETH_TXD0       0x01
+#define GPIO_PB1_PB1            0x00
+#define GPIO_PB1_ETH_TXD1       0x01
+#define GPIO_PB1_PWM1           0x03
+#define GPIO_PB2_PB2            0x00
+#define GPIO_PB2_ETH_TXD2       0x01
+#define GPIO_PB2_PWM2           0x03
+#define GPIO_PB3_PB3            0x00
+#define GPIO_PB3_ETH_TXD3       0x01
+#define GPIO_PB4_PB4            0x00
+#define GPIO_PB4_ETH_TX_EN      0x01
+#define GPIO_PB4_TIM_MAT2       0x03
+#define GPIO_PB4_SPI2MISO       0x04
+#define GPIO_PB5_PB5            0x00
+#define GPIO_PB5_ETH_TX_ER      0x01
+#define GPIO_PB5_PWM3           0x03
+#define GPIO_PB6_PB6            0x00
+#define GPIO_PB6_ETH_TX_CLK     0x01
+#define GPIO_PB6_PWM4           0x03
+#define GPIO_PB7_PB7            0x00
+#define GPIO_PB7_ETH_COL        0x01
+#define GPIO_PB7_PWM5           0x03
+#define GPIO_PB8_PB8            0x00
+#define GPIO_PB8_ETH_CRS        0x01
+#define GPIO_PB8_TIM_MAT1       0x03
+#define GPIO_PB8_SPI2CS         0x04
+#define GPIO_PB9_PB9            0x00
+#define GPIO_PB9_ETH_RXD0       0x01
+#define GPIO_PB8_TIM_MAT0       0x03
+#define GPIO_PB10_PB10          0x00
+#define GPIO_PB10_ETH_RXD1      0x01
+#define GPIO_PB10_TIMCCP        0x03
+#define GPIO_PB11_PB11          0x00
+#define GPIO_PB11_ETH_RXD2      0x01
+#define GPIO_PB11_PWM6          0x03
+#define GPIO_PB12_PB12          0x00
+#define GPIO_PB12_ETH_RXD3      0x01
+#define GPIO_PB12_PWM7          0x03
+#define GPIO_PB13_PB13          0x00
+#define GPIO_PB13_ETH_RX_DV     0x01
+#define GPIO_PB14_PB14          0x00
+#define GPIO_PB14_ETH_RX_ER     0x01
+#define GPIO_PB14_TIMCCP        0x03
+#define GPIO_PB15_PB15          0x00
+#define GPIO_PB15_ETH_REF_CLK   0x01
+#define GPIO_PB15_I2C2SDA       0x03
+#define GPIO_PB16_PB16          0x00
+#define GPIO_PB16_ENET_MDC      0x01
+#define GPIO_PB16_I2S_TX_MCLK   0x02
+#define GPIO_PB17_PB17          0x00
+#define GPIO_PB17_ENET_MDIO     0x01
+#define GPIO_PB17_I2S_RX_MCLK   0x02
+#define GPIO_PB18_PB18          0x00
+#define GPIO_PB18_USB_UP_LED    0x01
+#define GPIO_PB18_PWM1          0x02
+#define GPIO_PB18_TIMCCP0       0x03
+#define GPIO_PB19_PB19          0x00
+#define GPIO_PB19_USB_TX_E      0x01
+#define GPIO_PB19_USB_PPWR      0x02
+#define GPIO_PB19_TIMCCP1       0x03
+#define GPIO_PB19_MCOA0         0x04
+#define GPIO_PB19_SPI1SCK       0x05
+#define GPIO_PB20_PB20          0x00
+#define GPIO_PB20_USB_TX_DP     0x01
+#define GPIO_PB20_PWM2          0x02
+#define GPIO_PB20_SPI0CLK       0x03
+#define GPIO_PB21_PB21          0x00
+#define GPIO_PB21_USB_TX_DM     0x01
+#define GPIO_PB21_PWM3          0x02
+#define GPIO_PB21_SPI0CS        0x03
+#define GPIO_PB22_PB22          0x00
+#define GPIO_PB22_USB_RCV       0x01
+#define GPIO_PB22_USB_PWRD      0x02
+#define GPIO_PB22_TIM_MAT0      0x03
+#define GPIO_PB22_SPI1MOSI      0x05
+#define GPIO_PB23_PB23          0x00
+#define GPIO_PB23_USB_RX_DP     0x01
+#define GPIO_PB23_PWM4          0x02
+#define GPIO_PB23_SPI0MISO      0x05
+#define GPIO_PB24_PB24          0x00
+#define GPIO_PB24_USB_RX_DM     0x01
+#define GPIO_PB24_PWM5          0x02
+#define GPIO_PB24_SPI0MOSI      0x05
+#define GPIO_PB25_PB25          0x00
+#define GPIO_PB25_USB_LS        0x01
+#define GPIO_PB25_USB_HST       0x02
+#define GPIO_PB25_TIM_MAT1      0x03
+#define GPIO_PB26_PB26          0x00
+#define GPIO_PB26_USB_SSPND     0x01
+#define GPIO_PB26_PWM6          0x02
+#define GPIO_PB26_TIMCCP0       0x03
+#define GPIO_PB26_SPI1CS        0x05
+#define GPIO_PB27_PB27          0x00
+#define GPIO_PB27_USB_INT       0x01
+#define GPIO_PB27_USB_OVRCR     0x02
+#define GPIO_PB27_TIMCCP1       0x03
+#define GPIO_PB28_PB28          0x00
+#define GPIO_PB28_USB_SCL       0x01
+#define GPIO_PB28_PWM_CAP_CH0   0x02
+#define GPIO_PB28_TIM_MAT0      0x03
+#define GPIO_PB28_SPI0CS        0x05
+#define GPIO_PB29_PB29          0x00
+#define GPIO_PB29_USB_SDA       0x01
+#define GPIO_PB29_PWM_CAP_CH1   0x02
+#define GPIO_PB29_TIM_MAT1      0x03
+#define GPIO_PB29_UART4TX       0x05
+#define GPIO_PC0_PC0            0x00
+#define GPIO_PC0_PWM1           0x01
+#define GPIO_PC0_UART1TX        0x02
+#define GPIO_PC1_PC1            0x00
+#define GPIO_PC1_PWM2           0x01
+#define GPIO_PC1_UART1RX        0x02
+#define GPIO_PC2_PC2            0x00
+#define GPIO_PC2_PWM3           0x01
+#define GPIO_PC2_UART1CTS       0x02
+#define GPIO_PC2_TIM_MAT3       0x03
+#define GPIO_PC3_PC3            0x00
+#define GPIO_PC3_PWM4           0x01
+#define GPIO_PC3_UART1DCD       0x02
+#define GPIO_PC3_TIM_MAT2       0x03
+#define GPIO_PC4_PC4            0x00
+#define GPIO_PC4_PWM5           0x01
+#define GPIO_PC4_UART1DSR       0x02
+#define GPIO_PC4_TIM_MAT1       0x03
+#define GPIO_PC5_PC5            0x00
+#define GPIO_PC5_PWM6           0x01
+#define GPIO_PC5_UART1DTR       0x02
+#define GPIO_PC5_TIM_MAT0       0x03
+#define GPIO_PC6_PC6            0x00
+#define GPIO_PC6_PWM_CAP_CH0    0x01
+#define GPIO_PC6_UART1RI        0x02
+#define GPIO_PC2_TIMCCP0        0x03
+#define GPIO_PC7_PC7            0x00
+#define GPIO_PC7_CAN2RX         0x01
+#define GPIO_PC7_UART1RTS       0x02
+#define GPIO_PC8_PC8            0x00
+#define GPIO_PC8_CAN2TX         0x01
+#define GPIO_PC8_UART2TX        0x02
+#define GPIO_PC8_UART1CTS       0x03
+#define GPIO_PC8_ENET_MDC       0x04
+#define GPIO_PC9_PC9            0x00
+#define GPIO_PC9_USB_CONNECT    0x01
+#define GPIO_PC9_UART2RX        0x02
+#define GPIO_PC9_UART4RX        0x03
+#define GPIO_PC9_ENET_MDIO      0x04
+#define GPIO_PC10_PC10          0x00
+#define GPIO_PC10_EINT0         0x01
+#define GPIO_PC10_NMI           0x02
+#define GPIO_PC11_PC11          0x00
+#define GPIO_PC11_EINT1         0x01
+#define GPIO_PC11_I2STX_CLK     0x03
+#define GPIO_PC12_PC12          0x00
+#define GPIO_PC12_EINT2         0x01
+#define GPIO_PC12_I2STX_WS      0x03
+#define GPIO_PC13_PC13          0x00
+#define GPIO_PC13_EINT3         0x01
+#define GPIO_PC13_I2STX_SDA     0x03
+#define GPIO_PC14_PC14          0x00
+#define GPIO_PC14_EMCCS2        0x01
+#define GPIO_PC14_I2C1SDA       0x02
+#define GPIO_PC14_TIMCCP0       0x03
+#define GPIO_PC15_PC15          0x00
+#define GPIO_PC15_EMCCS3        0x01
+#define GPIO_PC15_I2C1SCL       0x02
+#define GPIO_PC15_TIMCCP1       0x03
+#define GPIO_PC16_PC16          0x00
+#define GPIO_PC16_EMCCAS        0x01
+#define GPIO_PC17_PC17          0x00
+#define GPIO_PC17_EMCRAS        0x01
+#define GPIO_PC18_PC18          0x00
+#define GPIO_PC18_CLK           0x01
+#define GPIO_PC19_PC19          0x00
+#define GPIO_PC19_CLK           0x01
+#define GPIO_PC20_PC20          0x00
+#define GPIO_PC20_EMCDYCS       0x01
+#define GPIO_PC21_PC21          0x00
+#define GPIO_PC21_EMCDYCS       0x01
+#define GPIO_PC22_PC22          0x00
+#define GPIO_PC22_EMCDYCS       0x01
+#define GPIO_PC22_SPI0CLK       0x02
+#define GPIO_PC22_TIM_CAP       0x03
+#define GPIO_PC23_PC23          0x00
+#define GPIO_PC23_EMCDYCS       0x01
+#define GPIO_PC23_SPI0CS        0x02
+#define GPIO_PC23_TIM_CAP       0x03
+#define GPIO_PC24_PC24          0x00
+#define GPIO_PC24_EMCCKE        0x01
+#define GPIO_PC25_PC25          0x00
+#define GPIO_PC25_EMCCKE        0x01
+#define GPIO_PC26_PC26          0x00
+#define GPIO_PC26_EMCCKE        0x01
+#define GPIO_PC26_SPI0MISO      0x02
+#define GPIO_PC26_TIM_MAT0      0x03
+#define GPIO_PC27_PC27          0x00
+#define GPIO_PC27_EMCCKE        0x01
+#define GPIO_PC27_SPI0MOSI      0x02
+#define GPIO_PC27_TIM_MAT1      0x03
+#define GPIO_PC28_PC28          0x00
+#define GPIO_PC28_EMCDQM        0x01
+#define GPIO_PC29_PC29          0x00
+#define GPIO_PC29_EMCDQM        0x01
+#define GPIO_PC30_PC30          0x00
+#define GPIO_PC30_EMCDQM        0x01
+#define GPIO_PC30_I2C2SDA       0x02
+#define GPIO_PC30_TIM_MAT2      0x03
+#define GPIO_PC31_PC31          0x00
+#define GPIO_PC31_EMCDQM        0x01
+#define GPIO_PC31_I2C2SCK       0x02
+#define GPIO_PC31_TIM_MAT3      0x03
+#define GPIO_PD0_PD0            0x00
+#define GPIO_PD1_PD1            0x00
+#define GPIO_PD2_PD2            0x00
+#define GPIO_PD3_PD3            0x00
+#define GPIO_PD4_PD4            0x00
+#define GPIO_PD5_PD5            0x00
+#define GPIO_PD6_PD6            0x00
+#define GPIO_PD7_PD7            0x00
+#define GPIO_PD8_PD8            0x00
+#define GPIO_PD9_PD9            0x00
+#define GPIO_PD10_PD10          0x00
+#define GPIO_PD11_PD11          0x00
+#define GPIO_PD12_PD12          0x00
+#define GPIO_PD13_PD13          0x00
+#define GPIO_PD14_PD14          0x00
+#define GPIO_PD15_PD15          0x00
+#define GPIO_PD16_PD16          0x00
+#define GPIO_PD16_PWM1          0x02
+#define GPIO_PD16_UART1TX       0x03
+#define GPIO_PD17_PD17          0x00
+#define GPIO_PD17_PWM2          0x02
+#define GPIO_PD17_UART1RX       0x03
+#define GPIO_PD18_PD18          0x00
+#define GPIO_PD18_PWM3          0x02
+#define GPIO_PD18_UART1CTS      0x03
+#define GPIO_PD19_PD19          0x00
+#define GPIO_PD19_PWM4          0x02
+#define GPIO_PD19_UART1DCD      0x03
+#define GPIO_PD20_PD20          0x00
+#define GPIO_PD20_PWM5          0x02
+#define GPIO_PD20_UART1DSR      0x03
+#define GPIO_PD21_PD21          0x00
+#define GPIO_PD21_PWM7          0x02
+#define GPIO_PD21_UART1DSR      0x03
+
+
+#define GPIO_PD25_PD25          0x00
+#define GPIO_PD25_TIM_MAT0      0x02
+#define GPIO_PD25_PWM2          0x03
+#define GPIO_PD26_PD26          0x00
+#define GPIO_PD26_STCLK         0x01
+#define GPIO_PD26_TIM_MAT1      0x02
+#define GPIO_PD26_PWM3          0x03
+#define GPIO_PE28_PE28          0x00
+#define GPIO_PE28_RX_MCLK       0x01
+#define GPIO_PE28_TIM_MAT0      0x02
+#define GPIO_PE28_UART3TX       0x03
+#define GPIO_PE29_PE29          0x00
+#define GPIO_PE29_TX_MCLK       0x01
+#define GPIO_PE29_TIM_MAT1      0x02
+#define GPIO_PE29_UART3RX       0x03
+
+#endif
+
 //*****************************************************************************
 //
 //! @}

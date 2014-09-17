@@ -447,7 +447,7 @@ extern "C"
 //
 //*****************************************************************************
 #define xSPIConfigSet(ulBase, ulBitRate, ulConfig)                            \
-         SPICfg(lBase, ulBitRate, ulConfig)
+         SPICfg(ulBase, ulBitRate, ulConfig)
 
 //*****************************************************************************
 //

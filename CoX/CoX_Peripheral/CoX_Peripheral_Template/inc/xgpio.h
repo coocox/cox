@@ -2,7 +2,6 @@
 //
 //! \file xgpio.h
 //! \brief Prototypes for the GPIO Driver.
-//! \brief Prototypes for the AFIO Driver.
 //! \version V2.3
 //! \date 07/01/2014
 //! \author CooCox
@@ -51,7 +50,7 @@
 // have a C binding.
 //
 //*****************************************************************************
-#ifdef __cplusplu
+#ifdef __cplusplus
 extern "C"
 {
 #endif
@@ -1349,7 +1348,7 @@ extern unsigned long xGPIOPinRead(unsigned long ulPort, unsigned long ulPins);
 //
 //*****************************************************************************
 extern void xGPIOPinWrite(unsigned long ulPort, unsigned long ulPins,
-        unsigned long ucVal);
+        unsigned char ucVal);
 
 
 //*****************************************************************************
