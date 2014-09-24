@@ -1193,6 +1193,27 @@ unsigned long  GPIOPinToPort(unsigned long ulPort, unsigned long ulPin){
 
 //*****************************************************************************
 //
+//! \brief Get the GPIO port from a short Pin.
+//!
+//! \param eShortPin is the base address of the GPIO port
+//!
+//! \note None.
+//! 
+//! \return GPIO port address which is used by GPIO API.
+//
+//*****************************************************************************
+unsigned long  GPIOPinToPort(unsigned long ulPort, unsigned long ulPin){
+    (void)ulPin;
+    //
+    // Check the arguments.
+    //
+    xASSERT(GPIOBaseValid(ulPort));
+
+    return ulPort;
+}
+
+//*****************************************************************************
+//
 //! \brief Get the GPIO pin number from a short Pin.
 //!
 //! \param eShortPin is the base address of the GPIO port
