@@ -1885,7 +1885,7 @@ inline unsigned long xGPIOPinRead(unsigned long ulPort, unsigned long ulPins)
 //
 //*****************************************************************************
 inline void xGPIOPinWrite(unsigned long ulPort, unsigned long ulPins,
-                   unsigned long ucVal)
+                   unsigned char ucVal)
 {
     //
     // Check the arguments.

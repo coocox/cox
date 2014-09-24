@@ -74,8 +74,8 @@
 //
 //*****************************************************************************
 #define xETH_BASE               ETH_BASE
-#define xDMA0_BASE              DMA_BASE
-#define xUSB_BASE               USB_BASE
+#define xDMA0_BASE              DMA0_BASE
+#define xUSB_BASE               USBD_BASE
 #define xGPIO_PORTA_BASE        GPIOA_BASE
 #define xGPIO_PORTB_BASE        GPIOB_BASE
 #define xGPIO_PORTC_BASE        GPIOC_BASE
@@ -86,6 +86,7 @@
 #define xTIMER1_BASE            TIMER1_BASE
 #define xUART0_BASE             UART0_BASE
 #define xUART1_BASE             UART1_BASE
+#define xPWM0_BASE              PWM0_BASE
 #define xPWM1_BASE              PWM1_BASE
 #define xI2C0_BASE              I2C0_BASE
 #define xSPI0_BASE              SPI0_BASE
@@ -102,7 +103,11 @@
 #define xUART2_BASE             UART2_BASE
 #define xUART3_BASE             UART3_BASE
 #define xI2C2_BASE              I2C2_BASE
+#define xUART4_BASE             UART4_BASE
+#define xCAN1_BASE              CAN1_BASE
+#define xCAN2_BASE              CAN2_BASE
 #define xI2S_BASE               I2S_BASE
+#define xSSP2_BASE              SSP2_BASE
 #define xRIT_BASE               RIT_BASE
 #define xMCPWM_BASE             MCPWM_BASE
 #define xQEI_BASE               QEI_BASE
@@ -137,60 +142,82 @@
 //
 //*****************************************************************************
 
-#define FLASH_BASE              ((unsigned long)0x00000000)
-#define SRAM_BASE               ((unsigned long)0x20000000)
-#define ETH_BASE                ((unsigned long)0x50000000)
-#define DMA_BASE                ((unsigned long)0x50004000)
-#define USB_BASE                ((unsigned long)0x5000C000)
+#define FLASH_BASE              0x00000000
+#define SRAM_BASE               0x20000000
 
-#define GPIOA_BASE              ((unsigned long)0x2009C000)
-#define GPIOB_BASE              ((unsigned long)0x2009C020)
-#define GPIOC_BASE              ((unsigned long)0x2009C040)
-#define GPIOD_BASE              ((unsigned long)0x2009C060)
-#define GPIOE_BASE              ((unsigned long)0x2009C080)
+#if defined(LPC_175x) || defined (LPC_176x)
+//LPC17nx AHB (n = 5/6)
+#define ETH_BASE                0x50000000  // Ethernet MAC
+#define DMA0_BASE               0x50004000  // General Purpose DMA
+#define USBD_BASE               0x5000C000  // USB interface
+#define GPIOA_BASE              0x2009C000  // GPIOA
+#define GPIOB_BASE              0x2009C020  // GPIOB
+#define GPIOC_BASE              0x2009C040  // GPIOC
+#define GPIOD_BASE              0x2009C060  // GPIOD
+#define GPIOE_BASE              0x2009C080  // GPIOE
 
-//LPC17nx APB0 (n = 5/6)
-#define WDT_BASE                ((unsigned long)0x40000000)
-#define TIMER0_BASE             ((unsigned long)0x40004000)
-#define TIMER1_BASE             ((unsigned long)0x40008000)
-#define UART0_BASE              ((unsigned long)0x4000C000)
-#define UART1_BASE              ((unsigned long)0x40010000)
-#define PWM1_BASE               ((unsigned long)0x40018000)
-#define I2C0_BASE               ((unsigned long)0x4001C000)
-#define SPI0_BASE               ((unsigned long)0x40020000)
-#define RTC_BASE                ((unsigned long)0x40024000)
-#define GPIO_INT_BASE           ((unsigned long)0x40028000)
-#define PIN_CON_BASE            ((unsigned long)0x4002C000)
-#define SSP1_BASE               ((unsigned long)0x40030000)
-#define ADC_BASE                ((unsigned long)0x40034000)
-#define CAN_AF_RAM_BASE         ((unsigned long)0x40038000)
-#define CAN_AF_REG_BASE         ((unsigned long)0x4003C000)
-#define CAN_COMM_BASE           ((unsigned long)0x40040000)
-#define CAN1_BASE               ((unsigned long)0x40044000)
-#define CAN2_BASE               ((unsigned long)0x40048000)
-#define I2C1_BASE               ((unsigned long)0x4005C000)
+//LPC17nx AHB (n = 7/8)
+#elif defined(LPC_177x) || defined (LPC_178x)
+#define DMA0_BASE               0x20080000  // General Purpose DMA
+#define ETH_BASE                0x20084000  // Ethernet MAC
+#define LCD_BASE                0x20088000  // LCD controller
+#define USBD_BASE               0x2008C000  // USB interface
+#define CRC_BASE                0x20090000  // CRC engine
+#define GPIOA_BASE              0x20098000  // GPIOA
+#define GPIOB_BASE              0x20098020  // GPIOB
+#define GPIOC_BASE              0x20098040  // GPIOC
+#define GPIOD_BASE              0x20098060  // GPIOD
+#define GPIOE_BASE              0x20098080  // GPIOE
+#define GPIOF_BASE              0x200980A0  // GPIOF
+#define EMC_BASE                0x2009C000  // External Memory Controller
+#endif
 
-//LPC17nx APB1 (n = 5/6)
-#define SSP0_BASE               ((unsigned long)0x40088000)
-#define DAC_BASE                ((unsigned long)0x4008C000)
-#define TIMER2_BASE             ((unsigned long)0x40090000)
-#define TIMER3_BASE             ((unsigned long)0x40094000)
-#define UART2_BASE              ((unsigned long)0x40098000)
-#define UART3_BASE              ((unsigned long)0x4009C000)
-#define I2C2_BASE               ((unsigned long)0x400A0000)
-#define I2S_BASE                ((unsigned long)0x400A8000)
-#define RIT_BASE                ((unsigned long)0x400B0000)
-#define MCPWM_BASE              ((unsigned long)0x400B8000)
-#define QEI_BASE                ((unsigned long)0x400BC000)
-#define SYSCTL_BASE             ((unsigned long)0x400FC000)
+//LPC17nx APB0 (n = 5/6/7/8)
+#define WDT_BASE                0x40000000  // Watchdog Timer
+#define TIMER0_BASE             0x40004000  // Timer 0
+#define TIMER1_BASE             0x40008000  // Timer 1
+#define UART0_BASE              0x4000C000  // UART0
+#define UART1_BASE              0x40010000  // UART1
+#define PWM0_BASE               0x40014000  // PWM0
+#define PWM1_BASE               0x40018000  // PWM1
+#define I2C0_BASE               0x4001C000  // I2C0
+#define SPI0_BASE               0x40020000  // SPI
+#define RTC_BASE                0x40024000  // RTC and Event Monitor/Recorder
+#define GPIO_INT_BASE           0x40028000  // GPIO interrupts
+#define PIN_CON_BASE            0x4002C000  // Pin Connect Block
+#define SSP1_BASE               0x40030000  // SSP1
+#define ADC_BASE                0x40034000  // ADC
+#define CAN_AF_RAM_BASE         0x40038000  // CAN Acceptance Filter RAM
+#define CAN_AF_REG_BASE         0x4003C000  // CAN Acceptance Filter Registers
+#define CAN_COMM_BASE           0x40040000  // CAN Common Registers
+#define CAN1_BASE               0x40044000  // CAN Controller 1
+#define CAN2_BASE               0x40048000  // CAN Controller 2
+#define I2C1_BASE               0x4005C000  // I2C1
+
+//LPC17nx APB1 (n = 5/6/7/8)
+#define SSP0_BASE               0x40088000  // SSP0
+#define DAC_BASE                0x4008C000  // DAC
+#define TIMER2_BASE             0x40090000  // Timer 2
+#define TIMER3_BASE             0x40094000  // Timer 3
+#define UART2_BASE              0x40098000  // UART2
+#define UART3_BASE              0x4009C000  // UART3
+#define I2C2_BASE               0x400A0000  // I2C2
+#define UART4_BASE              0x400A4000  // UART4
+#define I2S_BASE                0x400A8000  // I2S
+#define SSP2_BASE               0x400AC000  // SSP2
+#define RIT_BASE                0x400B0000  // Repetitive interrupt timer
+#define MCPWM_BASE              0x400B8000  // Motor control PWM
+#define QEI_BASE                0x400BC000  // Quadrature Encoder Interface
+#define SDC_BASE                0x400C0000  // SD card interface
+#define SYSCTL_BASE             0x400FC000  // System control
 
 //Core components
-#define ITM_BASE                ((unsigned long)0xE0000000)
-#define DWT_BASE                ((unsigned long)0xE0001000)
-#define FPB_BASE                ((unsigned long)0xE0002000)
-#define NVIC_BASE               ((unsigned long)0xE000E000)
-#define TPIU_BASE               ((unsigned long)0xE0040000)
-#define COREDEBUG_BASE          ((unsigned long)0xE000EDF0)
+#define ITM_BASE                0xE0000000
+#define DWT_BASE                0xE0001000
+#define FPB_BASE                0xE0002000
+#define NVIC_BASE               0xE000E000
+#define TPIU_BASE               0xE0040000
+#define COREDEBUG_BASE          0xE000EDF0
 
 //*****************************************************************************
 //

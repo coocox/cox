@@ -39,8 +39,9 @@
 #ifndef __XUSB_H__
 #define __XUSB_H__
 
-#include "usb.h"
-#include "xPort.h"
+//#include "usb.h"
+//#include "xPort.h"
+#include "xhw_types.h"
 
 //*****************************************************************************
 //
@@ -138,6 +139,33 @@ typedef struct _USB_ENDPOINT_DESCRIPTOR {
 	unsigned char  bInterval;
 } __attribute__((packed)) USB_ENDPOINT_DESCRIPTOR;
 
+#define USB_EVENT_EP0           0
+#define USB_EVENT_EP1           1
+#define USB_EVENT_EP2           2
+#define USB_EVENT_EP3           3
+#define USB_EVENT_EP4           4
+#define USB_EVENT_EP5           5
+#define USB_EVENT_EP6           6
+#define USB_EVENT_EP7           7
+#define USB_EVENT_EP8           8
+#define USB_EVENT_EP9           9
+#define USB_EVENT_EP10          10
+#define USB_EVENT_EP11          11
+
+#define USB_EVT_SETUP       1   /* Setup Packet                             */
+#define USB_EVT_OUT         2   /* OUT Packet                               */
+#define USB_EVT_IN          3   /*  IN Packet                               */
+#define USB_EVT_OUT_NAK     4   /* OUT Packet - Not Acknowledged            */
+#define USB_EVT_IN_NAK      5   /*  IN Packet - Not Acknowledged            */
+#define USB_EVT_OUT_STALL   6   /* OUT Packet - Stalled                     */
+#define USB_EVT_IN_STALL    7   /*  IN Packet - Stalled                     */
+#define USB_EVT_OUT_DMA_EOT 8   /* DMA OUT EP - End of Transfer */
+#define USB_EVT_IN_DMA_EOT  9   /* DMA  IN EP - End of Transfer */
+#define USB_EVT_OUT_DMA_NDR 10  /* DMA OUT EP - New Descriptor Request */
+#define USB_EVT_IN_DMA_NDR  11  /* DMA  IN EP - New Descriptor Request */
+#define USB_EVT_OUT_DMA_ERR 12  /* DMA OUT EP - Error */
+#define USB_EVT_IN_DMA_ERR  13  /* DMA  IN EP - Error */
+
 //*****************************************************************************
 //
 //! @}
@@ -160,10 +188,12 @@ typedef struct _USB_ENDPOINT_DESCRIPTOR {
 //! | \ref  xUSBSuspend                  |  Mandatory   |
 //! | \ref  xUSBResume                   |  Mandatory   |
 //! | \ref  xUSBWakeUp                   |  Mandatory   |
-//! | \ref  xUSBWakeUpConfig             |  Mandatory   |
+//! | \ref  xUSBWakeUpEnable             |  Mandatory   |
+//! | \ref  xUSBWakeUpDisable            |  Mandatory   |
 //! | \ref  xUSBSetAddress               |  Mandatory   |
-//! | \ref  xUSBIsConfigured             |  Mandatory   |
+//! | \ref  xUSBConfigure                |  Mandatory   |
 //! | \ref  xUSBEndpointConfig           |  Mandatory   |
+//! | \ref  xUSBEndpointDirCtr           |  Mandatory   |
 //! | \ref  xUSBEndpointEnable           |  Mandatory   |
 //! | \ref  xUSBEndpointDisable          |  Mandatory   |
 //! | \ref  xUSBEndpointReset            |  Mandatory   |
@@ -322,6 +352,8 @@ extern xtBoolean xUSBConfigure(unsigned long ulConfig);
 //
 //*****************************************************************************
 extern xtBoolean xUSBEndpointConfig(USB_ENDPOINT_DESCRIPTOR *epConfig, unsigned long ulDir);
+
+extern xtBoolean xUSBEndpointDirCtr(unsigned long ulDir);
 
 //*****************************************************************************
 //

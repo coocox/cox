@@ -278,7 +278,8 @@
 #define xINT_SPI2               INT_SPI2
 #define xINT_SPI3               INT_SPI3
 #define xINT_CAN0               INT_CAN0        
-#define xINT_CAN1               INT_CAN1   
+#define xINT_CAN1               INT_CAN1
+#define xINT_CAN2               INT_CAN2
 #define xINT_I2S0               INT_I2S0
 #define xINT_I2S1               INT_I2S1
 #define xINT_USBD               INT_USBD

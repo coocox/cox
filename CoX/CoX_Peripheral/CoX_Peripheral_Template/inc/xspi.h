@@ -763,6 +763,8 @@ extern void xSPIIntCallbackInit(unsigned long ulBase, xtEventCallback xtSPICallb
 //! \brief Disable the SPI interrupt of the specified SPI port.
 //!
 //! \param ulBase specifies the SPI module base address.
+//! \param ulIntFlags specifies the type of SPI interrupt.
+//! Details please refer to \ref xSPI_Ints.
 //!
 //! This function is to disable the SPI interrupt of the specified SPI port 
 //!

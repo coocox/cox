@@ -92,7 +92,7 @@
 #define xINT_UART1                           INT_UART1       // 22 UART1 Rx and Tx
 #define xINT_UART2                           INT_UART2       // 23 UART2 Rx and Tx
 #define xINT_UART3                           INT_UART3       // 24 UART3 Rx and Tx
-#define xINT_PWM0                            INT_PWM1        // 25 PWM Generator 1
+#define xINT_PWM1                            INT_PWM1        // 25 PWM Generator 1
 #define xINT_I2C0                            INT_I2C0        // 26 I2C0 Master and Slave
 #define xINT_I2C1                            INT_I2C1        // 27 I2C1 Master and Slave
 #define xINT_I2C2                            INT_I2C2        // 28 I2C2 Master and Slave
@@ -105,12 +105,11 @@
 #define xINT_EINT1                           INT_EINT1       // 35 External Interrupt 1
 #define xINT_EINT2                           INT_EINT2       // 36 External Interrupt 2
 #define xINT_EINT3                           INT_EINT3       // 37 External Interrupt 3
-#define xINT_GPIOA                           INT_EINT3       // 37 GPIO Int0, Share with External Int 3
-#define xINT_GPIOC                           INT_EINT3       // 37 GPIO Int2, Share with External Int 3
 #define xINT_ADC                             INT_ADC         // 38 ADC
 #define xINT_BOD                             INT_BOD         // 39 Brown Out detect
 #define xINT_USB                             INT_USB         // 40 USB Controller
-#define xINT_CAN0                            INT_CAN         // 41 CAN 0
+#define xINT_CAN1                            INT_CAN         // 41 CAN 1
+#define xINT_CAN2                            INT_CAN         // 41 CAN 2
 #define xINT_DMA0                            INT_DMA         // 42 DMA controller
 #define xINT_I2S                             INT_I2S         // 43 I2S
 #define xINT_ETH                             INT_ETH         // 44 Ethernet
@@ -119,6 +118,15 @@
 #define xINT_QEI                             INT_QEI         // 47 Quadrature Encoder Interface
 #define xINT_PLL1                            INT_PLL1        // 48 PLL1 Lock (Alt PLL)
 #define xINT_USBACT                          INT_USBACT      // 49 USB Activity Interrupt
+#define xINT_UART4                           INT_UART4       // 51 UART4 Rx and Tx
+#define xINT_SSP2                            INT_SSP2        // 52 SSP1 Rx and Tx
+#define xINT_LCD                             INT_LCD         // 53 LCD controller
+#define xINT_GPIOA                           INT_GPIO        // 54 GPIOA
+#define xINT_GPIOB                           INT_GPIO        // 54 GPIOB
+#define xINT_GPIOC                           INT_GPIO        // 54 GPIOC
+#define xINT_GPIOD                           INT_GPIO        // 54 GPIOD
+#define xINT_GPIOE                           INT_GPIO        // 54 GPIOE
+#define xINT_PWM0                            INT_PWM0        // 55 PWM0
 
 //*****************************************************************************
 //
@@ -199,10 +207,7 @@
 #define INT_EINT0                            34 // External Interrupt 0
 #define INT_EINT1                            35 // External Interrupt 1
 #define INT_EINT2                            36 // External Interrupt 2
-#define INT_EINT3                            37 // External Interrupt 3, Share with GPIO
-#define INT_GPIO                             37 // External Interrupt 3, Share with GPIO
-#define INT_GPIOA                            37 // External Interrupt 3, Share with GPIO
-#define INT_GPIOC                            37 // External Interrupt 3, Share with GPIO
+#define INT_EINT3                            37 // External Interrupt 3
 #define INT_ADC                              38 // ADC
 #define INT_BOD                              39 // Brown Out detect
 #define INT_USB                              40 // USB Controller
@@ -215,14 +220,20 @@
 #define INT_QEI                              47 // Quadrature Encoder Interface
 #define INT_PLL1                             48 // PLL1 Lock (Alt PLL)
 #define INT_USBACT                           49 // USB Activity Interrupt
-
+#define INT_CANWAKE                          50 // CAN Activity Interrupt
+#define INT_UART4                            51 // UART4 Rx and Tx
+#define INT_SSP2                             52 // SSP1 Rx and Tx
+#define INT_LCD                              53 // LCD controller
+#define INT_GPIO                             54 // GPIO interrupts
+#define INT_PWM0                             55 // PWM0
+#define INT_EEPROM                           56 // EEPROM
 
 //*****************************************************************************
 //
 //! \brief Defines for the total number of interrupts.
 //
 //*****************************************************************************
-#define NUM_INTERRUPTS                       51
+#define NUM_INTERRUPTS                       57
 
 //*****************************************************************************
 //

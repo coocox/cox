@@ -45,9 +45,7 @@
 #include "xdebug.h"
 #include "xsysctl.h"
 
-static unsigned long PLLMNCal(unsigned long Fin,
-        unsigned long Fout, unsigned long * pM, unsigned long *pN, unsigned long *pDiv);
-
+static unsigned long s_ulExtClockMHz = 12000000;
 static unsigned long g_ulSystemClk = 0;           // System Clock frequency
 static unsigned long g_ulAHBClk    = 0;           // AHB Clock frequency
 //static unsigned long g_ulAPB1Clk   = 0;           // APB1 Clock frequency
@@ -75,39 +73,40 @@ tPeripheralTable;
 static const tPeripheralTable g_pPeripherals[] =
 {
 
-    { xTIMER0_BASE       , xSYSCTL_PERIPH_TIMER0  , 0 },
-    { xTIMER1_BASE       , xSYSCTL_PERIPH_TIMER1  , 0 },
-    { xUART0_BASE        , xSYSCTL_PERIPH_UART0   , 0 },
-    { xUART1_BASE        , xSYSCTL_PERIPH_UART1   , 0 },
-    { xPWM1_BASE         , xSYSCTL_PERIPH_PWM1    , 0 },
-    { xI2C0_BASE         , xSYSCTL_PERIPH_I2C0    , 0 },
-    { xSPI0_BASE         , xSYSCTL_PERIPH_SPI     , 0 },
-    { xRTC_BASE          , xSYSCTL_PERIPH_RTC     , 0 },
-    { xSSP1_BASE         , xSYSCTL_PERIPH_SSP1    , 0 },
-    { xADC0_BASE         , xSYSCTL_PERIPH_ADC0    , 0 },
-    { xCAN1_BASE         , xSYSCTL_PERIPH_CAN1    , 0 },
-    { xCAN2_BASE         , xSYSCTL_PERIPH_CAN2    , 0 },
-    { xGPIO_PORTA_BASE   , xSYSCTL_PERIPH_GPIOA   , 0 },
-    { xGPIO_PORTB_BASE   , xSYSCTL_PERIPH_GPIOB   , 0 },
-    { xGPIO_PORTC_BASE   , xSYSCTL_PERIPH_GPIOC   , 0 },
-    { xGPIO_PORTD_BASE   , xSYSCTL_PERIPH_GPIOD   , 0 },
-    { xGPIO_PORTE_BASE   , xSYSCTL_PERIPH_GPIOE   , 0 },
-    { xRIT_BASE          , xSYSCTL_PERIPH_RIT     , 0 },
-    { xMCPWM_BASE        , xSYSCTL_PERIPH_MCPWM   , 0 },
-    { xQEI_BASE          , xSYSCTL_PERIPH_QEI     , 0 },
-    { xI2C1_BASE         , xSYSCTL_PERIPH_I2C1    , 0 },
-    { xSSP0_BASE         , xSYSCTL_PERIPH_SSP0    , 0 },
-    { xTIMER2_BASE       , xSYSCTL_PERIPH_TIMER2  , 0 },
-    { xTIMER3_BASE       , xSYSCTL_PERIPH_TIMER3  , 0 },
-    { xUART2_BASE        , xSYSCTL_PERIPH_UART2   , 0 },
-    { xUART3_BASE        , xSYSCTL_PERIPH_UART3   , 0 },
-    { xI2C2_BASE         , xSYSCTL_PERIPH_I2C2    , 0 },
-    { xI2S_BASE          , xSYSCTL_PERIPH_I2S     , 0 },
-    { xDMA0_BASE         , xSYSCTL_PERIPH_DMA     , 0 },
-    { xETH_BASE          , xSYSCTL_PERIPH_ETH     , 0 },
-    { xUSB_BASE          , xSYSCTL_PERIPH_USB     , 0 },
-    { 0                  , 0                      , 0 },
-
+    { xTIMER0_BASE       , xSYSCTL_PERIPH_TIMER0  , xINT_TIMER0 },
+    { xTIMER1_BASE       , xSYSCTL_PERIPH_TIMER1  , xINT_TIMER1 },
+    { xUART0_BASE        , xSYSCTL_PERIPH_UART0   , xINT_UART0  },
+    { xUART1_BASE        , xSYSCTL_PERIPH_UART1   , xINT_UART1  },
+    { xPWM0_BASE         , xSYSCTL_PERIPH_PWM0    , xINT_PWM0   },
+    { xPWM1_BASE         , xSYSCTL_PERIPH_PWM1    , xINT_PWM1   },
+    { xI2C0_BASE         , xSYSCTL_PERIPH_I2C0    , xINT_I2C0   },
+    { xSPI0_BASE         , xSYSCTL_PERIPH_SPI     , xINT_SPI0   },
+    { xRTC_BASE          , xSYSCTL_PERIPH_RTC     , xINT_RTC    },
+    { xSSP1_BASE         , xSYSCTL_PERIPH_SSP1    , xINT_SSP1   },
+    { xADC0_BASE         , xSYSCTL_PERIPH_ADC0    , xINT_ADC    },
+    { xCAN1_BASE         , xSYSCTL_PERIPH_CAN1    , xINT_CAN1   },
+    { xCAN2_BASE         , xSYSCTL_PERIPH_CAN2    , xINT_CAN2   },
+    { xGPIO_PORTA_BASE   , xSYSCTL_PERIPH_GPIOA   , xINT_GPIOA  },
+    { xGPIO_PORTB_BASE   , xSYSCTL_PERIPH_GPIOB   , xINT_GPIOB  },
+    { xGPIO_PORTC_BASE   , xSYSCTL_PERIPH_GPIOC   , xINT_GPIOC  },
+    { xGPIO_PORTD_BASE   , xSYSCTL_PERIPH_GPIOD   , xINT_GPIOD  },
+    { xGPIO_PORTE_BASE   , xSYSCTL_PERIPH_GPIOE   , xINT_GPIOE  },
+    { xRIT_BASE          , xSYSCTL_PERIPH_RIT     , 0           },
+    { xMCPWM_BASE        , xSYSCTL_PERIPH_MCPWM   , 0           },
+    { xQEI_BASE          , xSYSCTL_PERIPH_QEI     , 0           },
+    { xI2C1_BASE         , xSYSCTL_PERIPH_I2C1    , xINT_I2C1   },
+    { xSSP0_BASE         , xSYSCTL_PERIPH_SSP0    , xINT_SSP0   },
+    { xTIMER2_BASE       , xSYSCTL_PERIPH_TIMER2  , xINT_TIMER2 },
+    { xTIMER3_BASE       , xSYSCTL_PERIPH_TIMER3  , xINT_TIMER3 },
+    { xUART2_BASE        , xSYSCTL_PERIPH_UART2   , xINT_UART2  },
+    { xUART3_BASE        , xSYSCTL_PERIPH_UART3   , xINT_UART3  },
+    { xI2C2_BASE         , xSYSCTL_PERIPH_I2C2    , xINT_I2C2   },
+    { xUART4_BASE        , xSYSCTL_PERIPH_UART4   , xINT_UART4  },
+    { xI2S_BASE          , xSYSCTL_PERIPH_I2S     , xINT_I2S    },
+    { xDMA0_BASE         , xSYSCTL_PERIPH_DMA     , xINT_DMA0   },
+    { xETH_BASE          , xSYSCTL_PERIPH_ETH     , xINT_ETH    },
+    { xUSB_BASE          , xSYSCTL_PERIPH_USB     , xINT_USB    },
+    { 0                  , 0                      , 0           },
 };
 
 //*****************************************************************************
@@ -289,12 +288,12 @@ SysCtlDelay(unsigned long ulCount)
 void SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
 {
 
-    unsigned long ulTmpReg = 0;      // Temporary register
-    unsigned long ulRes    = 0;      // Store Result value
-    unsigned long ulM      = 0;      // PLL Multiplier
-    unsigned long ulN      = 0;      // PLL Divider
-    unsigned long ulDiv    = 0;      // System clock divider
-    unsigned long ulFin    = 0;      // Input Clock frequency
+    unsigned long ulTmpReg;   // Temporary register
+    unsigned long ulRes;      // Store Result value
+    unsigned long ulM;        // PLL Multiplier
+    unsigned long ulN;        // PLL Divider
+    unsigned long ulDiv;      // System clock divider
+    unsigned long ulFin;      // Input Clock frequency
 
     /************** Check input parameters valid ********************/
     // ulSysClk clock range: 0 --> 12MHz
@@ -315,7 +314,6 @@ void SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
     // Need Enable Main Oscillator ?
     if(ulConfig & SYSCTL_OSC_MAIN)              // Enable Main Osc
     {
-
         // Get Input Frequency (unit: Hz)
         ulTmpReg = (ulConfig & SYSCTL_XTAL_nMHZ_MASK) * 1000000;
 
@@ -390,7 +388,6 @@ void SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
         // Get Input Frequency (unit: Hz)
         // For IRC, there is 4MHz
         ulFin = 4 * 1000000;
-
     }
 
     //
@@ -406,6 +403,7 @@ void SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
     //     //Do Nothing Here
     // }
 
+    s_ulExtClockMHz = ulFin;
     ulRes = PLLMNCal(ulFin, ulSysClk, &ulM, &ulN, &ulDiv);
     if(!ulRes)                                  // Configure Failure
     {
@@ -415,8 +413,8 @@ void SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
     // Check PLL Enable/Connect Status
     // if Enable and Connect, then disconnect it.
     // At last, Reconfigure PLL and connect to system clock.
-
-    // PLL Connected ?
+#if defined(LPC_175x) && defined (LPC_176x)
+    // PLL0 Connected ?
     ulTmpReg = xHWREG(PLL0STAT);
     if(ulTmpReg & PLL0STAT_PLLC_STAT)           // Connected to System Clock
     {
@@ -426,8 +424,8 @@ void SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
         xHWREG(PLL0CON) = ulTmpReg;
 
         // Write key to PLL Feed register
-        xHWREG(PLL0FEED) = (unsigned long)0xAA;
-        xHWREG(PLL0FEED) = (unsigned long)0x55;
+        xHWREG(PLL0FEED) = 0xAA;
+        xHWREG(PLL0FEED) = 0x55;
 
         // waiting for disconnect
         do
@@ -437,19 +435,20 @@ void SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
         }while(ulTmpReg);
 
     }
+#endif
 
-    // PLL Enable ?
+    // PLL0 Enable ?
     ulTmpReg = xHWREG(PLL0STAT);
     if(ulTmpReg & PLL0STAT_PLLE_STAT) // PLL Have Been Enabled, we need to Disable it.
     {
-        // Disable PLL
+        // Disable PLL0
         ulTmpReg =  xHWREG(PLL0CON);
         ulTmpReg &= ~PLL0CON_PLLE;
         xHWREG(PLL0CON) = ulTmpReg;
 
-        // Write key to PLL Feed register
-        xHWREG(PLL0FEED) = (unsigned long)0xAA;
-        xHWREG(PLL0FEED) = (unsigned long)0x55;
+        // Write key to PLL0 Feed register
+        xHWREG(PLL0FEED) = 0xAA;
+        xHWREG(PLL0FEED) = 0x55;
 
         // Waitting for Disable
         do
@@ -458,65 +457,91 @@ void SysCtlClockSet(unsigned long ulSysClk, unsigned long ulConfig)
             ulTmpReg &= PLL0STAT_PLLE_STAT;
         }while(ulTmpReg);
     }
-
-    xHWREG(CCLKCFG) = (ulDiv - 1);
-    xHWREG(PCLKSEL0) = (unsigned long)0x00;           // APB clock is equal to AHB/4
-    xHWREG(PCLKSEL1) = (unsigned long)0x00;
-
-    // Updata private clock data.
-    g_ulSystemClk = ulSysClk;
-    g_ulAHBClk    = ulSysClk;
-    //g_ulAPB1Clk   = ulSysClk/4;
-    //g_ulAPB2Clk   = g_ulAPB1Clk;
-
-    // Configure PLL Multiplier/Divider
+ 
+    // Configure PLL0 Multiplier/Divider
     ulM -= 1;
     ulN -= 1;
     ulTmpReg = (ulN << PLL0CFG_PSEL_S) | ulM;
-    xHWREG(PLL0CFG) = ulTmpReg;
+    xHWREG(PLL0CFG) = 0x09; //ulTmpReg;
 
-    // Write key to PLL Feed register
-    xHWREG(PLL0FEED) = (unsigned long)0xAA;
-    xHWREG(PLL0FEED) = (unsigned long)0x55;
-
-    //ReEnable PLL and Wait Locked
+    //ReEnable PLL0 and Wait Locked
     ulTmpReg =  xHWREG(PLL0CON);
     ulTmpReg |= PLL0CON_PLLE;
     xHWREG(PLL0CON) = ulTmpReg;
 
-    // Write key to PLL Feed register
-    xHWREG(PLL0FEED) = (unsigned long)0xAA;
-    xHWREG(PLL0FEED) = (unsigned long)0x55;
+    // Write key to PLL0 Feed register
+    xHWREG(PLL0FEED) = 0xAA;
+    xHWREG(PLL0FEED) = 0x55;
 
-    // Waitting for Enable
+    // Waitting for PLL0 Enable and Locked
     do
     {
         ulTmpReg = xHWREG(PLL0STAT);
-        ulTmpReg &= PLL0STAT_PLLE_STAT;
+        ulTmpReg &= (PLL0STAT_PLLE_STAT | PLL0STAT_PLOCK);
     }while(ulTmpReg == 0);
 
-    // Waitting for Locked
+    //
+    //! Configure PLL1 Multiplier/Divider for USB Clock
+    //
+    xHWREG(PLL1CFG)   = 0x23;
+    
+    //ReEnable PLL1 and Wait Locked
+    ulTmpReg =  xHWREG(PLL1CON);
+    ulTmpReg |= PLL1CON_PLLE;
+    xHWREG(PLL1CON) = ulTmpReg;
+    
+    // Write key to PLL1 Feed register
+    xHWREG(PLL1FEED)  = 0xAA;
+    xHWREG(PLL1FEED)  = 0x55;
+    
+    // Waitting for PLL1 Enable
     do
     {
-        ulTmpReg = xHWREG(PLL0STAT);
-        ulTmpReg &= PLL0STAT_PLOCK;
+        ulTmpReg = xHWREG(PLL1STAT);
+        ulTmpReg &= PLL1STAT_PLLE_STAT ;
     }while(ulTmpReg == 0);
-
+ 
+    // Waitting for PLL1 Locked
+    do
+    {
+        ulTmpReg = xHWREG(PLL1STAT);
+        ulTmpReg &= PLL1STAT_PLOCK;
+    }while(ulTmpReg == 0);
+    
+#if defined(LPC_175x) || defined (LPC_176x)
     // Connect It
     ulTmpReg =  xHWREG(PLL0CON);
     ulTmpReg |= PLL0CON_PLLC;
     xHWREG(PLL0CON) = ulTmpReg;
 
     // Write key to PLL Feed register
-    xHWREG(PLL0FEED) = (unsigned long)0xAA;
-    xHWREG(PLL0FEED) = (unsigned long)0x55;
-
+    xHWREG(PLL0FEED) = 0xAA;
+    xHWREG(PLL0FEED) = 0x55;
+    
     // Waitting for Enable
     do
     {
         ulTmpReg = xHWREG(PLL0STAT);
         ulTmpReg &= PLL0STAT_PLLC_STAT;
     }while(ulTmpReg == 0);
+#endif
+
+    // Setup Clock Divider
+    xHWREG(CCLKSEL) = (1<<8)|(ulDiv - 1);
+    
+    // Select PLL1 for USB clock and Setup USB Clock Divider
+    xHWREG(USBCLKSEL) = 0x01|(0x02 << 8);
+    
+    // EMC Clock Selection
+    xHWREG(EMCCLKSEL) = 0x01;
+    
+    // Peripheral Clock Selection, APB clock is equal to AHB/2
+#if defined(LPC_177x) | defined(LPC_178x)
+    xHWREG(PCLKSEL)  = 0x02;
+#else
+    xHWREG(PCLKSEL0) = (unsigned long)0x00;
+    xHWREG(PCLKSEL1) = (unsigned long)0x00;
+#endif
 }
 
 //*****************************************************************************
@@ -591,7 +616,6 @@ void SysCtlExtIntCfg(unsigned long ulPin, unsigned long ulCfg)
     // Write back to mode/polar register
     xHWREG(EXTMODE)  = ulTmpReg1;             // Mode register
     xHWREG(EXTPOLAR) = ulTmpReg2;             // Polar register
-
 }
 
 //*****************************************************************************
@@ -678,10 +702,7 @@ void SysCtlExtIntFlagClear(unsigned long ulFlag)
     xASSERT( (ulFlag & EXT_INT_MASK) != 0 );
 
     xHWREG(EXTINT) |= ulFlag;
-
 }
-
-
 
 //*****************************************************************************
 //
@@ -939,6 +960,7 @@ unsigned long SysCtlPeripheralClockGet(unsigned long ulPeri)
 //!             - \ref SYSCTL_PERIPH_TIMER1
 //!             - \ref SYSCTL_PERIPH_UART0
 //!             - \ref SYSCTL_PERIPH_UART1
+//!             - \ref SYSCTL_PERIPH_PWM0
 //!             - \ref SYSCTL_PERIPH_PWM1
 //!             - \ref SYSCTL_PERIPH_I2C0
 //!             - \ref SYSCTL_PERIPH_SPI
@@ -962,6 +984,7 @@ unsigned long SysCtlPeripheralClockGet(unsigned long ulPeri)
 //!             - \ref SYSCTL_PERIPH_UART2
 //!             - \ref SYSCTL_PERIPH_UART3
 //!             - \ref SYSCTL_PERIPH_I2C2
+//!             - \ref SYSCTL_PERIPH_UART4
 //!             - \ref SYSCTL_PERIPH_I2S
 //!             - \ref SYSCTL_PERIPH_GPDMA
 //!             - \ref SYSCTL_PERIPH_ETH
@@ -974,7 +997,6 @@ unsigned long SysCtlPeripheralClockGet(unsigned long ulPeri)
 //*****************************************************************************
 void SysCtlPeripheralReset(unsigned long ulPeripheral)
 {
-
     // Note: Not for LPC 17nx (n=5/6)
 
 #if defined(LPC_175x) | defined(LPC_176x)
@@ -1261,7 +1283,14 @@ unsigned long SysCtlPeripheraIntNumGet(unsigned long ulPeripheralBase)
 //*****************************************************************************
 unsigned long SysCtlClockGet(void)
 {
-    return (g_ulSystemClk);
+    //return (g_ulSystemClk);
+    unsigned long ulM, ulP, ulDiv;
+    unsigned long ulTmpReg = xHWREG(PLL0CFG);
+    ulM = (ulTmpReg & 0x1F) + 1;
+    ulP = ((ulTmpReg & PLL0CFG_PSEL_M) >> PLL0CFG_PSEL_S) + 1;
+    ulDiv = xHWREG(CCLKSEL) & 0x1F;
+    return ((s_ulExtClockMHz * ulM) / (ulP * ulDiv));
+  //return (s_ulExtClockMHz * ((ulTmpReg & 0x1F) + 1) / ((((ulTmpReg&PLL0CFG_PSEL_M)>>PLL0CFG_PSEL_S)+1) * (xHWREG(CCLKSEL) & 0x1F)));
 }
 
 //*****************************************************************************

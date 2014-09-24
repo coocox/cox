@@ -51,10 +51,25 @@
 #include "xhw_types.h"
 #include "xhw_memmap.h"
 
-#define LPC_176x
+//#define LPC_176x
 
 //! Detect MCU Type.
-#if defined(LPC_175x) || defined (LPC_176x)
+#if defined(LPC1751) || defined(LPC1752) || defined(LPC1754) || \
+    defined(LPC1756) || defined(LPC1758) || defined(LPC1759)
+#define LPC_175x
+#endif
+#if defined(LPC1763) || defined(LPC1764) || defined(LPC1765) || defined(LPC1766) || \
+    defined(LPC1767) || defined(LPC1768) || defined(LPC1769)
+#define LPC_176x
+#endif
+#if defined(LPC1774) || defined(LPC1776) || defined(LPC1777) || defined(LPC1778)
+#define LPC_177x
+#endif
+#if defined(LPC1785) || defined(LPC1786) || defined(LPC1787) || defined(LPC1788)
+//#define LPC_178x
+#endif
+
+#if defined(LPC_175x) || defined (LPC_176x) || defined(LPC_177x) || defined (LPC_178x)
 #else
 #error Please select your LPC MCU first!             \
        This value can be one of the following value: \
@@ -134,9 +149,6 @@
 
 //! External Memory Controller Clock Selection
 #define EMCCLKSEL               (SYSCTL_BASE + (unsigned long)0x100)
-
-//! CPU Clock Selection
-#define CCLKCFG                 (SYSCTL_BASE + (unsigned long)0x104)
 
 //! CPU Clock Selection
 #define CCLKSEL                 (SYSCTL_BASE + (unsigned long)0x104)
@@ -365,11 +377,16 @@
 
 #elif defined(LPC_177x) | defined(LPC_178x)
 
-#define PLLSTAT_MSEL_M         BIT_MASK(32, 4, 0)
-#define PLLSTAT_PSEL_M         BIT_MASK(32, 6, 5)
-#define PLLSTAT_PLLE_STAT      BIT_32_8
-#define PLLSTAT_PLOCK          BIT_32_10
+#define PLL0STAT_MSEL_M         BIT_MASK(32, 4, 0)
+#define PLL0STAT_PSEL_M         BIT_MASK(32, 6, 5)
+#define PLL0STAT_PLLE_STAT      BIT_32_8
+#define PLL0STAT_PLOCK          BIT_32_10
 
+#define PLL1STAT_MSEL_M         BIT_MASK(32, 4, 0)
+#define PLL1STAT_PSEL_M         BIT_MASK(32, 6, 5)
+#define PLL1STAT_PLLE_STAT      BIT_32_8
+#define PLL1STAT_PLOCK          BIT_32_10
+ 
 #endif
 
 //*****************************************************************************
@@ -578,7 +595,16 @@
 //*****************************************************************************
 #if defined(LPC_175x) | defined(LPC_176x)
 //! Selects the divide value for creating the CPU clock (CCLK) from the PLL0 output.
-#define CCLKCFG_CCLKSEL_M       BIT_MASK(32, 7, 0)
+#define CCLKSEL_CCLKSEL_M       BIT_MASK(32, 7, 0)
+#endif
+
+#if defined(LPC_177x) | defined(LPC_178x)
+//! Selects the divide value for creating the CPU clock (CCLK) from the selected
+//! clock source.
+#define CCLKSEL_CCLKSEL_M       BIT_MASK(32, 4, 0)
+
+//! Selects the input clock for the CPU clock divider.
+#define CCLKSEL_CCLKSEL         BIT_32_8
 #endif
 //*****************************************************************************
 //
@@ -593,15 +619,7 @@
 //! @{
 //
 //*****************************************************************************
-#if defined(LPC_177x) | defined(LPC_178x)
 
-//! Selects the divide value for creating the CPU clock (CCLK) from the selected
-//! clock source.
-#define CCLKSEL_CCLKDIV         BIT_MASK(32, 4, 0)
-
-//! Selects the input clock for the CPU clock divider.
-#define CCLKSEL_CCLKSEL         BIT_32_8
-#endif
 
 //*****************************************************************************
 //
