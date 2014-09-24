@@ -40,7 +40,6 @@
 #include "CoX.h"
 #include "hw_gpio.h"
 #include "hw_sysctl.h"
-#include "gpio.h"
 
 //*****************************************************************************
 //
@@ -142,27 +141,27 @@ unsigned long GPIOPinToPeripheralId(unsigned long ulPort, unsigned long ulPin)
     {
         case GPIOA_BASE:
             {
-                return (SYSCTL_PERIPH_GPIOA);
+                return (xSYSCTL_PERIPH_GPIOA);
                 break;
             }
         case GPIOB_BASE:
             {
-                return (SYSCTL_PERIPH_GPIOB);
+                return (xSYSCTL_PERIPH_GPIOB);
                 break;
             }
         case GPIOC_BASE:
             {
-                return (SYSCTL_PERIPH_GPIOC);
+                return (xSYSCTL_PERIPH_GPIOC);
                 break;
             }
         case GPIOD_BASE:
             {
-                return (SYSCTL_PERIPH_GPIOD);
+                return (xSYSCTL_PERIPH_GPIOD);
                 break;
             }
         case GPIOE_BASE:
             {
-                return (SYSCTL_PERIPH_GPIOE);
+                return (xSYSCTL_PERIPH_GPIOE);
                 break;
             }
     }
@@ -528,12 +527,12 @@ void GPIOPinIntCfg(unsigned long ulPort, unsigned long ulPin, unsigned long ulCf
     {
         case GPIOA_BASE:                        // Port 0
             {
-                if(ulCfg & INT_TYPE_RISING)     // GPIO Rising Int Type
+                if(ulCfg & GPIO_RISING_EDGE)     // GPIO Rising Int Type
                 {
                     xHWREG(GPIO_INT_BASE + IO0IntEnR) |= ulPin;
                 }
 
-                if(ulCfg & INT_TYPE_FALLING)    // GPIO Falling Int Type
+                if(ulCfg & GPIO_FALLING_EDGE)    // GPIO Falling Int Type
                 {
                     xHWREG(GPIO_INT_BASE + IO0IntEnF) |= ulPin;
                 }
@@ -543,12 +542,12 @@ void GPIOPinIntCfg(unsigned long ulPort, unsigned long ulPin, unsigned long ulCf
 
         case GPIOC_BASE:                        // Port 2
             {
-                if(ulCfg & INT_TYPE_RISING)     // GPIO Rising Int Type
+                if(ulCfg & GPIO_RISING_EDGE)     // GPIO Rising Int Type
                 {
                     xHWREG(GPIO_INT_BASE + IO2IntEnR) |= ulPin;
                 }
 
-                if(ulCfg & INT_TYPE_FALLING)    // GPIO Falling Int Type
+                if(ulCfg & GPIO_FALLING_EDGE)    // GPIO Falling Int Type
                 {
                     xHWREG(GPIO_INT_BASE + IO2IntEnF) |= ulPin;
                 }
@@ -632,12 +631,12 @@ unsigned long GPIOPinIntFlagGet(unsigned long ulPort, unsigned long ulPin)
 
                 if(xHWREG(GPIO_INT_BASE + IO0IntEnR) & ulPin)      // GPIO Rising Int Type
                 {
-                    ulResult |= INT_TYPE_RISING;
+                    ulResult |= GPIO_RISING_EDGE;
                 }
 
                 if(xHWREG(GPIO_INT_BASE + IO0IntEnF) & ulPin)      // GPIO Falling Int Type
                 {
-                    ulResult |= INT_TYPE_FALLING;
+                    ulResult |= GPIO_FALLING_EDGE;
                 }
 
                 break;
@@ -647,12 +646,12 @@ unsigned long GPIOPinIntFlagGet(unsigned long ulPort, unsigned long ulPin)
             {
                 if(xHWREG(GPIO_INT_BASE + IO2IntEnR) & ulPin)      // GPIO Rising Int Type
                 {
-                    ulResult |= INT_TYPE_RISING;
+                    ulResult |= GPIO_RISING_EDGE;
                 }
 
                 if(xHWREG(GPIO_INT_BASE + IO2IntEnF) & ulPin)      // GPIO Falling Int Type
                 {
-                    ulResult |= INT_TYPE_FALLING;
+                    ulResult |= GPIO_FALLING_EDGE;
                 }
                 break;
             }
@@ -928,8 +927,7 @@ unsigned long xGPIOPinRead(unsigned long ulPort, unsigned long ulPins)
 //! \return None.
 //
 //*****************************************************************************
-void xGPIOPinWrite(unsigned long ulPort, unsigned long ulPins,
-        unsigned long ulVal)
+void xGPIOPinWrite(unsigned long ulPort, unsigned long ulPins, unsigned char ulVal)
 {
     xHWREG(ulPort + FIOMASK) = ~ulPins;
     xHWREG(ulPort + FIOPIN)  =   ulVal;

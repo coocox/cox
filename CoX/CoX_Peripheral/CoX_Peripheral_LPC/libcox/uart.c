@@ -1,5 +1,5 @@
 #include "CoX.h"
-#include "uart.h"
+#include "hw_uart.h"
 
 //*****************************************************************************
 //
@@ -155,25 +155,25 @@ static xtBoolean UartSetDivisors(unsigned long ulBase, unsigned long ulBaudrate)
     {
         case UART0_BASE:
             {
-                ulPeriClk = SysCtlPeripheralClockGet(PCLKSEL_UART0);
+                //ulPeriClk = SysCtlPeripheralClockGet(PCLKSEL_UART0);
                 break;
             }
 
         case UART1_BASE:
             {
-                ulPeriClk = SysCtlPeripheralClockGet(PCLKSEL_UART1);
+                //ulPeriClk = SysCtlPeripheralClockGet(PCLKSEL_UART1);
                 break;
             }
 
         case UART2_BASE:
             {
-                ulPeriClk = SysCtlPeripheralClockGet(PCLKSEL_UART2);
+                //ulPeriClk = SysCtlPeripheralClockGet(PCLKSEL_UART2);
                 break;
             }
 
         case UART3_BASE:
             {
-                ulPeriClk = SysCtlPeripheralClockGet(PCLKSEL_UART3);
+                //ulPeriClk = SysCtlPeripheralClockGet(PCLKSEL_UART3);
                 break;
             }
         default:                         // Error
@@ -384,7 +384,7 @@ void UARTStrSend(unsigned long ulBase, unsigned char * pStr)
     // Check input parameters.
     xASSERT(UARTBaseValid(ulBase));
 
-    while(NULL != *pStr)
+    while(0 != *pStr)
     {
         UARTByteWrite(ulBase, *pStr++);
     }
@@ -1098,7 +1098,7 @@ xUARTConfigSet(unsigned long ulBase, unsigned long ulBaud, unsigned long ulConfi
 
     // Check input parameters.
     xASSERT(UARTBaseValid(ulBase));;
-    xASSERT( (ulCfg & ~(
+    xASSERT( (ulConfig & ~(
                            UART_CFG_LEN_5_BIT   |
                            UART_CFG_LEN_6_BIT   |
                            UART_CFG_LEN_7_BIT   |
@@ -1117,8 +1117,8 @@ xUARTConfigSet(unsigned long ulBase, unsigned long ulBaud, unsigned long ulConfi
 
     // Configure UART Data length, Parity, stop bit, break.
     ulTmpReg = xHWREG(ulBase + LCR);
-    ulTmpReg &= ((~ulCfg) >> 16);
-    ulTmpReg |= (ulCfg & 0xFFFF);
+    ulTmpReg &= ((~ulConfig) >> 16);
+    ulTmpReg |= (ulConfig & 0xFFFF);
     xHWREG(ulBase + LCR) = ulTmpReg;
 
     // Configure UART baud
@@ -1176,10 +1176,9 @@ long xUARTCharGetNonBlocking(unsigned long ulBase)
 //
 //*****************************************************************************
 long xUARTCharGet(unsigned long ulBase)
-
+{
     xASSERT(UARTBaseValid(ulBase));
 	return UARTByteRead(ulBase);
-
 }
 
 //*****************************************************************************
@@ -1241,7 +1240,7 @@ xtBoolean xUARTCharPutNonBlocking(unsigned long ulBase, unsigned char ucData)
 //
 //*****************************************************************************
 void xUARTCharPut(unsigned long ulBase, unsigned char ucData)
-
+{
     xASSERT(UARTBaseValid(ulBase));
 	UARTByteWrite(ulBase, ucData);
 }
@@ -1314,31 +1313,28 @@ void xUARTIntCallbackInit(unsigned long ulBase, xtEventCallback xtUARTCallback)
     {
         case UART0_BASE:
             {
-                g_pfnUARTHandlerCallbacks[0] = pfnCallback;
+                g_pfnUARTHandlerCallbacks[0] = xtUARTCallback;
                 break;
             }
 
         case UART1_BASE:
             {
-                g_pfnUARTHandlerCallbacks[1] = pfnCallback;
+                g_pfnUARTHandlerCallbacks[1] = xtUARTCallback;
                 break;
             }
 
         case UART2_BASE:
             {
-                g_pfnUARTHandlerCallbacks[2] = pfnCallback;
+                g_pfnUARTHandlerCallbacks[2] = xtUARTCallback;
                 break;
             }
 
         case UART3_BASE:
             {
-                g_pfnUARTHandlerCallbacks[3] = pfnCallback;
+                g_pfnUARTHandlerCallbacks[3] = xtUARTCallback;
                 break;
             }
     }
-
-    return (0);
-
 }
 
 //*****************************************************************************
@@ -1430,5 +1426,5 @@ void xUARTRxErrorClear(unsigned long ulBase)
     // Check input parameters.
     xASSERT(UARTBaseValid(ulBase));
 
-    return( xHWREG(ulBase + LSR) );
+    xHWREG(ulBase + LSR) |= xHWREG(ulBase + LSR);
 }

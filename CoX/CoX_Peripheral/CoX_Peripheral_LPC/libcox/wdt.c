@@ -85,15 +85,12 @@ void WDTIntHandler(void)
 //! \return None.
 //
 //*****************************************************************************
-unsigned long xWDTIntCallbackInit(unsigned long ulBase, xtEventCallback pfnCallback)
+void xWDTIntCallbackInit(unsigned long ulBase, xtEventCallback xtWDTCallback)
 {
     // Check the parameters.
     xASSERT(pfnCallback != 0);
 
-    g_pfnWDTHandlerCallbacks = pfnCallback;
-
-    return (0);
-
+    g_pfnWDTHandlerCallbacks = xtWDTCallback;
 }
 
 //*****************************************************************************
@@ -129,7 +126,7 @@ static void WDTCfg(unsigned long ulCfg, unsigned long ulValue)
 /************ Configure Watchdog Mode and Clock source **************/
     switch(ulCfg & WDT_CFG_MODE_M)
     {
-        case WDT_CFG_INT_MODE:                             // Triggle Interrupt when underflow.
+        case WDT_INT_FUNCTION:                   // Triggle Interrupt when underflow.
             {
                 ulTmpReg = xHWREG(WDT_BASE + WDT_MOD);
                 //ulTmpReg |= WDMOD_EN;
@@ -137,7 +134,7 @@ static void WDTCfg(unsigned long ulCfg, unsigned long ulValue)
                 xHWREG(WDT_BASE + WDT_MOD) = ulTmpReg;
                 break;
             }
-        case WDT_CFG_RESET_MODE:                           // Reset MCU when underflow.
+        case WDT_RESET_FUNCTION:                 // Reset MCU when underflow.
             {
                 ulTmpReg = xHWREG(WDT_BASE + WDT_MOD);
                 ulTmpReg |= /*WDMOD_EN |*/ WDMOD_RESET;
@@ -148,7 +145,7 @@ static void WDTCfg(unsigned long ulCfg, unsigned long ulValue)
 
     switch(ulCfg & WDT_CFG_CLKSRC_M)
     {
-        case WDT_CFG_CLKSRC_IRC:                           // Internal RC clock.
+        case WDT_S_INTSL:                        // Internal RC clock.
             {
                 ulTmpReg = xHWREG(WDT_BASE + WDT_CLKSEL);
                 ulTmpReg &= ~WDCLKSEL_WDSEL_M;
@@ -156,7 +153,7 @@ static void WDTCfg(unsigned long ulCfg, unsigned long ulValue)
                 xHWREG(WDT_BASE + WDT_CLKSEL) = ulTmpReg;
                 break;
             }
-        case WDT_CFG_CLKSRC_APB:                           // APB Clock source.
+        case WDT_S_HCLK_DIV:                     // APB Clock source.
             {
                 ulTmpReg = xHWREG(WDT_BASE + WDT_CLKSEL);
                 ulTmpReg &= ~WDCLKSEL_WDSEL_M;
@@ -164,7 +161,7 @@ static void WDTCfg(unsigned long ulCfg, unsigned long ulValue)
                 xHWREG(WDT_BASE + WDT_CLKSEL) = ulTmpReg;
                 break;
             }
-        case WDT_CFG_CLKSRC_RTC:                          // RTC Clock source.
+        case WDT_S_EXTSL:                        // RTC Clock source.
             {
                 ulTmpReg = xHWREG(WDT_BASE + WDT_CLKSEL);
                 ulTmpReg &= ~WDCLKSEL_WDSEL_M;

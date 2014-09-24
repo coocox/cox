@@ -37,7 +37,6 @@
 //
 //*****************************************************************************
 #include "CoX.h"
-#include "sysctl.h"
 #include "hw_rtc.h"
 
 //*****************************************************************************
@@ -75,10 +74,6 @@ void RTCIntHandler(void)
     if(g_pfnRTCHandlerCallbacks != 0)
     {
         g_pfnRTCHandlerCallbacks(0, 0, 0, 0);
-    }
-    else
-    {
-        while(1);
     }
 }
 
@@ -201,13 +196,17 @@ void xRTCStop(void)
 //!
 //! \param  None.
 //!
-//! \return None.
+//! \return The result of operation.
+//!         - xtrue  Initializes successfully
+//!         - xfalse Initializes fail
 //
 //*****************************************************************************
-void xRTCTimeInit(void)
+xtBoolean xRTCTimeInit(void)
 {
     xHWREG(RTC_BASE + RTC_CCR) |= CCR_CTCRST;
     xHWREG(RTC_BASE + RTC_CCR) &= ~CCR_CTCRST;
+
+    return 1;
 }
 
 //*****************************************************************************
@@ -436,7 +435,7 @@ void xRTCTimeWrite(xtTime * pxtTime, unsigned long ulTimeAlarm)
     if(pxtTime->ulWDay > 6)    pxtTime->ulWDay = 6;
     if(pxtTime->ulMDay > 31)   pxtTime->ulMDay = 31;
     //if(pxtTime->ulYear > 59) pxtTime->ulYear = 59;
-    if(pxtTime->RTC_MONTH > 12) pxtTime->RTC_MONTH = 12;
+    if(pxtTime->ulMonth > 12)  pxtTime->ulMonth = 12;
 	
     switch(ulTimeAlarm)
     {

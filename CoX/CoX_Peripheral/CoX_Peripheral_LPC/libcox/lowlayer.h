@@ -71,6 +71,7 @@
 #define FLASH_BASE              0x08000000  // Flash memory
 #define SRAM_BASE               0x20000000  // SRAM memory
 
+#if 0
 //LPC17nx AHB (n = 5/6)
 #define ETH_BASE                0x50000000  // Ethernet MAC
 #define DMA0_BASE               0x50004000  // General Purpose DMA controller
@@ -81,6 +82,7 @@
 #define GPIOC_BASE              0x2009C040  // GPIO Port C
 #define GPIOD_BASE              0x2009C060  // GPIO Port D
 #define GPIOE_BASE              0x2009C080  // GPIO Port E
+#endif
 
 // LPC17nx AHB (n = 7/8)
 #define DMA0_BASE               0x20080000  // General Purpose DMA controller
@@ -88,7 +90,12 @@
 #define LCD_BASE                0x20088000  // LCD controller
 #define USBD_BASE               0x2008C000  // USB interface
 #define CRC_BASE                0x20090000  // CRC engine
-
+#define GPIOA_BASE              0x20098000  // GPIO Port A
+#define GPIOB_BASE              0x20098020  // GPIO Port B
+#define GPIOC_BASE              0x20098040  // GPIO Port C
+#define GPIOD_BASE              0x20098060  // GPIO Port D
+#define GPIOE_BASE              0x20098080  // GPIO Port E
+#define GPIOF_BASE              0x200980A0  // GPIO Port F
 #define EMC_BASE                0x2009C000  // External Memory Controller
 
 //APB0
@@ -97,8 +104,8 @@
 #define TIMER1_BASE             0x40008000  // Timer 1
 #define UART0_BASE              0x4000C000  // UART0
 #define UART1_BASE              0x40010000  // UART1
-#define PWM0_BASE               0x40014000  // PWM0
-#define PWM1_BASE               0x40018000  // PWM1
+#define PWMA_BASE               0x40014000  // PWMA
+#define PWMB_BASE               0x40018000  // PWMB
 #define I2C0_BASE               0x4001C000  // I2C0
 #define SPI_BASE                0x40020000  // SPI
 #define RTC_BASE                0x40024000  // RTC and Event Monitor/Recorder
@@ -138,6 +145,13 @@
 #define TPIU_BASE               0xE0040000  // 
 #define COREDEBUG_BASE          0xE000EDF0  // 
 
+#define SPI0_BASE               SSP0_BASE
+#define SPI1_BASE               SSP1_BASE
+#if (defined (LPC_175x) || defined (LPC_176x))
+#define SPI2_BASE               SPI_BASE
+#elif (defined (LPC_177x) || defined (LPC_178x))
+#define SPI2_BASE               SSP2_BASE
+#endif
 //*****************************************************************************
 //
 //! @}
@@ -175,7 +189,7 @@
 #define INT_UART1               22  // UART1 Rx and Tx
 #define INT_UART2               23  // UART2 Rx and Tx
 #define INT_UART3               24  // UART3 Rx and Tx
-#define INT_PWM1                25  // PWM Generator 1
+#define INT_PWMB                25  // PWM Generator 1
 #define INT_I2C0                26  // I2C0 Master and Slave
 #define INT_I2C1                27  // I2C1 Master and Slave
 #define INT_I2C2                28  // I2C2 Master and Slave
@@ -205,8 +219,26 @@
 #define INT_SSP2                52  // SSP1 Rx and Tx
 #define INT_LCD                 53  // LCD controller
 #define INT_GPIO                54  // GPIO interrupts
-#define INT_PWM0                55  // PWM0
+#define INT_PWMA                55  // PWM0
 #define INT_EEPROM              56  // EEPROM
+
+
+#define INT_CAN1                INT_CAN
+#define INT_CAN2                INT_CAN
+#define INT_DMA0                INT_DMA
+#define INT_I2S0                INT_I2S
+#define INT_USBD                INT_USB
+#define INT_USBH                INT_USB
+#define INT_SPI0                INT_SSP0
+#define INT_SPI1                INT_SSP1
+#define INT_SPI2                INT_SPI
+
+#define INT_GPIOA               INT_GPIO
+#define INT_GPIOB               INT_GPIO
+#define INT_GPIOC               INT_GPIO
+#define INT_GPIOD               INT_GPIO
+#define INT_GPIOE               INT_GPIO
+#define INT_GPIOF               INT_GPIO
 
 //
 //! The total number of interrupts.

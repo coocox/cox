@@ -39,6 +39,7 @@
 
 #include "CoX.h"
 #include "hw_sysctl.h"
+#include "hw_spi.h"
 #include "spi.h"
 
 //*****************************************************************************
@@ -88,7 +89,7 @@ void SSP1IntHandler(void)
     }
 }
 
-#if defined(LPC_177x) && defined (LPC_178x)
+#if defined(LPC_177x) || defined (LPC_178x)
 //*****************************************************************************
 //
 //! \brief  SSP2 interrupt handler.
@@ -109,7 +110,7 @@ void SSP2IntHandler(void)
     }
 }
 
-#elif defined(LPC_175x) && defined (LPC_176x)
+#elif defined(LPC_175x) || defined (LPC_176x)
 //*****************************************************************************
 //
 //! \brief  SPI interrupt handler.
@@ -148,9 +149,9 @@ void SPIIntHandler(void)
 static xtBoolean
 SPIBaseValid(unsigned long ulBase)
 {
-    return((ulBase == SPI0_BASE) ||
-           (ulBase == SPI1_BASE) ||
-           (ulBase == SPI2_BASE));
+    return((ulBase == xSPI0_BASE) ||
+           (ulBase == xSPI1_BASE) ||
+           (ulBase == xSPI2_BASE));
 }
 #endif
 
@@ -163,7 +164,7 @@ SPIBaseValid(unsigned long ulBase)
 //! \return None.
 //
 //*****************************************************************************
-unsigned long xSPIIntCallbackInit(unsigned long ulBase, xtEventCallback pfnCallback)
+void xSPIIntCallbackInit(unsigned long ulBase, xtEventCallback pfnCallback)
 {
     //
     // Check the arguments.
@@ -173,13 +174,11 @@ unsigned long xSPIIntCallbackInit(unsigned long ulBase, xtEventCallback pfnCallb
 	
     switch (ulBase)
     {
-        case SPI0_BASE: g_pfnSPIHandlerCallbacks[0] = pfnCallback; break;
-        case SPI1_BASE: g_pfnSPIHandlerCallbacks[1] = pfnCallback; break;
-        case SPI2_BASE: g_pfnSPIHandlerCallbacks[2] = pfnCallback; break;
+        case xSPI0_BASE: g_pfnSPIHandlerCallbacks[0] = pfnCallback; break;
+        case xSPI1_BASE: g_pfnSPIHandlerCallbacks[1] = pfnCallback; break;
+        case xSPI2_BASE: g_pfnSPIHandlerCallbacks[2] = pfnCallback; break;
         default: break;
     }
-
-    return (0);
 }
 
 //*****************************************************************************
@@ -196,7 +195,7 @@ unsigned long xSPISingleDataReadWrite(unsigned long ulBase, unsigned long ulVal)
 {
 #if (defined (LPC_175x) || defined (LPC_176x))
     // SPI (only for LPC175x_6x)
-    if(ulBase == SPI2_BASE){
+    if(ulBase == xSPI2_BASE){
         while(0 == (xHWREG(ulBase + SPI_SR) & SPI_SR_SPIF));
         xHWREG(ulBase + SPI_DR) = ulVal & SPI_DR_DATA_M;
         return xHWREG(ulBase + SPI_DR);
@@ -252,7 +251,6 @@ unsigned long xSPISingleDataReadWrite(unsigned long ulBase, unsigned long ulVal)
 //*****************************************************************************
 void xSPIConfigSet(unsigned long ulBase, unsigned long ulClk, unsigned long ulConfig)
 {
-    unsigned long ulTmpReg = 0;
     unsigned long ulActClk = 0;
 
     // Check the parameters.
@@ -284,7 +282,7 @@ void xSPIConfigSet(unsigned long ulBase, unsigned long ulClk, unsigned long ulCo
               ) == 0);
 
     /********************* Configure SPI Clock frequency ***********************/
-    ulActClk = SysCtlPeripheralClockGet(PCLKSEL_SPI);
+    //ulActClk = SysCtlPeripheralClockGet(PCLKSEL_SPI);
     ulActClk /= ulClk;
 
     // ulActClk/ulClk must be an even number greater than or equal to 8.
@@ -293,13 +291,17 @@ void xSPIConfigSet(unsigned long ulBase, unsigned long ulClk, unsigned long ulCo
     {
         while(1); //Error
     }
+#if (defined (LPC_175x) || defined (LPC_176x))
     xHWREG(ulBase + S0SPCCR) = ulActClk/ulClk;
+#elif (defined (LPC_177x) || defined (LPC_178x))
+    xHWREG(ulBase + SSP_CPSR) = ulActClk/ulClk;
+#endif
 
     /********************* Configure SPI Mode, PHA, POL, DataLen ***************/
 #if (defined (LPC_175x) || defined (LPC_176x))
     // SPI (only for LPC175x_6x)
-    if(ulBase == SPI2_BASE){
-        ulTmpReg = xHWREG(ulBase + SPI_CR);
+    if(ulBase == xSPI2_BASE){
+    	unsigned long ulTmpReg = xHWREG(ulBase + SPI_CR);
         ulTmpReg &= ((~ulConfig) >> 16);
         ulTmpReg |= (ulConfig & 0xFFFF);
         xHWREG(ulBase + SPI_CR) = ulTmpReg;
@@ -311,7 +313,7 @@ void xSPIConfigSet(unsigned long ulBase, unsigned long ulClk, unsigned long ulCo
         xHWREG(ulBase + SSP_CR1) = 0x00;
         xHWREG(ulBase + SSP_CR0) |= ulConfig & 0xFF;
 		xHWREG(ulBase + SSP_CR0) |= ((ulConfig >> 8) & 0xFF);
-        xHWREG(ulBase + SSP_CR1) &= ~SSP_CR1_MS
+        xHWREG(ulBase + SSP_CR1) &= ~SSP_CR1_MS;
         xHWREG(ulBase + SSP_CR1) |= (((ulConfig >> 16) & 0x1) << 2);		
     }
 }
@@ -341,7 +343,7 @@ void xSPIIntEnable(unsigned long ulBase, unsigned long ulIntFlags)
 
     // Clear interrupt flag.
 #if defined(LPC_175x) || defined (LPC_176x)
-    if(ulBase == SPI2_BASE)
+    if(ulBase == xSPI2_BASE)
     {
         xHWREG(ulBase + SPI_CR) |= SPI_CR_SPIE;
     }
@@ -374,7 +376,7 @@ void xSPIIntDisable(unsigned long ulBase, unsigned long ulIntFlags)
 
     // Clear interrupt flag.
 #if defined(LPC_175x) || defined (LPC_176x)
-    if(ulBase == SPI2_BASE)
+    if(ulBase == xSPI2_BASE)
     {
         xHWREG(ulBase + SPI_CR) &= ~SPI_CR_SPIE;
     }
@@ -407,7 +409,7 @@ unsigned long xSPIStatusGet(unsigned long ulBase, xtBoolean xbMasked)
 
     // Clear interrupt flag.
 #if defined(LPC_175x) || defined (LPC_176x)
-    if(ulBase == SPI2_BASE)
+    if(ulBase == xSPI2_BASE)
     {
         return xHWREG(ulBase + SPI_INT);
     }
@@ -446,7 +448,7 @@ xtBoolean SPIIntFlagCheck(unsigned long ulBase, unsigned long ulFlags)
 
     // Clear interrupt flag.
 #if defined(LPC_175x) || defined (LPC_176x)
-    if(ulBase == SPI2_BASE)
+    if(ulBase == xSPI2_BASE)
     {
         return (xHWREG(ulBase + SPI_INT) & SPI_INT_SPIF) ? xtrue : xfalse;
     }
@@ -485,7 +487,7 @@ void SPIIntFlagClear(unsigned long ulBase, unsigned long ulFlags)
 
     // Clear interrupt flag.
 #if defined(LPC_175x) || defined (LPC_176x)
-    if(ulBase == SPI2_BASE)
+    if(ulBase == xSPI2_BASE)
     {
         xHWREG(ulBase + SPI_INT) |= SPI_INT_SPIF;
     }
@@ -509,7 +511,7 @@ void SPIIntFlagClear(unsigned long ulBase, unsigned long ulFlags)
 //!         For LPC177x/8x, this value can be 4/5/../16.
 //
 //*****************************************************************************
-unsigned long xSPIBitLengthGet(unsigned long ulBase)
+unsigned char xSPIBitLengthGet(unsigned long ulBase)
 {
     //
     // Check the arguments.
@@ -517,7 +519,7 @@ unsigned long xSPIBitLengthGet(unsigned long ulBase)
     xASSERT(SPIBaseValid(ulBase));
 
 #if defined(LPC_175x) || defined (LPC_176x)
-    if(ulBase == SPI2_BASE)
+    if(ulBase == xSPI2_BASE)
     {
         return ((xHWREG(ulBase + SPI_CR) & SPI_CR_BITS_M) >> SPI_CR_BITS_S);
     }
@@ -551,9 +553,10 @@ unsigned long xSPIBitLengthGet(unsigned long ulBase)
 //!         data.
 //
 //*****************************************************************************
-void xSPIDataRead(unsigned long ulBase, unsigned long *pulRData, unsigned long ulLen)
+void xSPIDataRead(unsigned long ulBase, void *pulRData, unsigned long ulLen)
 {
     unsigned long i = 0;
+    unsigned char ucBitLength = xSPIBitLengthGet(ulBase);
 
     //
     // Check the arguments.
@@ -563,7 +566,18 @@ void xSPIDataRead(unsigned long ulBase, unsigned long *pulRData, unsigned long u
 
     for(i = 0; i < ulLen; i++)
     {
-        *pulRData++ = xSPISingleDataReadWrite(ulBase, 0x00);
+        if (ucBitLength <= 8)
+        {
+            ((unsigned char*)pulRData)[i] = xSPISingleDataReadWrite(ulBase, 0xFF);
+        }
+        else if (ucBitLength >= 8 && ucBitLength <= 16)
+        {
+            ((unsigned short*)pulRData)[i] = xSPISingleDataReadWrite(ulBase, 0xFFFF);
+        }
+        else
+        {
+            ((unsigned long*)pulRData)[i] = xSPISingleDataReadWrite(ulBase, 0xFFFFFF);
+        }
     }
 }
 
@@ -587,10 +601,10 @@ void xSPIDataRead(unsigned long ulBase, unsigned long *pulRData, unsigned long u
 //!         data.
 //
 //*****************************************************************************
-void xSPIDataWrite(unsigned long ulBase, unsigned long *pulWData,
-                          unsigned long ulLen)
+void xSPIDataWrite(unsigned long ulBase, void *pulWData, unsigned long ulLen)
 {
     unsigned long i = 0;
+    unsigned char ucBitLength = xSPIBitLengthGet(ulBase);
 
     //
     // Check the arguments.
@@ -600,7 +614,18 @@ void xSPIDataWrite(unsigned long ulBase, unsigned long *pulWData,
 
     for(i = 0; i < ulLen; i++)
     {
-        xSPISingleDataReadWrite(ulBase, *pulWData++);
+        if (ucBitLength <= 8)
+        {
+            xSPISingleDataReadWrite(ulBase, ((unsigned char*)pulWData)[i]);
+        }
+        else if (ucBitLength >= 8 && ucBitLength <= 16)
+        {
+            xSPISingleDataReadWrite(ulBase, ((unsigned short*)pulWData)[i]);
+        }
+        else
+        {
+            xSPISingleDataReadWrite(ulBase, ((unsigned long*)pulWData)[i]);
+        }
     }
 }
 
@@ -638,7 +663,7 @@ void xSPIDataPut(unsigned long ulBase, unsigned long ulData)
     xASSERT(SPIBaseValid(ulBase));
 
 #if defined(LPC_175x) || defined (LPC_176x)
-    if(ulBase == SPI2_BASE)
+    if(ulBase == xSPI2_BASE)
     {
     // Wait last transmit done then write data to SPI data register.
         while(0 == (xHWREG(ulBase + SPI_SR) & SPI_SR_SPIF));
@@ -674,7 +699,7 @@ void xSPIDataPut(unsigned long ulBase, unsigned long ulData)
 //!
 //
 //*****************************************************************************
-void xSPIDataPutNonBlocking(unsigned long ulBase, unsigned long ulData)
+long xSPIDataPutNonBlocking(unsigned long ulBase, unsigned long ulData)
 {
     //
     // Check the arguments.
@@ -682,7 +707,7 @@ void xSPIDataPutNonBlocking(unsigned long ulBase, unsigned long ulData)
     xASSERT(SPIBaseValid(ulBase));
 
 #if defined(LPC_175x) || defined (LPC_176x)
-    if(ulBase == SPI2_BASE)
+    if(ulBase == xSPI2_BASE)
     {
         // Write Data to SPI Data register.
         xHWREG(ulBase + SPI_DR) = ulData & SPI_DR_DATA_M;
@@ -690,6 +715,8 @@ void xSPIDataPutNonBlocking(unsigned long ulBase, unsigned long ulData)
 #endif
     // Write Data to SSPn Data register.
     xHWREG(ulBase + SSP_DR) = ulData & SSP_DR_DATA_M;
+
+    return 1;
 }
 
 //*****************************************************************************
@@ -762,7 +789,7 @@ void xSPIDataGet(unsigned long ulBase, unsigned long * pulData)
 //! \return None.
 //
 //*****************************************************************************
-void xSPIDataGetNonBlocking(unsigned long ulBase, unsigned long * pulData)
+long xSPIDataGetNonBlocking(unsigned long ulBase, unsigned long * pulData)
 {
     //
     // Check the arguments.
@@ -771,13 +798,15 @@ void xSPIDataGetNonBlocking(unsigned long ulBase, unsigned long * pulData)
     xASSERT(pulData != 0);
 	
 #if defined(LPC_175x) || defined (LPC_176x)
-    if(ulBase == SPI2_BASE)
+    if(ulBase == xSPI2_BASE)
     {
         *pulData = xHWREG(ulBase + SPI_DR) & SPI_DR_DATA_M;
     }
 #endif
     // Read data from SPI Data register.
     *pulData = xHWREG(ulBase + SSP_DR) & SSP_DR_DATA_M;
+
+    return 1;
 }
 
 //*****************************************************************************
@@ -800,7 +829,7 @@ xtBoolean xSPIIsBusy(unsigned long ulBase)
     xASSERT(SPIBaseValid(ulBase));
 
 #if defined(LPC_175x) || defined(LPC_176x)
-    if(ulBase == SPI2_BASE)
+    if(ulBase == xSPI2_BASE)
     {
         return (xHWREG(ulBase + SPI_SR) & SPI_SR_SPIF);
     }		
@@ -825,11 +854,11 @@ xtBoolean xSPIIsRxEmpty(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) ||
+    xASSERT((ulBase == xSPI0_BASE) ||
 #if defined(LPC_177x) || defined(LPC_178x)
-            (ulBase == SPI2_BASE) ||
+            (ulBase == xSPI2_BASE) ||
 #endif
-            (ulBase == SPI1_BASE));
+            (ulBase == xSPI1_BASE));
 
     return (!(xHWREG(ulBase + SSP_SR) & SSP_SR_TFE));
 }
@@ -851,11 +880,11 @@ xtBoolean xSPIIsTxEmpty(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) ||
+    xASSERT((ulBase == xSPI0_BASE) ||
 #if defined(LPC_177x) || defined(LPC_178x)
-            (ulBase == SPI2_BASE) ||
+            (ulBase == xSPI2_BASE) ||
 #endif
-            (ulBase == SPI1_BASE));
+            (ulBase == xSPI1_BASE));
 
     return (xHWREG(ulBase + SSP_SR) & SSP_SR_TFE);
 }
@@ -877,11 +906,11 @@ xtBoolean xSPIIsRxFull(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) ||
+    xASSERT((ulBase == xSPI0_BASE) ||
 #if defined(LPC_177x) || defined(LPC_178x)
-            (ulBase == SPI2_BASE) ||
+            (ulBase == xSPI2_BASE) ||
 #endif
-            (ulBase == SPI1_BASE));
+            (ulBase == xSPI1_BASE));
 
     return (xHWREG(ulBase + SSP_SR) & SSP_SR_RFF);
 }
@@ -903,11 +932,11 @@ xtBoolean xSPIIsTxFull(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) ||
+    xASSERT((ulBase == xSPI0_BASE) ||
 #if defined(LPC_177x) || defined(LPC_178x)
-            (ulBase == SPI2_BASE) ||
+            (ulBase == xSPI2_BASE) ||
 #endif
-            (ulBase == SPI1_BASE));
+            (ulBase == xSPI1_BASE));
 
     return (!(xHWREG(ulBase + SSP_SR) & SSP_SR_TNF));
 }
@@ -934,11 +963,11 @@ void xSPIDMAEnable(unsigned long ulBase, unsigned long ulDmaMode)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) ||
+    xASSERT((ulBase == xSPI0_BASE) ||
 #if defined(LPC_177x) || defined(LPC_178x)
-            (ulBase == SPI2_BASE) ||
+            (ulBase == xSPI2_BASE) ||
 #endif
-            (ulBase == SPI1_BASE));
+            (ulBase == xSPI1_BASE));
 
     if(ulDmaMode & SPI_DMA_RX)
     {
@@ -972,11 +1001,11 @@ void xSPIDMADisable(unsigned long ulBase, unsigned long ulDmaMode)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) ||
+    xASSERT((ulBase == xSPI0_BASE) ||
 #if defined(LPC_177x) || defined(LPC_178x)
-            (ulBase == SPI2_BASE) ||
+            (ulBase == xSPI2_BASE) ||
 #endif
-            (ulBase == SPI1_BASE));
+            (ulBase == xSPI1_BASE));
 
     if(ulDmaMode & SPI_DMA_RX)
     {
@@ -1004,11 +1033,11 @@ void xSPIEnable(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) ||
+    xASSERT((ulBase == xSPI0_BASE) ||
 #if defined(LPC_177x) || defined(LPC_178x)
-            (ulBase == SPI2_BASE) ||
+            (ulBase == xSPI2_BASE) ||
 #endif
-            (ulBase == SPI1_BASE));
+            (ulBase == xSPI1_BASE));
 
     xHWREG(ulBase + SSP_CR1) |= SSP_CR1_SSE;
 }
@@ -1029,11 +1058,11 @@ void xSPIDisable(unsigned long ulBase)
     //
     // Check the arguments.
     //
-    xASSERT((ulBase == SPI0_BASE) ||
+    xASSERT((ulBase == xSPI0_BASE) ||
 #if defined(LPC_177x) || defined(LPC_178x)
-            (ulBase == SPI2_BASE) ||
+            (ulBase == xSPI2_BASE) ||
 #endif
-            (ulBase == SPI1_BASE));
+            (ulBase == xSPI1_BASE));
 
     xHWREG(ulBase + SSP_CR1) &= ~SSP_CR1_SSE;
 }

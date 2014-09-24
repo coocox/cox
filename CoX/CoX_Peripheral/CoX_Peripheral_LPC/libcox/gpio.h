@@ -48,8 +48,475 @@
 
 //*****************************************************************************
 //
-//! \addtogroup GPIO
+//! \addtogroup LPC17xx_GPIO
 //! @{
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup  LPC17xx_GPIO_General_Pin_IDs  LPC17xx GPIO General Pin ID
+//! \brief       The following values define the bit field for the ucPins argument
+//!              to several of the APIs.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! GPIO pin 0
+//
+#define GPIO_PIN_0              0x00000001
+
+//
+//! GPIO pin 1
+//
+#define GPIO_PIN_1              0x00000002
+
+//
+//! GPIO pin 2
+//
+#define GPIO_PIN_2              0x00000004
+
+//
+//! GPIO pin 3
+//
+#define GPIO_PIN_3              0x00000008
+
+//
+//! GPIO pin 4
+//
+#define GPIO_PIN_4              0x00000010
+
+//
+//! GPIO pin 5
+//
+#define GPIO_PIN_5              0x00000020
+
+//
+//! GPIO pin 6
+//
+#define GPIO_PIN_6              0x00000040
+
+//
+//! GPIO pin 7
+//
+#define GPIO_PIN_7              0x00000080
+
+//
+//! GPIO pin 8
+//
+#define GPIO_PIN_8              0x00000100
+
+//
+//! GPIO pin 9
+//
+#define GPIO_PIN_9              0x00000200
+
+//
+//! GPIO pin 10
+//
+#define GPIO_PIN_10             0x00000400
+
+//
+//! GPIO pin 11
+//
+#define GPIO_PIN_11             0x00000800
+
+//
+//! GPIO pin 12
+//
+#define GPIO_PIN_12             0x00001000
+
+//
+//! GPIO pin 13
+//
+#define GPIO_PIN_13             0x00002000
+
+//
+//! GPIO pin 14
+//
+#define GPIO_PIN_14             0x00004000
+
+//
+//! GPIO pin 15
+//
+#define GPIO_PIN_15             0x00008000
+
+//
+//! GPIO Pin 16
+//
+#define GPIO_PIN_16             0x00010000
+
+//
+//! GPIO Pin 17
+//
+#define GPIO_PIN_17             0x00020000
+
+//
+//! GPIO Pin 18
+//
+#define GPIO_PIN_18             0x00040000
+
+//
+//! GPIO Pin 19
+//
+#define GPIO_PIN_19             0x00080000
+
+//
+//! GPIO Pin 20
+//
+#define GPIO_PIN_20             0x00100000
+
+//
+//! GPIO Pin 21
+//
+#define GPIO_PIN_21             0x00200000
+
+//
+//! GPIO Pin 22
+//
+#define GPIO_PIN_22             0x00400000
+
+//
+//! GPIO Pin 23
+//
+#define GPIO_PIN_23             0x00800000
+
+//
+//! GPIO Pin 24
+//
+#define GPIO_PIN_24             0x01000000
+
+//
+//! GPIO Pin 25
+//
+#define GPIO_PIN_25             0x02000000
+
+//
+//! GPIO Pin 26
+//
+#define GPIO_PIN_26             0x04000000
+
+//
+//! GPIO Pin 27
+//
+#define GPIO_PIN_27             0x08000000
+
+//
+//! GPIO Pin 28
+//
+#define GPIO_PIN_28             0x10000000
+
+//
+//! GPIO Pin 29
+//
+#define GPIO_PIN_29             0x20000000
+
+//
+//! GPIO Pin 30
+//
+#define GPIO_PIN_30             0x40000000
+
+//
+//! GPIO Pin 31
+//
+#define GPIO_PIN_31             0x80000000
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup LPC17xx_GPIO_General_Pin_Bits LPC17xx GPIO General Pin Bits
+//! \brief The following values define the bit field for the ucBit argument to
+//! GPIODirModeSet() API.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! GPIO BIT 0
+//
+#define GPIO_BIT_0              0x00000000
+
+//
+//! GPIO BIT 1
+//
+#define GPIO_BIT_1              0x00000001
+
+//
+//! GPIO BIT 2
+//
+#define GPIO_BIT_2              0x00000002
+
+//
+//! GPIO BIT 3
+//
+#define GPIO_BIT_3              0x00000003
+
+//
+//! GPIO BIT 4
+//
+#define GPIO_BIT_4              0x00000004
+
+//
+//! GPIO BIT 5
+//
+#define GPIO_BIT_5              0x00000005
+
+//
+//! GPIO BIT 6
+//
+#define GPIO_BIT_6              0x00000006
+
+//
+//! GPIO BIT 7
+//
+#define GPIO_BIT_7              0x00000007
+
+//
+//! GPIO BIT 8
+//
+#define GPIO_BIT_8              0x00000008
+
+//
+//! GPIO BIT 9
+//
+#define GPIO_BIT_9              0x00000009
+
+//
+//! GPIO BIT 10
+//
+#define GPIO_BIT_10             0x0000000A
+
+//
+//! GPIO BIT 11
+//
+#define GPIO_BIT_11             0x0000000B
+
+//
+//! GPIO BIT 12
+//
+#define GPIO_BIT_12             0x0000000C
+
+//
+//! GPIO BIT 13
+//
+#define GPIO_BIT_13             0x0000000D
+
+//
+//! GPIO BIT 14
+//
+#define GPIO_BIT_14             0x0000000E
+
+//
+//! GPIO BIT 15
+//
+#define GPIO_BIT_15             0x0000000F
+
+//
+//! GPIO BIT 16
+//
+#define GPIO_BIT_16             0x00000010
+
+//
+//! GPIO BIT 17
+//
+#define GPIO_BIT_17             0x00000011
+
+//
+//! GPIO BIT 18
+//
+#define GPIO_BIT_18             0x00000012
+
+//
+//! GPIO BIT 19
+//
+#define GPIO_BIT_19             0x00000013
+
+//
+//! GPIO BIT 20
+//
+#define GPIO_BIT_20             0x00000014
+
+//
+//! GPIO BIT 21
+//
+#define GPIO_BIT_21             0x00000015
+
+//
+//! GPIO BIT 22
+//
+#define GPIO_BIT_22             0x00000016
+
+//
+//! GPIO BIT 23
+//
+#define GPIO_BIT_23             0x00000017
+
+//
+//! GPIO BIT 24
+//
+#define GPIO_BIT_24            0x00000018
+
+//
+//! GPIO BIT 25
+//
+#define GPIO_BIT_25             0x00000019
+
+//
+//! GPIO BIT 26
+//
+#define GPIO_BIT_26             0x0000001A
+
+//
+//! GPIO BIT 27
+//
+#define GPIO_BIT_27             0x0000001B
+
+//
+//! GPIO BIT 28
+//
+#define GPIO_BIT_28             0x0000001C
+
+//
+//! GPIO BIT 29
+//
+#define GPIO_BIT_29             0x0000001D
+
+//
+//! GPIO BIT 30
+//
+#define GPIO_BIT_30             0x0000001E
+
+//
+//! GPIO BIT 31
+//
+#define GPIO_BIT_31             0x0000001F
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup  LPC17xx_GPIO_Dir_Mode LPC17xx GPIO Dir Mode
+//! \brief Values that can be passed to GPIODirModeSet as the ulPinIO parameter,
+//! and returned from GPIODirModeGet.
+//! @{
+//
+//*****************************************************************************
+
+//! Disable Open-Drain function.
+#define PIN_MODE_OD_DIS         (BIT_32_6                       )
+
+//! Enable Open-Drain function.
+#define PIN_MODE_OD_EN          (BIT_32_6 | BIT_32_5            )
+
+//! Enable pull-up function.
+#define PIN_MODE_PULL_UP        (BIT_32_4                       )
+
+//! Enable repeater function.
+#define PIN_MODE_REPEATER       (BIT_32_4 | BIT_32_2            )
+
+//! No pull-up, No pull-down.
+#define PIN_MODE_NONE           (BIT_32_4 | BIT_32_3            )
+
+//! Enable pull-down function.
+#define PIN_MODE_PULL_DOWN      (BIT_32_4 | BIT_32_3 | BIT_32_2 )
+
+//! Input mode.
+#define PIN_MODE_INPUT          (BIT_32_1                       )
+
+//! Output mode.
+#define PIN_MODE_OUTPUT         (BIT_32_1 | BIT_32_0            )
+
+///////////////////////////////////////////////////////////////////////////////
+// define for port to cox 'x' prefixed interface
+///////////////////////////////////////////////////////////////////////////////
+//
+//! Pin is a GPIO input
+//
+#define GPIO_DIR_MODE_IN        PIN_MODE_INPUT
+
+//
+//! Pin is a GPIO output
+//
+#define GPIO_DIR_MODE_OUT       PIN_MODE_OUTPUT
+
+//
+//! Pin is in Open-Drain mode.
+//
+#define GPIO_DIR_MODE_OD        PIN_MODE_OD_EN
+
+//
+//! Pin is in a peripheral function.
+//
+#define GPIO_DIR_MODE_HW        0
+
+//
+//! Pin is in Quasi-bidirectional mode.
+//
+#define GPIO_DIR_MODE_QB        0
+
+
+#define GPIO_PIN_TYPE_PU        PIN_MODE_PULL_UP
+#define GPIO_PIN_TYPE_PD        PIN_MODE_PULL_DOWN
+#define GPIO_PIN_TYPE_NP        PIN_MODE_NONE
+
+//*****************************************************************************
+//
+//! @}
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+//! \addtogroup  LPC17xx_GPIO_Int_Types  LPC17xx GPIO Int Type
+//! \brief Values that can be passed to GPIOIntTypeSet as the ulIntType parameter,
+//! and returned from GPIOIntTypeGet.
+//! @{
+//
+//*****************************************************************************
+
+//
+//! Interrupt on falling edge
+//
+#define GPIO_FALLING_EDGE       0x00000002
+
+//
+//! Interrupt on rising edge
+//
+#define GPIO_RISING_EDGE        0x00000001
+
+//
+//! Interrupt on both edges
+//
+#define GPIO_BOTH_EDGES         0x00000003
+
+//
+//! Interrupt on low level(LPC17xx not support)
+//
+#define GPIO_LOW_LEVEL          0
+
+//
+//! Interrupt on high level(LPC17xx not support)
+//
+#define GPIO_HIGH_LEVEL         0
+
+//
+//! Interrupt on both level(LPC17xx not support)
+//
+#define GPIO_BOTH_LEVEL         0
+
+//*****************************************************************************
+//
+//! @}
 //
 //*****************************************************************************
 
@@ -278,147 +745,13 @@
 
 //*****************************************************************************
 //
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup GPIO
-//! @{
-//
-//*****************************************************************************
-
-//! Auxiliary function.
-#define GPIOSPinConfigure(ePeripheralPin, eShortPin)                          \
-        GPIOPinFunCfg(G##eShortPin, GPIO_##eShortPin##_##ePeripheralPin)
-
-//*****************************************************************************
-//
 //! \addtogroup  LPC17xx_GPIO_General_Pin_IDs  LPC17xx GPIO General Pin ID
 //! \brief       The following values define the bit field for the ucPins argument
 //!              to several of the APIs.
 //! @{
 //
 //*****************************************************************************
-
-//! GPIO Pin 0
-#define GPIO_PIN_0              BIT_32_0
-
-//! GPIO Pin 1
-#define GPIO_PIN_1              BIT_32_1
-
-//! GPIO Pin 2
-#define GPIO_PIN_2              BIT_32_2
-
-//! GPIO Pin 3
-#define GPIO_PIN_3              BIT_32_3
-
-//! GPIO Pin 4
-#define GPIO_PIN_4              BIT_32_4
-
-//! GPIO Pin 5
-#define GPIO_PIN_5              BIT_32_5
-
-//! GPIO Pin 6
-#define GPIO_PIN_6              BIT_32_6
-
-//! GPIO Pin 7
-#define GPIO_PIN_7              BIT_32_7
-
-//! GPIO Pin 8
-#define GPIO_PIN_8              BIT_32_8
-
-//! GPIO Pin 9
-#define GPIO_PIN_9              BIT_32_9
-
-//! GPIO Pin 10
-#define GPIO_PIN_10             BIT_32_10
-
-//! GPIO Pin 11
-#define GPIO_PIN_11             BIT_32_11
-
-//! GPIO Pin 12
-#define GPIO_PIN_12             BIT_32_12
-
-//! GPIO Pin 13
-#define GPIO_PIN_13             BIT_32_13
-
-//! GPIO Pin 14
-#define GPIO_PIN_14             BIT_32_14
-
-//! GPIO Pin 15
-#define GPIO_PIN_15             BIT_32_15
-
-//! GPIO Pin 16
-#define GPIO_PIN_16             BIT_32_16
-
-//! GPIO Pin 17
-#define GPIO_PIN_17             BIT_32_17
-
-//! GPIO Pin 18
-#define GPIO_PIN_18             BIT_32_18
-
-//! GPIO Pin 19
-#define GPIO_PIN_19             BIT_32_19
-
-//! GPIO Pin 20
-#define GPIO_PIN_20             BIT_32_20
-
-//! GPIO Pin 21
-#define GPIO_PIN_21             BIT_32_21
-
-//! GPIO Pin 22
-#define GPIO_PIN_22             BIT_32_22
-
-//! GPIO Pin 23
-#define GPIO_PIN_23             BIT_32_23
-
-//! GPIO Pin 24
-#define GPIO_PIN_24             BIT_32_24
-
-//! GPIO Pin 25
-#define GPIO_PIN_25             BIT_32_25
-
-//! GPIO Pin 26
-#define GPIO_PIN_26             BIT_32_26
-
-//! GPIO Pin 27
-#define GPIO_PIN_27             BIT_32_27
-
-//! GPIO Pin 28
-#define GPIO_PIN_28             BIT_32_28
-
-//! GPIO Pin 29
-#define GPIO_PIN_29             BIT_32_29
-
-//! GPIO Pin 30
-#define GPIO_PIN_30             BIT_32_30
-
-//! GPIO Pin 31
-#define GPIO_PIN_31             BIT_32_31
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup  LPC17xx_GPIO_General_Pin_IDs  LPC17xx GPIO General Pin ID
-//! \brief       The following values define the bit field for the ucPins argument
-//!              to several of the APIs.
-//! @{
-//
-//*****************************************************************************
-#if defined(LPC_175x) && defined (LPC_176x)
+#if defined(LPC_175x) || defined (LPC_176x)
 
 #define GPIO_PA0_PA0            ((unsigned long)0x00 << 0 )
 #define GPIO_PA0_CAN1RX         ((unsigned long)0x01 << 0 )
@@ -653,7 +986,7 @@
 #define GPIO_PE29_TIM_MAT1      ((unsigned long)0x02 << 26)
 #define GPIO_PE29_UART3RX       ((unsigned long)0x03 << 26)
 
-#elif defined(LPC_177x) && defined (LPC_178x)
+#elif defined(LPC_177x) || defined (LPC_178x)
 #define GPIO_PA0_PA0            0x00
 #define GPIO_PA0_CAN1RX         0x01
 #define GPIO_PA0_UART3TX        0x02
@@ -702,15 +1035,12 @@
 #define GPIO_PA16_PA16          0x00
 #define GPIO_PA16_UART1RX       0x01
 #define GPIO_PA16_SPI0CS        0x02
-#define GPIO_PA16_SPI0CS        0x03
 #define GPIO_PA17_PA17          0x00
 #define GPIO_PA17_UART1CTS      0x01
-#define GPIO_PA17_MISO0         0x02
-#define GPIO_PA17_SPI0MISO      0x03
+#define GPIO_PA17_SPI0MISO      0x02
 #define GPIO_PA18_PA18          0x00
 #define GPIO_PA18_UART1DCD      0x01
-#define GPIO_PA18_MOSI0         0x02
-#define GPIO_PA18_SPI0MOSI      0x03
+#define GPIO_PA18_SPI0MOSI      0x02
 #define GPIO_PA19_PA19          0x00
 #define GPIO_PA19_UART1DSR      0x01
 #define GPIO_PA19_SDCLK         0x02
@@ -831,17 +1161,17 @@
 #define GPIO_PB29_PWM_CAP_CH1   0x02
 #define GPIO_PB29_TIM_MAT1      0x03
 #define GPIO_PB29_UART4TX       0x05
-#define GPIO_PC0_PC0            0x00
+#define GPIO_PC0_GPIO           0x00
 #define GPIO_PC0_PWM1           0x01
 #define GPIO_PC0_UART1TX        0x02
-#define GPIO_PC1_PC1            0x00
+#define GPIO_PC1_GPIO           0x00
 #define GPIO_PC1_PWM2           0x01
 #define GPIO_PC1_UART1RX        0x02
-#define GPIO_PC2_PC2            0x00
+#define GPIO_PC2_GPIO           0x00
 #define GPIO_PC2_PWM3           0x01
 #define GPIO_PC2_UART1CTS       0x02
 #define GPIO_PC2_TIM_MAT3       0x03
-#define GPIO_PC3_PC3            0x00
+#define GPIO_PC3_GPIO           0x00
 #define GPIO_PC3_PWM4           0x01
 #define GPIO_PC3_UART1DCD       0x02
 #define GPIO_PC3_TIM_MAT2       0x03
@@ -996,99 +1326,16 @@
 
 //*****************************************************************************
 //
-//! \addtogroup  LPC17xx_GPIO_Cfg  LPC17xx GPIO Configure parameters.
-//! \brief
+//! \addtogroup GPIO
 //! @{
 //
 //*****************************************************************************
 
-//! Disable Open-Drain function.
-#define PIN_MODE_OD_DIS         (BIT_32_6                       )
+//! Auxiliary function.
+#define GPIOSPinConfigure(ePeripheralPin, eShortPin)                          \
+	GPIOPinFunCfg(ePeripheralPin, eShortPin)
 
-//! Enable Open-Drain function.
-#define PIN_MODE_OD_EN          (BIT_32_6 | BIT_32_5            )
-
-//! Enable pull-up function.
-#define PIN_MODE_PULL_UP        (BIT_32_4                       )
-
-//! Enable repeater function.
-#define PIN_MODE_REPEATER       (BIT_32_4 | BIT_32_2            )
-
-//! No pull-up, No pull-down.
-#define PIN_MODE_NONE           (BIT_32_4 | BIT_32_3            )
-
-//! Enable pull-down function.
-#define PIN_MODE_PULL_DOWN      (BIT_32_4 | BIT_32_3 | BIT_32_2 )
-
-//! Input mode.
-#define PIN_MODE_INPUT          (BIT_32_1                       )
-
-//! Output mode.
-#define PIN_MODE_OUTPUT         (BIT_32_1 | BIT_32_0            )
-
-///////////////////////////////////////////////////////////////////////////////
-// define for port to cox 'x' prefixed interface
-///////////////////////////////////////////////////////////////////////////////
-#define GPIO_DIR_MODE_IN        PIN_MODE_INPUT
-#define GPIO_DIR_MODE_OUT       PIN_MODE_OUTPUT
-#define GPIO_DIR_MODE_HW        0
-#define GPIO_DIR_MODE_QB        0
-#define GPIO_DIR_MODE_OD        PIN_MODE_OD_EN
-
-#define GPIO_PIN_TYPE_PU        PIN_MODE_PULL_UP
-#define GPIO_PIN_TYPE_PD        PIN_MODE_PULL_DOWN
-#define GPIO_PIN_TYPE_NP        PIN_MODE_NONE
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup  LPC17xx_GPIO_Int_Types  LPC17xx GPIO Interrupt types
-//! \brief
-//! @{
-//
-//*****************************************************************************
-
-//! GPIO Interrupt Type: Rising edge
-#define INT_TYPE_RISING         BIT_32_0
-
-//! GPIO Interrupt Type: Falling edge
-#define INT_TYPE_FALLING        BIT_32_1
-
-///////////////////////////////////////////////////////////////////////////////
-// define for port to cox 'x' prefixed interface
-///////////////////////////////////////////////////////////////////////////////
-#define GPIO_FALLING_EDGE       INT_TYPE_FALLING
-#define GPIO_RISING_EDGE        INT_TYPE_RISING
-#define GPIO_LOW_LEVEL          0
-#define GPIO_HIGH_LEVEL         0
-#define GPIO_BOTH_EDGES         INT_TYPE_FALLING | INT_TYPE_RISING
-#define GPIO_BOTH_LEVEL         0
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
-
-//*****************************************************************************
-//
-//! \addtogroup LPC17xx_GPIO_Pad_Config_Strength LPC17xx xGPIO Pad Config Strength
-//
-//*****************************************************************************
-#define GPIO_STRENGTH_2MA       0
-#define GPIO_STRENGTH_4MA       0
-#define GPIO_STRENGTH_8MA       0
-
-//*****************************************************************************
-//
-//! @}
-//
-//*****************************************************************************
+//        GPIOPinFunCfg(G##eShortPin, GPIO_##eShortPin##_##ePeripheralPin)
 
 //*****************************************************************************
 //

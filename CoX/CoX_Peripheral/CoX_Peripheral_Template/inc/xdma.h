@@ -235,6 +235,8 @@ extern "C"
 
 #define xDMA_REQUEST_ADC_RX     DMA_REQUEST_ADC_RX
 
+#define xDMA_REQUEST_DAC_TX     DMA_REQUEST_DAC_TX
+
 // ADC, timer will be added in the further
 
 //*****************************************************************************
